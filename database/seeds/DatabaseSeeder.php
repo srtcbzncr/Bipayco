@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Auth\User;
+use App\Models\Base\SocialMedia;
 
 class DatabaseSeeder extends Seeder
 {
