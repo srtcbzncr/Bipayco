@@ -15,8 +15,8 @@ class CreateManagersTable extends Migration
     {
         Schema::create('auth_managers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('district_id');
-            $table->integer('school_id');
+            $table->unsignedInteger('district_id');
+            $table->unsignedInteger('school_id');
             $table->string('identification_number', 11);
             $table->string('name', 100);
             $table->string('surname', 100);

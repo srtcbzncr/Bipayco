@@ -15,9 +15,9 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('auth_students', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('district_id');
-            $table->integer('school_id')->nullable();
-            $table->integer('guardian_id')->nullable();
+            $table->unsignedInteger('district_id');
+            $table->unsignedInteger('school_id')->nullable();
+            $table->unsignedInteger('guardian_id')->nullable();
             $table->string('name', 100);
             $table->string('surname', 100);
             $table->String('phone_number', 20);

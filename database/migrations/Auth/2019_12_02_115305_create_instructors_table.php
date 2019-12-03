@@ -15,8 +15,8 @@ class CreateInstructorsTable extends Migration
     {
         Schema::create('auth_instructors', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('district_id');
-            $table->integer('school_id')->nullable();
+            $table->unsignedInteger('district_id');
+            $table->unsignedInteger('school_id')->nullable();
             $table->string('identification_number', 11);
             $table->string('name', 100);
             $table->string('surname', 100);

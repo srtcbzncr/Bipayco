@@ -15,7 +15,7 @@ class CreateGuardiansTable extends Migration
     {
         Schema::create('auth_guardians', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('district_id');
+            $table->unsignedInteger('district_id');
             $table->string('name', 100);
             $table->string('surname', 100);
             $table->string('phone_number', 20);
