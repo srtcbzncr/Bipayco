@@ -22,9 +22,9 @@ use App\Models\Auth\Admin;
 */
 
 $factory->define(User::class, function (Faker $faker) {
-    $rand_instructor = rand(0,100);
-    $rand_manager = rand(0,100);
-    $rand_admin = rand(0,100);
+    $rand_instructor = random_int(0,100);
+    $rand_manager = random_int(0,100);
+    $rand_admin = random_int(0,100);
 
     return [
         'district_id' => factory(District::class),

@@ -20,7 +20,7 @@ class CreateAuthInstructorsTable extends Migration
             $table->string('title', 200);
             $table->string('bio', 500);
             $table->string('iban', 50);
-            $table->string('reference_code', 50);
+            $table->string('reference_code', 18)->default(uniqid('in'.random_int(100,999), false));
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();

@@ -14,6 +14,5 @@ $factory->define(Instructor::class, function (Faker $faker) {
         'title' => $faker->suffix,
         'bio' => $faker->text(500),
         'iban' => $faker->iban('TR'),
-        'reference_code' => $faker->bothify('**********'),
     ];
 });

@@ -11,6 +11,5 @@ $factory->define(Manager::class, function (Faker $faker) {
     return [
         'school_id' => factory(School::class),
         'identification_number' => $faker->bothify('###########'),
-        'reference_code' => $faker->bothify('**********'),
     ];
 });

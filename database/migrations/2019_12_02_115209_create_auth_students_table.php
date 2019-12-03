@@ -17,6 +17,7 @@ class CreateAuthStudentsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('school_id')->nullable();
             $table->unsignedBigInteger('guardian_id')->nullable();
+            $table->string('reference_code', 18)->default(uniqid('st'.random_int(100,999), false));
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();

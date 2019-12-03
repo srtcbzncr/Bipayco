@@ -11,6 +11,5 @@ $factory->define(School::class, function (Faker $faker) {
         'district_id' => factory(District::class),
         'name' => $faker->company,
         'address' => $faker->address,
-        'code' => $faker->bothify('**********'),
     ];
 });

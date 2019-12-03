@@ -16,7 +16,7 @@ class CreateAuthAdminsTable extends Migration
         Schema::create('auth_admins', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('authority_id');
-            $table->string('reference_code');
+            $table->string('reference_code', 18)->default(uniqid('ad'.random_int(100,999), false));
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();

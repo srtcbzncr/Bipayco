@@ -17,7 +17,7 @@ class CreateAuthManagersTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('school_id');
             $table->string('identification_number', 11);
-            $table->string('reference_code');
+            $table->string('reference_code', 18)->default(uniqid('mn'.random_int(100,999), false));
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();
