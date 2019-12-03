@@ -12,19 +12,15 @@ class Student extends Model
     protected $table = 'auth_students';
     protected $guarded = [];
 
-    public function User(){
-        return $this->morphOne('App\Models\Auth\User', 'profile');
+    public function guardian(){
+        return $this->belongsTo('App\Models\Auth\User', 'guardian_id');
     }
 
-    public function Guardian(){
-        return $this->belongsTo('App\Models\Auth\Guardian', 'guardian_id');
+    public function school(){
+        return $this->belongsTo('App\Models\Base\School');
     }
 
-    public function School(){
-        return $this->belongsTo('App\Models\Base\School', 'school_id');
-    }
-
-    public function District(){
-        return $this->belongsTo('App\Models\Base\District', 'district_id');
+    public function user(){
+        return $this->hasOne('App\Models\Auth\User');
     }
 }

@@ -12,7 +12,7 @@ class Country extends Model
     protected $table = 'bs_countries';
     protected $guarded = [];
 
-    public function Cities(){
-        return $this->hasMany('App\Models\Base\City', 'country_id');
+    public function cities(){
+        return $this->hasMany('App\Models\Base\City');
     }
 }

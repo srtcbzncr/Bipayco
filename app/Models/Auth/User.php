@@ -41,7 +41,23 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-    public function Profile(){
-        return $this->morphTo();
+    public function student(){
+        return $this->belongsTo('App\Models\Auth\Student');
+    }
+
+    public function instructor(){
+        return $this->belongsTo('App\Models\Auth\Instructor');
+    }
+
+    public function manager(){
+        return $this->belongsTo('App\Models\Auth\Manager');
+    }
+
+    public function admin(){
+        return $this->belongsTo('App\Models\Auth\Admin');
+    }
+
+    public function district(){
+        return $this->belongsTo('App\Models\Base\District');
     }
 }

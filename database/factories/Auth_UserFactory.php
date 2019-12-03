@@ -4,6 +4,11 @@
 use App\Models\Auth\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
+use App\Models\Base\District;
+use App\Models\Auth\Student;
+use App\Models\Auth\Instructor;
+use App\Models\Auth\Manager;
+use App\Models\Auth\Admin;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,23 +22,24 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(User::class, function (Faker $faker) {
-    $profiles = [
-        App\Models\Auth\Student::class,
-        App\Models\Auth\Guardian::class,
-        App\Models\Auth\Instructor::class,
-        App\Models\Auth\Manager::class,
-        App\Models\Auth\Admin::class,
-    ];
-    $profile_type = $faker->randomElement($profiles);
-    $profile = factory($profile_type)->create();
+    $rand_instructor = rand(0,100);
+    $rand_manager = rand(0,100);
+    $rand_admin = rand(0,100);
+
     return [
-        'name' => $faker->name,
+        'district_id' => factory(District::class),
+        'student_id' => factory(Student::class),
+        'instructor_id' => ($rand_instructor > 50) ? factory(Instructor::class) : null,
+        'manager_id' => ($rand_manager > 70) ? factory(Manager::class) : null,
+        'admin_id' => ($rand_admin > 80) ? factory(Manager::class) : null,
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
         'username' => $faker->userName,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
+        'phone_number' => $faker->e164PhoneNumber,
         'password' => Hash::make('123456'),
+        'avatar' => $faker->image(),
         'remember_token' => Str::random(10),
-        'profile_type' => $profile_type,
-        'profile_id' => $profile->id,
     ];
 });

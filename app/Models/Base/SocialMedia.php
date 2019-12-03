@@ -12,7 +12,7 @@ class SocialMedia extends Model
     protected $table = 'bs_social_medias';
     protected $guarded = [];
 
-    public function Instructors(){
+    public function instructors(){
         return $this->belongsToMany('App\Models\Auth\Instructor', 'bs_instructors_social_medias_table', 'social_media_id', 'instructor_id')->withPivot('url');
     }
 }

@@ -12,19 +12,19 @@ class School extends Model
     protected $table = 'bs_schools';
     protected $guarded = ['code'];
 
-    public function District(){
-        return $this->belongsTo('App\Models\Base\District', 'district_id');
+    public function district(){
+        return $this->belongsTo('App\Models\Base\District');
     }
 
-    public function Students(){
-        return $this->hasMany('App\Models\Auth\Student', 'school_id');
+    public function students(){
+        return $this->hasMany('App\Models\Auth\Student');
     }
 
-    public function Instructors(){
-        return $this->hasMany('App\Models\Auth\Instructor', 'school_id');
+    public function instructors(){
+        return $this->hasMany('App\Models\Auth\Instructor');
     }
 
-    public function Managers(){
-        return $this->hasMany('App\Models\Auth\Manager','school_id');
+    public function managers(){
+        return $this->hasMany('App\Models\Auth\Manager');
     }
 }

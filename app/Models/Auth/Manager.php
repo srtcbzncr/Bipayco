@@ -12,15 +12,11 @@ class Manager extends Model
     protected $table = 'auth_managers';
     protected $guarded = ['reference_code'];
 
-    public function User(){
-        return $this->morphOne('App\Models\Auth\User', 'profile');
+    public function school(){
+        return $this->belongsTo('App\Models\Base\School');
     }
 
-    public function School(){
-        return $this->belongsTo('App\Models\Base\School', 'school_id');
-    }
-
-    public function District(){
-        return $this->belongsTo('App\Models\Base\District', 'district_id');
+    public function user(){
+        return $this->hasOne('App\Models\Auth\User');
     }
 }

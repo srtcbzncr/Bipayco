@@ -12,19 +12,15 @@ class Instructor extends Model
     protected $table = 'auth_instructors';
     protected $guarded = ['reference_code'];
 
-    public function User(){
-        return $this->morphOne('App\Models\Auth\User', 'profile');
-    }
-
-    public function SocialMedias(){
+    public function socialMedias(){
         return $this->belongsToMany('App\Models\Base\SocialMedia', 'bs_instructors_social_medias', 'instructor_id', 'social_media_id')->withPivot('url');
     }
 
-    public function School(){
-        return $this->belongsTo('App\Models\Base\School', 'school_id');
+    public function school(){
+        return $this->belongsTo('App\Models\Base\School');
     }
 
-    public function District(){
-        return $this->belongsTo('App\Models\Base\District', 'district_id');
+    public function user(){
+        return $this->hasOne('App\Models\Auth\User');
     }
 }

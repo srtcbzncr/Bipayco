@@ -12,11 +12,11 @@ class City extends Model
     protected $table = 'bs_cities';
     protected $guarded = [];
 
-    public function Country(){
-        return $this->belongsTo('App\Models\Base\Country', 'country_id');
+    public function country(){
+        return $this->belongsTo('App\Models\Base\Country');
     }
 
-    public function Districts(){
-        return $this->hasMany('App\Models\Base\District', 'city_id');
+    public function districts(){
+        return $this->hasMany('App\Models\Base\District');
     }
 }

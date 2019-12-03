@@ -12,7 +12,7 @@ class Authority extends Model
     protected $table = 'auth_authorities';
     protected $guarded = [];
 
-    public function Admins(){
-        return $this->hasMany('App\Models\Auth\Admin', 'authority_id');
+    public function admins(){
+        return $this->hasMany('App\Models\Auth\Admin');
     }
 }
