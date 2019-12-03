@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateInstructorsTable extends Migration
+class CreateAuthStudentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,25 +13,22 @@ class CreateInstructorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('auth_instructors', function (Blueprint $table) {
+        Schema::create('auth_students', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('district_id')->unsigned();
-            $table->bigInteger('school_id')->unsigned()->nullable();
-            $table->string('identification_number', 11);
+            $table->unsignedBigInteger('district_id');
+            $table->unsignedBigInteger('school_id')->nullable();
+            $table->unsignedBigInteger('guardian_id')->nullable();
             $table->string('name', 100);
             $table->string('surname', 100);
-            $table->string('title', 200);
-            $table->string('bio', 500);
-            $table->string('phone_number', 20);
+            $table->String('phone_number', 20);
             $table->string('avatar', 500);
-            $table->string('iban', 50);
-            $table->string('reference_code', 50);
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('district_id')->references('id')->on('bs_districts');
             $table->foreign('school_id')->references('id')->on('bs_schools');
+            $table->foreign('guardian_id')->references('id')->on('auth_guardians');
         });
     }
 
@@ -42,6 +39,6 @@ class CreateInstructorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('auth_instructors');
+        Schema::dropIfExists('auth_students');
     }
 }

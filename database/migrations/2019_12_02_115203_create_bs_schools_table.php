@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAdminsTable extends Migration
+class CreateBsSchoolsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class CreateAdminsTable extends Migration
      */
     public function up()
     {
-        Schema::create('auth_admins', function (Blueprint $table) {
+        Schema::create('bs_schools', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('authority_id')->unsigned();
+            $table->unsignedBigInteger('district_id');
             $table->string('name', 100);
-            $table->string('surname', 100);
-            $table->string('reference_code');
+            $table->string('address', 300);
+            $table->string('code', 20);
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('authority_id')->references('id')->on('auth_authorities');
+            $table->foreign('district_id')->references('id')->on('bs_districts');
         });
     }
 
@@ -34,6 +34,6 @@ class CreateAdminsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('auth_admins');
+        Schema::dropIfExists('bs_schools');
     }
 }

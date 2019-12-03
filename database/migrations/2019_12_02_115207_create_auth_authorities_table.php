@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCitiesTable extends Migration
+class CreateAuthAuthoritiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,12 @@ class CreateCitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('bs_cities', function (Blueprint $table) {
+        Schema::create('auth_authorities', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('country_id')->unsigned();
-            $table->string('code', 20);
-            $table->string('name', 100);
+            $table->string('name');
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('country_id')->references('id')->on('bs_countries');
         });
     }
 
@@ -33,6 +29,6 @@ class CreateCitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bs_cities');
+        Schema::dropIfExists('auth_authorities');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAuthoritiesTable extends Migration
+class CreateBsDistrictsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class CreateAuthoritiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('auth_authorities', function (Blueprint $table) {
+        Schema::create('bs_districts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->unsignedBigInteger('city_id');
+            $table->string('name', 100);
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('city_id')->references('id')->on('bs_cities');
         });
     }
 
@@ -29,6 +32,6 @@ class CreateAuthoritiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('auth_authorities');
+        Schema::dropIfExists('bs_districts');
     }
 }

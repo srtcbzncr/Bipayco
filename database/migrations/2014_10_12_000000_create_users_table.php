@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSocialMediaTable extends Migration
+class CreateUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,17 @@ class CreateSocialMediaTable extends Migration
      */
     public function up()
     {
-        Schema::create('bs_social_medias', function (Blueprint $table) {
+        Schema::create('auth_users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('symbol', 500);
-            $table->string('name', 100);
+            $table->unsignedBigInteger('profile_id');
+            $table->string('username', 50);
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->string('profile_type');
             $table->boolean('active')->default(true);
+            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +36,6 @@ class CreateSocialMediaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bs_social_media');
+        Schema::dropIfExists('auth_users');
     }
 }

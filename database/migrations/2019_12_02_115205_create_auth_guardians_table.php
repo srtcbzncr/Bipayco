@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCountriesTable extends Migration
+class CreateAuthGuardiansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,17 @@ class CreateCountriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('bs_countries', function (Blueprint $table) {
+        Schema::create('auth_guardians', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('code', 20);
+            $table->unsignedBigInteger('district_id');
             $table->string('name', 100);
+            $table->string('surname', 100);
+            $table->string('phone_number', 20);
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('district_id')->references('id')->on('bs_districts');
         });
     }
 
@@ -30,6 +34,6 @@ class CreateCountriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bs_countries');
+        Schema::dropIfExists('auth_guardians');
     }
 }

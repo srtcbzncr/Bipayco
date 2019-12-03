@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateManagersTable extends Migration
+class CreateAuthManagersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,8 +15,8 @@ class CreateManagersTable extends Migration
     {
         Schema::create('auth_managers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('district_id')->unsigned();
-            $table->bigInteger('school_id')->unsigned();
+            $table->unsignedBigInteger('district_id');
+            $table->unsignedBigInteger('school_id');
             $table->string('identification_number', 11);
             $table->string('name', 100);
             $table->string('surname', 100);
