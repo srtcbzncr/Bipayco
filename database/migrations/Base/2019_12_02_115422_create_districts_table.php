@@ -15,7 +15,7 @@ class CreateDistrictsTable extends Migration
     {
         Schema::create('bs_districts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('city_id');
+            $table->bigInteger('city_id')->unsigned();
             $table->string('name', 100);
             $table->boolean('active')->default(true);
             $table->timestamps();

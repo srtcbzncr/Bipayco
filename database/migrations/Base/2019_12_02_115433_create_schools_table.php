@@ -15,7 +15,7 @@ class CreateSchoolsTable extends Migration
     {
         Schema::create('bs_schools', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('district_id');
+            $table->bigInteger('district_id')->unsigned();
             $table->string('name', 100);
             $table->string('address', 300);
             $table->string('code', 20);

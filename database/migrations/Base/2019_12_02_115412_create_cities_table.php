@@ -15,7 +15,7 @@ class CreateCitiesTable extends Migration
     {
         Schema::create('bs_cities', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('country_id');
+            $table->bigInteger('country_id')->unsigned();
             $table->string('code', 20);
             $table->string('name', 100);
             $table->boolean('active')->default(true);

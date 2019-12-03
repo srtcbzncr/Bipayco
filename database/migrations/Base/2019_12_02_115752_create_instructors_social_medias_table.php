@@ -15,8 +15,8 @@ class CreateInstructorsSocialMediasTable extends Migration
     {
         Schema::create('bs_instructors_social_medias', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedInteger('instructor_id');
-            $table->integer('social_media_id');
+            $table->bigInteger('instructor_id')->unsigned();
+            $table->bigInteger('social_media_id')->unsigned();
             $table->string('url', 300);
             $table->timestamps();
             $table->softDeletes();
