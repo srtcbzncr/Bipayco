@@ -18,7 +18,9 @@ class CreateBsSchoolsTable extends Migration
             $table->unsignedBigInteger('district_id');
             $table->string('name', 100);
             $table->string('address', 300);
-            $table->string('reference_code', 18)->default(uniqid('sc'.random_int(100,999), false));
+            $table->string('manager_reference_code', 20)->default(uniqid('scmn'.random_int(100,999), false));
+            $table->string('student_reference_code', 20)->default(uniqid('scst'.random_int(100,999), false));
+            $table->string('instructor_reference_code', 20)->default(uniqid('scin'.random_int(100,999), false));
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();

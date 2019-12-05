@@ -29,4 +29,9 @@ class RepositoryResponse implements IRepositoryResponse{
     {
         return $this->error;
     }
+
+    public function isDataNull()
+    {
+        return ($this->data == null) ? true : false;
+    }
 }

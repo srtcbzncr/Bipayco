@@ -2,9 +2,11 @@
 
 namespace App\Repositories\Auth;
 
+use App\Models\Auth\User;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use App\Models\Auth\Instructor;
+use Illuminate\Support\Facades\DB;
 
 class InstructorRepository implements IRepository{
 
@@ -103,13 +105,25 @@ class InstructorRepository implements IRepository{
 
         // Operations
         try{
-            $object->identification_number = $data['identification_number'];
-            $object->title = $data['title'];
-            $object->bio = $data['bio'];
-            $object->iban = $data['iban'];
-            $object->save();
+            $userRepository = new UserRepository;
+            $userResp = $userRepository->get($data['user_id']);
+            if($userResp->getResult() and !$userResp->isDataNull()){
+                DB::beginTransaction();
+                $object->identification_number = $data['identification_number'];
+                $object->title = $data['title'];
+                $object->bio = $data['bio'];
+                $object->iban = $data['iban'];
+                $object->save();
+                $object->user()->save($userResp->getData());
+                DB::commit();
+            }
+            else{
+                throw new \Exception(__('auth.create_profile_failed'));
+            }
+
         }
         catch (\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }
@@ -250,10 +264,17 @@ class InstructorRepository implements IRepository{
         // Operations
         try{
             $schoolRepository = new SchoolRepository;
-            $school = $schoolRepository->getByReferenceCode($referenceCode);
-            $object = Instructor::find($id);
-            $object->school_id = $school->id;
-            $object->save();
+            $schoolResp = $schoolRepository->getByInstructorReferenceCode($referenceCode);
+            if($schoolResp->getResult() and !$schoolResp->isDataNull()){
+                DB::beginTransaction();
+                $object = Instructor::find($id);
+                $object->school_id = $schoolResp->getData()->id;
+                $object->save();
+                DB::commit();
+            }
+            else{
+                throw new \Exception(__('auth.create_profile_failed'));
+            }
         }
         catch(\Exception $e){
             $error = $e;

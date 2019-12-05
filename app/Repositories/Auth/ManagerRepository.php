@@ -6,6 +6,7 @@ use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use App\Models\Auth\Manager;
 use App\Repositories\Auth\SchoolRepository;
+use Illuminate\Support\Facades\DB;
 
 class ManagerRepository implements IRepository{
 
@@ -105,12 +106,23 @@ class ManagerRepository implements IRepository{
         // Operations
         try{
             $schoolRepository = new SchoolRepository;
-            $school = $schoolRepository->getByReferenceCode($data['reference_code']);
-            $object->school_id = $school->id;
-            $object->identification_number = $data['identification_number'];
-            $object->save();
+            $userRepository = new UserRepository;
+            $schoolResp = $schoolRepository->getByManagerReferenceCode($data['school_reference_code']);
+            $userResp = $userRepository->get($data['user_id']);
+            if($schoolResp->getResult() and $userResp->getResult() and !$schoolResp->isDataNull() and !$userResp->isDataNull()){
+                DB::beginTransaction();
+                $object->school_id = $schoolResp->getData()->id;
+                $object->identification_number = $data['identification_number'];
+                $object->save();
+                $object->user()->save($userResp->getData());
+                DB::commit();
+            }
+            else{
+                throw new \Exception(__('auth.create_profile_failed'));
+            }
         }
         catch (\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }
@@ -248,12 +260,20 @@ class ManagerRepository implements IRepository{
         // Operations
         try{
             $schoolRepository = new SchoolRepository;
-            $school = $schoolRepository->getByReferenceCode($referenceCode);
-            $object = Manager::find($id);
-            $object->school_id = $school->id;
-            $object->save();
+            $schoolResp = $schoolRepository->getByManagerReferenceCode($referenceCode);
+            if($schoolResp->getResult() and !$schoolResp->isDataNull()){
+                DB::beginTransaction();
+                $object = Manager::find($id);
+                $object->school_id = $schoolResp->getData()->id;
+                $object->save();
+                DB::commit();
+            }
+            else{
+                throw new \Exception(__('auth.create_profile_failed'));
+            }
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }

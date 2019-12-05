@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Models\Base\District;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -24,8 +25,8 @@ class SchoolTest extends TestCase
         factory(School::class, 5)->create();
 
         // Operations
-        $schoolRepository = new SchoolRepository;
-        $resp = $schoolRepository->all();
+        $repository = new SchoolRepository;
+        $resp = $repository->all();
 
         // Control
         $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $resp->getData());
@@ -35,100 +36,135 @@ class SchoolTest extends TestCase
 
     public function test_get(){
         // Data preparation
-        $school = factory(School::class)->create();
+        $model = factory(School::class)->create();
 
         // Operations
-        $schoolRepository = new SchoolRepository;
-        $resp = $schoolRepository->get($school->id);
+        $repository = new SchoolRepository;
+        $resp = $repository->get($model->id);
 
         // Control
-        $this->assertInstanceOf('App\Models\Base\SocialMedia', $resp->getData());
-        $this->assertEquals($socialMedia->name, $resp->getData()->name);
-        $this->assertEquals($socialMedia->symbol, $resp->getData()->symbol);
-        Storage::assertExists($resp->getData()->symbol);
+        $this->assertInstanceOf('App\Models\Base\School', $resp->getData());
+        $this->assertEquals($model->district_id, $resp->getData()->district_id);
+        $this->assertEquals($model->name, $resp->getData()->name);
+        $this->assertEquals($model->address, $resp->getData()->address);
+        $this->assertTrue($resp->getData()->active);
         $this->assertTrue($resp->getResult());
         $this->assertNull($resp->getError());
     }
 
+    public function test_get_by_manager_reference_code(){
+        // Data preparation
+        $model = factory(School::class)->create();
+
+        // Operations
+        $repository = new SchoolRepository;
+        $resp = $repository->getByManagerReferenceCode($model->manager_reference_code);
+
+        // Control
+        $this->assertInstanceOf('App\Models\Base\School', $resp->getData());
+        $this->assertTrue($resp->getResult());
+        $this->assertNull($resp->getError());
+        $this->assertEquals($model->id, $resp->getData()->id);
+    }
+
+    public function test_get_by_student_reference_code(){
+        // Data preparation
+        $model = factory(School::class)->create();
+
+        // Operations
+        $repository = new SchoolRepository;
+        $resp = $repository->getByStudentReferenceCode($model->student_reference_code);
+
+        // Control
+        $this->assertInstanceOf('App\Models\Base\School', $resp->getData());
+        $this->assertTrue($resp->getResult());
+        $this->assertNull($resp->getError());
+        $this->assertEquals($model->id, $resp->getData()->id);
+    }
+
+    public function test_get_by_instructor_reference_code(){
+        // Data preparation
+        $model = factory(School::class)->create();
+
+        // Operations
+        $repository = new SchoolRepository;
+        $resp = $repository->getByInstructorReferenceCode($model->instructor_reference_code);
+
+        // Control
+        $this->assertInstanceOf('App\Models\Base\School', $resp->getData());
+        $this->assertTrue($resp->getResult());
+        $this->assertNull($resp->getError());
+        $this->assertEquals($model->id, $resp->getData()->id);
+    }
+
     public function test_create(){
         // Data preparation
-        $file = UploadedFile::fake()->image('deneme.jpg');
+        $district = factory(District::class)->create;
         $data = [
-            'symbol' => $file,
+            'district_id' => $district->id,
             'name' => $this->faker->company,
+            'address' => $this->faker->address,
         ];
 
         // Operations
-        $socialMediaRepository = new SocialMediaRepository;
-        $resp = $socialMediaRepository->create($data);
+        $repository = new SchoolRepository;
+        $resp = $repository->create($data);
 
         // Control
-        $this->assertInstanceOf('App\Models\Base\SocialMedia', $resp->getData());
-        $this->assertEquals($data["name"], $resp->getData()->name);
-        Storage::assertExists($resp->getData()->symbol);
+        $this->assertInstanceOf('App\Models\Base\School', $resp->getData());
+        $this->assertEquals($data['district_id'], $resp->getData()->district_id);
+        $this->assertEquals($data['name'], $resp->getData()->name);
+        $this->assertEquals($data['address'], $resp->getData()->address);
+        $this->assertTrue($resp->getData()->active);
         $this->assertTrue($resp->getResult());
         $this->assertNull($resp->getError());
     }
 
     public function test_update(){
         // Data preparation
-        $socialMedia = factory(SocialMedia::class)->create();
+        $model = factory(School::class)->create();
+        $district = factory(District::class)->create();
         $data = [
+            'district_id' => $district->id,
             'name' => $this->faker->company,
+            'address' => $this->faker->address,
         ];
 
         // Operations
-        $socialMediaRepository = new SocialMediaRepository;
-        $resp = $socialMediaRepository->update($socialMedia->id, $data);
+        $repository = new SchoolRepository;
+        $resp = $repository->update($model->id, $data);
 
         // Control
-        $this->assertInstanceOf('App\Models\Base\SocialMedia', $resp->getData());
+        $this->assertInstanceOf('App\Models\Base\School', $resp->getData());
+        $this->assertEquals($data['district_id'], $resp->getData()->district_id);
         $this->assertEquals($data['name'], $resp->getData()->name);
+        $this->assertEquals($data['address'], $resp->getData()->address);
         $this->assertTrue($resp->getResult());
         $this->assertNull($resp->getError());
     }
 
-    public function test_update_symbol(){
-        // Data preparation
-        $socialMedia = factory(SocialMedia::class)->create();
-        $file = UploadedFile::fake()->image('deneme.jpg');
-        $data = [
-            'symbol' => $file,
-        ];
-
-        // Operations
-        $socialMediaRepository = new SocialMediaRepository;
-        $resp = $socialMediaRepository->updateSymbol($socialMedia->id, $data);
-
-        // Control
-        $this->assertInstanceOf('App\Models\Base\SocialMedia', $resp->getData());
-        Storage::assertMissing($socialMedia->symbol);
-        Storage::assertExists($resp->getData()->symbol);
-    }
-
     public function test_delete(){
         // Data preparation
-        $socialMedia = factory(SocialMedia::class)->create();
+        $model = factory(School::class)->create();
 
         // Operations
-        $socialMediaRepository = new SocialMediaRepository;
-        $resp = $socialMediaRepository->delete($socialMedia->id);
+        $repository = new SchoolRepository;
+        $resp = $repository->delete($model->id);
 
         // Control
         $this->assertTrue($resp->getResult());
         $this->assertNull($resp->getData());
         $this->assertNull($resp->getError());
-        $this->assertNull(SocialMedia::find($socialMedia->id));
-        Storage::assertMissing($socialMedia->symbol);
+        $this->assertNull(School::find($model->id));
     }
 
     public function test_set_active(){
         // Data preparation
-        $socialMedia = factory(SocialMedia::class)->create(['active' => false]);
+        $model = factory(School::class)->create(['active' => false]);
 
         // Operations
-        $socialMediaRepository = new SocialMediaRepository;
-        $resp = $socialMediaRepository->setActive($socialMedia->id);
+        $repository = new SchoolRepository;
+        $resp = $repository->setActive($model->id);
 
         // Control
         $this->assertTrue($resp->getResult());
@@ -138,11 +174,11 @@ class SchoolTest extends TestCase
 
     public function test_set_passive(){
         // Data preparation
-        $socialMedia = factory(SocialMedia::class)->create();
+        $model = factory(School::class)->create();
 
         // Operations
-        $socialMediaRepository = new SocialMediaRepository;
-        $resp = $socialMediaRepository->setPassive($socialMedia->id);
+        $repository = new SchoolRepository;
+        $resp = $repository->setPassive($model->id);
 
         // Control
         $this->assertTrue($resp->getResult());

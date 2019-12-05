@@ -2,9 +2,13 @@
 
 namespace App\Repositories\Auth;
 
+use App\Models\Auth\User;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use App\Models\Auth\Admin;
+use App\Repositories\Auth\UserRepository;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AdminRepository implements IRepository{
 
@@ -99,14 +103,25 @@ class AdminRepository implements IRepository{
         // Response variables
         $result = true;
         $error = null;
-        $object = new Student;
+        $object = new Admin;
 
         // Operations
         try{
-            $object->authority_id = $data['authority_id'];
-            $object->save();
+            $userRepository = new UserRepository;
+            $userResp = $userRepository->get($data['user_id']);
+            if($userResp->getResult() and !$userResp->isDataNull()){
+                DB::beginTransaction();
+                $object->authority_id = $data['authority_id'];
+                $object->save();
+                $object->user()->save($userResp->getData());
+                DB::commit();
+            }
+            else{
+                throw new \Exception(__('auth.create_profile_failed'));
+            }
         }
         catch (\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }

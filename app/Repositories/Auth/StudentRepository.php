@@ -2,11 +2,13 @@
 
 namespace App\Repositories\Auth;
 
+use App\Models\Auth\User;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use App\Models\Auth\Student;
 use App\Repositories\Auth\SchoolRepository;
 use App\Repositories\Auth\GuardianRepository;
+use Illuminate\Support\Facades\DB;
 
 class StudentRepository implements IRepository{
 
@@ -105,7 +107,16 @@ class StudentRepository implements IRepository{
 
         // Operations
         try{
-            $object->save();
+            $userRepository = new UserRepository;
+            $userResp = $userRepository->get($data['user_id']);
+            if($userResp->getResult() and !$userResp->isDataNull()){
+                $object->save();
+                $object->user()->save($userResp->getData());
+            }
+            else{
+                $result = false;
+                $error = new \Exception(__('auth.create_profile_failed'));
+            }
         }
         catch (\Exception $e){
             $error = $e;
@@ -246,12 +257,20 @@ class StudentRepository implements IRepository{
         // Operations
         try{
             $schoolRepository = new SchoolRepository;
-            $school = $schoolRepository->getByReferenceCode($referenceCode);
-            $object = Student::find($id);
-            $object->school_id = $school->id;
-            $object->save();
+            $schoolResp = $schoolRepository->getByStudentReferenceCode($referenceCode);
+            if($schoolResp->getResult() and !$schoolResp->isDataNull()){
+                DB::beginTransaction();
+                $object = Student::find($id);
+                $object->school_id = $schoolResp->getData()->id;
+                $object->save();
+                DB::commit();
+            }
+            else{
+                throw new \Exception(__('auth.create_profile_failed'));
+            }
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }
@@ -277,12 +296,20 @@ class StudentRepository implements IRepository{
         // Operations
         try{
             $guardianRepository = new GuardianRepository;
-            $guardian = $guardianRepository->getByReferenceCode($referenceCode);
-            $object = Student::find($id);
-            $object->guardian_id = $guardian->id;
-            $object->save();
+            $guardianResp = $guardianRepository->getByReferenceCode($referenceCode);
+            if($guardianResp->getResult() and !$guardianResp->isDataNull()){
+                DB::beginTransaction();
+                $object = Student::find($id);
+                $object->guardian_id = $guardianResp->getData()->id;
+                $object->save();
+                DB::commit();
+            }
+            else{
+                throw new \Exception(__('auth.create_profile_failed'));
+            }
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }

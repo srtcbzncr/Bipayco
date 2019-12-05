@@ -46,6 +46,7 @@ class SocialMediaTest extends TestCase
         $this->assertInstanceOf('App\Models\Base\SocialMedia', $resp->getData());
         $this->assertEquals($socialMedia->name, $resp->getData()->name);
         $this->assertEquals($socialMedia->symbol, $resp->getData()->symbol);
+        $this->assertTrue($resp->getData()->active);
         Storage::assertExists($resp->getData()->symbol);
         $this->assertTrue($resp->getResult());
         $this->assertNull($resp->getError());
@@ -65,7 +66,8 @@ class SocialMediaTest extends TestCase
 
         // Control
         $this->assertInstanceOf('App\Models\Base\SocialMedia', $resp->getData());
-        $this->assertEquals($data["name"], $resp->getData()->name);
+        $this->assertEquals($data['name'], $resp->getData()->name);
+        $this->assertTrue($resp->getData());
         Storage::assertExists($resp->getData()->symbol);
         $this->assertTrue($resp->getResult());
         $this->assertNull($resp->getError());

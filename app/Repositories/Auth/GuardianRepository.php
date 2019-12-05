@@ -3,8 +3,10 @@
 namespace App\Repositories\Auth;
 
 use App\Models\Auth\Guardian;
+use App\Models\Auth\User;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
+use Illuminate\Support\Facades\DB;
 
 class GuardianRepository implements IRepository{
 
@@ -99,13 +101,24 @@ class GuardianRepository implements IRepository{
         // Response variables
         $result = true;
         $error = null;
-        $object = new Student;
+        $object = new Guardian;
 
         // Operations
         try{
-            $object->save();
+            $userRepository = new UserRepository;
+            $userResp = $userRepository->get($data['user_id']);
+            if($userResp->getResult() and !$userResp->isDataNull()){
+                DB::beginTransaction();
+                $object->save();
+                $object->user()->save($userResp->getData());
+                DB::commit();
+            }
+            else{
+                throw new \Exception(__('auth.create_profile_failed'));
+            }
         }
         catch (\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }

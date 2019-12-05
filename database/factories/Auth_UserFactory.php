@@ -27,6 +27,8 @@ $factory->define(User::class, function (Faker $faker) {
     $rand_manager = random_int(0,100);
     $rand_admin = random_int(0,100);
     $rand_guardian = random_int(0,100);
+    $file = UploadedFile::fake()->image('deneme.jpg');
+    $avatarPath = Storage::putFile('avatars', $file);
 
     return [
         'district_id' => factory(District::class),
@@ -34,7 +36,7 @@ $factory->define(User::class, function (Faker $faker) {
         'instructor_id' => ($rand_instructor > 50) ? factory(Instructor::class) : null,
         'manager_id' => ($rand_manager > 70) ? factory(Manager::class) : null,
         'admin_id' => ($rand_admin > 80) ? factory(Admin::class) : null,
-        'guardian_id' => ($rand_guardian > 50) ? factory(Guardian::class) : null,
+        'guardian_id' => ($rand_guardian > 60) ? factory(Guardian::class) : null,
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'username' => $faker->userName,
@@ -42,7 +44,7 @@ $factory->define(User::class, function (Faker $faker) {
         'email_verified_at' => now(),
         'phone_number' => $faker->e164PhoneNumber,
         'password' => Hash::make('123456'),
-        'avatar' => $faker->image(),
+        'avatar' => $avatarPath,
         'remember_token' => Str::random(10),
     ];
 });

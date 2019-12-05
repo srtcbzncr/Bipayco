@@ -61,12 +61,12 @@ class SchoolRepository implements IRepository{
     }
 
     /**
-     * Return a school by reference code.
+     * Return a school by manager reference code.
      *
      * @param  string $referenceCode
      * @return App\Repositories\RepositoryResponse
      */
-    public function getByReferenceCode($referenceCode)
+    public function getByManagerReferenceCode($referenceCode)
     {
         // Response variables
         $result = true;
@@ -75,7 +75,61 @@ class SchoolRepository implements IRepository{
 
         // Operations
         try{
-            $object = School::where('reference_code', $referenceCode)->first();
+            $object = School::where('manager_reference_code', $referenceCode)->first();
+        }
+        catch (\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    /**
+     * Return a school by student reference code.
+     *
+     * @param  string $referenceCode
+     * @return App\Repositories\RepositoryResponse
+     */
+    public function getByStudentReferenceCode($referenceCode)
+    {
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = School::where('student_reference_code', $referenceCode)->first();
+        }
+        catch (\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    /**
+     * Return a school by instructor reference code.
+     *
+     * @param  string $referenceCode
+     * @return App\Repositories\RepositoryResponse
+     */
+    public function getByInstructorReferenceCode($referenceCode)
+    {
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = School::where('instructor_reference_code', $referenceCode)->first();
         }
         catch (\Exception $e){
             $error = $e;
