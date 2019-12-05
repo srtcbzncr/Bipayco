@@ -3,41 +3,166 @@
 namespace App\Repositories\Auth;
 
 use App\Repositories\IRepository;
+use App\Models\Auth\User;
+use App\Repositories\RepositoryResponse;
 
 class UserRepository implements IRepository{
 
+    /**
+     * Return all users.
+     *
+     * @return App\Repositories\RepositoryResponse
+     */
     public function all()
     {
-        // TODO: Implement all() method.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = User::all();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 
+    /**
+     * Return a user by id.
+     *
+     * @param  int $id
+     * @return App\Repositories\RepositoryResponse
+     */
     public function get($id)
     {
-        // TODO: Implement get() method.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = User::find($id);
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 
     public function create(array $data)
     {
-        // TODO: Implement create() method.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = new User;
+
+        // Operations
+        try{
+
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 
     public function update($id, array $data)
     {
-        // TODO: Implement update() method.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 
     public function setActive($id)
     {
-        // TODO: Implement setActive() method.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 
     public function setPassive($id)
     {
-        // TODO: Implement setPassive() method.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 }

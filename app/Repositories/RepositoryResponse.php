@@ -8,7 +8,7 @@ class RepositoryResponse implements IRepositoryResponse{
     private $data;
     private $error;
 
-    public function __construct($result, $data, $error)
+    public function __construct($result=null, $data=null, $error=null)
     {
         $this->result = $result;
         $this->data = $data;

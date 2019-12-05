@@ -5,22 +5,18 @@ namespace App\Models\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Student extends Model
+class Guardian extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'auth_students';
+    protected $table = 'auth_guardians';
     protected $guarded = ['reference_code'];
-
-    public function guardian(){
-        return $this->belongsTo('App\Models\Auth\Guardian');
-    }
-
-    public function school(){
-        return $this->belongsTo('App\Models\Base\School');
-    }
 
     public function user(){
         return $this->hasOne('App\Models\Auth\User');
+    }
+
+    public function students(){
+        return $this->hasMany('App\Models\Auth\Student');
     }
 }

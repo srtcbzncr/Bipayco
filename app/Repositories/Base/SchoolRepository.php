@@ -61,6 +61,33 @@ class SchoolRepository implements IRepository{
     }
 
     /**
+     * Return a school by reference code.
+     *
+     * @param  string $referenceCode
+     * @return App\Repositories\RepositoryResponse
+     */
+    public function getByReferenceCode($referenceCode)
+    {
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = School::where('reference_code', $referenceCode)->first();
+        }
+        catch (\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    /**
      * Create a new school.
      *
      * @param  array @data

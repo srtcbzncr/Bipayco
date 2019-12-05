@@ -2,14 +2,14 @@
 
 namespace App\Repositories\Auth;
 
+use App\Models\Auth\Guardian;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
-use App\Models\Auth\Admin;
 
-class AdminRepository implements IRepository{
+class GuardianRepository implements IRepository{
 
     /**
-     * Return all admins.
+     * Return all guardians.
      *
      * @return App\Repositories\RepositoryResponse
      */
@@ -22,7 +22,7 @@ class AdminRepository implements IRepository{
 
         // Operations
         try{
-            $object = Admin::all();
+            $object = Guardian::all();
         }
         catch(\Exception $e){
             $error = $e;
@@ -35,7 +35,7 @@ class AdminRepository implements IRepository{
     }
 
     /**
-     * Return a admin by id.
+     * Return a guardian by id.
      *
      * @param  int $id
      * @return App\Repositories\RepositoryResponse
@@ -49,7 +49,7 @@ class AdminRepository implements IRepository{
 
         // Operations
         try{
-            $object = Admin::find($id);
+            $object = Guardian::find($id);
         }
         catch (\Exception $e){
             $error = $e;
@@ -62,7 +62,7 @@ class AdminRepository implements IRepository{
     }
 
     /**
-     * Return a admin by id.
+     * Return a guardian by id.
      *
      * @param  string $referenceCode
      * @return App\Repositories\RepositoryResponse
@@ -76,7 +76,7 @@ class AdminRepository implements IRepository{
 
         // Operations
         try{
-            $object = Admin::where('reference_code', $referenceCode)->first();
+            $object = Guardian::where('reference_code', $referenceCode)->first();
         }
         catch (\Exception $e){
             $error = $e;
@@ -89,7 +89,7 @@ class AdminRepository implements IRepository{
     }
 
     /**
-     * Create a new admin.
+     * Create a new guardian.
      *
      * @param  array @data
      * @return App\Repositories\RepositoryResponse
@@ -103,7 +103,6 @@ class AdminRepository implements IRepository{
 
         // Operations
         try{
-            $object->authority_id = $data['authority_id'];
             $object->save();
         }
         catch (\Exception $e){
@@ -115,7 +114,7 @@ class AdminRepository implements IRepository{
     }
 
     /**
-     * Update a admin.
+     * Update a guardian.
      *
      * @param  int @id, array @data
      * @return App\Repositories\RepositoryResponse
@@ -129,8 +128,7 @@ class AdminRepository implements IRepository{
 
         // Operations
         try{
-            $object = Admin::find($id);
-            $object->authority_id = $data['authority_id'];
+            $object = Guardian::find($id);
             $object->save();
         }
         catch(\Exception $e){
@@ -144,7 +142,7 @@ class AdminRepository implements IRepository{
     }
 
     /**
-     * Delete a admin.
+     * Delete a guardian.
      *
      * @param  int @id
      * @return App\Repositories\RepositoryResponse
@@ -158,7 +156,7 @@ class AdminRepository implements IRepository{
 
         // Operations
         try{
-            Admin::destroy($id);
+            Guardian::destroy($id);
         }
         catch(\Exception $e){
             $error = $e;
@@ -171,7 +169,7 @@ class AdminRepository implements IRepository{
     }
 
     /**
-     * Set admin's active column to true.
+     * Set guardian's active column to true.
      *
      * @param  int @id
      * @return App\Repositories\RepositoryResponse
@@ -185,7 +183,7 @@ class AdminRepository implements IRepository{
 
         // Operations
         try{
-            $object = Admin::find($id);
+            $object = Guardian::find($id);
             $object->active = true;
             $object->save();
         }
@@ -200,7 +198,7 @@ class AdminRepository implements IRepository{
     }
 
     /**
-     * Set admin's active column to false.
+     * Set guardian's active column to false.
      *
      * @param  int @id
      * @return App\Repositories\RepositoryResponse
@@ -214,7 +212,7 @@ class AdminRepository implements IRepository{
 
         // Operations
         try{
-            $object = Admin::find($id);
+            $object = Guardian::find($id);
             $object->active = false;
             $object->save();
         }

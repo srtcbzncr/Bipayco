@@ -9,6 +9,7 @@ use App\Models\Auth\Student;
 use App\Models\Auth\Instructor;
 use App\Models\Auth\Manager;
 use App\Models\Auth\Admin;
+use App\Models\Auth\Guardian;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,13 +26,15 @@ $factory->define(User::class, function (Faker $faker) {
     $rand_instructor = random_int(0,100);
     $rand_manager = random_int(0,100);
     $rand_admin = random_int(0,100);
+    $rand_guardian = random_int(0,100);
 
     return [
         'district_id' => factory(District::class),
         'student_id' => factory(Student::class),
         'instructor_id' => ($rand_instructor > 50) ? factory(Instructor::class) : null,
         'manager_id' => ($rand_manager > 70) ? factory(Manager::class) : null,
-        'admin_id' => ($rand_admin > 80) ? factory(Manager::class) : null,
+        'admin_id' => ($rand_admin > 80) ? factory(Admin::class) : null,
+        'guardian_id' => ($rand_guardian > 50) ? factory(Guardian::class) : null,
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'username' => $faker->userName,

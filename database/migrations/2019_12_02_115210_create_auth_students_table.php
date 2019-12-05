@@ -23,7 +23,7 @@ class CreateAuthStudentsTable extends Migration
             $table->softDeletes();
 
             $table->foreign('school_id')->references('id')->on('bs_schools');
-            $table->foreign('guardian_id')->references('id')->on('auth_users');
+            $table->foreign('guardian_id')->references('id')->on('auth_guardians');
         });
     }
 
