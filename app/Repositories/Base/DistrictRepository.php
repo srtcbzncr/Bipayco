@@ -4,6 +4,7 @@ namespace App\Repositories\Base;
 
 use App\Models\Base\District;
 use App\Repositories\IRepository;
+use App\Repositories\RepositoryResponse;
 
 class DistrictRepository implements IRepository{
 

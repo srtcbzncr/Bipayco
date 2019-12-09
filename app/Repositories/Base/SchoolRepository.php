@@ -4,6 +4,7 @@ namespace App\Repositories\Base;
 
 use App\Models\Base\School;
 use App\Repositories\IRepository;
+use App\Repositories\RepositoryResponse;
 
 class SchoolRepository implements IRepository{
 
@@ -159,6 +160,9 @@ class SchoolRepository implements IRepository{
             $object->district_id = $data['district_id'];
             $object->name = $data['name'];
             $object->address = $data['address'];
+            $object->manager_reference_code = uniqid('scmn'.random_int(100,999), false);
+            $object->student_reference_code = uniqid('scst'.random_int(100,999), false);
+            $object->instructor_reference_code = uniqid('scin'.random_int(100,999), false);
             $object->save();
         }
         catch (\Exception $e){

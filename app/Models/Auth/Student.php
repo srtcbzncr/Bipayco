@@ -21,6 +21,6 @@ class Student extends Model
     }
 
     public function user(){
-        return $this->hasOne('App\Models\Auth\User');
+        return $this->belongsTo('App\Models\Auth\User');
     }
 }

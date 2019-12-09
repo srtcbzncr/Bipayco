@@ -5,7 +5,7 @@ namespace App\Repositories\Auth;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use App\Models\Auth\Manager;
-use App\Repositories\Auth\SchoolRepository;
+use App\Repositories\Base\SchoolRepository;
 use Illuminate\Support\Facades\DB;
 
 class ManagerRepository implements IRepository{
@@ -111,10 +111,11 @@ class ManagerRepository implements IRepository{
             $userResp = $userRepository->get($data['user_id']);
             if($schoolResp->getResult() and $userResp->getResult() and !$schoolResp->isDataNull() and !$userResp->isDataNull()){
                 DB::beginTransaction();
+                $object->user_id = $userResp->getData()->id;
                 $object->school_id = $schoolResp->getData()->id;
                 $object->identification_number = $data['identification_number'];
+                $object->reference_code = uniqid('mn'.random_int(100,999), false);
                 $object->save();
-                $object->user()->save($userResp->getData());
                 DB::commit();
             }
             else{

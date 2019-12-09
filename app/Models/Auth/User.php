@@ -20,7 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'district_id', 'first_name', 'last_name', 'username', 'email', 'phone_number', 'avatar', 'active', 'password'
     ];
 
     /**
@@ -42,11 +42,11 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     public function student(){
-        return $this->belongsTo('App\Models\Auth\Student');
+        return $this->hasOne('App\Models\Auth\Student');
     }
 
     public function instructor(){
-        return $this->belongsTo('App\Models\Auth\Instructor');
+        return $this->hasOne('App\Models\Auth\Instructor');
     }
 
     public function manager(){
@@ -54,11 +54,11 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     public function admin(){
-        return $this->belongsTo('App\Models\Auth\Admin');
+        return $this->hasOne('App\Models\Auth\Admin');
     }
 
     public function guardian(){
-        return $this->belongsTo('App\Models\Auth\Guardian');
+        return $this->hasOne('App\Models\Auth\Guardian');
     }
 
     public function district(){

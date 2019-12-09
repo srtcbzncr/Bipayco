@@ -74,6 +74,7 @@ class UserRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $object->district_id = $data['district_id'];
             $object->first_name = $data['first_name'];
             $object->last_name = $data['last_name'];
@@ -84,15 +85,13 @@ class UserRepository implements IRepository{
             $object->save();
             $studentRepository = new StudentRepository;
             $studentResp = $studentRepository->create(['user_id' => $object->id]);
-            if($studentResp->getResult() and !$studentResp->isDataNull()){
-                $object->studentProfile()->save($studentResp->getData());
-            }
-            else{
+            if(!$studentResp->getResult() or $studentResp->isDataNull()){
                 $result = false;
                 $error = new \Exception(__('auth.create_profile_failed'));
             }
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }
@@ -147,9 +146,11 @@ class UserRepository implements IRepository{
         // Operations
         try{
             $object = User::find($id);
-            Storage::delete($object->avatar);
+            if($object->avatar != 'avatars/default.jpg'){
+                Storage::delete($object->avatar);
+            }
             $avatarPath = Storage::putFile('avatars', $data['avatar']);
-            $object->symbol = $avatarPath;
+            $object->avatar = $avatarPath;
             $object->save();
         }
         catch(\Exception $e){
@@ -194,9 +195,9 @@ class UserRepository implements IRepository{
 
         // Operations
         try{
-            $user = User::find($id);
-            $user->active = true;
-            $user->save();
+            $object = User::find($id);
+            $object->active = true;
+            $object->save();
         }
         catch(\Exception $e){
             $error = $e;
@@ -218,29 +219,29 @@ class UserRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
-            $user = User::find($id);
-            $student = $user->student;
+            $object = User::find($id);
+            $student = $object->student;
             if($student != null){
                 $student->active = false;
                 $student->save();
             }
-            $instructor = $user->instructor;
+            $instructor = $object->instructor;
             if($instructor != null){
                 $instructor->active = false;
                 $instructor->save();
             }
-            $admin = $user->admin;
+            $admin = $object->admin;
             if($admin != null){
                 $admin->active = false;
                 $admin->save();
             }
-            $guardian = $user->guardian;
+            $guardian = $object->guardian;
             if($guardian != null){
                 $guardian->active = false;
                 $guardian->save();
             }
-            $user->active = false;
-            $user->save();
+            $object->active = false;
+            $object->save();
             DB::commit();
         }
         catch(\Exception $e){

@@ -6,7 +6,7 @@ use App\Models\Auth\User;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use App\Models\Auth\Student;
-use App\Repositories\Auth\SchoolRepository;
+use App\Repositories\Base\SchoolRepository;
 use App\Repositories\Auth\GuardianRepository;
 use Illuminate\Support\Facades\DB;
 
@@ -110,8 +110,9 @@ class StudentRepository implements IRepository{
             $userRepository = new UserRepository;
             $userResp = $userRepository->get($data['user_id']);
             if($userResp->getResult() and !$userResp->isDataNull()){
+                $object->user_id = $userResp->getData()->id;
+                $object->reference_code = uniqid('st'.random_int(100,999), false);
                 $object->save();
-                $object->user()->save($userResp->getData());
             }
             else{
                 $result = false;

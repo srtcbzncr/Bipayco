@@ -3,6 +3,7 @@
 namespace App\Repositories\Auth;
 
 use App\Models\Auth\User;
+use App\Repositories\Base\SchoolRepository;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use App\Models\Auth\Instructor;
@@ -109,12 +110,13 @@ class InstructorRepository implements IRepository{
             $userResp = $userRepository->get($data['user_id']);
             if($userResp->getResult() and !$userResp->isDataNull()){
                 DB::beginTransaction();
+                $object->user_id = $userResp->getData()->id;
                 $object->identification_number = $data['identification_number'];
                 $object->title = $data['title'];
                 $object->bio = $data['bio'];
                 $object->iban = $data['iban'];
+                $object->reference_code = uniqid('in'.random_int(100,999), false);
                 $object->save();
-                $object->user()->save($userResp->getData());
                 DB::commit();
             }
             else{
