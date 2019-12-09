@@ -12,8 +12,8 @@
 */
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('register', 'Auth/AuthController@registerGet')->name('registerGet');
-Route::post('register', 'Auth/AuthController@registerPost')->name('registerPost');
-Route::get('login', 'Auth/AuthController@loginGet')->name('loginGet');
-Route::post('login', 'Auth/AuthController@loginPost')->name('loginPost');
+Route::get('register', 'Auth\AuthController@registerGet')->name('registerGet');
+Route::post('register', 'Auth\AuthController@registerPost')->name('registerPost');
+Route::get('login', 'Auth\AuthController@loginGet')->name('loginGet');
+Route::post('login', 'Auth\AuthController@loginPost')->name('loginPost');
 

@@ -15,9 +15,13 @@ class CreateAuthGuardiansTable extends Migration
     {
         Schema::create('auth_guardians', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('reference_code', 18)->default(uniqid('gr'.random_int(100,999), false));
+            $table->unsignedBigInteger('user_id');
+            $table->string('reference_code', 18);
             $table->boolean('active')->default(true);
             $table->timestamps();
+            $table->softDeletes();
+
+            $table->foreign('user_id')->references('id')->on('auth_users');
         });
     }
 

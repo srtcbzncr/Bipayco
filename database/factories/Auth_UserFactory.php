@@ -3,6 +3,8 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 use App\Models\Auth\User;
 use Faker\Generator as Faker;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\Base\District;
 use App\Models\Auth\Student;
@@ -32,11 +34,6 @@ $factory->define(User::class, function (Faker $faker) {
 
     return [
         'district_id' => factory(District::class),
-        'student_id' => factory(Student::class),
-        'instructor_id' => ($rand_instructor > 50) ? factory(Instructor::class) : null,
-        'manager_id' => ($rand_manager > 70) ? factory(Manager::class) : null,
-        'admin_id' => ($rand_admin > 80) ? factory(Admin::class) : null,
-        'guardian_id' => ($rand_guardian > 60) ? factory(Guardian::class) : null,
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
         'username' => $faker->userName,

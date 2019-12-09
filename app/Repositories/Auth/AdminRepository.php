@@ -111,9 +111,10 @@ class AdminRepository implements IRepository{
             $userResp = $userRepository->get($data['user_id']);
             if($userResp->getResult() and !$userResp->isDataNull()){
                 DB::beginTransaction();
+                $object->user_id = $userResp->getData()->id;
                 $object->authority_id = $data['authority_id'];
+                $object->reference_code = uniqid('ad'.random_int(100,999), false);
                 $object->save();
-                $object->user()->save($userResp->getData());
                 DB::commit();
             }
             else{

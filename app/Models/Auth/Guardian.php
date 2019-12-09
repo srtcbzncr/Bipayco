@@ -13,7 +13,7 @@ class Guardian extends Model
     protected $guarded = ['reference_code'];
 
     public function user(){
-        return $this->hasOne('App\Models\Auth\User');
+        return $this->belongsTo('App\Models\Auth\User');
     }
 
     public function students(){
