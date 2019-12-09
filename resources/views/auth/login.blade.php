@@ -36,7 +36,7 @@
                 </div>
                 <div>
                     <div class="uk-card-default uk-padding uk-card-small">
-                        <form method="POST" action="{{ route('loginGet') }}">
+                        <form method="POST" action="{{ route('loginPost') }}">
                             <!-- Login tab tab -->
                             <div id="login" class="tabcontent tab-default-open animation: uk-animation-slide-right-medium">
                                 <h2 class="uk-text-bold"> {{ __('Login') }} </h2>
@@ -70,8 +70,8 @@
                                 </div>
                                 <div>
                                     <label>
-                                        <input class="uk-checkbox" type="checkbox" data-show-pw="#password">
-                                        <span class="checkmark uk-text-small"> Şifreyi Göster  </span>
+                                        <input class="uk-checkbox" name="remember" type="checkbox">
+                                        <span class="checkmark uk-text-small"> Beni Hatırla  </span>
                                     </label>
                                 </div>
                                 <div class="uk-margin uk-text-small">

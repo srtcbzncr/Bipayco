@@ -44,7 +44,36 @@
                                 <div class="uk-form-label">{{ __('Name') }}</div>
                                 <div class="uk-inline">
                                     <span class="uk-form-icon"><i class="far fa-User icon-medium"></i></span>
-                                    <input id="name" class="uk-input uk-form-width-large form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Full name" type="text">
+                                    <input id="name" class="uk-input uk-form-width-large form-control @error('name') is-invalid @enderror" name="first_name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Full name" type="text">
+                                    @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="uk-inline">
+                                    <span class="uk-form-icon"><i class="far fa-User icon-medium"></i></span>
+                                    <input id="name" class="uk-input uk-form-width-large form-control @error('name') is-invalid @enderror" name="last_name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Full name" type="text">
+                                    @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="uk-form-label">Username</div>
+                                <div class="uk-inline">
+                                    <span class="uk-form-icon"><i class="far fa-User icon-medium"></i></span>
+                                    <input id="name" class="uk-input uk-form-width-large form-control @error('name') is-invalid @enderror" name="username" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Full name" type="text">
+                                    @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
+                                <div class="uk-form-label">Phone</div>
+                                <div class="uk-inline">
+                                    <span class="uk-form-icon"><i class="far fa-User icon-medium"></i></span>
+                                    <input id="name" class="uk-input uk-form-width-large form-control @error('name') is-invalid @enderror" name="phone_number" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Full name" type="text">
                                     @error('name')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -81,7 +110,8 @@
                                         <input class="uk-checkbox" type="checkbox" data-show-pw="#password-1 ,#password-2">
                                         <span class="checkmark uk-text-small"> Show passwords </span>
                                     </label>
-                                </div>
+                                </div>,
+                                <input type="text" value="1" name="district_id">
                                 <div class="uk-margin">
                                     <label>
                                         <input class="uk-checkbox" type="checkbox" checked>
