@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\Auth\User;
 use App\Repositories\Auth\UserRepository;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -17,17 +18,19 @@ class AuthController extends Controller
 
     public function registerPost(RegisterRequest $request){
         // Validation
-        $validated = $request->validated();
+        $validatedData = $request->validated();
 
         // Initializations
         $repo = new UserRepository;
 
         // Operations
-        $resp = $repo->create($validated);
+        $resp = $repo->create($validatedData);
+        Log::info($resp->getResult());
         if($resp->getResult()){
             return redirect('home', 200);
         }
         else{
+            Log::info($resp->getError()->getMessage());
             return redirect()->back()->withErrors('error_message', $resp->getError()->getMessage());
         }
 
@@ -39,14 +42,14 @@ class AuthController extends Controller
 
     public function loginPost(LoginRequest $request){
         // Validation
-        $validated = $request->validated();
+        $validatedData = $request->validated();
 
         // Operations
         if(Auth::check()){
             return redirect('home', 200);
         }
         else{
-            if(Auth::attempt(['email' => $validated['email'], 'password' => $validated['password']], $validated['remember'])){
+            if(Auth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password']], $validatedData['remember'])){
                 return redirect('home', 200);
             }
             else{
