@@ -24,12 +24,12 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required'|'max:100',
+            'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
-            'username' => 'required'|'max:50',
-            'email' => 'required'|'unique:auth_users','email'|'max:191',
-            'phone_number' => 'required'|'numeric'|'max:20',
-            'district_id' => 'required'|'numeric'|'exists:bs_districts,id',
+            'username' => 'required|max:50',
+            'email' => 'required|unique:auth_users|email|max:191',
+            'phone_number' => 'required|numeric|max:20',
+            'district_id' => 'required|numeric|exists:bs_districts,id',
         ];
     }
 }
