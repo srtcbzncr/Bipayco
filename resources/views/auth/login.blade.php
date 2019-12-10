@@ -39,40 +39,35 @@
                         <form method="POST" action="{{ route('loginPost') }}">
                             <!-- Login tab tab -->
                             <div id="login" class="tabcontent tab-default-open animation: uk-animation-slide-right-medium">
-                                <h2 class="uk-text-bold"> {{ __('Login') }} </h2>
+                                <h2 class="uk-text-bold"> @lang('front/auth.login') </h2>
                                 <p class="uk-text-muted uk-margin-remove-top uk-margin-small-bottom"> Fill blank to log your account</p>
-                                <div class="uk-form-label">{{ __('E-Mail Address') }}</div>
-                                <div class="uk-inline">
-                                    <span class="uk-form-icon"><i class="far fa-User icon-medium"></i></span>
-                                    <input id="email" type="email" class="uk-input uk-form-width-large form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <div class="uk-inline uk-margin-small">
+                                    <input id="email" type="email" class="uk-input uk-form-width-large form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="@lang('front/auth.email')" required autocomplete="email" autofocus>
                                     @error('email')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
                                 </div>
-                                <div class="uk-flex-middle" uk-grid>
-                                    <div class="uk-width-expand@m uk-margin-small-bottom">
-                                        <div class="uk-form-label">{{ __('Password') }}</div>
-                                    </div>
-                                    <div class="uk-width-auto@m">
-                                        <a href="#" class="tablinks uk-text-small " onclick="openTabs(event, 'forget')"> Şifreni mi unuttun? </a>
-                                    </div>
-                                </div>
-                                <div class="uk-inline uk-margin-small-bottom">
-                                    <span class="uk-form-icon"><i class="fas fa-key icon-medium"></i></span>
-                                    <input class="uk-input uk-form-width-large form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="Password" type="password" required autocomplete="current-password">
+                                <div class="uk-inline uk-margin-small">
+                                    <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: eye"></span>
+                                    <input class="uk-input uk-form-width-large form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="@lang('front/auth.password')" type="password" required autocomplete="current-password">
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
-                                <div>
-                                    <label>
-                                        <input class="uk-checkbox" name="remember" type="checkbox">
-                                        <span class="checkmark uk-text-small"> Beni Hatırla  </span>
-                                    </label>
+                                <div class="uk-flex-middle uk-margin-small" uk-grid>
+                                    <div class="uk-width-expand@m">
+                                        <label>
+                                            <input class="uk-checkbox" name="remember" type="checkbox">
+                                            <span class="checkmark uk-text-small"> Beni Hatırla  </span>
+                                        </label>
+                                    </div>
+                                    <div class="uk-width-auto@m">
+                                        <a href="#" class="tablinks uk-text-small " onclick="openTabs(event, 'forget')"> Şifreni mi unuttun? </a>
+                                    </div>
                                 </div>
                                 <div class="uk-margin uk-text-small">
                                     Üye değil misin?
