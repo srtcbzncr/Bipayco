@@ -25,22 +25,21 @@
     <link href="{{asset('css/uikit.css')}}" rel="stylesheet">
 </head>
 <body>
-<div id="app">
+<div id="app1">
     <div uk-height-viewport="offset-top: true; offset-bottom: true" class="uk-flex uk-flex-middle">
         <div class="uk-width-2-3@m uk-width-1-2@s uk-margin-auto  border-radius-6 ">
             <div class="uk-child-width-1-2@m uk-background-grey uk-grid-collapse" uk-grid>
                 <div class="uk-text-middle uk-margin-auto-vertical uk-text-center uk-padding-small uk-animation-scale-up">
                     <p> <i class="fas fa-graduation-cap uk-text-white" style="font-size:60px"></i> </p>
                     <h1><a href="{{ route('home') }}" class="uk-text-white uk-margin-small" style="text-decoration: none;">Bipayco</a> </h1>
-                    <h5 class="uk-margin-small uk-text-muted uk-text-bold uk-text-nowrap"> Bilgi Paylaştıkça Çoğalır. </h5>
                 </div>
                 <div>
                     <div class="uk-card-default uk-padding uk-card-small">
                         <form method="POST" action="{{ route('loginPost') }}">
                             <!-- Login tab tab -->
                             <div id="login" class="tabcontent tab-default-open animation: uk-animation-slide-right-medium">
-                                <h2 class="uk-text-bold"> @lang('front/auth.login') </h2>
-                                <p class="uk-text-muted uk-margin-remove-top uk-margin-small-bottom"> Fill blank to log your account</p>
+                                <h2 class="uk-text-bold">@lang('front/auth.login')</h2>
+                                <p class="uk-text-muted uk-margin-remove-top uk-margin-small-bottom">@lang('front/auth.login_description')</p>
                                 <div class="uk-inline uk-margin-small">
                                     <input id="email" type="email" class="uk-input uk-form-width-large form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="@lang('front/auth.email')" required autocomplete="email" autofocus>
                                     @error('email')
@@ -62,20 +61,22 @@
                                     <div class="uk-width-expand@m">
                                         <label>
                                             <input class="uk-checkbox" name="remember" type="checkbox">
-                                            <span class="checkmark uk-text-small"> Beni Hatırla  </span>
+                                            <span class="checkmark uk-text-small">@lang('front/auth.remember_me')</span>
                                         </label>
                                     </div>
                                     <div class="uk-width-auto@m">
-                                        <a href="#" class="tablinks uk-text-small " onclick="openTabs(event, 'forget')"> Şifreni mi unuttun? </a>
+                                        <a href="#" class="tablinks uk-text-small " onclick="openTabs(event, 'forget')">@lang('front/auth.forget_password')</a>
                                     </div>
                                 </div>
                                 <div class="uk-margin uk-text-small">
-                                    Üye değil misin?
-                                    <a href="{{ route('registerGet') }}" class="tablinks uk-text-bold"> Create account  </a>
+                                    <span>
+                                        @lang('front/auth.dont_have_account')
+                                        <a href="{{ route('registerGet') }}" class="tablinks uk-text-bold"> @lang('front/auth.create_account') </a>
+                                    </span>
                                 </div>
                                 <div class="uk-flex-middle" uk-grid>
                                     <div class="uk-width-expand@m">
-                                        <input class="uk-button uk-button-success button" type="submit" value="Sign in">
+                                        <input class="uk-button uk-button-success button" type="submit" value="@lang('front/auth.sign_in')">
                                     </div>
                                 </div>
                             </div>
