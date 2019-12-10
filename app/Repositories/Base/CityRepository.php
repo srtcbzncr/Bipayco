@@ -205,4 +205,31 @@ class CityRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+
+    /**
+     * Set city's districts.
+     *
+     * @param  int @id
+     * @return App\Repositories\RepositoryResponse
+     */
+    public function getDistricts($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $city = City::find($id);
+            $object = $city->districts;
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
 }

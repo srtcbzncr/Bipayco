@@ -201,4 +201,31 @@ class CountryRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+
+    /**
+     * Set country's cities.
+     *
+     * @param  int @id
+     * @return App\Repositories\RepositoryResponse
+     */
+    public function getCities($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $country = Country::find($id);
+            $object = $country->cities;
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
 }

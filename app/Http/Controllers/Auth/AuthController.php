@@ -7,6 +7,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\Auth\User;
 use App\Repositories\Auth\UserRepository;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -17,6 +18,7 @@ class AuthController extends Controller
     }
 
     public function registerPost(RegisterRequest $request){
+
         // Validation
         $validatedData = $request->validated();
 
@@ -25,7 +27,6 @@ class AuthController extends Controller
 
         // Operations
         $resp = $repo->create($validatedData);
-        dd($resp);
         if($resp->getResult()){
             return redirect('home', 200);
         }

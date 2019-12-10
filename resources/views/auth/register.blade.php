@@ -79,7 +79,7 @@
                                 </div>
                                 <div class="uk-child-width-1-2 uk-flex uk-grid uk-margin-small">
                                     <div class="uk-flex-left@s">
-                                        <select class="uk-select" name="district_id">
+                                        <select class="uk-select" name="city">
                                             <option>İl</option>
                                             <option value="1">Selam</option>
                                             <option value="2">Nasılsın</option>
@@ -96,7 +96,7 @@
                                 </div>
                                 <div class="uk-child-width-1-2 uk-grid uk-margin-small">
                                     <div>
-                                        <select class="uk-select" name="district_id">
+                                        <select class="uk-select" name="city">
                                             <option>İl</option>
                                             <option value="1">Selam</option>
                                             <option value="2">Nasılsın</option>
@@ -121,7 +121,7 @@
                                         @enderror
                                     </div>
                                     <div>
-                                        <input class="uk-input form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Confirm Password" type="Password" id="password-1">
+                                        <input class="uk-input form-control @error('password') is-invalid @enderror" name="password_confirm" required autocomplete="new-password" placeholder="Confirm Password" type="Password" id="password-2">
                                         <span class="uk-form-icon"><i class="uk-icon-eye"></i></span>
                                         @error('password')
                                         <span class="invalid-feedback" role="alert">
