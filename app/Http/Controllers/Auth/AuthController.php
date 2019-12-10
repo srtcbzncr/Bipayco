@@ -25,12 +25,12 @@ class AuthController extends Controller
 
         // Operations
         $resp = $repo->create($validatedData);
-        Log::info($resp->getResult());
+        dd($resp);
         if($resp->getResult()){
             return redirect('home', 200);
         }
         else{
-            Log::info($resp->getError()->getMessage());
+            error_log($resp->getError()->getMessage());
             return redirect()->back()->withErrors('error_message', $resp->getError()->getMessage());
         }
 
