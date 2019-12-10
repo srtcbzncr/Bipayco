@@ -96,7 +96,7 @@
                                     </div>
                                     <div>
                                         <input class="uk-input form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="@lang('front/auth.password')" type="Password" id="password-1">
-                                        <a class="uk-icon-eye"></a>
+                                            <a class="uk-icon-eye"></a>
                                         @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
