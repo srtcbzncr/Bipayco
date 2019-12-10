@@ -71,7 +71,7 @@
                                 </div>
                                 <div class="uk-margin uk-text-small">
                                     Üye değil misin?
-                                    <a href="{{ route('registerPost') }}" class="tablinks uk-text-bold"> Create account  </a>
+                                    <a href="{{ route('registerGet') }}" class="tablinks uk-text-bold"> Create account  </a>
                                 </div>
                                 <div class="uk-flex-middle" uk-grid>
                                     <div class="uk-width-expand@m">

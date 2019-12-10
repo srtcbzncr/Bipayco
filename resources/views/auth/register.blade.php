@@ -35,7 +35,7 @@
                     <h5 class="uk-margin-small uk-text-muted uk-text-bold uk-text-nowrap"> Bilgi Paylaştıkça Çoğalır. </h5>
                 </div>
                 <div>
-                    <form method="POST" action="{{ route('registerGet') }}">
+                    <form method="POST" action="{{ route('registerPost') }}">
                         @csrf
                         <div class="uk-card-default uk-padding uk-card-small">
                             <div id="register" class="tabcontent animation: uk-animation-slide-left-medium">
@@ -142,7 +142,7 @@
                                         <input class="uk-button uk-button-success button" type="submit" value="{{ __('Register') }}">
                                     </div>
                                     <div class="uk-width-auto@m">
-                                        <span class="uk-text-small"> Already registered? <a href="{{ route('loginPost') }}" class="tablinks uk-text-bold" > Sign in </a>  </span>
+                                        <span class="uk-text-small"> Already registered? <a href="{{ route('loginGet') }}" class="tablinks uk-text-bold" > Sign in </a>  </span>
                                     </div>
                                 </div>
                             </div>
