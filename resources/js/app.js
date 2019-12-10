@@ -22,7 +22,40 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('course-card', require('./components/course-card.vue').default);
 Vue.component('top-bar', require('./components/top-bar/top-bar.vue').default);
 Vue.component('side-bar', require('./components/side-bar/side-bar.vue').default);
+Vue.component('provinces', {
+    data:
+        function () {
+        return {
+            items: [],
+            selected:'',
+        }
+    },
+    computed:{
+      placeHolder: function () {
+        return this.selected;
+      },
+    },
+    template:"<select class='uk-select' v-model='selected' required><option v-for='item in items' :value='item.value'>{{item.label}} </option> </select>",
+});
+Vue.component('districts', {
+    data:function () {
+            return {
+                items: [{
+                    label: 'naber',
+                    value: 1
+                }, {
+                    label: 'nasılsın',
+                    value: 2
+                }],
+                selected:'',
+            }
+        },
+    methods:{
 
+    },
+    template:"<select class='uk-select' name='district_id' v-model='selected' required><option v-for='item in items' :value='item.value'>{{item.label}} </option> </select>",
+});
+/*<option value='' disabled selected hidden>@lang('front/auth.district')</option>*/
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

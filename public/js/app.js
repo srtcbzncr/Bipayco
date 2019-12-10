@@ -14948,6 +14948,38 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('example-component', __webp
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('course-card', __webpack_require__(/*! ./components/course-card.vue */ "./resources/js/components/course-card.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('top-bar', __webpack_require__(/*! ./components/top-bar/top-bar.vue */ "./resources/js/components/top-bar/top-bar.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('side-bar', __webpack_require__(/*! ./components/side-bar/side-bar.vue */ "./resources/js/components/side-bar/side-bar.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('provinces', {
+  data: function data() {
+    return {
+      items: [],
+      selected: ''
+    };
+  },
+  computed: {
+    placeHolder: function placeHolder() {
+      return this.selected;
+    }
+  },
+  template: "<select class='uk-select' v-model='selected' required><option v-for='item in items' :value='item.value'>{{item.label}} </option> </select>"
+});
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('districts', {
+  data: function data() {
+    return {
+      items: [{
+        label: 'naber',
+        value: 1
+      }, {
+        label: 'nasılsın',
+        value: 2
+      }],
+      selected: ''
+    };
+  },
+  methods: {},
+  template: "<select class='uk-select' name='district_id' v-model='selected' required><option v-for='item in items' :value='item.value'>{{item.label}} </option> </select>"
+});
+/*<option value='' disabled selected hidden>@lang('front/auth.district')</option>*/
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
