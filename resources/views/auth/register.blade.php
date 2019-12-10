@@ -25,106 +25,98 @@
     <link href="{{asset('css/uikit.css')}}" rel="stylesheet">
 </head>
 <body>
-<div id="app">
+<div id="app1">
     <div uk-height-viewport="offset-top: true; offset-bottom: true" class="uk-flex uk-flex-middle">
         <div class="uk-width-2-3@m uk-width-1-2@s uk-margin-auto  border-radius-6 ">
             <div class="uk-child-width-1-2@m uk-background-grey uk-grid-collapse" uk-grid>
                 <div class="uk-text-middle uk-margin-auto-vertical uk-text-center uk-padding-small uk-animation-scale-up">
                     <p> <i class="fas fa-graduation-cap uk-text-white" style="font-size:60px"></i> </p>
                     <h1><a href="{{ route('home') }}" class="uk-text-white uk-margin-small" style="text-decoration: none;">Bipayco</a> </h1>
-                    <h5 class="uk-margin-small uk-text-muted uk-text-bold uk-text-nowrap"> Bilgi Paylaştıkça Çoğalır. </h5>
+                    <!--<h5 class="uk-margin-small uk-text-muted uk-text-bold uk-text-nowrap">'front/auth.bipayco_description'</h5>-->
                 </div>
                 <div>
-                    <form method="POST" action="{{ route('registerGet') }}">
+                    <form method="POST" action="{{ route('registerPost') }}">
                         @csrf
                         <div class="uk-card-default uk-padding uk-card-small">
                             <div id="register" class="tabcontent animation: uk-animation-slide-left-medium">
-                                <h2 class="uk-text-bold"> {{ __('Register') }} </h2>
-                                <p class="uk-text-muted uk-margin-remove-top uk-margin-small-bottom"> Create your free account</p>
-                                <div class="uk-form-label">{{ __('Name') }}</div>
-                                <div class="uk-inline">
-                                    <span class="uk-form-icon"><i class="far fa-User icon-medium"></i></span>
-                                    <input id="name" class="uk-input uk-form-width-large form-control @error('name') is-invalid @enderror" name="first_name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Full name" type="text">
-                                    @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="uk-inline">
-                                    <span class="uk-form-icon"><i class="far fa-User icon-medium"></i></span>
-                                    <input id="name" class="uk-input uk-form-width-large form-control @error('name') is-invalid @enderror" name="last_name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Full name" type="text">
-                                    @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="uk-form-label">Username</div>
-                                <div class="uk-inline">
-                                    <span class="uk-form-icon"><i class="far fa-User icon-medium"></i></span>
-                                    <input id="name" class="uk-input uk-form-width-large form-control @error('name') is-invalid @enderror" name="username" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Full name" type="text">
-                                    @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="uk-form-label">Phone</div>
-                                <div class="uk-inline">
-                                    <span class="uk-form-icon"><i class="far fa-User icon-medium"></i></span>
-                                    <input id="name" class="uk-input uk-form-width-large form-control @error('name') is-invalid @enderror" name="phone_number" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Full name" type="text">
-                                    @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div class="uk-form-label">{{ __('E-Mail Address') }}</div>
-                                <div class="uk-inline">
-                                    <span class="uk-form-icon"><i class="far fa-envelope icon-medium"></i></span>
-                                    <input id="email" class="uk-input uk-form-width-large form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="name@example.com" type="text">
-                                    @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <form class="uk-child-width-1-2@m uk-grid-small" uk-grid>
+                                <h2 class="uk-text-bold">  @lang('front/auth.register')  </h2>
+                                <p class="uk-text-muted uk-margin-remove-top uk-margin-small-bottom">@lang('front/auth.register_description')</p>
+                                <div class="uk-child-width-1-2 uk-grid">
                                     <div>
-                                        <div class="uk-form-label">{{ __('Password') }}</div>
-                                        <input class="uk-input uk-form-width-large form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Password" type="Password" id="password-1">
+                                        <input id="first_name" class="uk-input form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="first_name" autofocus placeholder=" @lang('front/auth.first_name') " type="text">
+                                        @error('first_name')
+                                        <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div>
+                                        <input id="last_name" class="uk-input form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus placeholder=" @lang('front/auth.last_name') " type="text">
+                                        @error('last_name')
+                                        <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="uk-child-width-1-2 uk-grid uk-margin-small">
+                                    <div>
+                                        <input id="email" class="uk-input form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="@lang('front/auth.email')" type="text">
+                                        @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div>
+                                        <input id="phone_number" class="uk-input form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ old('phone_number') }}" required autocomplete="phone_number" autofocus placeholder="@lang('front/auth.phone_number')" type="text">
+                                        @error('phone_number')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="uk-child-width-1-2 uk-grid uk-margin-small">
+                                    <div>
+                                        <provinces></provinces>
+                                    </div>
+                                    <div>
+                                        <districts></districts>
+                                    </div>
+                                </div>
+                                <div class="uk-child-width-1-2 uk-grid uk-margin-small">
+                                    <div>
+                                        <input id="username" class="uk-input form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="@lang('front/auth.username')" type="text">
+                                        @error('username')
+                                        <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div>
+                                        <input class="uk-input form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="@lang('front/auth.password')" type="Password" id="password-1">
+                                        <a class="uk-icon-eye"></a>
                                         @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                         @enderror
                                     </div>
-                                    <div>
-                                        <div class="uk-form-label">{{ __('Confirm Password') }}</div>
-                                        <input class="uk-input uk-form-width-large form-control" name="password_confirmation" required autocomplete="new-password" placeholder="Password" type="Password"  id="password-2">
-                                    </div>
-                                </form>
-                                <div>
-                                    <label>
-                                        <input class="uk-checkbox" type="checkbox" data-show-pw="#password-1 ,#password-2">
-                                        <span class="checkmark uk-text-small"> Show passwords </span>
-                                    </label>
-                                </div>,
-                                <input type="text" value="1" name="district_id">
+                                </div>
                                 <div class="uk-margin">
                                     <label>
                                         <input class="uk-checkbox" type="checkbox" checked>
                                         <span class="checkmark uk-text-small"> I agree to the </span>
-                                        <a href="#modal-overflow" class="uk-text-bold uk-text-small" uk-toggle> Terms and Conditions  </a>
+                                        <a href="#modal-overflow" class="uk-text-bold uk-text-small" uk-toggle> Terms and Conditions </a>
                                     </label>
                                 </div>
                                 <div class=" uk-flex-middle" uk-grid>
                                     <div class="uk-width-expand@m">
-                                        <input class="uk-button uk-button-success button" type="submit" value="{{ __('Register') }}">
+                                        <input class="uk-button uk-button-success button" type="submit" value="@lang('front/auth.register')">
                                     </div>
                                     <div class="uk-width-auto@m">
-                                        <span class="uk-text-small"> Already registered? <a href="{{ route('loginGet') }}" class="tablinks uk-text-bold" > Sign in </a>  </span>
+                                        <span class="uk-text-small"> @lang('front/auth.registered') <a href="{{ route('loginGet') }}" class="tablinks uk-text-bold" >@lang('front/auth.sign_in')</a>  </span>
                                     </div>
                                 </div>
                             </div>
@@ -135,5 +127,8 @@
         </div>
     </div>
 </div>
+<script>
+
+</script>
 </body>
 </html>
