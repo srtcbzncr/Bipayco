@@ -29,4 +29,5 @@ return [
     'dont_have_account'=>'Üye değil misin?',
     'registered'=>'Hesabınız var mı?',
     'province'=>'İl',
+    'district'=>'İlçe',
 ];

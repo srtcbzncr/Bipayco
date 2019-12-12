@@ -28,5 +28,6 @@ return [
     'phone_number'=>'Phone Number',
     'dont_have_account'=>'Don\'t have an account?',
     'registered'=>'Already registered?',
-    'province'=>'Province'
+    'province'=>'Province',
+    'district'=>'District'
 ];
