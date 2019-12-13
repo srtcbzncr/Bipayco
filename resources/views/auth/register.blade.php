@@ -77,14 +77,7 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="uk-child-width-1-2 uk-grid uk-margin-small">
-                                    <div>
-                                        <provinces></provinces>
-                                    </div>
-                                    <div>
-                                        <districts></districts>
-                                    </div>
-                                </div>
+                                <provinces city-default="@lang('front/auth.province')" district-default="@lang('front/auth.district')"></provinces>
                                 <div class="uk-child-width-1-2 uk-grid uk-margin-small">
                                     <div>
                                         <input id="username" class="uk-input form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="@lang('front/auth.username')" type="text">
@@ -106,7 +99,7 @@
                                 </div>
                                 <div class="uk-margin">
                                     <label>
-                                        <input class="uk-checkbox" type="checkbox" checked>
+                                        <input class="uk-checkbox" type="checkbox" required>
                                         <span class="checkmark uk-text-small"> I agree to the </span>
                                         <a href="#modal-overflow" class="uk-text-bold uk-text-small" uk-toggle> Terms and Conditions </a>
                                     </label>
