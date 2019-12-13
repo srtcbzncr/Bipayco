@@ -26,16 +26,18 @@
     <link href="{{asset('css/uikit.css')}}" rel="stylesheet">
     <link href="{{asset('css/dropzone.css')}}" rel="stylesheet">
     <link href="{{asset('css/main.css')}}" rel="stylesheet">
-    <link href="{{asset('css/frontawesome.css')}}" rel="stylesheet">
+    <link href="{{asset('css/fontawesome.css')}}" rel="stylesheet">
 </head>
 <body>
 <div id="app1">
     <div class="side-nav uk-animation-slide-left-medium" id="side-nav">
-        <!--Mobile icon wiill close nav-side   -->
         <span class="uk-animation-fade tm-mobile-close-icon" uk-toggle="target: #side-nav; cls: side-nav-active"> <i class="fas fa-times icon-large"></i></span>
-        <side-bar></side-bar>
+        <side-bar/>
     </div>
-    <div id="app">
+    <div id="spinneroverlay">
+        <div class="spinner"></div>
+    </div>
+    <div class="app">
         <main class="py-4">
             <top-bar></top-bar>
             @yield('content')

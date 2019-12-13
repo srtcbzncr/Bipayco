@@ -7,36 +7,36 @@ body {
     font-family: proxima;
     font-style: normal;
     font-weight: 300;
-    src: url(../../../../../Desktop/bipayco-proje/src/assets/fonts/proxima-soft.woff2)
+    src: url(../fonts/proxima-soft.woff2)
     format('woff2'),
-    url(../../../../../Desktop/bipayco-proje/src/assets/fonts/proxima-soft.woff) format('woff');
+    url(../fonts/proxima-soft.woff) format('woff');
 }
 
 @font-face{
     font-family: proxima;
     font-style: normal;
     font-weight: 100;
-    src: url(../../../../../Desktop/bipayco-proje/src/assets/fonts/proxima-soft-light.woff)
+    src: url(../fonts/proxima-soft-light.woff)
     format('woff2'),
-    url(../../../../../Desktop/bipayco-proje/src/assets/fonts/proxima-soft-light.woff2) format('woff');
+    url(../fonts/proxima-soft-light.woff2) format('woff');
 }
 
 @font-face{
     font-family: proxima;
     font-style: normal;
     font-weight: 700;
-    src: url(../../../../../Desktop/bipayco-proje/src/assets/fonts/proxima-soft-bold.woff)
+    src: url(../fonts/proxima-soft-bold.woff)
     format('woff2'),
-    url(../../../../../Desktop/bipayco-proje/src/assets/fonts/proxima-soft-bold.woff2) format('woff');
+    url(../fonts/proxima-soft-bold.woff2) format('woff');
 }
 
 @font-face{
     font-family: proxima;
     font-style: normal;
     font-weight: 600;
-    src: url(../../../../../Desktop/bipayco-proje/src/assets/fonts/proxima-soft-medium.woff)
+    src: url(../fonts/proxima-soft-medium.woff)
     format('woff2'),
-    url(../../../../../Desktop/bipayco-proje/src/assets/fonts/proxima-soft-medium.woff) format('woff');
+    url(../fonts/proxima-soft-medium.woff) format('woff');
 }
 
 
@@ -541,7 +541,7 @@ header .uk-navbar {
     margin-top: -60px;
     background-size: contain;
     padding-top: 90px;
-    background-image: url(../../../../../Desktop/bipayco-proje/src/assets/images/backgrounds/course-dhashboard-bg.jpg);
+    background-image: url(../images/backgrounds/course-dhashboard-bg.jpg);
     background-position: center bottom;
     background-repeat: no-repeat;
 }
@@ -557,7 +557,7 @@ header .uk-navbar {
 }
 
 .course-video-demo:after {
-    background: url(../../../../../Desktop/bipayco-proje/src/assets/images/backgrounds/course-video-demo-after.png) no-repeat;
+    background: url(../images/backgrounds/course-video-demo-after.png) no-repeat;
     content: '';
     position: absolute;
     right: 15px;
@@ -568,7 +568,7 @@ header .uk-navbar {
 }
 
 .course-video-demo:before {
-    background: url(../../../../../Desktop/bipayco-proje/src/assets/images/backgrounds/course-video-demo-before.png) no-repeat;
+    background: url(../images/backgrounds/course-video-demo-before.png) no-repeat;
     content: '';
     position: absolute;
     left: 24px;
@@ -849,7 +849,7 @@ header .tm-mobile-header .uk-logo {
     width: 101%;
     height: 153px;
     content: '';
-    background: url(../../../../../Desktop/bipayco-proje/src/assets/images/backgrounds/box-rotate-bg.jpg) no-repeat scroll center center/100% 100% border-box;
+    background: url(../images/backgrounds/box-rotate-bg.jpg) no-repeat scroll center center/100% 100% border-box;
 }
 
 .demo-video-resize {
@@ -1577,7 +1577,7 @@ Infobox
 }
 
 .info-box-hero {
-    background-image: url("../../../../../Desktop/bipayco-proje/src/assets/images/backgrounds/banner-curve.png");
+    background-image: url("../images/backgrounds/banner-curve.png");
     background-position: center bottom;
     background-size: contain;
     background-repeat: no-repeat;
@@ -2356,12 +2356,12 @@ Night Mood
     color: white !important
 }
 .night-mode .uk-subnav-pill > .uk-active > a:before {
-    background: url(../../../../../Desktop/bipayco-proje/src/assets/images/backgrounds/tab-border-left-dark.png) no-repeat ;
+    background: url(../images/backgrounds/tab-border-left-dark.png) no-repeat ;
     background-size: cover;
 }
 
 .night-mode .uk-subnav-pill > .uk-active > a:after {
-    background: url(../../../../../Desktop/bipayco-proje/src/assets/images/backgrounds/tab-border-right-dark.png) no-repeat ;
+    background: url(../images/backgrounds/tab-border-right-dark.png) no-repeat ;
     background-size: cover;
 }
 
@@ -2523,7 +2523,7 @@ Night Mood
 }
 
 .night-mode .course-dhashboard {
-    background-image: url("../../../../../Desktop/bipayco-proje/src/assets/images/backgrounds/course-dhashboard-bg-dark.jpg")  !important;
+    background-image: url("../images/backgrounds/course-dhashboard-bg-dark.jpg")  !important;
     background-position: center bottom  !important;
     background-repeat: no-repeat  !important;
 }

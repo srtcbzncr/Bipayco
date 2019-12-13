@@ -16,12 +16,7 @@
             <span class="uk-hidden@m tm-mobile-user-close-icon uk-align-right" uk-toggle="target: #tm-show-on-mobile; cls: tm-show-on-mobile-active"><i class="fas fa-times icon-large"></i></span>
             <ul class="uk-navbar-nav uk-flex-middle">
                 <li>
-                    <a class="uk-navbar-toggle" href="#"><i class="fas fa-search icon-medium"></i></a>
-                    <div class="uk-drop" uk-drop="mode: click; pos: left-center; offset: 0">
-                        <form class="uk-search uk-search-navbar uk-width-1-1">
-                            <input class="uk-search-input" type="search" placeholder="Search..." autofocus>
-                        </form>
-                    </div>
+                    <a href="#modal-full" uk-toggle><i class="fas fa-search icon-medium"></i></a>
                 </li>
                 <li>
                     <!-- your courses -->
@@ -118,6 +113,15 @@
                     <user-profile-dropdown-nav/>
                 </li>
             </ul>
+        </div>
+        <div id="modal-full" class="uk-modal-full uk-modal uk-animation-scale-down" uk-modal>
+            <div class="uk-modal-dialog uk-flex uk-flex-center" uk-height-viewport>
+                <button class="uk-modal-close-full" type="button" uk-close></button>
+                <form class="uk-search uk-margin-xlarge-top uk-search-large uk-animation-slide-bottom-medium">
+                    <i class="fas fa-search uk-position-absolute uk-margin-top icon-xxlarge"></i>
+                    <input class="uk-search-input uk-margin-large-left" type="search" placeholder="Search..." autofocus>
+                </form>
+            </div>
         </div>
     </nav>
 </template>
