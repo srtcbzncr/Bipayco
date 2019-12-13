@@ -36,10 +36,16 @@
                 <div>
                     <div class="uk-card-default uk-padding uk-card-small">
                         <form method="POST" action="{{ route('loginPost') }}">
+                            @csrf
                             <!-- Login tab tab -->
                             <div id="login" class="tabcontent tab-default-open animation: uk-animation-slide-right-medium">
                                 <h2 class="uk-text-bold">@lang('front/auth.login')</h2>
                                 <p class="uk-text-muted uk-margin-remove-top uk-margin-small-bottom">@lang('front/auth.login_description')</p>
+                                @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
                                 <div class="uk-inline uk-margin-small">
                                     <input id="email" type="email" class="uk-input uk-form-width-large form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="@lang('front/auth.email')" required autocomplete="email" autofocus>
                                     @error('email')

@@ -7,7 +7,7 @@
             </select>
         </div>
         <div>
-            <select class="uk-select" required>
+            <select class="uk-select" name="district_id" required>
                 <option disabled hidden selected value="">{{districtDefault}}</option>
                 <option v-for='district in districts' :value='district.id'>{{district.name}}</option>
             </select>

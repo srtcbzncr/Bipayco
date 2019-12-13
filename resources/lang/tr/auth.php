@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'login_failed' => 'Mail adresiniz veya şifreniz hatalı. Lütfen tekrar deneyin.',
+    'login_failed' => 'E-posta adresi veya şifre hatalı',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'create_profile_failed' => 'Profil oluşturma işlemi başarısız.',
     'register_failed' => ''

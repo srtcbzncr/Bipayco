@@ -24,12 +24,26 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'username' => 'required|unique:auth_users',
-            'email' => 'required|unique:auth_users',
-            'phone_number' => 'required|numeric',
+            'first_name' => 'required|max:100',
+            'last_name' => 'required|max:100',
+            'username' => 'required|unique:auth_users|max:50',
+            'email' => 'required|unique:auth_users|max:191',
+            'phone_number' => 'required|numeric|',
             'district_id' => 'required|numeric|exists:bs_districts,id',
+            'password' => 'required'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'first_name' => __('attributes.first_name'),
+            'last_name' => __('attributes.last_name'),
+            'username' => __('attributes.username'),
+            'email' => __('attributes.email'),
+            'phone_number' => __('attributes.phone_number'),
+            'district_id' => __('attributes.district'),
+            'password' => __('attributes.password'),
         ];
     }
 }

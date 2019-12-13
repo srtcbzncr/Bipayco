@@ -17,8 +17,8 @@ class AuthController extends Controller
         return view('auth.register');
     }
 
-    public function registerPost(RegisterRequest $request){
-
+    public function registerPost(RegisterRequest $request)
+    {
         // Validation
         $validatedData = $request->validated();
 
@@ -28,34 +28,39 @@ class AuthController extends Controller
         // Operations
         $resp = $repo->create($validatedData);
         if($resp->getResult()){
-            return redirect('home', 200);
+            return redirect()->route('home');
         }
-        else{
-            error_log($resp->getError()->getMessage());
-            return redirect()->back()->withErrors('error_message', $resp->getError()->getMessage());
+        else {
+            return redirect()->back()->with('error', __('auth.register_failed'));
         }
-
     }
 
     public function loginGet(){
-        return view('auth.login');
+        if(Auth::check()){
+            return redirect()->route('home');
+        }
+        else{
+            return view('auth.login');
+        }
     }
 
     public function loginPost(LoginRequest $request){
         // Validation
         $validatedData = $request->validated();
 
+        $remember = false;
+        if(in_array('remember', $validatedData)){
+            if($validatedData['remember'] == 'on'){
+                $remember = true;
+            }
+        }
+
         // Operations
-        if(Auth::check()){
-            return redirect('home', 200);
+        if(Auth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password']], $remember)){
+            return redirect()->route('home');
         }
         else{
-            if(Auth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password']], $validatedData['remember'])){
-                return redirect('home', 200);
-            }
-            else{
-                return redirect()->back()->withErrors('error_message', __('auth.login_failed'));
-            }
+            return redirect()->back()->with('error', __('auth.login_failed'));
         }
     }
 }

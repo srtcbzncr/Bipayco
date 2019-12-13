@@ -40,6 +40,11 @@
                         <div class="uk-card-default uk-padding uk-card-small">
                             <div id="register" class="tabcontent animation: uk-animation-slide-left-medium">
                                 <h2 class="uk-text-bold">  @lang('front/auth.register')  </h2>
+                                @if (session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
                                 <p class="uk-text-muted uk-margin-remove-top uk-margin-small-bottom">@lang('front/auth.register_description')</p>
                                 <div class="uk-child-width-1-2 uk-grid">
                                     <div>
@@ -88,7 +93,7 @@
                                         @enderror
                                     </div>
                                     <div>
-                                        <input class="uk-input form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="@lang('front/auth.password')" type="Password" id="password-1">
+                                        <input id="password" class="uk-input form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password" placeholder="@lang('front/auth.password')" type="password">
                                             <a class="uk-icon-eye"></a>
                                         @error('password')
                                         <span class="invalid-feedback" role="alert">
