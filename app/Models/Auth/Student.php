@@ -10,7 +10,7 @@ class Student extends Model
     use SoftDeletes;
 
     protected $table = 'auth_students';
-    protected $guarded = ['reference_code'];
+    protected $guarded = ['id', 'reference_code'];
 
     public function guardian(){
         return $this->belongsTo('App\Models\Auth\Guardian');
@@ -22,5 +22,17 @@ class Student extends Model
 
     public function user(){
         return $this->belongsTo('App\Models\Auth\User');
+    }
+
+    public function geCompleted(){
+        return $this->belongsToMany('App\Models\GeneralEducation\Lesson', 'ge_students_completed_lessons', 'student_id', 'lesson_id');
+    }
+
+    public function geEntries(){
+        return $this->hasMany('App\Models\GeneralEducation\Entry');
+    }
+
+    public function gePurchases(){
+        return $this->hasMany('App\Models\GeneralEducation\Purchase');
     }
 }

@@ -10,7 +10,7 @@ class Country extends Model
     use SoftDeletes;
 
     protected $table = 'bs_countries';
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function cities(){
         return $this->hasMany('App\Models\Base\City');

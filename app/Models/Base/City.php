@@ -10,7 +10,7 @@ class City extends Model
     use SoftDeletes;
 
     protected $table = 'bs_cities';
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function country(){
         return $this->belongsTo('App\Models\Base\Country');

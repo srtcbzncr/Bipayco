@@ -10,7 +10,7 @@ class District extends Model
     use SoftDeletes;
 
     protected $table = 'bs_districts';
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function city(){
         return $this->belongsTo('App\Models\Base\City');

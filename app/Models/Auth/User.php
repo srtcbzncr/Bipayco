@@ -64,4 +64,28 @@ class User extends Authenticatable implements MustVerifyEmail
     public function district(){
         return $this->belongsTo('App\Models\Base\District');
     }
+
+    public function geAnswers(){
+        return $this->hasMany('App\Models\GeneralEducation\Answer');
+    }
+
+    public function geComments(){
+        return $this->hasMany('App\Models\GeneralEducation\Comment');
+    }
+
+    public function geFavorites(){
+        return $this->hasMany('App\Models\GeneralEducation\Favorite');
+    }
+
+    public function gePurchases(){
+        return $this->hasMany('App\Models\GeneralEducation\Purchase');
+    }
+
+    public function geQuestions(){
+        return $this->hasMany('App\Models\GeneralEducation\Question');
+    }
+
+    public function geRebates(){
+        return $this->hasMany('App\Models\GeneralEducation\Rebate');
+    }
 }

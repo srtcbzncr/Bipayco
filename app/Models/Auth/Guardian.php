@@ -10,7 +10,7 @@ class Guardian extends Model
     use SoftDeletes;
 
     protected $table = 'auth_guardians';
-    protected $guarded = ['reference_code'];
+    protected $guarded = ['id', 'reference_code'];
 
     public function user(){
         return $this->belongsTo('App\Models\Auth\User');

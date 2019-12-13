@@ -10,7 +10,7 @@ class School extends Model
     use SoftDeletes;
 
     protected $table = 'bs_schools';
-    protected $guarded = ['code'];
+    protected $guarded = ['id', 'manager_reference_code', 'student_reference_code', 'instructor_reference_code'];
 
     public function district(){
         return $this->belongsTo('App\Models\Base\District');

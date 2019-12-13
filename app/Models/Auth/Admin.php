@@ -10,7 +10,7 @@ class Admin extends Model
     use SoftDeletes;
 
     protected $table = 'auth_admins';
-    protected $guarded = ['reference_code'];
+    protected $guarded = ['id', 'reference_code'];
 
     public function authority(){
         return $this->belongsTo('App\Models\Auth\Authority');

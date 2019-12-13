@@ -10,7 +10,7 @@ class Manager extends Model
     use SoftDeletes;
 
     protected $table = 'auth_managers';
-    protected $guarded = ['reference_code'];
+    protected $guarded = ['id', 'reference_code'];
 
     public function school(){
         return $this->belongsTo('App\Models\Base\School');

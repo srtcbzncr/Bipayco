@@ -10,7 +10,7 @@ class Authority extends Model
     use SoftDeletes;
 
     protected $table = 'auth_authorities';
-    protected $guarded = [];
+    protected $guarded = ['id'];
 
     public function admins(){
         return $this->hasMany('App\Models\Auth\Admin');
