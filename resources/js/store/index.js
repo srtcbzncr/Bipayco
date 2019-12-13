@@ -22,8 +22,8 @@ const actions={
        Axios.get('api/city/index')
            .then(response =>commit('setCities',response.data))
     },
-    loadDistricts({commit},id){
-        id=document.getElementById("city").value;
+    loadDistricts({commit}){
+        var id=document.getElementById("city").value;
         Axios.get('api/city/'+id+'/districts')
             .then(response =>commit('setDistricts', response.data))
     }

@@ -3,11 +3,11 @@
     <div id="side-nav">
         <div class="side-nav-bg"></div>
         <div class="uk-navbar-left uk-visible@s">
-            <a class="uk-logo" href="Homepage.html"> <i class="fas fa-graduation-cap"></i> </a>
+            <a class="uk-logo" href="Homepage.html"> <i class="fas fa-graduation-cap"/> </a>
         </div>
         <ul>
             <li>
-                <a href="#"> <i class="fas fa-play"></i> </a>
+                <a href="#"> <i class="fas fa-play"/> </a>
                 <div class="side-menu-slide" style="overflow-y: auto">
                     <div class="side-menu-slide-content" >
                         <ul uk-accordion>
@@ -25,31 +25,32 @@
                 </div>
             </li>
             <li>
-                <a href="books.html" uk-tooltip="title: Books ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"> <i class="fas fa-book-open"></i> </a>
+                <a href="books.html" uk-tooltip="title: Books ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up">
+                    <i class="fas fa-book-open"/> </a>
             </li>
             <li>
                 <!-- scripts -->
-                <a href="#"> <i class="fas fa-code"></i> </a>
+                <a href="#"> <i class="fas fa-code"/> </a>
                 <div class="side-menu-slide">
                     <div class="side-menu-slide-content">
                         <ul>
                             <li>
-                                <a href="Scripts.html"> <i class="fas fa-code icon-medium"></i> Browse All Scripts </a>
+                                <a href="Scripts.html"> <i class="fas fa-code icon-medium"/> Browse All Scripts </a>
                             </li>
                             <li>
-                                <a href="Scripts_single_page.html"> <i class="fab fa-wordpress icon-medium"></i>   Cms Plugins </a>
+                                <a href="Scripts_single_page.html"> <i class="fab fa-wordpress icon-medium"/>   Cms Plugins </a>
                             </li>
                             <li>
-                                <a href="Scripts_single_page.html"> <i class="fab fa-php icon-medium"></i>   PHP Scripts </a>
+                                <a href="Scripts_single_page.html"> <i class="fab fa-php icon-medium"/>   PHP Scripts </a>
                             </li>
                             <li>
-                                <a href="Scripts_single_page.html"> <i class="fab fa-wordpress-simple icon-medium"></i> Cms themes </a>
+                                <a href="Scripts_single_page.html"> <i class="fab fa-wordpress-simple icon-medium"/> Cms themes </a>
                             </li>
                             <li>
-                                <a href="Scripts_single_page.html"> <i class="fab fa-html5 icon-medium"></i> Html templates  </a>
+                                <a href="Scripts_single_page.html"> <i class="fab fa-html5 icon-medium"/> Html templates  </a>
                             </li>
                             <li>
-                                <a href="Scripts_single_page.html"> <i class="fab fa-android icon-medium"></i>  Apps Source codes </a>
+                                <a href="Scripts_single_page.html"> <i class="fab fa-android icon-medium"/>  Apps Source codes </a>
                             </li>
                         </ul>
                     </div>
@@ -163,7 +164,7 @@ export default {
         AccordionMenuTitle
     },
     mounted() {
-        console.log('Component mounted.')
+
     }
 }
 </script>

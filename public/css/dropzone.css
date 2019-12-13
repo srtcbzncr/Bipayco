@@ -183,7 +183,7 @@ dropzone.css/* Dropzone - a custom file upload */
 }
 @media all and (-webkit-min-device-pixel-ratio: 1.5),
 (min--moz-device-pixel-ratio: 1.5),
-(-o-min-device-pixel-ratio: 1.51),
+/*(-o-min-device-pixel-ratio: 1.5px),*/
 (min-device-pixel-ratio: 1.5),
 (min-resolution: 138dpi),
 (min-resolution: 1.5dppx) {
@@ -205,13 +205,13 @@ dropzone.css/* Dropzone - a custom file upload */
 }
 .dropzone.dz-drag-hover .dz-message {
     opacity: .15;
-    -ms-filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=15);
+    /*-ms-filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=15);*/
     filter: alpha(opacity=15)
 }
 .dropzone.dz-started .dz-message {
     display: block;
     opacity: 0;
-    -ms-filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    /*-ms-filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);*/
     filter: alpha(opacity=0)
 }
 .dropzone .dz-preview,
@@ -224,7 +224,7 @@ dropzone.css/* Dropzone - a custom file upload */
 .dropzone-previews .dz-preview.dz-image-preview:hover .dz-details img {
     display: block;
     opacity: .1;
-    -ms-filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=10);
+    /*-ms-filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=10);*/
     filter: alpha(opacity=10)
 }
 .dropzone .dz-preview.dz-success .dz-success-mark,
@@ -249,7 +249,7 @@ dropzone.css/* Dropzone - a custom file upload */
 .dropzone-previews .dz-preview .dz-success-mark {
     display: block;
     opacity: 0;
-    -ms-filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    /*-ms-filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);*/
     filter: alpha(opacity=0);
     -webkit-transition: opacity .4s ease-in-out;
     -moz-transition: opacity .4s ease-in-out;
@@ -260,7 +260,7 @@ dropzone.css/* Dropzone - a custom file upload */
 }
 @media all and (-webkit-min-device-pixel-ratio: 1.5),
 (min--moz-device-pixel-ratio: 1.5),
-(-o-min-device-pixel-ratio: 1.51),
+/*(-o-min-device-pixel-ratio: 1.51),*/
 (min-device-pixel-ratio: 1.5),
 (min-resolution: 138dpi),
 (min-resolution: 1.5dppx) {
@@ -311,7 +311,7 @@ dropzone.css/* Dropzone - a custom file upload */
 }
 @media all and (-webkit-min-device-pixel-ratio: 1.5),
 (min--moz-device-pixel-ratio: 1.5),
-(-o-min-device-pixel-ratio: 1.51),
+/*(-o-min-device-pixel-ratio: 1.5),*/
 (min-device-pixel-ratio: 1.5),
 (min-resolution: 138dpi),
 (min-resolution: 1.5dppx) {
@@ -326,7 +326,7 @@ dropzone.css/* Dropzone - a custom file upload */
 .dropzone-previews .dz-preview.dz-success .dz-progress {
     display: block;
     opacity: 0;
-    -ms-filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    /*-ms-filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);*/
     filter: alpha(opacity=0);
     -webkit-transition: opacity .4s ease-in-out;
     -moz-transition: opacity .4s ease-in-out;
@@ -338,7 +338,7 @@ dropzone.css/* Dropzone - a custom file upload */
 .dropzone-previews .dz-preview .dz-error-message {
     display: block;
     opacity: 0;
-    -ms-filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);
+    /*-ms-filter: progid: DXImageTransform.Microsoft.Alpha(Opacity=0);*/
     filter: alpha(opacity=0);
     -webkit-transition: opacity .3s ease-in-out;
     -moz-transition: opacity .3s ease-in-out;
@@ -406,7 +406,7 @@ dropzone.css/* Dropzone - a custom file upload */
         background-position: -7px -400px
     }
 }
-		
+
 		/** Customized */
 
 .dropzone {

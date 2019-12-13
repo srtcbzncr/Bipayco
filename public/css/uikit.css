@@ -5131,7 +5131,7 @@ ul.uk-nav-sub {
 }
 
 .uk-subnav-pill > .uk-active > a:before {
-    background: url(../../../../../Desktop/bipayco-proje/src/assets/images/backgrounds/tab-border-left.png) no-repeat;
+    background: url(../images/backgrounds/tab-border-left.png) no-repeat;
     background-size: cover;
     content: '';
     position: absolute;
@@ -5146,7 +5146,7 @@ ul.uk-nav-sub {
 }
 
 .uk-subnav-pill > .uk-active > a:after {
-    background: url(../../../../../Desktop/bipayco-proje/src/assets/images/backgrounds/tab-border-right.png) no-repeat;
+    background: url(../images/backgrounds/tab-border-right.png) no-repeat;
     background-size: cover;
     content: '';
     position: absolute;
