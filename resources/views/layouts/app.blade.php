@@ -38,11 +38,69 @@
         <div class="spinner"></div>
     </div>
     <div class="app">
-        <main class="py-4">
+        <main>
             <top-bar></top-bar>
             @yield('content')
+            <app-footer></app-footer>
         </main>
     </div>
 </div>
+<script>
+    (function (window, document, undefined) {
+        'use strict';
+        if (!('localStorage' in window)) return;
+        var nightMode = localStorage.getItem('gmtNightMode');
+        if (nightMode) {
+            document.documentElement.className += ' night-mode';
+        }
+    })(window, document);
+
+
+    (function (window, document, undefined) {
+
+        'use strict';
+
+        // Feature test
+        if (!('localStorage' in window)) return;
+
+        // Get our newly insert toggle
+        var nightMode = document.querySelector('#night-mode');
+        if (!nightMode) return;
+
+        // When clicked, toggle night mode on or off
+        nightMode.addEventListener('click', function (event) {
+            event.preventDefault();
+            document.documentElement.classList.toggle('night-mode');
+            if ( document.documentElement.classList.contains('night-mode') ) {
+                localStorage.setItem('gmtNightMode', true);
+                return;
+            }
+            localStorage.removeItem('gmtNightMode');
+        }, false);
+
+    })(window, document);
+
+    // Preloader
+    var spinneroverlay = document.getElementById("spinneroverlay");
+    window.addEventListener('load', function(){
+      spinneroverlay.style.display = 'none';
+    });
+
+    //scrollTop
+    // When the user scrolls down 20px from the top of the document, show the button
+    /*window.onscroll = function() {scrollFunction()};
+    function scrollFunction() {
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("scrollTop").style.display = "block";
+      } else {
+        document.getElementById("scrollTop").style.display = "none";
+      }
+    }
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }*/
+</script>
 </body>
 </html>

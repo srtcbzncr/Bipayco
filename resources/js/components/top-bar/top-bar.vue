@@ -1,6 +1,6 @@
 <template>
     <!--  Top bar nav -->
-    <nav class="uk-navbar-transparent tm-mobile-header uk-animation-slide-top uk-position-z-index" uk-navbar>
+    <nav class=" tm-mobile-header uk-animation-slide-top uk-background-blend-lighten uk-position-z-index" uk-navbar >
         <!-- mobile icon for side nav on nav-mobile-->
         <span class="uk-hidden@m tm-mobile-menu-icon" uk-toggle="target: #side-nav; cls: side-nav-active"><i class="fas fa-bars icon-large"></i></span>
         <!-- mobile icon for user icon on nav-mobile -->
@@ -11,7 +11,7 @@
             <a class="uk-navbar-item back-to-dashboard uk-button-text " href="#" uk-tooltip="title: back-to-dashboard ; delay: 700 ; pos: bottom-left ;animation:	uk-animation-scale-up">My Dashboard</a>
             <a class="uk-navbar-item back-to-dashboard uk-button-text " href="#">Browse Books</a>
         </div>
-        <div class="uk-navbar-right tm-show-on-mobile uk-flex-right" id="tm-show-on-mobile">
+        <div class="uk-navbar-right tm-show-on-mobile uk-flex-right" id="tm-show-on-mobile" >
             <!-- this will clouse after display user icon -->
             <span class="uk-hidden@m tm-mobile-user-close-icon uk-align-right" uk-toggle="target: #tm-show-on-mobile; cls: tm-show-on-mobile-active"><i class="fas fa-times icon-large"></i></span>
             <ul class="uk-navbar-nav uk-flex-middle">
@@ -76,7 +76,7 @@
                     <!-- Notifications -->
                     <a href="#"><i class="fas fa-bell icon-large"></i></a>
                     <div uk-dropdown="pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small" class="uk-dropdown uk-dropdown-top-right  tm-dropdown-small border-radius-6 uk-padding-remove uk-box-shadow-large angle-top-right">
-                        <h5 class="uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"> Notivications </h5>
+                        <h5 class="uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"> Notifications </h5>
                         <a href="#" class="uk-position-top-right uk-link-reset"> <i class="fas fa-trash uk-align-right   uk-text-small uk-padding-small"> Clear all</i></a>
                         <hr class=" uk-margin-remove">
                         <div class="uk-text-left uk-height-medium">

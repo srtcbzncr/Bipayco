@@ -24,9 +24,12 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('course-card', require('./components/course-card.vue').default);
-Vue.component('provinces', require('./components/province.vue').default);
+Vue.component('provinces', require('./components/auth/province.vue').default);
 Vue.component('top-bar', require('./components/top-bar/top-bar.vue').default);
 Vue.component('side-bar', require('./components/side-bar/side-bar.vue').default);
+Vue.component('app-footer', require('./components/footer/footer.vue').default);
+Vue.component('registered-profile', require('./components/admin/registered-profile.vue').default);
+Vue.component('comment', require('./components/admin/comment.vue').default);
 
 /*<option value='' disabled selected hidden>@lang('front/auth.district')</option>*/
 /**
