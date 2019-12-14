@@ -22,7 +22,7 @@ return [
     'alpha_num' => ':attribute sadece harf ve rakam içerebilir.',
     'array' => ':attribute bir dizi olmalıdır.',
     'before' => ':attribute :date tarihinden daha önce bir tarih olmalıdır.',
-    'before_or_equal' => ':attribute en geç :date tarihi olabilir.',,
+    'before_or_equal' => ':attribute en geç :date tarihi olabilir.',
     'between' => [
         'numeric' => ':attribute en az :min, en fazla :max olabilir.',
         'file' => ':attribute en az :min, en fazla :max kilobytes olabilir.',

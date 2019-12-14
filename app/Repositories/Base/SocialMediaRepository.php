@@ -4,6 +4,7 @@ namespace App\Repositories\Base;
 
 use App\Repositories\IRepository;
 use App\Models\Base\SocialMedia;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Repositories\RepositoryResponse;
 
@@ -134,13 +135,16 @@ class SocialMediaRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $object = SocialMedia::find($id);
             Storage::delete($object->symbol);
             $symbolPath = Storage::putFile('symbols', $data['symbol']);
             $object->symbol = $symbolPath;
             $object->save();
+            DB::commit();
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }
