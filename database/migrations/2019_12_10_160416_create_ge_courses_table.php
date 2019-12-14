@@ -22,9 +22,9 @@ class CreateGeCoursesTable extends Migration
             $table->string('description', 500);
             $table->unsignedInteger('access_time')->default(12); // Month
             $table->boolean('certificate')->default(true);
-            $table->unsignedInteger('long'); // Hour
+            $table->unsignedInteger('long')->default(0); // Hour
             $table->float('price');
-            $table->boolean('active')->default(true);
+            $table->boolean('active')->default(false);
             $table->timestamps();
             $table->softDeletes();
 

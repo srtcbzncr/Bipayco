@@ -18,7 +18,7 @@ class CreateGeEntriesTable extends Migration
             $table->unsignedBigInteger('course_id');
             $table->unsignedBigInteger('student_id');
             $table->timestamp('access_start');
-            $table->timestamp('access_finish');
+            $table->timestamp('access_finish')->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();

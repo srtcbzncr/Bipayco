@@ -18,7 +18,7 @@ class CreateGeSectionsTable extends Migration
             $table->unsignedBigInteger('course_id');
             $table->unsignedInteger('no');
             $table->string('name', 100);
-            $table->boolean('active')->default(true);
+            $table->boolean('active')->default(false);
             $table->timestamps();
             $table->softDeletes();
 

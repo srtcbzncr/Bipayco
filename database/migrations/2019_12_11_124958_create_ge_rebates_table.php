@@ -18,7 +18,8 @@ class CreateGeRebatesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('purchase_id');
             $table->float('price');
-            $table->boolean('confirmation');
+            $table->boolean('confirmation')->default(false);
+            $table->dateTime('confirmation_date')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
