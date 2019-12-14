@@ -17,7 +17,7 @@ Route::post('register', 'Auth\AuthController@registerPost')->name('registerPost'
 Route::get('login', 'Auth\AuthController@loginGet')->name('loginGet');
 Route::post('login', 'Auth\AuthController@loginPost')->name('loginPost');
 
-Route::prefix('admin')->group(function{
+Route::prefix('admin')->group(function(){
    Route::get('/', 'Admin\HomeController@dashboard')->name('adminDashboard');
 });
 
