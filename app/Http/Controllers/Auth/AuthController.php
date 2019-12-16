@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\UpdateAvatarRequest;
+use App\Http\Requests\UpdatePasswordRequest;
+use App\Http\Requests\UpdatePersonalDataRequest;
 use App\Models\Auth\User;
 use App\Repositories\Auth\UserRepository;
 use Illuminate\Http\Request;
@@ -66,44 +69,43 @@ class AuthController extends Controller
 
     public function settings()
     {
-        $user = Auth::user();
         $student = false;
         $instructor = false;
         $guardian = false;
         $manager = false;
         $admin = false;
-        if($user->student != null){
+        if(Auth::user()->student != null){
             $student = true;
         }
-        if($user->instructor != null){
+        if(Auth::user()->instructor != null){
             $instructor = true;
         }
-        if($user->guardian != null){
+        if(Auth::user()->guardian != null){
             $guardian = true;
         }
-        if($user->manager != null){
+        if(Auth::user()->manager != null){
             $manager = true;
         }
-        if($user->admin != null){
+        if(Auth::user()->admin != null){
             $admin = true;
         }
         $data = [
-            'user' => $user,
+            'user' => Auth::user(),
             'has_student_profile' => $student,
-            'student_profile' => $user->student,
+            'student_profile' => Auth::user()->student,
             'has_instructor_profile' => $instructor,
-            'instructor_profile' => $user->instructor,
+            'instructor_profile' => Auth::user()->instructor,
             'has_guardian_profile' => $guardian,
-            'guardian_profile' => $user->guardian,
+            'guardian_profile' => Auth::user()->guardian,
             'has_manager_profile' => $manager,
-            'manager_profile' => $user->manager,
+            'manager_profile' => Auth::user()->manager,
             'has_admin_profile' => $admin,
-            'admin_profile' => $user->admin,
+            'admin_profile' => Auth::user()->admin,
         ];
         return view('auth.settings', $data);
     }
 
-    public function updatePersonalData(UpdatePersonalDataRequest $request, $id)
+    public function updatePersonalData(UpdatePersonalDataRequest $request)
     {
         // Validation
         $validatedData = $request->validated();
@@ -121,7 +123,7 @@ class AuthController extends Controller
         }
     }
 
-    public function updateAvatar(UpdateAvatarRequest $request, $id)
+    public function updateAvatar(UpdateAvatarRequest $request)
     {
         // Validation
         $validatedData = $request->validated();
@@ -139,7 +141,7 @@ class AuthController extends Controller
         }
     }
 
-    public function updatePassword(UpdatePasswordRequest $request, $id)
+    public function updatePassword(UpdatePasswordRequest $request)
     {
         // Validation
         $validatedData = $request->validated();

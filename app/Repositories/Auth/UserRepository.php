@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
-class UserRepository implements IRepository{
+class UserRepository{
 
     /**
      * Return all users.
@@ -102,7 +102,7 @@ class UserRepository implements IRepository{
         return $resp;
     }
 
-    public function update($id, array $data)
+    public function update(array $data)
     {
         // Response variables
         $result = true;
@@ -111,7 +111,7 @@ class UserRepository implements IRepository{
 
         // Operations
         try{
-            $object = User::find($id);
+            $object = Auth::user();
             $object->district_id = $data['district_id'];
             $object->first_name = $data['first_name'];
             $object->last_name = $data['last_name'];
@@ -135,7 +135,7 @@ class UserRepository implements IRepository{
      * @param  int @id, array @data
      * @return App\Repositories\RepositoryResponse
      */
-    public function updatePassword($id, array $data){
+    public function updatePassword(array $data){
         // Response variables
         $result = true;
         $error = null;
@@ -143,7 +143,7 @@ class UserRepository implements IRepository{
 
         // Operations
         try{
-            $object = User::find($id);
+            $object = Auth::user();
             if(Hash::check($data['old_password'], $object->password)){
                 $object->password = Hash::make($data['new_password']);
                 $object->save();
@@ -169,7 +169,7 @@ class UserRepository implements IRepository{
      * @param  int @id, array @data
      * @return App\Repositories\RepositoryResponse
      */
-    public function updateAvatar($id, array $data)
+    public function updateAvatar(array $data)
     {
         // Response variables
         $result = true;
@@ -178,7 +178,7 @@ class UserRepository implements IRepository{
 
         // Operations
         try{
-            $object = User::find($id);
+            $object = Auth::user();
             if($object->avatar != 'avatars/default.jpg'){
                 Storage::delete($object->avatar);
             }
