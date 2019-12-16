@@ -18,6 +18,7 @@
                                 <li class="tag-personal">
                                     <div class="uk-width-2-3@m">
                                         <form class="uk-grid-small" uk-grid method="POST" action="{{ route('updatePersonalData') }}">
+                                            @csrf
                                             <div class="uk-width-1-2">
                                                 <div class="uk-form-label"> First Name  </div>
                                                 <input class="uk-input" name="first_name" type="text" placeholder="Your Name">
@@ -42,6 +43,7 @@
                                 <li class="tag-photo">
                                     <div class="uk-width-2-3@m">
                                         <form class="uk-grid-small" uk-grid method="POST" action="{{ route('updateAvatar') }}">
+                                            @csrf
                                             <div class="uk-width-1-3@m">
                                                 <p>Your profile photo</p>
                                                 <form action="/file-upload" >
@@ -58,6 +60,7 @@
                                 <li class="tag-security">
                                     <div class="uk-width-2-3@m">
                                         <form class="uk-grid-small" uk-grid method="POST" action="{{ route('updatePassword') }}">
+                                            @csrf
                                             <div class="uk-width-1-2">
                                                 <div class="uk-form-label"> Old Password </div>
                                                 <input class="uk-input" name="old_password" type="password" placeholder="Password">
