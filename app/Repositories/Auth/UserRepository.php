@@ -6,6 +6,7 @@ use App\Repositories\IRepository;
 use App\Models\Auth\User;
 use App\Repositories\RepositoryResponse;
 use App\Repositories\Auth\StudentRepository;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -114,10 +115,42 @@ class UserRepository implements IRepository{
             $object->district_id = $data['district_id'];
             $object->first_name = $data['first_name'];
             $object->last_name = $data['last_name'];
-            $object->username = $data['username'];
             $object->email = $data['email'];
             $object->phone_number = $data['phone_number'];
-            $object->password = Hash::make($data['password']);
+            $object->save();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    /**
+     * Update a user's password.
+     *
+     * @param  int @id, array @data
+     * @return App\Repositories\RepositoryResponse
+     */
+    public function updatePassword($id, array $data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = User::find($id);
+            if(Hash::check($data['old_password'], $object->password)){
+                $object->password = Hash::make($data['new_password']);
+                $object->save();
+            }
+            else{
+                throw new \Exception(__('auth.password_not_correct'));
+            }
             $object->save();
         }
         catch(\Exception $e){

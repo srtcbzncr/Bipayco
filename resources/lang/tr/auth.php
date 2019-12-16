@@ -16,5 +16,7 @@ return [
     'login_failed' => 'E-posta adresi veya şifre hatalı',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'create_profile_failed' => 'Profil oluşturma işlemi başarısız.',
-    'register_failed' => ''
+    'register_failed' => '',
+    'password_not_correct' => 'Şifrenizi yanlış girdiniz.',
+    'update_successfull' => 'Profiliniz güncellendi.',
 ];

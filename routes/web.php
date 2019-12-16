@@ -23,5 +23,8 @@ Route::prefix('admin')->group(function(){
 
 Route::prefix('settings')->group(function(){
     Route::get('/', 'Auth\AuthController@settings')->name('settings');
+    Route::post('updatePersonalData', 'Auth\AuthController@updatePersonalData')->name('updatePersonalData');
+    Route::post('updateAvatar', 'Auth\AuthController@updateAvatar')->name('updateAvatar');
+    Route::post('updatePassword', 'Auth\AuthController@updatePassword')->name('updatePassword');
 });
 
