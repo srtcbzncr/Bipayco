@@ -11,7 +11,8 @@ use App\Models\Auth\User;
 $factory->define(Student::class, function (Faker $faker) {
     $rand_guardian = rand(0,100);
     $rand_school = rand(0,100);
-    $guardian = Guardian::inRandomOrder()->limit(1)->first();
+    $guardian = Guardian::orderByRaw('RAND()')->take(1)->first();
+    $school = School::orderByRaw('RAND()')->take(1)->first();
     return [
         'user_id' => factory(User::class),
         'school_id' => ($rand_school > 60 ) ? factory(School::class) : null,

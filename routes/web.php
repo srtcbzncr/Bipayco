@@ -21,3 +21,7 @@ Route::prefix('admin')->group(function(){
    Route::get('/', 'Admin\HomeController@dashboard')->name('adminDashboard');
 });
 
+Route::prefix('settings')->group(function(){
+    Route::get('/', 'Auth\AuthController@settings')->name('settings');
+});
+

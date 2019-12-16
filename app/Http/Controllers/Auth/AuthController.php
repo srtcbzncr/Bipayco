@@ -63,4 +63,8 @@ class AuthController extends Controller
             return redirect()->back()->with('error', __('auth.login_failed'));
         }
     }
+
+    public function settings(){
+        return view('auth.settings');
+    }
 }
