@@ -35,7 +35,7 @@
                                                 <input class="uk-input" name="phone_number" type="text" placeholder="Your Telephone">
                                             </div>
                                             <provinces></provinces>
-                                            <input class="uk-button uk-button-grey  uk-margin" type="submit" class="button" value="Sign in">
+                                            <input class="uk-button uk-button-grey button uk-margin" type="submit" value="Sign in">
                                         </form>
                                     </div>
                                 </li>
@@ -51,7 +51,7 @@
                                                 </form>
                                                 <p>Recomend size 50 x 50</p>
                                             </div>
-                                            <input class="uk-button uk-button-grey  uk-margin" type="submit" class="button" value="Sign in">
+                                            <input class="uk-button uk-button-grey button uk-margin" type="submit" value="Sign in">
                                         </form>
                                     </div>
                                 </li>
@@ -66,7 +66,7 @@
                                                 <div class="uk-form-label"> New Password </div>
                                                 <input class="uk-input" name="new_password" type="password" placeholder="Password">
                                             </div>
-                                            <input class="uk-button uk-button-grey  uk-margin" type="submit" class="button" value="Sign in">
+                                            <input class="uk-button uk-button-grey button uk-margin" type="submit" value="Sign in">
                                         </form>
                                     </div>
                                 </li>

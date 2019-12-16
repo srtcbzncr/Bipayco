@@ -32,7 +32,7 @@
 
 <script>
     export default {
-        name: "user-profile-dropdown-nav"
+        name: "user-profile-dropdown-nav",
     }
 </script>
 

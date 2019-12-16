@@ -20,7 +20,7 @@
                             <input class="uk-input" type="text" disabled name="referance_code">
                         </div>
                     </div>
-                    <input class="uk-button uk-button-grey  uk-margin" type="submit" class="button" value="Sign in">
+                    <input class="uk-button uk-button-grey button uk-margin" type="submit" value="Sign in">
                 </div>
             </form>
             <form>
@@ -42,7 +42,7 @@
                             <input class="uk-input" type="text" disabled name="referance_code">
                         </div>
                     </div>
-                    <input class="uk-button uk-button-grey  uk-margin" type="submit" class="button" value="Sign in">
+                    <input class="uk-button uk-button-grey button uk-margin" type="submit" value="Sign in">
                 </div>
             </form>
             <form>
@@ -64,7 +64,7 @@
                             <input class="uk-input" type="text" disabled name="referance_code">
                         </div>
                     </div>
-                    <input class="uk-button uk-button-grey  uk-margin" type="submit" class="button" value="Sign in">
+                    <input class="uk-button uk-button-grey button uk-margin" type="submit" value="Sign in">
                 </div>
             </form>
             <form>
@@ -86,7 +86,7 @@
                             <input class="uk-input" type="text" disabled name="referance_code">
                         </div>
                     </div>
-                    <input class="uk-button uk-button-grey  uk-margin" type="submit" class="button" value="Sign in">
+                    <input class="uk-button uk-button-grey button uk-margin" type="submit" value="Sign in">
                 </div>
             </form>
         </div>

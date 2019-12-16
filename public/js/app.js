@@ -4103,8 +4103,333 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function () {}
-var staticRenderFns = []
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "uk-margin-medium" }, [
+    _c("div", { attrs: { "uk-grid": "" } }, [
+      _c("form", [
+        _vm.Instructor === "true"
+          ? _c("div", { staticClass: "uk-width-1-2@m" }, [
+              _c("div", { staticClass: "uk-card-small uk-card-default" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "uk-card-body uk-padding-remove-top" },
+                  [
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userIdNum) + " ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: { type: "text", name: "identification_number" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userTitle) + "  ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: { type: "text", name: "title" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userBio) + "  ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: { type: "text", name: "bio" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userIban) + "  ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: { type: "text", name: "iban" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userRefCode) + "  ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: {
+                        type: "text",
+                        disabled: "",
+                        name: "referance_code"
+                      }
+                    })
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "uk-button uk-button-grey button uk-margin",
+                attrs: { type: "submit", value: "Sign in" }
+              })
+            ])
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("form", [
+        _vm.Guardian === "true"
+          ? _c("div", { staticClass: "uk-width-1-2@m" }, [
+              _c("div", { staticClass: "uk-card-small uk-card-default" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "uk-card-body uk-padding-remove-top" },
+                  [
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userIdNum) + " ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: { type: "text", name: "identification_number" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userTitle) + "  ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: { type: "text", name: "title" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userBio) + "  ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: { type: "text", name: "bio" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userIban) + "  ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: { type: "text", name: "iban" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userRefCode) + "  ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: {
+                        type: "text",
+                        disabled: "",
+                        name: "referance_code"
+                      }
+                    })
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "uk-button uk-button-grey button uk-margin",
+                attrs: { type: "submit", value: "Sign in" }
+              })
+            ])
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("form", [
+        _vm.Manager === "true"
+          ? _c("div", { staticClass: "uk-width-1-2@m" }, [
+              _c("div", { staticClass: "uk-card-small uk-card-default" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "uk-card-body uk-padding-remove-top" },
+                  [
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userIdNum) + " ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: { type: "text", name: "identification_number" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userTitle) + "  ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: { type: "text", name: "title" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userBio) + "  ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: { type: "text", name: "bio" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userIban) + "  ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: { type: "text", name: "iban" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userRefCode) + "  ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: {
+                        type: "text",
+                        disabled: "",
+                        name: "referance_code"
+                      }
+                    })
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "uk-button uk-button-grey button uk-margin",
+                attrs: { type: "submit", value: "Sign in" }
+              })
+            ])
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("form", [
+        _vm.Admin === "true"
+          ? _c("div", { staticClass: "uk-width-1-2@m" }, [
+              _c("div", { staticClass: "uk-card-small uk-card-default" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "uk-card-body uk-padding-remove-top" },
+                  [
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userIdNum) + " ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: { type: "text", name: "identification_number" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userTitle) + "  ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: { type: "text", name: "title" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userBio) + "  ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: { type: "text", name: "bio" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userIban) + "  ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: { type: "text", name: "iban" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(" " + _vm._s(_vm.userRefCode) + "  ")
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: {
+                        type: "text",
+                        disabled: "",
+                        name: "referance_code"
+                      }
+                    })
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "uk-button uk-button-grey button uk-margin",
+                attrs: { type: "submit", value: "Sign in" }
+              })
+            ])
+          : _vm._e()
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-card-header uk-text-bold" }, [
+      _c("i", { staticClass: "fas fa-envelope uk-margin-small-right" }),
+      _vm._v(" Change  Email\n                    ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-card-header uk-text-bold" }, [
+      _c("i", { staticClass: "fas fa-lock uk-margin-small-right" }),
+      _vm._v(" Change password\n                    ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-card-header uk-text-bold" }, [
+      _c("i", { staticClass: "fas fa-lock uk-margin-small-right" }),
+      _vm._v(" Change password\n                    ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-card-header uk-text-bold" }, [
+      _c("i", { staticClass: "fas fa-lock uk-margin-small-right" }),
+      _vm._v(" Change password\n                    ")
+    ])
+  }
+]
+render._withStripped = true
 
 
 
