@@ -12,12 +12,18 @@ use App\Models\Auth\User;
 use App\Repositories\Auth\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
     public function registerGet(){
-        return view('auth.register');
+        if(Auth::check()){
+            return redirect()->route('home');
+        }
+        else {
+            return view('auth.register');
+        }
     }
 
     public function registerPost(RegisterRequest $request)
@@ -31,7 +37,10 @@ class AuthController extends Controller
         // Operations
         $resp = $repo->create($validatedData);
         if($resp->getResult()){
-            return redirect()->route('home');
+            if(Auth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password']], false)){
+                return redirect()->route('home');
+            }
+            return redirect()->route('loginGet');
         }
         else {
             return redirect()->back()->with('error', __('auth.register_failed'));
@@ -114,7 +123,8 @@ class AuthController extends Controller
         $repo = new UserRepository;
 
         // Operations
-        $resp = $repo->update($validatedData);
+        $resp = $repo->update(Auth::id(), $validatedData);
+        dd($resp);
         if($resp->getResult()){
             return redirect()->back()->with(['error' => false, 'message' => __('auth.update_successfull')]);
         }
@@ -123,21 +133,14 @@ class AuthController extends Controller
         }
     }
 
-    public function updateAvatar(UpdateAvatarRequest $request)
+    public function updateAvatar(Request $request)
     {
-        // Validation
-        $validatedData = $request->validated();
-
-        // Initializations
-        $repo = new UserRepository;
-
-        // Operations
-        $resp = $repo->updateAvatar($validatedData);
-        if($resp->getResult()){
-            return redirect()->back()->with(['error' => false, 'message' => __('auth.update_successfull')]);
+        if($request->hasFile('avatar')){
+            dd("var");
         }
         else{
-            return redirect()->back()->with(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            dd("yok");
+            //return redirect()->back()->with(['error' => true, 'message' => __('auth.avatar_update_unsuccessfull')]);
         }
     }
 
@@ -146,16 +149,31 @@ class AuthController extends Controller
         // Validation
         $validatedData = $request->validated();
 
-        // Initializations
-        $repo = new UserRepository;
+        if(Hash::check($validatedData['old_password'], Auth::user()->password)){
+            // Initializations
+            $repo = new UserRepository;
 
-        // Operations
-        $resp = $repo->updatePassword($validatedData);
-        if($resp->getResult()){
-            return redirect()->back()->with(['error' => false, 'message' => __('auth.update_successfull')]);
+            // Operations
+            $resp = $repo->updatePassword(Auth::id(), $validatedData);
+            if($resp->getResult()){
+                return redirect()->back()->with(['error' => false, 'message' => __('auth.update_successfull')]);
+            }
+            else{
+                return redirect()->back()->with(['error' => true, 'message' => __('auth.update_unsuccessfull')]);
+            }
         }
         else{
-            return redirect()->back()->with(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            return redirect()->back()->with(['error' => true, 'message' => __('auth.password_not_correct')]);
+        }
+    }
+
+    public function logout(){
+        if(Auth::check()){
+            Auth::logout();
+            return redirect()->route('home');
+        }
+        else{
+            return redirect()->route('home');
         }
     }
 

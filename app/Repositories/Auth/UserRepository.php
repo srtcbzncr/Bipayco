@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
-class UserRepository{
+class UserRepository implements IRepository{
 
     /**
      * Return all users.
@@ -102,7 +102,13 @@ class UserRepository{
         return $resp;
     }
 
-    public function update(array $data)
+    /**
+     * Update a user's personal data.
+     *
+     * @param  int @id, array @data
+     * @return App\Repositories\RepositoryResponse
+     */
+    public function update($id, array $data)
     {
         // Response variables
         $result = true;
@@ -111,7 +117,7 @@ class UserRepository{
 
         // Operations
         try{
-            $object = Auth::user();
+            $object = User::find($id);
             $object->district_id = $data['district_id'];
             $object->first_name = $data['first_name'];
             $object->last_name = $data['last_name'];
@@ -135,7 +141,7 @@ class UserRepository{
      * @param  int @id, array @data
      * @return App\Repositories\RepositoryResponse
      */
-    public function updatePassword(array $data){
+    public function updatePassword($id, array $data){
         // Response variables
         $result = true;
         $error = null;
@@ -143,14 +149,8 @@ class UserRepository{
 
         // Operations
         try{
-            $object = Auth::user();
-            if(Hash::check($data['old_password'], $object->password)){
-                $object->password = Hash::make($data['new_password']);
-                $object->save();
-            }
-            else{
-                throw new \Exception(__('auth.password_not_correct'));
-            }
+            $object = User::find($id);
+            $object->password = Hash::make($data['new_password']);
             $object->save();
         }
         catch(\Exception $e){
@@ -169,7 +169,7 @@ class UserRepository{
      * @param  int @id, array @data
      * @return App\Repositories\RepositoryResponse
      */
-    public function updateAvatar(array $data)
+    public function updateAvatar($id, array $data)
     {
         // Response variables
         $result = true;
@@ -178,7 +178,7 @@ class UserRepository{
 
         // Operations
         try{
-            $object = Auth::user();
+            $object = User::find($id);
             if($object->avatar != 'avatars/default.jpg'){
                 Storage::delete($object->avatar);
             }

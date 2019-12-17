@@ -19,4 +19,7 @@ return [
     'register_failed' => '',
     'password_not_correct' => 'Şifrenizi yanlış girdiniz.',
     'update_successfull' => 'Profiliniz güncellendi.',
+    'update_unsuccessfull' => 'Profiliniz güncellenirken bir hata oluştu.',
+    'avatar_update_successfull' => 'Profil resminiz güncellendi.',
+    'avatar_update_unsuccessfull' => 'Profil resmi güncellenirken bir hata oluştu.',
 ];
