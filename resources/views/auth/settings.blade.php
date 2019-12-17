@@ -6,13 +6,13 @@
                 <div class="uk-card uk-card-default uk-align-center" style="max-width: 75%">
                     <div class="uk-card-body">
                         <div uk-grid class="uk-flex-center">
-                            <div uk-filter="target: .js-filter" class="uk-margin-medium-top">
+                            <div uk-filter="target: .js-filter" class="uk-margin-large-top">
                                 <ul class="uk-subnav uk-subnav-pill" style=" border-bottom: 1px solid #e5e5e5" >
                                     <li class="uk-active" uk-filter-control=".tag-personal"  style="border-right: 1px solid #e5e5e5"><a href="#">@lang('front/auth.personal_info')</a></li>
                                     <li uk-filter-control=".tag-photo" style="border-right: 1px solid #e5e5e5"><a href="#">@lang('front/auth.profile_photo')</a></li>
                                     <li uk-filter-control=".tag-security" ><a href="#"> @lang('front/auth.security')</a></li>
                                 </ul>
-                                <ul class="js-filter" style="list-style-type:none">
+                                <ul class="js-filter uk-margin-medium-right" style="list-style-type:none">
                                     <li class="tag-personal">
                                         <form method="POST" action="{{ route('updatePersonalData') }}">
                                             @csrf
@@ -83,7 +83,9 @@
                         </div>
                     </div>
                 </div>
-                <user-status Instructor="true"></user-status>
+                <statu
+                    statu-name="Instructor"
+                ></statu>
             </div>
         </div>
     </div>
