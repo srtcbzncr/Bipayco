@@ -3,14 +3,14 @@
     <div class="uk-container">
         <div class="admin-content uk-margin-large-top">
             <div class="admin-content-inner">
-                <div class="uk-card-small uk-card-default">
+                <div class="uk-card-small ">
                     <div class="uk-card-body">
                         <div uk-grid>
                             <div uk-filter="target: .js-filter" class="uk-margin-medium-top">
                                 <ul class="uk-subnav uk-subnav-pill" style=" border-bottom: 1px solid #e5e5e5" >
                                     <li class="uk-active" uk-filter-control=".tag-personal"  style="border-right: 1px solid #e5e5e5"><a href="#">@lang('front/auth.personal_info')</a></li>
                                     <li uk-filter-control=".tag-photo" style="border-right: 1px solid #e5e5e5"><a href="#">@lang('front/auth.profile_photo')</a></li>
-                                    <li uk-filter-control=".tag-security" ><a href="#">@lang('front/auth.security')</a></li>
+                                    <li uk-filter-control=".tag-security" ><a href="#"> @lang('front/auth.security')</a></li>
                                 </ul>
                                 <ul class="js-filter" style="list-style-type:none">
                                     <li class="tag-personal">
