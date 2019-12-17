@@ -16,6 +16,8 @@ return [
     'login' => 'Giriş',
     'email' => 'E-posta',
     'password' => 'Şifre',
+    'password_old'=>'Eski Şifre',
+    'password_new'=>'Yeni Şifre',
     'last_name' => 'Soyad',
     'first_name' => 'Ad',
     'login_description' =>'Hesabına giriş yapmak için boşlukları doldur',
@@ -30,4 +32,9 @@ return [
     'registered'=>'Hesabınız var mı?',
     'province'=>'İl',
     'district'=>'İlçe',
+    'city'=>'Şehir',
+    'personal_info'=>'Kişisel Bilgiler',
+    'security'=>'Güvenlik',
+    'profile_photo'=>'Profil Fotoğrafı',
+    'save'=>'Kaydet'
 ];
