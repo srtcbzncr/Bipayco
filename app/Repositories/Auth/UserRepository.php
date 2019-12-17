@@ -182,7 +182,7 @@ class UserRepository implements IRepository{
             if($object->avatar != 'avatars/default.jpg'){
                 Storage::delete($object->avatar);
             }
-            $avatarPath = Storage::putFile('avatars', $data['avatar']);
+            $avatarPath = $data['avatar']->store('avatars');
             $object->avatar = $avatarPath;
             $object->save();
         }

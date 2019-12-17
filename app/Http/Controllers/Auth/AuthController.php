@@ -133,14 +133,24 @@ class AuthController extends Controller
         }
     }
 
-    public function updateAvatar(Request $request)
+    public function updateAvatar(UpdateAvatarRequest $request)
     {
         if($request->hasFile('avatar')){
-            dd("var");
+            // Validation
+            $validatedData = $request->validated();
+
+            // Initialization
+            $repo = new UserRepository;
+            $resp = $repo->updateAvatar(Auth::id(), $request->toArray());
+            if($resp->getResult()){
+                return redirect()->back()->with(['error' => false, 'message' => __('auth.avatar_update_successfull')]);
+            }
+            else{
+                return redirect()->back()->with(['error' => true, 'message' => __('auth.avatar_update_unsuccessfull')]);
+            }
         }
         else{
-            dd("yok");
-            //return redirect()->back()->with(['error' => true, 'message' => __('auth.avatar_update_unsuccessfull')]);
+            return redirect()->back()->with(['error' => true, 'message' => __('auth.avatar_update_unsuccessfull')]);
         }
     }
 
