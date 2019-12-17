@@ -106,7 +106,7 @@ class UserTest extends TestCase
         $this->assertNotNull($resp->getData()->student);
     }
 
-    public function test_update(){
+    public function test_update_personal_data(){
         // Data preparation
         $model = factory(User::class)->create();
         $district = factory(District::class)->create();
@@ -114,10 +114,8 @@ class UserTest extends TestCase
             'district_id' =>  $district->id,
             'first_name' => $this->faker->firstName,
             'last_name' => $this->faker->lastName,
-            'username' => $this->faker->userName,
             'email' => $this->faker->email,
             'phone_number' => $this->faker->e164PhoneNumber,
-            'password' => '123456',
         ];
 
         // Operations
@@ -132,7 +130,6 @@ class UserTest extends TestCase
         $this->assertEquals($data['district_id'], $resp->getData()->district_id);
         $this->assertEquals($data['first_name'], $resp->getData()->first_name);
         $this->assertEquals($data['last_name'], $resp->getData()->last_name);
-        $this->assertEquals($data['username'], $resp->getData()->username);
         $this->assertEquals($data['email'], $resp->getData()->email);
         $this->assertEquals($data['phone_number'], $resp->getData()->phone_number);
     }
@@ -155,6 +152,26 @@ class UserTest extends TestCase
         $this->assertNull($resp->getError());
         $this->assertFalse($resp->isDataNull());
         Storage::assertExists($resp->getData()->avatar);
+    }
+
+    public function test_update_password(){
+        // Data preparation
+        $model = factory(User::class)->create();
+        $data = [
+            'old_password' => '123456',
+            'new_password' => '987654',
+        ];
+
+        // Operations
+        $repository = new UserRepository;
+        $resp = $repository->updatePassword($model->id, $data);
+
+        // Control
+        $this->assertInstanceOf('App\Models\Auth\User', $resp->getData());
+        $this->assertTrue($resp->getResult());
+        $this->assertNull($resp->getError());
+        $this->assertFalse($resp->isDataNull());
+        Hash::check($resp->getData()->password, $data['new_password']);
     }
 
     public function test_delete(){
