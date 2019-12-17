@@ -3,9 +3,9 @@
     <div class="uk-container">
         <div class="admin-content uk-margin-large-top">
             <div class="admin-content-inner">
-                <div class="uk-card-small ">
+                <div class="uk-card uk-card-default uk-align-center" style="max-width: 75%">
                     <div class="uk-card-body">
-                        <div uk-grid>
+                        <div uk-grid class="uk-flex-center">
                             <div uk-filter="target: .js-filter" class="uk-margin-medium-top">
                                 <ul class="uk-subnav uk-subnav-pill" style=" border-bottom: 1px solid #e5e5e5" >
                                     <li class="uk-active" uk-filter-control=".tag-personal"  style="border-right: 1px solid #e5e5e5"><a href="#">@lang('front/auth.personal_info')</a></li>
