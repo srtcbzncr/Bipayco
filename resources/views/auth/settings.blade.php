@@ -44,11 +44,11 @@
                                     <div class="uk-width-2-3@m">
                                         <div class="uk-width-1-3@m">
                                             <p>Your profile photo</p>
-                                            <form method="POST" action="{{ route('updateAvatar') }}" >
+                                            <form method="POST" action="{{ route('updateAvatar') }}" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="fallback">
                                                     <input name="avatar" type="file"/>
-                                                </div>
+                                                </div>-->
                                                 <input class="uk-button uk-button-grey button uk-margin" type="submit" value="Sign in">
                                             </form>
                                             <p>Recomend size 50 x 50</p>
