@@ -4,6 +4,7 @@ namespace App\Models\GeneralEducation;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Events\GeneralEducation\NewComment;
 
 class Comment extends Model
 {
@@ -11,6 +12,9 @@ class Comment extends Model
 
     protected $table = 'ge_comments';
     protected $guarded = ['id'];
+    protected $dispatchesEvents = [
+      'created' => NewComment::class,
+    ];
 
     public function course(){
         return $this->belongsTo('App\Models\GeneralEducation\Course');

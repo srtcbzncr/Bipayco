@@ -31,6 +31,31 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
+    public function getPopularCourses(){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = DB::table('ge_courses')
+                ->where('active', true)
+                ->orderBy('purchase_count', 'desc')
+                ->orderBy('point', 'desc')
+                ->take(20)
+                ->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
     public function get($id)
     {
         // Response variables
@@ -52,6 +77,344 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
+    public function getByCategoryFilterByNewest($category_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = DB::table('ge_courses')
+                ->where('category_id', $category_id)
+                ->where('active', true)
+                ->latest()
+                ->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getByCategoryFilterByOldest($category_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = DB::table('ge_courses')
+                ->where('category_id', $category_id)
+                ->where('active', true)
+                ->oldest()
+                ->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getByCategoryFilterByPriceASC($category_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = DB::table('ge_courses')
+                ->where('category_id', $category_id)
+                ->where('active', true)
+                ->orderBy('price', 'asc')
+                ->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getByCategoryFilterByPriceDESC($category_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = DB::table('ge_courses')
+                ->where('category_id', $category_id)
+                ->where('active', true)
+                ->orderBy('price', 'desc')
+                ->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getByCategoryFilterByPoint($category_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = DB::table('ge_courses')
+                ->where('category_id', $category_id)
+                ->where('active', true)
+                ->orderBy('point', 'desc')
+                ->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getByCategoryFilterByPurchases($category_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = DB::table('ge_courses')
+                ->where('category_id', $category_id)
+                ->where('active', true)
+                ->orderBy('purchase_count', 'desc')
+                ->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getByCategoryFilterByTrending($category_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = DB::table('ge_courses')
+                ->where('category_id', $category_id)
+                ->where('active', true)
+                ->orderBy('purchase_count', 'desc')
+                ->orderBy('point','desc')
+                ->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getBySubCategoryFilterByNewest($sub_category_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = DB::table('ge_courses')
+                ->where('sub_category_id', $sub_category_id)
+                ->where('active', true)
+                ->latest()
+                ->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getBySubCategoryFilterByOldest($sub_category_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = DB::table('ge_courses')
+                ->where('sub_category_id', $sub_category_id)
+                ->where('active', true)
+                ->oldest()
+                ->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getBySubCategoryFilterByPriceASC($sub_category_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = DB::table('ge_courses')
+                ->where('sub_category_id', $sub_category_id)
+                ->where('active', true)
+                ->orderBy('price', 'asc')
+                ->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getBySubCategoryFilterByPriceDESC($sub_category_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = DB::table('ge_courses')
+                ->where('sub_category_id', $sub_category_id)
+                ->where('active', true)
+                ->orderBy('price', 'desc')
+                ->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getBySubCategoryFilterByPoint($sub_category_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = DB::table('ge_courses')
+                ->where('sub_category_id', $sub_category_id)
+                ->where('active', true)
+                ->orderBy('point', 'desc')
+                ->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getBySubCategoryFilterByPurchases($sub_category_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = DB::table('ge_courses')
+                ->where('sub_category_id', $sub_category_id)
+                ->where('active', true)
+                ->orderBy('purchase_count', 'desc')
+                ->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getBySubCategoryFilterByTrending($sub_category_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = DB::table('ge_courses')
+                ->where('sub_category_id', $sub_category_id)
+                ->where('active', true)
+                ->orderBy('purchase_count', 'desc')
+                ->orderBy('point','desc')
+                ->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
     public function create(array $data)
     {
         // Response variables
@@ -62,7 +425,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
-            $imagePath = Storage::putFile('images', $data['image']);
+            $imagePath = $data['image']->store('images');
             $object = new Course;
             $object->category_id = $data['category_id'];
             $object->sub_category_id = $data['sub_category_id'];
@@ -127,7 +490,7 @@ class CourseRepository implements IRepository{
         try{
             DB::beginTransaction();
             $object = Course::find($id);
-            $imagePath = Storage::putFile('images', $data['image']);
+            $imagePath = $data['image']->store('images');
             Storage::delete($object->image);
             $object->imagePath = $imagePath;
             $object->save();

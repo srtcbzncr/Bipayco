@@ -16,7 +16,9 @@ class CreateGeCategoriesTable extends Migration
         Schema::create('ge_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 500);
+            $table->string('description');
             $table->string('symbol', 500);
+            $table->string('color', 7);
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();

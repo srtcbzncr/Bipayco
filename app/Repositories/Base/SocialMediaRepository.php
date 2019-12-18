@@ -78,7 +78,7 @@ class SocialMediaRepository implements IRepository{
 
         // Operations
         try{
-            $symbolPath = Storage::putFile('symbols', $data['symbol']);
+            $symbolPath = $data['symbol']->store('symbols');
             $object->symbol = $symbolPath;
             $object->name = $data['name'];
             $object->save();
@@ -138,7 +138,7 @@ class SocialMediaRepository implements IRepository{
             DB::beginTransaction();
             $object = SocialMedia::find($id);
             Storage::delete($object->symbol);
-            $symbolPath = Storage::putFile('symbols', $data['symbol']);
+            $symbolPath = $data['symbol']->store('symbols');
             $object->symbol = $symbolPath;
             $object->save();
             DB::commit();

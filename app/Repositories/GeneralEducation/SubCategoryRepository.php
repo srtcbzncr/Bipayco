@@ -61,10 +61,12 @@ class SubCategoryRepository implements IRepository{
 
         // Operations
         try{
-            $symbolPath = Storage::putFile('symbols', $data['symbol']);
+            $symbolPath = $data['symbol']->store('symbols');
             $object = new SubCategory;
             $object->category_id = $data['category_id'];
             $object->name = $data['name'];
+            $object->description = $data['description'];
+            $object->color = $data['color'];
             $object->symbol = $symbolPath;
             $object->save();
         }
@@ -90,6 +92,8 @@ class SubCategoryRepository implements IRepository{
             $object = SubCategory::find($id);
             $object->category_id = $data['category_id'];
             $object->name = $data['name'];
+            $object->description = $data['description'];
+            $object->color = $data['color'];
             $object->save();
         }
         catch(\Exception $e){
@@ -113,7 +117,7 @@ class SubCategoryRepository implements IRepository{
             DB::beginTransaction();
             $object = SubCategory::find($id);
             Storage::delete($object->symbol);
-            $symbolPath = Storage::putFile('symbols', $data['symbol']);
+            $symbolPath = $data['symbol']->store('symbols');
             $object->symbol = $symbolPath;
             $object->save();
             DB::commit();

@@ -5,7 +5,9 @@ namespace App\Repositories\GeneralEducation;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use App\Models\GeneralEducation\Comment;
+use App\Models\GeneralEducation\Course;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CommentRepository implements IRepository{
 
@@ -60,14 +62,26 @@ class CommentRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
+            // Course point update
+            $course = Course::find($data['id']);
+            $coursePoint = $course->point;
+            $commentCount = Comment::where('course_id', $data['course_id'])->count();
+            $newPoint = (($coursePoint * $commentCount) + $data['point']) / ($commentCount + 1);
+            $course->point = $newPoint;
+            $course->save;
+
+            // Comment add
             $object = new Comment;
             $object->course_id = $data['course_id'];
             $object->user_id = Auth::id();
             $object->content = $data['content'];
             $object->point = $data['point'];
             $object->save();
+            DB::commit();
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }

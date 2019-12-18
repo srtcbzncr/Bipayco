@@ -15,6 +15,8 @@ $factory->define(SubCategory::class, function (Faker $faker) {
     return [
         'category_id' => $category->id,
         'name' => $faker->sentence(3),
+        'description' => $faker->sentence,
+        'color' => $faker->hexColor,
         'symbol' => $symbolPath,
     ];
 });

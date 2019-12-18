@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\GeneralEducation\CourseRepository;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,6 +15,23 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // Initializations
+        $courseRepo = new CourseRepository;
+
+        //Operations
+        $resp = $courseRepo->getPopularCourses();
+
+        // Response
+        if($resp->getResult()){
+            return view('home', $resp->getData());
+        }
+        else{
+            return view('home');
+        }
+
+    }
+
+    public function error(){
+        return view('error');
     }
 }

@@ -37,19 +37,19 @@ class Course extends Model
     }
 
     public function comments(){
-        return $this->hasMany('App\Models\GeneralEducation\Comments');
+        return $this->hasMany('App\Models\GeneralEducation\Comment');
     }
 
-    public function discounts(){
-        return $this->hasMany('App\Models\GeneralEducation\Discount');
+    public function discount(){
+        return $this->hasOne('App\Models\GeneralEducation\Discount');
     }
 
     public function notices(){
-        return $this->hasMany('App\Models\GeneralEducation\Notices');
+        return $this->hasMany('App\Models\GeneralEducation\Notice');
     }
 
     public function favorites(){
-        return $this->hasMany('App\Models\GeneralEducation\Favorites');
+        return $this->hasMany('App\Models\GeneralEducation\Favorite');
     }
 
     public function tags(){

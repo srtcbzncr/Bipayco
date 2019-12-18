@@ -12,6 +12,8 @@ $factory->define(Category::class, function (Faker $faker) {
     $symbolPath = Storage::putFile('symbols', $file);
     return [
         'name' => $faker->word,
+        'description' => $faker->sentence,
+        'color' => $faker->hexColor,
         'symbol' => $symbolPath,
     ];
 });

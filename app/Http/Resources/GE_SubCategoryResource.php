@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CountryResource extends JsonResource
+class GE_SubCategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,10 +15,11 @@ class CountryResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'error' => false,
             'id' => $this->id,
-            'code' => $this->code,
             'name' => $this->name,
+            'description' => $this->description,
+            'color' => $this->color,
+            'symbol' => $this->symbol,
             'active' => $this->active,
         ];
     }
