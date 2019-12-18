@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\GeneralEducation;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\GE_CourseCollection;
+use App\Http\Resources\GE_CourseResource;
 use App\Repositories\GeneralEducation\CourseRepository;
 use Illuminate\Http\Request;
 
@@ -63,10 +64,11 @@ class CourseController extends Controller
 
         // Operations
         $resp = $repo->getByCategoryFilterByPriceDESC($category_id);
+        dd($resp);
 
         // Response
         if($resp->getResult()){
-            return new GE_CourseCollection($resp->getData());
+            return GE_CourseResource::collection($resp->getData());
         }
         else{
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
