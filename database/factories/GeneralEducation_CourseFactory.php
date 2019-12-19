@@ -13,7 +13,7 @@ $factory->define(Course::class, function (Faker $faker) {
     $category = Category::orderByRaw('RAND()')->take(1)->first();
     $subCategory = SubCategory::orderByRaw('RAND()')->take(1)->first();
     $file = UploadedFile::fake()->image('deneme.jpg');
-    $imagePath = Storage::putFile('public/images', $file);
+    $imagePath = Storage::url(Storage::putFile('public/images', $file));
     return [
         'category_id' => $category->id,
         'sub_category_id' => $subCategory->id,
