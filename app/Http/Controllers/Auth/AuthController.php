@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateAvatarRequest;
+use App\Http\Requests\UpdateInstructorRequest;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdatePersonalDataRequest;
 use App\Models\Auth\User;
+use App\Repositories\Auth\InstructorRepository;
 use App\Repositories\Auth\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -185,6 +187,24 @@ class AuthController extends Controller
         }
         else{
             return redirect()->route('home');
+        }
+    }
+
+    public function updateInstructorData(UpdateInstructorRequest $request){
+        // Validation
+        $validatedData = $request->validated();
+
+        // Initializations
+        $repo = new InstructorRepository;
+
+        // Operations
+        $resp = $repo->update(Auth::user()->instructor_id, $validatedData);
+        dd($resp);
+        if($resp->getResult()){
+            return redirect()->back()->with(['error' => false, 'message' => __('auth.update_successfull')]);
+        }
+        else{
+            return redirect()->back()->with(['error' => true, 'message' => $resp->getError()->getMessage()]);
         }
     }
 
