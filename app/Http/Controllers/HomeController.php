@@ -15,20 +15,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // Initializations
-        $courseRepo = new CourseRepository;
-
-        //Operations
-        $resp = $courseRepo->getPopularCourses();
-
-        // Response
-        if($resp->getResult()){
-            return view('home', $resp->getData());
-        }
-        else{
-            return view('home');
-        }
-
+        return view('home');
     }
 
     public function error(){
