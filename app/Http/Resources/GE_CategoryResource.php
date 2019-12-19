@@ -21,8 +21,8 @@ class GE_CategoryResource extends JsonResource
             'description' => $this->description,
             'symbol' => $this->symbol,
             'color' => $this->color,
-            'sub_categories' => new GE_SubCategoryCollection($this->subCategories),
             'active' => $this->active,
+            'sub_categories' => new GE_SubCategoryCollection($this->subCategories),
         ];
     }
 }

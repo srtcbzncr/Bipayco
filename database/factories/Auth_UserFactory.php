@@ -30,7 +30,6 @@ $factory->define(User::class, function (Faker $faker) {
     $rand_admin = random_int(0,100);
     $rand_guardian = random_int(0,100);
     $file = UploadedFile::fake()->image('deneme.jpg');
-    $avatarPath = Storage::putFile('public/avatars', $file);
 
     return [
         'district_id' => factory(District::class),
@@ -41,7 +40,6 @@ $factory->define(User::class, function (Faker $faker) {
         'email_verified_at' => now(),
         'phone_number' => $faker->e164PhoneNumber,
         'password' => Hash::make('123456'),
-        'avatar' => $avatarPath,
         'remember_token' => Str::random(10),
     ];
 });

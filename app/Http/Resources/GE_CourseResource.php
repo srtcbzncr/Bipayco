@@ -3,7 +3,7 @@
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
-use App\Http\Resources\GE_CategoryResource;
+use App\Http\Resources\GE_CategoryWithoutSubCategoriesResource;
 use App\Http\Resources\GE_SubCategoryResource;
 
 class GE_CourseResource extends JsonResource
@@ -18,8 +18,6 @@ class GE_CourseResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'category' => new GE_CategoryResource($this->category),
-            'sub_category' => new GE_SubCategoryResource($this->subCategory),
             'image' => $this->image,
             'name' => $this->name,
             'description' => $this->description,
@@ -29,10 +27,12 @@ class GE_CourseResource extends JsonResource
             'price' => $this->price,
             'point' => $this->point,
             'purchase_count' => $this->purchase_count,
-            'discount' => new GE_DiscountResource($this->discount),
             'active' => $this->active,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'discount' => new GE_DiscountResource($this->discount),
+            'category' => new GE_CategoryWithoutSubCategoriesResource($this->category),
+            'sub_category' => new GE_SubCategoryResource($this->subCategory),
         ];
     }
 }
