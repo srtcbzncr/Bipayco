@@ -33,16 +33,16 @@
 <div id="app1">
     <div class="side-nav uk-animation-slide-left-medium" id="side-nav">
         <span class="uk-animation-fade tm-mobile-close-icon" uk-toggle="target: #side-nav; cls: side-nav-active"> <i class="fas fa-times icon-large"></i></span>
-        <side-bar/>
+        @yield('side-bar')
     </div>
     <div id="spinneroverlay">
         <div class="spinner"></div>
     </div>
     <div class="app">
         <main>
-            <top-bar></top-bar>
+            @yield('top-bar')
             @yield('content')
-            <app-footer></app-footer>
+            @yield('footer')
         </main>
     </div>
 </div>

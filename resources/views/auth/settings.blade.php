@@ -20,21 +20,21 @@
                                                 <div class="uk-child-width-1-2 uk-grid">
                                                     <div>
                                                         <div class="uk-form-label"> @lang('front/auth.first_name') </div>
-                                                        <input class="uk-input" name="first_name" type="text" placeholder="@lang('front/auth.first_name')">
+                                                        <input class="uk-input" name="first_name" type="text" placeholder="@lang('front/auth.first_name')" value="{{$user->first_name}}" required>
                                                     </div>
                                                     <div>
                                                         <div class="uk-form-label"> @lang('front/auth.last_name')  </div>
-                                                        <input class="uk-input" name="last_name" type="text" placeholder="@lang('front/auth.last_name')">
+                                                        <input class="uk-input" name="last_name" type="text" placeholder="@lang('front/auth.last_name')" value="{{$user->last_name}}" required>
                                                     </div>
                                                 </div>
                                                 <div class="uk-child-width-2-1">
                                                     <div>
                                                         <div class="uk-form-label"> @lang('front/auth.email')  </div>
-                                                        <input class="uk-input" name="email" type="text" placeholder="@lang('front/auth.email')">
+                                                        <input class="uk-input" name="email" type="text" placeholder="@lang('front/auth.email')" value="{{$user->last_name}}" required>
                                                     </div>
                                                     <div>
                                                         <div class="uk-form-label"> @lang('front/auth.phone_number')  </div>
-                                                        <input class="uk-input" name="phone_number" type="text" placeholder="@lang('front/auth.phone_number')">
+                                                        <input class="uk-input" name="phone_number" type="text" placeholder="@lang('front/auth.phone_number')" required>
                                                     </div>
                                                 </div>
                                                 <div class="uk-width-2-1@xl">
@@ -51,7 +51,7 @@
                                             <form method="POST" action="{{ route('updateAvatar') }}" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="fallback">
-                                                    <input name="avatar" type="file" accept="image/*"/>
+                                                    <input name="avatar" type="file" accept="image/*" required/>
                                                     <p>Recomend size 50 x 50</p>
                                                 </div>
                                                 <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')">
@@ -65,11 +65,11 @@
                                                 <div class="uk-child-width-1-2@xl uk-grid">
                                                     <div class="">
                                                         <div class="uk-form-label"> @lang('front/auth.password_old') </div>
-                                                        <input class="uk-input" name="old_password" type="password" placeholder="@lang('front/auth.password_old')">
+                                                        <input class="uk-input" name="old_password" type="password" placeholder="@lang('front/auth.password_old')" required>
                                                     </div>
                                                     <div class="">
                                                         <div class="uk-form-label"> @lang('front/auth.password_new')  </div>
-                                                        <input class="uk-input" name="new_password" type="password" placeholder="@lang('front/auth.password_new')">
+                                                        <input class="uk-input" name="new_password" type="password" placeholder="@lang('front/auth.password_new')" required>
                                                     </div>
                                                 </div>
                                                 <div class="uk-width-expand uk-margin-top">
@@ -84,7 +84,14 @@
                     </div>
                 </div>
                 <statu
-                    statu-name="Instructor"
+                    statu-name="@lang('front/auth.instructor')"
+                    title="@lang('front/auth.title')"
+                    id-num="@lang('front/auth.id_num')"
+                    bio="@lang('front/auth.bio')"
+                    iban="@lang('front/auth.iban')"
+                    ref-code="@lang('front/auth.referance_code')"
+                    sign-in="@lang('front/auth.save')"
+                    action-address="#"
                 ></statu>
             </div>
         </div>

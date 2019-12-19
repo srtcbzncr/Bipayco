@@ -111,6 +111,7 @@ class AuthController extends Controller
             'has_admin_profile' => $admin,
             'admin_profile' => Auth::user()->admin,
         ];
+
         return view('auth.settings', $data);
     }
 

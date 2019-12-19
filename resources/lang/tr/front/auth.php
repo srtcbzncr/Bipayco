@@ -36,5 +36,11 @@ return [
     'personal_info'=>'Kişisel Bilgiler',
     'security'=>'Güvenlik',
     'profile_photo'=>'Profil Fotoğrafı',
-    'save'=>'Kaydet'
+    'save'=>'Kaydet',
+    'referance_code'=>'Referans Kodu',
+    'bio'=>'Biyografi',
+    'iban'=>'Iban',
+    'title'=>'Ünvan',
+    'id_num'=>'TC Kimlik Numarası',
+    'instructor'=>'Eğitmen'
 ];

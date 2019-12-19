@@ -4,26 +4,25 @@
             {{statuName}}
         </div>
         <div class="uk-card-body">
-                <form method="POST" :action="actionAddress">
-                    <div class="uk-width-1-2@m">
-                        <div>
-                            <div class="uk-padding-remove-top">
-                                <div class="uk-form-label"> {{idNum}} </div>
-                                <input class="uk-input" type="text" name="identification_number" :value="instructorIdNum" required>
-                                <div class="uk-form-label"> {{title}}  </div>
-                                <input class="uk-input" type="text" name="title" :value="instructorTitle" required>
-                                <div class="uk-form-label"> {{bio}}  </div>
-                                <input class="uk-input" type="text" name="bio" :value="instructorBio" required>
-                                <div class="uk-form-label"> {{iban}}  </div>
-                                <input class="uk-input" type="text" name="iban" :value="instructorIban" required>
-                                <div class="uk-form-label"> {{refCode}}  </div>
-                                <input class="uk-input" type="text" disabled name="referance_code" :value="instructorRefCode" required>
-                            </div>
+            <form method="POST" :action="actionAddress">
+                <div uk-grid class="uk-flex-center">
+                    <div class="uk-width-1-2@m ">
+                        <div class="uk-padding-remove-top ">
+                            <div class="uk-form-label"> {{idNum}} </div>
+                            <input class="uk-input" type="text" name="identification_number" :value="instructorIdNum" required>
+                            <div class="uk-form-label"> {{title}}  </div>
+                            <input class="uk-input" type="text" name="title" :value="instructorTitle" required>
+                            <div class="uk-form-label"> {{bio}}  </div>
+                            <input class="uk-input" type="text" name="bio" :value="instructorBio" required>
+                            <div class="uk-form-label"> {{iban}}  </div>
+                            <input class="uk-input" type="text" name="iban" :value="instructorIban" required>
+                            <div class="uk-form-label"> {{refCode}}  </div>
+                            <input class="uk-input" type="text" disabled name="referance_code" :value="instructorRefCode" required>
                         </div>
                         <input class="uk-button uk-button-grey button uk-margin" type="submit" :value="signIn">
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 </template>
