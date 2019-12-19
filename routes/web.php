@@ -28,6 +28,7 @@ Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function(){
     Route::post('updatePersonalData', 'Auth\AuthController@updatePersonalData')->name('updatePersonalData');
     Route::post('updateAvatar', 'Auth\AuthController@updateAvatar')->name('updateAvatar');
     Route::post('updatePassword', 'Auth\AuthController@updatePassword')->name('updatePassword');
+    Route::post('updateInstructorData', 'Auth\AuthController@updateInstructorData')->name('updateInstructorData');
 });
 
 Route::group(['prefix' => 'category'], function(){
