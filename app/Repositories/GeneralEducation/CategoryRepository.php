@@ -61,7 +61,7 @@ class CategoryRepository implements IRepository{
 
         // Operations
         try{
-            $symbolPath = $data['symbol']->store('symbols');
+            $symbolPath = Storage::url($data['symbol']->store('public/symbols'));
             $object = new Category;
             $object->name = $data['name'];
             $object->description = $data['description'];
@@ -115,7 +115,7 @@ class CategoryRepository implements IRepository{
             DB::beginTransaction();
             $object = Category::find($id);
             Storage::delete($object->symbol);
-            $symbolPath = $data['symbol']->store('symbols');
+            $symbolPath = Storage::url($data['symbol']->store('public/symbols'));
             $object->symbol = $symbolPath;
             $object->save();
             DB::commit();

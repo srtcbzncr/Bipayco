@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 $factory->define(SubCategory::class, function (Faker $faker) {
     $file = UploadedFile::fake()->image('deneme.jpg');
-    $symbolPath = Storage::putFile('symbols', $file);
+    $symbolPath = Storage::putFile('public/symbols', $file);
     $category = Category::orderByRaw('RAND()')->take(1)->first();
     return [
         'category_id' => $category->id,

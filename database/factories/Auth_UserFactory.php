@@ -30,7 +30,7 @@ $factory->define(User::class, function (Faker $faker) {
     $rand_admin = random_int(0,100);
     $rand_guardian = random_int(0,100);
     $file = UploadedFile::fake()->image('deneme.jpg');
-    $avatarPath = Storage::putFile('avatars', $file);
+    $avatarPath = Storage::putFile('public/avatars', $file);
 
     return [
         'district_id' => factory(District::class),

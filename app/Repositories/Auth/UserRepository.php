@@ -179,10 +179,10 @@ class UserRepository implements IRepository{
         // Operations
         try{
             $object = User::find($id);
-            if($object->avatar != 'avatars/default.jpg'){
+            if($object->avatar != 'public/avatars/default.jpg'){
                 Storage::delete($object->avatar);
             }
-            $avatarPath = $data['avatar']->store('avatars');
+            $avatarPath = Storage::url($data['avatar']->store('public/avatars'));
             $object->avatar = $avatarPath;
             $object->save();
         }

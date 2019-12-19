@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 
 $factory->define(SocialMedia::class, function (Faker $faker) {
     $file = UploadedFile::fake()->image('deneme.jpg');
-    $symbolPath = Storage::putFile('symbols', $file);
+    $symbolPath = Storage::putFile('public/symbols', $file);
     return [
         'symbol' => $symbolPath,
         'name' => $faker->company,
