@@ -61,7 +61,7 @@ class SubCategoryRepository implements IRepository{
 
         // Operations
         try{
-            $symbolPath = $data['symbol']->store('symbols');
+            $symbolPath = $data['symbol']->store('public/symbols');
             $object = new SubCategory;
             $object->category_id = $data['category_id'];
             $object->name = $data['name'];
@@ -117,7 +117,7 @@ class SubCategoryRepository implements IRepository{
             DB::beginTransaction();
             $object = SubCategory::find($id);
             Storage::delete($object->symbol);
-            $symbolPath = $data['symbol']->store('symbols');
+            $symbolPath = $data['symbol']->store('public/symbols');
             $object->symbol = $symbolPath;
             $object->save();
             DB::commit();
