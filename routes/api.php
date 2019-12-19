@@ -29,20 +29,20 @@ Route::prefix('category')->group(function(){
 });
 
 Route::prefix('courses')->group(function(){
-    Route::get('{category_id}/getByCategoryFilterByNewest', 'API\GeneralEducation\CourseController@getByCategoryFilterByNewest')->name('api_course_get_by_category_filter_by_newest');
-    Route::get('{category_id}/getByCategoryFilterByOldest', 'API\GeneralEducation\CourseController@getByCategoryFilterByOldest')->name('api_course_get_by_category_filter_by_oldest');
-    Route::get('{category_id}/getByCategoryFilterByPriceASC', 'API\GeneralEducation\CourseController@getByCategoryFilterByPriceASC')->name('api_course_get_by_category_filter_by_price_asc');
-    Route::get('{category_id}/getByCategoryFilterByPriceDESC', 'API\GeneralEducation\CourseController@getByCategoryFilterByPriceDESC')->name('api_course_get_by_category_filter_by_price_desc');
-    Route::get('{category_id}/getByCategoryFilterByPoint', 'API\GeneralEducation\CourseController@getByCategoryFilterByPoint')->name('api_course_get_by_category_filter_by_point');
-    Route::get('{category_id}/getByCategoryFilterByPurchases', 'API\GeneralEducation\CourseController@getByCategoryFilterByPurchases')->name('api_course_get_by_category_filter_by_purchases');
-    Route::get('{category_id}/getByCategoryFilterByTrending', 'API\GeneralEducation\CourseController@getByCategoryFilterByTrending')->name('api_course_get_by_category_filter_by_trending');
-    Route::get('{sub_category_id}/getBySubCategoryFilterByNewest', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByNewest')->name('api_course_get_by_sub_category_filter_by_newest');
-    Route::get('{sub_category_id}/getBySubCategoryFilterByOldest', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByOldest')->name('api_course_get_by_sub_category_filter_by_oldest');
-    Route::get('{sub_category_id}/getBySubCategoryFilterByPriceASC', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByPriceASC')->name('api_course_get_by_sub_category_filter_by_price_asc');
-    Route::get('{sub_category_id}/getBySubCategoryFilterByPriceDESC', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByPriceDESC')->name('api_course_get_by_sub_category_filter_by_price_desc');
-    Route::get('{sub_category_id}/getBySubCategoryFilterByPoint', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByPoint')->name('api_course_get_by_sub_category_filter_by_point');
-    Route::get('{sub_category_id}/getBySubCategoryFilterByPurchases', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByPurchases')->name('api_course_get_by_sub_category_filter_by_purchases');
-    Route::get('{sub_category_id}/getBySubCategoryFilterByTrending', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByTrending')->name('api_course_get_by_sub_category_filter_by_trending');
+    Route::get('getByCategoryFilterByNewest/{category_id}', 'API\GeneralEducation\CourseController@getByCategoryFilterByNewest')->name('api_course_get_by_category_filter_by_newest');
+    Route::get('getByCategoryFilterByOldest/{category_id}', 'API\GeneralEducation\CourseController@getByCategoryFilterByOldest')->name('api_course_get_by_category_filter_by_oldest');
+    Route::get('getByCategoryFilterByPriceASC/{category_id}', 'API\GeneralEducation\CourseController@getByCategoryFilterByPriceASC')->name('api_course_get_by_category_filter_by_price_asc');
+    Route::get('getByCategoryFilterByPriceDESC/{category_id}', 'API\GeneralEducation\CourseController@getByCategoryFilterByPriceDESC')->name('api_course_get_by_category_filter_by_price_desc');
+    Route::get('getByCategoryFilterByPoint/{category_id}', 'API\GeneralEducation\CourseController@getByCategoryFilterByPoint')->name('api_course_get_by_category_filter_by_point');
+    Route::get('getByCategoryFilterByPurchases/{category_id}', 'API\GeneralEducation\CourseController@getByCategoryFilterByPurchases')->name('api_course_get_by_category_filter_by_purchases');
+    Route::get('getByCategoryFilterByTrending/{category_id}', 'API\GeneralEducation\CourseController@getByCategoryFilterByTrending')->name('api_course_get_by_category_filter_by_trending');
+    Route::get('getBySubCategoryFilterByNewest/{sub_category_id}', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByNewest')->name('api_course_get_by_sub_category_filter_by_newest');
+    Route::get('getBySubCategoryFilterByOldest/{sub_category_id}', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByOldest')->name('api_course_get_by_sub_category_filter_by_oldest');
+    Route::get('getBySubCategoryFilterByPriceASC/{sub_category_id}', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByPriceASC')->name('api_course_get_by_sub_category_filter_by_price_asc');
+    Route::get('getBySubCategoryFilterByPriceDESC/{sub_category_id}', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByPriceDESC')->name('api_course_get_by_sub_category_filter_by_price_desc');
+    Route::get('getBySubCategoryFilterByPoint/{sub_category_id}', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByPoint')->name('api_course_get_by_sub_category_filter_by_point');
+    Route::get('getBySubCategoryFilterByPurchases/{sub_category_id}', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByPurchases')->name('api_course_get_by_sub_category_filter_by_purchases');
+    Route::get('getBySubCategoryFilterByTrending/{sub_category_id}', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByTrending')->name('api_course_get_by_sub_category_filter_by_trending');
 });
 
 Route::prefix('city')->group(function(){

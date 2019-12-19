@@ -64,7 +64,7 @@ class CourseController extends Controller
 
         // Operations
         $resp = $repo->getByCategoryFilterByPriceDESC($category_id);
-        dd($resp);
+        //dd($resp);
 
         // Response
         if($resp->getResult()){
@@ -155,7 +155,7 @@ class CourseController extends Controller
         }
     }
 
-    public function getBySubCategoryFilterPyPriceASC($sub_category_id){
+    public function getBySubCategoryFilterByPriceASC($sub_category_id){
         // Repo initialization
         $repo = new CourseRepository;
 

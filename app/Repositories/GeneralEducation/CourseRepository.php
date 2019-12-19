@@ -39,8 +39,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = DB::table('ge_courses')
-                ->where('active', true)
+            $object = Course::where('active', true)
                 ->orderBy('purchase_count', 'desc')
                 ->orderBy('point', 'desc')
                 ->take(20)
@@ -85,8 +84,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = DB::table('ge_courses')
-                ->where('category_id', $category_id)
+            $object = Course::where('category_id', $category_id)
                 ->where('active', true)
                 ->latest()
                 ->get();
@@ -109,8 +107,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = DB::table('ge_courses')
-                ->where('category_id', $category_id)
+            $object = Course::where('category_id', $category_id)
                 ->where('active', true)
                 ->oldest()
                 ->get();
@@ -133,8 +130,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = DB::table('ge_courses')
-                ->where('category_id', $category_id)
+            $object = Course::where('category_id', $category_id)
                 ->where('active', true)
                 ->orderBy('price', 'asc')
                 ->get();
@@ -157,8 +153,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = DB::table('ge_courses')
-                ->where('category_id', $category_id)
+            $object = Course::where('category_id', $category_id)
                 ->where('active', true)
                 ->orderBy('price', 'desc')
                 ->get();
@@ -181,8 +176,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = DB::table('ge_courses')
-                ->where('category_id', $category_id)
+            $object = Course::where('category_id', $category_id)
                 ->where('active', true)
                 ->orderBy('point', 'desc')
                 ->get();
@@ -205,8 +199,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = DB::table('ge_courses')
-                ->where('category_id', $category_id)
+            $object = Course::where('category_id', $category_id)
                 ->where('active', true)
                 ->orderBy('purchase_count', 'desc')
                 ->get();
@@ -229,8 +222,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = DB::table('ge_courses')
-                ->where('category_id', $category_id)
+            $object = Course::where('category_id', $category_id)
                 ->where('active', true)
                 ->orderBy('purchase_count', 'desc')
                 ->orderBy('point','desc')
@@ -254,8 +246,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = DB::table('ge_courses')
-                ->where('sub_category_id', $sub_category_id)
+            $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
                 ->latest()
                 ->get();
@@ -278,8 +269,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = DB::table('ge_courses')
-                ->where('sub_category_id', $sub_category_id)
+            $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
                 ->oldest()
                 ->get();
@@ -302,8 +292,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = DB::table('ge_courses')
-                ->where('sub_category_id', $sub_category_id)
+            $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
                 ->orderBy('price', 'asc')
                 ->get();
@@ -326,8 +315,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = DB::table('ge_courses')
-                ->where('sub_category_id', $sub_category_id)
+            $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
                 ->orderBy('price', 'desc')
                 ->get();
@@ -350,8 +338,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = DB::table('ge_courses')
-                ->where('sub_category_id', $sub_category_id)
+            $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
                 ->orderBy('point', 'desc')
                 ->get();
@@ -374,8 +361,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = DB::table('ge_courses')
-                ->where('sub_category_id', $sub_category_id)
+            $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
                 ->orderBy('purchase_count', 'desc')
                 ->get();
@@ -398,8 +384,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = DB::table('ge_courses')
-                ->where('sub_category_id', $sub_category_id)
+            $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
                 ->orderBy('purchase_count', 'desc')
                 ->orderBy('point','desc')
