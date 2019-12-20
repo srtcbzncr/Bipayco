@@ -42,8 +42,8 @@ return [
     'iban'=>'Iban',
     'title'=>'Ünvan',
     'id_num'=>'TC Kimlik Numarası',
-    'instructor_infos'=>'Eğitmen Bilgileri',
-    'student_infos'=>'Öğrenci Bilgileri',
+    'instructor_infos'=>'Eğitmen Hesabı',
+    'student_infos'=>'Öğrenci Hesabı',
     'password_change'=>'Şifre Değiştir',
     'select_file'=>'Dosya Seç',
 ];
