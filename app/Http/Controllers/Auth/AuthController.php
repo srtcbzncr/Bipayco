@@ -78,7 +78,7 @@ class AuthController extends Controller
         }
     }
 
-    public function settings()
+    public function settings(Request $request)
     {
         $student = false;
         $instructor = false;
@@ -114,7 +114,12 @@ class AuthController extends Controller
             'admin_profile' => Auth::user()->admin
         ];
 
-        return view('auth.settings', $data)->with(['personal_data' => 'uk-active', 'security' => null, 'photo' => null]);
+        if(!$request->session()->has('photo') and !$request->session()->has('security')){
+            $request->session()->flash('personal_data', 'uk-active');
+            $request->session()->flash('photo', null);
+            $request->session()->flash('security', null);
+        }
+        return view('auth.settings', $data);
     }
 
     public function updatePersonalData(UpdatePersonalDataRequest $request)
