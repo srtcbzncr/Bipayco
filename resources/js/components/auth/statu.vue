@@ -7,7 +7,7 @@
             <form method="POST" :action="actionAddress">
                 <div uk-grid class="uk-flex-center">
                     <div class="uk-width-large@m uk-padding-remove-top">
-                        <fieldset class="uk-fieldset">
+                        <fieldset class="uk-fieldset uk-margin-small-bottom">
                             <div v-if="instructor">
                                 <div class="uk-form-label"> {{idNum}} </div>
                                 <input class="uk-input" type="text" name="identification_number" :value="userIdNum" required>

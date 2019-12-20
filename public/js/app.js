@@ -2741,7 +2741,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "top-bar",
   props: {
-    profileImage: String
+    profileImage: String,
+    settingsRoute: String
   },
   components: {
     UserProfileDropdownNav: _user_profile_dropdown_nav__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -4198,93 +4199,101 @@ var render = function() {
                 "div",
                 { staticClass: "uk-width-large@m uk-padding-remove-top" },
                 [
-                  _c("fieldset", { staticClass: "uk-fieldset" }, [
-                    _vm.instructor
-                      ? _c("div", [
-                          _c("div", { staticClass: "uk-form-label" }, [
-                            _vm._v(" " + _vm._s(_vm.idNum) + " ")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            staticClass: "uk-input",
-                            attrs: {
-                              type: "text",
-                              name: "identification_number",
-                              required: ""
-                            },
-                            domProps: { value: _vm.userIdNum }
-                          })
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.instructor
-                      ? _c("div", [
-                          _c("div", { staticClass: "uk-form-label" }, [
-                            _vm._v(" " + _vm._s(_vm.title) + "  ")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            staticClass: "uk-input",
-                            attrs: {
-                              type: "text",
-                              name: "title",
-                              required: ""
-                            },
-                            domProps: { value: _vm.userTitle }
-                          })
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.instructor
-                      ? _c("div", [
-                          _c("div", { staticClass: "uk-form-label" }, [
-                            _vm._v(" " + _vm._s(_vm.iban) + "  ")
-                          ]),
-                          _vm._v(" "),
-                          _c("input", {
-                            staticClass: "uk-input",
-                            attrs: { type: "text", name: "iban", required: "" },
-                            domProps: { value: _vm.userIban }
-                          })
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm.instructor
-                      ? _c("div", [
-                          _c("div", { staticClass: "uk-form-label" }, [
-                            _vm._v(" " + _vm._s(_vm.bio) + "  ")
-                          ]),
-                          _vm._v(" "),
-                          _c("textarea", {
-                            staticClass: "uk-textarea",
-                            attrs: {
-                              type: "text",
-                              rows: "5",
-                              name: "bio",
-                              required: ""
-                            },
-                            domProps: { value: _vm.userBio }
-                          })
-                        ])
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("div", { staticClass: "uk-form-label" }, [
-                        _vm._v(" " + _vm._s(_vm.refCode) + "  ")
-                      ]),
+                  _c(
+                    "fieldset",
+                    { staticClass: "uk-fieldset uk-margin-small-bottom" },
+                    [
+                      _vm.instructor
+                        ? _c("div", [
+                            _c("div", { staticClass: "uk-form-label" }, [
+                              _vm._v(" " + _vm._s(_vm.idNum) + " ")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "uk-input",
+                              attrs: {
+                                type: "text",
+                                name: "identification_number",
+                                required: ""
+                              },
+                              domProps: { value: _vm.userIdNum }
+                            })
+                          ])
+                        : _vm._e(),
                       _vm._v(" "),
-                      _c("input", {
-                        staticClass: "uk-input",
-                        attrs: {
-                          type: "text",
-                          disabled: "",
-                          name: "referance_code",
-                          required: ""
-                        },
-                        domProps: { value: _vm.userRefCode }
-                      })
-                    ])
-                  ]),
+                      _vm.instructor
+                        ? _c("div", [
+                            _c("div", { staticClass: "uk-form-label" }, [
+                              _vm._v(" " + _vm._s(_vm.title) + "  ")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "uk-input",
+                              attrs: {
+                                type: "text",
+                                name: "title",
+                                required: ""
+                              },
+                              domProps: { value: _vm.userTitle }
+                            })
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.instructor
+                        ? _c("div", [
+                            _c("div", { staticClass: "uk-form-label" }, [
+                              _vm._v(" " + _vm._s(_vm.iban) + "  ")
+                            ]),
+                            _vm._v(" "),
+                            _c("input", {
+                              staticClass: "uk-input",
+                              attrs: {
+                                type: "text",
+                                name: "iban",
+                                required: ""
+                              },
+                              domProps: { value: _vm.userIban }
+                            })
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.instructor
+                        ? _c("div", [
+                            _c("div", { staticClass: "uk-form-label" }, [
+                              _vm._v(" " + _vm._s(_vm.bio) + "  ")
+                            ]),
+                            _vm._v(" "),
+                            _c("textarea", {
+                              staticClass: "uk-textarea",
+                              attrs: {
+                                type: "text",
+                                rows: "5",
+                                name: "bio",
+                                required: ""
+                              },
+                              domProps: { value: _vm.userBio }
+                            })
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("div", [
+                        _c("div", { staticClass: "uk-form-label" }, [
+                          _vm._v(" " + _vm._s(_vm.refCode) + "  ")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "uk-input",
+                          attrs: {
+                            type: "text",
+                            disabled: "",
+                            name: "referance_code",
+                            required: ""
+                          },
+                          domProps: { value: _vm.userRefCode }
+                        })
+                      ])
+                    ]
+                  ),
                   _vm._v(" "),
                   _vm.instructor
                     ? _c("div", [

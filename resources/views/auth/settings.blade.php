@@ -149,6 +149,7 @@
                 title="@lang('front/auth.title')"
                 bio="@lang('front/auth.bio')"
                 iban="@lang('front/auth.iban')"
+                idNum="@lang('front/auth.id_num')"
                 action-address=""
                 user-id-num=""
                 user-title=""

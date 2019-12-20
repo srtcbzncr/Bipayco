@@ -134,7 +134,9 @@ import UserProfileDropdownNav from "./user-profile-dropdown-nav";
 export default {
     name: "top-bar",
     props:{
-      profileImage:String,
+        profileImage:String,
+        settingsRoute:String,
+
     },
     components: {
         UserProfileDropdownNav,
