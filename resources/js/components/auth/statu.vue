@@ -5,6 +5,7 @@
         </div>
         <div class="uk-card-body">
             <form method="POST" :action="actionAddress">
+                @csrf
                 <div uk-grid class="uk-flex-center">
                     <div class="uk-width-large@m uk-padding-remove-top">
                         <fieldset class="uk-fieldset uk-margin-small-bottom">

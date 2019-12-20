@@ -2024,6 +2024,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "statu",
   props: {
@@ -4204,6 +4205,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "uk-card-body" }, [
         _c("form", { attrs: { method: "POST", action: _vm.actionAddress } }, [
+          _vm._v("\n            @csrf\n            "),
           _c(
             "div",
             { staticClass: "uk-flex-center", attrs: { "uk-grid": "" } },
@@ -6462,7 +6464,7 @@ var render = function() {
         [
           _c("div", { staticClass: "uk-width-1-4  uk-first-column" }, [
             _c("img", {
-              staticClass: "uk-align-center uk-border-circle",
+              staticClass: "uk-align-center",
               attrs: { src: _vm.profileImage, alt: "Image" }
             })
           ]),
