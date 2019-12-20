@@ -1,5 +1,13 @@
 @extends('layouts.app')
 @section('content')
+    @if(session('result_message'))
+        @if(session('error'))
+            <script>UIkit.notification({message: '{{session('message')}}', status: 'danger'});</script>
+        @else
+            <script>UIkit.notification({message: '{{session('message')}}', status: 'success'});</script>
+        @endif
+    @endif
+
     <div class="uk-container uk-margin-large-top">
         <div class="uk-card uk-card-default uk-align-center" style="max-width: 75%">
             <div class="uk-card-body">
@@ -19,21 +27,41 @@
                                             <div class="uk-width uk-child-width-1-2@l uk-grid">
                                                 <div>
                                                     <div class="uk-form-label"> @lang('front/auth.first_name') </div>
-                                                    <input class="uk-input" name="first_name" type="text" placeholder="@lang('front/auth.first_name')" value="{{$user->first_name}}" required>
+                                                    <input class="uk-input form-control @error('first_name') is-invalid @enderror" name="first_name" type="text" placeholder="@lang('front/auth.first_name')" value="{{$user->first_name}}" required>
+                                                    @error('first_name')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
                                                 </div>
                                                 <div>
                                                     <div class="uk-form-label"> @lang('front/auth.last_name')  </div>
-                                                    <input class="uk-input" name="last_name" type="text" placeholder="@lang('front/auth.last_name')" value="{{$user->last_name}}" required>
+                                                    <input class="uk-input form-control @error('last_name') is-invalid @enderror" name="last_name" type="text" placeholder="@lang('front/auth.last_name')" value="{{$user->last_name}}" required>
+                                                    @error('last_name')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="uk-width uk-child-width-1-2@l uk-grid uk-margin-remove-top">
                                                 <div>
                                                     <div class="uk-form-label"> @lang('front/auth.email')  </div>
-                                                    <input class="uk-input" name="email" type="text" placeholder="@lang('front/auth.email')" value="{{$user->email}}" required>
+                                                    <input class="uk-input form-control @error('email') is-invalid @enderror" name="email" type="text" placeholder="@lang('front/auth.email')" value="{{$user->email}}" required>
+                                                    @error('email')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
                                                 </div>
                                                 <div>
                                                     <div class="uk-form-label"> @lang('front/auth.phone_number')  </div>
-                                                    <input class="uk-input" name="phone_number" type="text" placeholder="@lang('front/auth.phone_number')" value="{{$user->phone_number}}" required>
+                                                    <input class="uk-input form-control @error('phone_number') is-invalid @enderror" name="phone_number" type="text" placeholder="@lang('front/auth.phone_number')" value="{{$user->phone_number}}" required>
+                                                    @error('phone_number')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                             <div class="uk-width uk-child-width">
@@ -41,12 +69,7 @@
                                                 <provinces city-default="@lang('front/auth.province')" district-default="@lang('front/auth.district')"></provinces>
                                             </div>
                                         </div>
-                                        <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')"
-                                               @if(session('error'))
-                                               onclick="UIkit.notification({message: '{{session('message')}}', status: 'danger'})"
-                                               @else
-                                               onclick="UIkit.notification({message: '{{session('message')}}', status: 'success'})"
-                                                @endif>
+                                        <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')">
                                     </form>
                                 </li>
                                 <li class="tag-photo uk-flex align-items-center justify-content-center uk-flex-column">
@@ -57,14 +80,14 @@
                                             <img src="{{asset(Auth::user()->avatar)}}" class="uk-margin uk-height-medium uk-width-medium uk-border-circle uk-flex-center">
                                             <div uk-form-custom="target: true">
                                                 <input name="avatar" type="file" accept="image/*"  required>
-                                                <input class="uk-input uk-form-width-medium" type="text" tabindex="-1" disabled placeholder="@lang('front/auth.select_file')">
+                                                <input class="uk-input uk-form-width-medium form-control @error('avatar') is-invalid @enderror" type="text" tabindex="-1" disabled placeholder="@lang('front/auth.select_file')">
+                                                @error('avatar')
+                                                <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
-                                            <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')"
-                                                   @if(session('error'))
-                                                   onclick="UIkit.notification({message: '{{session('message')}}', status: 'danger'})"
-                                                   @else
-                                                   onclick="UIkit.notification({message: '{{session('message')}}', status: 'success'})"
-                                                @endif>
+                                            <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')">
                                         </div>
                                     </form>
                                 </li>
@@ -76,25 +99,30 @@
                                                 <div>
                                                     <div class="uk-form-label"> @lang('front/auth.password_old') </div>
                                                     <div class="uk-inline uk-flex justify-content-center align-items-center" >
-                                                        <input class="uk-input" id="old_password" name="old_password" type="password" placeholder="@lang('front/auth.password_old')" required>
+                                                        <input class="uk-input form-control @error('old_password') is-invalid @enderror" id="old_password" name="old_password" type="password" placeholder="@lang('front/auth.password_old')" required>
                                                         <a class="fas fa-eye" onclick="togglePassword('old_password')" style="margin-left: -25px"></a>
+                                                        @error('old_password')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <div>
                                                     <div class="uk-form-label"> @lang('front/auth.password_new')</div>
                                                     <div class="uk-inline uk-flex justify-content-center align-items-center">
-                                                        <input class="uk-input" id="new_password" name="new_password" type="password" placeholder="@lang('front/auth.password_new')" required>
+                                                        <input class="uk-input form-control @error('new_password') is-invalid @enderror" id="new_password" name="new_password" type="password" placeholder="@lang('front/auth.password_new')" required>
                                                         <a class="fas fa-eye" onclick="togglePassword('new_password')" style="margin-left: -25px"></a>
+                                                        @error('new_password')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            <strong>{{ $message }}</strong>
+                                                        </span>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="uk-width-expand uk-margin-top">
-                                                <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')"
-                                                    @if(session('error'))
-                                                        onclick="UIkit.notification({message: '{{session('message')}}', status: 'danger'})"
-                                                    @else
-                                                       onclick="UIkit.notification({message: '{{session('message')}}', status: 'success'})"
-                                                    @endif>
+                                                <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')">
                                             </div>
                                         </div>
                                     </form>

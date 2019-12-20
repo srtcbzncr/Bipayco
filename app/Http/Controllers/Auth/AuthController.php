@@ -127,11 +127,12 @@ class AuthController extends Controller
 
         // Operations
         $resp = $repo->update(Auth::id(), $validatedData);
+        // Response
         if($resp->getResult()){
-            return redirect()->back()->with(['error' => false, 'message' => __('auth.update_successfull')]);
+            return redirect()->back()->with(['result_message' => true, 'error' => false, 'message' => __('auth.update_successfull'), 'tag' => 'personal']);
         }
         else{
-            return redirect()->back()->with(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            return redirect()->back()->with(['result_message' => true, 'error' => true, 'message' => __('auth.update_unsuccessfull'), 'tag' => 'personal']);
         }
     }
 
@@ -145,14 +146,14 @@ class AuthController extends Controller
             $repo = new UserRepository;
             $resp = $repo->updateAvatar(Auth::id(), $request->toArray());
             if($resp->getResult()){
-                return redirect()->back()->with(['error' => false, 'message' => __('auth.avatar_update_successfull')]);
+                return redirect()->back()->with(['result_message' => true, 'error' => false, 'message' => __('auth.avatar_update_successfull'), 'tag' => 'avatar']);
             }
             else{
-                return redirect()->back()->with(['error' => true, 'message' => __('auth.avatar_update_unsuccessfull')]);
+                return redirect()->back()->with(['result_message' => true, 'error' => true, 'message' => __('auth.avatar_update_unsuccessfull'), 'tag' => 'avatar']);
             }
         }
         else{
-            return redirect()->back()->with(['error' => true, 'message' => __('auth.avatar_update_unsuccessfull')]);
+            return redirect()->back()->with(['result_message' => true, 'error' => true, 'message' => __('auth.avatar_update_unsuccessfull'), 'tag' => 'avatar']);
         }
     }
 
@@ -162,8 +163,8 @@ class AuthController extends Controller
         $validatedData = $request->validated();
 
         if(Hash::check($validatedData['old_password'], Auth::user()->password)){
-            if(Hash::check($validatedData['old_password'], $validatedData['new_password'])){
-                return redirect()->back()->with(['error' => true, 'message' => __(auth.same_password)]);
+            if($validatedData['old_password'] == $validatedData['new_password']){
+                return redirect()->back()->with(['result_message' => true, 'error' => true, 'message' => __('auth.same_password'), 'tag' => 'password']);
             }
             else{
                 // Initializations
@@ -172,10 +173,10 @@ class AuthController extends Controller
                 // Operations
                 $resp = $repo->updatePassword(Auth::id(), $validatedData);
                 if($resp->getResult()){
-                    return redirect()->back()->with(['error' => false, 'message' => __('auth.update_successfull')]);
+                    return redirect()->back()->with(['result_message' => true, 'error' => false, 'message' => __('auth.update_successfull'), 'tag' => 'password']);
                 }
                 else{
-                    return redirect()->back()->with(['error' => true, 'message' => __('auth.update_unsuccessfull')]);
+                    return redirect()->back()->with(['result_message' => true, 'error' => true, 'message' => __('auth.update_unsuccessfull'), 'tag' => 'password']);
                 }
             }
         }
