@@ -163,7 +163,7 @@ class AuthController extends Controller
         $validatedData = $request->validated();
 
         if(Hash::check($validatedData['old_password'], Auth::user()->password)){
-            if(Hash::check($validatedData['old_password'], $validatedData['nes_password'])){
+            if(Hash::check($validatedData['old_password'], $validatedData['new_password'])){
                 return redirect()->back()->with(['error' => true, 'message' => __(auth.same_password)]);
             }
             else{
