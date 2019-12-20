@@ -40,7 +40,9 @@
     <div class="app">
         <main>
             <top-bar
-                profile-image='{{asset(Auth::user()->avatar)}}'
+                @if(Auth::check())
+                    profile-image='{{asset(Auth::user()->avatar)}}'
+                @endif
             ></top-bar>
             @yield('content')
             @yield('footer')

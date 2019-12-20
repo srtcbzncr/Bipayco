@@ -41,7 +41,12 @@
                                                 <provinces city-default="@lang('front/auth.province')" district-default="@lang('front/auth.district')"></provinces>
                                             </div>
                                         </div>
-                                        <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')">
+                                        <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')"
+                                               @if(session('error'))
+                                               onclick="UIkit.notification({message: '{{session('message')}}', status: 'danger'})"
+                                               @else
+                                               onclick="UIkit.notification({message: '{{session('message')}}', status: 'success'})"
+                                                @endif>
                                     </form>
                                 </li>
                                 <li class="tag-photo uk-flex align-items-center justify-content-center uk-flex-column">
@@ -54,7 +59,12 @@
                                                 <input name="avatar" type="file" accept="image/*"  required>
                                                 <input class="uk-input uk-form-width-medium" type="text" tabindex="-1" disabled placeholder="@lang('front/auth.select_file')">
                                             </div>
-                                            <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')">
+                                            <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')"
+                                                   @if(session('error'))
+                                                   onclick="UIkit.notification({message: '{{session('message')}}', status: 'danger'})"
+                                                   @else
+                                                   onclick="UIkit.notification({message: '{{session('message')}}', status: 'success'})"
+                                                @endif>
                                         </div>
                                     </form>
                                 </li>
@@ -79,7 +89,12 @@
                                                 </div>
                                             </div>
                                             <div class="uk-width-expand uk-margin-top">
-                                                <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')">
+                                                <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')"
+                                                    @if(session('error'))
+                                                        onclick="UIkit.notification({message: '{{session('message')}}', status: 'danger'})"
+                                                    @else
+                                                       onclick="UIkit.notification({message: '{{session('message')}}', status: 'success'})"
+                                                    @endif>
                                             </div>
                                         </div>
                                     </form>
