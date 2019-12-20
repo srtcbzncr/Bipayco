@@ -9,7 +9,7 @@
     @endif
 
     <div class="uk-container uk-margin-large-top">
-        <div class="uk-card uk-card-default uk-align-center" style="max-width: 75%">
+        <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 75%">
             <div class="uk-card-body">
                 <div class="uk-flex-center">
                     <div uk-filter="target: .js-filter " class="uk-margin-large-top uk-margin-medium-right">
@@ -133,16 +133,23 @@
                 </div>
             </div>
         </div>
-        <statu
-            statu-name="@lang('front/auth.instructor_infos')"
-            title="@lang('front/auth.title')"
-            id-num="@lang('front/auth.id_num')"
-            bio="@lang('front/auth.bio')"
-            iban="@lang('front/auth.iban')"
-            ref-code="@lang('front/auth.referance_code')"
-            sign-in="@lang('front/auth.save')"
-            action-address="#"
-            instructor
-        ></statu>
+        @if($has_student_profile)
+            <statu
+                statu-name="@lang('front/auth.student_infos')"
+                ref-code="@lang('front/auth.reference_code')"
+                sign-in="@lang('front/auth.save')"
+                user-ref-code="{{$student_profile->reference_code}}"
+                student
+            ></statu>
+        @endif
+        @if($has_student_profile)
+            <statu
+                statu-name="@lang('front/auth.student_infos')"
+                ref-code="@lang('front/auth.reference_code')"
+                sign-in="@lang('front/auth.save')"
+                user-ref-code="{{$student_profile->reference_code}}"
+                student
+            ></statu>
+        @endif
     </div>
 @endsection

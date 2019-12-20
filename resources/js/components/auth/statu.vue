@@ -1,5 +1,5 @@
 <template>
-    <div class="uk-card uk-card-default uk-align-center" style="max-width: 75%">
+    <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 75%">
         <div class="uk-card-header uk-text-bold">
             {{statuName}}
         </div>
@@ -29,7 +29,9 @@
                                 <input class="uk-input" type="text" disabled name="referance_code" :value="userRefCode" required>
                             </div>
                         </div>
-                        <input class="uk-button uk-button-grey button uk-margin" type="submit" :value="signIn">
+                        <div v-if="instructor">
+                            <input class="uk-button uk-button-grey button uk-margin" type="submit" :value="signIn">
+                        </div>
                     </div>
                 </div>
             </form>
@@ -46,8 +48,8 @@
             userIdNum: String,
             userTitle: String,
             userBio: String,
-            UserIban: String,
-            UserRefCode: String,
+            userIban: String,
+            userRefCode: String,
             title:String,
             idNum:String,
             bio:String,
@@ -55,6 +57,7 @@
             refCode:String,
             signIn:String,
             actionAddress:String,
+            student:Boolean
         }
     }
 </script>

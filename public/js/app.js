@@ -2021,6 +2021,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "statu",
   props: {
@@ -2029,15 +2031,16 @@ __webpack_require__.r(__webpack_exports__);
     userIdNum: String,
     userTitle: String,
     userBio: String,
-    UserIban: String,
-    UserRefCode: String,
+    userIban: String,
+    userRefCode: String,
     title: String,
     idNum: String,
     bio: String,
     iban: String,
     refCode: String,
     signIn: String,
-    actionAddress: String
+    actionAddress: String,
+    student: Boolean
   }
 });
 
@@ -4175,7 +4178,8 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "uk-card uk-card-default uk-align-center",
+      staticClass:
+        "uk-card uk-card-default uk-align-center uk-margin-medium-bottom",
       staticStyle: { "max-width": "75%" }
     },
     [
@@ -4269,11 +4273,16 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("input", {
-                  staticClass: "uk-button uk-button-grey button uk-margin",
-                  attrs: { type: "submit" },
-                  domProps: { value: _vm.signIn }
-                })
+                _vm.instructor
+                  ? _c("div", [
+                      _c("input", {
+                        staticClass:
+                          "uk-button uk-button-grey button uk-margin",
+                        attrs: { type: "submit" },
+                        domProps: { value: _vm.signIn }
+                      })
+                    ])
+                  : _vm._e()
               ])
             ]
           )
