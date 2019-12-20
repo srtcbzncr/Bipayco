@@ -22,4 +22,5 @@ return [
     'update_unsuccessfull' => 'Profiliniz güncellenirken bir hata oluştu.',
     'avatar_update_successfull' => 'Profil resminiz güncellendi.',
     'avatar_update_unsuccessfull' => 'Profil resmi güncellenirken bir hata oluştu.',
+    'same_password' => 'Yeni şifreniz eski şifreniz ile aynı olamaz.',
 ];
