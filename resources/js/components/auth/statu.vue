@@ -1,11 +1,18 @@
+
 <template>
     <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 75%">
         <div class="uk-card-header uk-text-bold">
             {{statuName}}
         </div>
         <div class="uk-card-body">
-            <form method="POST" :action="actionAddress">
-                <input type="hidden" name="_token" :value="csrf" />
+            <vue-form method="POST" :action="actionAddress">
+                <input hidden :value="csrfToken" name="_token">
+
+                <input hidden
+                    v-if="['GET', 'POST'].indexOf(method.toUpperCase()) === -1"
+                    :value="method"
+                    name="_method"
+                >
                 <div uk-grid class="uk-flex-center">
                     <div class="uk-width-large@m uk-padding-remove-top">
                         <fieldset class="uk-fieldset uk-margin-small-bottom">
@@ -36,15 +43,18 @@
                         </div>
                     </div>
                 </div>
-            </form>
+            </vue-form>
         </div>
     </div>
 </template>
 
 <script>
+    import VueForm from "./vueForm";
     export default {
         name: "statu",
+        components: {VueForm},
         props:{
+            method: { default: 'POST' },
             instructor:Boolean,
             statuName: String,
             userIdNum: String,
@@ -61,7 +71,11 @@
             actionAddress:String,
             student:Boolean,
             csrf:String,
-        }
+        },
+        data() { return { csrfToken: null }},
+        created() {
+            this.csrfToken = document.querySelector('meta[name="csrf-token"]').content
+        },
     }
 </script>
 
