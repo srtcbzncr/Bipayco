@@ -151,7 +151,7 @@
                 title="@lang('front/auth.title')"
                 bio="@lang('front/auth.bio')"
                 iban="@lang('front/auth.iban')"
-                idNum="@lang('front/auth.id_num')"
+                id-num="@lang('front/auth.id_num')"
                 action-address="{{route('updateInstructorData')}}"
                 user-id-num="{{$instructor_profile->identification_number}}"
                 user-title="{{$instructor_profile->title}}"

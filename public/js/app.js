@@ -4275,7 +4275,10 @@ var render = function() {
     },
     [
       _c("div", { staticClass: "uk-card-header uk-text-bold" }, [
-        _c("i", { staticClass: "fas", class: _vm.statuLogo }),
+        _c("span", {
+          staticClass: "fas icon-medium uk-margin-small-right",
+          class: _vm.statuLogo
+        }),
         _vm._v("\n        " + _vm._s(_vm.statuName) + "\n    ")
       ]),
       _vm._v(" "),
