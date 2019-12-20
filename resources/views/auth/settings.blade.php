@@ -137,18 +137,24 @@
             <statu
                 statu-name="@lang('front/auth.student_infos')"
                 ref-code="@lang('front/auth.reference_code')"
-                sign-in="@lang('front/auth.save')"
                 user-ref-code="{{$student_profile->reference_code}}"
                 student
             ></statu>
         @endif
-        @if($has_student_profile)
+        @if($has_instructor_profile)
             <statu
-                statu-name="@lang('front/auth.student_infos')"
+                statu-name="@lang('front/auth.instructor_infos')"
                 ref-code="@lang('front/auth.reference_code')"
                 sign-in="@lang('front/auth.save')"
-                user-ref-code="{{$student_profile->reference_code}}"
-                student
+                title="@lang('front/auth.title')"
+                bio="@lang('front/auth.bio')"
+                iban="@lang('front/auth.iban')"
+                action-address=""
+                user-id-num=""
+                user-title=""
+                user-iban=""
+                user-ref-code="{{$instructor_profile->reference_code}}"
+                instructor
             ></statu>
         @endif
     </div>

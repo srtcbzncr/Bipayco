@@ -6,8 +6,8 @@
         <div class="uk-card-body">
             <form method="POST" :action="actionAddress">
                 <div uk-grid class="uk-flex-center">
-                    <div class="uk-width-large@m ">
-                        <div class="uk-padding-remove-top ">
+                    <div class="uk-width-large@m uk-padding-remove-top">
+                        <fieldset class="uk-fieldset">
                             <div v-if="instructor">
                                 <div class="uk-form-label"> {{idNum}} </div>
                                 <input class="uk-input" type="text" name="identification_number" :value="userIdNum" required>
@@ -16,19 +16,20 @@
                                 <div class="uk-form-label"> {{title}}  </div>
                                 <input class="uk-input" type="text" name="title" :value="userTitle" required>
                             </div>
-                            <div v-if="instructor">
-                                <div class="uk-form-label"> {{bio}}  </div>
-                                <input class="uk-input" type="text" name="bio" :value="userBio" required>
-                            </div>
+
                             <div v-if="instructor">
                                 <div class="uk-form-label"> {{iban}}  </div>
                                 <input class="uk-input" type="text" name="iban" :value="userIban" required>
+                            </div>
+                            <div v-if="instructor">
+                                <div class="uk-form-label"> {{bio}}  </div>
+                                <textarea class="uk-textarea" type="text" rows="5" name="bio" :value="userBio" required> </textarea>
                             </div>
                             <div>
                                 <div class="uk-form-label"> {{refCode}}  </div>
                                 <input class="uk-input" type="text" disabled name="referance_code" :value="userRefCode" required>
                             </div>
-                        </div>
+                        </fieldset>
                         <div v-if="instructor">
                             <input class="uk-button uk-button-grey button uk-margin" type="submit" :value="signIn">
                         </div>
