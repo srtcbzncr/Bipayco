@@ -163,16 +163,21 @@ class AuthController extends Controller
         $validatedData = $request->validated();
 
         if(Hash::check($validatedData['old_password'], Auth::user()->password)){
-            // Initializations
-            $repo = new UserRepository;
-
-            // Operations
-            $resp = $repo->updatePassword(Auth::id(), $validatedData);
-            if($resp->getResult()){
-                return redirect()->back()->with(['error' => false, 'message' => __('auth.update_successfull')]);
+            if(Hash::check($validatedData['old_password'], $validatedData['new_password'])){
+                return redirect()->back()->with(['error' => true, 'message' => __(auth.same_password)]);
             }
             else{
-                return redirect()->back()->with(['error' => true, 'message' => __('auth.update_unsuccessfull')]);
+                // Initializations
+                $repo = new UserRepository;
+
+                // Operations
+                $resp = $repo->updatePassword(Auth::id(), $validatedData);
+                if($resp->getResult()){
+                    return redirect()->back()->with(['error' => false, 'message' => __('auth.update_successfull')]);
+                }
+                else{
+                    return redirect()->back()->with(['error' => true, 'message' => __('auth.update_unsuccessfull')]);
+                }
             }
         }
         else{
