@@ -203,7 +203,6 @@ class AuthController extends Controller
 
         // Operations
         $resp = $repo->update(Auth::user()->instructor_id, $validatedData);
-        dd($resp);
         if($resp->getResult()){
             return redirect()->back()->with(['error' => false, 'message' => __('auth.update_successfull')]);
         }
