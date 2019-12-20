@@ -4091,60 +4091,56 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "uk-child-width-1-2@l uk-grid uk-margin-small" },
-    [
-      _c("div", [
-        _c(
-          "select",
-          {
-            staticClass: "uk-select uk-margin-right uk-margin-bottom",
-            attrs: { id: "city", required: "" },
-            on: { change: _vm.loadDistrictList }
-          },
-          [
-            _c(
-              "option",
-              { attrs: { disabled: "", hidden: "", selected: "", value: "" } },
-              [_vm._v(_vm._s(_vm.cityDefault))]
-            ),
-            _vm._v(" "),
-            _vm._l(_vm.cities, function(city) {
-              return _c("option", { domProps: { value: city.id } }, [
-                _vm._v(_vm._s(city.name))
-              ])
-            })
-          ],
-          2
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", [
-        _c(
-          "select",
-          {
-            staticClass: "uk-select",
-            attrs: { name: "district_id", required: "" }
-          },
-          [
-            _c(
-              "option",
-              { attrs: { disabled: "", hidden: "", selected: "", value: "" } },
-              [_vm._v(_vm._s(_vm.districtDefault))]
-            ),
-            _vm._v(" "),
-            _vm._l(_vm.districts, function(district) {
-              return _c("option", { domProps: { value: district.id } }, [
-                _vm._v(_vm._s(district.name))
-              ])
-            })
-          ],
-          2
-        )
-      ])
-    ]
-  )
+  return _c("div", { staticClass: "uk-child-width-1-2@l uk-grid" }, [
+    _c("div", [
+      _c(
+        "select",
+        {
+          staticClass: "uk-select uk-margin-right uk-margin-small-bottom",
+          attrs: { id: "city", required: "" },
+          on: { change: _vm.loadDistrictList }
+        },
+        [
+          _c(
+            "option",
+            { attrs: { disabled: "", hidden: "", selected: "", value: "" } },
+            [_vm._v(_vm._s(_vm.cityDefault))]
+          ),
+          _vm._v(" "),
+          _vm._l(_vm.cities, function(city) {
+            return _c("option", { domProps: { value: city.id } }, [
+              _vm._v(_vm._s(city.name))
+            ])
+          })
+        ],
+        2
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", [
+      _c(
+        "select",
+        {
+          staticClass: "uk-select",
+          attrs: { name: "district_id", required: "" }
+        },
+        [
+          _c(
+            "option",
+            { attrs: { disabled: "", hidden: "", selected: "", value: "" } },
+            [_vm._v(_vm._s(_vm.districtDefault))]
+          ),
+          _vm._v(" "),
+          _vm._l(_vm.districts, function(district) {
+            return _c("option", { domProps: { value: district.id } }, [
+              _vm._v(_vm._s(district.name))
+            ])
+          })
+        ],
+        2
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true

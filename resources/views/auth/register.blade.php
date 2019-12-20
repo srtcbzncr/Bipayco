@@ -23,6 +23,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{asset('css/uikit.css')}}" rel="stylesheet">
+    <link href="{{asset('css/fontawesome.css')}}" rel="stylesheet">
 </head>
 <body>
 <div id="app1">
@@ -46,8 +47,8 @@
                                     </div>
                                 @endif
                                 <p class="uk-text-muted uk-margin-remove-top uk-margin-small-bottom">@lang('front/auth.register_description')</p>
-                                <div class="uk-child-width-1-2 uk-grid">
-                                    <div>
+                                <div class="uk-child-width-1-2@l uk-grid">
+                                    <div class="uk-margin-small-bottom">
                                         <input id="first_name" class="uk-input form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="first_name" autofocus placeholder=" @lang('front/auth.first_name') " type="text">
                                         @error('first_name')
                                         <span class="invalid-feedback" role="alert">
@@ -64,8 +65,8 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="uk-child-width-1-2 uk-grid uk-margin-small">
-                                    <div>
+                                <div class="uk-child-width-1-2@l uk-grid uk-margin-small">
+                                    <div class="uk-margin-small-bottom">
                                         <input id="email" class="uk-input form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="@lang('front/auth.email')" type="text">
                                         @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -82,23 +83,27 @@
                                         @enderror
                                     </div>
                                 </div>
-                                <provinces city-default="@lang('front/auth.province')" district-default="@lang('front/auth.district')"></provinces>
-                                <div class="uk-child-width-1-2 uk-grid uk-margin-small">
-                                    <div>
+                                <div class="uk-margin-small">
+                                    <provinces city-default="@lang('front/auth.province')" district-default="@lang('front/auth.district')"></provinces>
+                                </div>
+                                <div class="uk-child-width-1-2@l uk-grid uk-margin-small">
+                                    <div class="uk-margin-small-bottom">
                                         <input id="username" class="uk-input form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="@lang('front/auth.username')" type="text">
                                         @error('username')
                                         <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
-                                            </span>
+                                        </span>
                                         @enderror
                                     </div>
                                     <div>
-                                        <input id="password" class="uk-input form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password" placeholder="@lang('front/auth.password')" type="password">
-                                            <a class="uk-icon-eye"></a>
+                                        <div>
+                                            <input id="password" class="uk-input form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password" placeholder="@lang('front/auth.password')" type="password">
+                                            <a class="fas fa-eye" onclick="togglePassword('password')" style="margin-left: -25px"></a>
+                                        </div>
                                         @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                 </div>
@@ -126,7 +131,14 @@
     </div>
 </div>
 <script>
-
+    function togglePassword(name) {
+        var passwordInput= document.getElementById(name);
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+        } else {
+            passwordInput.type = "password";
+        }
+    }
 </script>
 </body>
 </html>

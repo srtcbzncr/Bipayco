@@ -23,6 +23,7 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{asset('css/uikit.css')}}" rel="stylesheet">
+    <link href="{{asset('css/fontawesome.css')}}" rel="stylesheet">
 </head>
 <body>
 <div id="app1">
@@ -55,8 +56,10 @@
                                     @enderror
                                 </div>
                                 <div class="uk-inline uk-margin-small">
-                                    <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: eye"></span>
-                                    <input class="uk-input uk-form-width-large form-control @error('password') is-invalid @enderror" name="password" id="password" placeholder="@lang('front/auth.password')" type="password" required autocomplete="current-password">
+                                    <div>
+                                        <input id="password" class="uk-input uk-form-width-large form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password" placeholder="@lang('front/auth.password')" type="password">
+                                        <a class="fas fa-eye" onclick="togglePassword('password')" style="margin-left: -25px;"></a>
+                                    </div>
                                     @error('password')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -94,4 +97,14 @@
     </div>
 </div>
 </body>
+<script>
+    function togglePassword(name) {
+        var passwordInput= document.getElementById(name);
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+        } else {
+            passwordInput.type = "password";
+        }
+    }
+</script>
 </html>
