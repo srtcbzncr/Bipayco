@@ -12,7 +12,7 @@
                                     <li uk-filter-control=".tag-photo"><a href="#"><span class="fas fa-camera uk-margin-small-right "></span><b>@lang('front/auth.profile_photo')</b></a></li>
                                     <li uk-filter-control=".tag-security"><a href="#"><span class="fas fa-lock uk-margin-small-right"></span><b>@lang('front/auth.password_change')</b></a></li>
                                 </ul>
-                                <div class="uk-width uk-flex-center">
+                                <div class="uk-width">
                                     <ul class="js-filter" style="list-style-type:none">
                                         <li class="tag-personal">
                                             <form method="POST" action="{{ route('updatePersonalData') }}">
@@ -46,12 +46,12 @@
                                                 <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')">
                                             </form>
                                         </li>
-                                        <li class="tag-photo">
+                                        <li class="tag-photo uk-flex align-items-center uk-flex-column">
                                             <p>@lang('front/auth.profile_photo')</p>
                                             <form method="POST" action="{{ route('updateAvatar') }}" enctype="multipart/form-data">
                                                 @csrf
                                                <!-- style=" border-bottom: 1px solid #e5e5e5"-->
-                                                    <div class="uk-grid-stack">
+                                                    <div class="uk-grid-stack uk-flex-center">
                                                         <img src="{{asset(Auth::user()->avatar)}}" class="uk-margin uk-height-medium uk-width-medium uk-border-circle uk-flex-center"><br>
                                                         <input name="avatar" type="file" accept="image/*" class="uk-width-small"  required/><br>
                                                         <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')">
