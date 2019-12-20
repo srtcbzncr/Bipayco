@@ -150,10 +150,11 @@
                 bio="@lang('front/auth.bio')"
                 iban="@lang('front/auth.iban')"
                 idNum="@lang('front/auth.id_num')"
-                action-address=""
-                user-id-num=""
-                user-title=""
-                user-iban=""
+                action-address="{{route('updateInstructorData')}}"
+                user-id-num="{{$instructor_profile->identification_number}}"
+                user-title="{{$instructor_profile->title}}"
+                user-iban="{{$instructor_profile->iban}}"
+                user-bio="{{$instructor_profile->bio}}"
                 user-ref-code="{{$instructor_profile->reference_code}}"
                 instructor
             ></statu>

@@ -20,11 +20,11 @@
                 <a href="#"> <i class="fas fa-share uk-margin-small-right"></i> Invite freind</a>
             </li>
             <li>
-                <a href="#"> <i class="fas fa-cog uk-margin-small-right"></i> Setting</a>
+                <a :href="settingsRoute"> <i class="fas fa-cog uk-margin-small-right"></i> Setting</a>
             </li>
             <li class="uk-nav-divider"></li>
             <li>
-                <a href="#"> <i class="fas fa-sign-out-alt uk-margin-small-right"></i> Log out</a>
+                <a :href="logoutRoute"> <i class="fas fa-sign-out-alt uk-margin-small-right"></i> Log out</a>
             </li>
         </ul>
     </div>
@@ -33,6 +33,10 @@
 <script>
     export default {
         name: "user-profile-dropdown-nav",
+        props:{
+            settingsRoute:String,
+            logoutRoute:String,
+        }
     }
 </script>
 

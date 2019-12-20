@@ -110,7 +110,10 @@
                     <a href="#">
                         <img :src="profileImage" alt="" class="uk-border-circle user-profile-tiny">
                     </a>
-                    <user-profile-dropdown-nav/>
+                    <user-profile-dropdown-nav
+                        :settings-route="settingsRoute"
+                        :logout-route="logoutRoute"
+                    />
                 </li>
             </ul>
         </div>
@@ -136,7 +139,7 @@ export default {
     props:{
         profileImage:String,
         settingsRoute:String,
-
+        logoutRoute:String
     },
     components: {
         UserProfileDropdownNav,

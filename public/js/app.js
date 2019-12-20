@@ -2523,6 +2523,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "side-bar",
+  props: {
+    homeRoute: String
+  },
   components: {
     AccordionMenuTitle: _accordion_menu_title__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
@@ -2734,6 +2737,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 
@@ -2742,7 +2748,8 @@ __webpack_require__.r(__webpack_exports__);
   name: "top-bar",
   props: {
     profileImage: String,
-    settingsRoute: String
+    settingsRoute: String,
+    logoutRoute: String
   },
   components: {
     UserProfileDropdownNav: _user_profile_dropdown_nav__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -2796,7 +2803,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "user-profile-dropdown-nav"
+  name: "user-profile-dropdown-nav",
+  props: {
+    settingsRoute: String,
+    logoutRoute: String
+  }
 });
 
 /***/ }),
@@ -5179,11 +5190,15 @@ var render = function() {
   return _c("div", { attrs: { id: "side-nav" } }, [
     _c("div", { staticClass: "side-nav-bg" }),
     _vm._v(" "),
-    _vm._m(0),
+    _c("div", { staticClass: "uk-navbar-left uk-visible@s" }, [
+      _c("a", { staticClass: "uk-logo", attrs: { href: _vm.homeRoute } }, [
+        _c("i", { staticClass: "fas fa-graduation-cap" })
+      ])
+    ]),
     _vm._v(" "),
     _c("ul", [
       _c("li", [
-        _vm._m(1),
+        _vm._m(0),
         _vm._v(" "),
         _c(
           "div",
@@ -5220,16 +5235,16 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
       _vm._m(2),
       _vm._v(" "),
       _vm._m(3),
       _vm._v(" "),
       _vm._m(4),
       _vm._v(" "),
-      _vm._m(5),
-      _vm._v(" "),
       _c("li", [
-        _vm._m(6),
+        _vm._m(5),
         _vm._v(" "),
         _c("div", { staticClass: "side-menu-slide" }, [
           _c("div", { staticClass: "side-menu-slide-content" }, [
@@ -5249,23 +5264,13 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(7)
+      _vm._m(6)
     ]),
     _vm._v(" "),
-    _vm._m(8)
+    _vm._m(7)
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-navbar-left uk-visible@s" }, [
-      _c("a", { staticClass: "uk-logo", attrs: { href: "Homepage.html" } }, [
-        _c("i", { staticClass: "fas fa-graduation-cap" })
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -6129,7 +6134,12 @@ var render = function() {
                   })
                 ]),
                 _vm._v(" "),
-                _c("user-profile-dropdown-nav")
+                _c("user-profile-dropdown-nav", {
+                  attrs: {
+                    "settings-route": _vm.settingsRoute,
+                    "logout-route": _vm.logoutRoute
+                  }
+                })
               ],
               1
             )
@@ -6429,7 +6439,46 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    {
+      staticClass:
+        "uk-dropdown  uk-dropdown-top-right  tm-dropdown-small border-radius-6 angle-top-right",
+      attrs: {
+        "uk-dropdown":
+          "pos: top-right ;mode : click ;animation: uk-animation-slide-bottom-small"
+      }
+    },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("ul", { staticClass: "uk-nav uk-dropdown-nav" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _vm._m(3),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", { attrs: { href: _vm.settingsRoute } }, [
+            _c("i", { staticClass: "fas fa-cog uk-margin-small-right" }),
+            _vm._v(" Setting")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "uk-nav-divider" }),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", { attrs: { href: _vm.logoutRoute } }, [
+            _c("i", {
+              staticClass: "fas fa-sign-out-alt uk-margin-small-right"
+            }),
+            _vm._v(" Log out")
+          ])
+        ])
+      ])
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -6439,92 +6488,71 @@ var staticRenderFns = [
     return _c(
       "div",
       {
-        staticClass:
-          "uk-dropdown  uk-dropdown-top-right  tm-dropdown-small border-radius-6 angle-top-right",
-        attrs: {
-          "uk-dropdown":
-            "pos: top-right ;mode : click ;animation: uk-animation-slide-bottom-small"
-        }
+        staticClass: "uk-grid-small uk-flex-middle uk-margin-small-bottom",
+        attrs: { "uk-grid": "" }
       },
       [
-        _c(
-          "div",
-          {
-            staticClass: "uk-grid-small uk-flex-middle uk-margin-small-bottom",
-            attrs: { "uk-grid": "" }
-          },
-          [
-            _c("div", { staticClass: "uk-width-1-4  uk-first-column" }, [
-              _c("img", {
-                staticClass: "uk-align-center uk-border-circle",
-                attrs: { src: "#", alt: "Image" }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "uk-width-3-4" }, [
-              _c(
-                "p",
-                {
-                  staticClass:
-                    "uk-margin-remove-bottom uk-margin-small-top uk-text-bold"
-                },
-                [_vm._v(" Hamse Mohamoud  ")]
-              ),
-              _vm._v(" "),
-              _c(
-                "p",
-                {
-                  staticClass:
-                    "uk-margin-remove-top uk-text-small uk-margin-small-bottom"
-                },
-                [_vm._v(" Bankook China")]
-              )
-            ])
-          ]
-        ),
+        _c("div", { staticClass: "uk-width-1-4  uk-first-column" }, [
+          _c("img", {
+            staticClass: "uk-align-center uk-border-circle",
+            attrs: { src: "#", alt: "Image" }
+          })
+        ]),
         _vm._v(" "),
-        _c("ul", { staticClass: "uk-nav uk-dropdown-nav" }, [
-          _c("li", [
-            _c("a", { attrs: { href: "Profile.html" } }, [
-              _c("i", { staticClass: "fas fa-user uk-margin-small-right" }),
-              _vm._v(" Profile")
-            ])
-          ]),
+        _c("div", { staticClass: "uk-width-3-4" }, [
+          _c(
+            "p",
+            {
+              staticClass:
+                "uk-margin-remove-bottom uk-margin-small-top uk-text-bold"
+            },
+            [_vm._v(" Hamse Mohamoud  ")]
+          ),
           _vm._v(" "),
-          _c("li", [
-            _c("a", { attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fas fa-envelope uk-margin-small-right" }),
-              _vm._v(" Messages ")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("a", { attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fas fa-share uk-margin-small-right" }),
-              _vm._v(" Invite freind")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("li", [
-            _c("a", { attrs: { href: "#" } }, [
-              _c("i", { staticClass: "fas fa-cog uk-margin-small-right" }),
-              _vm._v(" Setting")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "uk-nav-divider" }),
-          _vm._v(" "),
-          _c("li", [
-            _c("a", { attrs: { href: "#" } }, [
-              _c("i", {
-                staticClass: "fas fa-sign-out-alt uk-margin-small-right"
-              }),
-              _vm._v(" Log out")
-            ])
-          ])
+          _c(
+            "p",
+            {
+              staticClass:
+                "uk-margin-remove-top uk-text-small uk-margin-small-bottom"
+            },
+            [_vm._v(" Bankook China")]
+          )
         ])
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { attrs: { href: "Profile.html" } }, [
+        _c("i", { staticClass: "fas fa-user uk-margin-small-right" }),
+        _vm._v(" Profile")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fas fa-envelope uk-margin-small-right" }),
+        _vm._v(" Messages ")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("i", { staticClass: "fas fa-share uk-margin-small-right" }),
+        _vm._v(" Invite freind")
+      ])
+    ])
   }
 ]
 render._withStripped = true

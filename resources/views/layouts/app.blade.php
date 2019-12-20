@@ -32,7 +32,9 @@
 <div id="app1">
     <div class="side-nav uk-animation-slide-left-medium" id="side-nav">
         <span class="uk-animation-fade tm-mobile-close-icon" uk-toggle="target: #side-nav; cls: side-nav-active"> <i class="fas fa-times icon-large"></i></span>
-        <side-bar></side-bar>
+        <side-bar
+            home-route="{{route('home')}}"
+        ></side-bar>
     </div>
     <div id="spinneroverlay">
         <div class="spinner"></div>
@@ -40,6 +42,8 @@
     <div class="app">
         <main>
             <top-bar
+                logout-route="{{route('logout')}}"
+                settings-route="{{route('settings')}}"
                 @if(Auth::check())
                     profile-image='{{asset(Auth::user()->avatar)}}'
                 @endif

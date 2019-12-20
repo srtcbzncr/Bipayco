@@ -3,7 +3,7 @@
     <div id="side-nav">
         <div class="side-nav-bg"></div>
         <div class="uk-navbar-left uk-visible@s">
-            <a class="uk-logo" href="Homepage.html"> <i class="fas fa-graduation-cap"/> </a>
+            <a class="uk-logo" :href="homeRoute"> <i class="fas fa-graduation-cap"/> </a>
         </div>
         <ul>
             <li>
@@ -160,6 +160,9 @@
 import AccordionMenuTitle from "./accordion-menu-title";
 export default {
     name: "side-bar",
+    props:{
+      homeRoute:String,
+    },
     components: {
         AccordionMenuTitle
     },
