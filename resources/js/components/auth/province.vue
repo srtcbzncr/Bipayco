@@ -1,7 +1,7 @@
 <template>
     <div class="uk-child-width-1-2@l uk-grid uk-margin-small">
         <div>
-            <select class='uk-select uk-margin-right' id="city" @change="loadDistrictList" required>
+            <select class='uk-select uk-margin-right uk-margin-bottom' id="city" @change="loadDistrictList" required>
                 <option disabled hidden selected value="">{{cityDefault}}</option>
                 <option v-for='city in cities' :value='city.id'>{{city.name}}</option>
             </select>

@@ -42,5 +42,6 @@ return [
     'iban'=>'Iban',
     'title'=>'Ünvan',
     'id_num'=>'TC Kimlik Numarası',
-    'instructor'=>'Eğitmen'
+    'instructor'=>'Eğitmen',
+    'password_change'=>'Şifre Değiştir',
 ];

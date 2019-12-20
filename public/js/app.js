@@ -4099,7 +4099,7 @@ var render = function() {
         _c(
           "select",
           {
-            staticClass: "uk-select uk-margin-right",
+            staticClass: "uk-select uk-margin-right uk-margin-bottom",
             attrs: { id: "city", required: "" },
             on: { change: _vm.loadDistrictList }
           },
