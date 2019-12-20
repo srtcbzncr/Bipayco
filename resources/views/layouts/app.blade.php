@@ -12,7 +12,6 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/js/uikit.min.js"></script>
-    <script src="uikit/dist/js/uikit-icons.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.2.3/dist/js/uikit-icons.min.js"></script>
     <script src="{{asset('js/simplebar.js')}}"></script>
     <script src="{{asset('js/dropzone.min.js')}}"></script>
@@ -33,14 +32,16 @@
 <div id="app1">
     <div class="side-nav uk-animation-slide-left-medium" id="side-nav">
         <span class="uk-animation-fade tm-mobile-close-icon" uk-toggle="target: #side-nav; cls: side-nav-active"> <i class="fas fa-times icon-large"></i></span>
-        @yield('side-bar')
+        <side-bar></side-bar>
     </div>
     <div id="spinneroverlay">
         <div class="spinner"></div>
     </div>
     <div class="app">
         <main>
-            @yield('top-bar')
+            <top-bar
+                profile-image='{{asset(Auth::user()->avatar)}}'
+            ></top-bar>
             @yield('content')
             @yield('footer')
         </main>

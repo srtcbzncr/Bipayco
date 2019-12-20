@@ -163,9 +163,6 @@ export default {
     components: {
         AccordionMenuTitle
     },
-    mounted() {
-
-    }
 }
 </script>
 

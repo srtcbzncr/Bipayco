@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 @section('side-bar')
     <!--Mobile icon wiill close nav-side   -->
     <div id="side-nav">
@@ -8,20 +9,18 @@
         </div>
         <ul>
             <li>
-                <a href="#"> <i class="fas fa-play"/> </a>
+                <a href="#"> <i class="fas fa-play"></i></a>
                 <div class="side-menu-slide" style="overflow-y: auto">
                     <div class="side-menu-slide-content" >
                         <ul uk-accordion>
-                            <accordion-menu-title/>
-                            <accordion-menu-title/>
-                            <accordion-menu-title/>
-                            <accordion-menu-title/>
-                            <accordion-menu-title/>
-                            <accordion-menu-title/>
-                            <accordion-menu-title/>
-                            <accordion-menu-title/>
+                            <accordion-menu-title></accordion-menu-title>
+                            <accordion-menu-title></accordion-menu-title>
+                            <accordion-menu-title></accordion-menu-title>
+                            <accordion-menu-title></accordion-menu-title>
+                            <accordion-menu-title></accordion-menu-title>
+                            <accordion-menu-title></accordion-menu-title>
+                            <accordion-menu-title></accordion-menu-title>
                         </ul>
-
                     </div>
                 </div>
             </li>
@@ -155,4 +154,60 @@
             </li>
         </ul>
     </div>
+    <script>
+        (function (window, document, undefined) {
+            'use strict';
+            if (!('localStorage' in window)) return;
+            var nightMode = localStorage.getItem('gmtNightMode');
+            if (nightMode) {
+                document.documentElement.className += ' night-mode';
+            }
+        })(window, document);
+
+        (function (window, document, undefined) {
+
+            'use strict';
+
+            // Feature test
+            if (!('localStorage' in window)) return;
+
+            // Get our newly insert toggle
+            var nightMode = document.querySelector('#night-mode');
+            if (!nightMode) return;
+
+            // When clicked, toggle night mode on or off
+            nightMode.addEventListener('click', function (event) {
+                event.preventDefault();
+                document.documentElement.classList.toggle('night-mode');
+                if ( document.documentElement.classList.contains('night-mode') ) {
+                    localStorage.setItem('gmtNightMode', true);
+                    return;
+                }
+                localStorage.removeItem('gmtNightMode');
+            }, false);
+
+        })(window, document);
+
+        // Preloader
+        var spinneroverlay = document.getElementById("spinneroverlay");
+        window.addEventListener('load', function(){
+            spinneroverlay.style.display = 'none';
+        });
+
+        //scrollTop
+        // When the user scrolls down 20px from the top of the document, show the button
+        /*window.onscroll = function() {scrollFunction()};
+        function scrollFunction() {
+          if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("scrollTop").style.display = "block";
+          } else {
+            document.getElementById("scrollTop").style.display = "none";
+          }
+        }
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }*/
+    </script>
 @endsection

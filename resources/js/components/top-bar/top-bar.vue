@@ -108,7 +108,7 @@
                 <li>
                     <!-- User profile -->
                     <a href="#">
-                        <img src="#" alt="" class="uk-border-circle user-profile-tiny">
+                        <img :src="profileImage" alt="" class="uk-border-circle user-profile-tiny">
                     </a>
                     <user-profile-dropdown-nav/>
                 </li>
@@ -133,6 +133,9 @@ import NotificationCard from "./notification-card";
 import UserProfileDropdownNav from "./user-profile-dropdown-nav";
 export default {
     name: "top-bar",
+    props:{
+      profileImage:String,
+    },
     components: {
         UserProfileDropdownNav,
         NotificationCard,
