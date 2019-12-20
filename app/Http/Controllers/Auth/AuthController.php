@@ -111,13 +111,10 @@ class AuthController extends Controller
             'has_manager_profile' => $manager,
             'manager_profile' => Auth::user()->manager,
             'has_admin_profile' => $admin,
-            'admin_profile' => Auth::user()->admin,
-            'personal_data' => 'active',
-            'security' => null,
-            'photo' => null,
+            'admin_profile' => Auth::user()->admin
         ];
 
-        return view('auth.settings', $data);
+        return view('auth.settings', $data)->with(['personal_data' => 'uk-active', 'security' => null, 'photo' => null]);
     }
 
     public function updatePersonalData(UpdatePersonalDataRequest $request)
