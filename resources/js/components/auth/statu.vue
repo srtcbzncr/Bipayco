@@ -5,7 +5,7 @@
         </div>
         <div class="uk-card-body">
             <form method="POST" :action="actionAddress">
-                @csrf
+                {{csrfToken}}
                 <div uk-grid class="uk-flex-center">
                     <div class="uk-width-large@m uk-padding-remove-top">
                         <fieldset class="uk-fieldset uk-margin-small-bottom">
@@ -59,7 +59,8 @@
             refCode:String,
             signIn:String,
             actionAddress:String,
-            student:Boolean
+            student:Boolean,
+            csrfToken:String
         }
     }
 </script>

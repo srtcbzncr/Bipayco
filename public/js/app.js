@@ -2042,7 +2042,8 @@ __webpack_require__.r(__webpack_exports__);
     refCode: String,
     signIn: String,
     actionAddress: String,
-    student: Boolean
+    student: Boolean,
+    csrfToken: String
   }
 });
 
@@ -4205,7 +4206,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "uk-card-body" }, [
         _c("form", { attrs: { method: "POST", action: _vm.actionAddress } }, [
-          _vm._v("\n            @csrf\n            "),
+          _vm._v("\n            " + _vm._s(_vm.csrfToken) + "\n            "),
           _c(
             "div",
             { staticClass: "uk-flex-center", attrs: { "uk-grid": "" } },

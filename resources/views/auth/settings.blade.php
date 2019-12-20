@@ -156,6 +156,7 @@
                 user-iban="{{$instructor_profile->iban}}"
                 user-bio="{{$instructor_profile->bio}}"
                 user-ref-code="{{$instructor_profile->reference_code}}"
+                csrfToken="@csrf"
                 instructor
             ></statu>
         @endif
