@@ -10,6 +10,23 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
+
+    public function getPopularCourses(){
+        // Repo initialization
+        $repo = new CourseRepository;
+
+        // Operations
+        $resp = $repo->getPopularCourses();
+
+        // Response
+        if($resp->getResult()){
+            return GE_CourseResource::collection($resp->getData());
+        }
+        else{
+            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
+        }
+    }
+
     public function getByCategoryFilterByNewest($category_id){
         // Repo initialization
         $repo = new CourseRepository;
