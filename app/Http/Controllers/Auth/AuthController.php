@@ -78,7 +78,7 @@ class AuthController extends Controller
         }
     }
 
-    public function settings()
+    public function settings(Request $request)
     {
         $student = false;
         $instructor = false;
@@ -111,9 +111,14 @@ class AuthController extends Controller
             'has_manager_profile' => $manager,
             'manager_profile' => Auth::user()->manager,
             'has_admin_profile' => $admin,
-            'admin_profile' => Auth::user()->admin,
+            'admin_profile' => Auth::user()->admin
         ];
 
+        if(!$request->session()->has('photo') and !$request->session()->has('security')){
+            $request->session()->flash('personal_data', 'uk-active');
+            $request->session()->flash('photo', null);
+            $request->session()->flash('security', null);
+        }
         return view('auth.settings', $data);
     }
 
@@ -129,10 +134,10 @@ class AuthController extends Controller
         $resp = $repo->update(Auth::id(), $validatedData);
         // Response
         if($resp->getResult()){
-            return redirect()->back()->with(['result_message' => true, 'error' => false, 'message' => __('auth.update_successfull'), 'tag' => 'personal']);
+            return redirect()->back()->with(['result_message' => true, 'error' => false, 'message' => __('auth.update_successfull'), 'personal_data' => 'uk-active', 'security' => null, 'photo' => null]);
         }
         else{
-            return redirect()->back()->with(['result_message' => true, 'error' => true, 'message' => __('auth.update_unsuccessfull'), 'tag' => 'personal']);
+            return redirect()->back()->with(['result_message' => true, 'error' => true, 'message' => __('auth.update_unsuccessfull'), 'personal_data' => 'uk-active', 'security' => null, 'photo' => null]);
         }
     }
 
@@ -146,14 +151,14 @@ class AuthController extends Controller
             $repo = new UserRepository;
             $resp = $repo->updateAvatar(Auth::id(), $request->toArray());
             if($resp->getResult()){
-                return redirect()->back()->with(['result_message' => true, 'error' => false, 'message' => __('auth.avatar_update_successfull'), 'tag' => 'avatar']);
+                return redirect()->back()->with(['result_message' => true, 'error' => false, 'message' => __('auth.avatar_update_successfull'), 'personal_data' => null, 'security' => null, 'photo' => 'uk-active']);
             }
             else{
-                return redirect()->back()->with(['result_message' => true, 'error' => true, 'message' => __('auth.avatar_update_unsuccessfull'), 'tag' => 'avatar']);
+                return redirect()->back()->with(['result_message' => true, 'error' => true, 'message' => __('auth.avatar_update_unsuccessfull'), 'personal_data' => null, 'security' => null, 'photo' => 'uk-active']);
             }
         }
         else{
-            return redirect()->back()->with(['result_message' => true, 'error' => true, 'message' => __('auth.avatar_update_unsuccessfull'), 'tag' => 'avatar']);
+            return redirect()->back()->with(['result_message' => true, 'error' => true, 'message' => __('auth.avatar_update_unsuccessfull'), 'personal_data' => null, 'security' => null, 'photo' => 'uk-active']);
         }
     }
 
@@ -164,7 +169,7 @@ class AuthController extends Controller
 
         if(Hash::check($validatedData['old_password'], Auth::user()->password)){
             if($validatedData['old_password'] == $validatedData['new_password']){
-                return redirect()->back()->with(['result_message' => true, 'error' => true, 'message' => __('auth.same_password'), 'tag' => 'password']);
+                return redirect()->back()->with(['result_message' => true, 'error' => true, 'message' => __('auth.same_password'), 'personal_data' => null, 'security' => 'uk-active', 'photo' => null]);
             }
             else{
                 // Initializations
@@ -173,15 +178,15 @@ class AuthController extends Controller
                 // Operations
                 $resp = $repo->updatePassword(Auth::id(), $validatedData);
                 if($resp->getResult()){
-                    return redirect()->back()->with(['result_message' => true, 'error' => false, 'message' => __('auth.update_successfull'), 'tag' => 'password']);
+                    return redirect()->back()->with(['result_message' => true, 'error' => false, 'message' => __('auth.update_successfull'), 'personal_data' => null, 'security' => 'uk-active', 'photo' => null]);
                 }
                 else{
-                    return redirect()->back()->with(['result_message' => true, 'error' => true, 'message' => __('auth.update_unsuccessfull'), 'tag' => 'password']);
+                    return redirect()->back()->with(['result_message' => true, 'error' => true, 'message' => __('auth.update_unsuccessfull'), 'personal_data' => null, 'security' => 'uk-active', 'photo' => null]);
                 }
             }
         }
         else{
-            return redirect()->back()->with(['error' => true, 'message' => __('auth.password_not_correct')]);
+            return redirect()->back()->with(['result_message' => true, 'error' => true, 'message' => __('auth.password_not_correct'), 'personal_data' => null, 'security' => 'uk-active', 'photo' => null]);
         }
     }
 
