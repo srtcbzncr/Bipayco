@@ -136,6 +136,7 @@
         @if($has_student_profile)
             <statu
                 statu-name="@lang('front/auth.student_infos')"
+                statu-logo="fa-graduation-cap"
                 ref-code="@lang('front/auth.reference_code')"
                 user-ref-code="{{$student_profile->reference_code}}"
                 student
@@ -144,6 +145,7 @@
         @if($has_instructor_profile)
             <statu
                 statu-name="@lang('front/auth.instructor_infos')"
+                statu-logo="fa-chalkboard-teacher"
                 ref-code="@lang('front/auth.reference_code')"
                 sign-in="@lang('front/auth.save')"
                 title="@lang('front/auth.title')"

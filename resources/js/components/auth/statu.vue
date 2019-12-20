@@ -2,6 +2,7 @@
 <template>
     <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 75%">
         <div class="uk-card-header uk-text-bold">
+            <i class="fas" :class="statuLogo"></i>
             {{statuName}}
         </div>
         <div class="uk-card-body">
@@ -57,6 +58,7 @@
             method: { default: 'POST' },
             instructor:Boolean,
             statuName: String,
+            statuLogo:String,
             userIdNum: String,
             userTitle: String,
             userBio: String,
@@ -70,7 +72,6 @@
             signIn:String,
             actionAddress:String,
             student:Boolean,
-            csrf:String,
         },
         data() { return { csrfToken: null }},
         created() {

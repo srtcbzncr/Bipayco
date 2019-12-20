@@ -2033,6 +2033,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "statu",
@@ -2045,6 +2046,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     instructor: Boolean,
     statuName: String,
+    statuLogo: String,
     userIdNum: String,
     userTitle: String,
     userBio: String,
@@ -2057,8 +2059,7 @@ __webpack_require__.r(__webpack_exports__);
     refCode: String,
     signIn: String,
     actionAddress: String,
-    student: Boolean,
-    csrf: String
+    student: Boolean
   },
   data: function data() {
     return {
@@ -4274,6 +4275,7 @@ var render = function() {
     },
     [
       _c("div", { staticClass: "uk-card-header uk-text-bold" }, [
+        _c("i", { staticClass: "fas", class: _vm.statuLogo }),
         _vm._v("\n        " + _vm._s(_vm.statuName) + "\n    ")
       ]),
       _vm._v(" "),
