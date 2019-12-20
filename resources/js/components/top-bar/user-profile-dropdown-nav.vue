@@ -2,7 +2,7 @@
     <div uk-dropdown="pos: top-right ;mode : click ;animation: uk-animation-slide-bottom-small" class="uk-dropdown  uk-dropdown-top-right  tm-dropdown-small border-radius-6 angle-top-right">
         <div class="uk-grid-small uk-flex-middle uk-margin-small-bottom" uk-grid>
             <div class="uk-width-1-4  uk-first-column">
-                <img src="#" alt="Image" class="uk-align-center uk-border-circle">
+                <img :src="profileImage" alt="Image" class="uk-align-center uk-border-circle">
             </div>
             <div class="uk-width-3-4">
                 <p class="uk-margin-remove-bottom uk-margin-small-top uk-text-bold"> Hamse Mohamoud  </p>
@@ -36,6 +36,7 @@
         props:{
             settingsRoute:String,
             logoutRoute:String,
+            profileImage:String
         }
     }
 </script>

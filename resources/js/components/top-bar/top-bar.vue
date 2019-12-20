@@ -113,6 +113,7 @@
                     <user-profile-dropdown-nav
                         :settings-route="settingsRoute"
                         :logout-route="logoutRoute"
+                        :profile-image="profileImage"
                     />
                 </li>
             </ul>
@@ -139,7 +140,7 @@ export default {
     props:{
         profileImage:String,
         settingsRoute:String,
-        logoutRoute:String
+        logoutRoute:String,
     },
     components: {
         UserProfileDropdownNav,

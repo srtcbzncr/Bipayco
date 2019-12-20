@@ -2740,6 +2740,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -2806,7 +2807,8 @@ __webpack_require__.r(__webpack_exports__);
   name: "user-profile-dropdown-nav",
   props: {
     settingsRoute: String,
-    logoutRoute: String
+    logoutRoute: String,
+    profileImage: String
   }
 });
 
@@ -6137,7 +6139,8 @@ var render = function() {
                 _c("user-profile-dropdown-nav", {
                   attrs: {
                     "settings-route": _vm.settingsRoute,
-                    "logout-route": _vm.logoutRoute
+                    "logout-route": _vm.logoutRoute,
+                    "profile-image": _vm.profileImage
                   }
                 })
               ],
@@ -6450,7 +6453,23 @@ var render = function() {
       }
     },
     [
-      _vm._m(0),
+      _c(
+        "div",
+        {
+          staticClass: "uk-grid-small uk-flex-middle uk-margin-small-bottom",
+          attrs: { "uk-grid": "" }
+        },
+        [
+          _c("div", { staticClass: "uk-width-1-4  uk-first-column" }, [
+            _c("img", {
+              staticClass: "uk-align-center uk-border-circle",
+              attrs: { src: _vm.profileImage, alt: "Image" }
+            })
+          ]),
+          _vm._v(" "),
+          _vm._m(0)
+        ]
+      ),
       _vm._v(" "),
       _c("ul", { staticClass: "uk-nav uk-dropdown-nav" }, [
         _vm._m(1),
@@ -6485,41 +6504,25 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "uk-grid-small uk-flex-middle uk-margin-small-bottom",
-        attrs: { "uk-grid": "" }
-      },
-      [
-        _c("div", { staticClass: "uk-width-1-4  uk-first-column" }, [
-          _c("img", {
-            staticClass: "uk-align-center uk-border-circle",
-            attrs: { src: "#", alt: "Image" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "uk-width-3-4" }, [
-          _c(
-            "p",
-            {
-              staticClass:
-                "uk-margin-remove-bottom uk-margin-small-top uk-text-bold"
-            },
-            [_vm._v(" Hamse Mohamoud  ")]
-          ),
-          _vm._v(" "),
-          _c(
-            "p",
-            {
-              staticClass:
-                "uk-margin-remove-top uk-text-small uk-margin-small-bottom"
-            },
-            [_vm._v(" Bankook China")]
-          )
-        ])
-      ]
-    )
+    return _c("div", { staticClass: "uk-width-3-4" }, [
+      _c(
+        "p",
+        {
+          staticClass:
+            "uk-margin-remove-bottom uk-margin-small-top uk-text-bold"
+        },
+        [_vm._v(" Hamse Mohamoud  ")]
+      ),
+      _vm._v(" "),
+      _c(
+        "p",
+        {
+          staticClass:
+            "uk-margin-remove-top uk-text-small uk-margin-small-bottom"
+        },
+        [_vm._v(" Bankook China")]
+      )
+    ])
   },
   function() {
     var _vm = this
