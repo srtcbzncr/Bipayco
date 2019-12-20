@@ -2043,7 +2043,7 @@ __webpack_require__.r(__webpack_exports__);
     signIn: String,
     actionAddress: String,
     student: Boolean,
-    csrfToken: String
+    csrf: String
   }
 });
 
@@ -4206,7 +4206,11 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "uk-card-body" }, [
         _c("form", { attrs: { method: "POST", action: _vm.actionAddress } }, [
-          _vm._v("\n            " + _vm._s(_vm.csrfToken) + "\n            "),
+          _c("input", {
+            attrs: { type: "hidden", name: "_token" },
+            domProps: { value: _vm.csrf }
+          }),
+          _vm._v(" "),
           _c(
             "div",
             { staticClass: "uk-flex-center", attrs: { "uk-grid": "" } },

@@ -5,7 +5,7 @@
         </div>
         <div class="uk-card-body">
             <form method="POST" :action="actionAddress">
-                {{csrfToken}}
+                <input type="hidden" name="_token" :value="csrf" />
                 <div uk-grid class="uk-flex-center">
                     <div class="uk-width-large@m uk-padding-remove-top">
                         <fieldset class="uk-fieldset uk-margin-small-bottom">
@@ -60,7 +60,7 @@
             signIn:String,
             actionAddress:String,
             student:Boolean,
-            csrfToken:String
+            csrf:String,
         }
     }
 </script>
