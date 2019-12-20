@@ -134,7 +134,7 @@
             </div>
         </div>
         <statu
-            statu-name="@lang('front/auth.instructor')"
+            statu-name="@lang('front/auth.instructor_infos')"
             title="@lang('front/auth.title')"
             id-num="@lang('front/auth.id_num')"
             bio="@lang('front/auth.bio')"
@@ -142,7 +142,7 @@
             ref-code="@lang('front/auth.referance_code')"
             sign-in="@lang('front/auth.save')"
             action-address="#"
-
+            instructor
         ></statu>
     </div>
 @endsection
