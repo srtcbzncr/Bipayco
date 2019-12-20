@@ -44,4 +44,5 @@ return [
     'id_num'=>'TC Kimlik Numarası',
     'instructor'=>'Eğitmen',
     'password_change'=>'Şifre Değiştir',
+    'select_file'=>'Dosya Seç',
 ];
