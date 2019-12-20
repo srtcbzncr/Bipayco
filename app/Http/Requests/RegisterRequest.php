@@ -27,7 +27,7 @@ class RegisterRequest extends FormRequest
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
             'username' => 'required|unique:auth_users|max:50',
-            'email' => 'required|unique:auth_users|max:191',
+            'email' => 'required|email|unique:auth_users|max:191',
             'phone_number' => 'required|numeric|',
             'district_id' => 'required|numeric|exists:bs_districts,id',
             'password' => 'required'
