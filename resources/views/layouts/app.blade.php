@@ -103,5 +103,15 @@
         document.documentElement.scrollTop = 0;
     }*/
 </script>
+<script>
+    function togglePassword(name) {
+        var passwordInput= document.getElementById(name);
+        if (passwordInput.type === "password") {
+            passwordInput.type = "text";
+        } else {
+            passwordInput.type = "password";
+        }
+    }
+</script>
 </body>
 </html>

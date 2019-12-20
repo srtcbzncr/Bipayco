@@ -102,14 +102,4 @@
 
         ></statu>
     </div>
-    <script>
-        function togglePassword(name) {
-            var passwordInput= document.getElementById(name);
-            if (passwordInput.type === "password") {
-                passwordInput.type = "text";
-            } else {
-                passwordInput.type = "password";
-            }
-        }
-    </script>
 @endsection
