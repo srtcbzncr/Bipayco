@@ -4097,7 +4097,7 @@ var render = function() {
         "select",
         {
           staticClass: "uk-select uk-margin-right uk-margin-small-bottom",
-          attrs: { id: "city", required: "" },
+          attrs: { name: "city", id: "city" },
           on: { change: _vm.loadDistrictList }
         },
         [
@@ -4120,10 +4120,7 @@ var render = function() {
     _c("div", [
       _c(
         "select",
-        {
-          staticClass: "uk-select",
-          attrs: { name: "district_id", required: "" }
-        },
+        { staticClass: "uk-select", attrs: { name: "district_id" } },
         [
           _c(
             "option",

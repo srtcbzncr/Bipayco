@@ -60,8 +60,8 @@
                                         <input id="last_name" class="uk-input form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus placeholder=" @lang('front/auth.last_name') " type="text">
                                         @error('last_name')
                                         <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
+                                            <strong>{{ $message }}</strong>
+                                        </span>
                                         @enderror
                                     </div>
                                 </div>
@@ -84,14 +84,17 @@
                                     </div>
                                 </div>
                                 <div class="uk-margin-small">
-                                    <provinces city-default="@lang('front/auth.province')" district-default="@lang('front/auth.district')"></provinces>
+                                    <provinces
+                                        city-default="@lang('front/auth.province')"
+                                        district-default="@lang('front/auth.district')"
+                                    ></provinces>
                                 </div>
                                 <div class="uk-child-width-1-2@l uk-grid uk-margin-small">
                                     <div class="uk-margin-small-bottom">
                                         <input id="username" class="uk-input form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="@lang('front/auth.username')" type="text">
                                         @error('username')
                                         <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
+                                            <strong>{{ $message }}</strong>
                                         </span>
                                         @enderror
                                     </div>

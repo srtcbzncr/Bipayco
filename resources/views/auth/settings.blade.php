@@ -14,9 +14,9 @@
                 <div class="uk-flex-center">
                     <div uk-filter="target: .js-filter " class="uk-margin-large-top uk-margin-medium-right">
                         <ul class="uk-subnav uk-subnav-pill uk-child-width-1-3@m uk-width uk-grid-match" style=" border-bottom: 1px solid #e5e5e5">
-                            <li class="uk-active" uk-filter-control=".tag-personal"><a href="#"><span class="fas fa-user uk-margin-small-right"></span><b>@lang('front/auth.personal_info')</b></a></li>
-                            <li uk-filter-control=".tag-photo"><a href="#"><span class="fas fa-camera uk-margin-small-right "></span><b>@lang('front/auth.profile_photo')</b></a></li>
-                            <li uk-filter-control=".tag-security"><a href="#"><span class="fas fa-lock uk-margin-small-right"></span><b>@lang('front/auth.password_change')</b></a></li>
+                            <li class="{{$personal_data}}" uk-filter-control=".tag-personal"><a href="#"><span class="fas fa-user uk-margin-small-right"></span><b>@lang('front/auth.personal_info')</b></a></li>
+                            <li class="{{$photo}}" uk-filter-control=".tag-photo"><a href="#"><span class="fas fa-camera uk-margin-small-right "></span><b>@lang('front/auth.profile_photo')</b></a></li>
+                            <li class="{{$security}}" uk-filter-control=".tag-security"><a href="#"><span class="fas fa-lock uk-margin-small-right"></span><b>@lang('front/auth.password_change')</b></a></li>
                         </ul>
                         <div class="uk-width">
                             <ul class="js-filter" style="list-style-type:none">

@@ -1,13 +1,13 @@
 <template>
     <div class="uk-child-width-1-2@l uk-grid">
         <div>
-            <select class='uk-select uk-margin-right uk-margin-small-bottom' id="city" @change="loadDistrictList" required>
+            <select class='uk-select uk-margin-right uk-margin-small-bottom' name="city" id="city" @change="loadDistrictList" >
                 <option disabled hidden selected value="">{{cityDefault}}</option>
                 <option v-for='city in cities' :value='city.id'>{{city.name}}</option>
             </select>
         </div>
         <div>
-            <select class="uk-select" name="district_id" required>
+            <select class="uk-select" name="district_id" >
                 <option disabled hidden selected value="">{{districtDefault}}</option>
                 <option v-for='district in districts' :value='district.id'>{{district.name}}</option>
             </select>
