@@ -131,12 +131,12 @@ class SectionRepository implements IRepository{
         // Operations
         try{
             $object = Section::find($id);
-            if($object->lessons != null){
+            if($object->lessons->where('active', true) != null){
                 $object->active = true;
                 $object->save();
             }
             else{
-                throw new \Exception(__('general_education.section_has_not_lesson'));
+                throw new \Exception(__('general_education.section_has_not_active_lesson'));
             }
         }
         catch(\Exception $e){
@@ -202,7 +202,7 @@ class SectionRepository implements IRepository{
         // Operations
         try{
             $section = Section::find($id);
-            $object = $section->lessons;
+            $object = $section->lessons->where('active', true);
         }
         catch(\Exception $e){
             $error = $e;

@@ -528,12 +528,12 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $object = Course::find($id);
-            if($object->sections != null){
+            if($object->sections->where('active', true) != null){
                 $object->active = true;
                 $object->save();
             }
             else {
-                throw new \Exception(__('general_education.course_has_not_section'));
+                throw new \Exception(__('general_education.course_has_not_active_section'));
             }
         }
         catch(\Exception $e){
@@ -578,7 +578,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $course = Course::find($id);
-            $object = $course->sections;
+            $object = $course->sections->where('active', true);
         }
         catch(\Exception $e){
             $error = $e;
@@ -620,7 +620,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $course = Course::find($id);
-            $object = $course->achievements;
+            $object = $course->achievements->where('active', true);
         }
         catch(\Exception $e){
             $error = $e;
@@ -641,7 +641,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $course = Course::find($id);
-            $object = $course->requirements;
+            $object = $course->requirements->where('active', true);
         }
         catch(\Exception $e){
             $error = $e;
@@ -662,7 +662,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $course = Course::find($id);
-            $object = $course->comments;
+            $object = $course->comments->where('active', true);
         }
         catch(\Exception $e){
             $error = $e;
@@ -683,7 +683,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $course = Course::find($id);
-            $object = $course->discounts;
+            $object = $course->discounts->where('active', true);
         }
         catch(\Exception $e){
             $error = $e;
@@ -704,7 +704,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $course = Course::find($id);
-            $object = $course->notices;
+            $object = $course->notices->where('active', true);
         }
         catch(\Exception $e){
             $error = $e;
@@ -746,7 +746,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $course = Course::find($id);
-            $object = $course->tags;
+            $object = $course->tags->where('active', true);
         }
         catch(\Exception $e){
             $error = $e;
@@ -788,7 +788,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $course = Course::find($id);
-            $object = $course->entries;
+            $object = $course->entries->where('active', true);
         }
         catch(\Exception $e){
             $error = $e;
