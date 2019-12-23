@@ -2,6 +2,7 @@
 
 namespace App\Repositories\GeneralEducation;
 
+use App\Events\GeneralEducation\ChangeLessonStatus;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use App\Models\GeneralEducation\Lesson;
@@ -190,6 +191,7 @@ class LessonRepository implements IRepository{
             $object = Lesson::find($id);
             $object->active = true;
             $object->save();
+            event(new ChangeLessonStatus($object));
         }
         catch(\Exception $e){
             $error = $e;
@@ -213,6 +215,7 @@ class LessonRepository implements IRepository{
             $object = Lesson::find($id);
             $object->active = false;
             $object->save();
+            event(new ChangeLessonStatus($object));
         }
         catch(\Exception $e){
             $error = $e;
