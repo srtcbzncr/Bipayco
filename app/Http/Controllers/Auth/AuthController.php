@@ -206,14 +206,13 @@ class AuthController extends Controller
 
         // Initializations
         $repo = new InstructorRepository;
-
         // Operations
-        $resp = $repo->update(Auth::user()->instructor_id, $validatedData);
+        $resp = $repo->update(Auth::user()->instructor->id, $request->toArray());
         if($resp->getResult()){
-            return redirect()->back()->with(['error' => false, 'message' => __('auth.update_successfull')]);
+            return redirect()->back()->with(['result_message' => true, 'error' => false, 'message' => __('auth.update_successfull')]);
         }
         else{
-            return redirect()->back()->with(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            return redirect()->back()->with(['result_message' => true, 'error' => true, 'message' => __('auth_update_unsuccessfull')]);
         }
     }
 
