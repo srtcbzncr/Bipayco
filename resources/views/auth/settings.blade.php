@@ -1,13 +1,5 @@
 @extends('layouts.app')
 @section('content')
-    @if(session('result_message'))
-        @if(session('error'))
-            <script>UIkit.notification({message: '{{session('message')}}', status: 'danger'});</script>
-        @else
-            <script>UIkit.notification({message: '{{session('message')}}', status: 'success'});</script>
-        @endif
-    @endif
-
     <div class="uk-container uk-margin-large-top">
         <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 75%">
             <div class="uk-card-body">
@@ -73,11 +65,6 @@
                                                            selected-city-id="{{$user->district->city_id}}"
                                                            selected-city="{{$user->district->city->name}}"
                                                 ></provinces>
-                                                @error('district_id')
-                                                <span class="invalid-feedback" role="alert">
-                                                        <strong>{{ $message }}</strong>
-                                                    </span>
-                                                @enderror
                                             </div>
                                         </div>
                                         <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')">

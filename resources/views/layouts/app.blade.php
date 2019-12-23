@@ -29,6 +29,13 @@
     <link href="{{asset('css/fontawesome.css')}}" rel="stylesheet">
 </head>
 <body>
+@if(session('result_message'))
+    @if(session('error'))
+        <script>UIkit.notification({message: '{{session('message')}}', status: 'danger'});</script>
+    @else
+        <script>UIkit.notification({message: '{{session('message')}}', status: 'success'});</script>
+    @endif
+@endif
 <div id="app1">
     <div class="side-nav uk-animation-slide-left-medium" id="side-nav">
         <span class="uk-animation-fade tm-mobile-close-icon" uk-toggle="target: #side-nav; cls: side-nav-active"> <i class="fas fa-times icon-large"></i></span>
