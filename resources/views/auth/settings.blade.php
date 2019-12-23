@@ -96,9 +96,9 @@
                                             <div class="uk-width uk-child-width-1-2@l uk-grid">
                                                 <div>
                                                     <div class="uk-form-label"> @lang('front/auth.password_old') </div>
-                                                    <div class="uk-inline uk-flex justify-content-center align-items-center" >
+                                                    <div class="uk-inline uk-flex align-items-center" >
                                                         <input class="uk-input form-control @error('old_password') is-invalid @enderror" id="old_password" name="old_password" type="password" placeholder="@lang('front/auth.password_old')" required>
-                                                        <a class="fas fa-eye" onclick="togglePassword('old_password')" style="margin-left: -25px"></a>
+                                                        <a class="fas fa-eye" onclick="togglePassword('old_password')" style="margin-left: -30px"></a>
                                                         @error('old_password')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>
@@ -108,9 +108,9 @@
                                                 </div>
                                                 <div>
                                                     <div class="uk-form-label"> @lang('front/auth.password_new')</div>
-                                                    <div class="uk-inline uk-flex justify-content-center align-items-center">
+                                                    <div class="uk-inline uk-flex align-items-center">
                                                         <input class="uk-input form-control @error('new_password') is-invalid @enderror" id="new_password" name="new_password" type="password" placeholder="@lang('front/auth.password_new')" required>
-                                                        <a class="fas fa-eye" onclick="togglePassword('new_password')" style="margin-left: -25px"></a>
+                                                        <a class="fas fa-eye" onclick="togglePassword('new_password')" style="margin-left: -30px"></a>
                                                         @error('new_password')
                                                         <span class="invalid-feedback" role="alert">
                                                             <strong>{{ $message }}</strong>

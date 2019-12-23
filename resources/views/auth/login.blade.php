@@ -48,7 +48,9 @@
                                     </div>
                                 @endif
                                 <div class="uk-inline uk-margin-small">
-                                    <input id="email" type="email" class="uk-input uk-form-width-large form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="@lang('front/auth.email')" required autocomplete="email" autofocus>
+                                    <div class="uk-inline uk-flex align-items-center">
+                                        <input id="email" type="email" class="uk-input uk-form-width-large form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="@lang('front/auth.email')" required autocomplete="email" autofocus>
+                                    </div>
                                     @error('email')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -56,7 +58,7 @@
                                     @enderror
                                 </div>
                                 <div class="uk-inline uk-margin-small">
-                                    <div>
+                                    <div class="uk-inline uk-flex align-items-center">
                                         <input id="password" class="uk-input uk-form-width-large form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password" placeholder="@lang('front/auth.password')" type="password">
                                         <a class="fas fa-eye" onclick="togglePassword('password')" style="margin-left: -30px;"></a>
                                     </div>

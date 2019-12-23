@@ -90,7 +90,7 @@
                                     ></provinces>
                                 </div>
                                 <div class="uk-child-width-1-2@l uk-grid uk-margin-small">
-                                    <div class="uk-margin-small-bottom">
+                                    <div class="uk-margin-small-bottom uk-inline uk-flex align-items-center">
                                         <input id="username" class="uk-input form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="@lang('front/auth.username')" type="text">
                                         @error('username')
                                         <span class="invalid-feedback" role="alert">
@@ -99,7 +99,7 @@
                                         @enderror
                                     </div>
                                     <div>
-                                        <div>
+                                        <div class="uk-inline uk-flex align-items-center">
                                             <input id="password" class="uk-input form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password" placeholder="@lang('front/auth.password')" type="password">
                                             <a class="fas fa-eye" onclick="togglePassword('password')" style="margin-left: -30px"></a>
                                         </div>
