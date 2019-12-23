@@ -1,15 +1,15 @@
 <template>
     <div class="uk-child-width-1-2@l uk-grid">
         <div>
-            <select class='uk-select uk-margin-right uk-margin-small-bottom' name="city" id="city" @change="loadDistrictList" >
-                <option v-if="hasSelectedOption" disabled hidden selected :value="selectedCityId">{{selectedCity}} </option>
+            <select class='uk-select uk-margin-right uk-margin-small-bottom' name="city" id="city" @change="loadDistrictList" required>
+                <option v-if="hasSelectedOption" hidden selected :value="selectedCityId">{{selectedCity}} </option>
                 <option v-if="!(hasSelectedOption)" disabled hidden selected value="">{{cityDefault}}</option>
                 <option v-for='city in cities' :value='city.id'>{{city.name}}</option>
             </select>
         </div>
         <div>
-            <select class="uk-select" name="district_id" >
-                <option v-if="hasSelectedOption && hasChange" disabled selected hidden :value="selectedDistrictId">{{selectedDistrict}} </option>
+            <select class="uk-select" name="district_id" required>
+                <option v-if="hasSelectedOption && hasChange" selected hidden :value="selectedDistrictId">{{selectedDistrict}} </option>
                 <option v-if="!(hasSelectedOption)|| !hasChange" disabled hidden selected value="">{{districtDefault}}</option>
                 <option v-for='district in districts' :value='district.id'>{{district.name}}</option>
             </select>

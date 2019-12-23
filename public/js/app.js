@@ -4069,7 +4069,7 @@ var render = function() {
         "select",
         {
           staticClass: "uk-select uk-margin-right uk-margin-small-bottom",
-          attrs: { name: "city", id: "city" },
+          attrs: { name: "city", id: "city", required: "" },
           on: { change: _vm.loadDistrictList }
         },
         [
@@ -4077,7 +4077,7 @@ var render = function() {
             ? _c(
                 "option",
                 {
-                  attrs: { disabled: "", hidden: "", selected: "" },
+                  attrs: { hidden: "", selected: "" },
                   domProps: { value: _vm.selectedCityId }
                 },
                 [_vm._v(_vm._s(_vm.selectedCity) + " ")]
@@ -4107,13 +4107,16 @@ var render = function() {
     _c("div", [
       _c(
         "select",
-        { staticClass: "uk-select", attrs: { name: "district_id" } },
+        {
+          staticClass: "uk-select",
+          attrs: { name: "district_id", required: "" }
+        },
         [
           _vm.hasSelectedOption && _vm.hasChange
             ? _c(
                 "option",
                 {
-                  attrs: { disabled: "", selected: "", hidden: "" },
+                  attrs: { selected: "", hidden: "" },
                   domProps: { value: _vm.selectedDistrictId }
                 },
                 [_vm._v(_vm._s(_vm.selectedDistrict) + " ")]
