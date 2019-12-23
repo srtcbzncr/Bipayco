@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdatePersonalDataRequest extends FormRequest
 {
@@ -26,7 +27,7 @@ class UpdatePersonalDataRequest extends FormRequest
         return [
             'first_name' => 'required|max:100',
             'last_name' => 'required|max:100',
-            'email' => 'required|email|unique:auth_users|max:191',
+            'email' => 'required|email|unique:auth_users,email,'.Auth::id().'|max:191',
             'phone_number' => 'required|max:20',
             'district_id' => 'required|numeric|exists:bs_districts,id',
         ];
