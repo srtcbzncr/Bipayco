@@ -13,7 +13,7 @@ return [
     |
     */
     'register' => 'Kayıt Ol',
-    'login' => 'Giriş',
+    'login' => 'Giriş Yap',
     'email' => 'E-posta',
     'password' => 'Şifre',
     'password_old'=>'Eski Şifre',

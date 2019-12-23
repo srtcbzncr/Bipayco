@@ -6045,9 +6045,9 @@ var render = function() {
                     {
                       staticClass:
                         "uk-button uk-button-primary uk-padding-remove-top uk-padding-remove-bottom ",
-                      attrs: { href: _vm.registerRoute }
+                      attrs: { href: _vm.loginRoute }
                     },
-                    [_vm._v(_vm._s(_vm.registerName))]
+                    [_vm._v(_vm._s(_vm.loginName))]
                   )
                 ])
               : _vm._e(),
@@ -6059,9 +6059,9 @@ var render = function() {
                     {
                       staticClass:
                         "uk-button uk-button-danger uk-padding-remove-top uk-padding-remove-bottom uk-margin-small-left",
-                      attrs: { href: _vm.loginRoute }
+                      attrs: { href: _vm.registerRoute }
                     },
-                    [_vm._v(_vm._s(_vm.loginName))]
+                    [_vm._v(_vm._s(_vm.registerName))]
                   )
                 ])
               : _vm._e()
