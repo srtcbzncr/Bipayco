@@ -24,7 +24,6 @@ class HomeController extends Controller
             'books' => null,
             'exams' => null,
         ];
-        dd($data);
         return view('home', $data);
     }
 
