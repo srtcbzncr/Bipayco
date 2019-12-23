@@ -2,9 +2,9 @@
 <template>
     <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 75%">
         <div class="uk-card-header uk-text-bold">
-            <span class="fas icon-medium uk-margin-small-right" :class="statuLogo"></span>
-            {{statuName}}
-        </div>
+        <span class="fas icon-medium uk-margin-small-right" :class="statuLogo"></span>
+        {{statuName}}
+    </div>
         <div class="uk-card-body">
             <vue-form method="POST" :action="actionAddress">
                 <input hidden :value="csrfToken" name="_token">

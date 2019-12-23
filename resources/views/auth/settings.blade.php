@@ -134,32 +134,68 @@
             </div>
         </div>
         @if($has_student_profile)
-            <statu
-                statu-name="@lang('front/auth.student_infos')"
-                statu-logo="fa-graduation-cap"
-                ref-code="@lang('front/auth.reference_code')"
-                user-ref-code="{{$student_profile->reference_code}}"
-                student
-            ></statu>
+
+            <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 75%">
+                <div class="uk-card-header uk-text-bold">
+                    <span class="fas icon-medium uk-margin-small-right fa-graduation-cap"></span>
+                    @lang('front/auth.student_infos')
+                </div>
+                <div class="uk-card-body">
+                        <div uk-grid class="uk-flex-center">
+                            <div class="uk-width-large@m uk-padding-remove-top">
+                                <fieldset class="uk-fieldset uk-margin-small-bottom">
+                                    <div>
+                                        <div class="uk-form-label"> @lang('front/auth.reference_code')  </div>
+                                        <input class="uk-input" type="text" disabled name="referance_code" value="{{$student_profile->reference_code}}" required>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+                </div>
+            </div>
         @endif
         @if($has_instructor_profile)
-            <statu
-                statu-name="@lang('front/auth.instructor_infos')"
-                statu-logo="fa-chalkboard-teacher"
-                ref-code="@lang('front/auth.reference_code')"
-                sign-in="@lang('front/auth.save')"
-                title="@lang('front/auth.title')"
-                bio="@lang('front/auth.bio')"
-                iban="@lang('front/auth.iban')"
-                id-num="@lang('front/auth.id_num')"
-                action-address="{{route('updateInstructorData')}}"
-                user-id-num="{{$instructor_profile->identification_number}}"
-                user-title="{{$instructor_profile->title}}"
-                user-iban="{{$instructor_profile->iban}}"
-                user-bio="{{$instructor_profile->bio}}"
-                user-ref-code="{{$instructor_profile->reference_code}}"
-                instructor
-            ></statu>
+            <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 75%">
+                <div class="uk-card-header uk-text-bold">
+                    <span class="fas icon-medium uk-margin-small-right fa-chalkboard-teacher"></span>
+                    @lang('front/auth.instructor_infos')
+                </div>
+                <div class="uk-card-body">
+                    <form method="POST" action="{{route('updateInstructorData')}}">
+                        @csrf
+                        <div uk-grid class="uk-flex-center">
+                            <div class="uk-width-large@m uk-padding-remove-top">
+                                <fieldset class="uk-fieldset uk-margin-small-bottom">
+                                    <div>
+                                        <div class="uk-form-label">@lang('front/auth.id_num') </div>
+                                        <input class="uk-input" type="text" name="identification_number" value="{{$instructor_profile->identification_number}}" required>
+                                    </div>
+                                    <div>
+                                        <div class="uk-form-label"> @lang('front/auth.title')  </div>
+                                        <input class="uk-input" type="text" name="title" value="{{$instructor_profile->title}}" required>
+                                    </div>
+
+                                    <div>
+                                        <div class="uk-form-label"> @lang('front/auth.iban')  </div>
+                                        <input class="uk-input" type="text" name="iban" value="{{$instructor_profile->iban}}" required>
+                                    </div>
+                                    <div>
+                                        <div class="uk-form-label"> @lang('front/auth.bio')</div>
+                                        <textarea class="uk-textarea" type="text" rows="5" name="bio" value="{{$instructor_profile->bio}}" required> </textarea>
+                                    </div>
+                                    <div>
+                                        <div class="uk-form-label">@lang('front/auth.reference_code') </div>
+                                        <input class="uk-input" type="text" disabled name="referance_code" value="{{$instructor_profile->reference_code}}" required>
+                                    </div>
+                                </fieldset>
+                                <div>
+                                    <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         @endif
     </div>
 @endsection
