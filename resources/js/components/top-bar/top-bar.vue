@@ -6,8 +6,8 @@
         <!-- mobile icon for user icon on nav-mobile -->
         <span class="uk-hidden@m tm-mobile-user-icon uk-align-right" uk-toggle="target: #tm-show-on-mobile; cls: tm-show-on-mobile-active"><i class="far fa-user icon-large"></i></span>
         <!-- mobile logo -->
-        <a class="uk-hidden@m uk-logo" href="index.html"> CoursePlus </a>
-        <div class="uk-navbar-left uk-visible@m">
+        <a class="uk-hidden@m uk-logo" :href="homeRoute"> Bipayco </a>
+        <div class="uk-navbar-left uk-visible@m" v-if="hasLogin === true">
             <a class="uk-navbar-item back-to-dashboard uk-button-text " href="#" uk-tooltip="title: back-to-dashboard ; delay: 700 ; pos: bottom-left ;animation:	uk-animation-scale-up">My Dashboard</a>
             <a class="uk-navbar-item back-to-dashboard uk-button-text " href="#">Browse Books</a>
         </div>
@@ -18,7 +18,8 @@
                 <li>
                     <a href="#modal-full" uk-toggle><i class="fas fa-search icon-medium"></i></a>
                 </li>
-                <li>
+
+                <li v-if="hasLogin === true">
                     <!-- your courses -->
                     <a href="#"> <i class="fas fa-play uk-hidden@m"></i> <span class="uk-visible@m"> Your Courses</span> </a>
                     <div uk-dropdown="pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small" class="uk-dropdown border-radius-6  uk-dropdown-top-right tm-dropdown-large uk-padding-remove">
@@ -45,7 +46,7 @@
                         <h5 class="uk-padding-small uk-margin-remove uk-text-bold uk-text-center"><a class="uk-link-heading" href="#"> See all </a> </h5>
                     </div>
                 </li>
-                <li>
+                <li v-if="hasLogin === true">
                     <!-- messages -->
                     <a href="#"><i class="fas fa-envelope icon-large"></i></a>
                     <div uk-dropdown="pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small" class="uk-dropdown uk-dropdown-top-right  tm-dropdown-medium border-radius-6 uk-padding-remove uk-box-shadow-large angle-top-right">
@@ -72,7 +73,7 @@
                         <h5 class="uk-padding-small uk-margin-remove uk-text-bold uk-text-center"><a class="uk-link-heading" href=""> See all </a> </h5>
                     </div>
                 </li>
-                <li>
+                <li v-if="hasLogin === true">
                     <!-- Notifications -->
                     <a href="#"><i class="fas fa-bell icon-large"></i></a>
                     <div uk-dropdown="pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small" class="uk-dropdown uk-dropdown-top-right  tm-dropdown-small border-radius-6 uk-padding-remove uk-box-shadow-large angle-top-right">
@@ -105,7 +106,7 @@
                         </div>
                     </div>
                 </li>
-                <li>
+                <li v-if="hasLogin === true">
                     <!-- User profile -->
                     <a href="#">
                         <img :src="profileImage" alt="" class="uk-border-circle user-profile-tiny">
@@ -115,6 +116,12 @@
                         :logout-route="logoutRoute"
                         :profile-image="profileImage"
                     />
+                </li>
+                <li v-if="hasLogin === false">
+                    <a class="uk-navbar-item back-to-dashboard uk-button-text " :href="registerRoute">{{registerName}}</a>
+                </li>
+                <li v-if="hasLogin === false">
+                    <a class="uk-navbar-item back-to-dashboard uk-button-text " :href="loginRoute">{{loginName}}</a>
                 </li>
             </ul>
         </div>
@@ -138,9 +145,15 @@ import UserProfileDropdownNav from "./user-profile-dropdown-nav";
 export default {
     name: "top-bar",
     props:{
+        homeRoute:String,
         profileImage:String,
         settingsRoute:String,
         logoutRoute:String,
+        hasLogin:Boolean,
+        registerName:String,
+        registerRoute:String,
+        loginRoute:String,
+        loginName:String
     },
     components: {
         UserProfileDropdownNav,

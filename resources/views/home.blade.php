@@ -24,7 +24,7 @@
         <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
             <li class="uk-active">
                 <course-card
-                    title="{{$course}}"
+                    title=""
                     description="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                      sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris

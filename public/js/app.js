@@ -2684,6 +2684,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2691,9 +2698,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "top-bar",
   props: {
+    homeRoute: String,
     profileImage: String,
     settingsRoute: String,
-    logoutRoute: String
+    logoutRoute: String,
+    hasLogin: Boolean,
+    registerName: String,
+    registerRoute: String,
+    loginRoute: String,
+    loginName: String
   },
   components: {
     UserProfileDropdownNav: _user_profile_dropdown_nav__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -5694,11 +5707,35 @@ var render = function() {
       _vm._v(" "),
       _c(
         "a",
-        { staticClass: "uk-hidden@m uk-logo", attrs: { href: "index.html" } },
-        [_vm._v(" CoursePlus ")]
+        { staticClass: "uk-hidden@m uk-logo", attrs: { href: _vm.homeRoute } },
+        [_vm._v(" Bipayco ")]
       ),
       _vm._v(" "),
-      _vm._m(2),
+      _vm.hasLogin === true
+        ? _c("div", { staticClass: "uk-navbar-left uk-visible@m" }, [
+            _c(
+              "a",
+              {
+                staticClass: "uk-navbar-item back-to-dashboard uk-button-text ",
+                attrs: {
+                  href: "#",
+                  "uk-tooltip":
+                    "title: back-to-dashboard ; delay: 700 ; pos: bottom-left ;animation:\tuk-animation-scale-up"
+                }
+              },
+              [_vm._v("My Dashboard")]
+            ),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "uk-navbar-item back-to-dashboard uk-button-text ",
+                attrs: { href: "#" }
+              },
+              [_vm._v("Browse Books")]
+            )
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c(
         "div",
@@ -5707,267 +5744,311 @@ var render = function() {
           attrs: { id: "tm-show-on-mobile" }
         },
         [
-          _vm._m(3),
+          _vm._m(2),
           _vm._v(" "),
           _c("ul", { staticClass: "uk-navbar-nav uk-flex-middle" }, [
-            _vm._m(4),
+            _vm._m(3),
             _vm._v(" "),
-            _c("li", [
-              _vm._m(5),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "uk-dropdown border-radius-6  uk-dropdown-top-right tm-dropdown-large uk-padding-remove",
-                  attrs: {
-                    "uk-dropdown":
-                      "pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small"
-                  }
-                },
-                [
-                  _vm._m(6),
-                  _vm._v(" "),
-                  _c("hr", { staticClass: " uk-margin-remove" }),
+            _vm.hasLogin === true
+              ? _c("li", [
+                  _vm._m(4),
                   _vm._v(" "),
                   _c(
                     "div",
                     {
                       staticClass:
-                        "uk-padding-smaluk-text-left uk-height-medium"
+                        "uk-dropdown border-radius-6  uk-dropdown-top-right tm-dropdown-large uk-padding-remove",
+                      attrs: {
+                        "uk-dropdown":
+                          "pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small"
+                      }
                     },
                     [
+                      _vm._m(5),
+                      _vm._v(" "),
+                      _c("hr", { staticClass: " uk-margin-remove" }),
+                      _vm._v(" "),
                       _c(
                         "div",
                         {
-                          staticClass: "demo1",
-                          staticStyle: { "overflow-y": "auto" },
-                          attrs: { "data-simplebar": "" }
+                          staticClass:
+                            "uk-padding-smaluk-text-left uk-height-medium"
                         },
                         [
                           _c(
                             "div",
                             {
-                              staticClass:
-                                "uk-child-width-1-2@s  uk-grid-small uk-padding-small",
+                              staticClass: "demo1",
+                              staticStyle: { "overflow-y": "auto" },
+                              attrs: { "data-simplebar": "" }
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "uk-child-width-1-2@s  uk-grid-small uk-padding-small",
+                                  attrs: {
+                                    "uk-scrollspy":
+                                      "target: > div; cls:uk-animation-slide-bottom-small; delay: 100 ;repeat: true",
+                                    "uk-grid": ""
+                                  }
+                                },
+                                [
+                                  _c("your-course-card"),
+                                  _vm._v(" "),
+                                  _c("your-course-card"),
+                                  _vm._v(" "),
+                                  _c("your-course-card"),
+                                  _vm._v(" "),
+                                  _c("your-course-card")
+                                ],
+                                1
+                              )
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("hr", { staticClass: " uk-margin-remove" }),
+                      _vm._v(" "),
+                      _vm._m(6)
+                    ]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.hasLogin === true
+              ? _c("li", [
+                  _vm._m(7),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "uk-dropdown uk-dropdown-top-right  tm-dropdown-medium border-radius-6 uk-padding-remove uk-box-shadow-large angle-top-right",
+                      attrs: {
+                        "uk-dropdown":
+                          "pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small"
+                      }
+                    },
+                    [
+                      _c(
+                        "h5",
+                        {
+                          staticClass:
+                            "uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"
+                        },
+                        [_vm._v(" Messages ")]
+                      ),
+                      _vm._v(" "),
+                      _vm._m(8),
+                      _vm._v(" "),
+                      _c("hr", { staticClass: " uk-margin-remove" }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "uk-text-left uk-height-medium" },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticStyle: { "overflow-y": "auto" },
                               attrs: {
                                 "uk-scrollspy":
-                                  "target: > div; cls:uk-animation-slide-bottom-small; delay: 100 ;repeat: true",
-                                "uk-grid": ""
+                                  "target: > div; cls:uk-animation-slide-bottom-small; delay: 100",
+                                "data-simplebar": ""
                               }
                             },
                             [
-                              _c("your-course-card"),
+                              _c("messages-small-card"),
                               _vm._v(" "),
-                              _c("your-course-card"),
+                              _c("hr", { staticClass: " uk-margin-remove" }),
                               _vm._v(" "),
-                              _c("your-course-card"),
+                              _c("messages-small-card"),
                               _vm._v(" "),
-                              _c("your-course-card")
+                              _c("hr", { staticClass: " uk-margin-remove" }),
+                              _vm._v(" "),
+                              _c("messages-small-card"),
+                              _vm._v(" "),
+                              _c("hr", { staticClass: " uk-margin-remove" }),
+                              _vm._v(" "),
+                              _c("messages-small-card"),
+                              _vm._v(" "),
+                              _c("hr", { staticClass: " uk-margin-remove" }),
+                              _vm._v(" "),
+                              _c("messages-small-card"),
+                              _vm._v(" "),
+                              _c("hr", { staticClass: " uk-margin-remove" }),
+                              _vm._v(" "),
+                              _c("messages-small-card"),
+                              _vm._v(" "),
+                              _c("hr", { staticClass: "uk-margin-remove" })
                             ],
                             1
                           )
                         ]
+                      ),
+                      _vm._v(" "),
+                      _c("hr", { staticClass: " uk-margin-remove" }),
+                      _vm._v(" "),
+                      _vm._m(9)
+                    ]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.hasLogin === true
+              ? _c("li", [
+                  _vm._m(10),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "uk-dropdown uk-dropdown-top-right  tm-dropdown-small border-radius-6 uk-padding-remove uk-box-shadow-large angle-top-right",
+                      attrs: {
+                        "uk-dropdown":
+                          "pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small"
+                      }
+                    },
+                    [
+                      _c(
+                        "h5",
+                        {
+                          staticClass:
+                            "uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"
+                        },
+                        [_vm._v(" Notifications ")]
+                      ),
+                      _vm._v(" "),
+                      _vm._m(11),
+                      _vm._v(" "),
+                      _c("hr", { staticClass: " uk-margin-remove" }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "uk-text-left uk-height-medium" },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticStyle: { "overflow-y": "auto" },
+                              attrs: { "data-simplebar": "" }
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "uk-padding-small",
+                                  attrs: {
+                                    "uk-scrollspy":
+                                      "target: > div; cls:uk-animation-slide-bottom-small; delay: 100"
+                                  }
+                                },
+                                [
+                                  _c("notification-card"),
+                                  _vm._v(" "),
+                                  _c("hr", { staticClass: "uk-margin-remove" }),
+                                  _vm._v(" "),
+                                  _c("notification-card"),
+                                  _vm._v(" "),
+                                  _c("hr", { staticClass: "uk-margin-remove" }),
+                                  _vm._v(" "),
+                                  _c("notification-card"),
+                                  _vm._v(" "),
+                                  _c("hr", { staticClass: "uk-margin-remove" }),
+                                  _vm._v(" "),
+                                  _c("notification-card"),
+                                  _vm._v(" "),
+                                  _c("hr", { staticClass: "uk-margin-remove" }),
+                                  _vm._v(" "),
+                                  _c("notification-card"),
+                                  _vm._v(" "),
+                                  _c("hr", { staticClass: "uk-margin-remove" }),
+                                  _vm._v(" "),
+                                  _c("notification-card"),
+                                  _vm._v(" "),
+                                  _c("hr", { staticClass: "uk-margin-remove" }),
+                                  _vm._v(" "),
+                                  _c("notification-card"),
+                                  _vm._v(" "),
+                                  _c("hr", { staticClass: "uk-margin-remove" }),
+                                  _vm._v(" "),
+                                  _c("notification-card"),
+                                  _vm._v(" "),
+                                  _c("hr", { staticClass: "uk-margin-remove" }),
+                                  _vm._v(" "),
+                                  _c("notification-card"),
+                                  _vm._v(" "),
+                                  _c("hr", { staticClass: "uk-margin-remove" })
+                                ],
+                                1
+                              )
+                            ]
+                          )
+                        ]
                       )
                     ]
-                  ),
-                  _vm._v(" "),
-                  _c("hr", { staticClass: " uk-margin-remove" }),
-                  _vm._v(" "),
-                  _vm._m(7)
-                ]
-              )
-            ]),
+                  )
+                ])
+              : _vm._e(),
             _vm._v(" "),
-            _c("li", [
-              _vm._m(8),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "uk-dropdown uk-dropdown-top-right  tm-dropdown-medium border-radius-6 uk-padding-remove uk-box-shadow-large angle-top-right",
-                  attrs: {
-                    "uk-dropdown":
-                      "pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small"
-                  }
-                },
-                [
+            _vm.hasLogin === true
+              ? _c(
+                  "li",
+                  [
+                    _c("a", { attrs: { href: "#" } }, [
+                      _c("img", {
+                        staticClass: "uk-border-circle user-profile-tiny",
+                        attrs: { src: _vm.profileImage, alt: "" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("user-profile-dropdown-nav", {
+                      attrs: {
+                        "settings-route": _vm.settingsRoute,
+                        "logout-route": _vm.logoutRoute,
+                        "profile-image": _vm.profileImage
+                      }
+                    })
+                  ],
+                  1
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.hasLogin === false
+              ? _c("li", [
                   _c(
-                    "h5",
+                    "a",
                     {
                       staticClass:
-                        "uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"
+                        "uk-navbar-item back-to-dashboard uk-button-text ",
+                      attrs: { href: _vm.registerRoute }
                     },
-                    [_vm._v(" Messages ")]
-                  ),
-                  _vm._v(" "),
-                  _vm._m(9),
-                  _vm._v(" "),
-                  _c("hr", { staticClass: " uk-margin-remove" }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "uk-text-left uk-height-medium" }, [
-                    _c(
-                      "div",
-                      {
-                        staticStyle: { "overflow-y": "auto" },
-                        attrs: {
-                          "uk-scrollspy":
-                            "target: > div; cls:uk-animation-slide-bottom-small; delay: 100",
-                          "data-simplebar": ""
-                        }
-                      },
-                      [
-                        _c("messages-small-card"),
-                        _vm._v(" "),
-                        _c("hr", { staticClass: " uk-margin-remove" }),
-                        _vm._v(" "),
-                        _c("messages-small-card"),
-                        _vm._v(" "),
-                        _c("hr", { staticClass: " uk-margin-remove" }),
-                        _vm._v(" "),
-                        _c("messages-small-card"),
-                        _vm._v(" "),
-                        _c("hr", { staticClass: " uk-margin-remove" }),
-                        _vm._v(" "),
-                        _c("messages-small-card"),
-                        _vm._v(" "),
-                        _c("hr", { staticClass: " uk-margin-remove" }),
-                        _vm._v(" "),
-                        _c("messages-small-card"),
-                        _vm._v(" "),
-                        _c("hr", { staticClass: " uk-margin-remove" }),
-                        _vm._v(" "),
-                        _c("messages-small-card"),
-                        _vm._v(" "),
-                        _c("hr", { staticClass: "uk-margin-remove" })
-                      ],
-                      1
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("hr", { staticClass: " uk-margin-remove" }),
-                  _vm._v(" "),
-                  _vm._m(10)
-                ]
-              )
-            ]),
+                    [_vm._v(_vm._s(_vm.registerName))]
+                  )
+                ])
+              : _vm._e(),
             _vm._v(" "),
-            _c("li", [
-              _vm._m(11),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "uk-dropdown uk-dropdown-top-right  tm-dropdown-small border-radius-6 uk-padding-remove uk-box-shadow-large angle-top-right",
-                  attrs: {
-                    "uk-dropdown":
-                      "pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small"
-                  }
-                },
-                [
+            _vm.hasLogin === false
+              ? _c("li", [
                   _c(
-                    "h5",
+                    "a",
                     {
                       staticClass:
-                        "uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"
+                        "uk-navbar-item back-to-dashboard uk-button-text ",
+                      attrs: { href: _vm.loginRoute }
                     },
-                    [_vm._v(" Notifications ")]
-                  ),
-                  _vm._v(" "),
-                  _vm._m(12),
-                  _vm._v(" "),
-                  _c("hr", { staticClass: " uk-margin-remove" }),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "uk-text-left uk-height-medium" }, [
-                    _c(
-                      "div",
-                      {
-                        staticStyle: { "overflow-y": "auto" },
-                        attrs: { "data-simplebar": "" }
-                      },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass: "uk-padding-small",
-                            attrs: {
-                              "uk-scrollspy":
-                                "target: > div; cls:uk-animation-slide-bottom-small; delay: 100"
-                            }
-                          },
-                          [
-                            _c("notification-card"),
-                            _vm._v(" "),
-                            _c("hr", { staticClass: "uk-margin-remove" }),
-                            _vm._v(" "),
-                            _c("notification-card"),
-                            _vm._v(" "),
-                            _c("hr", { staticClass: "uk-margin-remove" }),
-                            _vm._v(" "),
-                            _c("notification-card"),
-                            _vm._v(" "),
-                            _c("hr", { staticClass: "uk-margin-remove" }),
-                            _vm._v(" "),
-                            _c("notification-card"),
-                            _vm._v(" "),
-                            _c("hr", { staticClass: "uk-margin-remove" }),
-                            _vm._v(" "),
-                            _c("notification-card"),
-                            _vm._v(" "),
-                            _c("hr", { staticClass: "uk-margin-remove" }),
-                            _vm._v(" "),
-                            _c("notification-card"),
-                            _vm._v(" "),
-                            _c("hr", { staticClass: "uk-margin-remove" }),
-                            _vm._v(" "),
-                            _c("notification-card"),
-                            _vm._v(" "),
-                            _c("hr", { staticClass: "uk-margin-remove" }),
-                            _vm._v(" "),
-                            _c("notification-card"),
-                            _vm._v(" "),
-                            _c("hr", { staticClass: "uk-margin-remove" }),
-                            _vm._v(" "),
-                            _c("notification-card"),
-                            _vm._v(" "),
-                            _c("hr", { staticClass: "uk-margin-remove" })
-                          ],
-                          1
-                        )
-                      ]
-                    )
-                  ])
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "li",
-              [
-                _c("a", { attrs: { href: "#" } }, [
-                  _c("img", {
-                    staticClass: "uk-border-circle user-profile-tiny",
-                    attrs: { src: _vm.profileImage, alt: "" }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("user-profile-dropdown-nav", {
-                  attrs: {
-                    "settings-route": _vm.settingsRoute,
-                    "logout-route": _vm.logoutRoute,
-                    "profile-image": _vm.profileImage
-                  }
-                })
-              ],
-              1
-            )
+                    [_vm._v(_vm._s(_vm.loginName))]
+                  )
+                ])
+              : _vm._e()
           ])
         ]
       ),
       _vm._v(" "),
-      _vm._m(13)
+      _vm._m(12)
     ]
   )
 }
@@ -6000,34 +6081,6 @@ var staticRenderFns = [
       },
       [_c("i", { staticClass: "far fa-user icon-large" })]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-navbar-left uk-visible@m" }, [
-      _c(
-        "a",
-        {
-          staticClass: "uk-navbar-item back-to-dashboard uk-button-text ",
-          attrs: {
-            href: "#",
-            "uk-tooltip":
-              "title: back-to-dashboard ; delay: 700 ; pos: bottom-left ;animation:\tuk-animation-scale-up"
-          }
-        },
-        [_vm._v("My Dashboard")]
-      ),
-      _vm._v(" "),
-      _c(
-        "a",
-        {
-          staticClass: "uk-navbar-item back-to-dashboard uk-button-text ",
-          attrs: { href: "#" }
-        },
-        [_vm._v("Browse Books")]
-      )
-    ])
   },
   function() {
     var _vm = this

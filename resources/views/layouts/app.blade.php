@@ -49,9 +49,15 @@
     <div class="app">
         <main>
             <top-bar
+                home-route="{{route('home')}}"
                 logout-route="{{route('logout')}}"
                 settings-route="{{route('settings')}}"
+                register-route="{{route('registerGet')}}"
+                login-route="{{route('loginGet')}}"
+                register-name="@lang('front/auth.register')"
+                login-name="@lang('front/auth.login')"
                 @if(Auth::check())
+                    has-login
                     profile-image='{{asset(Auth::user()->avatar)}}'
                 @endif
             ></top-bar>
