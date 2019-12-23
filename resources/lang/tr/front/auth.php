@@ -46,4 +46,13 @@ return [
     'student_infos'=>'Öğrenci Hesabı',
     'password_change'=>'Şifre Değiştir',
     'select_file'=>'Dosya Seç',
+    'exams'=>'Deneme Sınavları',
+    'books'=>'Soru Bankaları',
+    'prepare_for_lessons'=>'Derslere Hazırlık',
+    'prepare_for_exams'=>'Sınavlara Hazırlık',
+    'general_education'=>'Genel Eğitim',
+    'not_found_content'=>'Bu kategoride içerik bulunmamaktadır.',
+    'see_more'=>'Daha Fazlası',
+    'popular_in_category'=>'Bu kategoride popüler olan içerikler'
+
 ];

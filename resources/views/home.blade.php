@@ -12,126 +12,231 @@
     <div class="uk-container">
         <div class="section-heading uk-position-relative uk-margin-medium-top none-border uk-clearfix">
             <div class="uk-float-left">
-                <h2>Browse Web development courses</h2>
-                <p>Adipisici elit, sed eiusmod tempor incidunt ut labore et</p>
+                <h2>@lang('front/auth.general_education')</h2>
+                <p>@lang('front/auth.popular_in_category')</p>
             </div>
             <div class="uk-float-right">
-                <a href="blog-video-one.html" class="uk-button uk-button-default">See more</a>
+                <a href="blog-video-one.html" class="uk-button uk-button-default">@lang('front/auth.see_more')</a>
             </div>
         </div>
     </div>
-    <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
-        <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
-            <li class="uk-active">
-                <course-card
-                    title=""
-                    description="Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                     sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                     nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                     reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                     pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                     culpa qui officia deserunt mollit anim id est laborum."
-                    img-path=../../public/images/courses/course-1.jpg"
-                    prev-price="10.00"
-                    current-price="5.00"
-                    rank="4.5"
-                    page-link="#"
-                    discount></course-card>
-            </li>
-            <li class="uk-active">
-                <course-card/>
-            </li>
-            <li class="uk-active">
-                <course-card/>
-            </li>
-            <li>
-                <course-card/>
-            </li>
-            <li>
-                <course-card/>
-            </li>
-        </ul>
-        <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-        <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-next uk-slider-item="next"></a>
-        <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin">
-            <li uk-slider-item="0" class="">
-                <a href="#"></a>
-            </li>
-        </ul>
-    </div>
+    @if($general_education === null || count($general_education) === 0)
+        <div class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
+            <h4 class="uk-text-bold uk-margin-remove-top">@lang('front/auth.not_found_content')</h4>
+        </div>
+    @else
+        <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
+            <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
+            @foreach($general_education as $general_educations)
+                <li>
+                    <course-card
+                        title="{{$general_educations->name}}"
+                        description="{{$general_educations->description}}"
+                        img-path="{{$general_educations->image}}"
+                        @if($general_educations->discount)
+                            discount
+                            current-price="{{$general_educations->discount->price_with_discount}}"
+                            prev-price="{{$general_educations->price}}"
+                        @else
+                            current-price="{{$general_educations->price}}"
+                        @endif
+                        rank="{{$general_educations->point}}"
+                        page-link="#"
+                    ></course-card>
+                </li>
+            @endforeach
+            </ul>
+            <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-next uk-slider-item="next"></a>
+            <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin">
+                <li uk-slider-item="0" class="">
+                    <a href="#"></a>
+                </li>
+            </ul>
+        </div>
+    @endif
     <div class="uk-container">
         <div class="section-heading uk-position-relative uk-margin-medium-top none-border uk-clearfix">
             <div class="uk-float-left">
-                <h2>Browse Web development courses</h2>
-                <p>Adipisici elit, sed eiusmod tempor incidunt ut labore et</p>
+                <h2>@lang('front/auth.prepare_for_exams')</h2>
+                <p>@lang('front/auth.popular_in_category')</p>
             </div>
             <div class="uk-float-right">
-                <a href="blog-video-one.html" class="uk-button uk-button-default">See more</a>
+                <a href="blog-video-one.html" class="uk-button uk-button-default">@lang('front/auth.see_more')</a>
             </div>
         </div>
     </div>
-    <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
-        <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
-            <li class="uk-active">
-                <course-card></course-card>
-            </li>
-            <li class="uk-active">
-                <course-card/>
-            </li>
-            <li class="uk-active">
-                <course-card/>
-            </li>
-            <li>
-                <course-card/>
-            </li>
-            <li>
-                <course-card/>
-            </li>
-        </ul>
-        <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-        <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-next uk-slider-item="next"></a>
-        <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin">
-            <li uk-slider-item="0" class="">
-                <a href="#"></a>
-            </li>
-        </ul>
-    </div>
+    @if($prepare_for_exams === null || count($prepare_for_exams) === 0)
+        <div class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
+            <h4 class="uk-text-bold uk-margin-remove-top">@lang('front/auth.not_found_content')</h4>
+        </div>
+    @else
+        <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
+            <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
+                @foreach ($prepare_for_exams as $prepare_for_exam)
+                    <li class="uk-active">
+                        <course-card
+                            title="{{$prepare_for_exam->name}}"
+                            description="{{$prepare_for_exam->description}}"
+                            img-path="{{$prepare_for_exam->image}}"
+                            @if($prepare_for_exam->discount)
+                            discount
+                            current-price="{{$prepare_for_exam->discount->price_with_discount}}"
+                            prev-price="{{$prepare_for_exam->price}}"
+                            @else
+                            current-price="{{$prepare_for_exam->price}}"
+                            @endif
+                            rank="{{$prepare_for_exam->point}}"
+                            page-link="#"
+                        ></course-card>
+                    </li>
+                @endforeach
+            </ul>
+            <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-next uk-slider-item="next"></a>
+            <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin">
+                <li uk-slider-item="0" class="">
+                    <a href="#"></a>
+                </li>
+            </ul>
+        </div>
+    @endif
     <div class="uk-container">
         <div class="section-heading uk-position-relative uk-margin-medium-top none-border uk-clearfix">
             <div class="uk-float-left">
-                <h2>Browse Web development courses</h2>
-                <p>Adipisici elit, sed eiusmod tempor incidunt ut labore et</p>
+                <h2>@lang('front/auth.prepare_for_lessons')</h2>
+                <p>@lang('front/auth.popular_in_category')</p>
+            </div>
+            <div class="uk-float-right">
+                <a href="blog-video-one.html" class="uk-button uk-button-default">@lang('front/auth.see_more')</a>
+            </div>
+        </div>
+    </div>
+    @if($prepare_for_lessons === null || count($prepare_for_lessons) === 0)
+        <div class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
+            <h4 class="uk-text-bold uk-margin-remove-top">@lang('front/auth.not_found_content')</h4>
+        </div>
+    @else
+        <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
+            <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
+                @foreach ($prepare_for_lessons as $prepare_for_lesson)
+                    <li>
+                        <course-card
+                            title="{{$prepare_for_lesson->name}}"
+                            description="{{$prepare_for_lesson->description}}"
+                            img-path="{{$prepare_for_lesson->image}}"
+                            @if($prepare_for_lesson->discount)
+                            discount
+                            current-price="{{$prepare_for_lesson->discount->price_with_discount}}"
+                            prev-price="{{$prepare_for_lesson->price}}"
+                            @else
+                            current-price="{{$prepare_for_lesson->price}}"
+                            @endif
+                            rank="{{$prepare_for_lesson->point}}"
+                            page-link="#"
+                        ></course-card>
+                    </li>
+                @endforeach
+            </ul>
+            <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-next uk-slider-item="next"></a>
+            <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin">
+                <li uk-slider-item="0" class="">
+                    <a href="#"></a>
+                </li>
+            </ul>
+        </div>
+    @endif
+    <div class="uk-container">
+        <div class="section-heading uk-position-relative uk-margin-medium-top none-border uk-clearfix">
+            <div class="uk-float-left">
+                <h2>@lang('front/auth.exams')</h2>
+                <p>@lang('front/auth.popular_in_category')</p>
             </div>
             <div class="uk-float-right">
                 <a href="blog-video-one.html" class="uk-button uk-button-default">See more</a>
             </div>
         </div>
     </div>
-    <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
-        <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
-            <li class="uk-active">
-                <course-card></course-card>
-            </li>
-            <li class="uk-active">
-                <course-card/>
-            </li>
-            <li class="uk-active">
-                <course-card/>
-            </li>
-            <li>
-                <course-card/>
-            </li>
-            <li>
-                <course-card/>
-            </li>
-        </ul>
-        <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-        <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-next uk-slider-item="next"></a>
-        <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin">
-            <li uk-slider-item="0" class="">
-                <a href="#"></a>
-            </li>
-        </ul>
+    @if($exams===null || count($exams) === 0)
+        <div class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
+            <h4 class="uk-text-bold uk-margin-remove-top">Bu kategoride içerik bulunmamaktadır</h4>
+        </div>
+    @else
+        <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
+            <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
+                @foreach($exams as $exam)
+                    <li>
+                        <course-card
+                            title="{{$exam->name}}"
+                            description="{{$exam->description}}"
+                            img-path="{{$exam->image}}"
+                            @if($exam->discount)
+                                discount
+                                current-price="{{$exam->discount->price_with_discount}}"
+                                prev-price="{{$exam->price}}"
+                            @else
+                                current-price="{{$exam->price}}"
+                            @endif
+                            rank="{{$exam->point}}"
+                            page-link="#"
+                        ></course-card>
+                    </li>
+                @endforeach
+            </ul>
+            <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-next uk-slider-item="next"></a>
+            <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin">
+                <li uk-slider-item="0" class="">
+                    <a href="#"></a>
+                </li>
+            </ul>
+        </div>
+    @endif
+    <div class="uk-container">
+        <div class="section-heading uk-position-relative uk-margin-medium-top none-border uk-clearfix">
+            <div class="uk-float-left">
+                <h2>@lang('front/auth.books')</h2>
+                <p>@lang('front/auth.popular_in_category')</p>
+            </div>
+            <div class="uk-float-right">
+                <a href="blog-video-one.html" class="uk-button uk-button-default">@lang('front/auth.see_more')</a>
+            </div>
+        </div>
     </div>
+    @if($books===null || count($books)===0)
+        <div class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
+            <h4 class="uk-text-bold uk-margin-remove-top">@lang('front/auth.not_found_content')</h4>
+        </div>
+    @else
+        <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
+            <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
+                @foreach ($books as $book)
+                    <li>
+                        <course-card
+                            title="{{$book->name}}"
+                            description="{{$book->description}}"
+                            img-path="{{$book->image}}"
+                            @if($book->discount)
+                                discount
+                                current-price="{{$book->discount->price_with_discount}}"
+                                prev-price="{{$book->price}}"
+                            @else
+                                current-price="{{$book->price}}"
+                            @endif
+                            rank="{{$book->point}}"
+                            page-link="#"
+                        ></course-card>
+                    </li>
+                @endforeach
+            </ul>
+            <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-next uk-slider-item="next"></a>
+            <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin">
+                <li uk-slider-item="0" class="">
+                    <a href="#"></a>
+                </li>
+            </ul>
+        </div>
+    @endif
 @endsection

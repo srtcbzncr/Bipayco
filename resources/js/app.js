@@ -33,7 +33,7 @@ Vue.component('user-profile-dropdown', require('./components/top-bar/user-profil
 Vue.component('your-course-card', require('./components/top-bar/your-course-card.vue').default);
 Vue.component('accordion-menu-title', require('./components/side-bar/accordion-menu-title.vue').default);
 Vue.component('side-bar', require('./components/side-bar/side-bar.vue').default);
-Vue.component('app-footer', require('./components/footer/footer.vue').default);
+Vue.component('app-footer', require('./components/footer/app-footer.vue').default);
 Vue.component('registered-profile', require('./components/admin/registered-profile.vue').default);
 Vue.component('comment', require('./components/admin/comment.vue').default);
 

@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('footer')
+@section('app-footer')
     <div class="uk-section-small uk-margin-medium-top">
         <hr class="uk-margin-remove">
         <div class="uk-container uk-align-center uk-margin-remove-bottom uk-position-relative">

@@ -62,7 +62,7 @@
                 @endif
             ></top-bar>
             @yield('content')
-            @yield('footer')
+            <app-footer></app-footer>
         </main>
     </div>
 </div>
