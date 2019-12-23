@@ -146,7 +146,7 @@
                                 <fieldset class="uk-fieldset uk-margin-small-bottom">
                                     <div>
                                         <div class="uk-form-label"> @lang('front/auth.reference_code')  </div>
-                                        <input class="uk-input" type="text" disabled name="referance_code" value="{{$student_profile->reference_code}}" required>
+                                        <input class="uk-input" type="text" disabled name="reference_code" value="{{$student_profile->reference_code}}" required>
                                     </div>
                                 </fieldset>
                             </div>
@@ -165,29 +165,54 @@
                         @csrf
                         <div uk-grid class="uk-flex-center">
                             <div class="uk-width-large@m uk-padding-remove-top">
-                                <fieldset class="uk-fieldset uk-margin-small-bottom">
+                                <div class="uk-fieldset uk-margin-small-bottom">
                                     <div>
                                         <div class="uk-form-label">@lang('front/auth.id_num') </div>
-                                        <input class="uk-input" type="text" name="identification_number" value="{{$instructor_profile->identification_number}}" required>
+                                        <input class="uk-input form-control @error('identification_number') is-invalid @enderror" type="text"  name="identification_number" value="{{$instructor_profile->identification_number}}" required>
+                                        @error('identification_number')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div>
                                         <div class="uk-form-label"> @lang('front/auth.title')  </div>
-                                        <input class="uk-input" type="text" name="title" value="{{$instructor_profile->title}}" required>
+                                        <input class="uk-input form-control @error('title') is-invalid @enderror" type="text" name="title" value="{{$instructor_profile->title}}" required>
+                                        @error('title')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
 
                                     <div>
                                         <div class="uk-form-label"> @lang('front/auth.iban')  </div>
-                                        <input class="uk-input" type="text" name="iban" value="{{$instructor_profile->iban}}" required>
+                                        <input class="uk-input form-control @error('iban') is-invalid @enderror" type="text" name="iban" value="{{$instructor_profile->iban}}" required>
+                                        @error('iban')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div>
                                         <div class="uk-form-label"> @lang('front/auth.bio')</div>
-                                        <textarea class="uk-textarea" type="text" rows="5" name="bio" value="{{$instructor_profile->bio}}" required> </textarea>
+                                        <textarea class="uk-textarea form-control @error('bio') is-invalid @enderror" type="text" rows="5" name="bio" required> {{$instructor_profile->bio}} </textarea>
+                                        @error('bio')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div>
-                                        <div class="uk-form-label">@lang('front/auth.reference_code') </div>
-                                        <input class="uk-input" type="text" disabled name="referance_code" value="{{$instructor_profile->reference_code}}" required>
+                                        <div class="uk-form-label form-control @error('new_password') is-invalid @enderror">@lang('front/auth.reference_code') </div>
+                                        <input class="uk-input" type="text" disabled name="reference_code" value="{{$instructor_profile->reference_code}}" required>
+                                        @error('reference_code')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
-                                </fieldset>
+                                </div>
                                 <div>
                                     <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')">
                                 </div>
