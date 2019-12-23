@@ -4120,7 +4120,7 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
-          !_vm.hasSelectedOption
+          !_vm.hasSelectedOption || !_vm.hasChange
             ? _c(
                 "option",
                 {

@@ -139,16 +139,16 @@
                     @lang('front/auth.student_infos')
                 </div>
                 <div class="uk-card-body">
-                        <div uk-grid class="uk-flex-center">
-                            <div class="uk-width-large@m uk-padding-remove-top">
-                                <fieldset class="uk-fieldset uk-margin-small-bottom">
-                                    <div>
-                                        <div class="uk-form-label"> @lang('front/auth.reference_code')  </div>
-                                        <input class="uk-input" type="text" disabled name="reference_code" value="{{$student_profile->reference_code}}" required>
-                                    </div>
-                                </fieldset>
-                            </div>
+                    <div uk-grid class="uk-flex-center">
+                        <div class="uk-width-large@m uk-padding-remove-top">
+                            <fieldset class="uk-fieldset uk-margin-small-bottom">
+                                <div>
+                                    <div class="uk-form-label"> @lang('front/auth.reference_code')  </div>
+                                    <input class="uk-input" type="text" disabled name="reference_code" value="{{$student_profile->reference_code}}" required>
+                                </div>
+                            </fieldset>
                         </div>
+                    </div>
                 </div>
             </div>
         @endif

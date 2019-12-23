@@ -9,8 +9,8 @@
         </div>
         <div>
             <select class="uk-select" name="district_id" >
-                <option v-if="hasSelectedOption&&hasChange" disabled selected hidden :value="selectedDistrictId">{{selectedDistrict}} </option>
-                <option v-if="!(hasSelectedOption)" disabled hidden selected value="">{{districtDefault}}</option>
+                <option v-if="hasSelectedOption && hasChange" disabled selected hidden :value="selectedDistrictId">{{selectedDistrict}} </option>
+                <option v-if="!(hasSelectedOption)|| !hasChange" disabled hidden selected value="">{{districtDefault}}</option>
                 <option v-for='district in districts' :value='district.id'>{{district.name}}</option>
             </select>
         </div>
