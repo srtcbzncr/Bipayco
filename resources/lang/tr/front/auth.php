@@ -57,5 +57,4 @@ return [
     'log_out'=>'Çıkış Yap',
     'settings'=>'Ayarlar',
     'profile'=>'Profil'
-
 ];
