@@ -15,7 +15,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $geCourseRepo = new CourseRepository;
+        $gePopularCoursesResp = $geCourseRepo->getPopularCourses();
+        $data = [
+            'general_education' => $gePopularCoursesResp->getData(),
+            'prepare_for_lessons' => null,
+            'prepare_for_exams' => null,
+            'books' => null,
+            'exams' => null,
+        ];
+        dd($data);
+        return view('home', $data);
     }
 
     public function error(){

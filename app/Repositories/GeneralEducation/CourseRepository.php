@@ -40,6 +40,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $object = Course::where('active', true)
+                ->where('point', '>=', 2.0)
                 ->orderBy('purchase_count', 'desc')
                 ->orderBy('point', 'desc')
                 ->take(20)

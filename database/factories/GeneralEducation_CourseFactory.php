@@ -21,5 +21,6 @@ $factory->define(Course::class, function (Faker $faker) {
         'name' => $faker->sentence(3),
         'description' => $faker->sentence(10),
         'price' => 100,
+        'active' => true,
     ];
 });
