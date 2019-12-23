@@ -6041,9 +6041,10 @@ var render = function() {
             _vm.hasLogin === false
               ? _c("li", [
                   _c(
-                    "a",
+                    "button",
                     {
-                      staticClass: "uk-text-large uk-button-text ",
+                      staticClass:
+                        "uk-button uk-button-primary uk-padding-remove-top uk-padding-remove-bottom ",
                       attrs: { href: _vm.registerRoute }
                     },
                     [_vm._v(_vm._s(_vm.registerName))]
@@ -6054,10 +6055,10 @@ var render = function() {
             _vm.hasLogin === false
               ? _c("li", [
                   _c(
-                    "a",
+                    "button",
                     {
                       staticClass:
-                        "uk-text-large uk-button-text uk-margin-small-left",
+                        "uk-button uk-button-danger uk-padding-remove-top uk-padding-remove-bottom uk-margin-small-left",
                       attrs: { href: _vm.loginRoute }
                     },
                     [_vm._v(_vm._s(_vm.loginName))]
@@ -20812,8 +20813,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\bzncr\Bipayco\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\bzncr\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\talhakirgel\Documents\GitHub\Bipayco\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\talhakirgel\Documents\GitHub\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
