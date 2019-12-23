@@ -101,7 +101,7 @@
                                     <div>
                                         <div>
                                             <input id="password" class="uk-input form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password" placeholder="@lang('front/auth.password')" type="password">
-                                            <a class="fas fa-eye" onclick="togglePassword('password')" style="margin-left: -25px"></a>
+                                            <a class="fas fa-eye" onclick="togglePassword('password')" style="margin-left: -30px"></a>
                                         </div>
                                         @error('password')
                                             <span class="invalid-feedback" role="alert">
