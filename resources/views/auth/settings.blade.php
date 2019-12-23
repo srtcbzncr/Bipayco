@@ -66,7 +66,18 @@
                                             </div>
                                             <div class="uk-width uk-child-width">
                                                 <div class="uk-form-label">@lang('front/auth.city') </div>
-                                                <provinces city-default="@lang('front/auth.province')" district-default="@lang('front/auth.district')"></provinces>
+                                                <provinces city-default="@lang('front/auth.province')" district-default="@lang('front/auth.district')"
+                                                           has-selected-option
+                                                           selected-district-id="{{$user->district->id}}"
+                                                           selected-district="{{$user->district->name}}"
+                                                           selected-city-id="{{$user->district->city_id}}"
+                                                           selected-city="{{$user->district->city->name}}"
+                                                ></provinces>
+                                                @error('district_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
                                             </div>
                                         </div>
                                         <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')">

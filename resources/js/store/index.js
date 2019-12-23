@@ -30,7 +30,6 @@ const actions={
         Axios.get('api/city/'+id+'/districts')
             .then(response =>commit('setDistricts', response.data))
     }
-
 };
 
 const store=new Vuex.Store({

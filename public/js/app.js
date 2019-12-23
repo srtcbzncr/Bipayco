@@ -1953,17 +1953,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "province",
   props: {
     cityDefault: String,
-    districtDefault: String
+    districtDefault: String,
+    hasSelectedOption: Boolean,
+    selectedDistrict: String,
+    selectedCity: String,
+    selectedDistrictId: String,
+    selectedCityId: String
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['cities', 'districts'])),
+  data: function data() {
+    return {
+      changing: Boolean
+    };
+  },
+  computed: _objectSpread({
+    hasChange: function hasChange() {
+      return this.changing;
+    }
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['cities', 'districts'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadDistricts', 'loadCities']), {
     loadDistrictList: function loadDistrictList() {
       this.$store.dispatch('loadDistricts');
+      this.changing = document.getElementById('city').value === this.selectedCityId;
     }
   }),
   mounted: function mounted() {
@@ -4201,16 +4218,32 @@ var render = function() {
       _c(
         "select",
         {
-          staticClass: "uk-select uk-margin-right uk-margin-small-bottom",
+          staticClass:
+            "uk-select uk-margin-right uk-margin-small-bottom form-control",
           attrs: { name: "city", id: "city" },
           on: { change: _vm.loadDistrictList }
         },
         [
-          _c(
-            "option",
-            { attrs: { disabled: "", hidden: "", selected: "", value: "" } },
-            [_vm._v(_vm._s(_vm.cityDefault))]
-          ),
+          _vm.hasSelectedOption
+            ? _c(
+                "option",
+                {
+                  attrs: { disabled: "", hidden: "", selected: "" },
+                  domProps: { value: _vm.selectedCityId }
+                },
+                [_vm._v(_vm._s(_vm.selectedCity) + " ")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.hasSelectedOption
+            ? _c(
+                "option",
+                {
+                  attrs: { disabled: "", hidden: "", selected: "", value: "" }
+                },
+                [_vm._v(_vm._s(_vm.cityDefault))]
+              )
+            : _vm._e(),
           _vm._v(" "),
           _vm._l(_vm.cities, function(city) {
             return _c("option", { domProps: { value: city.id } }, [
@@ -4225,13 +4258,31 @@ var render = function() {
     _c("div", [
       _c(
         "select",
-        { staticClass: "uk-select", attrs: { name: "district_id" } },
+        {
+          staticClass: "uk-select form-control",
+          attrs: { name: "district_id" }
+        },
         [
-          _c(
-            "option",
-            { attrs: { disabled: "", hidden: "", selected: "", value: "" } },
-            [_vm._v(_vm._s(_vm.districtDefault))]
-          ),
+          _vm.hasSelectedOption && _vm.hasChange
+            ? _c(
+                "option",
+                {
+                  attrs: { disabled: "", selected: "", hidden: "" },
+                  domProps: { value: _vm.selectedDistrictId }
+                },
+                [_vm._v(_vm._s(_vm.selectedDistrict) + " ")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.hasSelectedOption
+            ? _c(
+                "option",
+                {
+                  attrs: { disabled: "", hidden: "", selected: "", value: "" }
+                },
+                [_vm._v(_vm._s(_vm.districtDefault))]
+              )
+            : _vm._e(),
           _vm._v(" "),
           _vm._l(_vm.districts, function(district) {
             return _c("option", { domProps: { value: district.id } }, [
@@ -4279,7 +4330,7 @@ var render = function() {
           staticClass: "fas icon-medium uk-margin-small-right",
           class: _vm.statuLogo
         }),
-        _vm._v("\n        " + _vm._s(_vm.statuName) + "\n    ")
+        _vm._v("\n    " + _vm._s(_vm.statuName) + "\n")
       ]),
       _vm._v(" "),
       _c(
