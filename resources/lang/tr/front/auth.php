@@ -53,6 +53,9 @@ return [
     'general_education'=>'Genel Eğitim',
     'not_found_content'=>'Bu kategoride içerik bulunmamaktadır.',
     'see_more'=>'Daha Fazlası',
-    'popular_in_category'=>'Bu kategoride popüler olan içerikler'
+    'popular_in_category'=>'Bu kategoride popüler olan içerikler',
+    'log_out'=>'Çıkış Yap',
+    'settings'=>'Ayarlar',
+    'profile'=>'Profil'
 
 ];

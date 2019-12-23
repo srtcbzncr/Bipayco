@@ -115,13 +115,18 @@
                         :settings-route="settingsRoute"
                         :logout-route="logoutRoute"
                         :profile-image="profileImage"
+                        :user-name="userName"
+                        :user-city="userCity"
+                        :log-out="logOut"
+                        :settings="settings"
+                        :profile="profile"
                     />
                 </li>
                 <li v-if="hasLogin === false">
-                    <a class="uk-navbar-item back-to-dashboard uk-button-text " :href="registerRoute">{{registerName}}</a>
+                    <a class="uk-text-large uk-button-text " :href="registerRoute">{{registerName}}</a>
                 </li>
                 <li v-if="hasLogin === false">
-                    <a class="uk-navbar-item back-to-dashboard uk-button-text " :href="loginRoute">{{loginName}}</a>
+                    <a class="uk-text-large uk-button-text uk-margin-small-left" :href="loginRoute">{{loginName}}</a>
                 </li>
             </ul>
         </div>
@@ -153,7 +158,12 @@ export default {
         registerName:String,
         registerRoute:String,
         loginRoute:String,
-        loginName:String
+        loginName:String,
+        userName:String,
+        userCity:String,
+        settings:String,
+        logOut:String,
+        profile:String
     },
     components: {
         UserProfileDropdownNav,

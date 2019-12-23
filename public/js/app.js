@@ -2691,6 +2691,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -2706,7 +2711,12 @@ __webpack_require__.r(__webpack_exports__);
     registerName: String,
     registerRoute: String,
     loginRoute: String,
-    loginName: String
+    loginName: String,
+    userName: String,
+    userCity: String,
+    settings: String,
+    logOut: String,
+    profile: String
   },
   components: {
     UserProfileDropdownNav: _user_profile_dropdown_nav__WEBPACK_IMPORTED_MODULE_3__["default"],
@@ -2764,7 +2774,12 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     settingsRoute: String,
     logoutRoute: String,
-    profileImage: String
+    profileImage: String,
+    userName: String,
+    userCity: String,
+    settings: String,
+    logOut: String,
+    profile: String
   }
 });
 
@@ -6010,7 +6025,12 @@ var render = function() {
                       attrs: {
                         "settings-route": _vm.settingsRoute,
                         "logout-route": _vm.logoutRoute,
-                        "profile-image": _vm.profileImage
+                        "profile-image": _vm.profileImage,
+                        "user-name": _vm.userName,
+                        "user-city": _vm.userCity,
+                        "log-out": _vm.logOut,
+                        settings: _vm.settings,
+                        profile: _vm.profile
                       }
                     })
                   ],
@@ -6023,8 +6043,7 @@ var render = function() {
                   _c(
                     "a",
                     {
-                      staticClass:
-                        "uk-navbar-item back-to-dashboard uk-button-text ",
+                      staticClass: "uk-text-large uk-button-text ",
                       attrs: { href: _vm.registerRoute }
                     },
                     [_vm._v(_vm._s(_vm.registerName))]
@@ -6038,7 +6057,7 @@ var render = function() {
                     "a",
                     {
                       staticClass:
-                        "uk-navbar-item back-to-dashboard uk-button-text ",
+                        "uk-text-large uk-button-text uk-margin-small-left",
                       attrs: { href: _vm.loginRoute }
                     },
                     [_vm._v(_vm._s(_vm.loginName))]
@@ -6338,21 +6357,44 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _vm._m(0)
+          _c("div", { staticClass: "uk-width-3-4" }, [
+            _c(
+              "p",
+              {
+                staticClass:
+                  "uk-margin-remove-bottom uk-margin-small-top uk-text-bold"
+              },
+              [_vm._v(_vm._s(_vm.userName) + " ")]
+            ),
+            _vm._v(" "),
+            _c(
+              "p",
+              {
+                staticClass:
+                  "uk-margin-remove-top uk-text-small uk-margin-small-bottom"
+              },
+              [_vm._v(_vm._s(_vm.userCity))]
+            )
+          ])
         ]
       ),
       _vm._v(" "),
       _c("ul", { staticClass: "uk-nav uk-dropdown-nav" }, [
+        _c("li", [
+          _c("a", { attrs: { href: "Profile.html" } }, [
+            _c("i", { staticClass: "fas fa-user uk-margin-small-right" }),
+            _vm._v(_vm._s(_vm.profile))
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(0),
+        _vm._v(" "),
         _vm._m(1),
-        _vm._v(" "),
-        _vm._m(2),
-        _vm._v(" "),
-        _vm._m(3),
         _vm._v(" "),
         _c("li", [
           _c("a", { attrs: { href: _vm.settingsRoute } }, [
             _c("i", { staticClass: "fas fa-cog uk-margin-small-right" }),
-            _vm._v(" Setting")
+            _vm._v(_vm._s(_vm.settings))
           ])
         ]),
         _vm._v(" "),
@@ -6363,7 +6405,7 @@ var render = function() {
             _c("i", {
               staticClass: "fas fa-sign-out-alt uk-margin-small-right"
             }),
-            _vm._v(" Log out")
+            _vm._v(_vm._s(_vm.logOut))
           ])
         ])
       ])
@@ -6371,41 +6413,6 @@ var render = function() {
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-width-3-4" }, [
-      _c(
-        "p",
-        {
-          staticClass:
-            "uk-margin-remove-bottom uk-margin-small-top uk-text-bold"
-        },
-        [_vm._v(" Hamse Mohamoud  ")]
-      ),
-      _vm._v(" "),
-      _c(
-        "p",
-        {
-          staticClass:
-            "uk-margin-remove-top uk-text-small uk-margin-small-bottom"
-        },
-        [_vm._v(" Bankook China")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { attrs: { href: "Profile.html" } }, [
-        _c("i", { staticClass: "fas fa-user uk-margin-small-right" }),
-        _vm._v(" Profile")
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

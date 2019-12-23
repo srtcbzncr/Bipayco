@@ -59,7 +59,12 @@
                 @if(Auth::check())
                     has-login
                     profile-image='{{asset(Auth::user()->avatar)}}'
+                    user-name="{{Auth::user()->first_name}} {{Auth::user()->last_name}}"
+                    user-city="{{Auth::user()->district->name}},{{Auth::user()->district->city->name}}"
                 @endif
+                settings="@lang('front/auth.settings')"
+                log-out="@lang('front/auth.log_out')"
+                profile="@lang('front/auth.profile')"
             ></top-bar>
             @yield('content')
             <app-footer></app-footer>

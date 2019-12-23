@@ -5,13 +5,13 @@
                 <img :src="profileImage" alt="Image" class="uk-align-center">
             </div>
             <div class="uk-width-3-4">
-                <p class="uk-margin-remove-bottom uk-margin-small-top uk-text-bold"> Hamse Mohamoud  </p>
-                <p class="uk-margin-remove-top uk-text-small uk-margin-small-bottom"> Bankook China</p>
+                <p class="uk-margin-remove-bottom uk-margin-small-top uk-text-bold">{{userName}} </p>
+                <p class="uk-margin-remove-top uk-text-small uk-margin-small-bottom">{{userCity}}</p>
             </div>
         </div>
         <ul class="uk-nav uk-dropdown-nav">
             <li>
-                <a href="Profile.html"> <i class="fas fa-user uk-margin-small-right"></i> Profile</a>
+                <a href="Profile.html"> <i class="fas fa-user uk-margin-small-right"></i>{{profile}}</a>
             </li>
             <li>
                 <a href="#"> <i class="fas fa-envelope uk-margin-small-right"></i> Messages </a>
@@ -20,11 +20,11 @@
                 <a href="#"> <i class="fas fa-share uk-margin-small-right"></i> Invite freind</a>
             </li>
             <li>
-                <a :href="settingsRoute"> <i class="fas fa-cog uk-margin-small-right"></i> Setting</a>
+                <a :href="settingsRoute"> <i class="fas fa-cog uk-margin-small-right"></i>{{settings}}</a>
             </li>
             <li class="uk-nav-divider"></li>
             <li>
-                <a :href="logoutRoute"> <i class="fas fa-sign-out-alt uk-margin-small-right"></i> Log out</a>
+                <a :href="logoutRoute"> <i class="fas fa-sign-out-alt uk-margin-small-right"></i>{{logOut}}</a>
             </li>
         </ul>
     </div>
@@ -36,7 +36,12 @@
         props:{
             settingsRoute:String,
             logoutRoute:String,
-            profileImage:String
+            profileImage:String,
+            userName:String,
+            userCity:String,
+            settings:String,
+            logOut:String,
+            profile:String,
         }
     }
 </script>
