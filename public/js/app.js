@@ -4542,6 +4542,7 @@ var render = function() {
             _c(
               "p",
               {
+                staticClass: "uk-height-small",
                 staticStyle: {
                   overflow: "hidden",
                   "text-overflow": "ellipsis",

@@ -8,7 +8,7 @@
                 <img :src=imgPath class="course-img">
                 <div class="uk-card-body">
                     <h4>{{title}}</h4>
-                    <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; "> {{description}} </p>
+                    <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small"> {{description}} </p>
                     <div>
                         <!--<span class="uk-margin-small-top uk-margin-small-bottom" uk-icon="star"></span>
                         <span class="uk-margin-small-top uk-margin-small-bottom" uk-icon="star"></span>
