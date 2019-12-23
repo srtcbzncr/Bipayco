@@ -19,10 +19,10 @@ class HomeController extends Controller
         $gePopularCoursesResp = $geCourseRepo->getPopularCourses();
         $data = [
             'general_education' => $gePopularCoursesResp->getData(),
-            'prepare_for_lessons' => null,
-            'prepare_for_exams' => null,
-            'books' => null,
-            'exams' => null,
+            'prepare_for_lessons' => [],
+            'prepare_for_exams' => [],
+            'books' => [],
+            'exams' => [],
         ];
         return view('home', $data);
     }
