@@ -19,6 +19,12 @@ class CategoryController extends Controller
         $courseCount = count($coursesResp->getData());
         $subCategoriesCount = count($subCategoriesResp->getData());
 
+        dd([
+            'category' => $categoryResp->getData(),
+            'course_count' => $courseCount,
+            'sub_categories_count' => $subCategoriesCount,
+        ]);
+
         // Response
         if($categoryResp->getResult() and $coursesResp->getResult() and $subCategoriesResp->getResult()){
             return view('general_education.category', [

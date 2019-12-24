@@ -31,12 +31,13 @@ Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function(){
     Route::post('updateInstructorData', 'Auth\AuthController@updateInstructorData')->name('updateInstructorData');
 });
 
-Route::group(['prefix' => 'category'], function(){
-    Route::get('{id}', 'GeneralEducation\CategoryController@show')->name('category_courses');
-});
-
-Route::group(['prefix' => 'subCategory'], function(){
-    Route::get('{id}', 'GeneralEducation\SubCategoryController@show')->name('sub_category_courses');
+Route::group(['prefix' => 'ge'], function(){
+    Route::group(['prefix' => 'category'], function(){
+        Route::get('{id}', 'GeneralEducation\CategoryController@show')->name('ge_category_courses');
+    });
+    Route::group(['prefix' => 'subCategory'], function(){
+        Route::get('{id}', 'GeneralEducation\SubCategoryController@show')->name('ge_sub_category_courses');
+    });
 });
 
 
