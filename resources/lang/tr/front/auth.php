@@ -56,5 +56,6 @@ return [
     'popular_in_category'=>'Bu kategoride popüler olan içerikler',
     'log_out'=>'Çıkış Yap',
     'settings'=>'Ayarlar',
-    'profile'=>'Profil'
+    'profile'=>'Profil',
+    'all_of_category'=>'Hepsi'
 ];

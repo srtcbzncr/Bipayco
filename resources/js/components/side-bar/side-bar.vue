@@ -10,12 +10,13 @@
                     <a href="#"> <i class="fas fa-play"> </i> </a>
                     <div class="side-menu-slide" style="overflow-y: auto">
                         <div class="side-menu-slide-content" >
-                                    <a class="uk-background-grey uk-margin-remove"><b>Genel Eğitim</b></a>
+                            <a class="uk-background-grey uk-margin-remove general-title" style=":hover "><b>{{generalEducation}}</b></a>
                             <ul uk-accordion>
                                 <li v-for="category in categories" class=" uk-margin-remove-top">
-                                    <a href="ui-components.html" class="uk-accordion-title"> <i class="fas fa-layer-group"> </i>{{category.name}}</a>
+                                    <a class="uk-accordion-title" :id="category.id"> <i class="fas fa-layer-group"> </i>{{category.name}}</a>
                                     <div class="uk-accordion-content uk-margin-remove-top">
-                                        <a v-for="subCategory in category.sub_categories.data" :href="subCategory.id">
+                                        <a :href="homeRoute+'/ge/category/'+category.id">{{allOfCategory}}</a>
+                                        <a v-for="subCategory in category.sub_categories.data" :href="homeRoute+'/ge/subCategory/'+subCategory.id" :id="subCategory.id">
                                             {{subCategory.name}}
                                         </a>
                                     </div>
@@ -158,7 +159,9 @@ import {mapState,mapActions} from 'vuex';
 export default {
     name: "side-bar",
     props:{
-      homeRoute:String,
+        homeRoute:String,
+        generalEducation:String,
+        allOfCategory:String,
     },
     computed:{
         ...mapState([
@@ -173,12 +176,15 @@ export default {
             'loadCategories'
         ]),
     },
-    mounted () {
+    created() {
         this.$store.dispatch('loadCategories');
     },
 }
 </script>
 
-<style>
-
+<style scoped>
+    .general-title:hover{
+        background: white;
+        color:#3F4850;
+    }
 </style>
