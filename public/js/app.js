@@ -2357,12 +2357,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2370,11 +2364,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   props: {
     homeRoute: String
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['cities', 'districts'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['categories'])),
   components: {
     AccordionMenuTitle: _accordion_menu_title__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadDistricts', 'loadCities']))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadCategories'])),
+  mounted: function mounted() {
+    this.$store.dispatch('loadCategories');
+  }
 });
 
 /***/ }),
@@ -4861,7 +4858,60 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("ul", [
-      _vm._m(0),
+      _c("li", [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "side-menu-slide",
+            staticStyle: { "overflow-y": "auto" }
+          },
+          [
+            _c("div", { staticClass: "side-menu-slide-content" }, [
+              _c(
+                "ul",
+                { attrs: { "uk-accordion": "" } },
+                _vm._l(_vm.categories, function(category) {
+                  return _c("li", { staticClass: " uk-margin-remove-top" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "uk-accordion-title",
+                        attrs: { href: "ui-components.html" }
+                      },
+                      [
+                        _c("i", { staticClass: "fas fa-layer-group" }),
+                        _vm._v(_vm._s(category.name))
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass: "uk-accordion-content uk-margin-remove-top"
+                      },
+                      _vm._l(category.sub_categories.data, function(
+                        subCategory
+                      ) {
+                        return _c("a", { attrs: { href: subCategory.id } }, [
+                          _vm._v(
+                            "\n                                        " +
+                              _vm._s(subCategory.name) +
+                              "\n                                    "
+                          )
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+                }),
+                0
+              )
+            ])
+          ]
+        )
+      ]),
       _vm._v(" "),
       _vm._m(1),
       _vm._v(" "),
@@ -4901,52 +4951,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-play" })
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "side-menu-slide",
-          staticStyle: { "overflow-y": "auto" }
-        },
-        [
-          _c("div", { staticClass: "side-menu-slide-content" }, [
-            _c("ul", { attrs: { "uk-accordion": "" } }, [
-              _vm._v(
-                "\n                            @foreach(Axios.get('api/category/index')\n                            .then(response =>) as $category)\n                            "
-              ),
-              _c("li", { staticClass: " uk-margin-remove-top" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass: "uk-accordion-title",
-                    attrs: { href: "ui-components.html" }
-                  },
-                  [
-                    _c("i", { staticClass: "fas fa-layer-group" }),
-                    _vm._v("category")
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "uk-accordion-content uk-margin-remove-top" },
-                  [
-                    _c("a", { attrs: { href: "ui-components.html" } }, [
-                      _vm._v(
-                        "\n                                        subCategory\n                                    "
-                      )
-                    ])
-                  ]
-                )
-              ])
-            ])
-          ])
-        ]
-      )
+    return _c("a", { attrs: { href: "#" } }, [
+      _c("i", { staticClass: "fas fa-play" })
     ])
   },
   function() {
@@ -20698,7 +20704,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 var state = {
   /*province.vue*/
   cities: {},
-  districts: {}
+  districts: {},
+  categories: {},
+  subCategories: {}
 };
 var getters = {};
 var mutations = {
@@ -20708,6 +20716,12 @@ var mutations = {
   },
   setDistricts: function setDistricts(state, index) {
     state.districts = index.data;
+  },
+  setCategories: function setCategories(state, index) {
+    state.categories = index.data;
+  },
+  setSubCategories: function setSubCategories(state, index) {
+    state.subCategories = index.data;
   }
 };
 var actions = {
@@ -20724,6 +20738,15 @@ var actions = {
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('api/city/' + id + '/districts').then(function (response) {
       return commit('setDistricts', response.data);
     });
+  },
+  loadCategories: function loadCategories(_ref3) {
+    var commit = _ref3.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('api/category/index').then(function (response) {
+      return commit('setCategories', response.data);
+    });
+  },
+  loadSubCategories: function loadSubCategories(_ref4) {
+    var commit = _ref4.commit;
   }
 };
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({

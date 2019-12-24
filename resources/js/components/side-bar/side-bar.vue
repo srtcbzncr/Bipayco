@@ -6,25 +6,19 @@
             <a class="uk-logo" :href="homeRoute"> <i class="fas fa-graduation-cap"/> </a>
         </div>
             <ul>
-                <!--foreach-->
                 <li>
                     <a href="#"> <i class="fas fa-play"></i> </a>
                     <div class="side-menu-slide" style="overflow-y: auto">
                         <div class="side-menu-slide-content" >
                             <ul uk-accordion>
-                                @foreach(Axios.get('api/category/index')
-                                .then(response =>) as $category)
-                                <li class=" uk-margin-remove-top">
-                                    <a href="ui-components.html" class="uk-accordion-title"> <i class="fas fa-layer-group"></i>category</a>
+                                <li v-for="category in categories" class=" uk-margin-remove-top">
+                                    <a href="ui-components.html" class="uk-accordion-title"> <i class="fas fa-layer-group"> </i>{{category.name}}</a>
                                     <div class="uk-accordion-content uk-margin-remove-top">
-                                        <!--foreach-->
-                                        <a href="ui-components.html">
-                                            subCategory
+                                        <a v-for="subCategory in category.sub_categories.data" :href="subCategory.id">
+                                            {{subCategory.name}}
                                         </a>
-                                        <!--endforeach-->
                                     </div>
                                 </li>
-                                <!--endforeach-->
                             </ul>
                         </div>
                     </div>
@@ -167,8 +161,7 @@ export default {
     },
     computed:{
         ...mapState([
-            'cities',
-            'districts',
+            'categories',
         ]),
     },
     components: {
@@ -176,10 +169,12 @@ export default {
     },
     methods: {
         ...mapActions([
-            'loadDistricts',
-            'loadCities'
+            'loadCategories'
         ]),
-    }
+    },
+    mounted () {
+        this.$store.dispatch('loadCategories');
+    },
 }
 </script>
 
