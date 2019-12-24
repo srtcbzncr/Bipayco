@@ -30,16 +30,16 @@ const mutations={
 const actions={
     /*province.vue*/
     loadCities({commit}){
-       Axios.get('api/city/index')
+       Axios.get('/api/city/index')
            .then(response =>commit('setCities',response.data))
     },
     loadDistricts({commit}){
         var id=document.getElementById("city").value;
-        Axios.get('api/city/'+id+'/districts')
+        Axios.get('/api/city/'+id+'/districts')
             .then(response =>commit('setDistricts', response.data))
     },
     loadCategories({commit}){
-        Axios.get('api/category/index')
+        Axios.get('/api/category/index')
             .then(response =>commit('setCategories',response.data))
     },
     loadSubCategories({commit}){

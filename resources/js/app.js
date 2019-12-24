@@ -17,12 +17,10 @@ window.Vue = require('vue');
  * Vue components. It will recursively scan this directory for the Vue
  * components and automatically register them with their "basename".
  *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('course-card', require('./components/course-card.vue').default);
 Vue.component('provinces', require('./components/auth/province.vue').default);
 Vue.component('notification-card', require('./components/top-bar/notification-card.vue').default);
@@ -30,7 +28,6 @@ Vue.component('top-bar', require('./components/top-bar/top-bar.vue').default);
 Vue.component('messages-small-card', require('./components/top-bar/messages-small-card.vue').default);
 Vue.component('user-profile-dropdown', require('./components/top-bar/user-profile-dropdown-nav.vue').default);
 Vue.component('your-course-card', require('./components/top-bar/your-course-card.vue').default);
-Vue.component('accordion-menu-title', require('./components/side-bar/accordion-menu-title.vue').default);
 Vue.component('side-bar', require('./components/side-bar/side-bar.vue').default);
 Vue.component('app-footer', require('./components/footer/app-footer.vue').default);
 Vue.component('registered-profile', require('./components/admin/registered-profile.vue').default);

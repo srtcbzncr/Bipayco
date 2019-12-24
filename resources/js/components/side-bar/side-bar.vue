@@ -66,9 +66,7 @@
                 <div class="side-menu-slide">
                     <div class="side-menu-slide-content">
                         <ul uk-accordion>
-                            <accordion-menu-title/>
-                            <accordion-menu-title/>
-                            <accordion-menu-title/>
+
                         </ul>
                     </div>
                 </div>
@@ -154,7 +152,6 @@
 </template>
 
 <script>
-import AccordionMenuTitle from "./accordion-menu-title";
 import {mapState,mapActions} from 'vuex';
 export default {
     name: "side-bar",
@@ -167,9 +164,6 @@ export default {
         ...mapState([
             'categories',
         ]),
-    },
-    components: {
-        AccordionMenuTitle
     },
     methods: {
         ...mapActions([
