@@ -2357,6 +2357,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4869,6 +4870,8 @@ var render = function() {
           },
           [
             _c("div", { staticClass: "side-menu-slide-content" }, [
+              _vm._m(1),
+              _vm._v(" "),
               _c(
                 "ul",
                 { attrs: { "uk-accordion": "" } },
@@ -4913,14 +4916,14 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm._m(1),
-      _vm._v(" "),
       _vm._m(2),
       _vm._v(" "),
       _vm._m(3),
       _vm._v(" "),
+      _vm._m(4),
+      _vm._v(" "),
       _c("li", [
-        _vm._m(4),
+        _vm._m(5),
         _vm._v(" "),
         _c("div", { staticClass: "side-menu-slide" }, [
           _c("div", { staticClass: "side-menu-slide-content" }, [
@@ -4940,10 +4943,10 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(5)
+      _vm._m(6)
     ]),
     _vm._v(" "),
-    _vm._m(6)
+    _vm._m(7)
   ])
 }
 var staticRenderFns = [
@@ -4953,6 +4956,14 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("a", { attrs: { href: "#" } }, [
       _c("i", { staticClass: "fas fa-play" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "uk-background-grey uk-margin-remove" }, [
+      _c("b", [_vm._v("Genel Eğitim")])
     ])
   },
   function() {

@@ -7,9 +7,10 @@
         </div>
             <ul>
                 <li>
-                    <a href="#"> <i class="fas fa-play"></i> </a>
+                    <a href="#"> <i class="fas fa-play"> </i> </a>
                     <div class="side-menu-slide" style="overflow-y: auto">
                         <div class="side-menu-slide-content" >
+                                    <a class="uk-background-grey uk-margin-remove"><b>Genel Eğitim</b></a>
                             <ul uk-accordion>
                                 <li v-for="category in categories" class=" uk-margin-remove-top">
                                     <a href="ui-components.html" class="uk-accordion-title"> <i class="fas fa-layer-group"> </i>{{category.name}}</a>
