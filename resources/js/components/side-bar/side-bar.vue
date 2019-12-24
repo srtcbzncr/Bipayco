@@ -5,29 +5,30 @@
         <div class="uk-navbar-left uk-visible@s">
             <a class="uk-logo" :href="homeRoute"> <i class="fas fa-graduation-cap"/> </a>
         </div>
-        <ul>
-            <li>
-                <a href="#"> <i class="fas fa-play"/> </a>
-                <div class="side-menu-slide" style="overflow-y: auto">
-                    <div class="side-menu-slide-content" >
-                        <ul uk-accordion>
-                            <accordion-menu-title/>
-                            <accordion-menu-title/>
-                            <accordion-menu-title/>
-                            <accordion-menu-title/>
-                            <accordion-menu-title/>
-                            <accordion-menu-title/>
-                            <accordion-menu-title/>
-                            <accordion-menu-title/>
-                        </ul>
-
+            <ul>
+                <!--foreach-->
+                <li>
+                    <a href="#"> <i class="fas fa-play"></i> </a>
+                    <div class="side-menu-slide" style="overflow-y: auto">
+                        <div class="side-menu-slide-content" >
+                            <ul uk-accordion>
+                                @foreach(Axios.get('api/category/index')
+                                .then(response =>) as $category)
+                                <li class=" uk-margin-remove-top">
+                                    <a href="ui-components.html" class="uk-accordion-title"> <i class="fas fa-layer-group"></i>category</a>
+                                    <div class="uk-accordion-content uk-margin-remove-top">
+                                        <!--foreach-->
+                                        <a href="ui-components.html">
+                                            subCategory
+                                        </a>
+                                        <!--endforeach-->
+                                    </div>
+                                </li>
+                                <!--endforeach-->
+                            </ul>
+                        </div>
                     </div>
-                </div>
-            </li>
-            <li>
-                <a href="books.html" uk-tooltip="title: Books ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up">
-                    <i class="fas fa-book-open"/> </a>
-            </li>
+                </li>
             <li>
                 <!-- scripts -->
                 <a href="#"> <i class="fas fa-code"/> </a>
@@ -158,14 +159,27 @@
 
 <script>
 import AccordionMenuTitle from "./accordion-menu-title";
+import {mapState,mapActions} from 'vuex';
 export default {
     name: "side-bar",
     props:{
       homeRoute:String,
     },
+    computed:{
+        ...mapState([
+            'cities',
+            'districts',
+        ]),
+    },
     components: {
         AccordionMenuTitle
     },
+    methods: {
+        ...mapActions([
+            'loadDistricts',
+            'loadCities'
+        ]),
+    }
 }
 </script>
 
