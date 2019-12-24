@@ -8,11 +8,11 @@
                 <p> {{$category->description}} </p>
                 <div class="uk-visible@m uk-animation-slide-bottom-small uk-margin-medium-top" uk-grid>
                     <div class="uk-width-1-3@m">
-                        <img src="#" class="img-small">
+                        <i class="fas fa-book-open icon-xxlarge text-white"></i>
                         <span class="uk-text-middle uk-text-white">{{$course_count}} Courses </span>
                     </div>
                     <div class="uk-width-1-2@m">
-                        <img src="#" class="img-small">
+                        <i class="fas fa-tags icon-xxlarge text-white"></i>
                         <span class="uk-text-middle uk-text-white">{{$sub_categories_count}} Sub Categories </span>
                     </div>
                 </div>
