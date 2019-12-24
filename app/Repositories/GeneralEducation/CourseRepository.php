@@ -88,7 +88,7 @@ class CourseRepository implements IRepository{
             $object = Course::where('category_id', $category_id)
                 ->where('active', true)
                 ->latest()
-                ->get();
+                ->paginate(9);
         }
         catch(\Exception $e){
             $error = $e;
@@ -111,7 +111,7 @@ class CourseRepository implements IRepository{
             $object = Course::where('category_id', $category_id)
                 ->where('active', true)
                 ->oldest()
-                ->get();
+                ->paginate(9);
         }
         catch(\Exception $e){
             $error = $e;
@@ -134,7 +134,7 @@ class CourseRepository implements IRepository{
             $object = Course::where('category_id', $category_id)
                 ->where('active', true)
                 ->orderBy('price', 'asc')
-                ->get();
+                ->paginate(9);
         }
         catch(\Exception $e){
             $error = $e;
@@ -157,7 +157,7 @@ class CourseRepository implements IRepository{
             $object = Course::where('category_id', $category_id)
                 ->where('active', true)
                 ->orderBy('price', 'desc')
-                ->get();
+                ->paginate(9);
         }
         catch(\Exception $e){
             $error = $e;
@@ -180,7 +180,7 @@ class CourseRepository implements IRepository{
             $object = Course::where('category_id', $category_id)
                 ->where('active', true)
                 ->orderBy('point', 'desc')
-                ->get();
+                ->paginate(9);
         }
         catch(\Exception $e){
             $error = $e;
@@ -203,7 +203,7 @@ class CourseRepository implements IRepository{
             $object = Course::where('category_id', $category_id)
                 ->where('active', true)
                 ->orderBy('purchase_count', 'desc')
-                ->get();
+                ->paginate(9);
         }
         catch(\Exception $e){
             $error = $e;
@@ -227,7 +227,7 @@ class CourseRepository implements IRepository{
                 ->where('active', true)
                 ->orderBy('purchase_count', 'desc')
                 ->orderBy('point','desc')
-                ->get();
+                ->paginate(9);
         }
         catch(\Exception $e){
             $error = $e;
@@ -250,7 +250,7 @@ class CourseRepository implements IRepository{
             $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
                 ->latest()
-                ->get();
+                ->paginate(9);
         }
         catch(\Exception $e){
             $error = $e;
@@ -273,7 +273,7 @@ class CourseRepository implements IRepository{
             $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
                 ->oldest()
-                ->get();
+                ->paginate(9);
         }
         catch(\Exception $e){
             $error = $e;
@@ -296,7 +296,7 @@ class CourseRepository implements IRepository{
             $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
                 ->orderBy('price', 'asc')
-                ->get();
+                ->paginate(9);
         }
         catch(\Exception $e){
             $error = $e;
@@ -319,7 +319,7 @@ class CourseRepository implements IRepository{
             $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
                 ->orderBy('price', 'desc')
-                ->get();
+                ->paginate(9);
         }
         catch(\Exception $e){
             $error = $e;
@@ -342,7 +342,7 @@ class CourseRepository implements IRepository{
             $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
                 ->orderBy('point', 'desc')
-                ->get();
+                ->paginate(9);
         }
         catch(\Exception $e){
             $error = $e;
@@ -365,7 +365,7 @@ class CourseRepository implements IRepository{
             $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
                 ->orderBy('purchase_count', 'desc')
-                ->get();
+                ->paginate(9);
         }
         catch(\Exception $e){
             $error = $e;
@@ -389,7 +389,7 @@ class CourseRepository implements IRepository{
                 ->where('active', true)
                 ->orderBy('purchase_count', 'desc')
                 ->orderBy('point','desc')
-                ->get();
+                ->paginate(9);
         }
         catch(\Exception $e){
             $error = $e;
