@@ -40,7 +40,7 @@
                         @else
                             current-price="{{$general_educations->price}}"
                         @endif
-                        rank="{{$general_educations->point}}"
+                        rate="{{$general_educations->point}}"
                         page-link="#"
                     ></course-card>
                 </li>
