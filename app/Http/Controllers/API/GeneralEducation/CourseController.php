@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\GeneralEducation;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\GE_CommentResource;
 use App\Http\Resources\GE_CourseCollection;
 use App\Http\Resources\GE_CourseResource;
 use App\Repositories\GeneralEducation\CourseRepository;
@@ -246,6 +247,22 @@ class CourseController extends Controller
         // Response
         if($resp->getResult()){
             return GE_CourseResource::collection($resp->getData());
+        }
+        else{
+            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
+        }
+    }
+
+    public function getComments($id){
+        // Repo initialization
+        $repo = new CourseRepository;
+
+        // Operations
+        $resp = $repo->getCommentsWithPaginate($id);
+
+        // Response
+        if($resp->getResult()){
+            return GE_CommentResource::collection($resp->getData());
         }
         else{
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);

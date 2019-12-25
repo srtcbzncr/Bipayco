@@ -2,6 +2,7 @@
 
 namespace App\Repositories\GeneralEducation;
 
+use App\Models\Auth\Student;
 use App\Repositories\IRepository;
 use App\Models\GeneralEducation\Course;
 use App\Repositories\RepositoryResponse;
@@ -663,7 +664,28 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $course = Course::find($id);
-            $object = $course->comments->where('active', true);
+            $object = $course->comments->where('active', true)->orderBy('created_at', 'desc');
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getCommentsWithPaginate($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $course = Course::find($id);
+            $object = $course->comments->where('active', true)->orderBy('created_at', 'desc')->paginate(10);
         }
         catch(\Exception $e){
             $error = $e;
@@ -801,6 +823,29 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
+    public function getStudents($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $course = Course::find($id);
+            $object = $course->entries->where('active', true)->orderBy('created_at', 'desc')->take(12);
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+
+
     public function getSubCategory($id){
         // Response variables
         $result = true;
@@ -832,6 +877,50 @@ class CourseRepository implements IRepository{
         try{
             $course = Course::find($id);
             $object = $course->category;
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function calculateProgress($course_id, $student_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $lessonsArray = array();
+            $course = Course::find($course_id);
+            $sections = $course->sections;
+            $student = Student::find($student_id);
+            $completedArray = array();
+            foreach ($sections as $section){
+                $lessons = $section->lessons;
+                foreach ($lessons as $lesson){
+                    array_push($lessonsArray, $lesson->id);
+                }
+            }
+            $lessonCount = count($lessonsArray);
+            $completedCount = 0;
+            foreach ($student->geCompleted as $completed){
+                if($completed->pivot->is_completed == true){
+                    array_push($completedArray, $completed->id);
+                }
+            }
+            foreach ($lessonsArray as $lesson_id){
+                if(in_array($lesson_id, $completedArray)){
+                    $completedCount = $completedCount + 1;
+                }
+            }
+            $progressPercent = number_format($completedCount * (100/$lessonCount), 0);
+            $object = $progressPercent;
         }
         catch(\Exception $e){
             $error = $e;

@@ -123,10 +123,10 @@
                     />
                 </li>
                 <li v-if="hasLogin === false">
-                   <a :href="loginRoute" class="uk-padding-remove"><button class="uk-button uk-button-primary uk-padding-remove-top uk-padding-remove-bottom">{{loginName}}</button></a>
+                   <a :href="loginRoute" class="uk-padding-remove uk-margin-small-left"><button class="uk-button uk-button-primary uk-padding-small uk-padding-remove-vertical">{{loginName}}</button></a>
                 </li>
                 <li v-if="hasLogin === false">
-                    <a :href="registerRoute" class="uk-padding-remove"><button class="uk-button uk-button-danger uk-padding-remove-top uk-padding-remove-bottom uk-margin-small-left">{{registerName}}</button></a>
+                    <a :href="registerRoute" class="uk-padding-remove uk-margin-small-left"><button class="uk-button uk-button-danger uk-padding-small uk-padding-remove-vertical">{{registerName}}</button></a>
                 </li>
             </ul>
         </div>

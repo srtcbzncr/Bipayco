@@ -25,6 +25,6 @@ class Lesson extends Model
     }
 
     public function completed(){
-        return $this->belongsToMany('App\Models\Auth\Student', 'ge_students_completed_lessons', 'lesson_id', 'student_id');
+        return $this->belongsToMany('App\Models\Auth\Student', 'ge_students_completed_lessons', 'lesson_id', 'student_id')->withPivot(['is_completed']);
     }
 }

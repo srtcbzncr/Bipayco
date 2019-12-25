@@ -149,7 +149,11 @@ class AuthController extends Controller
 
             // Initialization
             $repo = new UserRepository;
+
+            // Operations
             $resp = $repo->updateAvatar(Auth::id(), $request->toArray());
+
+            // Response
             if($resp->getResult()){
                 return redirect()->back()->with(['result_message' => true, 'error' => false, 'message' => __('auth.avatar_update_successfull'), 'personal_data' => null, 'security' => null, 'photo' => 'uk-active']);
             }
@@ -208,6 +212,8 @@ class AuthController extends Controller
         $repo = new InstructorRepository;
         // Operations
         $resp = $repo->update(Auth::user()->instructor->id, $request->toArray());
+
+        // Response
         if($resp->getResult()){
             return redirect()->back()->with(['result_message' => true, 'error' => false, 'message' => __('auth.update_successfull')]);
         }

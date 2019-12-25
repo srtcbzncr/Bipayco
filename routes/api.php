@@ -46,6 +46,10 @@ Route::prefix('course')->group(function(){
     Route::get('getBySubCategoryFilterByTrending/{sub_category_id}', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByTrending')->name('api_course_get_by_sub_category_filter_by_trending');
 });
 
+Route::prefix('favorite')->group(function(){
+   Route::post('create', 'API\GeneralEducation\FavoriteController@create')->name('api_favorite_create');
+});
+
 Route::prefix('city')->group(function(){
     Route::get('index', 'API\Base\CityController@index')->name('api_city_index');
     Route::get('{id}', 'API\Base\CityController@show')->name('api_city_show');

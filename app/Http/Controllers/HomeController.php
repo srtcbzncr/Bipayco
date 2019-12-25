@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\GeneralEducation\CourseRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -15,7 +16,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // Repo initializations
         $geCourseRepo = new CourseRepository;
+
+        // Operations
         $gePopularCoursesResp = $geCourseRepo->getPopularCourses();
         $data = [
             'general_education' => $gePopularCoursesResp->getData(),
@@ -24,6 +28,8 @@ class HomeController extends Controller
             'books' => [],
             'exams' => [],
         ];
+
+        // Response
         return view('home', $data);
     }
 

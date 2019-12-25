@@ -319,4 +319,25 @@ class StudentRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+
+    public function geEntries($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $student = Student::find($id);
+            $object = $student->geEntries->where('active', true)->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
 }

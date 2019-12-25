@@ -24,6 +24,12 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\GeneralEducation\NewPurchase' => [
             'App\Listeners\GeneralEducation\CalculateCoursePurchaseCount',
         ],
+        'App\Events\GeneralEducation\StartLessonEvent' => [
+            'App\Listeners\GeneralEducation\StartLessonListener',
+        ],
+        'App\Events\GeneralEducation\FinishLessonEvent' => [
+            'App\Listeners\GeneralEducation\FinishLessonListener',
+        ]
     ];
 
     /**

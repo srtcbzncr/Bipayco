@@ -5321,7 +5321,14 @@ var render = function() {
       }),
       _vm._v(" "),
       _vm.isIndicatorActive
-        ? _c("div", { staticClass: "indicator" }, [_vm._v(_vm._s(_vm.rating))])
+        ? _c(
+            "div",
+            {
+              staticClass:
+                "indicator uk-background-muted uk-margin uk-padding-small uk-padding-remove-vertical"
+            },
+            [_vm._v(_vm._s(_vm.rating))]
+          )
         : _vm._e()
     ],
     2
@@ -5843,7 +5850,7 @@ var render = function() {
                   _c(
                     "a",
                     {
-                      staticClass: "uk-padding-remove",
+                      staticClass: "uk-padding-remove uk-margin-small-left",
                       attrs: { href: _vm.loginRoute }
                     },
                     [
@@ -5851,7 +5858,7 @@ var render = function() {
                         "button",
                         {
                           staticClass:
-                            "uk-button uk-button-primary uk-padding-remove-top uk-padding-remove-bottom"
+                            "uk-button uk-button-primary uk-padding-small uk-padding-remove-vertical"
                         },
                         [_vm._v(_vm._s(_vm.loginName))]
                       )
@@ -5865,7 +5872,7 @@ var render = function() {
                   _c(
                     "a",
                     {
-                      staticClass: "uk-padding-remove",
+                      staticClass: "uk-padding-remove uk-margin-small-left",
                       attrs: { href: _vm.registerRoute }
                     },
                     [
@@ -5873,7 +5880,7 @@ var render = function() {
                         "button",
                         {
                           staticClass:
-                            "uk-button uk-button-danger uk-padding-remove-top uk-padding-remove-bottom uk-margin-small-left"
+                            "uk-button uk-button-danger uk-padding-small uk-padding-remove-vertical"
                         },
                         [_vm._v(_vm._s(_vm.registerName))]
                       )
@@ -20540,8 +20547,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\talhakirgel\Documents\GitHub\Bipayco\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\talhakirgel\Documents\GitHub\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\bzncr\Bipayco\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\bzncr\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
