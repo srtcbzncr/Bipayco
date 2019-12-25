@@ -51,11 +51,11 @@ return [
     'prepare_for_lessons'=>'Derslere Hazırlık',
     'prepare_for_exams'=>'Sınavlara Hazırlık',
     'general_education'=>'Genel Eğitim',
-    'not_found_content'=>'Bu kategoride içerik bulunmamaktadır.',
+    'not_found_content'=>'Bu kategoride içerik bulunamadı.',
     'see_more'=>'Daha Fazlası',
     'popular_in_category'=>'Bu kategoride popüler olan içerikler',
     'log_out'=>'Çıkış Yap',
     'settings'=>'Ayarlar',
     'profile'=>'Profil',
-    'all_of_category'=>'Hepsi'
+    'all_of_category'=>'Tüm Kurslar'
 ];
