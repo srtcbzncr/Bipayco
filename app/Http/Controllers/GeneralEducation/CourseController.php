@@ -5,6 +5,7 @@ namespace App\Http\Controllers\GeneralEducation;
 use App\Http\Controllers\Controller;
 use App\Repositories\GeneralEducation\CourseRepository;
 use Illuminate\Http\Request;
+use Illuminate\Mail\Transport\ArrayTransport;
 use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
@@ -15,6 +16,7 @@ class CourseController extends Controller
 
         // Operations
         $resp = $repo->get($id);
+        $completedLessonsResp = $repo->getCompletedLessons($id, Auth::id());
         $studentsResp = $repo->getStudents($id);
         $progress = $repo->calculateProgress($resp->getData()->id, Auth::id());
         $data = [
@@ -22,6 +24,7 @@ class CourseController extends Controller
             'students' => $studentsResp->getData(),
             'student_count' => count($resp->getData()->entries),
             'progress' => $progress,
+            'completed' => $completedLessonsResp->getData(),
         ];
 
         // Response

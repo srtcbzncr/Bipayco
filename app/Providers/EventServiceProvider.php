@@ -29,7 +29,13 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\GeneralEducation\FinishLessonEvent' => [
             'App\Listeners\GeneralEducation\FinishLessonListener',
-        ]
+        ],
+        'App\Events\GeneralEducation\CreateDiscount' => [
+            'App\Listeners\GeneralEducation\UpdateCoursePriceWithDiscount',
+        ],
+        'App\Events\GeneralEducation\DeleteDiscount' => [
+            'App\Listeners\GeneralEducation\UpdateCoursePriceWithoutDiscount',
+        ],
     ];
 
     /**

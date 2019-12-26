@@ -40,8 +40,8 @@ class Course extends Model
         return $this->hasMany('App\Models\GeneralEducation\Comment');
     }
 
-    public function discount(){
-        return $this->hasOne('App\Models\GeneralEducation\Discount');
+    public function discounts(){
+        return $this->hasMany('App\Models\GeneralEducation\Discount');
     }
 
     public function notices(){

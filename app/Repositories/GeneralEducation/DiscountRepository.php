@@ -62,7 +62,6 @@ class DiscountRepository implements IRepository{
             $object = new Discount;
             $object->course_id = $data['course_id'];
             $object->discount_rate = $data['discount_rate'];
-            $object->price_with_discount = $data['price_with_discount'];
             $object->start_date = $data['start_date'];
             $object->finish_date = $data['finish_date'];
             $object->save();
@@ -88,7 +87,6 @@ class DiscountRepository implements IRepository{
         try{
             $object = Discount::find($id);
             $object->discount_rate = $data['discount_rate'];
-            $object->price_with_discount = $data['price_with_discount'];
             $object->start_date = $data['start_date'];
             $object->finish_date = $data['finish_date'];
             $object->save();

@@ -17,7 +17,6 @@ class CreateGeDiscountsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('course_id');
             $table->float('discount_rate');
-            $table->float('price_with_discount');
             $table->timestamp('start_date');
             $table->timestamp('finish_date');
             $table->boolean('active')->default(true);

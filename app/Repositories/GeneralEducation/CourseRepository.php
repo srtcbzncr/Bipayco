@@ -3,6 +3,7 @@
 namespace App\Repositories\GeneralEducation;
 
 use App\Models\Auth\Student;
+use App\Models\GeneralEducation\Section;
 use App\Repositories\IRepository;
 use App\Models\GeneralEducation\Course;
 use App\Repositories\RepositoryResponse;
@@ -422,6 +423,7 @@ class CourseRepository implements IRepository{
             $object->access_time = $data['access_time'];
             $object->certificate = $data['certificate'];
             $object->price = $data['price'];
+            $object->price_with_discount = $data['price'];
             $object->save();
             DB::commit();
         }
@@ -454,6 +456,13 @@ class CourseRepository implements IRepository{
             $object->access_time = $data['access_time'];
             $object->certificate = $data['certificate'];
             $object->price = $data['price'];
+            $discounts = $object->discounts;
+            $price_with_discount = $data['price'];
+            foreach ($discounts as $discount){
+                $price_with_discount = ($price_with_discount * $discount->discount_rate) / 100;
+            }
+            $object->price_with_discount = $price_with_discount;
+            $object->save();
             DB::commit();
         }
         catch(\Exception $e){
@@ -921,6 +930,27 @@ class CourseRepository implements IRepository{
             }
             $progressPercent = number_format($completedCount * (100/$lessonCount), 0);
             $object = $progressPercent;
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getCompletedLessons($course_id, $user_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $student = Student::where('user_id', $user_id)->first();
+            $object = DB::raw('SELECT * FROM ge_students_completed_lessons WHERE student_id='.$student->id.' AND lesson_id IN (SELECT id FROM ge_lessons WHERE section_id IN (SELECT id FROM ge_sections WHERE course_id='.$course_id.'))');
         }
         catch(\Exception $e){
             $error = $e;

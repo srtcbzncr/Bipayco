@@ -17,7 +17,6 @@ class GE_DiscountResource extends JsonResource
         return [
             'id' => $this->id,
             'discount_rate' => $this->discount_rate,
-            'price_with_discount' => $this->price_with_discount,
             'start_date' => $this->start_date,
             'finish_date' => $this->finish_date,
             'active' => $this->active,

@@ -24,6 +24,7 @@ class CreateGeCoursesTable extends Migration
             $table->boolean('certificate')->default(true);
             $table->unsignedInteger('long')->default(0); // Hour
             $table->float('price');
+            $table->float('price_with_discount');
             $table->float('point')->default(0.0);
             $table->unsignedBigInteger('purchase_count')->default(0);
             $table->boolean('active')->default(false);

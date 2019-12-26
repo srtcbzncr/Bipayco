@@ -11,7 +11,6 @@ $factory->define(Discount::class, function (Faker $faker) {
     return [
         'course_id' => $course->id,
         'discount_rate' => $faker->numberBetween(1, 100),
-        'price_with_discount' => $faker->numberBetween(0, 10000),
         'start_date' => $faker->dateTime,
         'finish_date' => $faker->dateTime,
     ];
