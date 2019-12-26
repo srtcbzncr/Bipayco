@@ -9,7 +9,7 @@ const state={
     cities:{},
     districts:{},
     categories:{},
-    subCategories:{}
+    categoryCourses:{}
 };
 const getters={};
 const mutations={
@@ -23,8 +23,8 @@ const mutations={
     setCategories(state,index){
       state.categories=index.data;
     },
-    setSubCategories(state,index){
-       state.subCategories=index.data;
+    setCategoryCourses(state,index){
+       state.categoryCourses=index.data;
     }
 };
 const actions={
@@ -42,8 +42,15 @@ const actions={
         Axios.get('/api/category/index')
             .then(response =>commit('setCategories',response.data))
     },
-    loadSubCategories({commit}){
-
+    loadCategoryCourses({commit}, id){
+        var sort = document.getElementById("sortBy").value;
+        Axios.get('/api/course/'+sort+'/'+id)
+            .then(response =>commit('setCategoryCourses',response))
+    },
+    loadNewPageCourses({commit}, id){
+        var sort = document.getElementById("sortBy").value;
+        Axios.get(id)
+            .then(response =>commit('setCategoryCourses',response))
     },
 };
 

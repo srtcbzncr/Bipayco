@@ -39,9 +39,9 @@ export default {
         title: String,
         description: String,
         imgPath: String,
-        rate: String,
-        prevPrice: String,
-        currentPrice: String,
+        rate: Number,
+        prevPrice: Number,
+        currentPrice: Number,
         discount: Boolean,
         pageLink: String,
         fav:{

@@ -32,7 +32,7 @@
         },
         data(){
             return {
-                changing:Boolean
+                changing:Boolean,
             }
         },
         computed:{

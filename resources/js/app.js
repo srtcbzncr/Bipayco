@@ -32,6 +32,7 @@ Vue.component('side-bar', require('./components/side-bar/side-bar.vue').default)
 Vue.component('app-footer', require('./components/footer/app-footer.vue').default);
 Vue.component('registered-profile', require('./components/admin/registered-profile.vue').default);
 Vue.component('comment', require('./components/admin/comment.vue').default);
+Vue.component('course-card-pagination', require('./components/category/course-card-pagination.vue').default);
 
 /*<option value='' disabled selected hidden>@lang('front/auth.district')</option>*/
 /**

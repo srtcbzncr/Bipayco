@@ -1957,6 +1957,137 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/category/course-card-pagination.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/category/course-card-pagination.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "course-card-pagination",
+  mounted: function mounted() {
+    if (this.courseCount > 0) {
+      this.$store.dispatch('loadCategoryCourses', this.categoryId);
+    }
+  },
+  data: function data() {
+    return {
+      pages: []
+    };
+  },
+  props: {
+    categoryId: {
+      type: String,
+      required: true
+    },
+    courseCount: {
+      type: Number,
+      required: true
+    },
+    paginateCourse: {
+      type: Number,
+      require: true
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categoryCourses']), {
+    pageNumber: function pageNumber() {
+      for (var i = 1; i < this.courseCount / this.paginateCourse + 1; i++) {
+        this.pages.push(i);
+      }
+
+      return this.pages;
+    },
+    selectedSortOption: function selectedSortOption() {
+      return document.getElementById("sortBy").value;
+    }
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCategoryCourses']), {
+    loadCourseList: function loadCourseList() {
+      this.$store.dispatch('loadCategoryCourses', this.categoryId);
+    },
+    loadNewPage: function loadNewPage(name) {
+      this.$store.dispatch('loadNewPageCourses', name);
+    }
+  })
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/course-card.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/course-card.vue?vue&type=script&lang=js& ***!
@@ -2009,9 +2140,9 @@ __webpack_require__.r(__webpack_exports__);
     title: String,
     description: String,
     imgPath: String,
-    rate: String,
-    prevPrice: String,
-    currentPrice: String,
+    rate: Number,
+    prevPrice: Number,
+    currentPrice: Number,
     discount: Boolean,
     pageLink: String,
     fav: {
@@ -4229,6 +4360,241 @@ var render = function() {
   ])
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/category/course-card-pagination.vue?vue&type=template&id=328a1f0a&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/category/course-card-pagination.vue?vue&type=template&id=328a1f0a&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "uk-container" }, [
+    _vm.courseCount > 0
+      ? _c("div", [
+          _c(
+            "div",
+            { staticClass: "uk-clearfix boundary-align uk-margin-medium-top" },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "uk-float-right" }, [
+                _c(
+                  "span",
+                  {
+                    staticClass: "uk-text-small uk-text-uppercase uk-width-1-2"
+                  },
+                  [_vm._v(" Sort by :")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    staticClass:
+                      "uk-select uk-margin-remove uk-width-1-2 uk-overflow-auto",
+                    attrs: { id: "sortBy" },
+                    on: { change: _vm.loadCourseList }
+                  },
+                  [
+                    _c(
+                      "option",
+                      { attrs: { value: "getByCategoryFilterByPurchases" } },
+                      [_vm._v("satın alıma")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      { attrs: { value: "getByCategoryFilterByNewest" } },
+                      [_vm._v("Newest Courses")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      { attrs: { value: "getByCategoryFilterByPoint" } },
+                      [_vm._v("Puana göre ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      { attrs: { value: "getByCategoryFilterByOldest" } },
+                      [_vm._v("Oldest Courses")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      { attrs: { value: "getByCategoryFilterByPriceASC" } },
+                      [_vm._v(" Artan ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      { attrs: { value: "getByCategoryFilterByPriceDESC" } },
+                      [_vm._v("Azalan")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      {
+                        attrs: {
+                          selected: "",
+                          value: "getByCategoryFilterByTrending"
+                        }
+                      },
+                      [_vm._v("Trending Courses")]
+                    )
+                  ]
+                )
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-margin",
+              attrs: {
+                "uk-scrollspy":
+                  "cls: uk-animation-slide-bottom-small; target: > div ; delay: 200",
+                "uk-grid": ""
+              }
+            },
+            _vm._l(_vm.categoryCourses.data, function(course) {
+              return _c(
+                "div",
+                [
+                  course.discount
+                    ? _c("course-card", {
+                        attrs: {
+                          title: course.name,
+                          description: course.description,
+                          "img-path": course.image,
+                          discount: "",
+                          "current-price": course.discount.price_with_discount,
+                          "prev-price": course.price,
+                          rate: course.point,
+                          "page-link": "#"
+                        }
+                      })
+                    : _c("course-card", {
+                        attrs: {
+                          title: course.name,
+                          description: course.description,
+                          "img-path": course.image,
+                          "current-price": course.price,
+                          rate: course.point,
+                          "page-link": "#"
+                        }
+                      })
+                ],
+                1
+              )
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c(
+            "ul",
+            { staticClass: "uk-pagination uk-flex-center uk-margin-medium" },
+            [
+              _c("li", [
+                _c(
+                  "button",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(_vm.categoryCourses.links.prev)
+                      }
+                    }
+                  },
+                  [_vm._v(" < ")]
+                )
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.pageNumber, function(page) {
+                return _c("li", [
+                  _c(
+                    "button",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.loadNewPage(
+                            "http://127.0.0.1:8000/api/course/" +
+                              _vm.selectedSortOption +
+                              "/" +
+                              _vm.categoryId +
+                              "?page=" +
+                              page
+                          )
+                        }
+                      }
+                    },
+                    [_vm._v(_vm._s(page))]
+                  )
+                ])
+              }),
+              _vm._v(" "),
+              _c("li", [
+                _c(
+                  "button",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(_vm.categoryCourses.links.next)
+                      }
+                    }
+                  },
+                  [_vm._v(" > ")]
+                )
+              ])
+            ],
+            2
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.courseCount <= 0
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "uk-flex uk-flex-center align-items-center justify-content-center uk-margin-large-top"
+          },
+          [_c("h2", [_vm._v("Burada Kurs Yok")])]
+        )
+      : _vm._e()
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "uk-float-left section-heading none-border" },
+      [
+        _c("h2", [_vm._v("Browse Web development courses")]),
+        _vm._v(" "),
+        _c("p", [
+          _vm._v("Adipisici elit, sed eiusmod tempor incidunt ut labore et")
+        ])
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -19556,6 +19922,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('side-bar', __webpack_requi
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('app-footer', __webpack_require__(/*! ./components/footer/app-footer.vue */ "./resources/js/components/footer/app-footer.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('registered-profile', __webpack_require__(/*! ./components/admin/registered-profile.vue */ "./resources/js/components/admin/registered-profile.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('comment', __webpack_require__(/*! ./components/admin/comment.vue */ "./resources/js/components/admin/comment.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('course-card-pagination', __webpack_require__(/*! ./components/category/course-card-pagination.vue */ "./resources/js/components/category/course-card-pagination.vue")["default"]);
 /*<option value='' disabled selected hidden>@lang('front/auth.district')</option>*/
 
 /**
@@ -19791,6 +20158,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_province_vue_vue_type_template_id_35369808___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_province_vue_vue_type_template_id_35369808___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/category/course-card-pagination.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/category/course-card-pagination.vue ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _course_card_pagination_vue_vue_type_template_id_328a1f0a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./course-card-pagination.vue?vue&type=template&id=328a1f0a&scoped=true& */ "./resources/js/components/category/course-card-pagination.vue?vue&type=template&id=328a1f0a&scoped=true&");
+/* harmony import */ var _course_card_pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./course-card-pagination.vue?vue&type=script&lang=js& */ "./resources/js/components/category/course-card-pagination.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _course_card_pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _course_card_pagination_vue_vue_type_template_id_328a1f0a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _course_card_pagination_vue_vue_type_template_id_328a1f0a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "328a1f0a",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/category/course-card-pagination.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/category/course-card-pagination.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/category/course-card-pagination.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_course_card_pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./course-card-pagination.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/category/course-card-pagination.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_course_card_pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/category/course-card-pagination.vue?vue&type=template&id=328a1f0a&scoped=true&":
+/*!****************************************************************************************************************!*\
+  !*** ./resources/js/components/category/course-card-pagination.vue?vue&type=template&id=328a1f0a&scoped=true& ***!
+  \****************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_course_card_pagination_vue_vue_type_template_id_328a1f0a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./course-card-pagination.vue?vue&type=template&id=328a1f0a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/category/course-card-pagination.vue?vue&type=template&id=328a1f0a&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_course_card_pagination_vue_vue_type_template_id_328a1f0a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_course_card_pagination_vue_vue_type_template_id_328a1f0a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -20476,7 +20912,7 @@ var state = {
   cities: {},
   districts: {},
   categories: {},
-  subCategories: {}
+  categoryCourses: {}
 };
 var getters = {};
 var mutations = {
@@ -20490,8 +20926,8 @@ var mutations = {
   setCategories: function setCategories(state, index) {
     state.categories = index.data;
   },
-  setSubCategories: function setSubCategories(state, index) {
-    state.subCategories = index.data;
+  setCategoryCourses: function setCategoryCourses(state, index) {
+    state.categoryCourses = index.data;
   }
 };
 var actions = {
@@ -20515,8 +20951,19 @@ var actions = {
       return commit('setCategories', response.data);
     });
   },
-  loadSubCategories: function loadSubCategories(_ref4) {
+  loadCategoryCourses: function loadCategoryCourses(_ref4, id) {
     var commit = _ref4.commit;
+    var sort = document.getElementById("sortBy").value;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/course/' + sort + '/' + id).then(function (response) {
+      return commit('setCategoryCourses', response);
+    });
+  },
+  loadNewPageCourses: function loadNewPageCourses(_ref5, id) {
+    var commit = _ref5.commit;
+    var sort = document.getElementById("sortBy").value;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(id).then(function (response) {
+      return commit('setCategoryCourses', response);
+    });
   }
 };
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
@@ -20547,8 +20994,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\bzncr\Bipayco\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\bzncr\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\talhakirgel\Documents\GitHub\Bipayco\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\talhakirgel\Documents\GitHub\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
