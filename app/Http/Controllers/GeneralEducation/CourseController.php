@@ -27,8 +27,6 @@ class CourseController extends Controller
             'completed' => $completedLessonsResp->getData(),
         ];
 
-        dd($data);
-
         // Response
         if($resp->getResult()){
             return view('general_education.course_detail', $data);
