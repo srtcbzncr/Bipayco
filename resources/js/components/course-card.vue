@@ -39,9 +39,18 @@ export default {
         title: String,
         description: String,
         imgPath: String,
-        rate: Number,
-        prevPrice: Number,
-        currentPrice: Number,
+        rate:{
+            type: Number,
+            default:0,
+        },
+        prevPrice:{
+            type: Number,
+            default:0,
+        },
+        currentPrice:{
+            type: Number,
+            default:0,
+        },
         discount: Boolean,
         pageLink: String,
         fav:{
@@ -52,6 +61,14 @@ export default {
             type:Boolean,
             default: false,
         },
+    },
+    computed:{
+        cPrice:function(){
+            return this.currentPrice.toFixed(2);
+        },
+        pPrice:function () {
+            return this.prevPrice.toFixed(2);
+        }
     }
 }
 </script>

@@ -9,7 +9,8 @@ const state={
     cities:{},
     districts:{},
     categories:{},
-    categoryCourses:{}
+    categoryCourses:{},
+    courseReviews:{},
 };
 const getters={};
 const mutations={
@@ -25,6 +26,11 @@ const mutations={
     },
     setCategoryCourses(state,index){
        state.categoryCourses=index.data;
+    },
+    setCourseReviews(state,index){
+       state.courseReviews=index.data;
+        console.log(index.data);
+
     }
 };
 const actions={
@@ -52,6 +58,10 @@ const actions={
         Axios.get(id)
             .then(response =>commit('setCategoryCourses',response))
     },
+    loadCourseReviews({commit},id){
+        Axios.get('/api/course/'+id+"/comments")
+            .then(response =>commit('setCourseReviews',response));
+    }
 };
 
 const store=new Vuex.Store({

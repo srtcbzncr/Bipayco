@@ -43,7 +43,7 @@
                 </defs>
             </svg>
         </div>
-        <div v-if="isIndicatorActive" class="indicator uk-background-muted uk-margin uk-padding-small uk-padding-remove-vertical">{{ rating.toFixed(1) }}</div>
+        <div v-if="isIndicatorActive" class="uk-text-bold uk-margin-small-left uk-margin-small" :style="styleRateColor">{{ rate }}</div>
     </div>
 </template>
 
@@ -71,6 +71,20 @@
                 type: Number,
                 default: 18
             },
+            styleEmptyStarColor:{
+                type:String,
+                default:"#737373",
+            },
+            styleFullStarColor:{
+                type:String,
+                default:"#ed8a19",
+            },
+            styleRateColor:{
+                color:{
+                    type:String,
+                    default:'#212529',
+                }
+            }
         },
         data: function () {
             return {
@@ -79,8 +93,6 @@
                 fullStar: 1,
                 totalStars: 5,
                 // Binded Nested Props registered as data/computed and not props
-                styleEmptyStarColor: "#737373",
-                styleFullStarColor: "#ed8a19"
             };
         },
         directives: {},
@@ -102,6 +114,9 @@
                     innerRadius,
                     outerRadius
                 );
+            },
+            rate:function () {
+                return this.rating.toFixed(1);
             }
         },
         methods: {

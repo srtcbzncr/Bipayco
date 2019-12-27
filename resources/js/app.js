@@ -22,6 +22,7 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 Vue.component('course-card', require('./components/course-card.vue').default);
+Vue.component('stars-rating', require('./components/stars-rating.vue').default);
 Vue.component('provinces', require('./components/auth/province.vue').default);
 Vue.component('notification-card', require('./components/top-bar/notification-card.vue').default);
 Vue.component('top-bar', require('./components/top-bar/top-bar.vue').default);
@@ -33,6 +34,7 @@ Vue.component('app-footer', require('./components/footer/app-footer.vue').defaul
 Vue.component('registered-profile', require('./components/admin/registered-profile.vue').default);
 Vue.component('comment', require('./components/admin/comment.vue').default);
 Vue.component('course-card-pagination', require('./components/category/course-card-pagination.vue').default);
+Vue.component('course-review', require('./components/category/course-review.vue').default);
 
 /*<option value='' disabled selected hidden>@lang('front/auth.district')</option>*/
 /**
