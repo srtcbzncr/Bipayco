@@ -4524,7 +4524,7 @@ var render = function() {
                             attrs: {
                               selected: "",
                               disabled: "",
-                              value: "getByCategoryFilterByTrending"
+                              value: "getBySubCategoryFilterByTrending"
                             }
                           },
                           [_vm._v(_vm._s(_vm.sort) + " ")]

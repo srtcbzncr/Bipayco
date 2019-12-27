@@ -18,7 +18,7 @@
                         <option value="getByCategoryFilterByOldest">{{oldest}} </option>
                     </select>
                     <select v-if='subCategory' class="uk-select uk-width uk-overflow-auto" id="sortBy" @change="loadCourseList">
-                        <option selected disabled value="getByCategoryFilterByTrending">{{sort}} </option>
+                        <option selected disabled value="getBySubCategoryFilterByTrending">{{sort}} </option>
                         <option value="getBySubCategoryFilterByTrending">{{byTrending}} </option>
                         <option value="getBySubCategoryFilterByPurchases">{{byPurchases}} </option>
                         <option value="getBySubCategoryFilterByPoint">{{byPoint}} </option>
