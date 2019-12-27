@@ -44,6 +44,7 @@ Route::prefix('course')->group(function(){
     Route::get('getBySubCategoryFilterByPoint/{sub_category_id}', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByPoint')->name('api_course_get_by_sub_category_filter_by_point');
     Route::get('getBySubCategoryFilterByPurchases/{sub_category_id}', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByPurchases')->name('api_course_get_by_sub_category_filter_by_purchases');
     Route::get('getBySubCategoryFilterByTrending/{sub_category_id}', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByTrending')->name('api_course_get_by_sub_category_filter_by_trending');
+    Route::get('{id}/comments', 'API\GeneralEducation\CourseController@getComments')->name('api_course_get_comments');
 });
 
 Route::prefix('favorite')->group(function(){
