@@ -41,7 +41,7 @@
                         :current-price="{{$general_educations->price}}"
                         @endif
                         :rate="{{$general_educations->point}}"
-                        page-link="#"
+                        page-link="/ge/course/{{$general_educations->id}}"
                     ></course-card>
                 </li>
             @endforeach
@@ -87,7 +87,7 @@
                             :current-price="{{$prepare_for_exam->price}}"
                             @endif
                             :rate="{{$prepare_for_exam->point}}"
-                            page-link="#"
+                            page-link="/ge/course/{{$prepare_for_exam->id}}"
                         ></course-card>
                     </li>
                 @endforeach
@@ -133,7 +133,7 @@
                             :current-price="{{$prepare_for_lesson->price}}"
                             @endif
                             :rate="{{$prepare_for_lesson->point}}"
-                            page-link="#"
+                            page-link="/ge/course/{{$prepare_for_lesson->id}}"
                         ></course-card>
                     </li>
                 @endforeach
@@ -179,7 +179,7 @@
                                 :current-price="{{$exam->price}}"
                             @endif
                             :rate="{{$exam->point}}"
-                            page-link="#"
+                            page-link="/ge/course/{{$exam->id}}"
                         ></course-card>
                     </li>
                 @endforeach
@@ -225,7 +225,7 @@
                                 :current-price="{{$book->price}}"
                             @endif
                             :rate="{{$book->point}}"
-                            page-link="#"
+                            page-link="/ge/course/{{$book->id}}"
                         ></course-card>
                     </li>
                 @endforeach

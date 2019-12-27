@@ -10,7 +10,7 @@
                 <i v-if="inCart" class="fas fa-shopping-cart icon-medium" style="color: limegreen"> </i>
             </a>
         </div>
-        <a href="#" class="uk-link-reset">
+        <a :href="pageLink" class="uk-link-reset">
             <img :src=imgPath class="course-img">
             <div class="uk-card-body">
                 <h4>{{title}}</h4>

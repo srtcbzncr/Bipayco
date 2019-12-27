@@ -40,7 +40,7 @@
                         :current-price="course.price_with_discount"
                         :prev-price="course.price"
                         :rate="course.point"
-                        page-link="#"
+                        :page-link="'/ge/course/'+course.id"
                         > </course-card>
                     <course-card
                         v-else
@@ -49,7 +49,7 @@
                         :img-path="course.image"
                         :current-price="course.price"
                         :rate="course.point"
-                        page-link="#"
+                        :page-link="'/ge/course/'+course.id"
                     > </course-card>
                 </div>
             </div>

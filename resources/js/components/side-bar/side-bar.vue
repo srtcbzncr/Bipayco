@@ -15,8 +15,8 @@
                                 <li v-for="category in categories" class=" uk-margin-remove-top">
                                     <a class="uk-accordion-title" :id="category.id"> <i class="fas fa-layer-group"> </i>{{category.name}}</a>
                                     <div class="uk-accordion-content uk-margin-remove-top">
-                                        <a :href="homeRoute+'/ge/category/'+category.id">{{allOfCategory}}</a>
-                                        <a v-for="subCategory in category.sub_categories.data" :href="homeRoute+'/ge/subCategory/'+subCategory.id" :id="subCategory.id">
+                                        <a :href="'/ge/category/'+category.id">{{allOfCategory}}</a>
+                                        <a v-for="subCategory in category.sub_categories.data" :href="'/ge/subCategory/'+subCategory.id" :id="subCategory.id">
                                             {{subCategory.name}}
                                         </a>
                                     </div>

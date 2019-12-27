@@ -4619,7 +4619,7 @@ var render = function() {
                           "current-price": course.price_with_discount,
                           "prev-price": course.price,
                           rate: course.point,
-                          "page-link": "#"
+                          "page-link": "/ge/course/" + course.id
                         }
                       })
                     : _c("course-card", {
@@ -4629,7 +4629,7 @@ var render = function() {
                           "img-path": course.image,
                           "current-price": course.price,
                           rate: course.point,
-                          "page-link": "#"
+                          "page-link": "/ge/course/" + course.id
                         }
                       })
                 ],
@@ -4810,7 +4810,7 @@ var render = function() {
         ]
       ),
       _vm._v(" "),
-      _c("a", { staticClass: "uk-link-reset", attrs: { href: "#" } }, [
+      _c("a", { staticClass: "uk-link-reset", attrs: { href: _vm.pageLink } }, [
         _c("img", { staticClass: "course-img", attrs: { src: _vm.imgPath } }),
         _vm._v(" "),
         _c("div", { staticClass: "uk-card-body" }, [
@@ -5269,12 +5269,7 @@ var render = function() {
                       [
                         _c(
                           "a",
-                          {
-                            attrs: {
-                              href:
-                                _vm.homeRoute + "/ge/category/" + category.id
-                            }
-                          },
+                          { attrs: { href: "/ge/category/" + category.id } },
                           [_vm._v(_vm._s(_vm.allOfCategory))]
                         ),
                         _vm._v(" "),
@@ -5285,10 +5280,7 @@ var render = function() {
                             "a",
                             {
                               attrs: {
-                                href:
-                                  _vm.homeRoute +
-                                  "/ge/subCategory/" +
-                                  subCategory.id,
+                                href: "/ge/subCategory/" + subCategory.id,
                                 id: subCategory.id
                               }
                             },
