@@ -36,5 +36,6 @@
         category-id="{{$sub_category->id}}"
         :paginate-course = "9"
         sub-category
+        has-no-content="@lang('front/auth.not_found_content')"
     ></course-card-pagination>
 @endsection

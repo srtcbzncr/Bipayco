@@ -31,6 +31,7 @@
         oldest="@lang('front/auth.oldest')"
         by-trending="@lang('front/auth.byTrending')"
         by-point="@lang('front/auth.byPoint')"
+        has-no-content="@lang('front/auth.not_found_content')"
         category-desc="{{$category->description}}"
         category-name="{{$category->name}}"
         :course-count = "{{$course_count}}"

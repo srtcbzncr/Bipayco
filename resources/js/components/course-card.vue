@@ -22,8 +22,8 @@
                 <div>
                     <a class="uk-button uk-button-text uk-button-small" style="margin-right: 20px" href="#">Satın Al</a>
                     <a class="uk-button uk-button-text uk-button-small" :href=pageLink>İncele</a>
-                    <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right" style="float:right; font-weight: bold; font-size: 16px;">{{currentPrice}}$</p>
-                    <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right" style="float:right; text-decoration: line-through; opacity: 0.75; font-size: 13px" v-if="discount">{{prevPrice}}$</p>
+                    <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right" style="float:right; font-weight: bold; font-size: 16px;">{{currentPrice.toFixed(2)}}$</p>
+                    <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right" style="float:right; text-decoration: line-through; opacity: 0.75; font-size: 13px" v-if="discount">{{prevPrice.toFixed(2)}}$</p>
                 </div>
             </div>
         </a>

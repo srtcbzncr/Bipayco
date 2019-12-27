@@ -160,7 +160,7 @@
     </div>
     @if($exams===null || count($exams) === 0)
         <div class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
-            <h4 class="uk-text-bold uk-margin-remove-top">Bu kategoride içerik bulunmamaktadır</h4>
+            <h4 class="uk-text-bold uk-margin-remove-top">@lang('front/auth.not_found_content')</h4>
         </div>
     @else
         <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>

@@ -2056,7 +2056,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      pages: [],
       currentPage: 1
     };
   },
@@ -2071,6 +2070,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     sort: String,
     categoryName: String,
     categoryDesc: String,
+    hasNoContent: String,
     categoryId: {
       type: String,
       required: true
@@ -4719,7 +4719,7 @@ var render = function() {
             staticClass:
               "uk-flex uk-flex-center align-items-center justify-content-center uk-margin-large-top"
           },
-          [_c("h2", [_vm._v("Burada Kurs Yok")])]
+          [_c("h2", [_vm._v(_vm._s(_vm.hasNoContent))])]
         )
       : _vm._e()
   ])
@@ -4865,7 +4865,7 @@ var render = function() {
                   "font-size": "16px"
                 }
               },
-              [_vm._v(_vm._s(_vm.currentPrice) + "$")]
+              [_vm._v(_vm._s(_vm.currentPrice.toFixed(2)) + "$")]
             ),
             _vm._v(" "),
             _vm.discount
@@ -4881,7 +4881,7 @@ var render = function() {
                       "font-size": "13px"
                     }
                   },
-                  [_vm._v(_vm._s(_vm.prevPrice) + "$")]
+                  [_vm._v(_vm._s(_vm.prevPrice.toFixed(2)) + "$")]
                 )
               : _vm._e()
           ])

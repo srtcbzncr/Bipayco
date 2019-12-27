@@ -51,7 +51,7 @@ return [
     'prepare_for_lessons'=>'Derslere Hazırlık',
     'prepare_for_exams'=>'Sınavlara Hazırlık',
     'general_education'=>'Genel Eğitim',
-    'not_found_content'=>'Bu kategoride içerik bulunamadı.',
+    'not_found_content'=>'İçerik bulunmuyor.',
     'see_more'=>'Daha Fazlası',
     'popular_in_category'=>'Bu kategoride popüler olan içerikler',
     'log_out'=>'Çıkış Yap',

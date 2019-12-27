@@ -66,7 +66,7 @@
             </ul>
         </div>
         <div v-if="courseCount<=0" class="uk-flex uk-flex-center align-items-center justify-content-center uk-margin-large-top">
-            <h2>Burada Kurs Yok</h2>
+            <h2>{{hasNoContent}}</h2>
         </div>
     </div>
 </template>
@@ -83,7 +83,6 @@
         },
         data(){
             return {
-                pages:[],
                 currentPage:1,
             }
         },
@@ -98,6 +97,7 @@
             sort:String,
             categoryName:String,
             categoryDesc:String,
+            hasNoContent:String,
             categoryId:{
                 type: String,
                 required: true,
