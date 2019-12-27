@@ -10,10 +10,6 @@
                         <i class="fas fa-book-open icon-xxlarge text-white uk-margin-small-right"></i>
                         <span class="uk-text-middle uk-text-white">{{$course_count}} Courses </span>
                     </div>
-                    <div class="uk-width-1-3@m uk-flex align-items-center">
-                        <i class="fas fa-tags icon-xxlarge text-white uk-margin-small-right"></i>
-                        <span class="uk-text-middle uk-text-white"> Sub Categories </span>
-                    </div>
                 </div>
             </div>
             <div class="uk-width-1-2@m uk-visible@m">

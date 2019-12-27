@@ -4451,7 +4451,7 @@ var render = function() {
                       "select",
                       {
                         staticClass:
-                          "uk-select uk-margin-remove uk-width-1-2 uk-overflow-auto",
+                          "uk-select uk-margin-remove uk-width uk-overflow-auto",
                         attrs: { id: "sortBy" },
                         on: { change: _vm.loadCourseList }
                       },
@@ -4515,7 +4515,7 @@ var render = function() {
                       "select",
                       {
                         staticClass:
-                          "uk-select uk-margin-remove uk-width-1-2 uk-overflow-auto",
+                          "uk-select uk-margin-remove uk-width uk-overflow-auto",
                         attrs: { id: "sortBy" },
                         on: { change: _vm.loadCourseList }
                       },
