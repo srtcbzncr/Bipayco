@@ -6,10 +6,10 @@
                     <h2>{{categoryName}}</h2>
                     <p>{{categoryDesc}}</p>
                 </div>
-                <div class="uk-float-right">
-                    <span class="uk-text-small uk-text-uppercase uk-width-1-2"> {{sort}} :</span>
-                    <select v-if='!subCategory' class="uk-select uk-margin-remove uk-width uk-overflow-auto" id="sortBy" @change="loadCourseList">
-                        <option selected value="getByCategoryFilterByTrending">{{byTrending}} </option>
+                <div class="uk-float-right uk-margin-small-top">
+                    <select v-if='!subCategory' class="uk-select uk-width uk-overflow-auto" id="sortBy" @change="loadCourseList">
+                        <option selected disabled value="getByCategoryFilterByTrending">{{sort}} </option>
+                        <option value="getByCategoryFilterByTrending">{{byTrending}} </option>
                         <option value="getByCategoryFilterByPurchases">{{byPurchases}} </option>
                         <option value="getByCategoryFilterByPoint">{{byPoint}} </option>
                         <option value="getByCategoryFilterByPriceDESC">{{byDesc}} </option>
@@ -17,8 +17,9 @@
                         <option value="getByCategoryFilterByNewest">{{newest}} </option>
                         <option value="getByCategoryFilterByOldest">{{oldest}} </option>
                     </select>
-                    <select v-if='subCategory' class="uk-select uk-margin-remove uk-width uk-overflow-auto" id="sortBy" @change="loadCourseList">
-                        <option selected value="getBySubCategoryFilterByTrending">{{byTrending}} </option>
+                    <select v-if='subCategory' class="uk-select uk-width uk-overflow-auto" id="sortBy" @change="loadCourseList">
+                        <option selected disabled value="getByCategoryFilterByTrending">{{sort}} </option>
+                        <option value="getBySubCategoryFilterByTrending">{{byTrending}} </option>
                         <option value="getBySubCategoryFilterByPurchases">{{byPurchases}} </option>
                         <option value="getBySubCategoryFilterByPoint">{{byPoint}} </option>
                         <option value="getBySubCategoryFilterByPriceASC">{{byInc}} </option>

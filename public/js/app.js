@@ -2046,6 +2046,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-card-pagination",
@@ -4437,21 +4438,12 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c("div", { staticClass: "uk-float-right" }, [
-                _c(
-                  "span",
-                  {
-                    staticClass: "uk-text-small uk-text-uppercase uk-width-1-2"
-                  },
-                  [_vm._v(" " + _vm._s(_vm.sort) + " :")]
-                ),
-                _vm._v(" "),
+              _c("div", { staticClass: "uk-float-right uk-margin-small-top" }, [
                 !_vm.subCategory
                   ? _c(
                       "select",
                       {
-                        staticClass:
-                          "uk-select uk-margin-remove uk-width uk-overflow-auto",
+                        staticClass: "uk-select uk-width uk-overflow-auto",
                         attrs: { id: "sortBy" },
                         on: { change: _vm.loadCourseList }
                       },
@@ -4461,9 +4453,16 @@ var render = function() {
                           {
                             attrs: {
                               selected: "",
+                              disabled: "",
                               value: "getByCategoryFilterByTrending"
                             }
                           },
+                          [_vm._v(_vm._s(_vm.sort) + " ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { attrs: { value: "getByCategoryFilterByTrending" } },
                           [_vm._v(_vm._s(_vm.byTrending) + " ")]
                         ),
                         _vm._v(" "),
@@ -4514,8 +4513,7 @@ var render = function() {
                   ? _c(
                       "select",
                       {
-                        staticClass:
-                          "uk-select uk-margin-remove uk-width uk-overflow-auto",
+                        staticClass: "uk-select uk-width uk-overflow-auto",
                         attrs: { id: "sortBy" },
                         on: { change: _vm.loadCourseList }
                       },
@@ -4525,8 +4523,17 @@ var render = function() {
                           {
                             attrs: {
                               selected: "",
-                              value: "getBySubCategoryFilterByTrending"
+                              disabled: "",
+                              value: "getByCategoryFilterByTrending"
                             }
+                          },
+                          [_vm._v(_vm._s(_vm.sort) + " ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            attrs: { value: "getBySubCategoryFilterByTrending" }
                           },
                           [_vm._v(_vm._s(_vm.byTrending) + " ")]
                         ),
