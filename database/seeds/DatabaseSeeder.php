@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Auth\Guardian;
+use App\Models\Auth\Instructor;
 use App\Models\Base\School;
 use Illuminate\Database\Seeder;
 use App\Models\Auth\Student;
@@ -23,6 +24,7 @@ use App\Models\GeneralEducation\Rebate;
 use App\Models\GeneralEducation\Requirement;
 use App\Models\GeneralEducation\Source;
 use App\Models\GeneralEducation\Tag;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -39,7 +41,18 @@ class DatabaseSeeder extends Seeder
         factory(SocialMedia::class, 5)->create();
         factory(Category::class, 10)->create();
         factory(SubCategory::class, 20)->create();
-        factory(Course::class, 10)->create();
+        factory(Course::class, 10)->create()->each(function($course){
+            $random = rand(1,5);
+            $i = 0;
+            while($i < $random){
+                $instructor = factory(Instructor::class)->create();
+                DB::table('ge_courses_instructors')->insert([
+                    'course_id' => $course->id,
+                    'instructor_id' => $instructor->id,
+                ]);
+                $i = $i + 1;
+            }
+        });
         factory(Section::class, 30)->create();
         factory(Lesson::class, 100)->create();
         factory(Achievement::class,100)->create();
