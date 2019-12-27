@@ -60,10 +60,12 @@ return [
     'all_of_category'=>'Tüm Kurslar',
     'newest'=>'En Yeni',
     'oldest'=>'En Eski',
-    'byDec'=>'Azalan Fiyat',
-    'byInc'=>'Artan Fiyat',
-    'byTrending'=>'Trend Olanlar',
-    'byPoint'=>'Puana Göre',
-    'byPurchases'=>'Çok Satılanlar',
-    'sortBy'=>'Sırala',
+    'by_dec'=>'Azalan Fiyat',
+    'by_inc'=>'Artan Fiyat',
+    'by_trending'=>'Trend Olanlar',
+    'by_point'=>'Puana Göre',
+    'by_purchases'=>'Çok Satılanlar',
+    'sort_by'=>'Sırala',
+    'course'=>'Kurs',
+    'sub_category'=>'Alt Kategori'
 ];

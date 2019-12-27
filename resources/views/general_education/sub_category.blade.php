@@ -13,19 +13,19 @@
                 </div>
             </div>
             <div class="uk-width-1-2@m uk-visible@m">
-                <img src="#" alt="" class="uk-align-right img-xxlarge">
+                <img src="{{asset($sub_category->symbol)}}" alt="" class="uk-align-right img-xxlarge">
             </div>
         </div>
     </div>
     <course-card-pagination
         newest="@lang('front/auth.newest')"
-        by-inc="@lang('front/auth.byInc')"
-        by-desc="@lang('front/auth.byDec')"
-        by-purchases="@lang('front/auth.byPurchases')"
-        sort="@lang('front/auth.sortBy')"
+        by-inc="@lang('front/auth.by_inc')"
+        by-desc="@lang('front/auth.by_dec')"
+        by-purchases="@lang('front/auth.by_purchases')"
+        sort="@lang('front/auth.sort_by')"
         oldest="@lang('front/auth.oldest')"
-        by-trending="@lang('front/auth.byTrending')"
-        by-point="@lang('front/auth.byPoint')"
+        by-trending="@lang('front/auth.by_trending')"
+        by-point="@lang('front/auth.by_point')"
         category-desc="{{$sub_category->description}}"
         category-name="{{$sub_category->name}}"
         :course-count = "{{$course_count}}"

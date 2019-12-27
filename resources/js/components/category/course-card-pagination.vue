@@ -110,7 +110,7 @@
             paginateCourse:{
                 type: Number,
                 require:true,
-            }
+            },
         },
         computed:{
             ...mapState([
