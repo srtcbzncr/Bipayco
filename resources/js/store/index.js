@@ -29,8 +29,6 @@ const mutations={
     },
     setCourseReviews(state,index){
        state.courseReviews=index.data;
-        console.log(index.data);
-
     }
 };
 const actions={
@@ -60,7 +58,7 @@ const actions={
     },
     loadCourseReviews({commit},id){
         Axios.get('/api/course/'+id+"/comments")
-            .then(response =>commit('setCourseReviews',response));
+            .then(response =>commit('setCourseReviews',response.data));
     }
 };
 

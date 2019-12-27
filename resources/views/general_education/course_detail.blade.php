@@ -146,18 +146,7 @@
                 <!-- Reviews  -->
                 <div id="Reviews" class="tabcontent animation: uk-animation-slide-right-medium">
                     <h3>Reviews</h3>
-                    <course-review></course-review>
-                    <div class="uk-padding-small uk-background-light uk-position-relative">
-                        <div class="uk-flex-middle uk-grid-small uk-grid-stack" uk-grid>
-                            <div class="uk-width-1-6 uk-flex-first uk-first-column">
-                                <img src="#" alt="Image" class="uk-width-1-2 uk-border-circle">
-                            </div>
-                            <div class="uk-width-5-6">
-                                <p class="uk-margin-remove-bottom uk-text-bold uk-text-small">John keniss  </p>
-                                <p class="uk-margin-remove">Etiam sit amet augue non velit aliquet consectetur. Proin gravida, odio in facilisis pharetra, neque enim aliquam eros,.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <course-review course-id="{{$course->id}}"></course-review>
                 </div>
                 <!-- Instructor  -->
                 <div id="Instructor" class="tabcontent animation: uk-animation-slide-right-medium">
