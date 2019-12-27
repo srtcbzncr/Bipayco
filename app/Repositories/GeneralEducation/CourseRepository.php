@@ -841,7 +841,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $course = Course::find($id);
-            $object = $course->entries->where('active', true)->orderBy('created_at', 'desc')->take(12);
+            $object = $course->entries->where('active', true)->orderBy('created_at', 'desc')->take(3);
         }
         catch(\Exception $e){
             $error = $e;
