@@ -3,19 +3,28 @@
         <div v-if="courseCount>0">
             <div class="uk-clearfix boundary-align uk-margin-medium-top">
                 <div class="uk-float-left section-heading none-border">
-                    <h2>Browse Web development courses</h2>
-                    <p>Adipisici elit, sed eiusmod tempor incidunt ut labore et</p>
+                    <h2>{{categoryName}}</h2>
+                    <p>{{categoryDesc}}</p>
                 </div>
                 <div class="uk-float-right">
-                    <span class="uk-text-small uk-text-uppercase uk-width-1-2"> Sort by :</span>
-                    <select class="uk-select uk-margin-remove uk-width-1-2 uk-overflow-auto" id="sortBy" @change="loadCourseList">
-                        <option value="getByCategoryFilterByPurchases">satın alıma</option>
-                        <option value="getByCategoryFilterByNewest">Newest Courses</option>
-                        <option value="getByCategoryFilterByPoint">Puana göre </option>
-                        <option value="getByCategoryFilterByOldest">Oldest Courses</option>
-                        <option value="getByCategoryFilterByPriceASC"> Artan </option>
-                        <option value="getByCategoryFilterByPriceDESC">Azalan</option>
-                        <option selected value="getByCategoryFilterByTrending">Trending Courses</option>
+                    <span class="uk-text-small uk-text-uppercase uk-width-1-2"> {{sort}} :</span>
+                    <select v-if='!subCategory' class="uk-select uk-margin-remove uk-width-1-2 uk-overflow-auto" id="sortBy" @change="loadCourseList">
+                        <option value="getByCategoryFilterByPurchases">{{byPurchases}} </option>
+                        <option value="getByCategoryFilterByNewest">{{newest}} </option>
+                        <option value="getByCategoryFilterByPoint">{{byPoint}} </option>
+                        <option value="getByCategoryFilterByOldest">{{oldest}} </option>
+                        <option value="getByCategoryFilterByPriceASC">{{byInc}} </option>
+                        <option value="getByCategoryFilterByPriceDESC">{{byDesc}} </option>
+                        <option selected value="getByCategoryFilterByTrending">{{byTrending}} </option>
+                    </select>
+                    <select v-if='subCategory' class="uk-select uk-margin-remove uk-width-1-2 uk-overflow-auto" id="sortBy" @change="loadCourseList">
+                        <option value="getBySubCategoryFilterByPurchases">{{byPurchases}} </option>
+                        <option value="getBySubCategoryFilterByNewest">{{newest}} </option>
+                        <option value="getBySubCategoryFilterByPoint">{{byPoint}} </option>
+                        <option value="getBySubCategoryFilterByOldest">{{oldest}} </option>
+                        <option value="getBySubCategoryFilterByPriceASC">{{byInc}} </option>
+                        <option value="getBySubCategoryFilterByPriceDESC">{{byDesc}} </option>
+                        <option selected value="getBySubCategoryFilterByTrending">{{byTrending}} </option>
                     </select>
                 </div>
             </div>
@@ -27,7 +36,7 @@
                         :description="course.description"
                         :img-path="course.image"
                         discount
-                        :current-price="course.discount.price_with_discount"
+                        :current-price="course.price_with_discount"
                         :prev-price="course.price"
                         :rate="course.point"
                         page-link="#"
@@ -46,13 +55,13 @@
 
             <ul class="uk-pagination uk-flex-center uk-margin-medium">
                 <li>
-                    <button @click="loadNewPage(categoryCourses.links.prev)"> < </button>
+                    <button v-show="currentPage>1" @click="loadNewPage(categoryCourses.links.prev)"> < </button>
                 </li>
                 <li v-for="page in pageNumber">
-                    <button @click="loadNewPage('http://127.0.0.1:8000/api/course/'+selectedSortOption+'/'+categoryId+'?page='+page)">{{page}}</button>
+                    <button @click="loadNewPage('/api/course/'+selectedSortOption+'/'+categoryId+'?page='+page,page)">{{page}}</button>
                 </li>
                 <li>
-                    <button @click="loadNewPage(categoryCourses.links.next)"> > </button>
+                    <button v-show="currentPage<(this.courseCount/this.paginateCourse)" @click="loadNewPage(categoryCourses.links.next)"> > </button>
                 </li>
             </ul>
         </div>
@@ -75,13 +84,25 @@
         data(){
             return {
                 pages:[],
+                currentPage:1,
             }
         },
         props:{
+            newest:String,
+            byDesc:String,
+            byInc:String,
+            byPoint:String,
+            oldest:String,
+            byPurchases:String,
+            byTrending:String,
+            sort:String,
+            categoryName:String,
+            categoryDesc:String,
             categoryId:{
                 type: String,
                 required: true,
             },
+            subCategory:Boolean,
             courseCount:{
               type: Number,
               required: true,
@@ -93,13 +114,22 @@
         },
         computed:{
             ...mapState([
-                'categoryCourses'
+                'categoryCourses',
             ]),
             pageNumber(){
-                for (var i=1;i<(this.courseCount/this.paginateCourse)+1;i++){
-                    this.pages.push(i);
+                var pages=['1'];
+                if(this.currentPage > 4){
+                    pages.push('...');
+                    for(var i=currentPage-2;i<currentPage+3;i++){
+                        pages.push(i);
+                    }
+                }else{
+                    for (var i=2;i<(this.courseCount/this.paginateCourse)+1;i++){
+
+                        pages.push(i);
+                    }
                 }
-                return this.pages;
+                return pages;
             },
             selectedSortOption(){
                 return document.getElementById("sortBy").value;
@@ -112,12 +142,18 @@
             loadCourseList: function(){
                 this.$store.dispatch('loadCategoryCourses',this.categoryId);
             },
-            loadNewPage: function(name){
+            loadNewPage: function(name,newPageNumber){
                 this.$store.dispatch('loadNewPageCourses',name);
+                if(name==this.categoryCourses.links.next){
+                    this.currentPage++;
+                }
+                else if (name==this.categoryCourses.links.prev){
+                    this.currentPage--;
+                }else{
+                    this.currentPage=newPageNumber;
+                }
             }
         },
-
-
     }
 </script>
 

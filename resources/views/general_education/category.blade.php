@@ -23,6 +23,16 @@
         </div>
     </div>
     <course-card-pagination
+        newest="@lang('front/auth.newest')"
+        by-inc="@lang('front/auth.byInc')"
+        by-desc="@lang('front/auth.byDec')"
+        by-purchases="@lang('front/auth.byPurchases')"
+        sort="@lang('front/auth.sortBy')"
+        oldest="@lang('front/auth.oldest')"
+        by-trending="@lang('front/auth.byTrending')"
+        by-point="@lang('front/auth.byPoint')"
+        category-desc="{{$category->description}}"
+        category-name="{{$category->name}}"
         :course-count = "{{$course_count}}"
         category-id="{{$category->id}}"
         :paginate-course = "9"

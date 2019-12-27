@@ -2037,6 +2037,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-card-pagination",
@@ -2047,14 +2056,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      pages: []
+      pages: [],
+      currentPage: 1
     };
   },
   props: {
+    newest: String,
+    byDesc: String,
+    byInc: String,
+    byPoint: String,
+    oldest: String,
+    byPurchases: String,
+    byTrending: String,
+    sort: String,
+    categoryName: String,
+    categoryDesc: String,
     categoryId: {
       type: String,
       required: true
     },
+    subCategory: Boolean,
     courseCount: {
       type: Number,
       required: true
@@ -2066,11 +2087,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categoryCourses']), {
     pageNumber: function pageNumber() {
-      for (var i = 1; i < this.courseCount / this.paginateCourse + 1; i++) {
-        this.pages.push(i);
+      var pages = ['1'];
+
+      if (this.currentPage > 4) {
+        pages.push('...');
+
+        for (var i = currentPage - 2; i < currentPage + 3; i++) {
+          pages.push(i);
+        }
+      } else {
+        for (var i = 2; i < this.courseCount / this.paginateCourse + 1; i++) {
+          pages.push(i);
+        }
       }
 
-      return this.pages;
+      return pages;
     },
     selectedSortOption: function selectedSortOption() {
       return document.getElementById("sortBy").value;
@@ -2080,8 +2111,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     loadCourseList: function loadCourseList() {
       this.$store.dispatch('loadCategoryCourses', this.categoryId);
     },
-    loadNewPage: function loadNewPage(name) {
+    loadNewPage: function loadNewPage(name, newPageNumber) {
       this.$store.dispatch('loadNewPageCourses', name);
+
+      if (name == this.categoryCourses.links.next) {
+        this.currentPage++;
+      } else if (name == this.categoryCourses.links.prev) {
+        this.currentPage--;
+      } else {
+        this.currentPage = newPageNumber;
+      }
     }
   })
 });
@@ -4388,7 +4427,15 @@ var render = function() {
             "div",
             { staticClass: "uk-clearfix boundary-align uk-margin-medium-top" },
             [
-              _vm._m(0),
+              _c(
+                "div",
+                { staticClass: "uk-float-left section-heading none-border" },
+                [
+                  _c("h2", [_vm._v(_vm._s(_vm.categoryName))]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v(_vm._s(_vm.categoryDesc))])
+                ]
+              ),
               _vm._v(" "),
               _c("div", { staticClass: "uk-float-right" }, [
                 _c(
@@ -4396,66 +4443,146 @@ var render = function() {
                   {
                     staticClass: "uk-text-small uk-text-uppercase uk-width-1-2"
                   },
-                  [_vm._v(" Sort by :")]
+                  [_vm._v(" " + _vm._s(_vm.sort) + " :")]
                 ),
                 _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    staticClass:
-                      "uk-select uk-margin-remove uk-width-1-2 uk-overflow-auto",
-                    attrs: { id: "sortBy" },
-                    on: { change: _vm.loadCourseList }
-                  },
-                  [
-                    _c(
-                      "option",
-                      { attrs: { value: "getByCategoryFilterByPurchases" } },
-                      [_vm._v("satın alıma")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "option",
-                      { attrs: { value: "getByCategoryFilterByNewest" } },
-                      [_vm._v("Newest Courses")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "option",
-                      { attrs: { value: "getByCategoryFilterByPoint" } },
-                      [_vm._v("Puana göre ")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "option",
-                      { attrs: { value: "getByCategoryFilterByOldest" } },
-                      [_vm._v("Oldest Courses")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "option",
-                      { attrs: { value: "getByCategoryFilterByPriceASC" } },
-                      [_vm._v(" Artan ")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "option",
-                      { attrs: { value: "getByCategoryFilterByPriceDESC" } },
-                      [_vm._v("Azalan")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "option",
+                !_vm.subCategory
+                  ? _c(
+                      "select",
                       {
-                        attrs: {
-                          selected: "",
-                          value: "getByCategoryFilterByTrending"
-                        }
+                        staticClass:
+                          "uk-select uk-margin-remove uk-width-1-2 uk-overflow-auto",
+                        attrs: { id: "sortBy" },
+                        on: { change: _vm.loadCourseList }
                       },
-                      [_vm._v("Trending Courses")]
+                      [
+                        _c(
+                          "option",
+                          {
+                            attrs: { value: "getByCategoryFilterByPurchases" }
+                          },
+                          [_vm._v(_vm._s(_vm.byPurchases) + " ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { attrs: { value: "getByCategoryFilterByNewest" } },
+                          [_vm._v(_vm._s(_vm.newest) + " ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { attrs: { value: "getByCategoryFilterByPoint" } },
+                          [_vm._v(_vm._s(_vm.byPoint) + " ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { attrs: { value: "getByCategoryFilterByOldest" } },
+                          [_vm._v(_vm._s(_vm.oldest) + " ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { attrs: { value: "getByCategoryFilterByPriceASC" } },
+                          [_vm._v(_vm._s(_vm.byInc) + " ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            attrs: { value: "getByCategoryFilterByPriceDESC" }
+                          },
+                          [_vm._v(_vm._s(_vm.byDesc) + " ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            attrs: {
+                              selected: "",
+                              value: "getByCategoryFilterByTrending"
+                            }
+                          },
+                          [_vm._v(_vm._s(_vm.byTrending) + " ")]
+                        )
+                      ]
                     )
-                  ]
-                )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.subCategory
+                  ? _c(
+                      "select",
+                      {
+                        staticClass:
+                          "uk-select uk-margin-remove uk-width-1-2 uk-overflow-auto",
+                        attrs: { id: "sortBy" },
+                        on: { change: _vm.loadCourseList }
+                      },
+                      [
+                        _c(
+                          "option",
+                          {
+                            attrs: {
+                              value: "getBySubCategoryFilterByPurchases"
+                            }
+                          },
+                          [_vm._v(_vm._s(_vm.byPurchases) + " ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            attrs: { value: "getBySubCategoryFilterByNewest" }
+                          },
+                          [_vm._v(_vm._s(_vm.newest) + " ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { attrs: { value: "getBySubCategoryFilterByPoint" } },
+                          [_vm._v(_vm._s(_vm.byPoint) + " ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            attrs: { value: "getBySubCategoryFilterByOldest" }
+                          },
+                          [_vm._v(_vm._s(_vm.oldest) + " ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            attrs: { value: "getBySubCategoryFilterByPriceASC" }
+                          },
+                          [_vm._v(_vm._s(_vm.byInc) + " ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            attrs: {
+                              value: "getBySubCategoryFilterByPriceDESC"
+                            }
+                          },
+                          [_vm._v(_vm._s(_vm.byDesc) + " ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            attrs: {
+                              selected: "",
+                              value: "getBySubCategoryFilterByTrending"
+                            }
+                          },
+                          [_vm._v(_vm._s(_vm.byTrending) + " ")]
+                        )
+                      ]
+                    )
+                  : _vm._e()
               ])
             ]
           ),
@@ -4482,7 +4609,7 @@ var render = function() {
                           description: course.description,
                           "img-path": course.image,
                           discount: "",
-                          "current-price": course.discount.price_with_discount,
+                          "current-price": course.price_with_discount,
                           "prev-price": course.price,
                           rate: course.point,
                           "page-link": "#"
@@ -4513,6 +4640,14 @@ var render = function() {
                 _c(
                   "button",
                   {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.currentPage > 1,
+                        expression: "currentPage>1"
+                      }
+                    ],
                     on: {
                       click: function($event) {
                         return _vm.loadNewPage(_vm.categoryCourses.links.prev)
@@ -4531,12 +4666,13 @@ var render = function() {
                       on: {
                         click: function($event) {
                           return _vm.loadNewPage(
-                            "http://127.0.0.1:8000/api/course/" +
+                            "/api/course/" +
                               _vm.selectedSortOption +
                               "/" +
                               _vm.categoryId +
                               "?page=" +
-                              page
+                              page,
+                            page
                           )
                         }
                       }
@@ -4550,6 +4686,17 @@ var render = function() {
                 _c(
                   "button",
                   {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value:
+                          _vm.currentPage <
+                          this.courseCount / this.paginateCourse,
+                        expression:
+                          "currentPage<(this.courseCount/this.paginateCourse)"
+                      }
+                    ],
                     on: {
                       click: function($event) {
                         return _vm.loadNewPage(_vm.categoryCourses.links.next)
@@ -4577,24 +4724,7 @@ var render = function() {
       : _vm._e()
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "uk-float-left section-heading none-border" },
-      [
-        _c("h2", [_vm._v("Browse Web development courses")]),
-        _vm._v(" "),
-        _c("p", [
-          _vm._v("Adipisici elit, sed eiusmod tempor incidunt ut labore et")
-        ])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

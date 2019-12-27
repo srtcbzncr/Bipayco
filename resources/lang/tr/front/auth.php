@@ -57,5 +57,13 @@ return [
     'log_out'=>'Çıkış Yap',
     'settings'=>'Ayarlar',
     'profile'=>'Profil',
-    'all_of_category'=>'Tüm Kurslar'
+    'all_of_category'=>'Tüm Kurslar',
+    'newest'=>'En Yeni',
+    'oldest'=>'En Eski',
+    'byDec'=>'Azalan Fiyat',
+    'byInc'=>'Artan Fiyat',
+    'byTrending'=>'Trend Olanlar',
+    'byPoint'=>'Puana Göre',
+    'byPurchases'=>'Çok Satılanlar',
+    'sortBy'=>'Sırala',
 ];
