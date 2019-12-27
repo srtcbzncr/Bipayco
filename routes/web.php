@@ -38,6 +38,9 @@ Route::group(['prefix' => 'ge'], function(){
     Route::group(['prefix' => 'subCategory'], function(){
         Route::get('{id}', 'GeneralEducation\SubCategoryController@show')->name('ge_sub_category_courses');
     });
+    Route::group(['prefix' => 'course'], function(){
+        Route::get('{id}', 'GeneralEducation\CourseController@show')->name('ge_course');
+    });
 });
 
 
