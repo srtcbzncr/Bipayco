@@ -22,7 +22,6 @@ class GE_CommentResource extends JsonResource
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
             'deleted_at' => $this->deleted_at,
-            'course' => new GE_CourseResource($this->course),
             'user' => new UserResource($this->user),
         ];
     }

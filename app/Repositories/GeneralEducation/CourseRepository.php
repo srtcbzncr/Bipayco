@@ -3,6 +3,7 @@
 namespace App\Repositories\GeneralEducation;
 
 use App\Models\Auth\Student;
+use App\Models\GeneralEducation\Comment;
 use App\Models\GeneralEducation\Entry;
 use App\Models\GeneralEducation\Section;
 use App\Repositories\IRepository;
@@ -695,7 +696,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $course = Course::find($id);
-            $object = $course->comments->where('active', true)->orderBy('created_at', 'desc')->paginate(10);
+            $object = Comment::where('course_id', $id)->where('active', true)->orderBy('created_at', 'desc')->paginate(10);
         }
         catch(\Exception $e){
             $error = $e;
