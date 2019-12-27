@@ -29,7 +29,7 @@ class CourseController extends Controller
 
         // Response
         if($resp->getResult()){
-            return view('general_education.course_detail', $resp->getData());
+            return view('general_education.course_detail', $data);
         }
         else{
             return redirect()->route('error');

@@ -62,7 +62,7 @@
                 <p>@lang('front/auth.popular_in_category')</p>
             </div>
             <div class="uk-float-right">
-                <a href="blog-video-one.html" class="uk-button uk-button-grey">@lang('front/auth.see_more')</a>
+                <a href="#" class="uk-button uk-button-grey">@lang('front/auth.see_more')</a>
             </div>
         </div>
     </div>
