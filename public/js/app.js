@@ -4459,6 +4459,17 @@ var render = function() {
                         _c(
                           "option",
                           {
+                            attrs: {
+                              selected: "",
+                              value: "getByCategoryFilterByTrending"
+                            }
+                          },
+                          [_vm._v(_vm._s(_vm.byTrending) + " ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
                             attrs: { value: "getByCategoryFilterByPurchases" }
                           },
                           [_vm._v(_vm._s(_vm.byPurchases) + " ")]
@@ -4466,26 +4477,8 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "option",
-                          { attrs: { value: "getByCategoryFilterByNewest" } },
-                          [_vm._v(_vm._s(_vm.newest) + " ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
                           { attrs: { value: "getByCategoryFilterByPoint" } },
                           [_vm._v(_vm._s(_vm.byPoint) + " ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          { attrs: { value: "getByCategoryFilterByOldest" } },
-                          [_vm._v(_vm._s(_vm.oldest) + " ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          { attrs: { value: "getByCategoryFilterByPriceASC" } },
-                          [_vm._v(_vm._s(_vm.byInc) + " ")]
                         ),
                         _vm._v(" "),
                         _c(
@@ -4498,13 +4491,20 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "option",
-                          {
-                            attrs: {
-                              selected: "",
-                              value: "getByCategoryFilterByTrending"
-                            }
-                          },
-                          [_vm._v(_vm._s(_vm.byTrending) + " ")]
+                          { attrs: { value: "getByCategoryFilterByPriceASC" } },
+                          [_vm._v(_vm._s(_vm.byInc) + " ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { attrs: { value: "getByCategoryFilterByNewest" } },
+                          [_vm._v(_vm._s(_vm.newest) + " ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          { attrs: { value: "getByCategoryFilterByOldest" } },
+                          [_vm._v(_vm._s(_vm.oldest) + " ")]
                         )
                       ]
                     )
@@ -4524,6 +4524,17 @@ var render = function() {
                           "option",
                           {
                             attrs: {
+                              selected: "",
+                              value: "getBySubCategoryFilterByTrending"
+                            }
+                          },
+                          [_vm._v(_vm._s(_vm.byTrending) + " ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            attrs: {
                               value: "getBySubCategoryFilterByPurchases"
                             }
                           },
@@ -4532,24 +4543,8 @@ var render = function() {
                         _vm._v(" "),
                         _c(
                           "option",
-                          {
-                            attrs: { value: "getBySubCategoryFilterByNewest" }
-                          },
-                          [_vm._v(_vm._s(_vm.newest) + " ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
                           { attrs: { value: "getBySubCategoryFilterByPoint" } },
                           [_vm._v(_vm._s(_vm.byPoint) + " ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          {
-                            attrs: { value: "getBySubCategoryFilterByOldest" }
-                          },
-                          [_vm._v(_vm._s(_vm.oldest) + " ")]
                         ),
                         _vm._v(" "),
                         _c(
@@ -4573,12 +4568,17 @@ var render = function() {
                         _c(
                           "option",
                           {
-                            attrs: {
-                              selected: "",
-                              value: "getBySubCategoryFilterByTrending"
-                            }
+                            attrs: { value: "getBySubCategoryFilterByNewest" }
                           },
-                          [_vm._v(_vm._s(_vm.byTrending) + " ")]
+                          [_vm._v(_vm._s(_vm.newest) + " ")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "option",
+                          {
+                            attrs: { value: "getBySubCategoryFilterByOldest" }
+                          },
+                          [_vm._v(_vm._s(_vm.oldest) + " ")]
                         )
                       ]
                     )
@@ -4602,7 +4602,7 @@ var render = function() {
               return _c(
                 "div",
                 [
-                  course.discount
+                  course.price != course.price_with_discount
                     ? _c("course-card", {
                         attrs: {
                           title: course.name,
@@ -4750,7 +4750,7 @@ var render = function() {
     "div",
     {
       staticClass:
-        "uk-card-default uk-card-hover  uk-card-small Course-card uk-inline-clip uk-transition-toggle",
+        "uk-card-default uk-card-hover uk-card-small uk-width Course-card uk-inline-clip uk-transition-toggle",
       attrs: { tabindex: "0" }
     },
     [
@@ -5823,7 +5823,7 @@ var render = function() {
               staticClass:
                 "indicator uk-background-muted uk-margin uk-padding-small uk-padding-remove-vertical"
             },
-            [_vm._v(_vm._s(_vm.rating))]
+            [_vm._v(_vm._s(_vm.rating.toFixed(1)))]
           )
         : _vm._e()
     ],

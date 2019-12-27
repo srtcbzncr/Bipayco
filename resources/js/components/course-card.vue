@@ -1,5 +1,5 @@
 <template>
-    <div class="uk-card-default uk-card-hover  uk-card-small Course-card uk-inline-clip uk-transition-toggle" tabindex="0">
+    <div class="uk-card-default uk-card-hover uk-card-small uk-width Course-card uk-inline-clip uk-transition-toggle" tabindex="0">
         <div class="uk-transition-slide-right-small uk-position-top-right uk-padding-small uk-position-z-index">
             <a class="uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge">
                 <i v-if="fav" class="fas fa-heart icon-medium" style="color: red"> </i>

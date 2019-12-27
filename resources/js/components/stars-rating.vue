@@ -43,7 +43,7 @@
                 </defs>
             </svg>
         </div>
-        <div v-if="isIndicatorActive" class="indicator uk-background-muted uk-margin uk-padding-small uk-padding-remove-vertical">{{ rating }}</div>
+        <div v-if="isIndicatorActive" class="indicator uk-background-muted uk-margin uk-padding-small uk-padding-remove-vertical">{{ rating.toFixed(1) }}</div>
     </div>
 </template>
 

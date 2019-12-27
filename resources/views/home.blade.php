@@ -33,14 +33,14 @@
                         title="{{$general_educations->name}}"
                         description="{{$general_educations->description}}"
                         img-path="{{$general_educations->image}}"
-                        @if($general_educations->discount)
+                        @if($general_educations->price!=$general_educations->price_with_discount)
                         discount
-                        current-price="{{$general_educations->discount->price_with_discount}}"
-                        prev-price="{{$general_educations->price}}"
+                        :current-price="{{$general_educations->price_with_discount}}"
+                        :prev-price="{{$general_educations->price}}"
                         @else
-                        current-price="{{$general_educations->price}}"
+                        :current-price="{{$general_educations->price}}"
                         @endif
-                        rate="{{$general_educations->point}}"
+                        :rate="{{$general_educations->point}}"
                         page-link="#"
                     ></course-card>
                 </li>
@@ -79,14 +79,14 @@
                             title="{{$prepare_for_exam->name}}"
                             description="{{$prepare_for_exam->description}}"
                             img-path="{{$prepare_for_exam->image}}"
-                            @if($prepare_for_exam->discount)
+                            @if($prepare_for_exam->price!=$prepare_for_exam->price_with_discount)
                             discount
-                            :current-price="{{$prepare_for_exam->discount->price_with_discount}}"
+                            :current-price="{{$prepare_for_exam->price_with_discount}}"
                             :prev-price="{{$prepare_for_exam->price}}"
                             @else
                             :current-price="{{$prepare_for_exam->price}}"
                             @endif
-                            :rank="{{$prepare_for_exam->point}}"
+                            :rate="{{$prepare_for_exam->point}}"
                             page-link="#"
                         ></course-card>
                     </li>
@@ -125,14 +125,14 @@
                             title="{{$prepare_for_lesson->name}}"
                             description="{{$prepare_for_lesson->description}}"
                             img-path="{{$prepare_for_lesson->image}}"
-                            @if($prepare_for_lesson->discount)
+                            @if($prepare_for_lesson->price!=$prepare_for_lesson->price_with_discount)
                             discount
-                            current-price="{{$prepare_for_lesson->discount->price_with_discount}}"
-                            prev-price="{{$prepare_for_lesson->price}}"
+                            :current-price="{{$prepare_for_lesson->price_with_discount}}"
+                            :prev-price="{{$prepare_for_lesson->price}}"
                             @else
-                            current-price="{{$prepare_for_lesson->price}}"
+                            :current-price="{{$prepare_for_lesson->price}}"
                             @endif
-                            rank="{{$prepare_for_lesson->point}}"
+                            :rate="{{$prepare_for_lesson->point}}"
                             page-link="#"
                         ></course-card>
                     </li>
@@ -171,14 +171,14 @@
                             title="{{$exam->name}}"
                             description="{{$exam->description}}"
                             img-path="{{$exam->image}}"
-                            @if($exam->discount)
+                            @if($exam->price!=$exam->price_with_discount)
                                 discount
-                                current-price="{{$exam->discount->price_with_discount}}"
-                                prev-price="{{$exam->price}}"
+                                :current-price="{{$exam->price_with_discount}}"
+                                :prev-price="{{$exam->price}}"
                             @else
-                                current-price="{{$exam->price}}"
+                                :current-price="{{$exam->price}}"
                             @endif
-                            rank="{{$exam->point}}"
+                            :rate="{{$exam->point}}"
                             page-link="#"
                         ></course-card>
                     </li>
@@ -217,14 +217,14 @@
                             title="{{$book->name}}"
                             description="{{$book->description}}"
                             img-path="{{$book->image}}"
-                            @if($book->discount)
+                            @if($book->price!=$book->price_with_discount)
                                 discount
-                                current-price="{{$book->discount->price_with_discount}}"
-                                prev-price="{{$book->price}}"
+                                :current-price="{{$book->price_with_discount}}"
+                                :prev-price="{{$book->price}}"
                             @else
-                                current-price="{{$book->price}}"
+                                :current-price="{{$book->price}}"
                             @endif
-                            rank="{{$book->point}}"
+                            :rate="{{$book->point}}"
                             page-link="#"
                         ></course-card>
                     </li>

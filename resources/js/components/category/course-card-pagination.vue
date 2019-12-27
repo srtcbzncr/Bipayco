@@ -9,29 +9,29 @@
                 <div class="uk-float-right">
                     <span class="uk-text-small uk-text-uppercase uk-width-1-2"> {{sort}} :</span>
                     <select v-if='!subCategory' class="uk-select uk-margin-remove uk-width-1-2 uk-overflow-auto" id="sortBy" @change="loadCourseList">
-                        <option value="getByCategoryFilterByPurchases">{{byPurchases}} </option>
-                        <option value="getByCategoryFilterByNewest">{{newest}} </option>
-                        <option value="getByCategoryFilterByPoint">{{byPoint}} </option>
-                        <option value="getByCategoryFilterByOldest">{{oldest}} </option>
-                        <option value="getByCategoryFilterByPriceASC">{{byInc}} </option>
-                        <option value="getByCategoryFilterByPriceDESC">{{byDesc}} </option>
                         <option selected value="getByCategoryFilterByTrending">{{byTrending}} </option>
+                        <option value="getByCategoryFilterByPurchases">{{byPurchases}} </option>
+                        <option value="getByCategoryFilterByPoint">{{byPoint}} </option>
+                        <option value="getByCategoryFilterByPriceDESC">{{byDesc}} </option>
+                        <option value="getByCategoryFilterByPriceASC">{{byInc}} </option>
+                        <option value="getByCategoryFilterByNewest">{{newest}} </option>
+                        <option value="getByCategoryFilterByOldest">{{oldest}} </option>
                     </select>
                     <select v-if='subCategory' class="uk-select uk-margin-remove uk-width-1-2 uk-overflow-auto" id="sortBy" @change="loadCourseList">
+                        <option selected value="getBySubCategoryFilterByTrending">{{byTrending}} </option>
                         <option value="getBySubCategoryFilterByPurchases">{{byPurchases}} </option>
-                        <option value="getBySubCategoryFilterByNewest">{{newest}} </option>
                         <option value="getBySubCategoryFilterByPoint">{{byPoint}} </option>
-                        <option value="getBySubCategoryFilterByOldest">{{oldest}} </option>
                         <option value="getBySubCategoryFilterByPriceASC">{{byInc}} </option>
                         <option value="getBySubCategoryFilterByPriceDESC">{{byDesc}} </option>
-                        <option selected value="getBySubCategoryFilterByTrending">{{byTrending}} </option>
+                        <option value="getBySubCategoryFilterByNewest">{{newest}} </option>
+                        <option value="getBySubCategoryFilterByOldest">{{oldest}} </option>
                     </select>
                 </div>
             </div>
             <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-margin" uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div ; delay: 200" uk-grid>
                 <div v-for="course in categoryCourses.data">
                     <course-card
-                        v-if="course.discount"
+                        v-if="course.price!=course.price_with_discount"
                         :title="course.name"
                         :description="course.description"
                         :img-path="course.image"
