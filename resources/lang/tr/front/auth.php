@@ -62,7 +62,7 @@ return [
     'oldest'=>'En Eski',
     'by_dec'=>'Azalan Fiyat',
     'by_inc'=>'Artan Fiyat',
-    'by_trending'=>'Trend Olanlar',
+    'by_trending'=>'Trendler',
     'by_point'=>'Puana Göre',
     'by_purchases'=>'Çok Satılanlar',
     'sort_by'=>'Sırala',
