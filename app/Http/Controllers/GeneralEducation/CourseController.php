@@ -17,15 +17,17 @@ class CourseController extends Controller
         // Operations
         $resp = $repo->get($id);
         $completedLessonsResp = $repo->getCompletedLessons($id, Auth::id());
-        $studentsResp = $repo->getStudents($id);
+        $entriesResp = $repo->getStudents($id);
         $progress = $repo->calculateProgress($resp->getData()->id, Auth::id());
         $data = [
             'course' => $resp->getData(),
-            'students' => $studentsResp->getData(),
+            'entries' => $entriesResp->getData(),
             'student_count' => count($resp->getData()->entries),
             'progress' => $progress,
             'completed' => $completedLessonsResp->getData(),
         ];
+
+        dd($data);
 
         // Response
         if($resp->getResult()){

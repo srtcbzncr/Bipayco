@@ -3,6 +3,7 @@
 namespace App\Repositories\GeneralEducation;
 
 use App\Models\Auth\Student;
+use App\Models\GeneralEducation\Entry;
 use App\Models\GeneralEducation\Section;
 use App\Repositories\IRepository;
 use App\Models\GeneralEducation\Course;
@@ -840,8 +841,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $course = Course::find($id);
-            $object = $course->entries->where('active', true)->orderBy('created_at', 'desc')->take(3);
+            $object = Entry::where('course_id', $id)->where('active', true)->orderBy('created_at', 'desc')->take(3)->get();
         }
         catch(\Exception $e){
             $error = $e;
@@ -950,7 +950,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $student = Student::where('user_id', $user_id)->first();
-            $object = DB::raw('SELECT * FROM ge_students_completed_lessons WHERE student_id='.$student->id.' AND lesson_id IN (SELECT id FROM ge_lessons WHERE section_id IN (SELECT id FROM ge_sections WHERE course_id='.$course_id.'))');
+            $object = DB::select('SELECT * FROM ge_students_completed_lessons WHERE student_id='.$student->id.' AND lesson_id IN (SELECT id FROM ge_lessons WHERE section_id IN (SELECT id FROM ge_sections WHERE course_id='.$course_id.'))');
         }
         catch(\Exception $e){
             $error = $e;
