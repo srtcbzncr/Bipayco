@@ -67,5 +67,17 @@ return [
     'by_purchases'=>'Çok Satılanlar',
     'sort_by'=>'Sırala',
     'course'=>'Kurs',
-    'sub_category'=>'Alt Kategori'
+    'sub_category'=>'Alt Kategori',
+    'enrolled_student'=>'öğrenci kayıtlı',
+    'continue'=>'Devam Et',
+    'about_this_course'=>'Kurs Hakkında',
+    'requirements'=>'Gereksinimler',
+    'achievements'=>'Kazanımlar',
+    'have_no_requirement'=>'Herhangi bir gereksinim bulunmamaktadır.',
+    'section'=>'Bölüm',
+    'reviews'=>'Yorumlar',
+    'meet_instructor'=>'Eğitmeninizi Tanıyın',
+    'instructor'=>'Eğitmen',
+    'videos_course'=>'Videolar',
+    'description'=>'Açıklama',
 ];

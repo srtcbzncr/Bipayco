@@ -17,6 +17,14 @@
             </div>
             <hr>
         </div>
+        <ul class="uk-pagination uk-flex-center uk-margin-medium">
+            <li class="uk-float-left">
+                <button v-show="currentPage!==1" @click="loadNewPages(courseReviews.links.prev,--currentPage)"> < </button>
+            </li>
+            <li class="uk-float-right">
+                <button v-show="currentPage<(reviewCount/paginateReview)" @click="loadNewPages(courseReviews.links.next,++currentPage)"> > </button>
+            </li>
+        </ul>
     </div>
 </template>
 <script>
@@ -30,6 +38,7 @@
         data(){
             return {
                 currentPage:1,
+                isLoaded:false,
             }
         },
         props:{
@@ -37,46 +46,28 @@
                 type:String,
                 requirement:true,
             },
+            reviewCount:{
+                type:Number,
+                requirement:true,
+            },
+            paginateReview:{
+                type:Number,
+                requirement:true,
+            }
         },
         computed:{
             ...mapState([
                 'courseReviews',
             ]),
-            pageNumber(){
-                var pages=['1'];
-                if(this.currentPage > 4){
-                    pages.push('...');
-                    for(var i=currentPage-2;i<currentPage+3;i++){
-                        pages.push(i);
-                    }
-                }else{
-                    for (var i=2;i<(this.courseCount/this.paginateCourse)+1;i++){
-                        pages.push(i);
-                    }
-                }
-                return pages;
-            },
-            selectedSortOption(){
-                return document.getElementById("sortBy").value;
-            }
         },
         methods:{
             ...mapActions([
                 'loadCourseReviews',
+                'loadNewPageReviews'
             ]),
-            loadCourseList: function(){
-                this.$store.dispatch('loadCategoryCourses',this.categoryId);
-            },
-            loadNewPage: function(name,newPageNumber){
-                this.$store.dispatch('loadNewPageCourses',name);
-                if(name==this.categoryCourses.links.next){
-                    this.currentPage++;
-                }
-                else if (name==this.categoryCourses.links.prev){
-                    this.currentPage--;
-                }else{
-                    this.currentPage=newPageNumber;
-                }
+            loadNewPages: function(name,newPageNumber){
+                this.$store.dispatch('loadNewPageReviews',name);
+                this.currentPage=newPageNumber;
             }
         },
     }

@@ -51,15 +51,18 @@ const actions={
         Axios.get('/api/course/'+sort+'/'+id)
             .then(response =>commit('setCategoryCourses',response))
     },
-    loadNewPageCourses({commit}, id){
-        var sort = document.getElementById("sortBy").value;
+    loadNewPage({commit}, id){
         Axios.get(id)
-            .then(response =>commit('setCategoryCourses',response))
+            .then(response =>commit('setCategoryCourses',response.data))
     },
     loadCourseReviews({commit},id){
         Axios.get('/api/course/'+id+"/comments")
             .then(response =>commit('setCourseReviews',response.data));
-    }
+    },
+    loadNewPageReviews({commit}, id){
+        Axios.get(id)
+            .then(response =>commit('setCourseReviews',response.data));
+    },
 };
 
 const store=new Vuex.Store({

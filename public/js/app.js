@@ -2108,20 +2108,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return document.getElementById("sortBy").value;
     }
   }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCategoryCourses']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCategoryCourses', 'loadNewPageCourses']), {
     loadCourseList: function loadCourseList() {
       this.$store.dispatch('loadCategoryCourses', this.categoryId);
     },
     loadNewPage: function loadNewPage(name, newPageNumber) {
       this.$store.dispatch('loadNewPageCourses', name);
-
-      if (name == this.categoryCourses.links.next) {
-        this.currentPage++;
-      } else if (name == this.categoryCourses.links.prev) {
-        this.currentPage--;
-      } else {
-        this.currentPage = newPageNumber;
-      }
+      this.currentPage = newPageNumber;
     }
   })
 });
@@ -2165,6 +2158,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-review",
@@ -2173,51 +2174,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      currentPage: 1
+      currentPage: 1,
+      isLoaded: false
     };
   },
   props: {
     courseId: {
       type: String,
       requirement: true
+    },
+    reviewCount: {
+      type: Number,
+      requirement: true
+    },
+    paginateReview: {
+      type: Number,
+      requirement: true
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseReviews']), {
-    pageNumber: function pageNumber() {
-      var pages = ['1'];
-
-      if (this.currentPage > 4) {
-        pages.push('...');
-
-        for (var i = currentPage - 2; i < currentPage + 3; i++) {
-          pages.push(i);
-        }
-      } else {
-        for (var i = 2; i < this.courseCount / this.paginateCourse + 1; i++) {
-          pages.push(i);
-        }
-      }
-
-      return pages;
-    },
-    selectedSortOption: function selectedSortOption() {
-      return document.getElementById("sortBy").value;
-    }
-  }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCourseReviews']), {
-    loadCourseList: function loadCourseList() {
-      this.$store.dispatch('loadCategoryCourses', this.categoryId);
-    },
-    loadNewPage: function loadNewPage(name, newPageNumber) {
-      this.$store.dispatch('loadNewPageCourses', name);
-
-      if (name == this.categoryCourses.links.next) {
-        this.currentPage++;
-      } else if (name == this.categoryCourses.links.prev) {
-        this.currentPage--;
-      } else {
-        this.currentPage = newPageNumber;
-      }
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseReviews'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCourseReviews', 'loadNewPageReviews']), {
+    loadNewPages: function loadNewPages(name, newPageNumber) {
+      this.$store.dispatch('loadNewPageReviews', name);
+      this.currentPage = newPageNumber;
     }
   })
 });
@@ -4785,7 +4764,10 @@ var render = function() {
                     ],
                     on: {
                       click: function($event) {
-                        return _vm.loadNewPage(_vm.categoryCourses.links.prev)
+                        return _vm.loadNewPage(
+                          _vm.categoryCourses.links.prev,
+                          --_vm.currentPage
+                        )
                       }
                     }
                   },
@@ -4834,7 +4816,10 @@ var render = function() {
                     ],
                     on: {
                       click: function($event) {
-                        return _vm.loadNewPage(_vm.categoryCourses.links.next)
+                        return _vm.loadNewPage(
+                          _vm.categoryCourses.links.next,
+                          ++_vm.currentPage
+                        )
                       }
                     }
                   },
@@ -4883,58 +4868,123 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.courseReviews, function(review) {
-      return _c("div", [
-        _c(
-          "div",
-          {
-            staticClass: "uk-grid-small  uk-margin-medium-top",
-            attrs: { "uk-grid": "" }
-          },
-          [
-            _c("div", { staticClass: "uk-width-1-5 uk-first-column" }, [
-              _c("img", {
-                staticClass:
-                  "uk-width-1-2 uk-margin-small-top uk-margin-small-bottom uk-border-circle uk-align-center  uk-box-shadow-large",
-                attrs: { alt: "Image", src: review.user.avatar }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "uk-width-4-5 uk-padding-remove-left" }, [
+    [
+      _vm._l(_vm.courseReviews, function(review) {
+        return _c("div", [
+          _c(
+            "div",
+            {
+              staticClass: "uk-grid-small  uk-margin-medium-top",
+              attrs: { "uk-grid": "" }
+            },
+            [
+              _c("div", { staticClass: "uk-width-1-5 uk-first-column" }, [
+                _c("img", {
+                  staticClass:
+                    "uk-width-1-2 uk-margin-small-top uk-margin-small-bottom uk-border-circle uk-align-center  uk-box-shadow-large",
+                  attrs: { alt: "Image", src: review.user.avatar }
+                })
+              ]),
+              _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "uk-float-right" },
-                [_c("stars-rating", { attrs: { rating: review.point } })],
-                1
-              ),
-              _vm._v(" "),
-              _c("h4", { staticClass: "uk-margin-remove" }, [
-                _vm._v(
-                  _vm._s(review.user.first_name) +
-                    " " +
-                    _vm._s(review.user.last_name)
-                )
-              ]),
-              _vm._v(" "),
-              _c("span", { staticClass: "uk-text-small" }, [
-                _vm._v(_vm._s(review.created_at) + " ")
-              ]),
-              _vm._v(" "),
-              _c("hr", { staticClass: "uk-margin-small" }),
-              _vm._v(" "),
-              _c(
-                "p",
-                { staticClass: "uk-margin-remove-top uk-margin-small-bottom" },
-                [_vm._v(_vm._s(review.content))]
+                { staticClass: "uk-width-4-5 uk-padding-remove-left" },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "uk-float-right" },
+                    [_c("stars-rating", { attrs: { rating: review.point } })],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("h4", { staticClass: "uk-margin-remove" }, [
+                    _vm._v(
+                      _vm._s(review.user.first_name) +
+                        " " +
+                        _vm._s(review.user.last_name)
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "uk-text-small" }, [
+                    _vm._v(_vm._s(review.created_at) + " ")
+                  ]),
+                  _vm._v(" "),
+                  _c("hr", { staticClass: "uk-margin-small" }),
+                  _vm._v(" "),
+                  _c(
+                    "p",
+                    {
+                      staticClass: "uk-margin-remove-top uk-margin-small-bottom"
+                    },
+                    [_vm._v(_vm._s(review.content))]
+                  )
+                ]
               )
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c("hr")
-      ])
-    }),
-    0
+            ]
+          ),
+          _vm._v(" "),
+          _c("hr")
+        ])
+      }),
+      _vm._v(" "),
+      _c(
+        "ul",
+        { staticClass: "uk-pagination uk-flex-center uk-margin-medium" },
+        [
+          _c("li", { staticClass: "uk-float-left" }, [
+            _c(
+              "button",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value: _vm.currentPage !== 1,
+                    expression: "currentPage!==1"
+                  }
+                ],
+                on: {
+                  click: function($event) {
+                    return _vm.loadNewPages(
+                      _vm.courseReviews.links.prev,
+                      --_vm.currentPage
+                    )
+                  }
+                }
+              },
+              [_vm._v(" < ")]
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "uk-float-right" }, [
+            _c(
+              "button",
+              {
+                directives: [
+                  {
+                    name: "show",
+                    rawName: "v-show",
+                    value:
+                      _vm.currentPage < _vm.reviewCount / _vm.paginateReview,
+                    expression: "currentPage<(reviewCount/paginateReview)"
+                  }
+                ],
+                on: {
+                  click: function($event) {
+                    return _vm.loadNewPages(
+                      _vm.courseReviews.links.next,
+                      ++_vm.currentPage
+                    )
+                  }
+                }
+              },
+              [_vm._v(" > ")]
+            )
+          ])
+        ]
+      )
+    ],
+    2
   )
 }
 var staticRenderFns = []
@@ -21368,16 +21418,21 @@ var actions = {
       return commit('setCategoryCourses', response);
     });
   },
-  loadNewPageCourses: function loadNewPageCourses(_ref5, id) {
+  loadNewPage: function loadNewPage(_ref5, id) {
     var commit = _ref5.commit;
-    var sort = document.getElementById("sortBy").value;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(id).then(function (response) {
-      return commit('setCategoryCourses', response);
+      return commit('setCategoryCourses', response.data);
     });
   },
   loadCourseReviews: function loadCourseReviews(_ref6, id) {
     var commit = _ref6.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/course/' + id + "/comments").then(function (response) {
+      return commit('setCourseReviews', response.data);
+    });
+  },
+  loadNewPageReviews: function loadNewPageReviews(_ref7, id) {
+    var commit = _ref7.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(id).then(function (response) {
       return commit('setCourseReviews', response.data);
     });
   }
