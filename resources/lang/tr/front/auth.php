@@ -80,4 +80,5 @@ return [
     'instructor'=>'Eğitmen',
     'videos_course'=>'Videolar',
     'description'=>'Açıklama',
+    'explore'=>'Keşfet',
 ];
