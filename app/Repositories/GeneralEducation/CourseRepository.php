@@ -624,6 +624,10 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
+    public function getManagerInstructor($id){
+
+    }
+
     public function getAchievements($id){
         // Response variables
         $result = true;

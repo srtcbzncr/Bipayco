@@ -62,12 +62,14 @@ class SubCategoryRepository implements IRepository{
         // Operations
         try{
             $symbolPath = Storage::url($data['symbol']->store('public/symbols'));
+            $imagePath = Storage::url($data['image']->store('public/images'));
             $object = new SubCategory;
             $object->category_id = $data['category_id'];
             $object->name = $data['name'];
             $object->description = $data['description'];
             $object->color = $data['color'];
             $object->symbol = $symbolPath;
+            $object->image = $imagePath;
             $object->save();
         }
         catch(\Exception $e){
@@ -133,6 +135,33 @@ class SubCategoryRepository implements IRepository{
         return $resp;
     }
 
+    public function updateImage($id, array $data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $object = SubCategory::find($id);
+            Storage::delete($object->image);
+            $imagePath = Storage::url($data['image']->store('public/image'));
+            $object->symbol = $imagePath;
+            $object->save();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
     public function delete($id)
     {
         // Response variables
@@ -144,6 +173,7 @@ class SubCategoryRepository implements IRepository{
         try{
             $subCategory = SubCategory::find($id);
             Storage::delete($subCategory->symbol);
+            Storage::delete($subCategory->image);
             $subCategory->delete();
         }
         catch(\Exception $e){

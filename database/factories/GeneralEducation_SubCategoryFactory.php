@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Storage;
 $factory->define(SubCategory::class, function (Faker $faker) {
     $file = UploadedFile::fake()->image('deneme.jpg');
     $symbolPath = Storage::url(Storage::putFile('public/symbols', $file));
+    $imagePath = Storage::url(Storage::putFile('public/images', $file));
     $category = Category::orderByRaw('RAND()')->take(1)->first();
     return [
         'category_id' => $category->id,
@@ -18,5 +19,6 @@ $factory->define(SubCategory::class, function (Faker $faker) {
         'description' => $faker->sentence,
         'color' => $faker->hexColor,
         'symbol' => $symbolPath,
+        'image' => $imagePath,
     ];
 });

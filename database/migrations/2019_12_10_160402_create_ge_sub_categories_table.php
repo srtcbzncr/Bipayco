@@ -19,7 +19,8 @@ class CreateGeSubCategoriesTable extends Migration
             $table->string('name', 500);
             $table->string('description');
             $table->string('color', 7);
-            $table->string('symbol');
+            $table->string('symbol', 500);
+            $table->string('image', 500);
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();

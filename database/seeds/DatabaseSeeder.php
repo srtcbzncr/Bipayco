@@ -35,13 +35,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        factory(Guardian::class, 20)->create();
-        factory(School::class, 10)->create();
-        factory(Student::class, 50)->create();
-        factory(SocialMedia::class, 5)->create();
-        factory(Category::class, 10)->create();
-        factory(SubCategory::class, 20)->create();
-        factory(Course::class, 10)->create()->each(function($course){
+        factory(Guardian::class, 100)->create();
+        factory(School::class, 100)->create();
+        factory(Student::class, 100)->create();
+        factory(SocialMedia::class, 10)->create();
+        factory(Category::class, 100)->create();
+        factory(SubCategory::class, 500)->create();
+        factory(Course::class, 100)->create()->each(function($course){
             $random = rand(1,5);
             $i = 0;
             while($i < $random){
@@ -53,20 +53,20 @@ class DatabaseSeeder extends Seeder
                 $i = $i + 1;
             }
         });
-        factory(Section::class, 30)->create();
-        factory(Lesson::class, 100)->create();
-        factory(Achievement::class,100)->create();
-        factory(Comment::class, 200)->create();
-        factory(Discount::class, 10)->create();
-        factory(Entry::class, 20)->create();
-        factory(Favorite::class, 20)->create();
-        factory(Notice::class, 30)->create();
-        factory(Purchase::class, 20)->create();
-        factory(Question::class, 20)->create();
-        factory(Answer::class, 50)->create();
-        factory(Rebate::class, 20)->create();
-        factory(Requirement::class, 100)->create();
-        factory(Source::class, 30)->create();
-        factory(Tag::class, 100)->create();
+        factory(Section::class, 500)->create();
+        factory(Lesson::class, 1000)->create();
+        factory(Achievement::class, 1000)->create();
+        factory(Comment::class, 2000)->create();
+        factory(Discount::class, 100)->create();
+        factory(Entry::class, 200)->create();
+        factory(Favorite::class, 200)->create();
+        factory(Notice::class, 300)->create();
+        factory(Purchase::class, 200)->create();
+        factory(Question::class, 200)->create();
+        factory(Answer::class, 500)->create();
+        factory(Rebate::class, 200)->create();
+        factory(Requirement::class, 1000)->create();
+        factory(Source::class, 300)->create();
+        factory(Tag::class, 1000)->create();
     }
 }

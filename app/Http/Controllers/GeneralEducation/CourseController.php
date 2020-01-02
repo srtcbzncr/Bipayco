@@ -19,6 +19,7 @@ class CourseController extends Controller
         $completedLessonsResp = $repo->getCompletedLessons($id, Auth::id());
         $entriesResp = $repo->getStudents($id);
         $progress = $repo->calculateProgress($resp->getData()->id, Auth::id());
+        $instructors = $repo->getInstructors($id);
         $data = [
             'course' => $resp->getData(),
             'entries' => $entriesResp->getData(),
