@@ -26,7 +26,7 @@ class CourseController extends Controller
             'student_count' => count($resp->getData()->entries),
             'progress' => $progress,
             'completed' => $completedLessonsResp->getData(),
-            'similar_courses' => $similarCourses,
+            'similar_courses' => $similarCourses->getData(),
         ];
 
         // Response
