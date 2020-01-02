@@ -25,6 +25,7 @@ class CategoryController extends Controller
                 'category' => $categoryResp->getData(),
                 'course_count' => $courseCount,
                 'sub_categories_count' => $subCategoriesCount,
+                'sub_categories' => $subCategoriesResp->getData(),
             ]);
         }
         else{
