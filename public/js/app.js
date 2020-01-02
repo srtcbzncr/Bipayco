@@ -2129,7 +2129,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-card-pagination",
@@ -21705,10 +21704,10 @@ var actions = {
       return commit('setCategoryCourses', response);
     });
   },
-  loadNewPage: function loadNewPage(_ref5, id) {
+  loadNewPageCourses: function loadNewPageCourses(_ref5, id) {
     var commit = _ref5.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(id).then(function (response) {
-      return commit('setCategoryCourses', response.data);
+      return commit('setCategoryCourses', response);
     });
   },
   loadCourseReviews: function loadCourseReviews(_ref6, id) {

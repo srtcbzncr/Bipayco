@@ -57,7 +57,6 @@
                     > </course-card>
                 </div>
             </div>
-
             <ul class="uk-pagination uk-flex-center uk-margin-medium">
                 <li>
                     <button v-show="currentPage>1" @click="loadNewPage(categoryCourses.links.prev,--currentPage)"> < </button>
@@ -82,8 +81,8 @@
     export default {
         name: "course-card-pagination",
         mounted() {
-            if (this.courseCount>0){
-                this.$store.dispatch('loadCategoryCourses',this.categoryId);
+            if (this.courseCount>0) {
+                this.$store.dispatch('loadCategoryCourses', this.categoryId);
             }
         },
         data(){
