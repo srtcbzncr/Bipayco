@@ -27,4 +27,8 @@ class Instructor extends Model
     public function geCourses(){
         return $this->belongsToMany('App\Models\GeneralEducation\Course', 'ge_courses_instructors', 'instructor_id', 'course_id')->withPivot('is_manager', 'percent');
     }
+
+    public function courseCount(){
+        return $this->geCourses->count();
+    }
 }
