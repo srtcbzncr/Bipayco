@@ -41,7 +41,7 @@
                         :current-price="{{$general_educations->price}}"
                         @endif
                         :rate="{{$general_educations->point}}"
-                        page-link="/ge/course/{{$general_educations->id}}"
+                        page-link="{{route('ge_course', $general_educations->id)}}"
                     ></course-card>
                 </li>
             @endforeach

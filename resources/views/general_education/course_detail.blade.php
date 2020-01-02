@@ -241,8 +241,26 @@
             <!-- side contant -->
             <div class="uk-width-1-3@m uk-visible@m">
                 <h3 class="uk-text-bold"> Related Courses </h3>
-                <course-card></course-card>
-                <course-card></course-card>
+                @foreach($similar_courses as $similar_course)
+                    <div class="uk-margin-small-bottom">
+                        <course-card
+                            title="{{$similar_course->name}}"
+                            description="{{$similar_course->description}}"
+                            img-path="{{$similar_course->image}}"
+                            @if($similar_course->price!=$similar_course->price_with_discount)
+                            discount
+                            :current-price="{{$similar_course->price_with_discount}}"
+                            :prev-price="{{$similar_course->price}}"
+                            @else
+                            :current-price="{{$similar_course->price}}"
+                            @endif
+                            :rate="{{$similar_course->point}}"
+                            page-link="/ge/course/{{$similar_course->id}}"
+                            style-full-star-color="#F4C150"
+                            style-empty-star-color="#C1C1C1"
+                        ></course-card>
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>

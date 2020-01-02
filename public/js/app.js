@@ -2355,7 +2355,9 @@ __webpack_require__.r(__webpack_exports__);
     inCart: {
       type: Boolean,
       "default": false
-    }
+    },
+    styleFullStarColor: String,
+    styleEmptyStarColor: String
   },
   computed: {
     cPrice: function cPrice() {
@@ -5289,7 +5291,15 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            [_c("stars-rating", { attrs: { rating: Number(_vm.rate) } })],
+            [
+              _c("stars-rating", {
+                attrs: {
+                  rating: Number(_vm.rate),
+                  "style-full-star-color": _vm.styleFullStarColor,
+                  "style-empty-star-color": _vm.styleEmptyStarColor
+                }
+              })
+            ],
             1
           ),
           _vm._v(" "),
