@@ -42,6 +42,8 @@
                         @endif
                         :rate="{{$general_educations->point}}"
                         page-link="{{route('ge_course', $general_educations->id)}}"
+                        style-full-star-color="#F4C150"
+                        style-empty-star-color="#C1C1C1"
                     ></course-card>
                 </li>
             @endforeach
