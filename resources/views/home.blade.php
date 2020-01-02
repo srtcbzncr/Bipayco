@@ -16,7 +16,7 @@
                 <p>@lang('front/auth.popular_in_category')</p>
             </div>
             <div class="uk-float-right">
-                <a href="blog-video-one.html" class="uk-button uk-button-grey">@lang('front/auth.see_more')</a>
+                <a href="{{route('ge_index')}}" class="uk-button uk-button-grey">@lang('front/auth.see_more')</a>
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@
         <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
             <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
             @foreach($general_education as $general_educations)
-                <li>
+                        <li>
                     <course-card
                         title="{{$general_educations->name}}"
                         description="{{$general_educations->description}}"

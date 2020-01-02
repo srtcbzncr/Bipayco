@@ -10,7 +10,7 @@
                     <a href="#"> <i class="fas fa-play"> </i> </a>
                     <div class="side-menu-slide" style="overflow-y: auto">
                         <div class="side-menu-slide-content" >
-                            <a class="uk-background-grey uk-margin-remove general-title" style=":hover "><b>{{generalEducation}}</b></a>
+                            <a class="uk-background-grey uk-margin-remove general-title" style=":hover" :href="generalEducationRoute"><b>{{generalEducation}}</b></a>
                             <ul uk-accordion>
                                 <li v-for="category in categories" class=" uk-margin-remove-top">
                                     <a class="uk-accordion-title" :id="category.id"> <i class="fas fa-layer-group"> </i>{{category.name}}</a>
@@ -157,8 +157,12 @@ export default {
     name: "side-bar",
     props:{
         homeRoute:String,
-        generalEducation:String,
+        generalEducation:{
+            type:String,
+            default:'Genel Eğitim'
+        },
         allOfCategory:String,
+        generalEducationRoute:String,
     },
     computed:{
         ...mapState([

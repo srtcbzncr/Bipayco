@@ -1994,17 +1994,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "categoryCard",
   props: {
     backgroundColor: {
-      color: {
-        type: String,
-        "default": '#005b90'
-      }
+      type: String,
+      "default": '#005b90'
     },
     subCategoryName: {
       type: String,
@@ -2028,8 +2023,13 @@ __webpack_require__.r(__webpack_exports__);
       "default": 'Kurs'
     },
     courseCount: {
-      type: Number,
-      "default": 0
+      type: String,
+      "default": "0"
+    }
+  },
+  computed: {
+    color: function color() {
+      return "background:" + this.backgroundColor;
     }
   }
 });
@@ -2635,8 +2635,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "side-bar",
   props: {
     homeRoute: String,
-    generalEducation: String,
-    allOfCategory: String
+    generalEducation: {
+      type: String,
+      "default": 'Genel Eğitim'
+    },
+    allOfCategory: String,
+    generalEducationRoute: String
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categories'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCategories'])),
@@ -4607,7 +4611,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "uk-width-1-2@s uk-width-1-3@m" }, [
+  return _c("div", { staticClass: "uk-width uk-height" }, [
     _c(
       "div",
       { staticClass: "uk-card-default uk-card-hover card-tags uk-card-small" },
@@ -4616,14 +4620,28 @@ var render = function() {
           "div",
           {
             staticClass: "uk-padding-small card-tags-header",
-            style: _vm.backgroundColor
+            style: _vm.color
           },
           [
             _c("div", { attrs: { "uk-grid": "" } }, [
               _c("div", { staticClass: "uk-width-3-5" }, [
-                _c("h3", { staticClass: "uk-light uk-margin-small-top" }, [
-                  _vm._v(" " + _vm._s(_vm.subCategoryName))
-                ]),
+                _c(
+                  "h3",
+                  {
+                    staticClass:
+                      "uk-light uk-margin-small-top uk-height-medium",
+                    staticStyle: {
+                      overflow: "hidden",
+                      "text-overflow": "ellipsis",
+                      display: "-webkit-box",
+                      "line-height": "26px",
+                      "max-height": "52px",
+                      "-webkit-line-clamp": "2",
+                      "-webkit-box-orient": "vertical"
+                    }
+                  },
+                  [_vm._v(" " + _vm._s(_vm.subCategoryName))]
+                ),
                 _vm._v(" "),
                 _c("h6", { staticClass: "uk-light uk-margin-small-top" }, [
                   _vm._v(_vm._s(_vm.courseCount) + " " + _vm._s(_vm.course))
@@ -4648,20 +4666,28 @@ var render = function() {
         ),
         _vm._v(" "),
         _c("div", { staticClass: "uk-card-body" }, [
-          _c("p", [_vm._v(_vm._s(_vm.subCategoryDesc))]),
+          _c(
+            "p",
+            {
+              staticClass: "uk-height-small uk-margin-small-top",
+              staticStyle: {
+                overflow: "hidden",
+                "text-overflow": "ellipsis",
+                display: "-webkit-box",
+                "line-height": "16px",
+                "max-height": "32px",
+                "-webkit-line-clamp": "2",
+                "-webkit-box-orient": "vertical"
+              }
+            },
+            [_vm._v(_vm._s(_vm.subCategoryDesc))]
+          ),
           _vm._v(" "),
           _c("div", { staticClass: "uk-clearfix" }, [
-            _c("div", { staticClass: "uk-float-left" }, [
+            _c("div", { staticClass: "uk-float-left uk-margin-top" }, [
               _c("a", { staticClass: "card-span-ex", attrs: { href: "#" } }, [
                 _vm._v(" " + _vm._s(_vm.explore) + " ")
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "uk-float-right" }, [
-              _c("a", {
-                staticClass: "Course-tags Course-tags-more",
-                attrs: { href: _vm.subCategoryRoute }
-              })
             ])
           ])
         ])
@@ -5662,7 +5688,8 @@ var render = function() {
                 {
                   staticClass:
                     "uk-background-grey uk-margin-remove general-title",
-                  staticStyle: { "": "hover" }
+                  staticStyle: { "": "hover" },
+                  attrs: { href: _vm.generalEducationRoute }
                 },
                 [_c("b", [_vm._v(_vm._s(_vm.generalEducation))])]
               ),

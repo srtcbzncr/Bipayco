@@ -40,6 +40,7 @@
     <div class="side-nav uk-animation-slide-left-medium" id="side-nav">
         <span class="uk-animation-fade tm-mobile-close-icon" uk-toggle="target: #side-nav; cls: side-nav-active"> <i class="fas fa-times icon-large"></i></span>
         <side-bar
+            general-education-route="{{route('ge_index')}}"
             home-route="{{route('home')}}"
             general-education="@lang('front/auth.general_education')"
             all-of-category="@lang('front/auth.all_of_category')"

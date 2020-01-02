@@ -1,10 +1,10 @@
 <template>
-    <div class="uk-width-1-2@s uk-width-1-3@m">
+    <div class="uk-width uk-height">
         <div class="uk-card-default uk-card-hover card-tags uk-card-small">
-            <div class="uk-padding-small card-tags-header" :style="backgroundColor">
+            <div class="uk-padding-small card-tags-header" :style="color">
                 <div uk-grid>
                     <div class="uk-width-3-5">
-                        <h3 class="uk-light uk-margin-small-top"> {{subCategoryName}}</h3>
+                        <h3 class="uk-light uk-margin-small-top uk-height-medium" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 26px; max-height: 52px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"> {{subCategoryName}}</h3>
                         <h6 class="uk-light uk-margin-small-top">{{courseCount}} {{course}}</h6>
                     </div>
                     <div class="uk-width-2-5 uk-padding-remove uk-flex uk-flex-middle">
@@ -13,13 +13,10 @@
                 </div>
             </div>
             <div class="uk-card-body">
-                <p>{{subCategoryDesc}}</p>
+                <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small uk-margin-small-top">{{subCategoryDesc}}</p>
                 <div class="uk-clearfix">
-                    <div class="uk-float-left">
+                    <div class="uk-float-left uk-margin-top">
                         <a class="card-span-ex" href="#"> {{explore}} </a>
-                    </div>
-                    <div class="uk-float-right">
-                        <a class="Course-tags Course-tags-more" :href="subCategoryRoute"> </a>
                     </div>
                 </div>
             </div>
@@ -34,10 +31,8 @@
         name: "categoryCard",
         props:{
             backgroundColor:{
-                color:{
-                    type:String,
-                    default:'#005b90'
-                },
+                type:String,
+                default:'#005b90'
             },
             subCategoryName: {
                 type: String,
@@ -61,9 +56,14 @@
                 default:'Kurs'
             },
             courseCount:{
-                type:Number,
-                default:0,
+                type:String,
+                default:"0",
             },
+        },
+        computed:{
+            color(){
+                return "background:"+this.backgroundColor;
+            }
         }
     }
 </script>
