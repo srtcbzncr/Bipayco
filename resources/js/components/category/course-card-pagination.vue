@@ -56,13 +56,13 @@
 
             <ul class="uk-pagination uk-flex-center uk-margin-medium">
                 <li>
-                    <button v-show="currentPage>1" @click="loadNewPage(categoryCourses.links.prev)"> < </button>
+                    <button v-show="currentPage>1" @click="loadNewPage(categoryCourses.links.prev,--currentPage)"> < </button>
                 </li>
                 <li v-for="page in pageNumber">
                     <button @click="loadNewPage('/api/course/'+selectedSortOption+'/'+categoryId+'?page='+page,page)">{{page}}</button>
                 </li>
                 <li>
-                    <button v-show="currentPage<(this.courseCount/this.paginateCourse)" @click="loadNewPage(categoryCourses.links.next)"> > </button>
+                    <button v-show="currentPage<(this.courseCount/this.paginateCourse)" @click="loadNewPage(categoryCourses.links.next,++currentPage)"> > </button>
                 </li>
             </ul>
         </div>
@@ -139,20 +139,14 @@
         methods:{
             ...mapActions([
                 'loadCategoryCourses',
+                'loadNewPageCourses'
             ]),
             loadCourseList: function(){
                 this.$store.dispatch('loadCategoryCourses',this.categoryId);
             },
             loadNewPage: function(name,newPageNumber){
                 this.$store.dispatch('loadNewPageCourses',name);
-                if(name==this.categoryCourses.links.next){
-                    this.currentPage++;
-                }
-                else if (name==this.categoryCourses.links.prev){
-                    this.currentPage--;
-                }else{
-                    this.currentPage=newPageNumber;
-                }
+                this.currentPage=newPageNumber;
             }
         },
     }

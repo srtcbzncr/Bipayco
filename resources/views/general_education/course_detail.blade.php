@@ -24,12 +24,12 @@
                     @foreach($entries as $entry)
                         <img src="{{$entry->student->user->avatar}}">
                     @endforeach
-                    <span class="uk-text-bold uk-light"> {{$student_count}} + students enrolled </span>
+                    <span class="uk-text-bold uk-light"> {{$student_count}} @lang('front/auth.enrolled_student') </span>
                 </div>
                 @if(Auth::check() && Auth::user()->can('entry',$course))
                     <div class="uk-grid-small" uk-grid>
                         <div class="uk-width-auto">
-                            <a class="uk-button uk-button-white uk-float-left" href="Course-lesson.html" uk-tooltip="title: Star This course now  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"> Continue</a>
+                            <a class="uk-button uk-button-white uk-float-left" href="Course-lesson.html" uk-tooltip="title: Star This course now  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"> @lang('front/auth.continue')</a>
                         </div>
                         <div class="uk-width-expand">
                             <span class="uk-light uk-text-small uk-text-bold"> My progress </span>
@@ -48,16 +48,16 @@
     </div>
     <ul class="uk-child-width-expand course-dhashboard-subnav" uk-tab>
         <li class="uk-active">
-            <a href="#" class="tablinks" onclick="openTabs(event, 'Description')"> Description  </a>
+            <a href="#" class="tablinks" onclick="openTabs(event, 'Description')"> @lang('front/auth.description')  </a>
         </li>
         <li>
-            <a href="#" class="tablinks" onclick="openTabs(event, 'Course-Videos')"> <span class="uk-visible@m"> Course </span>  Videos </a>
+            <a href="#" class="tablinks" onclick="openTabs(event, 'Course-Videos')"> <!--<span class="uk-visible@m"> Kurs </span>-->  @lang('front/auth.videos_course') </a>
         </li>
         <li>
-            <a href="#" class="tablinks" onclick="openTabs(event, 'Reviews')"> Reviews </a>
+            <a href="#" class="tablinks" onclick="openTabs(event, 'Reviews')"> @lang('front/auth.reviews') </a>
         </li>
         <li>
-            <a href="#" class="tablinks" onclick="openTabs(event, 'Instructor')"> Instructor </a>
+            <a href="#" class="tablinks" onclick="openTabs(event, 'Instructor')"> @lang('front/auth.instructor') </a>
         </li>
     </ul>
     <div class="uk-container tm-hero">
@@ -66,22 +66,22 @@
             <div class="uk-width-2-3@m uk-first-column">
                 <!-- Discription tab  -->
                 <div id="Description" class="tabcontent tab-default-open animation: uk-animation-slide-right-medium">
-                    <h3> About this Course</h3>
+                    <h3> @lang('front/auth.about_this_course')</h3>
                     <p>{{$course->description}}</p>
-                    <h4> Mauris Faucibus</h4>
+                    <h4> @lang('front/auth.requirements')</h4>
                     <ul class="uk-list uk-list-bullet">
                         @forelse($course->requirements as $requirement)
                             <li>{{$requirement->content}}</li>
                         @empty
-                            <p>Herhangi bir gereksinim bulunmamaktadır.</p>
+                            <p>@lang('front/auth.have_no_requirement')</p>
                         @endforelse
                     </ul>
-                    <h4>  Pellentesque Elementum Tellus Id Mauris Faucibus</h4>
+                    <h4>  @lang('front/auth.achievements')</h4>
                     <ul class="uk-list uk-list-bullet">
                         @forelse($course->achievements as $achievement)
                             <li>{{$achievement->content}}</li>
                         @empty
-                            <p>Herhangi bir gereksinim bulunmamaktadır.</p>
+                            <p>@lang('front/auth.have_no_requirement')</p>
                         @endforelse
                     </ul>
                 </div>
@@ -90,7 +90,7 @@
                     <ul uk-accordion="" class="uk-accordion">
                         @forelse($course->sections as $section)
                         <li class="tm-course-lesson-section uk-background-default">
-                            <a class="uk-accordion-title uk-padding-small" href="#"><h6> section {{$section->no}}</h6> <h4 class="uk-margin-remove"> {{$section->name}}</h4> </a>
+                            <a class="uk-accordion-title uk-padding-small" href="#"><h6> @lang('front/auth.section') {{$section->no}}</h6> <h4 class="uk-margin-remove"> {{$section->name}}</h4> </a>
                             <div class="uk-accordion-content uk-margin-remove-top">
                                 <div class="tm-course-section-list">
                                     <ul>
@@ -112,14 +112,14 @@
                                             @endif
                                         </li>
                                         @empty
-                                            <p>Herhangi bir gereksinim bulunmamaktadır.</p>
+                                            <p>@lang('front/auth.have_no_requirement')</p>
                                         @endforelse
                                     </ul>
                                 </div>
                             </div>
                         </li>
                         @empty
-                            <p>Herhangi bir gereksinim bulunmamaktadır.</p>
+                            <p>@lang('front/auth.have_no_requirement')</p>
                         @endforelse
                     </ul>
 
@@ -145,23 +145,16 @@
                 </div>
                 <!-- Reviews  -->
                 <div id="Reviews" class="tabcontent animation: uk-animation-slide-right-medium">
-                    <h3>Reviews</h3>
-                    <course-review></course-review>
-                    <div class="uk-padding-small uk-background-light uk-position-relative">
-                        <div class="uk-flex-middle uk-grid-small uk-grid-stack" uk-grid>
-                            <div class="uk-width-1-6 uk-flex-first uk-first-column">
-                                <img src="#" alt="Image" class="uk-width-1-2 uk-border-circle">
-                            </div>
-                            <div class="uk-width-5-6">
-                                <p class="uk-margin-remove-bottom uk-text-bold uk-text-small">John keniss  </p>
-                                <p class="uk-margin-remove">Etiam sit amet augue non velit aliquet consectetur. Proin gravida, odio in facilisis pharetra, neque enim aliquam eros,.</p>
-                            </div>
-                        </div>
-                    </div>
+                    <h3 style="tab-index: 1">@lang('front/auth.reviews')</h3>
+                    <course-review
+                        course-id="{{$course->id}}"
+                        :review-count="20"
+                        :paginate-review="10"
+                    ></course-review>
                 </div>
                 <!-- Instructor  -->
                 <div id="Instructor" class="tabcontent animation: uk-animation-slide-right-medium">
-                    <h2 class="uk-heading-line uk-text-center"><span> Meet the instructor  </span></h2>
+                    <h2 class="uk-heading-line uk-text-center"><span> @lang('front/auth.meet_instructor')  </span></h2>
                     @foreach($course->instructors as $instructor)
                     <div class="uk-grid-small  uk-margin-medium-top uk-padding-small" uk-grid>
                         <div class="uk-width-1-4@m uk-first-column">
