@@ -41,7 +41,9 @@
                         :prev-price="course.price"
                         :rate="course.point"
                         :page-link="'/ge/course/'+course.id"
-                        > </course-card>
+                        style-full-star-color="#F4C150"
+                        style-empty-star-color="#C1C1C1"
+                    > </course-card>
                     <course-card
                         v-else
                         :title="course.name"
@@ -50,6 +52,8 @@
                         :current-price="course.price"
                         :rate="course.point"
                         :page-link="'/ge/course/'+course.id"
+                        style-full-star-color="#F4C150"
+                        style-empty-star-color="#C1C1C1"
                     > </course-card>
                 </div>
             </div>

@@ -2126,6 +2126,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-card-pagination",
@@ -4926,7 +4930,9 @@ var render = function() {
                           "current-price": course.price_with_discount,
                           "prev-price": course.price,
                           rate: course.point,
-                          "page-link": "/ge/course/" + course.id
+                          "page-link": "/ge/course/" + course.id,
+                          "style-full-star-color": "#F4C150",
+                          "style-empty-star-color": "#C1C1C1"
                         }
                       })
                     : _c("course-card", {
@@ -4936,7 +4942,9 @@ var render = function() {
                           "img-path": course.image,
                           "current-price": course.price,
                           rate: course.point,
-                          "page-link": "/ge/course/" + course.id
+                          "page-link": "/ge/course/" + course.id,
+                          "style-full-star-color": "#F4C150",
+                          "style-empty-star-color": "#C1C1C1"
                         }
                       })
                 ],
