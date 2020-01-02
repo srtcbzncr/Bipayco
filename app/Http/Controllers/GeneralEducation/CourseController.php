@@ -28,6 +28,7 @@ class CourseController extends Controller
             'progress' => $progress,
             'completed' => $completedLessonsResp->getData(),
             'similar_courses' => $similarCourses->getData(),
+            'courses_from_instructors' => $coursesFromInstructors->getData(),
         ];
 
         // Response
