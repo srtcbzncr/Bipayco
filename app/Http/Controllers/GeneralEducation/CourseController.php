@@ -20,6 +20,7 @@ class CourseController extends Controller
         $entriesResp = $repo->getStudents($id);
         $progress = $repo->calculateProgress($resp->getData()->id, Auth::id());
         $similarCourses = $repo->getSimilarCourses($id);
+        $coursesFromInstructors = $repo->getCoursesFromInstructors($id);
         $data = [
             'course' => $resp->getData(),
             'entries' => $entriesResp->getData(),
