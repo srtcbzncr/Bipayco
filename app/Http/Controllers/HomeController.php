@@ -40,10 +40,13 @@ class HomeController extends Controller
 
         // Operations
         $resp = $repo->all();
+        $data = [
+            'categories' => $resp->getData(),
+        ];
 
         // Response
         if($resp->getResult()){
-            return view('general_education.index', $resp->getData());
+            return view('general_education.index', $data);
         }
         else{
             return view('error');
