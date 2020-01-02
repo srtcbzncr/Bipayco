@@ -19,13 +19,14 @@ class CourseController extends Controller
         $completedLessonsResp = $repo->getCompletedLessons($id, Auth::id());
         $entriesResp = $repo->getStudents($id);
         $progress = $repo->calculateProgress($resp->getData()->id, Auth::id());
-        $instructors = $repo->getInstructors($id);
+        $similarCourses = $repo->getSimilarCourses($id);
         $data = [
             'course' => $resp->getData(),
             'entries' => $entriesResp->getData(),
             'student_count' => count($resp->getData()->entries),
             'progress' => $progress,
             'completed' => $completedLessonsResp->getData(),
+            'similar_courses' => $similarCourses,
         ];
 
         // Response

@@ -625,7 +625,45 @@ class CourseRepository implements IRepository{
     }
 
     public function getManagerInstructor($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
 
+        // Operations
+        try{
+            $course = Course::find($id);
+            $object = $course->instructors;
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getSimilarCourses($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $courses = Course::all();
+            $object = $courses->random(2);
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 
     public function getAchievements($id){
