@@ -5,4 +5,6 @@ return [
     'course_has_not_active_section' => 'Bu kursa ait aktif bölüm olmadığından kurs aktifleştirilemez.',
     'course_is_added_favorites' => 'Kurs favorilerinize eklendi.',
     'course_is_not_added_favorites' => 'Kurs favorilerinize eklenemedi.',
+    'comment_is_added' => 'Yorumunuz alındı.',
+    'comment_is_not_added' => 'Bir hata oluştu.',
 ];

@@ -47,6 +47,10 @@ Route::prefix('course')->group(function(){
     Route::get('{id}/comments', 'API\GeneralEducation\CourseController@getComments')->name('api_course_get_comments');
 });
 
+Route::prefix('comment')->group(function(){
+   Route::post('create', 'API\GeneralEducation\CommentController@create')->name('api_comment_create');
+});
+
 Route::prefix('favorite')->group(function(){
    Route::post('create', 'API\GeneralEducation\FavoriteController@create')->name('api_favorite_create');
 });
