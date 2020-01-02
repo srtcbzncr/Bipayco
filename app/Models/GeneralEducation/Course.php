@@ -41,7 +41,7 @@ class Course extends Model
     }
 
     public function commentCount(){
-        return $this->hasMany('App\Models\GeneralEducation\Comment')->count();
+        return $this->comments->count();
     }
 
     public function discounts(){
