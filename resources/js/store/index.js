@@ -51,9 +51,9 @@ const actions={
         Axios.get('/api/course/'+sort+'/'+id)
             .then(response =>commit('setCategoryCourses',response))
     },
-    loadNewPage({commit}, id){
+    loadNewPageCourses({commit}, id){
         Axios.get(id)
-            .then(response =>commit('setCategoryCourses',response.data))
+            .then(response =>commit('setCategoryCourses',response))
     },
     loadCourseReviews({commit},id){
         Axios.get('/api/course/'+id+"/comments")

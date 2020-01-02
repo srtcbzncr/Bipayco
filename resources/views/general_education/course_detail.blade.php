@@ -148,7 +148,7 @@
                     <h3 style="tab-index: 1">@lang('front/auth.reviews')</h3>
                     <course-review
                         course-id="{{$course->id}}"
-                        :review-count="20"
+                        :review-count="{{$course->commentCount()}}"
                         :paginate-review="10"
                     ></course-review>
                 </div>
@@ -160,7 +160,7 @@
                         <div class="uk-width-1-4@m uk-first-column">
                             <img alt="Image" class="uk-width-2-3 uk-margin-small-top uk-margin-small-bottom uk-border-circle uk-box-shadow-large  uk-animation-scale-up" src="{{$instructor->user->avatar}}">
                             <div class="uk-text-small uk-margin-small-top">
-                                <p> <i class="fas fa-play"></i> 4 Courses </p>
+                                <p> <i class="fas fa-play"></i> {{$instructor->courseCount()}} Courses </p>
                             </div>
                         </div>
                         <div class="uk-width-3-4@m uk-padding-remove-left">
@@ -171,71 +171,6 @@
                         </div>
                     </div>
                     @endforeach
-                    <h3 class="uk-heading-line uk-text-center uk-margin-medium-top"><span> Other Courses of This Instructure </span></h3>
-                    <div class="uk-position-relative uk-visible-toggle" uk-slider>
-                        <ul class="uk-slider-items ebook uk-child-width-1-3@m uk-child-width-1-3@s uk-grid">
-                            <li class="uk-active">
-                                <a href="Course-intro-one.html">
-                                    <div class="uk-card-default uk-card-hover  uk-card-small Course-card uk-inline-clip">
-                                        <img src="#" class="course-img">
-                                        <div class="uk-card-body">
-                                            <h4>Beginning JavaScript </h4>
-                                            <p> Lorem ipsum dolor sit amet tempor  consectetur adipiscing  </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="uk-active">
-                                <a href="Course-intro-one.html">
-                                    <div class="uk-card-default uk-card-hover  uk-card-small Course-card uk-inline-clip">
-                                        <img src="#" class="course-img">
-                                        <div class="uk-card-body">
-                                            <h4>Beginning JavaScript </h4>
-                                            <p> Lorem ipsum dolor sit amet tempor  consectetur adipiscing  </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="uk-active">
-                                <a href="Course-intro-one.html">
-                                    <div class="uk-card-default uk-card-hover  uk-card-small Course-card uk-inline-clip">
-                                        <img src="#" class="course-img">
-                                        <div class="uk-card-body">
-                                            <h4>Beginning JavaScript </h4>
-                                            <p> Lorem ipsum dolor sit amet tempor  consectetur adipiscing  </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="Course-intro-one.html">
-                                    <div class="uk-card-default uk-card-hover  uk-card-small Course-card uk-inline-clip">
-                                        <img src="#" class="course-img">
-                                        <div class="uk-card-body">
-                                            <h4>Beginning JavaScript </h4>
-                                            <p> Lorem ipsum dolor sit amet tempor  consectetur adipiscing  </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="Course-intro-one.html">
-                                    <div class="uk-card-default uk-card-hover  uk-card-small Course-card uk-inline-clip">
-                                        <img src="#" class="course-img">
-                                        <div class="uk-card-body">
-                                            <h4>Beginning JavaScript </h4>
-                                            <p> Lorem ipsum dolor sit amet tempor  consectetur adipiscing  </p>
-                                        </div>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                        <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin">
-                            <li uk-slider-item="0" class="">
-                                <a href="#"></a>
-                            </li>
-                        </ul>
-                    </div>
                 </div>
             </div>
             <!-- side contant -->
