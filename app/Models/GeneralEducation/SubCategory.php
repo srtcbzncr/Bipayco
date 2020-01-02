@@ -19,4 +19,8 @@ class SubCategory extends Model
     public function courses(){
         return $this->hasMany('App\Models\GeneralEducation\Course');
     }
+
+    public function courseCount(){
+        return $this->hasMany('App\Models\GeneralEducation\Course')->count();
+    }
 }

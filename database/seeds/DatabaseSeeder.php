@@ -39,9 +39,9 @@ class DatabaseSeeder extends Seeder
         factory(School::class, 100)->create();
         factory(Student::class, 100)->create();
         factory(SocialMedia::class, 10)->create();
-        factory(Category::class, 100)->create();
-        factory(SubCategory::class, 500)->create();
-        factory(Course::class, 100)->create()->each(function($course){
+        factory(Category::class, 10)->create();
+        factory(SubCategory::class, 50)->create();
+        factory(Course::class, 200)->create()->each(function($course){
             $random = rand(1,5);
             $i = 0;
             while($i < $random){
@@ -56,7 +56,7 @@ class DatabaseSeeder extends Seeder
         factory(Section::class, 500)->create();
         factory(Lesson::class, 1000)->create();
         factory(Achievement::class, 1000)->create();
-        factory(Comment::class, 2000)->create();
+        factory(Comment::class, 1000)->create();
         factory(Discount::class, 100)->create();
         factory(Entry::class, 200)->create();
         factory(Favorite::class, 200)->create();
