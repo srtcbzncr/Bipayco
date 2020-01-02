@@ -8,7 +8,7 @@
                     <p>{{$category->description}}</p>
                 </div>
                 <div class="uk-float-right">
-                    <a href="#" class="uk-button uk-button-grey">@lang('front/auth.see_more')</a>
+                    <a href="{{route('ge_category_courses', $category->id)}}" class="uk-button uk-button-grey">@lang('front/auth.see_more')</a>
                 </div>
             </div>
                 <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
@@ -20,7 +20,7 @@
                                     sub-category-name="{{$sub_category->name}}"
                                     sub-category-desc="{{$sub_category->description}}"
                                     explore="@lang('front/auth.explore')"
-                                    sub-category-route="#"
+                                    sub-category-route="{{route('ge_sub_category_courses', $sub_category->id)}}"
                                     sub-category-img="{{$sub_category->symbol}}"
                                     course="@lang('front/auth.course')"
                                     course-count="8"

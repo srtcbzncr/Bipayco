@@ -16,7 +16,7 @@
                 <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small uk-margin-small-top">{{subCategoryDesc}}</p>
                 <div class="uk-clearfix">
                     <div class="uk-float-left uk-margin-top">
-                        <a class="card-span-ex" href="#"> {{explore}} </a>
+                        <a class="card-span-ex" :href="subCategoryRoute"> {{explore}} </a>
                     </div>
                 </div>
             </div>

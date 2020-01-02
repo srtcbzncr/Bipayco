@@ -4685,9 +4685,14 @@ var render = function() {
           _vm._v(" "),
           _c("div", { staticClass: "uk-clearfix" }, [
             _c("div", { staticClass: "uk-float-left uk-margin-top" }, [
-              _c("a", { staticClass: "card-span-ex", attrs: { href: "#" } }, [
-                _vm._v(" " + _vm._s(_vm.explore) + " ")
-              ])
+              _c(
+                "a",
+                {
+                  staticClass: "card-span-ex",
+                  attrs: { href: _vm.subCategoryRoute }
+                },
+                [_vm._v(" " + _vm._s(_vm.explore) + " ")]
+              )
             ])
           ])
         ])
