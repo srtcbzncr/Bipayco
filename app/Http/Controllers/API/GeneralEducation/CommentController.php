@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\GeneralEducation;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CommentRequest;
 use App\Repositories\GeneralEducation\CommentRepository;
 use Illuminate\Http\Request;
 
