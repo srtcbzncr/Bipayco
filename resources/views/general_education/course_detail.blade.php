@@ -166,7 +166,7 @@
                         <div class="uk-width-1-4@m uk-first-column">
                             <img alt="Image" class="uk-width-2-3 uk-margin-small-top uk-margin-small-bottom uk-border-circle uk-box-shadow-large  uk-animation-scale-up" src="{{$instructor->user->avatar}}">
                             <div class="uk-text-small uk-margin-small-top">
-                                <p> <i class="fas fa-play"></i> {{$instructor->courseCount()}} Courses </p>
+                                <p> <i class="fas fa-play"></i> {{$instructor->courseCount()}} @lang('front/auth.course') </p>
                             </div>
                         </div>
                         <div class="uk-width-3-4@m uk-padding-remove-left">
