@@ -2716,13 +2716,59 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "stars-rating",
-  components: {},
   props: {
+    isRating: {
+      type: Boolean,
+      "default": false
+    },
     rating: {
       type: Number,
-      "default": 4.3
+      "default": 5
     },
     starStyle: {
       type: Object
@@ -2741,11 +2787,11 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     },
     styleEmptyStarColor: {
       type: String,
-      "default": "#737373"
+      "default": "#C1C1C1"
     },
     styleFullStarColor: {
       type: String,
-      "default": "#ed8a19"
+      "default": "#F4C150"
     },
     styleRateColor: {
       color: {
@@ -2759,7 +2805,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       stars: [],
       emptyStar: 0,
       fullStar: 1,
-      totalStars: 5 // Binded Nested Props registered as data/computed and not props
+      totalStars: 5,
+      rate: this.rating // Binded Nested Props registered as data/computed and not props
 
     };
   },
@@ -2776,11 +2823,14 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       var outerRadius = innerRadius * innerOuterRadiusRatio;
       return this.calcStarPoints(centerX, centerY, innerCircleArms, innerRadius, outerRadius);
     },
-    rate: function rate() {
-      return this.rating.toFixed(1);
+    ratingFixed: function ratingFixed() {
+      return this.rate.toFixed(1);
     }
   },
   methods: {
+    setRate: function setRate(rating) {
+      this.rate = rating;
+    },
     calcStarPoints: function calcStarPoints(centerX, centerY, innerCircleArms, innerRadius, outerRadius) {
       var angle = Math.PI / innerCircleArms;
       var angleOffsetToCenterStar = 60;
@@ -2806,7 +2856,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }
     },
     setStars: function setStars() {
-      var fullStarsCounter = Math.floor(this.rating);
+      var fullStarsCounter = Math.floor(this.rate);
 
       for (var i = 0; i < this.stars.length; i++) {
         if (fullStarsCounter !== 0) {
@@ -2814,7 +2864,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
           this.stars[i].percent = this.calcStarFullness(this.stars[i]);
           fullStarsCounter--;
         } else {
-          var surplus = Math.round(this.rating % 1 * 10) / 10; // Support just one decimal
+          var surplus = Math.round(this.rate % 1 * 10) / 10; // Support just one decimal
 
           var roundedOneDecimalPoint = Math.round(surplus * 10) / 10;
           this.stars[i].raw = roundedOneDecimalPoint;
@@ -6218,72 +6268,153 @@ var render = function() {
     [
       _vm._l(_vm.stars, function(star, index) {
         return _c("div", { key: index, staticClass: "star-container" }, [
-          _c(
-            "svg",
-            {
-              staticClass: "star-svg",
-              style: [
-                { fill: "url(#gradient" + star.raw + ")" },
-                { width: _vm.styleStarWidth },
-                { height: _vm.styleStarHeight }
-              ]
-            },
-            [
-              _c("polygon", {
-                staticStyle: { "fill-rule": "nonzero" },
-                attrs: { points: _vm.getStarPoints }
-              }),
-              _vm._v(" "),
-              _c(
-                "defs",
+          _vm.isRating
+            ? _c(
+                "button",
+                {
+                  staticClass: "uk-icon-button",
+                  attrs: { id: index },
+                  on: {
+                    click: function($event) {
+                      return _vm.setRate(index)
+                    }
+                  }
+                },
                 [
                   _c(
-                    "linearGradient",
-                    { attrs: { id: "gradient" + star.raw } },
+                    "svg",
+                    {
+                      staticClass: "star-svg",
+                      style: [
+                        { fill: "url(#gradient" + star.raw + ")" },
+                        { width: _vm.styleStarWidth },
+                        { height: _vm.styleStarHeight }
+                      ]
+                    },
                     [
-                      _c("stop", {
-                        attrs: {
-                          id: "stop1",
-                          offset: star.percent,
-                          "stop-opacity": "1",
-                          "stop-color": _vm.getFullFillColor(star)
-                        }
+                      _c("polygon", {
+                        staticStyle: { "fill-rule": "nonzero" },
+                        attrs: { points: _vm.getStarPoints }
                       }),
                       _vm._v(" "),
-                      _c("stop", {
-                        attrs: {
-                          id: "stop2",
-                          offset: star.percent,
-                          "stop-opacity": "0",
-                          "stop-color": _vm.getFullFillColor(star)
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("stop", {
-                        attrs: {
-                          id: "stop3",
-                          offset: star.percent,
-                          "stop-opacity": "1",
-                          "stop-color": _vm.styleEmptyStarColor
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("stop", {
-                        attrs: {
-                          id: "stop4",
-                          offset: "100%",
-                          "stop-opacity": "1",
-                          "stop-color": _vm.styleEmptyStarColor
-                        }
-                      })
+                      _c(
+                        "defs",
+                        [
+                          _c(
+                            "linearGradient",
+                            { attrs: { id: "gradient" + star.raw } },
+                            [
+                              _c("stop", {
+                                attrs: {
+                                  id: "stop1",
+                                  offset: star.percent,
+                                  "stop-opacity": "1",
+                                  "stop-color": _vm.getFullFillColor(star)
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("stop", {
+                                attrs: {
+                                  id: "stop2",
+                                  offset: star.percent,
+                                  "stop-opacity": "0",
+                                  "stop-color": _vm.getFullFillColor(star)
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("stop", {
+                                attrs: {
+                                  id: "stop3",
+                                  offset: star.percent,
+                                  "stop-opacity": "1",
+                                  "stop-color": _vm.styleEmptyStarColor
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("stop", {
+                                attrs: {
+                                  id: "stop4",
+                                  offset: "100%",
+                                  "stop-opacity": "1",
+                                  "stop-color": _vm.styleEmptyStarColor
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ]
+                  )
+                ]
+              )
+            : _c(
+                "svg",
+                {
+                  staticClass: "star-svg",
+                  style: [
+                    { fill: "url(#gradient" + star.raw + ")" },
+                    { width: _vm.styleStarWidth },
+                    { height: _vm.styleStarHeight }
+                  ]
+                },
+                [
+                  _c("polygon", {
+                    staticStyle: { "fill-rule": "nonzero" },
+                    attrs: { points: _vm.getStarPoints }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "defs",
+                    [
+                      _c(
+                        "linearGradient",
+                        { attrs: { id: "gradient" + star.raw } },
+                        [
+                          _c("stop", {
+                            attrs: {
+                              id: "stop1",
+                              offset: star.percent,
+                              "stop-opacity": "1",
+                              "stop-color": _vm.getFullFillColor(star)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("stop", {
+                            attrs: {
+                              id: "stop2",
+                              offset: star.percent,
+                              "stop-opacity": "0",
+                              "stop-color": _vm.getFullFillColor(star)
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("stop", {
+                            attrs: {
+                              id: "stop3",
+                              offset: star.percent,
+                              "stop-opacity": "1",
+                              "stop-color": _vm.styleEmptyStarColor
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("stop", {
+                            attrs: {
+                              id: "stop4",
+                              offset: "100%",
+                              "stop-opacity": "1",
+                              "stop-color": _vm.styleEmptyStarColor
+                            }
+                          })
+                        ],
+                        1
+                      )
                     ],
                     1
                   )
-                ],
-                1
+                ]
               )
-            ]
-          )
         ])
       }),
       _vm._v(" "),
@@ -6294,7 +6425,7 @@ var render = function() {
               staticClass: "uk-text-bold uk-margin-small-left uk-margin-small",
               style: _vm.styleRateColor
             },
-            [_vm._v(_vm._s(_vm.rate))]
+            [_vm._v(_vm._s(_vm.ratingFixed))]
           )
         : _vm._e()
     ],

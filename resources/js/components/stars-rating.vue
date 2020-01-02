@@ -1,13 +1,56 @@
 <template>
     <div class="star-rating">
         <div v-for="(star, index) in stars" :key="index" class="star-container">
-            <svg
+            <button @click="setRate(index)" :id="index" v-if="isRating" class="uk-icon-button">
+                <svg
+                    class="star-svg"
+                    :style="[
+                        { fill: `url(#gradient${star.raw})` },
+                        { width: styleStarWidth },
+                        { height: styleStarHeight }
+                    ]"
+                >
+                    <polygon :points="getStarPoints" style="fill-rule:nonzero;"/>
+                    <defs>
+                        <!--
+                          id has to be unique to each star fullness(dynamic offset) - it indicates fullness above
+                        -->
+                        <linearGradient :id="`gradient${star.raw}`">
+                            <stop
+                                id="stop1"
+                                :offset="star.percent"
+                                stop-opacity="1"
+                                :stop-color="getFullFillColor(star)"
+                            > </stop>
+                            <stop
+                                id="stop2"
+                                :offset="star.percent"
+                                stop-opacity="0"
+                                :stop-color="getFullFillColor(star)"
+                            > </stop>
+                            <stop
+                                id="stop3"
+                                :offset="star.percent"
+                                stop-opacity="1"
+                                :stop-color="styleEmptyStarColor"
+                            > </stop>
+                            <stop
+                                id="stop4"
+                                offset="100%"
+                                stop-opacity="1"
+                                :stop-color="styleEmptyStarColor"
+                            > </stop>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </button>
+            <svg v-else
                 class="star-svg"
                 :style="[
-          { fill: `url(#gradient${star.raw})` },
-          { width: styleStarWidth },
-          { height: styleStarHeight }
-        ]"
+                        { fill: `url(#gradient${star.raw})` },
+                        { width: styleStarWidth },
+                        { height: styleStarHeight }
+                    ]"
             >
                 <polygon :points="getStarPoints" style="fill-rule:nonzero;"/>
                 <defs>
@@ -43,18 +86,21 @@
                 </defs>
             </svg>
         </div>
-        <div v-if="isIndicatorActive" class="uk-text-bold uk-margin-small-left uk-margin-small" :style="styleRateColor">{{ rate }}</div>
+        <div v-if="isIndicatorActive" class="uk-text-bold uk-margin-small-left uk-margin-small" :style="styleRateColor">{{ ratingFixed }}</div>
     </div>
 </template>
 
 <script>
     export default {
         name: "stars-rating",
-        components: {},
         props: {
+            isRating:{
+                type:Boolean,
+                default:false,
+            },
             rating: {
                 type: Number,
-                default: 4.3
+                default: 5
             },
             starStyle: {
                 type: Object
@@ -73,11 +119,11 @@
             },
             styleEmptyStarColor:{
                 type:String,
-                default:"#737373",
+                default:"#C1C1C1",
             },
             styleFullStarColor:{
                 type:String,
-                default:"#ed8a19",
+                default:"#F4C150",
             },
             styleRateColor:{
                 color:{
@@ -92,6 +138,7 @@
                 emptyStar: 0,
                 fullStar: 1,
                 totalStars: 5,
+                rate:this.rating,
                 // Binded Nested Props registered as data/computed and not props
             };
         },
@@ -115,11 +162,14 @@
                     outerRadius
                 );
             },
-            rate:function () {
-                return this.rating.toFixed(1);
-            }
+            ratingFixed:function () {
+                return this.rate.toFixed(1);
+            },
         },
         methods: {
+            setRate(rating){
+                this.rate=rating;
+            },
             calcStarPoints(
                 centerX,
                 centerY,
@@ -150,14 +200,14 @@
                 }
             },
             setStars() {
-                let fullStarsCounter = Math.floor(this.rating);
+                let fullStarsCounter = Math.floor(this.rate);
                 for (let i = 0; i < this.stars.length; i++) {
                     if (fullStarsCounter !== 0) {
                         this.stars[i].raw = this.fullStar;
                         this.stars[i].percent = this.calcStarFullness(this.stars[i]);
                         fullStarsCounter--;
                     } else {
-                        let surplus = Math.round((this.rating % 1) * 10) / 10; // Support just one decimal
+                        let surplus = Math.round((this.rate % 1) * 10) / 10; // Support just one decimal
                         let roundedOneDecimalPoint = Math.round(surplus * 10) / 10;
                         this.stars[i].raw = roundedOneDecimalPoint;
                         return (this.stars[i].percent = this.calcStarFullness(this.stars[i]));

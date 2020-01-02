@@ -16,7 +16,7 @@
                 <h4>{{title}}</h4>
                 <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small"> {{description}} </p>
                 <div>
-                    <stars-rating :rating="Number(rate)" :style-full-star-color="styleFullStarColor" :style-empty-star-color="styleEmptyStarColor"> </stars-rating>
+                    <stars-rating :rating="Number(rate)" :style-full-star-color="styleFullStarColor" :style-empty-star-color="styleEmptyStarColor" > </stars-rating>
                 </div>
                 <hr class="uk-margin-remove-top">
                 <div>
