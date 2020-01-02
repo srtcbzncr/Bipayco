@@ -8,7 +8,7 @@
                 <div class="uk-visible@m uk-animation-slide-bottom-small uk-margin-medium-top" uk-grid>
                     <div class="uk-width-1-3@m uk-flex align-items-center">
                         <i class="fas fa-book-open icon-xxlarge text-white uk-margin-small-right"></i>
-                        <span class="uk-text-middle uk-text-white">{{$course_count}} Courses </span>
+                        <span class="uk-text-middle uk-text-white">{{$course_count}} @lang('front/auth.course') </span>
                     </div>
                 </div>
             </div>
