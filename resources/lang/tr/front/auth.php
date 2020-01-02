@@ -81,4 +81,5 @@ return [
     'videos_course'=>'Videolar',
     'description'=>'Açıklama',
     'explore'=>'Keşfet',
+    'sub_categories'=>'Alt Kategoriler',
 ];

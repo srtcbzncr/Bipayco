@@ -22,20 +22,55 @@
             </div>
         </div>
     </div>
-    <course-card-pagination
-        newest="@lang('front/auth.newest')"
-        by-inc="@lang('front/auth.by_inc')"
-        by-desc="@lang('front/auth.by_dec')"
-        by-purchases="@lang('front/auth.by_purchases')"
-        sort="@lang('front/auth.sort_by')"
-        oldest="@lang('front/auth.oldest')"
-        by-trending="@lang('front/auth.by_trending')"
-        by-point="@lang('front/auth.by_point')"
-        has-no-content="@lang('front/auth.not_found_content')"
-        category-desc="{{$category->description}}"
-        category-name="{{$category->name}}"
-        :course-count = "{{$course_count}}"
-        category-id="{{$category->id}}"
-        :paginate-course = "9"
-    ></course-card-pagination>
+    <div class="uk-container">
+        @if($sub_categories==null||$sub_categories==[])
+        @else
+        <div class="section-heading uk-position-relative uk-margin-medium-top uk-margin-remove-bottom none-border uk-clearfix">
+            <div class="uk-float-left">
+                <h2>@lang('front/auth.sub_categories')</h2>
+            </div>
+        </div>
+        <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
+            <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
+                @foreach($sub_categories as $sub_category)
+                    <li>
+                        <category-card
+                            background-color="{{$sub_category->color}}"
+                            sub-category-name="{{$sub_category->name}}"
+                            sub-category-desc="{{$sub_category->description}}"
+                            explore="@lang('front/auth.explore')"
+                            sub-category-route="{{route('ge_sub_category_courses', $sub_category->id)}}"
+                            sub-category-img="{{$sub_category->image}}"
+                            course="@lang('front/auth.course')"
+                            course-count="{{$sub_category->courseCount()}}"
+                        ></category-card>
+                    </li>
+                @endforeach
+            </ul>
+            <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-next uk-slider-item="next"></a>
+            <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin">
+                <li uk-slider-item="0" class="">
+                    <a href="#"></a>
+                </li>
+            </ul>
+        </div>
+        @endif
+        <course-card-pagination
+            newest="@lang('front/auth.newest')"
+            by-inc="@lang('front/auth.by_inc')"
+            by-desc="@lang('front/auth.by_dec')"
+            by-purchases="@lang('front/auth.by_purchases')"
+            sort="@lang('front/auth.sort_by')"
+            oldest="@lang('front/auth.oldest')"
+            by-trending="@lang('front/auth.by_trending')"
+            by-point="@lang('front/auth.by_point')"
+            has-no-content="@lang('front/auth.not_found_content')"
+            category-desc="{{$category->description}}"
+            category-name="{{$category->name}}"
+            :course-count = "{{$course_count}}"
+            category-id="{{$category->id}}"
+            :paginate-course = "9"
+        ></course-card-pagination>
+    </div>
 @endsection
