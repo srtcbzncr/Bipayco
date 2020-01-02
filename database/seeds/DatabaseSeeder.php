@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
         factory(SocialMedia::class, 10)->create();
         factory(Category::class, 10)->create();
         factory(SubCategory::class, 50)->create();
-        factory(Course::class, 200)->create()->each(function($course){
+        factory(Course::class, 100)->create()->each(function($course){
             $random = rand(1,5);
             $i = 0;
             while($i < $random){

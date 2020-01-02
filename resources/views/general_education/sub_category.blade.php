@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="uk-width-1-2@m uk-visible@m">
-                <img src="{{asset($sub_category->symbol)}}" alt="" class="uk-align-right img-xxlarge">
+                <img src="{{asset($sub_category->image)}}" alt="" class="uk-align-right img-xxlarge">
             </div>
         </div>
     </div>
