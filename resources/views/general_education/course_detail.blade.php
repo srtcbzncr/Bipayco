@@ -255,7 +255,7 @@
                             :current-price="{{$similar_course->price}}"
                             @endif
                             :rate="{{$similar_course->point}}"
-                            page-link="/ge/course/{{$similar_course->id}}"
+                            page-link="{{route('ge_course',$similar_course->id)}}"
                             style-full-star-color="#F4C150"
                             style-empty-star-color="#C1C1C1"
                         ></course-card>
