@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\GeneralEducation\CategoryRepository;
 use App\Repositories\GeneralEducation\CourseRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -31,6 +32,22 @@ class HomeController extends Controller
 
         // Response
         return view('home', $data);
+    }
+
+    public function ge_index(){
+        // Repo initializations
+        $repo = new CategoryRepository;
+
+        // Operations
+        $resp = $repo->all();
+
+        // Response
+        if($resp->getResult()){
+            return view('general_education.index', $resp->getData());
+        }
+        else{
+            return view('error');
+        }
     }
 
     public function error(){
