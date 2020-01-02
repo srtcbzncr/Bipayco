@@ -40,7 +40,7 @@ class Course extends Model
         return $this->hasMany('App\Models\GeneralEducation\Comment');
     }
 
-    public function commentsCount(){
+    public function commentCount(){
         return $this->hasMany('App\Models\GeneralEducation\Comment')->count();
     }
 
