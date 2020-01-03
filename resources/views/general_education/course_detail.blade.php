@@ -101,10 +101,11 @@
                                                 <span @if($lesson->id%2==0) style='background-color:#2ED24A' @endif  class="uk-icon-button icon-play"> <i style="color:#666666" class="fas fa-play icon-small"></i> </span>
                                                 <!-- Course title  -->
                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{$lesson->name}}</div>
-                                           @if($lesson->preview) <!-- preview link -->
+                                            @if($lesson->preview)
+                                               <!-- preview link -->
                                                 </a>
                                                 <a style="color:#666666" class="uk-link-reset uk-margin-xlarge-right uk-position-center-right uk-padding-small uk-text-small uk-visible@s" href="#preview-video-1" uk-toggle> <i class="fas fa-play icon-small uk-text-grey"></i> Preveiw  </a>
-                                            <!-- time -->
+                                                <!-- time -->
                                                 <span style="color:#666666" class="uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{$lesson->long}}</span>
                                             @else
                                                 <span style="color:#666666" class="uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{$lesson->long}}</span>

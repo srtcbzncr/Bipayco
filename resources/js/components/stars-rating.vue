@@ -1,7 +1,7 @@
 <template>
     <div class="star-rating">
         <div v-for="(star, index) in stars" :key="index" class="star-container">
-            <a @click="setRate(index+1)" v-if="isRating" class="">
+            <button @click="setRate(index+1)" v-if="isRating" class="uk-icon-button">
                 <svg
                     :id="index+1"
                     class="star-svg"
@@ -13,7 +13,7 @@
                 >
                     <polygon :points="getStarPoints" style="fill-rule:nonzero;"/>
                 </svg>
-            </a>
+            </button>
             <svg v-else
                 class="star-svg"
                 :style="[

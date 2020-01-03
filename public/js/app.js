@@ -6249,8 +6249,9 @@ var render = function() {
         return _c("div", { key: index, staticClass: "star-container" }, [
           _vm.isRating
             ? _c(
-                "a",
+                "button",
                 {
+                  staticClass: "uk-icon-button",
                   on: {
                     click: function($event) {
                       return _vm.setRate(index + 1)
