@@ -99,9 +99,8 @@
                                             <a href="#" class="uk-link-reset">
                                                 <!-- Play icon  -->
                                                 <span>
-                                                    @if(Auth::check()&&$lesson->id%3==0)<i style="color:#666666" class="fas fa-check-circle icon-medium" uk-tooltip="title: @lang('front/auth.watch_again')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i> @endif
-                                                    @if(Auth::check()&&$lesson->id%3==2)<i style="color:#666666" class="fas fa-pause-circle icon-medium" uk-tooltip="title:@lang('front/auth.resume'); delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i> @endif
-                                                    @if($lesson->id%3==1)<i style="color:#666666" class="fas fa-play-circle icon-medium" uk-tooltip="title: @lang('front/auth.watch')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>@endif
+                                                    @if(Auth::check()&& in_array($lesson->id, $completed) )<i style="color:#2ED24A" class="fas fa-check-circle icon-medium" uk-tooltip="title: @lang('front/auth.watch_again')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>
+                                                    @else($lesson->id%2==1)<i style="color:#666666" class="fas fa-play-circle icon-medium" uk-tooltip="title: @lang('front/auth.watch')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>@endif
                                                 </span>
                                                 <!-- Course title  -->
                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{$lesson->name}}</div>
