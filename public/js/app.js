@@ -6568,6 +6568,7 @@ var render = function() {
               "a",
               {
                 staticClass: "uk-navbar-item back-to-dashboard uk-button-text ",
+                staticStyle: { color: "#424242" },
                 attrs: {
                   href: "#",
                   "uk-tooltip":
@@ -6581,6 +6582,7 @@ var render = function() {
               "a",
               {
                 staticClass: "uk-navbar-item back-to-dashboard uk-button-text ",
+                staticStyle: { color: "#424242" },
                 attrs: { href: "#" }
               },
               [_vm._v("Browse Books")]
@@ -6976,7 +6978,10 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("li", [
       _c("a", { attrs: { href: "#modal-full", "uk-toggle": "" } }, [
-        _c("i", { staticClass: "fas fa-search icon-medium" })
+        _c("i", {
+          staticClass: "fas fa-search icon-medium",
+          staticStyle: { color: "#424242" }
+        })
       ])
     ])
   },
@@ -6985,9 +6990,16 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("a", { attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fas fa-play uk-hidden@m" }),
+      _c("i", {
+        staticClass: "fas fa-play uk-hidden@m",
+        staticStyle: { color: "#424242" }
+      }),
       _vm._v(" "),
-      _c("span", { staticClass: "uk-visible@m" }, [_vm._v(" Your Courses")])
+      _c(
+        "span",
+        { staticClass: "uk-visible@m", staticStyle: { color: "#424242" } },
+        [_vm._v(" Your Courses")]
+      )
     ])
   },
   function() {
@@ -7040,7 +7052,10 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("a", { attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fas fa-envelope icon-large" })
+      _c("i", {
+        staticClass: "fas fa-envelope icon-large",
+        staticStyle: { color: "#424242" }
+      })
     ])
   },
   function() {
@@ -7087,7 +7102,10 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("a", { attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fas fa-bell icon-large" })
+      _c("i", {
+        staticClass: "fas fa-bell icon-large",
+        staticStyle: { color: "#424242" }
+      })
     ])
   },
   function() {

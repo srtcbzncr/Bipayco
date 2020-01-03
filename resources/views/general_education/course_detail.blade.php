@@ -95,10 +95,10 @@
                                 <div class="tm-course-section-list">
                                     <ul>
                                         @forelse($section->lessons as $lesson)
-                                        <li  @if($lesson->id%2==0) style='background-color:#2ED24A' @endif >
+                                        <li  @if($lesson->id%2==0 && Auth::check()) style='background-color:#2ED24A' @endif >
                                             <a href="#" class="uk-link-reset">
                                                 <!-- Play icon  -->
-                                                <span @if($lesson->id%2==0) style='background-color:#2ED24A' @endif  class="uk-icon-button icon-play"> <i style="color:#666666" class="fas fa-play icon-small"></i> </span>
+                                                <span @if($lesson->id%2==0 && Auth::check()) style='background-color:#2ED24A' @endif  class="uk-icon-button icon-play"> <i style="color:#666666" class="fas fa-play icon-small"></i> </span>
                                                 <!-- Course title  -->
                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{$lesson->name}}</div>
                                             @if($lesson->preview)
@@ -106,9 +106,9 @@
                                                 </a>
                                                 <a style="color:#666666" class="uk-link-reset uk-margin-xlarge-right uk-position-center-right uk-padding-small uk-text-small uk-visible@s" href="#preview-video-1" uk-toggle> <i class="fas fa-play icon-small uk-text-grey"></i> Preveiw  </a>
                                                 <!-- time -->
-                                                <span style="color:#666666" class="uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{$lesson->long}}</span>
+                                                <span style="color:#666666" class="uk-visible@m uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{$lesson->long}}</span>
                                             @else
-                                                <span style="color:#666666" class="uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{$lesson->long}}</span>
+                                                <span style="color:#666666" class="uk-visible@m uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{$lesson->long}}</span>
                                                 </a>
                                             @endif
                                         </li>
@@ -146,11 +146,13 @@
                 <!-- Reviews  -->
                 <div id="Reviews" class="tabcontent animation: uk-animation-slide-right-medium">
                     <h3 style="tab-index: 1">@lang('front/auth.reviews')</h3>
+                    @if(Auth::check())
                     <div class="uk-margin-xlarge-bottom">
                         <stars-rating is-rating> </stars-rating>
                         <textarea class="uk-textarea uk-width uk-height-small" placeholder="Yorum Yaz..."></textarea>
                         <button class="uk-button-primary uk-margin-small-top uk-float-right uk-button"> Gönder </button>
                     </div>
+                    @endif
                     <div class="uk-margin-medium-top">
                         <course-review
                             course-id="{{$course->id}}"
