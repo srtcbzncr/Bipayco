@@ -6148,7 +6148,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("a", { attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fas fa-laptop-code" })
+      _c("i", { staticClass: "fas fa-laptop-code icon-medium" })
     ])
   },
   function() {
@@ -6157,7 +6157,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("li", [
       _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-school" })
+        _c("i", { staticClass: "fas fa-school icon-medium" })
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "side-menu-slide" }, [
@@ -6224,7 +6224,7 @@ var staticRenderFns = [
               "title: Discussion ; delay: 500 ; pos: right ;animation:\tuk-animation-scale-up"
           }
         },
-        [_c("i", { staticClass: "fas fa-user-graduate" })]
+        [_c("i", { staticClass: "fas fa-user-graduate icon-medium" })]
       )
     ])
   },
@@ -6243,7 +6243,7 @@ var staticRenderFns = [
               "title: Blogs ; delay: 500 ; pos: right ;animation:\tuk-animation-scale-up"
           }
         },
-        [_c("i", { staticClass: "fas fa-book" })]
+        [_c("i", { staticClass: "fas fa-book icon-medium" })]
       )
     ])
   },
@@ -6253,7 +6253,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("li", [
       _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-award" })
+        _c("i", { staticClass: "fas fa-award icon-medium" })
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "side-menu-slide" }, [
@@ -7137,7 +7137,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("a", { attrs: { href: "#" } }, [
       _c("i", {
-        staticClass: "fas fa-play icon-large",
+        staticClass: "fas fa-play icon-medium",
         staticStyle: { color: "#424242" }
       })
     ])
@@ -7193,7 +7193,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("a", { attrs: { href: "#" } }, [
       _c("i", {
-        staticClass: "fas fa-shopping-cart icon-large",
+        staticClass: "fas fa-shopping-cart icon-medium",
         staticStyle: { color: "#424242" }
       })
     ])
@@ -7243,7 +7243,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("a", { attrs: { href: "#" } }, [
       _c("i", {
-        staticClass: "fas fa-bell icon-large",
+        staticClass: "fas fa-bell icon-medium",
         staticStyle: { color: "#424242" }
       })
     ])

@@ -7,7 +7,7 @@
         </div>
             <ul>
                 <li>
-                    <a href="#"> <i class="fas fa-laptop-code"> </i> </a>
+                    <a href="#"> <i class="fas fa-laptop-code icon-medium"> </i> </a>
                     <div class="side-menu-slide" style="overflow-y: auto">
                         <div class="side-menu-slide-content" >
                             <a class="uk-background-grey uk-margin-remove general-title" style=":hover" :href="generalEducationRoute"><b>{{generalEducation}}</b></a>
@@ -27,7 +27,7 @@
                 </li>
             <li>
                 <!-- scripts -->
-                <a href="#"> <i class="fas fa-school"/> </a>
+                <a href="#"> <i class="fas fa-school icon-medium"/> </a>
                 <div class="side-menu-slide">
                     <div class="side-menu-slide-content">
                         <ul>
@@ -54,15 +54,15 @@
                 </div>
             </li>
             <li>
-                <a href="Discussion.html" class="active" uk-tooltip="title: Discussion ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"> <i class="fas fa-user-graduate"></i> </a>
+                <a href="Discussion.html" class="active" uk-tooltip="title: Discussion ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"> <i class="fas fa-user-graduate icon-medium"></i> </a>
             </li>
             <li>
                 <!-- blog -->
-                <a href="Blog.html" class="active" uk-tooltip="title: Blogs ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"> <i class="fas fa-book"></i> </a>
+                <a href="Blog.html" class="active" uk-tooltip="title: Blogs ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"> <i class="fas fa-book icon-medium"></i> </a>
             </li>
             <li>
                 <!-- ui compounents -->
-                <a href="#"> <i class="fas fa-award"></i> </a>
+                <a href="#"> <i class="fas fa-award icon-medium"></i> </a>
                 <div class="side-menu-slide">
                     <div class="side-menu-slide-content">
                         <ul uk-accordion>

@@ -21,7 +21,7 @@
 
                 <li v-if="hasLogin === true">
                     <!-- your courses -->
-                    <a href="#"> <i style="color: #424242" class="fas fa-play icon-large"></i></a>
+                    <a href="#"> <i style="color: #424242" class="fas fa-play icon-medium"></i></a>
                     <div uk-dropdown="pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small" class="uk-dropdown border-radius-6  uk-dropdown-top-right tm-dropdown-large uk-padding-remove">
                         <div class="uk-clearfix">
                             <div class="uk-float-left">
@@ -48,7 +48,7 @@
                 </li>
                 <li v-if="hasLogin === true">
                     <!-- messages -->
-                    <a href="#"><i style="color: #424242" class="fas fa-shopping-cart icon-large"></i></a>
+                    <a href="#"><i style="color: #424242" class="fas fa-shopping-cart icon-medium"></i></a>
                     <div uk-dropdown="pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small" class="uk-dropdown uk-dropdown-top-right  tm-dropdown-medium border-radius-6 uk-padding-remove uk-box-shadow-large angle-top-right">
                         <h5 class="uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"> Sepet </h5>
                         <a href="#" class="uk-position-top-right uk-link-reset"> <i class="fas fa-trash uk-align-right   uk-text-small uk-padding-small"> Hepsini Temizle</i> </a>
@@ -75,7 +75,7 @@
                 </li>
                 <li v-if="hasLogin === true">
                     <!-- Notifications -->
-                    <a href="#"><i style="color: #424242" class="fas fa-bell icon-large"> </i></a>
+                    <a href="#"><i style="color: #424242" class="fas fa-bell icon-medium"> </i></a>
                     <div uk-dropdown="pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small" class="uk-dropdown uk-dropdown-top-right  tm-dropdown-small border-radius-6 uk-padding-remove uk-box-shadow-large angle-top-right">
                         <h5 class="uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"> Bildirimler </h5>
                         <a href="#" class="uk-position-top-right uk-link-reset"> <i class="fas fa-trash uk-align-right   uk-text-small uk-padding-small"> Hepsini Temizle</i></a>
