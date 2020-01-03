@@ -29,6 +29,8 @@ class CourseController extends Controller
             'similar_courses' => $similarCourses->getData(),
         ];
 
+        dd($data);
+
         // Response
         if($resp->getResult()){
             return view('general_education.course_detail', $data);
