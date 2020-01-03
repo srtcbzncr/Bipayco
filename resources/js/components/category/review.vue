@@ -1,69 +1,42 @@
 <template>
-    <div class="star-rating">
-        <div v-for="(star, index) in stars" :key="index" class="star-container">
-            <button @click="setRate(index+1)" v-if="isRating" class="uk-icon-button star-button">
-                <svg
-                    :id="index+1"
-                    class="star-svg"
-                    :style="[
+    <div class="uk-margin-xlarge-bottom">
+        <div class="star-rating">
+            <div v-for="(star, index) in stars" :key="index" class="star-container">
+                <button @click="setRate(index+1)" class="uk-icon-button star-button">
+                    <svg
+                        :id="index+1"
+                        class="star-svg"
+                        :style="[
                         { fill: ratingColor[index] },
                         { width: styleStarWidth },
                         { height: styleStarHeight }
                     ]"
-                >
-                    <polygon :points="getStarPoints" style="fill-rule:nonzero;"/>
-                </svg>
-            </button>
-            <svg v-else
-                class="star-svg"
-                :style="[
-                        { fill: `url(#gradient${star.raw})` },
-                        { width: styleStarWidth },
-                        { height: styleStarHeight }
-                    ]"
-            >
-                <polygon :points="getStarPoints" style="fill-rule:nonzero;"/>
-                <defs>
-                    <!--
-                      id has to be unique to each star fullness(dynamic offset) - it indicates fullness above
-                    -->
-                    <linearGradient :id="`gradient${star.raw}`">
-                        <stop
-                            id="stop1"
-                            :offset="star.percent"
-                            stop-opacity="1"
-                            :stop-color="getFullFillColor(star)"
-                        > </stop>
-                        <stop
-                            id="stop2"
-                            :offset="star.percent"
-                            stop-opacity="0"
-                            :stop-color="getFullFillColor(star)"
-                        > </stop>
-                        <stop
-                            id="stop3"
-                            :offset="star.percent"
-                            stop-opacity="1"
-                            :stop-color="styleEmptyStarColor"
-                        > </stop>
-                        <stop
-                            id="stop4"
-                            offset="100%"
-                            stop-opacity="1"
-                            :stop-color="styleEmptyStarColor"
-                        > </stop>
-                    </linearGradient>
-                </defs>
-            </svg>
+                    >
+                        <polygon :points="getStarPoints" style="fill-rule:nonzero;"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="uk-text-bold uk-margin-small-left uk-margin-small" :style="styleRateColor">{{ ratingFixed }}</div>
         </div>
-        <div v-if="isIndicatorActive" class="uk-text-bold uk-margin-small-left uk-margin-small" :style="styleRateColor">{{ ratingFixed }}</div>
+        <textarea class="uk-textarea uk-width uk-height-small" placeholder="Yorum Yaz..." id="comment" > </textarea>
+        <button @click="submitReview" class="uk-button uk-button-primary uk-margin-small-top uk-float-right "> Gönder </button>
     </div>
 </template>
 
 <script>
+    import Axios from 'axios'
+    import {mapActions} from "vuex";
     export default {
         name: "stars-rating",
         props: {
+            courseId:{
+                type:String,
+                required:true,
+            },
+            userId:{
+                type:String,
+                required: true,
+            },
             isRating:{
                 type:Boolean,
                 default:false,
@@ -109,8 +82,8 @@
                 fullStar: 1,
                 totalStars: 5,
                 rate:this.rating,
-                ratingColor:[this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,]
-            // Binded Nested Props registered as data/computed and not props
+                ratingColor:[this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,],
+                // Binded Nested Props registered as data/computed and not props
             };
         },
         directives: {},
@@ -138,6 +111,26 @@
             },
         },
         methods: {
+            ...mapActions([
+                'loadCourseReviews',
+            ]),
+            submitReview(){
+                Axios.post('/api/comment/create', {
+                    content: document.getElementById('comment').value,
+                    point:this.ratingFixed,
+                    course_id:this.courseId,
+                    user_id:this.userId
+                })
+                .then(function (response) {
+                    if(response.data.error){
+                        UIkit.notification({message: response.data.message, status: 'danger'});
+
+                    }else{
+                        UIkit.notification({message: response.data.message, status: 'success'});
+                    }
+                });
+                this.$store.dispatch('loadCourseReviews',this.courseId);
+            },
             setRate(rating){
                 this.rate=rating;
                 for (var i=1;i<=5;i++){
@@ -211,14 +204,14 @@
                 }
             }
         },
-        mounted() {
+        created() {
             this.setNestedConfigStyles(this.starStyle);
             this.initStars();
             this.setStars();
         },
+
     };
 </script>
-
 <style scoped lang="scss">
     .star-rating {
         display: flex;

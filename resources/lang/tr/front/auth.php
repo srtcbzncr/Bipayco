@@ -82,4 +82,7 @@ return [
     'description'=>'Açıklama',
     'explore'=>'Keşfet',
     'sub_categories'=>'Alt Kategoriler',
+    'watch'=>'İzle',
+    'watch_again'=>'Tekrar İzle',
+    'resume'=>'Devam Et',
 ];
