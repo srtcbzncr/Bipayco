@@ -6838,7 +6838,7 @@ var render = function() {
                           staticClass:
                             "uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"
                         },
-                        [_vm._v(" Sepet ")]
+                        [_vm._v(" Sepetim ")]
                       ),
                       _vm._v(" "),
                       _vm._m(8),
@@ -7138,7 +7138,11 @@ var staticRenderFns = [
     return _c("a", { attrs: { href: "#" } }, [
       _c("i", {
         staticClass: "fas fa-play icon-medium",
-        staticStyle: { color: "#424242" }
+        staticStyle: { color: "#424242" },
+        attrs: {
+          "uk-tooltip":
+            "title: Kurslarım ; delay: 500 ; pos: bottom ;animation:\tuk-animation-scale-up"
+        }
       })
     ])
   },
@@ -7154,7 +7158,7 @@ var staticRenderFns = [
             staticClass:
               "uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"
           },
-          [_vm._v("  Kursların ")]
+          [_vm._v("  Kurslarım ")]
         )
       ]),
       _vm._v(" "),
@@ -7194,7 +7198,11 @@ var staticRenderFns = [
     return _c("a", { attrs: { href: "#" } }, [
       _c("i", {
         staticClass: "fas fa-shopping-cart icon-medium",
-        staticStyle: { color: "#424242" }
+        staticStyle: { color: "#424242" },
+        attrs: {
+          "uk-tooltip":
+            "title: Sepetim ; delay: 500 ; pos: bottom ;animation:\tuk-animation-scale-up"
+        }
       })
     ])
   },
@@ -7244,7 +7252,11 @@ var staticRenderFns = [
     return _c("a", { attrs: { href: "#" } }, [
       _c("i", {
         staticClass: "fas fa-bell icon-medium",
-        staticStyle: { color: "#424242" }
+        staticStyle: { color: "#424242" },
+        attrs: {
+          "uk-tooltip":
+            "title: Bildirimler ; delay: 500 ; pos: bottom ;animation:\tuk-animation-scale-up"
+        }
       })
     ])
   },
