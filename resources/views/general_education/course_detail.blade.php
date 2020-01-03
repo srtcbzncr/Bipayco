@@ -95,13 +95,13 @@
                                 <div class="tm-course-section-list">
                                     <ul>
                                         @forelse($section->lessons as $lesson)
-                                        <li   @if(Auth::check()) @if($lesson->id%3==0) style='background-color:#2ED24A' @elseif($lesson->id%3==2) style='background-color:#d2c75b' @endif @endif >
+                                        <li>
                                             <a href="#" class="uk-link-reset">
                                                 <!-- Play icon  -->
-                                                <span @if(Auth::check()) @if($lesson->id%3==0) style='background-color:#2ED24A' @elseif($lesson->id%3==2) style='background-color:#d2c75b' @endif @endif>
-                                                    @if(Auth::check()&&$lesson->id%3==0)<i style="color:#666666" class="fas fa-check-circle icon-medium"></i> @endif
-                                                    @if(Auth::check()&&$lesson->id%3==2)<i style="color:#666666" class="fas fa-pause-circle icon-medium"></i> @endif
-                                                    @if($lesson->id%3==1)<i style="color:#666666" class="fas fa-play-circle icon-medium"></i>@endif </span>
+                                                <span>
+                                                    @if(Auth::check()&& in_array($lesson->id, $completed) )<i style="color:#2ED24A" class="fas fa-check-circle icon-medium" uk-tooltip="title: @lang('front/auth.watch_again')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>
+                                                    @else<i style="color:#666666" class="fas fa-play-circle icon-medium" uk-tooltip="title: @lang('front/auth.watch')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>@endif
+                                                </span>
                                                 <!-- Course title  -->
                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{$lesson->name}}</div>
                                             @if($lesson->preview)
@@ -149,12 +149,8 @@
                 <!-- Reviews  -->
                 <div id="Reviews" class="tabcontent animation: uk-animation-slide-right-medium">
                     <h3 style="tab-index: 1">@lang('front/auth.reviews')</h3>
-                    @if(Auth::check())
-                    <div class="uk-margin-xlarge-bottom">
-                        <stars-rating is-rating> </stars-rating>
-                        <textarea class="uk-textarea uk-width uk-height-small" placeholder="Yorum Yaz..."></textarea>
-                        <button class="uk-button-primary uk-margin-small-top uk-float-right uk-button"> Gönder </button>
-                    </div>
+                    @if(Auth::user()->can('comment', $course))
+                        <review course-id="{{$course->id}}" user-id="{{Auth::user()->id}}"></review>
                     @endif
                     <div class="uk-margin-medium-top">
                         <course-review
