@@ -147,7 +147,7 @@
                     <h3 style="tab-index: 1">@lang('front/auth.reviews')</h3>
                     <div class="uk-margin-xlarge-bottom">
                         <stars-rating is-rating> </stars-rating>
-                        <textarea class="uk-textarea uk-width uk-height-small uk-overflow-auto" placeholder="Yorum Yaz..."></textarea>
+                        <textarea class="uk-textarea uk-width uk-height-small" placeholder="Yorum Yaz..."></textarea>
                         <button class="uk-button-primary uk-margin-small-top uk-float-right uk-button"> Gönder </button>
                     </div>
                     <div class="uk-margin-medium-top">
