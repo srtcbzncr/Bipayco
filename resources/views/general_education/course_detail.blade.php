@@ -100,7 +100,7 @@
                                                 <!-- Play icon  -->
                                                 <span>
                                                     @if(Auth::check()&& in_array($lesson->id, $completed) )<i style="color:#2ED24A" class="fas fa-check-circle icon-medium" uk-tooltip="title: @lang('front/auth.watch_again')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>
-                                                    @else($lesson->id%2==1)<i style="color:#666666" class="fas fa-play-circle icon-medium" uk-tooltip="title: @lang('front/auth.watch')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>@endif
+                                                    @else<i style="color:#666666" class="fas fa-play-circle icon-medium" uk-tooltip="title: @lang('front/auth.watch')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>@endif
                                                 </span>
                                                 <!-- Course title  -->
                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{$lesson->name}}</div>
