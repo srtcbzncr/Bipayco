@@ -1012,7 +1012,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $student = Student::where('user_id', $user_id)->first();
-            $object = DB::select('SELECT * FROM ge_students_completed_lessons WHERE student_id='.$student->id.' AND lesson_id IN (SELECT id FROM ge_lessons WHERE section_id IN (SELECT id FROM ge_sections WHERE course_id='.$course_id.'))');
+            $object = DB::select('SELECT * FROM ge_students_completed_lessons WHERE is_completed=1 AND student_id='.$student->id.' AND lesson_id IN (SELECT id FROM ge_lessons WHERE section_id IN (SELECT id FROM ge_sections WHERE course_id='.$course_id.'))');
         }
         catch(\Exception $e){
             $error = $e;
