@@ -3,6 +3,7 @@
 namespace App\Policies\GeneralEducation;
 
 use App\Models\Auth\User;
+use App\Models\GeneralEducation\Comment;
 use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\Entry;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -47,5 +48,14 @@ class CoursePolicy
         else{
             return false;
         }
+    }
+
+    public function comment(User $user, Course $course){
+        if($user->can('entry', $course)){
+            if(Comment::where('user_id', $user->id)->where('course_id', $course->id)->get()->count() == 0){
+                return true;
+            }
+        }
+        return false;
     }
 }
