@@ -17,7 +17,7 @@ class CreateGeCommentsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('course_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('content');
+            $table->string('content')->nullable();
             $table->float('point');
             $table->boolean('active')->default(true);
             $table->timestamps();
