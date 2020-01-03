@@ -2190,7 +2190,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return document.getElementById("sortBy").value;
     }
   }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCategoryCourses', 'loadNewPageCourses']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCategoryCourses']), {
     loadCourseList: function loadCourseList() {
       this.$store.dispatch('loadCategoryCourses', this.categoryId);
     },
@@ -2867,10 +2867,14 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }
     }
   },
-  created: function created() {
+  mounted: function mounted() {
     this.setNestedConfigStyles(this.starStyle);
     this.initStars();
     this.setStars();
+  },
+  updated: function updated() {
+    this.setStars();
+    console.log('updated');
   }
 });
 
@@ -5349,7 +5353,7 @@ var render = function() {
                 staticStyle: { "margin-right": "20px" },
                 attrs: { href: "#" }
               },
-              [_vm._v("Satın Al")]
+              [_vm._v(" Satın Al")]
             ),
             _vm._v(" "),
             _c(
@@ -5358,7 +5362,7 @@ var render = function() {
                 staticClass: "uk-button uk-button-text uk-button-small",
                 attrs: { href: _vm.pageLink }
               },
-              [_vm._v("İncele")]
+              [_vm._v(" İncele ")]
             ),
             _vm._v(" "),
             _c(

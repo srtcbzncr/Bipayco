@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div class="uk-width-1-2@m uk-padding uk-margin-medium-top">
-                <h2 class="uk-light uk-text-uppercase uk-text-bold uk-text-white"> {{$course->name}}   </h2>
+                <h2 class="uk-light uk-text-uppercase uk-text-bold uk-text-white"> {{$course->name}} </h2>
 
                 <stars-rating :rating="{{$course->point}}" style-full-star-color="#F4C150" style-rate-color="color:#C1C1C1" style-empty-star-color="#C1C1C1"></stars-rating>
                 <!-- students images  -->
@@ -95,10 +95,13 @@
                                 <div class="tm-course-section-list">
                                     <ul>
                                         @forelse($section->lessons as $lesson)
-                                        <li  @if($lesson->id%2==0 && Auth::check()) style='background-color:#2ED24A' @endif >
+                                        <li   @if(Auth::check()) @if($lesson->id%3==0) style='background-color:#2ED24A' @elseif($lesson->id%3==2) style='background-color:#d2c75b' @endif @endif >
                                             <a href="#" class="uk-link-reset">
                                                 <!-- Play icon  -->
-                                                <span @if($lesson->id%2==0 && Auth::check()) style='background-color:#2ED24A' @endif  class="uk-icon-button icon-play"> <i style="color:#666666" class="fas fa-play icon-small"></i> </span>
+                                                <span @if(Auth::check()) @if($lesson->id%3==0) style='background-color:#2ED24A' @elseif($lesson->id%3==2) style='background-color:#d2c75b' @endif @endif>
+                                                    @if(Auth::check()&&$lesson->id%3==0)<i style="color:#666666" class="fas fa-check-circle icon-medium"></i> @endif
+                                                    @if(Auth::check()&&$lesson->id%3==2)<i style="color:#666666" class="fas fa-pause-circle icon-medium"></i> @endif
+                                                    @if($lesson->id%3==1)<i style="color:#666666" class="fas fa-play-circle icon-medium"></i>@endif </span>
                                                 <!-- Course title  -->
                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{$lesson->name}}</div>
                                             @if($lesson->preview)

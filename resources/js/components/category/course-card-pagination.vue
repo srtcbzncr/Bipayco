@@ -142,7 +142,6 @@
         methods:{
             ...mapActions([
                 'loadCategoryCourses',
-                'loadNewPageCourses'
             ]),
             loadCourseList: function(){
                 this.$store.dispatch('loadCategoryCourses',this.categoryId);

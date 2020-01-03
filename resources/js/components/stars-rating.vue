@@ -111,7 +111,7 @@
                 rate:this.rating,
                 ratingColor:[this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,]
             // Binded Nested Props registered as data/computed and not props
-        };
+            };
         },
         directives: {},
         computed: {
@@ -211,10 +211,14 @@
                 }
             }
         },
-        created() {
+        mounted() {
             this.setNestedConfigStyles(this.starStyle);
             this.initStars();
             this.setStars();
+        },
+        updated() {
+            this.setStars();
+            console.log('updated')
         }
     };
 </script>
