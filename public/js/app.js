@@ -7137,15 +7137,9 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("a", { attrs: { href: "#" } }, [
       _c("i", {
-        staticClass: "fas fa-play uk-hidden@m",
+        staticClass: "fas fa-play icon-large",
         staticStyle: { color: "#424242" }
-      }),
-      _vm._v(" "),
-      _c(
-        "span",
-        { staticClass: "uk-visible@m", staticStyle: { color: "#424242" } },
-        [_vm._v("Kursların")]
-      )
+      })
     ])
   },
   function() {
@@ -7199,7 +7193,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("a", { attrs: { href: "#" } }, [
       _c("i", {
-        staticClass: "fas fa-shopping-bag icon-large",
+        staticClass: "fas fa-shopping-cart icon-large",
         staticStyle: { color: "#424242" }
       })
     ])
