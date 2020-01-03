@@ -7,7 +7,7 @@
         </div>
             <ul>
                 <li>
-                    <a href="#"> <i class="fas fa-play"> </i> </a>
+                    <a href="#"> <i class="fas fa-laptop-code"> </i> </a>
                     <div class="side-menu-slide" style="overflow-y: auto">
                         <div class="side-menu-slide-content" >
                             <a class="uk-background-grey uk-margin-remove general-title" style=":hover" :href="generalEducationRoute"><b>{{generalEducation}}</b></a>
@@ -27,7 +27,7 @@
                 </li>
             <li>
                 <!-- scripts -->
-                <a href="#"> <i class="fas fa-code"/> </a>
+                <a href="#"> <i class="fas fa-school"/> </a>
                 <div class="side-menu-slide">
                     <div class="side-menu-slide-content">
                         <ul>
@@ -54,65 +54,19 @@
                 </div>
             </li>
             <li>
-                <a href="Discussion.html" class="active" uk-tooltip="title: Discussion ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"> <i class="fas fa-comment-alt"></i> </a>
+                <a href="Discussion.html" class="active" uk-tooltip="title: Discussion ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"> <i class="fas fa-user-graduate"></i> </a>
             </li>
             <li>
                 <!-- blog -->
-                <a href="Blog.html" class="active" uk-tooltip="title: Blogs ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"> <i class="fas fa-file-alt"></i> </a>
+                <a href="Blog.html" class="active" uk-tooltip="title: Blogs ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"> <i class="fas fa-book"></i> </a>
             </li>
             <li>
                 <!-- ui compounents -->
-                <a href="#"> <i class="fas fa-columns"></i> </a>
+                <a href="#"> <i class="fas fa-award"></i> </a>
                 <div class="side-menu-slide">
                     <div class="side-menu-slide-content">
                         <ul uk-accordion>
 
-                        </ul>
-                    </div>
-                </div>
-            </li>
-            <li>
-                <!-- Site pages -->
-                <a href="#"> <i class="fas fa-clone"></i> </a>
-                <div class="side-menu-slide">
-                    <div class="side-menu-slide-content">
-                        <ul>
-                            <li>
-                                <a href="pages-about.html"> <i class="fas fa-question"></i>   About  </a>
-                                <div uk-drop="pos: right-center;animation: uk-animation-slide-left-medium" class="uk-drop uk-drop-right-center">
-                                    <div class="uk-card  uk-box-shadow-xlarge uk-card-default uk-maring-small-left">
-                                        <img src="#" alt="">
-                                        <p class="uk-padding-small uk-margin-remove"> About Page is : ipsum dolor sit amet, consectetur adipiscing elit.. </p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="pages-faq.html"> <i class="fas fa-comment-alt"></i> FAQ  </a>
-                                <div uk-drop="pos: right-center;animation: uk-animation-slide-left-medium" class="uk-drop uk-drop-right-center">
-                                    <div class="uk-card  uk-box-shadow-xlarge uk-card-default uk-maring-small-left">
-                                        <img src="#" alt="">
-                                        <p class="uk-padding-small uk-margin-remove">  FAQ is : ipsum dolor sit amet, consectetur adipiscing elit </p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="pages-terms.html"> <i class="fas fa-comment-dots"></i>  Terms &amp; Services </a>
-                                <div uk-drop="pos: right-center;animation: uk-animation-slide-left-medium" class="uk-drop uk-drop-right-center">
-                                    <div class="uk-card  uk-box-shadow-xlarge uk-card-default uk-maring-small-left">
-                                        <img src="#" alt="">
-                                        <p class="uk-padding-small uk-margin-remove">  Term Services ipsum dolor sit amet, consectetur adipiscing elit </p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="pages-help.html"> <i class="fas fa-comments"></i> Help </a>
-                                <div uk-drop="pos: right-center;animation: uk-animation-slide-left-medium" class="uk-drop uk-drop-right-center">
-                                    <div class="uk-card  uk-box-shadow-xlarge uk-card-default uk-maring-small-left">
-                                        <img src="#" alt="">
-                                        <p class="uk-padding-small uk-margin-remove">  help Page ipsum dolor sit amet, consectetur adipiscing elit </p>
-                                    </div>
-                                </div>
-                            </li>
                         </ul>
                     </div>
                 </div>

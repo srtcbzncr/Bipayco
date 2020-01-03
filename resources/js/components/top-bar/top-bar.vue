@@ -8,7 +8,7 @@
         <!-- mobile logo -->
         <a class="uk-hidden@m uk-logo" :href="homeRoute"> Bipayco </a>
         <div class="uk-navbar-left uk-visible@m" v-if="hasLogin === true">
-            <a class="uk-navbar-item back-to-dashboard uk-button-text " href="#" style="color: #424242" uk-tooltip="title: back-to-dashboard ; delay: 700 ; pos: bottom-left ;animation:	uk-animation-scale-up">My Dashboard</a>
+            <a class="uk-navbar-item back-to-dashboard uk-button-text " href="#" style="color: #424242" uk-tooltip="title: back-to-dashboard ; delay: 700 ; pos: bottom-left ;animation:	uk-animation-scale-up">Kontrol Panelim</a>
             <a class="uk-navbar-item back-to-dashboard uk-button-text " style="color: #424242" href="#">Browse Books</a>
         </div>
         <div class="uk-navbar-right tm-show-on-mobile uk-flex-right" id="tm-show-on-mobile" >
@@ -21,11 +21,11 @@
 
                 <li v-if="hasLogin === true">
                     <!-- your courses -->
-                    <a href="#"> <i style="color: #424242" class="fas fa-play uk-hidden@m"></i> <span style="color: #424242" class="uk-visible@m"> Your Courses</span> </a>
+                    <a href="#"> <i style="color: #424242" class="fas fa-play uk-hidden@m"></i> <span style="color: #424242" class="uk-visible@m">Kursların</span> </a>
                     <div uk-dropdown="pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small" class="uk-dropdown border-radius-6  uk-dropdown-top-right tm-dropdown-large uk-padding-remove">
                         <div class="uk-clearfix">
                             <div class="uk-float-left">
-                                <h5  class="uk-padding-small uk-margin-remove uk-text-bold  uk-text-left">  Your Courses </h5>
+                                <h5  class="uk-padding-small uk-margin-remove uk-text-bold  uk-text-left">  Kursların </h5>
                             </div>
                             <div class="uk-float-right">
                                 <i class="fas fa-check uk-align-right  uk-margin-remove uk-margin-remove-left  uk-padding-small uk-text-small"> Completed 3 / 5 </i>
@@ -43,15 +43,15 @@
                             </div>
                         </div>
                         <hr class=" uk-margin-remove">
-                        <h5 class="uk-padding-small uk-margin-remove uk-text-bold uk-text-center"><a class="uk-link-heading" href="#"> See all </a> </h5>
+                        <h5 class="uk-padding-small uk-margin-remove uk-text-bold uk-text-center"><a class="uk-link-heading" href="#"> Tümünü Gör </a> </h5>
                     </div>
                 </li>
                 <li v-if="hasLogin === true">
                     <!-- messages -->
-                    <a href="#"><i style="color: #424242" class="fas fa-envelope icon-large"></i></a>
+                    <a href="#"><i style="color: #424242" class="fas fa-shopping-bag icon-large"></i></a>
                     <div uk-dropdown="pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small" class="uk-dropdown uk-dropdown-top-right  tm-dropdown-medium border-radius-6 uk-padding-remove uk-box-shadow-large angle-top-right">
-                        <h5 class="uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"> Messages </h5>
-                        <a href="#" class="uk-position-top-right uk-link-reset"> <i class="fas fa-trash uk-align-right   uk-text-small uk-padding-small"> Clear all</i> </a>
+                        <h5 class="uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"> Sepet </h5>
+                        <a href="#" class="uk-position-top-right uk-link-reset"> <i class="fas fa-trash uk-align-right   uk-text-small uk-padding-small"> Hepsini Temizle</i> </a>
                         <hr class=" uk-margin-remove">
                         <div class="uk-text-left uk-height-medium">
                             <div uk-scrollspy="target: > div; cls:uk-animation-slide-bottom-small; delay: 100"  style="overflow-y:auto" data-simplebar>
@@ -70,15 +70,15 @@
                             </div>
                         </div>
                         <hr class=" uk-margin-remove">
-                        <h5 class="uk-padding-small uk-margin-remove uk-text-bold uk-text-center"><a class="uk-link-heading" href=""> See all </a> </h5>
+                        <h5 class="uk-padding-small uk-margin-remove uk-text-bold uk-text-center"><a class="uk-link-heading" href=""> Satın Al </a> </h5>
                     </div>
                 </li>
                 <li v-if="hasLogin === true">
                     <!-- Notifications -->
-                    <a href="#"><i style="color: #424242" class="fas fa-bell icon-large"></i></a>
+                    <a href="#"><i style="color: #424242" class="fas fa-bell icon-large"> </i></a>
                     <div uk-dropdown="pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small" class="uk-dropdown uk-dropdown-top-right  tm-dropdown-small border-radius-6 uk-padding-remove uk-box-shadow-large angle-top-right">
-                        <h5 class="uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"> Notifications </h5>
-                        <a href="#" class="uk-position-top-right uk-link-reset"> <i class="fas fa-trash uk-align-right   uk-text-small uk-padding-small"> Clear all</i></a>
+                        <h5 class="uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"> Bildirimler </h5>
+                        <a href="#" class="uk-position-top-right uk-link-reset"> <i class="fas fa-trash uk-align-right   uk-text-small uk-padding-small"> Hepsini Temizle</i></a>
                         <hr class=" uk-margin-remove">
                         <div class="uk-text-left uk-height-medium">
                             <div data-simplebar style="overflow-y:auto">
@@ -132,9 +132,9 @@
         </div>
         <div id="modal-full" class="uk-modal-full uk-modal uk-animation-scale-down" uk-modal>
             <div class="uk-modal-dialog uk-flex uk-flex-center" uk-height-viewport>
-                <button class="uk-modal-close-full" type="button" uk-close></button>
+                <button class="uk-modal-close-full" type="button" uk-close> </button>
                 <form class="uk-search uk-margin-xlarge-top uk-search-large uk-animation-slide-bottom-medium">
-                    <i class="fas fa-search uk-position-absolute uk-margin-top icon-xxlarge"></i>
+                    <i class="fas fa-search uk-position-absolute uk-margin-top icon-xxlarge"> </i>
                     <input class="uk-search-input uk-margin-large-left" type="search" placeholder="Search..." autofocus>
                 </form>
             </div>

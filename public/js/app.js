@@ -2812,52 +2812,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "side-bar",
@@ -6182,12 +6136,10 @@ var render = function() {
       _vm._v(" "),
       _vm._m(3),
       _vm._v(" "),
-      _vm._m(4),
-      _vm._v(" "),
-      _vm._m(5)
+      _vm._m(4)
     ]),
     _vm._v(" "),
-    _vm._m(6)
+    _vm._m(5)
   ])
 }
 var staticRenderFns = [
@@ -6196,7 +6148,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("a", { attrs: { href: "#" } }, [
-      _c("i", { staticClass: "fas fa-play" })
+      _c("i", { staticClass: "fas fa-laptop-code" })
     ])
   },
   function() {
@@ -6205,7 +6157,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("li", [
       _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-code" })
+        _c("i", { staticClass: "fas fa-school" })
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "side-menu-slide" }, [
@@ -6272,7 +6224,7 @@ var staticRenderFns = [
               "title: Discussion ; delay: 500 ; pos: right ;animation:\tuk-animation-scale-up"
           }
         },
-        [_c("i", { staticClass: "fas fa-comment-alt" })]
+        [_c("i", { staticClass: "fas fa-user-graduate" })]
       )
     ])
   },
@@ -6291,7 +6243,7 @@ var staticRenderFns = [
               "title: Blogs ; delay: 500 ; pos: right ;animation:\tuk-animation-scale-up"
           }
         },
-        [_c("i", { staticClass: "fas fa-file-alt" })]
+        [_c("i", { staticClass: "fas fa-book" })]
       )
     ])
   },
@@ -6301,188 +6253,12 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("li", [
       _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-columns" })
+        _c("i", { staticClass: "fas fa-award" })
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "side-menu-slide" }, [
         _c("div", { staticClass: "side-menu-slide-content" }, [
           _c("ul", { attrs: { "uk-accordion": "" } })
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-clone" })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "side-menu-slide" }, [
-        _c("div", { staticClass: "side-menu-slide-content" }, [
-          _c("ul", [
-            _c("li", [
-              _c("a", { attrs: { href: "pages-about.html" } }, [
-                _c("i", { staticClass: "fas fa-question" }),
-                _vm._v("   About  ")
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "uk-drop uk-drop-right-center",
-                  attrs: {
-                    "uk-drop":
-                      "pos: right-center;animation: uk-animation-slide-left-medium"
-                  }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "uk-card  uk-box-shadow-xlarge uk-card-default uk-maring-small-left"
-                    },
-                    [
-                      _c("img", { attrs: { src: "#", alt: "" } }),
-                      _vm._v(" "),
-                      _c(
-                        "p",
-                        { staticClass: "uk-padding-small uk-margin-remove" },
-                        [
-                          _vm._v(
-                            " About Page is : ipsum dolor sit amet, consectetur adipiscing elit.. "
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "pages-faq.html" } }, [
-                _c("i", { staticClass: "fas fa-comment-alt" }),
-                _vm._v(" FAQ  ")
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "uk-drop uk-drop-right-center",
-                  attrs: {
-                    "uk-drop":
-                      "pos: right-center;animation: uk-animation-slide-left-medium"
-                  }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "uk-card  uk-box-shadow-xlarge uk-card-default uk-maring-small-left"
-                    },
-                    [
-                      _c("img", { attrs: { src: "#", alt: "" } }),
-                      _vm._v(" "),
-                      _c(
-                        "p",
-                        { staticClass: "uk-padding-small uk-margin-remove" },
-                        [
-                          _vm._v(
-                            "  FAQ is : ipsum dolor sit amet, consectetur adipiscing elit "
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "pages-terms.html" } }, [
-                _c("i", { staticClass: "fas fa-comment-dots" }),
-                _vm._v("  Terms & Services ")
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "uk-drop uk-drop-right-center",
-                  attrs: {
-                    "uk-drop":
-                      "pos: right-center;animation: uk-animation-slide-left-medium"
-                  }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "uk-card  uk-box-shadow-xlarge uk-card-default uk-maring-small-left"
-                    },
-                    [
-                      _c("img", { attrs: { src: "#", alt: "" } }),
-                      _vm._v(" "),
-                      _c(
-                        "p",
-                        { staticClass: "uk-padding-small uk-margin-remove" },
-                        [
-                          _vm._v(
-                            "  Term Services ipsum dolor sit amet, consectetur adipiscing elit "
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c("a", { attrs: { href: "pages-help.html" } }, [
-                _c("i", { staticClass: "fas fa-comments" }),
-                _vm._v(" Help ")
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "uk-drop uk-drop-right-center",
-                  attrs: {
-                    "uk-drop":
-                      "pos: right-center;animation: uk-animation-slide-left-medium"
-                  }
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "uk-card  uk-box-shadow-xlarge uk-card-default uk-maring-small-left"
-                    },
-                    [
-                      _c("img", { attrs: { src: "#", alt: "" } }),
-                      _vm._v(" "),
-                      _c(
-                        "p",
-                        { staticClass: "uk-padding-small uk-margin-remove" },
-                        [
-                          _vm._v(
-                            "  help Page ipsum dolor sit amet, consectetur adipiscing elit "
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              )
-            ])
-          ])
         ])
       ])
     ])
@@ -6945,7 +6721,7 @@ var render = function() {
                     "title: back-to-dashboard ; delay: 700 ; pos: bottom-left ;animation:\tuk-animation-scale-up"
                 }
               },
-              [_vm._v("My Dashboard")]
+              [_vm._v("Kontrol Panelim")]
             ),
             _vm._v(" "),
             _c(
@@ -7062,7 +6838,7 @@ var render = function() {
                           staticClass:
                             "uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"
                         },
-                        [_vm._v(" Messages ")]
+                        [_vm._v(" Sepet ")]
                       ),
                       _vm._v(" "),
                       _vm._m(8),
@@ -7142,7 +6918,7 @@ var render = function() {
                           staticClass:
                             "uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"
                         },
-                        [_vm._v(" Notifications ")]
+                        [_vm._v(" Bildirimler ")]
                       ),
                       _vm._v(" "),
                       _vm._m(11),
@@ -7368,7 +7144,7 @@ var staticRenderFns = [
       _c(
         "span",
         { staticClass: "uk-visible@m", staticStyle: { color: "#424242" } },
-        [_vm._v(" Your Courses")]
+        [_vm._v("Kursların")]
       )
     ])
   },
@@ -7384,7 +7160,7 @@ var staticRenderFns = [
             staticClass:
               "uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"
           },
-          [_vm._v("  Your Courses ")]
+          [_vm._v("  Kursların ")]
         )
       ]),
       _vm._v(" "),
@@ -7412,7 +7188,7 @@ var staticRenderFns = [
       },
       [
         _c("a", { staticClass: "uk-link-heading", attrs: { href: "#" } }, [
-          _vm._v(" See all ")
+          _vm._v(" Tümünü Gör ")
         ])
       ]
     )
@@ -7423,7 +7199,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("a", { attrs: { href: "#" } }, [
       _c("i", {
-        staticClass: "fas fa-envelope icon-large",
+        staticClass: "fas fa-shopping-bag icon-large",
         staticStyle: { color: "#424242" }
       })
     ])
@@ -7445,7 +7221,7 @@ var staticRenderFns = [
             staticClass:
               "fas fa-trash uk-align-right   uk-text-small uk-padding-small"
           },
-          [_vm._v(" Clear all")]
+          [_vm._v(" Hepsini Temizle")]
         )
       ]
     )
@@ -7462,7 +7238,7 @@ var staticRenderFns = [
       },
       [
         _c("a", { staticClass: "uk-link-heading", attrs: { href: "" } }, [
-          _vm._v(" See all ")
+          _vm._v(" Satın Al ")
         ])
       ]
     )
@@ -7495,7 +7271,7 @@ var staticRenderFns = [
             staticClass:
               "fas fa-trash uk-align-right   uk-text-small uk-padding-small"
           },
-          [_vm._v(" Clear all")]
+          [_vm._v(" Hepsini Temizle")]
         )
       ]
     )
