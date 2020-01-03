@@ -95,19 +95,19 @@
                                 <div class="tm-course-section-list">
                                     <ul>
                                         @forelse($section->lessons as $lesson)
-                                        <li>
-                                            <a href="Course-lesson.html" class="uk-link-reset">
+                                        <li  @if($lesson->id%2==0) style='background-color:#2ED24A' @endif >
+                                            <a href="#" class="uk-link-reset">
                                                 <!-- Play icon  -->
-                                                <span class="uk-icon-button icon-play"> <i class="fas fa-play icon-small"></i> </span>
+                                                <span @if($lesson->id%2==0) style='background-color:#2ED24A' @endif  class="uk-icon-button icon-play"> <i style="color:#666666" class="fas fa-play icon-small"></i> </span>
                                                 <!-- Course title  -->
                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{$lesson->name}}</div>
                                            @if($lesson->preview) <!-- preview link -->
                                                 </a>
-                                                <a class="uk-link-reset uk-margin-xlarge-right uk-position-center-right uk-padding-small uk-text-small uk-visible@s" href="#preview-video-1" uk-toggle> <i class="fas fa-play icon-small uk-text-grey"></i> Preveiw  </a>
+                                                <a style="color:#666666" class="uk-link-reset uk-margin-xlarge-right uk-position-center-right uk-padding-small uk-text-small uk-visible@s" href="#preview-video-1" uk-toggle> <i class="fas fa-play icon-small uk-text-grey"></i> Preveiw  </a>
                                             <!-- time -->
-                                                <span class="uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{$lesson->long}}</span>
+                                                <span style="color:#666666" class="uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{$lesson->long}}</span>
                                             @else
-                                                <span class="uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{$lesson->long}}</span>
+                                                <span style="color:#666666" class="uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{$lesson->long}}</span>
                                                 </a>
                                             @endif
                                         </li>
