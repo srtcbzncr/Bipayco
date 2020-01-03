@@ -57,11 +57,11 @@ const actions={
     },
     loadCourseReviews({commit},id){
         Axios.get('/api/course/'+id+"/comments")
-            .then(response =>commit('setCourseReviews',response.data));
+            .then(response =>commit('setCourseReviews',response));
     },
     loadNewPageReviews({commit}, id){
         Axios.get(id)
-            .then(response =>commit('setCourseReviews',response.data));
+            .then(response =>commit('setCourseReviews',response));
     },
 };
 

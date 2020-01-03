@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-for="review in courseReviews">
+        <div v-for="review in courseReviews.data">
             <div class="uk-grid-small  uk-margin-medium-top" uk-grid>
                 <div class="uk-width-1-5 uk-first-column">
                     <img alt="Image" class="uk-width-1-2 uk-margin-small-top uk-margin-small-bottom uk-border-circle uk-align-center  uk-box-shadow-large" :src="review.user.avatar">

@@ -5105,7 +5105,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._l(_vm.courseReviews, function(review) {
+      _vm._l(_vm.courseReviews.data, function(review) {
         return _c("div", [
           _c(
             "div",
@@ -21774,13 +21774,13 @@ var actions = {
   loadCourseReviews: function loadCourseReviews(_ref6, id) {
     var commit = _ref6.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/course/' + id + "/comments").then(function (response) {
-      return commit('setCourseReviews', response.data);
+      return commit('setCourseReviews', response);
     });
   },
   loadNewPageReviews: function loadNewPageReviews(_ref7, id) {
     var commit = _ref7.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(id).then(function (response) {
-      return commit('setCourseReviews', response.data);
+      return commit('setCourseReviews', response);
     });
   }
 };
