@@ -183,7 +183,7 @@
             <div class="uk-width-1-3@m uk-visible@m">
                 <h3 class="uk-text-bold"> Related Courses </h3>
                 @foreach($similar_courses as $similar_course)
-                    <div class="uk-margin-small-bottom">
+                    <div class="uk-margin-medium-bottom">
                         <course-card
                             title="{{$similar_course->name}}"
                             description="{{$similar_course->description}}"

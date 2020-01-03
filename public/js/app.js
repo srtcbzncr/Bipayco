@@ -2729,36 +2729,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "stars-rating",
   props: {
@@ -2806,7 +2776,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       emptyStar: 0,
       fullStar: 1,
       totalStars: 5,
-      rate: this.rating // Binded Nested Props registered as data/computed and not props
+      rate: this.rating,
+      ratingColor: [this.styleFullStarColor, this.styleFullStarColor, this.styleFullStarColor, this.styleFullStarColor, this.styleFullStarColor] // Binded Nested Props registered as data/computed and not props
 
     };
   },
@@ -2830,6 +2801,14 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
   methods: {
     setRate: function setRate(rating) {
       this.rate = rating;
+
+      for (var i = 1; i <= 5; i++) {
+        if (i > rating) {
+          this.ratingColor[i - 1] = this.styleEmptyStarColor;
+        } else {
+          this.ratingColor[i - 1] = this.styleFullStarColor;
+        }
+      }
     },
     calcStarPoints: function calcStarPoints(centerX, centerY, innerCircleArms, innerRadius, outerRadius) {
       var angle = Math.PI / innerCircleArms;
@@ -6270,13 +6249,11 @@ var render = function() {
         return _c("div", { key: index, staticClass: "star-container" }, [
           _vm.isRating
             ? _c(
-                "button",
+                "a",
                 {
-                  staticClass: "uk-icon-button",
-                  attrs: { id: index },
                   on: {
                     click: function($event) {
-                      return _vm.setRate(index)
+                      return _vm.setRate(index + 1)
                     }
                   }
                 },
@@ -6286,65 +6263,17 @@ var render = function() {
                     {
                       staticClass: "star-svg",
                       style: [
-                        { fill: "url(#gradient" + star.raw + ")" },
+                        { fill: _vm.ratingColor[index] },
                         { width: _vm.styleStarWidth },
                         { height: _vm.styleStarHeight }
-                      ]
+                      ],
+                      attrs: { id: index + 1 }
                     },
                     [
                       _c("polygon", {
                         staticStyle: { "fill-rule": "nonzero" },
                         attrs: { points: _vm.getStarPoints }
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "defs",
-                        [
-                          _c(
-                            "linearGradient",
-                            { attrs: { id: "gradient" + star.raw } },
-                            [
-                              _c("stop", {
-                                attrs: {
-                                  id: "stop1",
-                                  offset: star.percent,
-                                  "stop-opacity": "1",
-                                  "stop-color": _vm.getFullFillColor(star)
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("stop", {
-                                attrs: {
-                                  id: "stop2",
-                                  offset: star.percent,
-                                  "stop-opacity": "0",
-                                  "stop-color": _vm.getFullFillColor(star)
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("stop", {
-                                attrs: {
-                                  id: "stop3",
-                                  offset: star.percent,
-                                  "stop-opacity": "1",
-                                  "stop-color": _vm.styleEmptyStarColor
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("stop", {
-                                attrs: {
-                                  id: "stop4",
-                                  offset: "100%",
-                                  "stop-opacity": "1",
-                                  "stop-color": _vm.styleEmptyStarColor
-                                }
-                              })
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
+                      })
                     ]
                   )
                 ]

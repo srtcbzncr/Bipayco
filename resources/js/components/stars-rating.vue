@@ -1,49 +1,19 @@
 <template>
     <div class="star-rating">
         <div v-for="(star, index) in stars" :key="index" class="star-container">
-            <button @click="setRate(index)" :id="index" v-if="isRating" class="uk-icon-button">
+            <a @click="setRate(index+1)" v-if="isRating" class="">
                 <svg
+                    :id="index+1"
                     class="star-svg"
                     :style="[
-                        { fill: `url(#gradient${star.raw})` },
+                        { fill: ratingColor[index] },
                         { width: styleStarWidth },
                         { height: styleStarHeight }
                     ]"
                 >
                     <polygon :points="getStarPoints" style="fill-rule:nonzero;"/>
-                    <defs>
-                        <!--
-                          id has to be unique to each star fullness(dynamic offset) - it indicates fullness above
-                        -->
-                        <linearGradient :id="`gradient${star.raw}`">
-                            <stop
-                                id="stop1"
-                                :offset="star.percent"
-                                stop-opacity="1"
-                                :stop-color="getFullFillColor(star)"
-                            > </stop>
-                            <stop
-                                id="stop2"
-                                :offset="star.percent"
-                                stop-opacity="0"
-                                :stop-color="getFullFillColor(star)"
-                            > </stop>
-                            <stop
-                                id="stop3"
-                                :offset="star.percent"
-                                stop-opacity="1"
-                                :stop-color="styleEmptyStarColor"
-                            > </stop>
-                            <stop
-                                id="stop4"
-                                offset="100%"
-                                stop-opacity="1"
-                                :stop-color="styleEmptyStarColor"
-                            > </stop>
-                        </linearGradient>
-                    </defs>
                 </svg>
-            </button>
+            </a>
             <svg v-else
                 class="star-svg"
                 :style="[
@@ -100,7 +70,7 @@
             },
             rating: {
                 type: Number,
-                default: 5
+                default: 5,
             },
             starStyle: {
                 type: Object
@@ -139,8 +109,9 @@
                 fullStar: 1,
                 totalStars: 5,
                 rate:this.rating,
-                // Binded Nested Props registered as data/computed and not props
-            };
+                ratingColor:[this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,]
+            // Binded Nested Props registered as data/computed and not props
+        };
         },
         directives: {},
         computed: {
@@ -169,6 +140,13 @@
         methods: {
             setRate(rating){
                 this.rate=rating;
+                for (var i=1;i<=5;i++){
+                    if (i>(rating)){
+                        this.ratingColor[i-1] = this.styleEmptyStarColor
+                    }else{
+                        this.ratingColor[i-1]= this.styleFullStarColor
+                    }
+                }
             },
             calcStarPoints(
                 centerX,
