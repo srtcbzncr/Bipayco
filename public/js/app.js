@@ -2893,19 +2893,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "stars-rating",
   props: {
@@ -2953,7 +2940,6 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       emptyStar: 0,
       fullStar: 1,
       totalStars: 5,
-      rate: this.rating,
       ratingColor: [this.styleFullStarColor, this.styleFullStarColor, this.styleFullStarColor, this.styleFullStarColor, this.styleFullStarColor] // Binded Nested Props registered as data/computed and not props
 
     };
@@ -2972,21 +2958,10 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       return this.calcStarPoints(centerX, centerY, innerCircleArms, innerRadius, outerRadius);
     },
     ratingFixed: function ratingFixed() {
-      return this.rate.toFixed(1);
+      return this.rating.toFixed(1);
     }
   },
   methods: {
-    setRate: function setRate(rating) {
-      this.rate = rating;
-
-      for (var i = 1; i <= 5; i++) {
-        if (i > rating) {
-          this.ratingColor[i - 1] = this.styleEmptyStarColor;
-        } else {
-          this.ratingColor[i - 1] = this.styleFullStarColor;
-        }
-      }
-    },
     calcStarPoints: function calcStarPoints(centerX, centerY, innerCircleArms, innerRadius, outerRadius) {
       var angle = Math.PI / innerCircleArms;
       var angleOffsetToCenterStar = 60;
@@ -3012,7 +2987,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
       }
     },
     setStars: function setStars() {
-      var fullStarsCounter = Math.floor(this.rate);
+      var fullStarsCounter = Math.floor(this.rating);
 
       for (var i = 0; i < this.stars.length; i++) {
         if (fullStarsCounter !== 0) {
@@ -3020,7 +2995,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
           this.stars[i].percent = this.calcStarFullness(this.stars[i]);
           fullStarsCounter--;
         } else {
-          var surplus = Math.round(this.rate % 1 * 10) / 10; // Support just one decimal
+          var surplus = Math.round(this.rating % 1 * 10) / 10; // Support just one decimal
 
           var roundedOneDecimalPoint = Math.round(surplus * 10) / 10;
           this.stars[i].raw = roundedOneDecimalPoint;
@@ -6393,104 +6368,72 @@ var render = function() {
     [
       _vm._l(_vm.stars, function(star, index) {
         return _c("div", { key: index, staticClass: "star-container" }, [
-          _vm.isRating
-            ? _c(
-                "button",
-                {
-                  staticClass: "uk-icon-button star-button",
-                  on: {
-                    click: function($event) {
-                      return _vm.setRate(index + 1)
-                    }
-                  }
-                },
+          _c(
+            "svg",
+            {
+              staticClass: "star-svg",
+              style: [
+                { fill: "url(#gradient" + star.raw + ")" },
+                { width: _vm.styleStarWidth },
+                { height: _vm.styleStarHeight }
+              ]
+            },
+            [
+              _c("polygon", {
+                staticStyle: { "fill-rule": "nonzero" },
+                attrs: { points: _vm.getStarPoints }
+              }),
+              _vm._v(" "),
+              _c(
+                "defs",
                 [
                   _c(
-                    "svg",
-                    {
-                      staticClass: "star-svg",
-                      style: [
-                        { fill: _vm.ratingColor[index] },
-                        { width: _vm.styleStarWidth },
-                        { height: _vm.styleStarHeight }
-                      ],
-                      attrs: { id: index + 1 }
-                    },
+                    "linearGradient",
+                    { attrs: { id: "gradient" + star.raw } },
                     [
-                      _c("polygon", {
-                        staticStyle: { "fill-rule": "nonzero" },
-                        attrs: { points: _vm.getStarPoints }
+                      _c("stop", {
+                        attrs: {
+                          id: "stop1",
+                          offset: star.percent,
+                          "stop-opacity": "1",
+                          "stop-color": _vm.getFullFillColor(star)
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("stop", {
+                        attrs: {
+                          id: "stop2",
+                          offset: star.percent,
+                          "stop-opacity": "0",
+                          "stop-color": _vm.getFullFillColor(star)
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("stop", {
+                        attrs: {
+                          id: "stop3",
+                          offset: star.percent,
+                          "stop-opacity": "1",
+                          "stop-color": _vm.styleEmptyStarColor
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("stop", {
+                        attrs: {
+                          id: "stop4",
+                          offset: "100%",
+                          "stop-opacity": "1",
+                          "stop-color": _vm.styleEmptyStarColor
+                        }
                       })
-                    ]
-                  )
-                ]
-              )
-            : _c(
-                "svg",
-                {
-                  staticClass: "star-svg",
-                  style: [
-                    { fill: "url(#gradient" + star.raw + ")" },
-                    { width: _vm.styleStarWidth },
-                    { height: _vm.styleStarHeight }
-                  ]
-                },
-                [
-                  _c("polygon", {
-                    staticStyle: { "fill-rule": "nonzero" },
-                    attrs: { points: _vm.getStarPoints }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "defs",
-                    [
-                      _c(
-                        "linearGradient",
-                        { attrs: { id: "gradient" + star.raw } },
-                        [
-                          _c("stop", {
-                            attrs: {
-                              id: "stop1",
-                              offset: star.percent,
-                              "stop-opacity": "1",
-                              "stop-color": _vm.getFullFillColor(star)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("stop", {
-                            attrs: {
-                              id: "stop2",
-                              offset: star.percent,
-                              "stop-opacity": "0",
-                              "stop-color": _vm.getFullFillColor(star)
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("stop", {
-                            attrs: {
-                              id: "stop3",
-                              offset: star.percent,
-                              "stop-opacity": "1",
-                              "stop-color": _vm.styleEmptyStarColor
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("stop", {
-                            attrs: {
-                              id: "stop4",
-                              offset: "100%",
-                              "stop-opacity": "1",
-                              "stop-color": _vm.styleEmptyStarColor
-                            }
-                          })
-                        ],
-                        1
-                      )
                     ],
                     1
                   )
-                ]
+                ],
+                1
               )
+            ]
+          )
         ])
       }),
       _vm._v(" "),
