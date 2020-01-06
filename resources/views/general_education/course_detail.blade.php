@@ -164,20 +164,20 @@
                 <div id="Instructor" class="tabcontent animation: uk-animation-slide-right-medium">
                     <h2 class="uk-heading-line uk-text-center"><span> @lang('front/auth.meet_instructor')  </span></h2>
                     @foreach($course->instructors as $instructor)
-                    <div class="uk-grid-small  uk-margin-medium-top uk-padding-small" uk-grid>
-                        <div class="uk-width-1-4@m uk-first-column">
-                            <img alt="Image" class="uk-width-2-3 uk-margin-small-top uk-margin-small-bottom uk-border-circle uk-box-shadow-large  uk-animation-scale-up" src="{{$instructor->user->avatar}}">
-                            <div class="uk-text-small uk-margin-small-top">
-                                <p> <i class="fas fa-play"></i> {{$instructor->courseCount()}} @lang('front/auth.course') </p>
+                        <div class="uk-grid-small  uk-margin-medium-top uk-padding-small" uk-grid>
+                            <div class="uk-width-1-4@m uk-first-column">
+                                <a href="{{route('instructor_profile', $instructor->id)}}"><img alt="Image" class="uk-width-2-3 uk-margin-small-top uk-margin-small-bottom uk-border-circle uk-box-shadow-large  uk-animation-scale-up" src="{{asset($instructor->user->avatar)}}"></a>
+                                <div class="uk-text-small uk-margin-small-top">
+                                    <p> <i class="fas fa-play"></i> {{$instructor->courseCount()}} @lang('front/auth.course') </p>
+                                </div>
+                            </div>
+                            <div class="uk-width-3-4@m uk-padding-remove-left">
+                                <h4 class="uk-margin-remove"> {{$instructor->user->first_name}} {{$instructor->user->last_name}} </h4>
+                                <span class="uk-text-small">  {{$instructor->title}} </span>
+                                <hr class="uk-margin-small">
+                                <p class="uk-margin-remove-top uk-margin-small-bottom">{{$instructor->bio}}</p>
                             </div>
                         </div>
-                        <div class="uk-width-3-4@m uk-padding-remove-left">
-                            <h4 class="uk-margin-remove"> {{$instructor->user->first_name}} {{$instructor->user->last_name}} </h4>
-                            <span class="uk-text-small">  {{$instructor->title}} </span>
-                            <hr class="uk-margin-small">
-                            <p class="uk-margin-remove-top uk-margin-small-bottom">{{$instructor->bio}}</p>
-                        </div>
-                    </div>
                     @endforeach
                 </div>
             </div>
