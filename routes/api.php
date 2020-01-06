@@ -65,3 +65,5 @@ Route::prefix('district')->group(function(){
     Route::get('index', 'API\Base\DistrictController@index')->name('api_district_index');
     Route::get('{id}', 'API\Base\DistrictController@show')->name('api_district_show');
 });
+
+Route::get('myCourses/{$id}', 'API\Auth\AuthController@courses')->name('api_my_courses');

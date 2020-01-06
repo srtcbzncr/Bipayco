@@ -11,6 +11,7 @@ use App\Http\Requests\UpdatePasswordRequest;
 use App\Http\Requests\UpdatePersonalDataRequest;
 use App\Models\Auth\User;
 use App\Repositories\Auth\InstructorRepository;
+use App\Repositories\Auth\StudentRepository;
 use App\Repositories\Auth\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -222,4 +223,35 @@ class AuthController extends Controller
         }
     }
 
+    public function studentProfile($id){
+        // Initializations
+        $repo = new StudentRepository;
+
+        // Operations
+        $resp = $repo->get($id);
+
+        // Response
+        if($resp->getResult()){
+            return view('auth.student_profile', ['student' => $resp->getData()]);
+        }
+        else{
+            return redirect()->route('error');
+        }
+    }
+
+    public function instructorProfile($id){
+        // Initializations
+        $repo = new InstructorRepository;
+
+        // Operations
+        $resp = $repo->get($id);
+
+        // Response
+        if($resp->getResult()){
+            return view('auth.instructor_profile', ['instructor' => $resp->getData()]);
+        }
+        else{
+            return redirect()->route('error');
+        }
+    }
 }

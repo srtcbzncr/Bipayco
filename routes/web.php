@@ -31,6 +31,11 @@ Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function(){
     Route::post('updateInstructorData', 'Auth\AuthController@updateInstructorData')->name('updateInstructorData');
 });
 
+Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function(){
+    Route::get('student/{id}', 'Auth\AuthController@studentProfile')->name('student_profile');
+    Route::get('instructor/{id}', 'Auth\AuthController@instructorProfile')->name('instructor_profile');
+});
+
 Route::group(['prefix' => 'ge'], function(){
     Route::group(['prefix' => 'category'], function(){
         Route::get('{id}', 'GeneralEducation\CategoryController@show')->name('ge_category_courses');

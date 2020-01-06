@@ -3,6 +3,7 @@
 namespace App\Repositories\Auth;
 
 use App\Models\Auth\User;
+use App\Models\GeneralEducation\Course;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use App\Models\Auth\Student;
@@ -311,6 +312,29 @@ class StudentRepository implements IRepository{
         }
         catch(\Exception $e){
             DB::rollBack();
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function courses($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $geCourses = DB::select('SELECT * FROM ge_courses WHERE id IN(SELECT course_id FROM ge_entries WHERE student_id='.$id.')');
+            $object = [
+                'ge' => $geCourses,
+            ];
+        }
+        catch(\Exception $e){
             $error = $e;
             $result = false;
         }
