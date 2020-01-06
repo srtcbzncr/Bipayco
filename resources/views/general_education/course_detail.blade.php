@@ -33,7 +33,7 @@
                         </div>
                         <div class="uk-width-expand">
                             <span class="uk-light uk-text-small uk-text-bold"> My progress </span>
-                            <progress id="js-progressbar" class="uk-progress progress-green uk-margin-small-bottom uk-margin-small-top" value="50" max="100" style="height: 8px;"> </progress>
+                            <progress id="js-progressbar" class="uk-progress progress-green uk-margin-small-bottom uk-margin-small-top" value="{{$progress}}" max="100" style="height: 8px;"> </progress>
                         </div>
                     </div>
                 @else
@@ -149,7 +149,7 @@
                 <!-- Reviews  -->
                 <div id="Reviews" class="tabcontent animation: uk-animation-slide-right-medium">
                     <h3 style="tab-index: 1">@lang('front/auth.reviews')</h3>
-                    @if(Auth::user()->can('comment', $course))
+                    @if(Auth::check() && Auth::user()->can('comment', $course))
                         <review course-id="{{$course->id}}" user-id="{{Auth::user()->id}}"></review>
                     @endif
                     <div class="uk-margin-medium-top">

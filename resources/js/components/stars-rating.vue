@@ -1,20 +1,7 @@
 <template>
     <div class="star-rating">
         <div v-for="(star, index) in stars" :key="index" class="star-container">
-            <button @click="setRate(index+1)" v-if="isRating" class="uk-icon-button star-button">
-                <svg
-                    :id="index+1"
-                    class="star-svg"
-                    :style="[
-                        { fill: ratingColor[index] },
-                        { width: styleStarWidth },
-                        { height: styleStarHeight }
-                    ]"
-                >
-                    <polygon :points="getStarPoints" style="fill-rule:nonzero;"/>
-                </svg>
-            </button>
-            <svg v-else
+            <svg
                 class="star-svg"
                 :style="[
                         { fill: `url(#gradient${star.raw})` },
@@ -108,7 +95,6 @@
                 emptyStar: 0,
                 fullStar: 1,
                 totalStars: 5,
-                rate:this.rating,
                 ratingColor:[this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,]
             // Binded Nested Props registered as data/computed and not props
             };
@@ -134,20 +120,10 @@
                 );
             },
             ratingFixed:function () {
-                return this.rate.toFixed(1);
+                return this.rating.toFixed(1);
             },
         },
         methods: {
-            setRate(rating){
-                this.rate=rating;
-                for (var i=1;i<=5;i++){
-                    if (i>(rating)){
-                        this.ratingColor[i-1] = this.styleEmptyStarColor
-                    }else{
-                        this.ratingColor[i-1]= this.styleFullStarColor
-                    }
-                }
-            },
             calcStarPoints(
                 centerX,
                 centerY,
@@ -178,14 +154,14 @@
                 }
             },
             setStars() {
-                let fullStarsCounter = Math.floor(this.rate);
+                let fullStarsCounter = Math.floor(this.rating);
                 for (let i = 0; i < this.stars.length; i++) {
                     if (fullStarsCounter !== 0) {
                         this.stars[i].raw = this.fullStar;
                         this.stars[i].percent = this.calcStarFullness(this.stars[i]);
                         fullStarsCounter--;
                     } else {
-                        let surplus = Math.round((this.rate % 1) * 10) / 10; // Support just one decimal
+                        let surplus = Math.round((this.rating % 1) * 10) / 10; // Support just one decimal
                         let roundedOneDecimalPoint = Math.round(surplus * 10) / 10;
                         this.stars[i].raw = roundedOneDecimalPoint;
                         return (this.stars[i].percent = this.calcStarFullness(this.stars[i]));
