@@ -120,6 +120,7 @@
                         :log-out="logOut"
                         :settings="settings"
                         :profile="profile"
+                        :profile-route="profileRoute"
                     />
                 </li>
                 <li v-if="hasLogin === false">
@@ -163,7 +164,8 @@ export default {
         userCity:String,
         settings:String,
         logOut:String,
-        profile:String
+        profile:String,
+        profileRoute:String,
     },
     components: {
         UserProfileDropdownNav,

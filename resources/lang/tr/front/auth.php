@@ -85,4 +85,5 @@ return [
     'watch'=>'İzle',
     'watch_again'=>'Tekrar İzle',
     'resume'=>'Devam Et',
+    'homeworks'=>'Ödevler'
 ];

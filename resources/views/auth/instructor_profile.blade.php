@@ -20,7 +20,7 @@
                 </div>
             </div>
             <div class="uk-width-3-4@m">
-                <h3 class="uk-heading-line uk-margin-medium-top uk-text-center"><span>@lang('front/auth.bio') </span></h3>
+                <h3 class="uk-heading-line uk-text-center"><span>@lang('front/auth.bio') </span></h3>
                 <div class="uk-margin-medium-top uk-padding-small">
                     <p class="uk-margin-remove-top uk-margin-small-bottom">{{$instructor->bio}}</p>
                 </div>

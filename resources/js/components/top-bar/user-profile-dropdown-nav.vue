@@ -11,7 +11,7 @@
         </div>
         <ul class="uk-nav uk-dropdown-nav">
             <li>
-                <a href="Profile.html"> <i class="fas fa-user uk-margin-small-right"></i>{{profile}}</a>
+                <a :href="profileRoute"> <i class="fas fa-user uk-margin-small-right"></i>{{profile}}</a>
             </li>
             <li>
                 <a href="#"> <i class="fas fa-envelope uk-margin-small-right"></i> Messages </a>
@@ -42,6 +42,7 @@
             settings:String,
             logOut:String,
             profile:String,
+            profileRoute:String,
         }
     }
 </script>

@@ -11,24 +11,30 @@ const state={
     categories:{},
     categoryCourses:{},
     courseReviews:{},
+    myCourses:{},
 };
 const getters={};
 const mutations={
     /*province.vue*/
-   setCities(state, index){
+    setCities(state, index){
         state.cities=index.data;
     },
     setDistricts(state, index){
-       state.districts=index.data;
+        state.districts=index.data;
     },
     setCategories(state,index){
-      state.categories=index.data;
+        state.categories=index.data;
     },
+    /*course*/
     setCategoryCourses(state,index){
-       state.categoryCourses=index.data;
+        state.categoryCourses=index.data;
     },
     setCourseReviews(state,index){
-       state.courseReviews=index.data;
+        state.courseReviews=index.data;
+    },
+    /*course-progress-card.vue*/
+    setMyCourses(state, index){
+        state.myCourses=index.data;
     }
 };
 const actions={
@@ -63,6 +69,10 @@ const actions={
         Axios.get(id)
             .then(response =>commit('setCourseReviews',response));
     },
+    loadMyCourses({commit},userId){
+        Axios.get('/api/myCourses/'+userId)
+            .then(response =>commit('setMyCourses',response));
+    }
 };
 
 const store=new Vuex.Store({
