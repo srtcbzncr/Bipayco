@@ -22,7 +22,7 @@ class AuthController extends Controller
             $geCourses = $courses->getData()['ge'];
             $geCoursesResp = array();
             foreach($geCourses as $course){
-                array_push($geCoursesResp, ['course' => $course, 'progress' => $geCourseRepo->calculateProgress($course->id, $user->student->id)]);
+                array_push($geCoursesResp, ['course' => $course, 'progress' => $geCourseRepo->calculateProgress($course->id, $user->student->id)->getData()]);
             }
             return response()->json(['error' => false, 'courses' => $geCoursesResp]);
         }
