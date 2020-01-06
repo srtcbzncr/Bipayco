@@ -24,7 +24,9 @@ class AuthController extends Controller
             foreach($geCourses as $course){
                 array_push($geCoursesResp, ['course' => $course, 'progress' => $geCourseRepo->calculateProgress($course->id, $user->student->id)->getData()]);
             }
-            return response()->json(['error' => false, 'courses' => $geCoursesResp]);
+            return response()->json(['error' => false, 'courses' => [
+                'ge' => $geCoursesResp,
+            ]]);
         }
         else {
             return response()->json(['error' => true, 'message' => $courses->getError()]);
