@@ -8,6 +8,7 @@
                         <img class="uk-width-1-1" src="{{Auth::user()->avatar}}">
                     </div>
                     <div class="uk-h4 uk-margin-remove uk-text-center uk-margin-small-top">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</div>
+                    <div class="uk-text-meta uk-text-center">{{Auth::user()->district->name}}, {{Auth::user()->district->city->name}}</div>
                     <div class="uk-margin-medium-bottom  uk-margin-top  uk-text-center">
                         <a class="Course-tags uk-margin-small-right border-radius-6 tags-bg-danger" href="{{route('settings')}}"><i class="fas fa-cog"></i> @lang('front/auth.settings') </a>
                         <a class="Course-tags uk-margin-small-right border-radius-6 tags-bg-danger" href="{{route('logout')}}"><i class="fas fa-sign-out-alt"></i> @lang('front/auth.log_out') </a>
@@ -27,17 +28,17 @@
             </div>
             <div class="uk-width-3-4@m">
                 <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.general_education') </span></h3>
-                <course-progress-card user-id="{{Auth::user()->id}}" general-education></course-progress-card>
+                <course-progress-card user-id="{{Auth::user()->id}}" no-content="@lang('front/auth.not_found_content')" general-education></course-progress-card>
                 <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.prepare_for_lessons') </span></h3>
-                <course-progress-card user-id="{{Auth::user()->id}}" prepare-for-lessons></course-progress-card>
+                <course-progress-card user-id="{{Auth::user()->id}}" no-content="@lang('front/auth.not_found_content')" prepare-for-lessons></course-progress-card>
                 <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.prepare_for_exams') </span></h3>
-                <course-progress-card user-id="{{Auth::user()->id}}" prepare-for-exams></course-progress-card>
+                <course-progress-card user-id="{{Auth::user()->id}}" no-content="@lang('front/auth.not_found_content')" prepare-for-exams></course-progress-card>
                 <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.exams') </span></h3>
-                <course-progress-card user-id="{{Auth::user()->id}}" exams></course-progress-card>
+                <course-progress-card user-id="{{Auth::user()->id}}" no-content="@lang('front/auth.not_found_content')" exams></course-progress-card>
                 <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.books') </span></h3>
-                <course-progress-card user-id="{{Auth::user()->id}}" books></course-progress-card>
+                <course-progress-card user-id="{{Auth::user()->id}}" no-content="@lang('front/auth.not_found_content')" books></course-progress-card>
                 <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.homeworks') </span></h3>
-                <course-progress-card user-id="{{Auth::user()->id}}" homeworks></course-progress-card>
+                <course-progress-card user-id="{{Auth::user()->id}}" no-content="@lang('front/auth.not_found_content')" homeworks></course-progress-card>
             </div>
         </div>
     </div>

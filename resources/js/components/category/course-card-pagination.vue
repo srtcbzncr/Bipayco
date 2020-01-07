@@ -62,7 +62,8 @@
                     <button v-show="currentPage>1" @click="loadNewPage(categoryCourses.links.prev,--currentPage)"> < </button>
                 </li>
                 <li v-for="page in pageNumber">
-                    <button @click="loadNewPage('/api/course/'+selectedSortOption+'/'+categoryId+'?page='+page,page)">{{page}}</button>
+                    <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
+                    <button v-else @click="loadNewPage('/api/course/'+selectedSortOption+'/'+categoryId+'?page='+page,page)">{{page}}</button>
                 </li>
                 <li>
                     <button v-show="currentPage<(this.courseCount/this.paginateCourse)" @click="loadNewPage(categoryCourses.links.next,++currentPage)"> > </button>
@@ -122,18 +123,31 @@
             ]),
             pageNumber(){
                 var pages=['1'];
-                if(this.currentPage > 4){
-                    pages.push('...');
-                    for(var i=currentPage-2;i<currentPage+3;i++){
-                        pages.push(i);
-                    }
-                }else{
-                    for (var i=2;i<(this.courseCount/this.paginateCourse)+1;i++){
-
-                        pages.push(i);
+                var index=2;
+                for(var i=2; index<=this.lastPage; i++){
+                    if(i==2 && this.currentPage-2>3){
+                        pages.push('...');
+                        if(this.currentPage+3>this.lastPage){
+                            index=this.lastPage-6;
+                        }else{
+                            index=this.currentPage-2;
+                        }
+                    }else if(i==8 && this.currentPage+2<this.lastPage-2){
+                        pages.push('...');
+                        index=this.lastPage;
+                    }else{
+                        pages.push(index);
+                        index++;
                     }
                 }
                 return pages;
+            },
+            lastPage(){
+                if(this.categoryCourses.meta!=null) {
+                    return this.categoryCourses.meta.last_page;
+                }else{
+                    return 20;
+                }
             },
             selectedSortOption(){
                 return document.getElementById("sortBy").value;
@@ -149,6 +163,7 @@
             loadNewPage: function(name,newPageNumber){
                 this.$store.dispatch('loadNewPageCourses',name);
                 this.currentPage=newPageNumber;
+                console.log(this.currentPage)
             }
         },
     }

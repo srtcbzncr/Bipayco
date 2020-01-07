@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="myCourses.courses!=null">
         <div v-if="generalEducation && myCourses.courses.ge!=null" class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
             <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
                 <li v-for="myCourse in myCourses.courses.ge">
@@ -139,7 +139,7 @@
             </ul>
         </div>
         <div v-else class="uk-text-center uk-margin-large-top uk-margin-large-bottom">
-            <h3 class="uk-text-center">{{noContent}}</h3>
+            <h4 class="uk-text-center text-secondary">{{noContent}}</h4>
         </div>
     </div>
 </template>
