@@ -26,11 +26,11 @@ class AuthController extends Controller
             }
             return response()->json(['error' => false, 'courses' => [
                 'ge' => $geCoursesResp,
-                'pl' => null,
-                'pe' => null,
-                'books' => null,
-                'exams' => null,
-                'homeworks' => null,
+                'pl' => array(),
+                'pe' => array(),
+                'books' => array(),
+                'exams' => array(),
+                'homeworks' => array(),
             ]]);
         }
         else {
