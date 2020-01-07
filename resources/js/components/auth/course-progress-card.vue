@@ -1,6 +1,6 @@
 <template>
     <div v-if="myCourses.courses!=null">
-        <div v-if="generalEducation && myCourses.courses.ge!=null" class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
+        <div v-if="generalEducation && myCourses.courses.ge.length>0" class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
             <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
                 <li v-for="myCourse in myCourses.courses.ge">
                     <div class="uk-grid-margin">
@@ -23,7 +23,7 @@
                 </li>
             </ul>
         </div>
-        <div v-else-if="prepareForLessons && myCourses.courses.pl != null" class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
+        <div v-else-if="prepareForLessons && myCourses.courses.pl.length>0" class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
             <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
                 <li v-for="myCourse in myCourses.courses.pl">
                     <div class="uk-grid-margin">
@@ -46,7 +46,7 @@
                 </li>
             </ul>
         </div>
-        <div v-else-if="prepareForExams && myCourses.courses.pe != null" class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
+        <div v-else-if="prepareForExams && myCourses.courses.pe.length>0" class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
             <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
                 <li v-for="myCourse in myCourses.courses.pe">
                     <div class="uk-grid-margin">
@@ -69,7 +69,7 @@
                 </li>
             </ul>
         </div>
-        <div v-else-if="books && myCourses.courses.books != null" class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
+        <div v-else-if="books && myCourses.courses.books.length>0" class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
             <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
                 <li v-for="myCourse in myCourses.courses.books">
                     <div class="uk-grid-margin">
@@ -92,7 +92,7 @@
                 </li>
             </ul>
         </div>
-        <div v-else-if="exams && myCourses.courses.exams != null" class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
+        <div v-else-if="exams && myCourses.courses.exams.length>0" class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
             <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
                 <li v-for="myCourse in myCourses.courses.exams">
                     <div class="uk-grid-margin">
@@ -115,7 +115,7 @@
                 </li>
             </ul>
         </div>
-        <div v-else-if="homeworks && myCourses.courses.homeworks != null" class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
+        <div v-else-if="homeworks && myCourses.courses.homeworks.length>0" class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
             <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
                 <li v-for="myCourse in myCourses.courses.homeworks">
                     <div class="uk-grid-margin">

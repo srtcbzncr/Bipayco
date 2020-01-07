@@ -29,7 +29,6 @@ Vue.component('notification-card', require('./components/top-bar/notification-ca
 Vue.component('top-bar', require('./components/top-bar/top-bar.vue').default);
 Vue.component('messages-small-card', require('./components/top-bar/messages-small-card.vue').default);
 Vue.component('user-profile-dropdown', require('./components/top-bar/user-profile-dropdown-nav.vue').default);
-Vue.component('your-course-card', require('./components/top-bar/your-course-card.vue').default);
 Vue.component('side-bar', require('./components/side-bar/side-bar.vue').default);
 Vue.component('app-footer', require('./components/footer/app-footer.vue').default);
 Vue.component('registered-profile', require('./components/admin/registered-profile.vue').default);

@@ -61,6 +61,7 @@
                 login-name="@lang('front/auth.login')"
                 @if(Auth::check())
                     has-login
+                    user-id="{{Auth::user()->id}}"
                     profile-route="{{route('student_profile', Auth::user()->id)}}"
                     profile-image='{{asset(Auth::user()->avatar)}}'
                     user-name="{{Auth::user()->first_name}} {{Auth::user()->last_name}}"

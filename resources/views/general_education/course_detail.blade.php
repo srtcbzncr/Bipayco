@@ -24,7 +24,7 @@
                     @foreach($entries as $entry)
                         <img src="{{$entry->student->user->avatar}}">
                     @endforeach
-                    <span class="uk-text-bold uk-light"> {{$student_count}} @lang('front/auth.enrolled_student') </span>
+                    <span class="uk-text-bold uk-light"> {{$student_count}} @lang('front/auth.enrolled_student') {{Auth::user()->can('entry',$course)}}</span>
                 </div>
                 @if(Auth::check() && Auth::user()->can('entry',$course))
                     <div class="uk-grid-small" uk-grid>
@@ -32,7 +32,7 @@
                             <a class="uk-button uk-button-white uk-float-left" href="Course-lesson.html" uk-tooltip="title: Star This course now  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"> @lang('front/auth.continue')</a>
                         </div>
                         <div class="uk-width-expand">
-                            <span class="uk-light uk-text-small uk-text-bold"> My progress </span>
+                            <span class="uk-light uk-text-small uk-text-bold"> @lang('front/auth.my_progress') </span>
                             <progress id="js-progressbar" class="uk-progress progress-green uk-margin-small-bottom uk-margin-small-top" value="{{$progress}}" max="100" style="height: 8px;"> </progress>
                         </div>
                     </div>
@@ -183,7 +183,7 @@
             </div>
             <!-- side contant -->
             <div class="uk-width-1-3@m uk-visible@m">
-                <h3 class="uk-text-bold"> Related Courses </h3>
+                <h3 class="uk-text-bold">@lang('front/auth.related_courses') </h3>
                 @foreach($similar_courses as $similar_course)
                     <div class="uk-margin-medium-bottom">
                         <course-card

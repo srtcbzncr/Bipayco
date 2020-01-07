@@ -33,12 +33,21 @@
                         </div>
                         <hr class=" uk-margin-remove">
                         <div class="uk-padding-smaluk-text-left uk-height-medium">
-                            <div class="demo1" data-simplebar style="overflow-y:auto">
-                                <div class="uk-child-width-1-2@s  uk-grid-small uk-padding-small"  uk-scrollspy="target: > div; cls:uk-animation-slide-bottom-small; delay: 100 ;repeat: true" uk-grid>
-                                    <your-course-card/>
-                                    <your-course-card/>
-                                    <your-course-card/>
-                                    <your-course-card/>
+                            <div v-if="myCourses.courses != null" class="demo1" data-simplebar style="overflow-y:auto">
+                                <div v-if="myCourses.courses.ge.length>0" class="uk-child-width-1-2@s  uk-grid-small uk-padding-small"  uk-scrollspy="target: > div; cls:uk-animation-slide-bottom-small; delay: 100 ;repeat: true" uk-grid>
+                                    <div  v-for="myCourse in myCourses.courses.ge">
+                                        <a :href="'/ge/course/'+myCourse.course.id" class="uk-link-reset">
+                                            <div class="uk-padding-small uk-card-default">
+                                                <progress id="js-progressbar" class="uk-progress progress-green uk-margin-small-bottom" :value="myCourse.progress" max="100" style="height: 7px;"></progress>
+                                                <img :src="myCourse.course.image" class="uk-align-left  uk-margin-small-right uk-margin-small-bottom  uk-width-1-3  uk-visible@s" alt="">
+                                                <p class="uk-text-bold uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{myCourse.course.name}} </p>
+                                                <p class="uk-text-small uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"> {{myCourse.course.description}}</p>
+                                                <div class="uk-margin-small">
+                                                    <a class="Course-tags uk-margin-small-right   border-radius-6" href=""> <i class="fas fa-play"></i> Devam Et</a>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -144,34 +153,78 @@
 </template>
 
 <script>
-import YourCourseCard from "./your-course-card";
 import MessagesSmallCard from "./messages-small-card";
 import NotificationCard from "./notification-card";
 import UserProfileDropdownNav from "./user-profile-dropdown-nav";
+import {mapActions, mapState} from "vuex";
 export default {
     name: "top-bar",
     props:{
-        homeRoute:String,
+        homeRoute:{
+            type:String,
+            required:true,
+        },
         profileImage:String,
-        settingsRoute:String,
-        logoutRoute:String,
+        settingsRoute:{
+            type:String,
+            required:true,
+        },
+        logoutRoute:{
+            type:String,
+            required:true,
+        },
         hasLogin:Boolean,
         registerName:String,
-        registerRoute:String,
-        loginRoute:String,
+        registerRoute:{
+            type:String,
+            required:true,
+        },
+        loginRoute:{
+            type:String,
+            required:true,
+        },
         loginName:String,
-        userName:String,
-        userCity:String,
         settings:String,
         logOut:String,
         profile:String,
-        profileRoute:String,
+        profileRoute:{
+            type:String,
+            required:true,
+        },
+        userId:{
+            type:String,
+            required:true,
+        },
+        userCity:{
+            type:String,
+            required:true,
+        },
+        userName:{
+            type:String,
+            required:true,
+        },
+        noContent:{
+            type:String,
+            default:'Hiç Kursa Sahip Değilsin'
+        }
+    },
+    computed:{
+        ...mapState([
+            'myCourses',
+        ]),
+    },
+    methods:{
+        ...mapActions([
+            'loadMyCourses'
+        ]),
+    },
+    mounted () {
+        this.$store.dispatch('loadMyCourses',this.userId);
     },
     components: {
         UserProfileDropdownNav,
         NotificationCard,
-        MessagesSmallCard,
-        YourCourseCard
+        MessagesSmallCard
     }
 }
 </script>
