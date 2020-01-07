@@ -1,5 +1,5 @@
 <template>
-    <div class="uk-margin-xlarge-bottom">
+    <div v-if="canReview" class="uk-margin-xlarge-bottom">
         <div class="star-rating">
             <div v-for="(star, index) in stars" :key="index" class="star-container">
                 <button @click="setRate(index+1)" class="uk-icon-button star-button">
@@ -32,6 +32,9 @@
             courseId:{
                 type:String,
                 required:true,
+            },
+            canReview:{
+              type:Boolean,
             },
             userId:{
                 type:String,
@@ -204,7 +207,7 @@
                 }
             }
         },
-        created() {
+        mounted() {
             this.setNestedConfigStyles(this.starStyle);
             this.initStars();
             this.setStars();

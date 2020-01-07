@@ -24,7 +24,7 @@
                     @foreach($entries as $entry)
                         <img src="{{$entry->student->user->avatar}}">
                     @endforeach
-                    <span class="uk-text-bold uk-light"> {{$student_count}} @lang('front/auth.enrolled_student') {{Auth::user()->can('entry',$course)}}</span>
+                    <span class="uk-text-bold uk-light"> {{$student_count}} @lang('front/auth.enrolled_student')</span>
                 </div>
                 @if(Auth::check() && Auth::user()->can('entry',$course))
                     <div class="uk-grid-small" uk-grid>
@@ -149,9 +149,7 @@
                 <!-- Reviews  -->
                 <div id="Reviews" class="tabcontent animation: uk-animation-slide-right-medium">
                     <h3 style="tab-index: 1">@lang('front/auth.reviews')</h3>
-                    @if(Auth::check() && Auth::user()->can('comment', $course))
-                        <review course-id="{{$course->id}}" user-id="{{Auth::user()->id}}"></review>
-                    @endif
+                    <review course-id="{{$course->id}}" user-id="{{Auth::user()->id}}" @if(Auth::check() && Auth::user()->can('comment', $course)) can-review @endif></review>
                     <div class="uk-margin-medium-top">
                         <course-review
                             course-id="{{$course->id}}"

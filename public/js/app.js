@@ -2563,6 +2563,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       required: true
     },
+    canReview: {
+      type: Boolean
+    },
     userId: {
       type: String,
       required: true
@@ -2723,7 +2726,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  created: function created() {
+  mounted: function mounted() {
     this.setNestedConfigStyles(this.starStyle);
     this.initStars();
     this.setStars();
@@ -5016,7 +5019,7 @@ var render = function() {
                           "a",
                           {
                             staticClass: "uk-link-reset",
-                            attrs: { href: "#" }
+                            attrs: { href: "/ge/course/" + myCourse.course.id }
                           },
                           [
                             _c(
@@ -6562,74 +6565,77 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "uk-margin-xlarge-bottom" }, [
-    _c(
-      "div",
-      { staticClass: "star-rating" },
-      [
-        _vm._l(_vm.stars, function(star, index) {
-          return _c("div", { key: index, staticClass: "star-container" }, [
-            _c(
-              "button",
-              {
-                staticClass: "uk-icon-button star-button",
-                on: {
-                  click: function($event) {
-                    return _vm.setRate(index + 1)
-                  }
-                }
-              },
-              [
+  return _vm.canReview
+    ? _c("div", { staticClass: "uk-margin-xlarge-bottom" }, [
+        _c(
+          "div",
+          { staticClass: "star-rating" },
+          [
+            _vm._l(_vm.stars, function(star, index) {
+              return _c("div", { key: index, staticClass: "star-container" }, [
                 _c(
-                  "svg",
+                  "button",
                   {
-                    staticClass: "star-svg",
-                    style: [
-                      { fill: _vm.ratingColor[index] },
-                      { width: _vm.styleStarWidth },
-                      { height: _vm.styleStarHeight }
-                    ],
-                    attrs: { id: index + 1 }
+                    staticClass: "uk-icon-button star-button",
+                    on: {
+                      click: function($event) {
+                        return _vm.setRate(index + 1)
+                      }
+                    }
                   },
                   [
-                    _c("polygon", {
-                      staticStyle: { "fill-rule": "nonzero" },
-                      attrs: { points: _vm.getStarPoints }
-                    })
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "star-svg",
+                        style: [
+                          { fill: _vm.ratingColor[index] },
+                          { width: _vm.styleStarWidth },
+                          { height: _vm.styleStarHeight }
+                        ],
+                        attrs: { id: index + 1 }
+                      },
+                      [
+                        _c("polygon", {
+                          staticStyle: { "fill-rule": "nonzero" },
+                          attrs: { points: _vm.getStarPoints }
+                        })
+                      ]
+                    )
                   ]
                 )
-              ]
+              ])
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-text-bold uk-margin-small-left uk-margin-small",
+                style: _vm.styleRateColor
+              },
+              [_vm._v(_vm._s(_vm.ratingFixed))]
             )
-          ])
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c("textarea", {
+          staticClass: "uk-textarea uk-width uk-height-small",
+          attrs: { placeholder: "Yorum Yaz...", id: "comment" }
         }),
         _vm._v(" "),
         _c(
-          "div",
+          "button",
           {
-            staticClass: "uk-text-bold uk-margin-small-left uk-margin-small",
-            style: _vm.styleRateColor
+            staticClass:
+              "uk-button uk-button-primary uk-margin-small-top uk-float-right ",
+            on: { click: _vm.submitReview }
           },
-          [_vm._v(_vm._s(_vm.ratingFixed))]
+          [_vm._v(" Gönder ")]
         )
-      ],
-      2
-    ),
-    _vm._v(" "),
-    _c("textarea", {
-      staticClass: "uk-textarea uk-width uk-height-small",
-      attrs: { placeholder: "Yorum Yaz...", id: "comment" }
-    }),
-    _vm._v(" "),
-    _c(
-      "button",
-      {
-        staticClass:
-          "uk-button uk-button-primary uk-margin-small-top uk-float-right ",
-        on: { click: _vm.submitReview }
-      },
-      [_vm._v(" Gönder ")]
-    )
-  ])
+      ])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
