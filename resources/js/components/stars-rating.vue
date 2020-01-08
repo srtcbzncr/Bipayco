@@ -155,6 +155,7 @@
             },
             setStars() {
                 let fullStarsCounter = Math.floor(this.rating);
+                var first=true;
                 for (let i = 0; i < this.stars.length; i++) {
                     if (fullStarsCounter !== 0) {
                         this.stars[i].raw = this.fullStar;
@@ -163,8 +164,14 @@
                     } else {
                         let surplus = Math.round((this.rating % 1) * 10) / 10; // Support just one decimal
                         let roundedOneDecimalPoint = Math.round(surplus * 10) / 10;
-                        this.stars[i].raw = roundedOneDecimalPoint;
-                        return (this.stars[i].percent = this.calcStarFullness(this.stars[i]));
+                        if(first){
+                            this.stars[i].raw = roundedOneDecimalPoint;
+                            this.stars[i].percent = this.calcStarFullness(this.stars[i]);
+                            first=false;
+                        }else{
+                            this.stars[i].raw = this.emptyStar;
+                            this.stars[i].percent= this.emptyStar + "%";
+                        }
                     }
                 }
             },
@@ -187,11 +194,14 @@
                 }
             }
         },
+        beforeUpdate() {
+            this.setStars();
+        },
         mounted() {
             this.setNestedConfigStyles(this.starStyle);
             this.initStars();
             this.setStars();
-        },
+        }
     };
 </script>
 

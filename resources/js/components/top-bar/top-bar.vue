@@ -186,19 +186,15 @@ export default {
         profile:String,
         profileRoute:{
             type:String,
-            required:true,
         },
         userId:{
             type:String,
-            required:true,
         },
         userCity:{
             type:String,
-            required:true,
         },
         userName:{
             type:String,
-            required:true,
         },
         noContent:{
             type:String,
@@ -216,7 +212,9 @@ export default {
         ]),
     },
     mounted () {
-        this.$store.dispatch('loadMyCourses',this.userId);
+        if(this.userId != null){
+            this.$store.dispatch('loadMyCourses',this.userId);
+        }
     },
     components: {
         UserProfileDropdownNav,

@@ -3215,6 +3215,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     },
     setStars: function setStars() {
       var fullStarsCounter = Math.floor(this.rating);
+      var first = true;
 
       for (var i = 0; i < this.stars.length; i++) {
         if (fullStarsCounter !== 0) {
@@ -3225,8 +3226,15 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
           var surplus = Math.round(this.rating % 1 * 10) / 10; // Support just one decimal
 
           var roundedOneDecimalPoint = Math.round(surplus * 10) / 10;
-          this.stars[i].raw = roundedOneDecimalPoint;
-          return this.stars[i].percent = this.calcStarFullness(this.stars[i]);
+
+          if (first) {
+            this.stars[i].raw = roundedOneDecimalPoint;
+            this.stars[i].percent = this.calcStarFullness(this.stars[i]);
+            first = false;
+          } else {
+            this.stars[i].raw = this.emptyStar;
+            this.stars[i].percent = this.emptyStar + "%";
+          }
         }
       }
     },
@@ -3245,6 +3253,9 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
         }
       }
     }
+  },
+  beforeUpdate: function beforeUpdate() {
+    this.setStars();
   },
   mounted: function mounted() {
     this.setNestedConfigStyles(this.starStyle);
@@ -3523,20 +3534,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     logOut: String,
     profile: String,
     profileRoute: {
-      type: String,
-      required: true
+      type: String
     },
     userId: {
-      type: String,
-      required: true
+      type: String
     },
     userCity: {
-      type: String,
-      required: true
+      type: String
     },
     userName: {
-      type: String,
-      required: true
+      type: String
     },
     noContent: {
       type: String,
@@ -3546,7 +3553,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapState"])(['myCourses'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['loadMyCourses'])),
   mounted: function mounted() {
-    this.$store.dispatch('loadMyCourses', this.userId);
+    if (this.userId != null) {
+      this.$store.dispatch('loadMyCourses', this.userId);
+    }
   },
   components: {
     UserProfileDropdownNav: _user_profile_dropdown_nav__WEBPACK_IMPORTED_MODULE_2__["default"],
