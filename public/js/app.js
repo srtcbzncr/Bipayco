@@ -3488,9 +3488,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
 
 
 
@@ -6442,7 +6439,11 @@ var render = function() {
                   _c(
                     "div",
                     { staticClass: "uk-float-right" },
-                    [_c("stars-rating", { attrs: { rating: review.point } })],
+                    [
+                      _c("stars-rating", {
+                        attrs: { rating: Number(review.point) }
+                      })
+                    ],
                     1
                   ),
                   _vm._v(" "),
@@ -8333,17 +8334,6 @@ var staticRenderFns = [
               "uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"
           },
           [_vm._v("  Kurslarım ")]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "uk-float-right" }, [
-        _c(
-          "i",
-          {
-            staticClass:
-              "fas fa-check uk-align-right  uk-margin-remove uk-margin-remove-left  uk-padding-small uk-text-small"
-          },
-          [_vm._v(" Completed 3 / 5 ")]
         )
       ])
     ])

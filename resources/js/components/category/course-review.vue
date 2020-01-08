@@ -7,7 +7,7 @@
                 </div>
                 <div class="uk-width-4-5 uk-padding-remove-left">
                     <div class="uk-float-right">
-                        <stars-rating :rating="review.point"> </stars-rating>
+                        <stars-rating :rating="Number(review.point)"> </stars-rating>
                     </div>
                     <h4 class="uk-margin-remove">{{review.user.first_name}} {{review.user.last_name}}</h4>
                     <span class="uk-text-small">{{Math.ceil(Math.abs(new Date()-new Date(review.created_at))/ (1000 * 60 * 60 * 24))}} days before</span>

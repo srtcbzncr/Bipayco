@@ -65,7 +65,7 @@
                     profile-route="{{route('student_profile', Auth::user()->id)}}"
                     profile-image='{{asset(Auth::user()->avatar)}}'
                     user-name="{{Auth::user()->first_name}} {{Auth::user()->last_name}}"
-                    user-city="{{Auth::user()->district->name}},{{Auth::user()->district->city->name}}"
+                    user-city="{{Auth::user()->district->name}}, {{Auth::user()->district->city->name}}"
                 @endif
                 settings="@lang('front/auth.settings')"
                 log-out="@lang('front/auth.log_out')"

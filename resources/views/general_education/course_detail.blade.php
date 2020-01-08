@@ -149,7 +149,9 @@
                 <!-- Reviews  -->
                 <div id="Reviews" class="tabcontent animation: uk-animation-slide-right-medium">
                     <h3 style="tab-index: 1">@lang('front/auth.reviews')</h3>
-                    <review course-id="{{$course->id}}" user-id="{{Auth::user()->id}}" @if(Auth::check() && Auth::user()->can('comment', $course)) can-review @endif></review>
+                    @if(Auth::check())
+                        <review course-id="{{$course->id}}" user-id="{{Auth::user()->id}}" @if(Auth::check() && Auth::user()->can('comment', $course)) can-review @endif></review>
+                    @endif
                     <div class="uk-margin-medium-top">
                         <course-review
                             course-id="{{$course->id}}"

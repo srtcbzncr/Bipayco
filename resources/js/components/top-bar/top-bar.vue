@@ -27,9 +27,6 @@
                             <div class="uk-float-left">
                                 <h5  class="uk-padding-small uk-margin-remove uk-text-bold  uk-text-left">  Kurslarım </h5>
                             </div>
-                            <div class="uk-float-right">
-                                <i class="fas fa-check uk-align-right  uk-margin-remove uk-margin-remove-left  uk-padding-small uk-text-small"> Completed 3 / 5 </i>
-                            </div>
                         </div>
                         <hr class=" uk-margin-remove">
                         <div class="uk-padding-smaluk-text-left uk-height-medium">
