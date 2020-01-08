@@ -17,12 +17,12 @@ class CreateGeStudentsCompletedLessonsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('lesson_id');
+            $table->string('lesson_type');
             $table->boolean('is_completed');
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('student_id')->references('id')->on('auth_students')->onDelete('cascade');
-            $table->foreign('lesson_id')->references('id')->on('ge_lessons')->onDelete('cascade');
         });
     }
 

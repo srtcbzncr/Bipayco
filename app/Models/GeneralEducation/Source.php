@@ -13,6 +13,6 @@ class Source extends Model
     protected $guarded = ['id'];
 
     public function lesson(){
-        return $this->belongsTo('App\Models\GeneralEducation\Lesson');
+        return $this->morphTo();
     }
 }

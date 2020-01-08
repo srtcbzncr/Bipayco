@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\GeneralEducation;
+namespace App\Models\PrepareLessons;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,19 +9,23 @@ class Course extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'ge_courses';
+    protected $table = 'pl_courses';
     protected $guarded = ['id'];
 
-    public function category(){
-        return $this->belongsTo('App\Models\GeneralEducation\Category');
+    public function lesson(){
+        return $this->belongsTo('App\Models\PrepareLessons\Lesson');
     }
 
-    public function subCategory(){
-        return $this->belongsTo('App\Models\GeneralEducation\SubCategory');
+    public function grade(){
+        return $this->belongsTo('App\Models\PrepareLessons\Grade');
+    }
+
+    public function subject(){
+        return $this->belongsTo('App\Models\PrepareLessons\Subject');
     }
 
     public function sections(){
-        return $this->hasMany('App\Models\GeneralEducation\Section');
+        return $this->hasMany('App\Models\PrepareLessons\Section');
     }
 
     public function instructors(){

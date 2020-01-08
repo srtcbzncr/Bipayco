@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGeFavoritesTable extends Migration
+class CreateCrSubjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateGeFavoritesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ge_favorites', function (Blueprint $table) {
+        Schema::create('cr_subjects', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('course_id');
-            $table->string('course_type');
+            $table->unsignedBigInteger('lesson_id');
+            $table->string('name');
+            $table->string('symbol');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('user_id')->references('id')->on('auth_users')->onDelete('cascade');
+            $table->foreign('lesson_id')->references('id')->on('cr_lessons')->onDelete('cascade');
         });
     }
 
@@ -32,6 +32,6 @@ class CreateGeFavoritesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ge_favorites');
+        Schema::dropIfExists('cr_subjects');
     }
 }

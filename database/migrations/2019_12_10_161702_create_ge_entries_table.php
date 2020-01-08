@@ -16,6 +16,7 @@ class CreateGeEntriesTable extends Migration
         Schema::create('ge_entries', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('course_id');
+            $table->string('course_type');
             $table->unsignedBigInteger('student_id');
             $table->timestamp('access_start');
             $table->timestamp('access_finish')->nullable();

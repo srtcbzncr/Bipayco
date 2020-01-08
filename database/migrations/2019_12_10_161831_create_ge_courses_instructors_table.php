@@ -16,6 +16,7 @@ class CreateGeCoursesInstructorsTable extends Migration
         Schema::create('ge_courses_instructors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('course_id');
+            $table->string('course_type');
             $table->unsignedBigInteger('instructor_id');
             $table->boolean('is_manager');
             $table->float('percent');
@@ -23,7 +24,6 @@ class CreateGeCoursesInstructorsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('course_id')->references('id')->on('ge_courses')->onDelete('cascade');
             $table->foreign('instructor_id')->references('id')->on('auth_instructors')->onDelete('cascade');
         });
     }

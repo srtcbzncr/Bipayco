@@ -25,7 +25,13 @@ class Instructor extends Model
     }
 
     public function geCourses(){
-        return $this->belongsToMany('App\Models\GeneralEducation\Course', 'ge_courses_instructors', 'instructor_id', 'course_id')->withPivot('is_manager', 'percent');
+        return $this->morphedByMany('App\Models\GeneralEducation\Course', 'course','ge_courses_instructors', 'instructor_id', 'course_id')->withPivot('is_manager', 'percent');
+        //return $this->belongsToMany('App\Models\GeneralEducation\Course', 'ge_courses_instructors', 'instructor_id', 'course_id')->withPivot('is_manager', 'percent');
+    }
+
+    public function plCourses(){
+        return $this->morphedByMany('App\Models\PrepareLessons\Course', 'course', 'ge_courses_instructors', 'instructor_id', 'course_id')->withPivot('is_manager', 'percent');
+        //return $this->belongsToMany('App\Models\GeneralEducation\Course', 'ge_courses_instructors', 'instructor_id', 'course_id')->withPivot('is_manager', 'percent');
     }
 
     public function courseCount(){

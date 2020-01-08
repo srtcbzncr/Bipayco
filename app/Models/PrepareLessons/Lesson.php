@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\GeneralEducation;
+namespace App\Models\PrepareLessons;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,11 +9,11 @@ class Lesson extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'ge_lessons';
+    protected $table = 'pl_lessons';
     protected $guarded = ['id'];
 
     public function section(){
-        return $this->belongsTo('App\Models\GeneralEducation\Section');
+        return $this->belongsTo('App\Models\PrepareLessons\Section');
     }
 
     public function sources(){
@@ -25,7 +25,7 @@ class Lesson extends Model
     }
 
     public function completed(){
-        return $this->morphToMany('App\Models\Auth\Student', 'lesson', 'ge_students_completed_lessons', 'lesson_id', 'student_id')->withPivot(['is_completed']);
+        return $this->morphToMany('App\Models\Auth\Student', 'lesson','ge_students_completed_lessons', 'lesson_id', 'student_id')->withPivot(['is_completed']);
         //return $this->belongsToMany('App\Models\Auth\Student', 'ge_students_completed_lessons', 'lesson_id', 'student_id')->withPivot(['is_completed']);
     }
 }

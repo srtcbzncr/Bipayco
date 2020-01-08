@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\GE_CommentResource;
 use App\Http\Resources\GE_CourseCollection;
 use App\Http\Resources\GE_CourseResource;
+use App\Repositories\Auth\UserRepository;
 use App\Repositories\GeneralEducation\CourseRepository;
 use Illuminate\Http\Request;
 
@@ -266,6 +267,26 @@ class CourseController extends Controller
         }
         else{
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
+        }
+    }
+
+    public function canEntry($id, $user_id){
+        // Repo initialization
+        $courseRepo = new CourseRepository;
+        $userRepo = new UserRepository;
+
+        // Operations
+        $courseResp = $courseRepo->get($id);
+        $userResp = $userRepo->get($user_id);
+
+        // Response
+        if($courseResp->getResult() and $userResp->getResult()){
+            $user = $userResp->getData();
+            $course = $courseResp->getData();
+            return response()->json(['error' => false, 'result' => $user->can('entry', $course)]);
+        }
+        else{
+            return response()->json(['error' => true, 'message' => 'Bir hata oluştu.']);
         }
     }
 }

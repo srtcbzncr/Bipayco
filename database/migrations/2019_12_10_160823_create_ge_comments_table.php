@@ -16,6 +16,7 @@ class CreateGeCommentsTable extends Migration
         Schema::create('ge_comments', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('course_id');
+            $table->string('course_type');
             $table->unsignedBigInteger('user_id');
             $table->string('content')->nullable();
             $table->float('point');
@@ -23,7 +24,6 @@ class CreateGeCommentsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('course_id')->references('id')->on('ge_courses')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('auth_users')->onDelete('cascade');
         });
     }

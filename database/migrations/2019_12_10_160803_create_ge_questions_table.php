@@ -16,6 +16,7 @@ class CreateGeQuestionsTable extends Migration
         Schema::create('ge_questions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('lesson_id');
+            $table->string('lesson_type');
             $table->unsignedBigInteger('user_id');
             $table->string('title', 100);
             $table->string('content');
@@ -23,7 +24,6 @@ class CreateGeQuestionsTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('lesson_id')->references('id')->on('ge_lessons')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('auth_users')->onDelete('cascade');
         });
     }

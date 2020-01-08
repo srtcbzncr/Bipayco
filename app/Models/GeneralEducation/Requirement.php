@@ -13,6 +13,6 @@ class Requirement extends Model
     protected $guarded = ['id'];
 
     public function course(){
-        return $this->belongsTo('App\Models\GeneralEducation\Course');
+        return $this->morphTo();
     }
 }

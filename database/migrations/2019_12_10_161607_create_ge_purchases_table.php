@@ -18,6 +18,7 @@ class CreateGePurchasesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('course_id');
+            $table->string('course_type');
             $table->float('price');
             $table->boolean('confirmation');
             $table->timestamps();
@@ -25,7 +26,6 @@ class CreateGePurchasesTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('auth_users');
             $table->foreign('student_id')->references('id')->on('auth_students');
-            $table->foreign('course_id')->references('id')->on('ge_courses');
         });
     }
 

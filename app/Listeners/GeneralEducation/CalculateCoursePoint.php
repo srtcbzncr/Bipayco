@@ -28,7 +28,7 @@ class CalculateCoursePoint
     public function handle(NewComment $event)
     {
         $comment = $event->comment;
-        $course = Course::find($comment->course_id);
+        $course = $comment->course;
         $comments = $course->comments;
         $totalPoint = 0;
         $commentCount = 0;

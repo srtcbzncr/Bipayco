@@ -16,12 +16,11 @@ class CreateGeRequirementsTable extends Migration
         Schema::create('ge_requirements', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('course_id');
+            $table->string('course_type');
             $table->string('content');
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('course_id')->references('id')->on('ge_courses')->onDelete('cascade');
         });
     }
 

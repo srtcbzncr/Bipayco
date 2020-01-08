@@ -16,13 +16,12 @@ class CreateGeNoticesTable extends Migration
         Schema::create('ge_notices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('course_id');
+            $table->string('course_type');
             $table->string('title');
             $table->string('message');
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('course_id')->references('id')->on('ge_courses')->onDelete('cascade');
         });
     }
 

@@ -16,11 +16,10 @@ class CreateGeTagsTable extends Migration
         Schema::create('ge_tags', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('course_id');
+            $table->string('course_type');
             $table->string('tag');
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('course_id')->references('id')->on('ge_courses')->onDelete('cascade');
         });
     }
 

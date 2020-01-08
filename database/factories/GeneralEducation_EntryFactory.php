@@ -8,10 +8,18 @@ use App\Models\GeneralEducation\Entry;
 use Faker\Generator as Faker;
 
 $factory->define(Entry::class, function (Faker $faker) {
-    $course = Course::orderByRaw('RAND()')->take(1)->first();
+    $rand = rand(0, 100);
+    $course = null;
+    if ($rand > 50){
+        $course = \App\Models\PrepareLessons\Course::orderByRaw('RAND()')->take(1)->first();
+    }
+    else{
+        $course = \App\Models\GeneralEducation\Course::orderByRaw('RAND()')->take(1)->first();
+    }
     $student = Student::orderByRaw('RAND()')->take(1)->first();
     return [
         'course_id' => $course->id,
+        'course_type' => get_class($course),
         'student_id' => $student->id,
         'access_start' => $faker->dateTime,
         'access_finish' => $faker->dateTime,

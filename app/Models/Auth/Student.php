@@ -25,7 +25,13 @@ class Student extends Model
     }
 
     public function geCompleted(){
-        return $this->belongsToMany('App\Models\GeneralEducation\Lesson', 'ge_students_completed_lessons', 'student_id', 'lesson_id')->withPivot(['is_completed']);
+        return $this->morphedByMany('App\Models\GeneralEducation\Lessons', 'lesson','ge_students_completed_lessons', 'student_id', 'lesson_id')->withPivot(['is_completed']);
+        //return $this->belongsToMany('App\Models\GeneralEducation\Lesson', 'ge_students_completed_lessons', 'student_id', 'lesson_id')->withPivot(['is_completed']);
+    }
+
+    public function plCompleted(){
+        return $this->morphedByMany('App\Models\PrepareLessons\Lessons', 'lesson', 'ge_students_completed_lessons', 'student_id', 'lesson_id')->withPivot(['is_completed']);
+        //return $this->belongsToMany('App\Models\GeneralEducation\Lesson', 'ge_students_completed_lessons', 'student_id', 'lesson_id')->withPivot(['is_completed']);
     }
 
     public function geEntries(){

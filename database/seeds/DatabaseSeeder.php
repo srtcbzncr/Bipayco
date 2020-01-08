@@ -2,6 +2,7 @@
 
 use App\Models\Auth\Guardian;
 use App\Models\Auth\Instructor;
+use App\Models\Auth\User;
 use App\Models\Base\School;
 use Illuminate\Database\Seeder;
 use App\Models\Auth\Student;
@@ -33,6 +34,7 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
+
     public function run()
     {
         factory(Guardian::class, 100)->create();
@@ -48,11 +50,46 @@ class DatabaseSeeder extends Seeder
                 $instructor = factory(Instructor::class)->create();
                 DB::table('ge_courses_instructors')->insert([
                     'course_id' => $course->id,
+                    'course_type' => get_class($course),
                     'instructor_id' => $instructor->id,
                 ]);
                 $i = $i + 1;
             }
+            $user = User::orderByRaw('RAND()')->take(1)->first();
+            DB::table('ge_comments')->insert([
+                'course_id' => $course->id,
+                'course_type' => get_class($course),
+                'user_id' => $user->id,
+                'content' => "",
+                'point' => "5",
+            ]);
         });
+        factory(\App\Models\Curriculum\Lesson::class, 10)->create();
+        factory(\App\Models\Curriculum\Grade::class, 12)->create();
+        factory(\App\Models\Curriculum\Subject::class, 50)->create();
+        factory(\App\Models\PrepareLessons\Course::class, 100)->create()->each(function($course){
+            $random = rand(1,5);
+            $i = 0;
+            while($i < $random){
+                $instructor = factory(Instructor::class)->create();
+                DB::table('ge_courses_instructors')->insert([
+                    'course_id' => $course->id,
+                    'course_type' => get_class($course),
+                    'instructor_id' => $instructor->id,
+                ]);
+                $i = $i + 1;
+            }
+            $user = User::orderByRaw('RAND()')->take(1)->first();
+            DB::table('ge_comments')->insert([
+                'course_id' => $course->id,
+                'course_type' => get_class($course),
+                'user_id' => $user->id,
+                'content' => "",
+                'point' => "5",
+            ]);
+        });
+        factory(\App\Models\PrepareLessons\Section::class, 300)->create();
+        factory(\App\Models\PrepareLessons\Lesson::class, 600)->create();
         factory(Section::class, 500)->create();
         factory(Lesson::class, 1000)->create();
         factory(Achievement::class, 1000)->create();

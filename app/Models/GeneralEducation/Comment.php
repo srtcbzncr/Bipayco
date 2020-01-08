@@ -17,7 +17,7 @@ class Comment extends Model
     ];
 
     public function course(){
-        return $this->belongsTo('App\Models\GeneralEducation\Course');
+        return $this->morphTo();
     }
 
     public function user(){

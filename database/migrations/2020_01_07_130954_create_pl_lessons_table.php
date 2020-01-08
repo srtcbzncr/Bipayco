@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGeSourcesTable extends Migration
+class CreatePlLessonsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,20 @@ class CreateGeSourcesTable extends Migration
      */
     public function up()
     {
-        Schema::create('ge_sources', function (Blueprint $table) {
+        Schema::create('pl_lessons', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('lesson_id');
-            $table->string('lesson_type');
-            $table->string('title', 200);
+            $table->unsignedBigInteger('section_id');
+            $table->boolean('is_video');
+            $table->unsignedInteger('no');
+            $table->string('name', 100);
+            $table->time('long'); // HH:MM:SS
+            $table->boolean('preview');
             $table->string('file_path');
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('section_id')->references('id')->on('pl_sections')->onDelete('cascade');
         });
     }
 
@@ -32,6 +37,6 @@ class CreateGeSourcesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ge_sources');
+        Schema::dropIfExists('pl_lessons');
     }
 }

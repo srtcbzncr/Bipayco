@@ -7,9 +7,17 @@ use App\Models\GeneralEducation\Tag;
 use Faker\Generator as Faker;
 
 $factory->define(Tag::class, function (Faker $faker) {
-    $course = Course::orderByRaw('RAND()')->take(1)->first();
+    $rand = rand(0, 100);
+    $course = null;
+    if ($rand > 50){
+        $course = \App\Models\PrepareLessons\Course::orderByRaw('RAND()')->take(1)->first();
+    }
+    else{
+        $course = \App\Models\GeneralEducation\Course::orderByRaw('RAND()')->take(1)->first();
+    }
     return [
         'course_id' => $course->id,
+        'course_type' => get_class($course),
         'tag' => $faker->word,
     ];
 });

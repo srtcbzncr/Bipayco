@@ -16,14 +16,13 @@ class CreateGeDiscountsTable extends Migration
         Schema::create('ge_discounts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('course_id');
+            $table->string('course_type');
             $table->float('discount_rate');
             $table->timestamp('start_date');
             $table->timestamp('finish_date');
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('course_id')->references('id')->on('ge_courses')->onDelete('cascade');
         });
     }
 

@@ -17,6 +17,6 @@ class Favorite extends Model
     }
 
     public function course(){
-        return $this->belongsTo('App\Models\GeneralEducation\Course');
+        return $this->morphTo();
     }
 }
