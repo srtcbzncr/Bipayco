@@ -22,7 +22,7 @@ class CommentController extends Controller
                 return response()->json(['error' => false, 'message' => __('general_education.comment_is_added')]);
             }
             else{
-                return response()->json(['error' => true, 'message' => __('general_education.comment_is_not_added')]);
+                return response()->json(['error' => true, 'message' => $resp->getError()]);
             }
         }
         else{
