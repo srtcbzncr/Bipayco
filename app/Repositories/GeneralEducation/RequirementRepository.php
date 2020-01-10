@@ -60,7 +60,8 @@ class RequirementRepository implements IRepository{
         // Operations
         try{
             $object = new Requirement;
-            $object->course_id = $data['course_id'];
+            $object->course_id = $data['course']->id;
+            $object->course_type = get_class($data['course']);
             $object->content = $data['content'];
             $object->save();
         }

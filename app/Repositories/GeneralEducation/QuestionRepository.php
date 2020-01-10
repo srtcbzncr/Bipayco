@@ -61,7 +61,8 @@ class QuestionRepository implements IRepository{
         // Operations
         try{
             $object = new Question;
-            $object->lesson_id = $data['lesson_id'];
+            $object->lesson_id = $data['lesson']->id;
+            $object->lesson_type = get_class($data['lesson']);
             $object->user_id = Auth::id();
             $object->title = $data['title'];
             $object->content = $data['content'];

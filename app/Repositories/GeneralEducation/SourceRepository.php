@@ -61,7 +61,8 @@ class SourceRepository implements IRepository{
         try{
             $filePath = Storage::putFile('sources', $data['file']);
             $object = new Source;
-            $object->lesson_id = $data['lesson_id'];
+            $object->lesson_id = $data['lesson']->id;
+            $object->lesson_type = get_class($data['lesson']);
             $object->title = $data['title'];
             $object->file_path = $filePath;
             $object->save();

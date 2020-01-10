@@ -60,7 +60,8 @@ class DiscountRepository implements IRepository{
         // Operations
         try{
             $object = new Discount;
-            $object->course_id = $data['course_id'];
+            $object->course_id = $data['course']->id;
+            $object->course_type = get_class($data['course']);
             $object->discount_rate = $data['discount_rate'];
             $object->start_date = $data['start_date'];
             $object->finish_date = $data['finish_date'];

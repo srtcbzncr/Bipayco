@@ -61,7 +61,8 @@ class FavoriteRepository implements IRepository{
         try{
             $object = new Favorite;
             $object->user_id = $data['user_id'];
-            $object->course_id = $data['course_id'];
+            $object->course_id = $data['course']->id;
+            $object->course_type = get_class($data['course']);
             $object->save();
         }
         catch(\Exception $e){

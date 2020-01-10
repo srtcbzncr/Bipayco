@@ -60,7 +60,8 @@ class EntryRepository implements IRepository{
         // Operations
         try{
             $object = new Entry;
-            $object->course_id = $data['course_id'];
+            $object->course_id = $data['course']->id;
+            $object->course_type = get_class($data['course']);
             $object->student_id = $data['student_id'];
             $object->access_start = $data['access_start'];
             $object->access_finish = $data['access_finish'];

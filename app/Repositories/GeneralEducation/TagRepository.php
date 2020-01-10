@@ -60,7 +60,8 @@ class TagRepository implements IRepository{
         // Operations
         try{
             $object = new Tag;
-            $object->course_id = $data['course_id'];
+            $object->course_id = $data['course']->id;
+            $object->course_type = get_class($data['course']);
             $object->tag = $data['tag'];
             $object->save();
         }

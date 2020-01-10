@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\GeneralEducation;
 
 use App\Http\Controllers\Controller;
+use App\Models\GeneralEducation\Course;
 use App\Repositories\GeneralEducation\CommentRepository;
 use Illuminate\Http\Request;
 
@@ -12,10 +13,11 @@ class CommentController extends Controller
         // Repo initialization
         $repo = new CommentRepository;
 
-
         if($request->has('content') and $request->has('point')){
+            $array = $request->toArray();
+            $array['course'] = Course::find($request->course_id);
             // Operations
-            $resp = $repo->create($request->toArray());
+            $resp = $repo->create($array);
 
             // Response
             if($resp->getResult()){

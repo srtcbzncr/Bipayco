@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\GeneralEducation;
 
 use App\Http\Controllers\Controller;
+use App\Models\GeneralEducation\Course;
 use App\Repositories\GeneralEducation\FavoriteRepository;
 use Illuminate\Http\Request;
 
@@ -12,8 +13,11 @@ class FavoriteController extends Controller
         // Repo initialization
         $repo = new FavoriteRepository;
 
+        $array = $request->toArray();
+        $array['course'] = Course::find($request->course_id);
+
         // Operations
-        $resp = $repo->create(['user_id' => $request->user_id, 'course_id' => $request->course_id]);
+        $resp = $repo->create($array);
 
         // Response
         if($resp->getResult()){

@@ -60,7 +60,8 @@ class NoticeRepository implements IRepository{
         // Operations
         try{
             $object = new Notice;
-            $object->course_id = $data['course_id'];
+            $object->course_id = $data['course']->id;
+            $object->course_type = get_class($data['course']);
             $object->title = $data['title'];
             $object->message = $data['message'];
             $object->save();

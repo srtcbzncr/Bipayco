@@ -64,7 +64,8 @@ class CommentRepository implements IRepository{
             DB::beginTransaction();
             // Comment add
             $object = new Comment;
-            $object->course_id = $data['course_id'];
+            $object->course_id = $data['course']->id;
+            $object->course_type = get_class($data['course']);
             $object->user_id = $data['user_id'];
             $object->content = $data['content'];
             $object->point = $data['point'];

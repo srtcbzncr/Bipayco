@@ -52,7 +52,7 @@ class CoursePolicy
 
     public function comment(User $user, Course $course){
         if($user->can('entry', $course)){
-            if(Comment::where('user_id', $user->id)->where('course_id', $course->id)->get()->count() == 0){
+            if(Comment::where('user_id', $user->id)->where('course_id', $course->id)->where('course_type', get_class($course))->get()->count() == 0){
                 return true;
             }
         }

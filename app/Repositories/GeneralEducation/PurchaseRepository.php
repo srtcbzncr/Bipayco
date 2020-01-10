@@ -62,7 +62,8 @@ class PurchaseRepository implements IRepository{
             $object = new Purchase;
             $object->user_id = $data['user_id'];
             $object->student_id = $data['student_id'];
-            $object->course_id = $data['course_id'];
+            $object->course_id = $data['course']->id;
+            $object->course_type = get_class($data['course']);
             $object->price = $data['price'];
             $object->confirmation = true;
             $object->save();

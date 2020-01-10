@@ -289,4 +289,24 @@ class CourseController extends Controller
             return response()->json(['error' => true, 'message' => 'Bir hata oluştu.']);
         }
     }
+
+    public function canComment($id, $user_id){
+        // Repo initialization
+        $courseRepo = new CourseRepository;
+        $userRepo = new UserRepository;
+
+        // Operations
+        $courseResp = $courseRepo->get($id);
+        $userResp = $userRepo->get($user_id);
+
+        // Response
+        if($courseResp->getResult() and $userResp->getResult()){
+            $user = $userResp->getData();
+            $course = $courseResp->getData();
+            return response()->json(['error' => false, 'result' => $user->can('comment', $course)]);
+        }
+        else{
+            return response()->json(['error' => true, 'message' => 'Bir hata oluştu.']);
+        }
+    }
 }

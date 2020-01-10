@@ -903,7 +903,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = Entry::where('course_id', $id)->where('active', true)->orderBy('created_at', 'desc')->take(3)->get();
+            $object = Entry::where('course_id', $id)->where('course_type', 'App\Models\GeneralEducation\Course')->where('active', true)->orderBy('created_at', 'desc')->take(3)->get();
         }
         catch(\Exception $e){
             $error = $e;

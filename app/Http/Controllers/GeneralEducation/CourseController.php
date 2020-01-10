@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
-    public function show($id){
+    public function show($id, Request $request){
         // Repo initialization
         $repo = new CourseRepository;
 
