@@ -163,7 +163,6 @@
             loadNewPage: function(name,newPageNumber){
                 this.$store.dispatch('loadNewPageCourses',name);
                 this.currentPage=newPageNumber;
-                console.log(this.currentPage)
             }
         },
     }

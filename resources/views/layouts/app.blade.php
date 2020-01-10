@@ -185,7 +185,7 @@
                     <div uk-grid>
                         <div class="uk-width-1-3@m uk-width-1-2@s uk-first-column">
                             <a class="" href="{{route('home')}}"> <img class="uk-logo uk-width-small@s uk-width-medium@m" src="{{asset('images/logo2.png')}}"/> </a>
-                            <div class="uk-width-xlarge tm-footer-description">Bilgi paylaşdıkça çoğalır.</div>
+                            <div class="uk-width-xlarge tm-footer-description">Bilgi paylaştıkça çoğalır.</div>
                         </div>
                         <div class="uk-width-expand@m uk-width-1-2@s">
                             <ul class="uk-list  tm-footer-list">
@@ -220,7 +220,7 @@
                         </div>
                     </div>
                     <hr>
-                    <p class="uk-postion-absoult uk-margin-remove uk-position-bottom-right" style="bottom: 8px;right: 60px;" uk-tooltip="title: Visit Our Site; pos: top-center"><a href="#"  class="uk-text-bold uk-link-reset"> Bipayco </a> tarafından geliştirildi. </p>
+                    <p class="uk-postion-absoult uk-margin-remove uk-position-bottom-right" style="bottom: 8px;right: 60px;" uk-tooltip="title: Visit Our Site; pos: top-center"><a href="www.sanalist.com.tr"  class="uk-text-bold uk-link-reset"> Sanalist </a> tarafından geliştirildi. </p>
                     <div class="uk-margin-small" uk-grid>
                         <div class="uk-width-1-2@m uk-width-1-2@s uk-first-column">
                             <p class="uk-text-small"><i class="fas fa-copyright"></i> 2020 <span class="uk-text-bold">Bipayco</span>  Bütün hakları saklıdır.</p>

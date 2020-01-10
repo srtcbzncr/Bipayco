@@ -2420,7 +2420,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     loadNewPage: function loadNewPage(name, newPageNumber) {
       this.$store.dispatch('loadNewPageCourses', name);
       this.currentPage = newPageNumber;
-      console.log(this.currentPage);
     }
   })
 });
@@ -2492,13 +2491,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     reviewCount: {
       type: Number,
       requirement: true
-    },
-    paginateReview: {
-      type: Number,
-      requirement: true
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseReviews'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseReviews']), {
+    lastPage: function lastPage() {
+      if (this.courseReviews.meta != null) {
+        return this.courseReviews.meta.last_page;
+      } else {
+        return 20;
+      }
+    }
+  }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCourseReviews', 'loadNewPageReviews']), {
     loadNewPages: function loadNewPages(name, newPageNumber) {
       this.$store.dispatch('loadNewPageReviews', name);
@@ -2563,9 +2566,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       required: true
     },
-    canReview: {
-      type: Boolean
-    },
     userId: {
       type: String,
       required: true
@@ -2615,7 +2615,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       fullStar: 1,
       totalStars: 5,
       rate: this.rating,
-      ratingColor: [this.styleFullStarColor, this.styleFullStarColor, this.styleFullStarColor, this.styleFullStarColor, this.styleFullStarColor] // Binded Nested Props registered as data/computed and not props
+      ratingColor: [this.styleFullStarColor, this.styleFullStarColor, this.styleFullStarColor, this.styleFullStarColor, this.styleFullStarColor],
+      comment: true // Binded Nested Props registered as data/computed and not props
 
     };
   },
@@ -2637,7 +2638,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadCourseReviews']), {
-    submitReview: function submitReview() {
+    setComment: function setComment(can) {
+      this.comment = can;
+    },
+    submitReview: function submitReview(setMethod) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/comment/create', {
         content: document.getElementById('comment').value,
         point: this.ratingFixed,
@@ -2655,6 +2659,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             status: 'success'
           });
         }
+
+        setMethod(response.data.error);
       });
       this.$store.dispatch('loadCourseReviews', this.courseId);
     },
@@ -3362,7 +3368,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['myCourses'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadMyCourses'])),
-  mounted: function mounted() {
+  created: function created() {
     if (this.userId != null) {
       this.$store.dispatch('loadMyCourses', this.userId);
     }
@@ -6278,9 +6284,8 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value:
-                      _vm.currentPage < _vm.reviewCount / _vm.paginateReview,
-                    expression: "currentPage<(reviewCount/paginateReview)"
+                    value: _vm.currentPage < _vm.lastPage,
+                    expression: "currentPage<lastPage"
                   }
                 ],
                 on: {
@@ -6323,77 +6328,92 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.canReview
-    ? _c("div", { staticClass: "uk-margin-xlarge-bottom" }, [
-        _c(
-          "div",
-          { staticClass: "star-rating" },
-          [
-            _vm._l(_vm.stars, function(star, index) {
-              return _c("div", { key: index, staticClass: "star-container" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "uk-icon-button star-button",
-                    on: {
-                      click: function($event) {
-                        return _vm.setRate(index + 1)
-                      }
+  return _c(
+    "div",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.comment,
+          expression: "comment"
+        }
+      ],
+      staticClass: "uk-margin-xlarge-bottom"
+    },
+    [
+      _c(
+        "div",
+        { staticClass: "star-rating" },
+        [
+          _vm._l(_vm.stars, function(star, index) {
+            return _c("div", { key: index, staticClass: "star-container" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "uk-icon-button star-button",
+                  on: {
+                    click: function($event) {
+                      return _vm.setRate(index + 1)
                     }
-                  },
-                  [
-                    _c(
-                      "svg",
-                      {
-                        staticClass: "star-svg",
-                        style: [
-                          { fill: _vm.ratingColor[index] },
-                          { width: _vm.styleStarWidth },
-                          { height: _vm.styleStarHeight }
-                        ],
-                        attrs: { id: index + 1 }
-                      },
-                      [
-                        _c("polygon", {
-                          staticStyle: { "fill-rule": "nonzero" },
-                          attrs: { points: _vm.getStarPoints }
-                        })
-                      ]
-                    )
-                  ]
-                )
-              ])
-            }),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "uk-text-bold uk-margin-small-left uk-margin-small",
-                style: _vm.styleRateColor
-              },
-              [_vm._v(_vm._s(_vm.ratingFixed))]
-            )
-          ],
-          2
-        ),
-        _vm._v(" "),
-        _c("textarea", {
-          staticClass: "uk-textarea uk-width uk-height-small",
-          attrs: { placeholder: "Yorum Yaz...", id: "comment" }
-        }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass:
-              "uk-button uk-button-primary uk-margin-small-top uk-float-right ",
-            on: { click: _vm.submitReview }
-          },
-          [_vm._v(" Gönder ")]
-        )
-      ])
-    : _vm._e()
+                  }
+                },
+                [
+                  _c(
+                    "svg",
+                    {
+                      staticClass: "star-svg",
+                      style: [
+                        { fill: _vm.ratingColor[index] },
+                        { width: _vm.styleStarWidth },
+                        { height: _vm.styleStarHeight }
+                      ],
+                      attrs: { id: index + 1 }
+                    },
+                    [
+                      _c("polygon", {
+                        staticStyle: { "fill-rule": "nonzero" },
+                        attrs: { points: _vm.getStarPoints }
+                      })
+                    ]
+                  )
+                ]
+              )
+            ])
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "uk-text-bold uk-margin-small-left uk-margin-small",
+              style: _vm.styleRateColor
+            },
+            [_vm._v(_vm._s(_vm.ratingFixed))]
+          )
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _c("textarea", {
+        staticClass: "uk-textarea uk-width uk-height-small",
+        attrs: { placeholder: "Yorum Yaz...", id: "comment" }
+      }),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "uk-button uk-button-primary uk-margin-small-top uk-float-right ",
+          on: {
+            click: function($event) {
+              return _vm.submitReview(_vm.setComment)
+            }
+          }
+        },
+        [_vm._v(" Gönder ")]
+      )
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -21905,7 +21925,8 @@ var state = {
   categories: {},
   categoryCourses: {},
   courseReviews: {},
-  myCourses: {}
+  myCourses: {},
+  canComment: {}
 };
 var getters = {};
 var mutations = {
@@ -21931,6 +21952,9 @@ var mutations = {
   /*course-progress-card.vue*/
   setMyCourses: function setMyCourses(state, index) {
     state.myCourses = index.data;
+  },
+  setCanComment: function setCanComment(state, index) {
+    state.canComment = index.data;
   }
 };
 var actions = {
@@ -21983,6 +22007,12 @@ var actions = {
     var commit = _ref8.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/myCourses/' + userId).then(function (response) {
       return commit('setMyCourses', response);
+    });
+  },
+  loadCanComment: function loadCanComment(_ref9, userId, courseId) {
+    var commit = _ref9.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/course/' + courseId + '/canComment/' + userId).then(function (response) {
+      return commit('setCanComment', response);
     });
   }
 };

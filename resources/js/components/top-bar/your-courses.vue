@@ -55,7 +55,7 @@ export default {
             'loadMyCourses'
         ]),
     },
-    mounted () {
+    created () {
         if(this.userId != null){
             this.$store.dispatch('loadMyCourses',this.userId);
         }

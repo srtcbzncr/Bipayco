@@ -12,6 +12,7 @@ const state={
     categoryCourses:{},
     courseReviews:{},
     myCourses:{},
+    canComment:{},
 };
 const getters={};
 const mutations={
@@ -35,6 +36,9 @@ const mutations={
     /*course-progress-card.vue*/
     setMyCourses(state, index){
         state.myCourses=index.data;
+    },
+    setCanComment(state, index){
+        state.canComment=index.data;
     }
 };
 const actions={
@@ -72,6 +76,10 @@ const actions={
     loadMyCourses({commit},userId){
         Axios.get('/api/myCourses/'+userId)
             .then(response =>commit('setMyCourses',response));
+    },
+    loadCanComment({commit},userId,courseId){
+        Axios.get('/api/course/'+courseId+'/canComment/'+userId)
+            .then(response =>commit('setCanComment',response));
     }
 };
 

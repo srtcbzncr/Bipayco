@@ -22,7 +22,7 @@
                 <button v-show="currentPage!==1" @click="loadNewPages(courseReviews.links.prev,--currentPage)"> < </button>
             </li>
             <li class="uk-float-right">
-                <button v-show="currentPage<(reviewCount/paginateReview)" @click="loadNewPages(courseReviews.links.next,++currentPage)"> > </button>
+                <button v-show="currentPage<lastPage" @click="loadNewPages(courseReviews.links.next,++currentPage)"> > </button>
             </li>
         </ul>
     </div>
@@ -50,15 +50,18 @@
                 type:Number,
                 requirement:true,
             },
-            paginateReview:{
-                type:Number,
-                requirement:true,
-            }
         },
         computed:{
             ...mapState([
                 'courseReviews',
             ]),
+            lastPage(){
+                if(this.courseReviews.meta!=null) {
+                    return this.courseReviews.meta.last_page;
+                }else{
+                    return 20;
+                }
+            },
         },
         methods:{
             ...mapActions([

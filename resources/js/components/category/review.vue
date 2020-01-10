@@ -1,5 +1,5 @@
 <template>
-    <div v-if="canReview" class="uk-margin-xlarge-bottom">
+    <div v-show="comment" class="uk-margin-xlarge-bottom">
         <div class="star-rating">
             <div v-for="(star, index) in stars" :key="index" class="star-container">
                 <button @click="setRate(index+1)" class="uk-icon-button star-button">
@@ -19,7 +19,7 @@
             <div class="uk-text-bold uk-margin-small-left uk-margin-small" :style="styleRateColor">{{ ratingFixed }}</div>
         </div>
         <textarea class="uk-textarea uk-width uk-height-small" placeholder="Yorum Yaz..." id="comment" > </textarea>
-        <button @click="submitReview" class="uk-button uk-button-primary uk-margin-small-top uk-float-right "> Gönder </button>
+        <button @click="submitReview(setComment)" class="uk-button uk-button-primary uk-margin-small-top uk-float-right "> Gönder </button>
     </div>
 </template>
 
@@ -32,9 +32,6 @@
             courseId:{
                 type:String,
                 required:true,
-            },
-            canReview:{
-              type:Boolean,
             },
             userId:{
                 type:String,
@@ -86,6 +83,7 @@
                 totalStars: 5,
                 rate:this.rating,
                 ratingColor:[this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,],
+                comment:true,
                 // Binded Nested Props registered as data/computed and not props
             };
         },
@@ -117,7 +115,10 @@
             ...mapActions([
                 'loadCourseReviews',
             ]),
-            submitReview(){
+            setComment( can ){
+                this.comment=can;
+            },
+            submitReview( setMethod ){
                 Axios.post('/api/comment/create', {
                     content: document.getElementById('comment').value,
                     point:this.ratingFixed,
@@ -127,10 +128,10 @@
                 .then(function (response) {
                     if(response.data.error){
                         UIkit.notification({message: response.data.message, status: 'danger'});
-
                     }else{
                         UIkit.notification({message: response.data.message, status: 'success'});
                     }
+                    setMethod(response.data.error);
                 });
                 this.$store.dispatch('loadCourseReviews',this.courseId);
             },
