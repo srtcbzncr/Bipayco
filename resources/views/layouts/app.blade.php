@@ -42,6 +42,7 @@
         <side-bar
             general-education-route="{{route('ge_index')}}"
             home-route="{{route('home')}}"
+            logo="{{asset('images/logo.png')}}"
             general-education="@lang('front/auth.general_education')"
             all-of-category="@lang('front/auth.all_of_category')"
         ></side-bar>

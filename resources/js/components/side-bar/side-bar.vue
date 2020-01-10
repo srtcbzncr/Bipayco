@@ -3,7 +3,7 @@
     <div id="side-nav">
         <div class="side-nav-bg"></div>
         <div class="uk-navbar-left uk-visible@s">
-            <a class="uk-logo" :href="homeRoute"> <i class="fas fa-graduation-cap"/> </a>
+            <a class="" :href="homeRoute"> <img class="uk-logo" :src="logo"/> </a>
         </div>
             <ul>
                 <li>
@@ -115,6 +115,10 @@ export default {
             type:String,
             default:'Genel Eğitim'
         },
+        logo:{
+            type:String,
+            required:true,
+        },
         allOfCategory:String,
         generalEducationRoute:String,
     },
@@ -138,5 +142,8 @@ export default {
     .general-title:hover{
         background: white;
         color:#3F4850;
+    }
+    .logo{
+
     }
 </style>

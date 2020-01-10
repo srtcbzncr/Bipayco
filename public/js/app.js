@@ -3048,6 +3048,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       "default": 'Genel Eğitim'
     },
+    logo: {
+      type: String,
+      required: true
+    },
     allOfCategory: String,
     generalEducationRoute: String
   },
@@ -3693,7 +3697,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.general-title[data-v-cf1400d8]:hover{\n    background: white;\n    color:#3F4850;\n}\n", ""]);
+exports.push([module.i, "\n.general-title[data-v-cf1400d8]:hover{\n    background: white;\n    color:#3F4850;\n}\n.logo[data-v-cf1400d8]{\n}\n", ""]);
 
 // exports
 
@@ -7141,8 +7145,8 @@ var render = function() {
     _c("div", { staticClass: "side-nav-bg" }),
     _vm._v(" "),
     _c("div", { staticClass: "uk-navbar-left uk-visible@s" }, [
-      _c("a", { staticClass: "uk-logo", attrs: { href: _vm.homeRoute } }, [
-        _c("i", { staticClass: "fas fa-graduation-cap" })
+      _c("a", { attrs: { href: _vm.homeRoute } }, [
+        _c("img", { staticClass: "uk-logo", attrs: { src: _vm.logo } })
       ])
     ]),
     _vm._v(" "),
