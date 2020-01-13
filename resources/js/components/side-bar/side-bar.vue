@@ -141,18 +141,15 @@ export default {
         (function (window, document, undefined) {
 
             'use strict';
-            console.log('calisti');
             // Feature test
-            if (!('localStorage' in window)){ console.log('localStorage Yok'); return;}
+            if (!('localStorage' in window)){return;}
 
             // Get our newly insert toggle
             var nightMode = document.querySelector('#night-mode');
-            console.log('okudu');
-            if (!nightMode){ console.log('nightMode yok'); return;}
+            if (!nightMode){return;}
 
             // When clicked, toggle night mode on or off
             nightMode.addEventListener('click', function (event) {
-                console.log('tıklandı');
                 event.preventDefault();
                 document.documentElement.classList.toggle('night-mode');
                 if ( document.documentElement.classList.contains('night-mode') ) {

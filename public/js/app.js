@@ -2978,27 +2978,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   mounted: function mounted() {
     (function (window, document, undefined) {
-      'use strict';
-
-      console.log('calisti'); // Feature test
+      'use strict'; // Feature test
 
       if (!('localStorage' in window)) {
-        console.log('localStorage Yok');
         return;
       } // Get our newly insert toggle
 
 
       var nightMode = document.querySelector('#night-mode');
-      console.log('okudu');
 
       if (!nightMode) {
-        console.log('nightMode yok');
         return;
       } // When clicked, toggle night mode on or off
 
 
       nightMode.addEventListener('click', function (event) {
-        console.log('tıklandı');
         event.preventDefault();
         document.documentElement.classList.toggle('night-mode');
 
