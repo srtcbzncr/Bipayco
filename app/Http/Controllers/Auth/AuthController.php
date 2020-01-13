@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\InstructorRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Requests\UpdateAvatarRequest;
@@ -263,7 +264,22 @@ class AuthController extends Controller
             return view('auth.register');
         }
     }
-    public function createInstructorPost(){
+    public function createInstructorPost(InstructorRequest $request){
+        // Validation
+        $validatedData = $request->validated();
+        $validatedData['user_id']=Auth::id();
 
+
+        // Initializations
+        $repo = new InstructorRepository();
+
+        // Operations
+        $resp = $repo->create($validatedData);
+        if($resp->getResult()){
+            return redirect()->route('instructor_courses');
+        }
+        else {
+            return redirect()->back()->with('error', __('auth.register_failed'));
+        }
     }
 }
