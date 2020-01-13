@@ -48,8 +48,8 @@
                                 <p class="uk-text-muted uk-margin-remove-top uk-margin-small-bottom"></p>
                                 <div class="uk-child-width-1-2@l uk-grid">
                                     <div>
-                                        <div class="uk-form-label">@lang('front/auth.id_num') </div>
-                                        <input class="uk-input form-control @error('identification_number') is-invalid @enderror" type="text"  name="identification_number" required>
+                                        <div class="uk-form-label">@lang('front/auth.identification_number') </div>
+                                        <input class="uk-input form-control @error('identification_number') is-invalid @enderror" type="text" placeholder="@lang('front/auth.id_num')"  name="identification_number" required>
                                         @error('identification_number')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -58,7 +58,7 @@
                                     </div>
                                     <div>
                                         <div class="uk-form-label"> @lang('front/auth.title')  </div>
-                                        <input class="uk-input form-control @error('title') is-invalid @enderror" type="text" name="title" required>
+                                        <input class="uk-input form-control @error('title') is-invalid @enderror" type="text" placeholder="@lang('front/auth.title')" name="title" required>
                                         @error('title')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -69,7 +69,7 @@
                                 <div class="uk-child-width-1-2@l uk-grid uk-margin-remove-top">
                                     <div>
                                         <div class="uk-form-label"> @lang('front/auth.iban')  </div>
-                                        <input class="uk-input form-control @error('iban') is-invalid @enderror" type="text" name="iban" required>
+                                        <input class="uk-input form-control @error('iban') is-invalid @enderror" type="text" placeholder="@lang('front/auth.iban')" name="iban" required>
                                         @error('iban')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -78,7 +78,7 @@
                                     </div>
                                     <div>
                                         <div class="uk-form-label">@lang('front/auth.reference_code') </div>
-                                        <input class="uk-input" type="text" name="reference_code">
+                                        <input class="uk-input" type="text" name="reference_code" placeholder="@lang('front/auth.reference_code')">
                                         @error('reference_code')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -88,7 +88,7 @@
                                 </div>
                                 <div>
                                     <div class="uk-form-label"> @lang('front/auth.bio')</div>
-                                    <textarea class="uk-textarea form-control @error('bio') is-invalid @enderror" type="text" rows="5" name="bio" style=" resize: none" required> </textarea>
+                                    <textarea class="uk-textarea form-control @error('bio') is-invalid @enderror" type="text" rows="5" name="bio" style=" resize: none" placeholder="@lang('front/auth.bio')" required> </textarea>
                                     @error('bio')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
