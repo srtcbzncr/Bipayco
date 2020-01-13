@@ -96,5 +96,5 @@ return [
     'my_books'=>'Soru Bankalarım',
     'my_exams'=>'Deneme Sınavlarım',
     'my_homework_packages'=>'Ödev Paketlerim',
-    'student'=>'öğrenci'
+    'student'=>'Öğrenci'
 ];

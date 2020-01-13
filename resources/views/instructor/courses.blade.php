@@ -92,12 +92,12 @@
                             <a href="{{route('ge_course', $course->id)}}" class="uk-link-reset">
                                 <img src="{{$course->image}}" class="course-img">
                                 <div class="uk-card-body">
-                                    <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{$course->title}}</h4>
+                                    <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{$course->name}}</h4>
                                     <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small">{{$course->description}}</p>
                                     <hr class="uk-margin-remove-top">
                                     <div class="uk-grid uk-child-width-1-2">
                                         <div>
-                                            <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right">{{$course->studentCount}} @lang('front/auth.student')</p>
+                                            <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right">{{$course->studentCount()}} @lang('front/auth.student')</p>
                                             <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right">{{$course->created_at}}</p>
                                         </div>
                                         <div class="uk-flex justify-content-sm-between align-items-center ">
@@ -146,7 +146,7 @@
                                 <a href="{{route('ge_course', $course->id)}}" class="uk-link-reset">
                                     <img src="{{$course->image}}" class="course-img">
                                     <div class="uk-card-body">
-                                        <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{$course->title}}</h4>
+                                        <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{$course->name}}</h4>
                                         <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small">{{$course->description}}</p>
                                         <hr class="uk-margin-remove-top">
                                         <div class="uk-grid uk-child-width-1-2">
@@ -200,12 +200,12 @@
                                 <a href="{{route('ge_course', $course->id)}}" class="uk-link-reset">
                                     <img src="{{$course->image}}" class="course-img">
                                     <div class="uk-card-body">
-                                        <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{$course->title}}</h4>
+                                        <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{$course->name}}</h4>
                                         <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small">{{$course->description}}</p>
                                         <hr class="uk-margin-remove-top">
                                         <div class="uk-grid uk-child-width-1-2">
                                             <div>
-                                                <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right">{{$course->studentCount}} @lang('front/auth.student')</p>
+                                                <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right">{{$course->studentCount()}} @lang('front/auth.student')</p>
                                                 <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right">{{$course->created_at}}</p>
                                             </div>
                                             <div class="uk-flex justify-content-sm-between align-items-center ">
