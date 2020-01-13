@@ -97,8 +97,8 @@
                                     <hr class="uk-margin-remove-top">
                                     <div class="uk-grid uk-child-width-1-2">
                                         <div>
-                                            <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right">{{$course->studentCount()}} @lang('front/auth.student')</p>
-                                            <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right">{{$course->created_at}}</p>
+                                            <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-user-graduate uk-margin-small-right"></i>{{$course->studentCount()}} @lang('front/auth.student')</p>
+                                            <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-calendar-alt uk-margin-small-right"></i>{{date("d/m/Y", strtotime($course->created_at))}}</p>
                                         </div>
                                         <div class="uk-flex justify-content-sm-between align-items-center ">
                                             <a class="uk-button-text uk-button" href="#"><i class="fas fa-cog"></i></a>
@@ -155,8 +155,8 @@
                                         <hr class="uk-margin-remove-top">
                                         <div class="uk-grid uk-child-width-1-2">
                                             <div>
-                                                <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right">{{$course->studentCount()}} @lang('front/auth.student')</p>
-                                                <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right">{{$course->created_at}}</p>
+                                                <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-user-graduate uk-margin-small-right"></i>{{$course->studentCount()}} @lang('front/auth.student')</p>
+                                                <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-calendar-alt uk-margin-small-right"></i>{{date("d/m/Y", strtotime($course->created_at))}}</p>
                                             </div>
                                             <div class="uk-flex justify-content-sm-between align-items-center ">
                                                 <a class="uk-button-text uk-button" href="#"><i class="fas fa-cog"></i></a>
@@ -213,8 +213,8 @@
                                         <hr class="uk-margin-remove-top">
                                         <div class="uk-grid uk-child-width-1-2">
                                             <div>
-                                                <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right">{{$course->studentCount()}} @lang('front/auth.student')</p>
-                                                <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right">{{$course->created_at}}</p>
+                                                <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-user-graduate uk-margin-small-right"></i>{{$course->studentCount()}} @lang('front/auth.student')</p>
+                                                <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-calendar-alt uk-margin-small-right"></i>{{date("d/m/Y", strtotime($course->created_at))}}</p>
                                             </div>
                                             <div class="uk-flex justify-content-sm-between align-items-center ">
                                                 <a class="uk-button-text uk-button" href="#"><i class="fas fa-cog"></i></a>
