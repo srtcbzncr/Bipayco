@@ -35,94 +35,60 @@
                     <!--<h5 class="uk-margin-small uk-text-muted uk-text-bold uk-text-nowrap">'front/auth.bipayco_description'</h5>-->
                 </div>
                 <div>
-                    <form method="POST" action="{{ route('registerPost') }}">
+                    <form method="POST" action="">
                         @csrf
-                        <div class="uk-card-default uk-padding uk-card-small">
-                            <div id="register" class="tabcontent animation: uk-animation-slide-left-medium">
-                                <h2 class="uk-text-bold">  @lang('front/auth.register')  </h2>
-                                @if (session('error'))
-                                    <div class="alert alert-danger">
-                                        {{ session('error') }}
-                                    </div>
-                                @endif
-                                <p class="uk-text-muted uk-margin-remove-top uk-margin-small-bottom">@lang('front/auth.register_description')</p>
-                                <div class="uk-child-width-1-2@l uk-grid">
-                                    <div class="uk-margin-small-bottom">
-                                        <input id="first_name" class="uk-input form-control @error('first_name') is-invalid @enderror" name="first_name" value="{{ old('first_name') }}" required autocomplete="first_name" autofocus placeholder=" @lang('front/auth.first_name') " type="text">
-                                        @error('first_name')
+                        <div uk-grid class="uk-flex-center">
+                            <div class="uk-width-large@m uk-padding-remove-top">
+                                <div class="uk-fieldset uk-margin-small-bottom">
+                                    <div>
+                                        <div class="uk-form-label">@lang('front/auth.id_num') </div>
+                                        <input class="uk-input form-control @error('identification_number') is-invalid @enderror" type="text"  name="identification_number" required>
+                                        @error('identification_number')
                                         <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
                                     <div>
-                                        <input id="last_name" class="uk-input form-control @error('last_name') is-invalid @enderror" name="last_name" value="{{ old('last_name') }}" required autocomplete="last_name" autofocus placeholder=" @lang('front/auth.last_name') " type="text">
-                                        @error('last_name')
+                                        <div class="uk-form-label"> @lang('front/auth.title')  </div>
+                                        <input class="uk-input form-control @error('title') is-invalid @enderror" type="text" name="title" required>
+                                        @error('title')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
-                                </div>
-                                <div class="uk-child-width-1-2@l uk-grid uk-margin-small">
-                                    <div class="uk-margin-small-bottom">
-                                        <input id="email" class="uk-input form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="@lang('front/auth.email')" type="text">
-                                        @error('email')
+
+                                    <div>
+                                        <div class="uk-form-label"> @lang('front/auth.iban')  </div>
+                                        <input class="uk-input form-control @error('iban') is-invalid @enderror" type="text" name="iban" required>
+                                        @error('iban')
                                         <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
                                     <div>
-                                        <input id="phone_number" class="uk-input form-control @error('phone_number') is-invalid @enderror" name="phone_number" value="{{ old('phone_number') }}" required autocomplete="phone_number" autofocus placeholder="@lang('front/auth.phone_number')" type="text">
-                                        @error('phone_number')
+                                        <div class="uk-form-label"> @lang('front/auth.bio')</div>
+                                        <textarea class="uk-textarea form-control @error('bio') is-invalid @enderror" type="text" rows="5" name="bio" required> </textarea>
+                                        @error('bio')
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="uk-margin-small">
-                                    <provinces
-                                        city-default="@lang('front/auth.province')"
-                                        district-default="@lang('front/auth.district')"
-                                    ></provinces>
-                                </div>
-                                <div class="uk-child-width-1-2@l uk-grid uk-margin-small">
-                                    <div class="uk-margin-small-bottom uk-inline uk-flex align-items-center">
-                                        <input id="username" class="uk-input form-control @error('username') is-invalid @enderror" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus placeholder="@lang('front/auth.username')" type="text">
-                                        @error('username')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                         @enderror
                                     </div>
                                     <div>
-                                        <div class="uk-inline uk-flex align-items-center">
-                                            <input id="password" class="uk-input form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password" placeholder="@lang('front/auth.password')" type="password">
-                                            <a class="fas fa-eye" onclick="togglePassword('password')" style="margin-left: -30px"></a>
-                                        </div>
-                                        @error('password')
+                                        <div class="uk-form-label form-control @error('new_password') is-invalid @enderror">@lang('front/auth.reference_code') </div>
+                                        <input class="uk-input" type="text" disabled name="reference_code" required>
+                                        @error('reference_code')
                                         <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
                                 </div>
-                                <div class="uk-margin">
-                                    <label>
-                                        <input class="uk-checkbox" type="checkbox" required>
-                                        <span class="checkmark uk-text-small"> I agree to the </span>
-                                        <a href="#modal-overflow" class="uk-text-bold uk-text-small" uk-toggle> Terms and Conditions </a>
-                                    </label>
-                                </div>
-                                <div class=" uk-flex-middle" uk-grid>
-                                    <div class="uk-width-expand@m">
-                                        <input class="uk-button uk-button-success button" type="submit" value="@lang('front/auth.register')">
-                                    </div>
-                                    <div class="uk-width-auto@m">
-                                        <span class="uk-text-small"> @lang('front/auth.registered') <a href="{{ route('loginGet') }}" class="tablinks uk-text-bold" >@lang('front/auth.sign_in')</a>  </span>
-                                    </div>
+                                <div>
+                                    <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')">
                                 </div>
                             </div>
                         </div>
