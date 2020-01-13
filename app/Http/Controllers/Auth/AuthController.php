@@ -279,7 +279,7 @@ class AuthController extends Controller
             return redirect()->route('instructor_courses');
         }
         else {
-            return redirect()->back()->with('error', __('auth.register_failed'));
+            return redirect()->back()->with('error', $resp->getError()->getMessage());
         }
     }
 }

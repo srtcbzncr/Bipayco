@@ -28,7 +28,7 @@ class InstructorRequest extends FormRequest
             'user_id'=>'max:100',
             'identification_number'=>'required|max:100',
             'title'=>'required|max:100',
-            'iban'=>'required|min:24|max:24',
+            'iban'=>'required|min:24|max:34',
             'bio'=>'required|max:255',
             'reference_code'=>'max:18'
         ];
