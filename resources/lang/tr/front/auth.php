@@ -87,5 +87,6 @@ return [
     'resume'=>'Devam Et',
     'homeworks'=>'Ödevler',
     'related_courses'=>'Benzer Kurslar',
-    'my_progress'=>'İlerlemem'
+    'my_progress'=>'İlerlemem',
+    'be_instructor'=>'Eğitmen Ol'
 ];

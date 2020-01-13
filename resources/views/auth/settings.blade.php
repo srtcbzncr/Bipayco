@@ -192,7 +192,7 @@
                                     </div>
                                     <div>
                                         <div class="uk-form-label"> @lang('front/auth.bio')</div>
-                                        <textarea class="uk-textarea form-control @error('bio') is-invalid @enderror" type="text" rows="5" name="bio" required> {{$instructor_profile->bio}} </textarea>
+                                        <textarea class="uk-textarea form-control @error('bio') is-invalid @enderror" type="text" rows="5" name="bio" style=" resize: none" required> {{$instructor_profile->bio}} </textarea>
                                         @error('bio')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
