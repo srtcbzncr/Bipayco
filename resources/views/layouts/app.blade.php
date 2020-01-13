@@ -59,17 +59,13 @@
                 <!-- mobile icon for user icon on nav-mobile -->
                 <span class="uk-hidden@m tm-mobile-user-icon uk-align-right" uk-toggle="target: #tm-show-on-mobile; cls: tm-show-on-mobile-active"><i class="far fa-user icon-large"></i></span>
                 <!-- mobile logo -->
-                <a class="uk-hidden@m uk-logo" href="{{route('home')}}"> Bipayco </a>
+                <a class="uk-hidden@m uk-logo" href="{{route('home')}}">Bipayco</a>
                 @if(Auth::check())
-                <div class="uk-navbar-left uk-visible@m">
-                    <a class="uk-navbar-item back-to-dashboard uk-button-text " href="#" style="color: #424242" uk-tooltip="title: back-to-dashboard ; delay: 700 ; pos: bottom-left ;animation:	uk-animation-scale-up">Kontrol Panelim</a>
-                    <a class="uk-navbar-item back-to-dashboard uk-button-text " style="color: #424242" href="#">Browse Books</a>
-                </div>
                 @endif
-                <div class="uk-navbar-right tm-show-on-mobile uk-flex-right" id="tm-show-on-mobile" >
+                <div class="uk-navbar-right tm-show-on-mobile uk-flex-right uk-margin-small-bottom" id="tm-show-on-mobile" >
                     <!-- this will clouse after display user icon -->
                     <span class="uk-hidden@m tm-mobile-user-close-icon uk-align-right" uk-toggle="target: #tm-show-on-mobile; cls: tm-show-on-mobile-active"><i class="fas fa-times icon-large"></i></span>
-                    <ul class="uk-navbar-nav uk-flex-middle">
+                    <ul class="uk-navbar-nav uk-flex-middle  uk-margin-small-top">
                         <li>
                             <a href="#modal-full" uk-toggle><i style="color: #424242" class="fas fa-search icon-medium"></i></a>
                         </li>
@@ -169,13 +165,7 @@
                     </ul>
                 </div>
                 <div id="modal-full" class="uk-modal-full uk-modal uk-animation-scale-down" uk-modal>
-                    <div class="uk-modal-dialog uk-flex uk-flex-center" uk-height-viewport>
-                        <button class="uk-modal-close-full" type="button" uk-close> </button>
-                        <form class="uk-search uk-margin-xlarge-top uk-search-large uk-animation-slide-bottom-medium">
-                            <i class="fas fa-search uk-position-absolute uk-margin-top icon-xxlarge"> </i>
-                            <input class="uk-search-input uk-margin-large-left" type="search" placeholder="Search..." autofocus>
-                        </form>
-                    </div>
+                    <search></search>
                 </div>
             </nav>
             @yield('content')
@@ -230,7 +220,6 @@
                             <a href="#" class="uk-icon-button uk-link-reset" uk-tooltip="title: Our Facebook; pos: top-center"><i class="fab fa-facebook" style=" color: #9160ec  !important;"></i></a>
                             <a href="#" class="uk-icon-button uk-link-reset" uk-tooltip="title: Our Instagram; pos: top-center"><i class="fab fa-instagram" style=" color: #dc2d2d  !important;"></i></a>
                             <a href="#" class="uk-icon-button uk-link-reset" uk-tooltip="title: Our linkedin; pos: top-center"><i class="fab fa-linkedin " style=" color: #6949a5  !important;"></i></a>
-                            <a href="#" class="uk-icon-button uk-link-reset" uk-tooltip="title: Our google-plus; pos: top-center"><i class="fab fa-google-plus" style=" color: #f77070 !important;"></i></a>
                             <a href="#" class="uk-icon-button uk-link-reset" uk-tooltip="title: Our Twitter; pos: top-center"><i class="fab fa-twitter" style=" color: #6f23ff !important;"></i></a>
                         </div>
                     </div>
