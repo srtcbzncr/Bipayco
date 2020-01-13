@@ -110,7 +110,7 @@ class InstructorRepository implements IRepository{
             $userResp = $userRepository->get($data['user_id']);
             if($userResp->getResult() and !$userResp->isDataNull()){
                 $referenceInstructorId = null;
-                if(array_key_exists('reference_code', $data)){
+                if($data['reference_code'] != null){
                     $referenceInstructorResp = $this->getByReferenceCode($data['reference_code']);
                     if($referenceInstructorResp->getResult() and $referenceInstructorResp->isDataNull() == false){
                         $referenceInstructorId = $referenceInstructorResp->getData()->id;
