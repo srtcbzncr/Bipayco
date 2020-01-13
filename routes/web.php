@@ -39,12 +39,12 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function(){
 Route::group(['prefix' => 'instructor', 'middleware' => 'auth'], function(){
    Route::get('create', 'Auth\AuthController@createInstructorGet')->name('instructor_create_get');
    Route::post('create', 'Auth\AuthController@createInstructorPost')->name('instructor_create_post');
-   Route::get('courses', 'Auth\InstructorController@courses')->name('instructor_courses');
-   Route::get('books', 'Auth\InstructorController@books')->name('instructor_books');
-   Route::get('exams', 'Auth\InstructorController@exams')->name('instructor_exams');
-   Route::get('homeworks', 'Auth\InstructorController@homeworks')->name('instructor_homeworks');
-   Route::get('performance', 'Auth\InstructorController@performance')->name('instructor_performance');
-   Route::get('questions', 'Auth\InstructorController@questions')->name('instructor_questions');
+   Route::get('courses', 'Auth\InstructorController@courses')->middleware('hasInstructorProfile')->name('instructor_courses');
+   Route::get('books', 'Auth\InstructorController@books')->middleware('hasInstructorProfile')->name('instructor_books');
+   Route::get('exams', 'Auth\InstructorController@exams')->middleware('hasInstructorProfile')->name('instructor_exams');
+   Route::get('homeworks', 'Auth\InstructorController@homeworks')->middleware('hasInstructorProfile')->name('instructor_homeworks');
+   Route::get('performance', 'Auth\InstructorController@performance')->middleware('hasInstructorProfile')->name('instructor_performance');
+   Route::get('questions', 'Auth\InstructorController@questions')->middleware('hasInstructorProfile')->name('instructor_questions');
 });
 
 Route::group(['prefix' => 'ge'], function(){
