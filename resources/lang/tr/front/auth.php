@@ -89,5 +89,12 @@ return [
     'homeworks'=>'Ödevler',
     'related_courses'=>'Benzer Kurslar',
     'my_progress'=>'İlerlemem',
-    'be_instructor'=>'Eğitmen Ol'
+    'be_instructor'=>'Eğitmen Ol',
+    'performance'=>'Performans',
+    'questions'=>'Soru Cevap',
+    'my_courses'=>'Kurslarım',
+    'my_books'=>'Soru Bankalarım',
+    'my_exams'=>'Deneme Sınavlarım',
+    'my_homework_packages'=>'Ödev Paketlerim',
+    'student'=>'öğrenci'
 ];

@@ -28,7 +28,7 @@
         <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
             <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
             @foreach($general_education as $general_educations)
-                        <li>
+                <li>
                     <course-card
                         title="{{$general_educations->name}}"
                         description="{{$general_educations->description}}"
