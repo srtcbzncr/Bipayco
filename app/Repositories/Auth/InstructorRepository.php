@@ -109,9 +109,17 @@ class InstructorRepository implements IRepository{
             $userRepository = new UserRepository;
             $userResp = $userRepository->get($data['user_id']);
             if($userResp->getResult() and !$userResp->isDataNull()){
+                $referenceInstructorId = null;
+                if(array_key_exists('reference_code', $data)){
+                    $referenceInstructorResp = $this->getByReferenceCode($data['reference_code']);
+                    if($referenceInstructorResp->getResult()){
+                        $referenceInstructorId = $referenceInstructorResp->getData()->id;
+                    }
+                }
                 DB::beginTransaction();
                 $object->user_id = $userResp->getData()->id;
                 $object->identification_number = $data['identification_number'];
+                $object->reference_instructor_id = $referenceInstructorId;
                 $object->title = $data['title'];
                 $object->bio = $data['bio'];
                 $object->iban = $data['iban'];

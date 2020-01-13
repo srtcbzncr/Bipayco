@@ -17,6 +17,7 @@ class CreateAuthInstructorsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('school_id')->nullable();
             $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('reference_instructor_id')->nullable();
             $table->string('identification_number', 11);
             $table->string('title', 200);
             $table->string('bio', 500);
@@ -28,6 +29,7 @@ class CreateAuthInstructorsTable extends Migration
 
             $table->foreign('school_id')->references('id')->on('bs_schools');
             $table->foreign('user_id')->references('id')->on('auth_users');
+            $table->foreign('reference_instructor_id')->references('id')->on('auth_instructors');
         });
     }
 
