@@ -7,6 +7,7 @@ use App\Repositories\Base\SchoolRepository;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use App\Models\Auth\Instructor;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class InstructorRepository implements IRepository{
@@ -290,6 +291,66 @@ class InstructorRepository implements IRepository{
             }
         }
         catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getLastGeCourses(){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = DB::table('ge_courses_instructors')->where('instructor_id',Auth::id())->where('course_type','App\Models\GeneralEducation\Course')
+                ->orderBy('created_at','desc')->take(20)->get();
+        }
+        catch (\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+    public function getLastPlCourses(){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = DB::table('ge_courses_instructors')->where('instructor_id',616)->where('course_type','App\Models\PrepareLessons\Course')
+                ->orderBy('created_at','desc')->take(20)->get();
+        }
+        catch (\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+    public function getLastPeCourses(){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = array();
+        }
+        catch (\Exception $e){
             $error = $e;
             $result = false;
         }

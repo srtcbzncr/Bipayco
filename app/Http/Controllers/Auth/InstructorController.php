@@ -4,12 +4,20 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Auth\Instructor;
+use App\Repositories\Auth\InstructorRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class InstructorController extends Controller
 {
     public function courses(){
+        $data = array();
+        $repo = new InstructorRepository();
+        $data['ge']=$repo->getLastGeCourses();
+        $data['pl']=$repo->getLastGeCourses();
+        $data['pe']=$repo->getLastGeCourses();
+        View::share('data',$data);
         return view('instructor.courses');
     }
 
