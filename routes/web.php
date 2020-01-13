@@ -34,6 +34,8 @@ Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function(){
 Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function(){
     Route::get('student/{id}', 'Auth\AuthController@studentProfile')->name('student_profile');
     Route::get('instructor/{id}', 'Auth\AuthController@instructorProfile')->name('instructor_profile');
+    Route::get('instructor/create', 'Auth\AuthController@createInstructorGet')->name('instructor_create_get');
+    Route::post('instructor/create', 'Auth\AuthController@createInstructorPost')->name('instructor_create_post');
 });
 
 Route::group(['prefix' => 'ge'], function(){
