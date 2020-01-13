@@ -9,7 +9,7 @@
                 <li>
                     <a href="#"> <i class="fas fa-laptop-code icon-medium"> </i> </a>
                     <div class="side-menu-slide" style="overflow-y: auto">
-                        <div class="side-menu-slide-content" >
+                        <div class="side-menu-slide-content">
                             <a class="uk-background-grey uk-margin-remove general-title" style=":hover" :href="generalEducationRoute"><b>{{generalEducation}}</b></a>
                             <ul uk-accordion>
                                 <li v-for="category in categories" class=" uk-margin-remove-top">
@@ -134,8 +134,10 @@ export default {
     },
     created() {
         this.$store.dispatch('loadCategories');
+        this.closeIcon = true;
     },
 }
+
 </script>
 
 <style scoped>

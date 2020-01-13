@@ -47,5 +47,6 @@ Vue.component('category-card', require('./components/category/category-card.vue'
 
 const app = new Vue({
     el: '#app1',
-    store
+    store,
+
 });
