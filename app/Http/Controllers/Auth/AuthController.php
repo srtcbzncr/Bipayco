@@ -254,4 +254,16 @@ class AuthController extends Controller
             return redirect()->route('error');
         }
     }
+
+    public function createInstructorGet(){
+        if(Auth::check()){
+            return view('auth.instructor_register');
+        }
+        else {
+            return view('auth.register');
+        }
+    }
+    public function createInstructorPost(){
+
+    }
 }

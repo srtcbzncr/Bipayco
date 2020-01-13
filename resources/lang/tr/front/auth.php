@@ -41,7 +41,8 @@ return [
     'bio'=>'Biyografi',
     'iban'=>'Iban',
     'title'=>'Ünvan',
-    'id_num'=>'TC Kimlik Numarası',
+    'identification_number'=>'TC Kimlik Numarası',
+    'id_num'=>'TC Kimlik No',
     'instructor_infos'=>'Eğitmen Hesabı',
     'student_infos'=>'Öğrenci Hesabı',
     'password_change'=>'Şifre Değiştir',
@@ -87,5 +88,6 @@ return [
     'resume'=>'Devam Et',
     'homeworks'=>'Ödevler',
     'related_courses'=>'Benzer Kurslar',
-    'my_progress'=>'İlerlemem'
+    'my_progress'=>'İlerlemem',
+    'be_instructor'=>'Eğitmen Ol'
 ];
