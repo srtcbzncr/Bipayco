@@ -68,4 +68,8 @@ class Course extends Model
     public function entries(){
         return $this->morphMany('App\Models\GeneralEducation\Entry', 'course');
     }
+
+    public function studentCount(){
+        return $this->entries()->count();
+    }
 }

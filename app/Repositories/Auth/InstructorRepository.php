@@ -112,8 +112,11 @@ class InstructorRepository implements IRepository{
                 $referenceInstructorId = null;
                 if(array_key_exists('reference_code', $data)){
                     $referenceInstructorResp = $this->getByReferenceCode($data['reference_code']);
-                    if($referenceInstructorResp->getResult()){
+                    if($referenceInstructorResp->getResult() and $referenceInstructorResp->isDataNull() == false){
                         $referenceInstructorId = $referenceInstructorResp->getData()->id;
+                    }
+                    else{
+                        throw new \Exception(__('auth.invalid_reference_code'));
                     }
                 }
                 DB::beginTransaction();
