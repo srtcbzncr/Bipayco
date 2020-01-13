@@ -332,10 +332,10 @@ class InstructorRepository implements IRepository{
 
         // Operations
         try{
-            $data = DB::table('ge_courses_instructors')->where('instructor_id',Auth::user()->instructor->id)->where('course_type','App\Models\PrepareLesson\Course')
+            $data = DB::table('ge_courses_instructors')->where('instructor_id',Auth::user()->instructor->id)->where('course_type','App\Models\PrepareLessons\Course')
                 ->orderBy('created_at','desc')->take(20)->get();
             foreach ($data as $key => $item){
-                $object[$key] = Course::find($item->course_id);
+                $object[$key] = \App\Models\PrepareLessons\Course::find($item->course_id);
             }
         }
         catch (\Exception $e){
