@@ -32,7 +32,7 @@
                     <course-card
                         title="{{$general_educations->name}}"
                         description="{{$general_educations->description}}"
-                        img-path="{{$general_educations->image}}"
+                        img-path="{{asset($general_educations->image)}}"
                         @if($general_educations->price!=$general_educations->price_with_discount)
                         discount
                         :current-price="{{$general_educations->price_with_discount}}"
@@ -80,7 +80,7 @@
                         <course-card
                             title="{{$prepare_for_exam->name}}"
                             description="{{$prepare_for_exam->description}}"
-                            img-path="{{$prepare_for_exam->image}}"
+                            img-path="{{asset($prepare_for_exam->image)}}"
                             @if($prepare_for_exam->price!=$prepare_for_exam->price_with_discount)
                             discount
                             :current-price="{{$prepare_for_exam->price_with_discount}}"
@@ -126,7 +126,7 @@
                         <course-card
                             title="{{$prepare_for_lesson->name}}"
                             description="{{$prepare_for_lesson->description}}"
-                            img-path="{{$prepare_for_lesson->image}}"
+                            img-path="{{asset($prepare_for_lesson->image)}}"
                             @if($prepare_for_lesson->price!=$prepare_for_lesson->price_with_discount)
                             discount
                             :current-price="{{$prepare_for_lesson->price_with_discount}}"
@@ -172,7 +172,7 @@
                         <course-card
                             title="{{$exam->name}}"
                             description="{{$exam->description}}"
-                            img-path="{{$exam->image}}"
+                            img-path="{{asset($exam->image)}}"
                             @if($exam->price!=$exam->price_with_discount)
                                 discount
                                 :current-price="{{$exam->price_with_discount}}"
@@ -218,7 +218,7 @@
                         <course-card
                             title="{{$book->name}}"
                             description="{{$book->description}}"
-                            img-path="{{$book->image}}"
+                            img-path="{{asset($book->image)}}"
                             @if($book->price!=$book->price_with_discount)
                                 discount
                                 :current-price="{{$book->price_with_discount}}"
