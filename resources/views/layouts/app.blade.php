@@ -53,7 +53,7 @@
     <div class="app">
         <main>
             <!--  Top bar nav -->
-            <nav class=" tm-mobile-header uk-animation-slide-top uk-background-blend-lighten uk-position-z-index" uk-navbar >
+            <nav class="tm-mobile-header uk-navbar">
                 <!-- mobile icon for side nav on nav-mobile-->
                 <span class="uk-hidden@m tm-mobile-menu-icon" uk-toggle="target: #side-nav; cls: side-nav-active"><i class="fas fa-bars icon-large"></i></span>
                 <!-- mobile icon for user icon on nav-mobile -->
@@ -61,8 +61,9 @@
                 <!-- mobile logo -->
                 <a class="uk-hidden@m uk-logo" href="{{route('home')}}">Bipayco</a>
                 @if(Auth::check())
+
                 @endif
-                <div class="uk-navbar-right tm-show-on-mobile uk-flex-right uk-margin-small-bottom" id="tm-show-on-mobile" >
+                <div class="uk-navbar-right tm-show-on-mobile uk-flex-right" id="tm-show-on-mobile" >
                     <!-- this will clouse after display user icon -->
                     <span class="uk-hidden@m tm-mobile-user-close-icon uk-align-right" uk-toggle="target: #tm-show-on-mobile; cls: tm-show-on-mobile-active"><i class="fas fa-times icon-large"></i></span>
                     <ul class="uk-navbar-nav uk-flex-middle  uk-margin-small-top">
@@ -238,30 +239,6 @@
         if (nightMode) {
             document.documentElement.className += ' night-mode';
         }
-    })(window, document);
-
-    (function (window, document, undefined) {
-
-        'use strict';
-
-        // Feature test
-        if (!('localStorage' in window)) return;
-
-        // Get our newly insert toggle
-        var nightMode = document.querySelector('#night-mode');
-        if (!nightMode) return;
-
-        // When clicked, toggle night mode on or off
-        nightMode.addEventListener('click', function (event) {
-            event.preventDefault();
-            document.documentElement.classList.toggle('night-mode');
-            if ( document.documentElement.classList.contains('night-mode') ) {
-                localStorage.setItem('gmtNightMode', true);
-                return;
-            }
-            localStorage.removeItem('gmtNightMode');
-        }, false);
-
     })(window, document);
 
     // Preloader
