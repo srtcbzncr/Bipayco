@@ -34,8 +34,13 @@ Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function(){
 Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function(){
     Route::get('student/{id}', 'Auth\AuthController@studentProfile')->name('student_profile');
     Route::get('instructor/{id}', 'Auth\AuthController@instructorProfile')->name('instructor_profile');
-    Route::get('instructor/create', 'Auth\AuthController@createInstructorGet')->name('instructor_create_get');
-    Route::post('instructor/create', 'Auth\AuthController@createInstructorPost')->name('instructor_create_post');
+});
+
+Route::group(['prefix' => 'instructor', 'middleware' => 'auth'], function(){
+   Route::get('create', 'Auth\AuthController@createInstructorGet')->name('instructor_create_get');
+   Route::post('create', 'Auth\AuthController@createInstructorPost')->name('instructor_create_post');
+   Route::get('dashboard', 'InstructorController@dashboard')->name('instructor_dashboard');
+   Route::get('courses', 'InstructorController@courses')->name('instructor_courses');
 });
 
 Route::group(['prefix' => 'ge'], function(){
@@ -48,6 +53,8 @@ Route::group(['prefix' => 'ge'], function(){
     Route::group(['prefix' => 'course'], function(){
         Route::get('{id}', 'GeneralEducation\CourseController@show')->name('ge_course');
         Route::get('{id}/watch', 'GeneralEduation\CourseController@watch')->name('ge_watch');
+        Route::get('create', 'GeneralEducation\CourseController@createGet')->name('ge_create_get');
+        Route::post('create', 'GeneralEducation\CourseController@createPost')->name('ge_create_post');
     });
     Route::get('index', 'HomeController@ge_index')->name('ge_index');
 });
