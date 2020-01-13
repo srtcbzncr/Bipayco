@@ -102,7 +102,11 @@
                                         </div>
                                         <div class="uk-flex justify-content-sm-between align-items-center ">
                                             <a class="uk-button-text uk-button" href="#"><i class="fas fa-cog"></i></a>
-                                            <a class="uk-button-text uk-button" href="#"><i class="fas fa-check-circle"></i></a>
+                                            @if($course->active)
+                                                <a class="uk-button-text uk-button" href="#"><i class="fas fa-times-circle"></i></a>
+                                            @else
+                                                <a class="uk-button-text uk-button" href="#"><i class="fas fa-check-circle"></i></a>
+                                            @endif
                                             <a class="uk-button uk-button-text" href="#"> <i class="fas fa-trash"></i></a>
                                         </div>
                                     </div>
@@ -133,7 +137,7 @@
                     </div>
                 </div>
             </div>
-            @if($data['ge']==null || count($data['pl'])==0)
+            @if($data['pl']==null || count($data['pl'])==0)
             <div class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
                 <h4 class="uk-text-bold uk-margin-remove-top">@lang('front/auth.not_found_content')</h4>
             </div>
@@ -156,7 +160,11 @@
                                             </div>
                                             <div class="uk-flex justify-content-sm-between align-items-center ">
                                                 <a class="uk-button-text uk-button" href="#"><i class="fas fa-cog"></i></a>
-                                                <a class="uk-button-text uk-button" href="#"><i class="fas fa-check-circle"></i></a>
+                                                @if($course->active)
+                                                    <a class="uk-button-text uk-button" href="#"><i class="fas fa-times-circle"></i></a>
+                                                @else
+                                                    <a class="uk-button-text uk-button" href="#"><i class="fas fa-check-circle"></i></a>
+                                                @endif
                                                 <a class="uk-button uk-button-text" href="#"> <i class="fas fa-trash"></i></a>
                                             </div>
                                         </div>
@@ -187,7 +195,7 @@
                     </div>
                 </div>
             </div>
-            @if($data['ge']==null || count($data['pe'])==0)
+            @if($data['pe']==null || count($data['pe'])==0)
             <div class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
                 <h4 class="uk-text-bold uk-margin-remove-top">@lang('front/auth.not_found_content')</h4>
             </div>
@@ -210,7 +218,11 @@
                                             </div>
                                             <div class="uk-flex justify-content-sm-between align-items-center ">
                                                 <a class="uk-button-text uk-button" href="#"><i class="fas fa-cog"></i></a>
-                                                <a class="uk-button-text uk-button" href="#"><i class="fas fa-check-circle"></i></a>
+                                                @if($course->active)
+                                                    <a class="uk-button-text uk-button" href="#"><i class="fas fa-times-circle"></i></a>
+                                                @else
+                                                    <a class="uk-button-text uk-button" href="#"><i class="fas fa-check-circle"></i></a>
+                                                @endif
                                                 <a class="uk-button uk-button-text" href="#"> <i class="fas fa-trash"></i></a>
                                             </div>
                                         </div>
