@@ -1,9 +1,9 @@
 @extends('layouts.app')
 @section('content')
     <div class="uk-container uk-margin-large-top">
-        <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 75%">
+        <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 90%">
             <div class="uk-card-body">
-                <div class="uk-flex-center">
+                <div class="uk-flex-center uk-margin-remove">
                     <div uk-filter="target: .js-filter " class="uk-margin-large-top uk-margin-medium-right">
                         <ul class="uk-subnav uk-subnav-pill uk-child-width-1-3@m uk-width uk-grid-match" style=" border-bottom: 1px solid #e5e5e5">
                             <li class="{{session('personal_data')}}" uk-filter-control=".tag-personal"><a href="#"><span class="fas fa-user uk-margin-small-right"></span><b>@lang('front/auth.personal_info')</b></a></li>
@@ -15,8 +15,8 @@
                                 <li class="tag-personal">
                                     <form method="POST" action="{{ route('updatePersonalData') }}">
                                         @csrf
-                                        <div class="uk-width uk-grid-stack">
-                                            <div class="uk-width uk-child-width-1-2@l uk-grid">
+                                        <div class="uk-grid-stack">
+                                            <div class="uk-child-width-1-2@l uk-grid">
                                                 <div>
                                                     <div class="uk-form-label"> @lang('front/auth.first_name') </div>
                                                     <input class="uk-input form-control @error('first_name') is-invalid @enderror" name="first_name" type="text" placeholder="@lang('front/auth.first_name')" value="{{$user->first_name}}" required>
@@ -36,7 +36,7 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="uk-width uk-child-width-1-2@l uk-grid uk-margin-remove-top">
+                                            <div class="uk-child-width-1-2@l uk-grid uk-margin-remove-top">
                                                 <div>
                                                     <div class="uk-form-label"> @lang('front/auth.email')  </div>
                                                     <input class="uk-input form-control @error('email') is-invalid @enderror" name="email" type="text" placeholder="@lang('front/auth.email')" value="{{$user->email}}" required>
@@ -56,7 +56,7 @@
                                                     @enderror
                                                 </div>
                                             </div>
-                                            <div class="uk-width uk-child-width">
+                                            <div>
                                                 <div class="uk-form-label">@lang('front/auth.city') </div>
                                                 <provinces city-default="@lang('front/auth.province')" district-default="@lang('front/auth.district')"
                                                            has-selected-option
@@ -90,10 +90,10 @@
                                     </form>
                                 </li>
                                 <li class="tag-security" >
-                                    <form class="uk-grid-small uk-form" uk-grid method="POST" action="{{ route('updatePassword') }}">
+                                    <form class="uk-form" method="POST" action="{{ route('updatePassword') }}">
                                         @csrf
-                                        <div class="uk-width uk-grid-stack">
-                                            <div class="uk-width uk-child-width-1-2@l uk-grid">
+                                        <div class="uk-grid-stack">
+                                            <div class="uk-child-width-1-2@l uk-grid">
                                                 <div>
                                                     <div class="uk-form-label"> @lang('front/auth.password_old') </div>
                                                     <div class="uk-inline uk-flex align-items-center" >
@@ -119,9 +119,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="uk-width-expand uk-margin-top">
-                                                <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')">
-                                            </div>
+                                            <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')">
                                         </div>
                                     </form>
                                 </li>
@@ -133,7 +131,7 @@
         </div>
         @if($has_student_profile)
 
-            <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 75%">
+            <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 90%">
                 <div class="uk-card-header uk-text-bold">
                     <span class="fas icon-medium uk-margin-small-right fa-graduation-cap"></span>
                     @lang('front/auth.student_infos')

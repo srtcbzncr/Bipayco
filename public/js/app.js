@@ -2953,6 +2953,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "side-bar",
@@ -2974,6 +2975,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     this.$store.dispatch('loadCategories');
     this.closeIcon = true;
+  },
+  mounted: function mounted() {
+    (function (window, document, undefined) {
+      'use strict';
+
+      console.log('calisti'); // Feature test
+
+      if (!('localStorage' in window)) {
+        console.log('localStorage Yok');
+        return;
+      } // Get our newly insert toggle
+
+
+      var nightMode = document.querySelector('#night-mode');
+      console.log('okudu');
+
+      if (!nightMode) {
+        console.log('nightMode yok');
+        return;
+      } // When clicked, toggle night mode on or off
+
+
+      nightMode.addEventListener('click', function (event) {
+        console.log('tıklandı');
+        event.preventDefault();
+        document.documentElement.classList.toggle('night-mode');
+
+        if (document.documentElement.classList.contains('night-mode')) {
+          localStorage.setItem('gmtNightMode', true);
+          return;
+        }
+
+        localStorage.removeItem('gmtNightMode');
+      }, false);
+    })(window, document);
   }
 });
 

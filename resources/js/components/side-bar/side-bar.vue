@@ -92,6 +92,7 @@
                                 <!-- night mode button -->
                                 <div class="btn-night uk-align-right" id="night-mode">
                                     <label class="tm-switch">
+                                        <!--<input type="checkbox" class="uk-checkbox">-->
                                         <div class="uk-switch-button"></div>
                                     </label>
                                 </div>
@@ -136,6 +137,33 @@ export default {
         this.$store.dispatch('loadCategories');
         this.closeIcon = true;
     },
+    mounted() {
+        (function (window, document, undefined) {
+
+            'use strict';
+            console.log('calisti');
+            // Feature test
+            if (!('localStorage' in window)){ console.log('localStorage Yok'); return;}
+
+            // Get our newly insert toggle
+            var nightMode = document.querySelector('#night-mode');
+            console.log('okudu');
+            if (!nightMode){ console.log('nightMode yok'); return;}
+
+            // When clicked, toggle night mode on or off
+            nightMode.addEventListener('click', function (event) {
+                console.log('tıklandı');
+                event.preventDefault();
+                document.documentElement.classList.toggle('night-mode');
+                if ( document.documentElement.classList.contains('night-mode') ) {
+                    localStorage.setItem('gmtNightMode', true);
+                    return;
+                }
+                localStorage.removeItem('gmtNightMode');
+            }, false);
+
+        })(window, document);
+    }
 }
 
 </script>
