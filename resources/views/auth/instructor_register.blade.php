@@ -35,7 +35,7 @@
                     <!--<h5 class="uk-margin-small uk-text-muted uk-text-bold uk-text-nowrap">'front/auth.bipayco_description'</h5>-->
                 </div>
                 <div>
-                    <form method="POST" action="">
+                    <form method="POST" action="{{ route('instructor_create_post') }}">
                         @csrf
                         <div uk-grid class="uk-flex-center">
                             <div class="uk-width-large@m uk-padding-remove-top">
