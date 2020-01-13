@@ -3,6 +3,7 @@
 namespace App\Repositories\Auth;
 
 use App\Models\Auth\User;
+use App\Models\GeneralEducation\Course;
 use App\Repositories\Base\SchoolRepository;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
@@ -308,8 +309,11 @@ class InstructorRepository implements IRepository{
 
         // Operations
         try{
-            $object = DB::table('ge_courses_instructors')->where('instructor_id',Auth::id())->where('course_type','App\Models\GeneralEducation\Course')
+            $data = DB::table('ge_courses_instructors')->where('instructor_id',Auth::user()->instructor->id)->where('course_type','App\Models\GeneralEducation\Course')
                 ->orderBy('created_at','desc')->take(20)->get();
+            foreach ($data as $key => $item){
+                $object[$key] = Course::find($item->course_id);
+            }
         }
         catch (\Exception $e){
             $error = $e;
@@ -328,8 +332,11 @@ class InstructorRepository implements IRepository{
 
         // Operations
         try{
-            $object = DB::table('ge_courses_instructors')->where('instructor_id',616)->where('course_type','App\Models\PrepareLessons\Course')
+            $data = DB::table('ge_courses_instructors')->where('instructor_id',Auth::user()->instructor->id)->where('course_type','App\Models\PrepareLesson\Course')
                 ->orderBy('created_at','desc')->take(20)->get();
+            foreach ($data as $key => $item){
+                $object[$key] = Course::find($item->course_id);
+            }
         }
         catch (\Exception $e){
             $error = $e;
