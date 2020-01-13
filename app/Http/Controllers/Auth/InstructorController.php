@@ -15,8 +15,8 @@ class InstructorController extends Controller
         $data = array();
         $repo = new InstructorRepository();
         $data['ge'] = $repo->getLastGeCourses()->getData();
-        $data['pl'] = $repo->getLastGeCourses()->getData();
-        $data['pe'] = $repo->getLastGeCourses()->getData();
+        $data['pl'] = $repo->getLastPlCourses()->getData();
+        $data['pe'] = $repo->getLastPeCourses()->getData();
         View::share('data',$data);
         return view('instructor.courses');
     }
