@@ -428,7 +428,7 @@ class CourseRepository implements IRepository{
             $object->price = $data['price'];
             $object->price_with_discount = $data['price'];
             $object->save();
-            $object->instructors()->save(Instructor::find($data['instructor_id']), ['is_manager' => true, 'percent' => $data['percent']]);
+            $object->instructors()->save(Instructor::find($data['instructor_id']), ['is_manager' => true, 'percent' => 100]);
             DB::commit();
         }
         catch(\Exception $e){
@@ -453,6 +453,9 @@ class CourseRepository implements IRepository{
         try{
             DB::beginTransaction();
             $object = Course::find($id);
+            $imagePath = $data['image']->store('public/images');
+            Storage::delete($object->image);
+            $object->imagePath = $imagePath;
             $object->category_id = $data['category_id'];
             $object->sub_category_id = $data['sub_category_id'];
             $object->name = $data['name'];

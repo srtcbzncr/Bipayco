@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\GE_CommentResource;
 use App\Http\Resources\GE_CourseCollection;
 use App\Http\Resources\GE_CourseResource;
+use App\Models\GeneralEducation\Course;
 use App\Repositories\Auth\UserRepository;
 use App\Repositories\GeneralEducation\CourseRepository;
 use Illuminate\Http\Request;
@@ -307,6 +308,52 @@ class CourseController extends Controller
         }
         else{
             return response()->json(['error' => true, 'message' => 'Bir hata oluştu.']);
+        }
+    }
+
+    public function createPost($id = null,Request $request){
+        $course = null;
+        if($id==null){
+            $course = new Course();
+            $course->image = $request->image;
+            $course->name = $request->name;
+            $course->description = $request->description;
+            $course->access_time = $request->access_time;
+            $course->certificate = $request->certificate;
+            $course->price = $request->price;
+            $course->category_id = $request->category_id;
+            $course->sub_category_id = $request->sub_category_id;
+            $course->save();
+            return response()->json([
+                'error' => false,
+                'result' => $course,
+                'message' => 'Kurs oluşturuldu.'
+            ]);
+        }
+        else{
+            $course = Course::find($id);
+            if($course==null){
+                return response()->json([
+                   'error' => true,
+                   'message' => 'id = '.$id.' kurs yok.'
+                ]);
+            }
+            else{
+                $course->image = $request->image;
+                $course->name = $request->name;
+                $course->description = $request->description;
+                $course->access_time = $request->access_time;
+                $course->certificate = $request->certificate;
+                $course->price = $request->price;
+                $course->category_id = $request->category_id;
+                $course->sub_category_id = $request->sub_category_id;
+                $course->save();
+                return response()->json([
+                   'error' => false,
+                   'result' => $course,
+                   'message' => 'Kurs başarıyla güncellendi'
+                ]);
+            }
         }
     }
 }
