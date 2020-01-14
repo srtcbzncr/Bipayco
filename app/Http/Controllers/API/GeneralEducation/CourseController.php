@@ -8,8 +8,15 @@ use App\Http\Resources\GE_CourseCollection;
 use App\Http\Resources\GE_CourseResource;
 use App\Models\GeneralEducation\Course;
 use App\Repositories\Auth\UserRepository;
+use App\Repositories\GeneralEducation\AchievementRepository;
 use App\Repositories\GeneralEducation\CourseRepository;
+use App\Repositories\GeneralEducation\LessonRepository;
+use App\Repositories\GeneralEducation\RequirementRepository;
+use App\Repositories\GeneralEducation\SectionRepository;
+use App\Repositories\GeneralEducation\SourceRepository;
+use App\Repositories\GeneralEducation\TagRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -312,48 +319,101 @@ class CourseController extends Controller
     }
 
     public function createPost($id = null,Request $request){
-        $course = null;
         if($id==null){
-            $course = new Course();
-            $course->image = $request->image;
-            $course->name = $request->name;
-            $course->description = $request->description;
-            $course->access_time = $request->access_time;
-            $course->certificate = $request->certificate;
-            $course->price = $request->price;
-            $course->category_id = $request->category_id;
-            $course->sub_category_id = $request->sub_category_id;
-            $course->save();
+            $repoCourse = new CourseRepository();
+            $data = $request->toArray();
+            $data['instructor_id'] = Auth::user()->instructor->id;
+            $respCourse = $repoCourse->create($data);
+
             return response()->json([
-                'error' => false,
-                'result' => $course,
-                'message' => 'Kurs oluşturuldu.'
+                'error' => !$respCourse->getResult(),
+                'result' => $respCourse->getData(),
+                'message' => $respCourse->getResult() ? 'Kurs Oluşturuldu' : 'Kurs Oluşturılamadı'
             ]);
         }
         else{
             $course = Course::find($id);
+
+            $data = $request->toArray();
+            $repoCourse = new CourseRepository();
+            $respCourse=$repoCourse->update($id,$data);
             if($course==null){
                 return response()->json([
                    'error' => true,
                    'message' => 'id = '.$id.' kurs yok.'
                 ]);
             }
-            else{
-                $course->image = $request->image;
-                $course->name = $request->name;
-                $course->description = $request->description;
-                $course->access_time = $request->access_time;
-                $course->certificate = $request->certificate;
-                $course->price = $request->price;
-                $course->category_id = $request->category_id;
-                $course->sub_category_id = $request->sub_category_id;
-                $course->save();
+            else if($respCourse->getResult()){
                 return response()->json([
                    'error' => false,
                    'result' => $course,
                    'message' => 'Kurs başarıyla güncellendi'
                 ]);
             }
+            else {
+                return response()->json([
+                    'error' => false,
+                    'result' => $course,
+                    'message' => 'Kurs güncellenemedi'
+                ]);
+            }
         }
+    }
+
+    public function goalsPost($id){
+        $course = Course::find($id);
+
+        // Initializing
+        $data = array();
+        $data['course'] = $course;
+        $repoCourse = new CourseRepository();
+
+        // Operations
+        $respAchievement = $repoCourse->syncAchievements($id,$data);
+        $respRequirement = $repoCourse->syncRequirements($id,$data);
+        $respTag = $repoCourse->syncTags($id,$data);
+
+        if($respAchievement->getResult() and $respRequirement->getResult() and $respTag->getResult()){
+            return response()->json([
+                'error' => false,
+                'result' => 'Kurs Güncellendi'
+            ]);
+        }
+        else{
+            return response()->json([
+               'error' => true,
+               'result' => 'Kurs Güncellenemdi'
+            ]);
+        }
+    }
+
+    public function sectionsPost($id,Request $request){
+        // todo : burası değişecek.
+        // Initializing
+        $repoSection = new SectionRepository();
+        $repoLesson = new LessonRepository();
+        $repoSource = new SourceRepository();
+
+        // Operations
+        $respSection = $repoSection->create($request);
+        $respLesson = $repoLesson->create($request);
+        $respSource = $repoSource->create($request);
+
+        if($respSection->getResult() and $respLesson->getResult() and $respSource->getResult()){
+            return response()->json([
+                'error' => false,
+                'result' => 'Kurs Güncellendi'
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'result' => 'Kurs Güncellenemdi'
+            ]);
+        }
+    }
+
+    public function instructorsPost($id){
+
     }
 }
