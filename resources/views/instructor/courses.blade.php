@@ -55,6 +55,9 @@
                 <a href="{{route('instructor_questions')}}"> <i class="fas fa-user"></i>@lang('front/auth.questions')</a>
             </li>
             <li>
+                <a href="{{route('student_profile', Auth::user()->id)}}"> <i class="fas fa-sign-out-alt"></i>@lang('front/auth.student_mode')</a>
+            </li>
+            <li>
                 <a href="{{route('logout')}}"> <i class="fas fa-sign-out-alt"></i>@lang('front/auth.log_out')</a>
             </li>
         </ul>
@@ -70,12 +73,12 @@
             <!--general education-->
             <div class="uk-container">
                 <div class="section-heading uk-position-relative uk-margin-medium-top none-border uk-clearfix">
-                    <div class="uk-float-left">
+                    <div class="uk-float-left uk-margin-top">
                         <h2>@lang('front/auth.general_education')</h2>
-                        <p>@lang('front/auth.popular_in_category')</p>
                     </div>
                     <div class="uk-float-right">
-                        <a href="{{route('ge_index')}}" class="uk-button uk-button-grey">@lang('front/auth.see_more')</a>
+                        <a href="{{route('ge_index')}}" class="uk-button uk-button-success uk-margin-small-right uk-margin-small-top"><i class="fas fa-plus uk-margin-small-right"></i>@lang('front/auth.add_lessons')</a>
+                        <a href="{{route('ge_index')}}" class="uk-button uk-button-grey uk-margin-small-top">@lang('front/auth.see_more')</a>
                     </div>
                 </div>
             </div>
@@ -100,7 +103,7 @@
                                             <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-user-graduate uk-margin-small-right"></i>{{$course->studentCount()}} @lang('front/auth.student')</p>
                                             <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-calendar-alt uk-margin-small-right"></i>{{date("d/m/Y", strtotime($course->created_at))}}</p>
                                         </div>
-                                        <div class="uk-flex justify-content-sm-between align-items-center ">
+                                        <div class="uk-flex justify-content-between align-items-center ">
                                             <a class="uk-button-text uk-button" href="#"><i class="fas fa-cog"></i></a>
                                             @if($course->active)
                                                 <a class="uk-button-text uk-button" href="#"><i class="fas fa-times-circle"></i></a>
@@ -128,12 +131,12 @@
             <!--prepare for lessons-->
             <div class="uk-container">
                 <div class="section-heading uk-position-relative uk-margin-medium-top none-border uk-clearfix">
-                    <div class="uk-float-left">
+                    <div class="uk-float-left uk-margin-top">
                         <h2>@lang('front/auth.prepare_for_lessons')</h2>
-                        <p>@lang('front/auth.popular_in_category')</p>
                     </div>
                     <div class="uk-float-right">
-                        <a href="{{route('ge_index')}}" class="uk-button uk-button-grey">@lang('front/auth.see_more')</a>
+                        <a href="{{route('ge_index')}}" class="uk-button uk-button-success uk-margin-small-right uk-margin-small-top"><i class="fas fa-plus uk-margin-small-right"></i>@lang('front/auth.add_lessons')</a>
+                        <a href="{{route('ge_index')}}" class="uk-button uk-button-grey uk-margin-small-top">@lang('front/auth.see_more')</a>
                     </div>
                 </div>
             </div>
@@ -158,7 +161,7 @@
                                                 <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-user-graduate uk-margin-small-right"></i>{{$course->studentCount()}} @lang('front/auth.student')</p>
                                                 <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-calendar-alt uk-margin-small-right"></i>{{date("d/m/Y", strtotime($course->created_at))}}</p>
                                             </div>
-                                            <div class="uk-flex justify-content-sm-between align-items-center ">
+                                            <div class="uk-flex justify-content-between align-items-center ">
                                                 <a class="uk-button-text uk-button" href="#"><i class="fas fa-cog"></i></a>
                                                 @if($course->active)
                                                     <a class="uk-button-text uk-button" href="#"><i class="fas fa-times-circle"></i></a>
@@ -186,12 +189,12 @@
             <!--prepare for exams-->
             <div class="uk-container">
                 <div class="section-heading uk-position-relative uk-margin-medium-top none-border uk-clearfix">
-                    <div class="uk-float-left">
+                    <div class="uk-float-left uk-margin-top">
                         <h2>@lang('front/auth.prepare_for_exams')</h2>
-                        <p>@lang('front/auth.popular_in_category')</p>
                     </div>
                     <div class="uk-float-right">
-                        <a href="{{route('ge_index')}}" class="uk-button uk-button-grey">@lang('front/auth.see_more')</a>
+                        <a href="{{route('ge_index')}}" class="uk-button uk-button-success uk-margin-small-right uk-margin-small-top"><i class="fas fa-plus uk-margin-small-right"></i>@lang('front/auth.add_lessons')</a>
+                        <a href="{{route('ge_index')}}" class="uk-button uk-button-grey uk-margin-small-top">@lang('front/auth.see_more')</a>
                     </div>
                 </div>
             </div>
@@ -216,7 +219,7 @@
                                                 <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-user-graduate uk-margin-small-right"></i>{{$course->studentCount()}} @lang('front/auth.student')</p>
                                                 <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-calendar-alt uk-margin-small-right"></i>{{date("d/m/Y", strtotime($course->created_at))}}</p>
                                             </div>
-                                            <div class="uk-flex justify-content-sm-between align-items-center ">
+                                            <div class="uk-flex justify-content-between align-items-center ">
                                                 <a class="uk-button-text uk-button" href="#"><i class="fas fa-cog"></i></a>
                                                 @if($course->active)
                                                     <a class="uk-button-text uk-button" href="#"><i class="fas fa-times-circle"></i></a>

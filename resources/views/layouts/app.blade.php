@@ -61,7 +61,11 @@
                 <!-- mobile logo -->
                 <a class="uk-hidden@m uk-logo" href="{{route('home')}}">Bipayco</a>
                 @if(Auth::check())
-
+                    @if(!isSet(Auth::user()->instructor))
+                        <a href="{{route('instructor_create_get')}}" class="uk-navbar-item uk-button-text back-to-dashboard"> @lang('front/auth.be_instructor') </a>
+                    @else
+                        <a href="{{route('instructor_courses')}}" class="uk-navbar-item uk-button-text back-to-dashboard">@lang('front/auth.instructor_mode')</a>
+                    @endif
                 @endif
                 <div class="uk-navbar-right tm-show-on-mobile uk-flex-right" id="tm-show-on-mobile" >
                     <!-- this will clouse after display user icon -->

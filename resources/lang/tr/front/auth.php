@@ -96,5 +96,8 @@ return [
     'my_books'=>'Soru Bankalarım',
     'my_exams'=>'Deneme Sınavlarım',
     'my_homework_packages'=>'Ödev Paketlerim',
-    'student'=>'Öğrenci'
+    'student'=>'Öğrenci',
+    'student_mode'=>'Öğrenci Modu',
+    'instructor_mode'=>'Eğitmen Modu',
+    'add_lessons'=>'Ders Ekle',
 ];
