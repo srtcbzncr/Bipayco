@@ -60,6 +60,7 @@
                 <span class="uk-hidden@m tm-mobile-user-icon uk-align-right" uk-toggle="target: #tm-show-on-mobile; cls: tm-show-on-mobile-active"><i class="far fa-user icon-large"></i></span>
                 <!-- mobile logo -->
                 <a class="uk-hidden@m uk-logo" href="{{route('home')}}">Bipayco</a>
+                <div class="uk-navbar-left uk-visible@m uk-margin-top">
                 @if(Auth::check())
                     @if(!isSet(Auth::user()->instructor))
                         <a href="{{route('instructor_create_get')}}" class="uk-navbar-item uk-button-text back-to-dashboard"> @lang('front/auth.be_instructor') </a>
@@ -67,6 +68,7 @@
                         <a href="{{route('instructor_courses')}}" class="uk-navbar-item uk-button-text back-to-dashboard">@lang('front/auth.instructor_mode')</a>
                     @endif
                 @endif
+                </div>
                 <div class="uk-navbar-right tm-show-on-mobile uk-flex-right" id="tm-show-on-mobile" >
                     <!-- this will clouse after display user icon -->
                     <span class="uk-hidden@m tm-mobile-user-close-icon uk-align-right" uk-toggle="target: #tm-show-on-mobile; cls: tm-show-on-mobile-active"><i class="fas fa-times icon-large"></i></span>
