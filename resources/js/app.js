@@ -23,6 +23,7 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 Vue.component('course-card', require('./components/course-card.vue').default);
 Vue.component('stars-rating', require('./components/stars-rating.vue').default);
+Vue.component('category-select', require('./components/instructor/category-select.vue').default);
 Vue.component('provinces', require('./components/auth/province.vue').default);
 Vue.component('course-progress-card', require('./components/auth/course-progress-card.vue').default);
 Vue.component('notification-card', require('./components/top-bar/notification-card.vue').default);

@@ -9,6 +9,7 @@ const state={
     cities:{},
     districts:{},
     categories:{},
+    subCategories:{},
     categoryCourses:{},
     courseReviews:{},
     myCourses:{},
@@ -39,7 +40,10 @@ const mutations={
     },
     setCanComment(state, index){
         state.canComment=index.data;
-    }
+    },
+    setSubCategory(state,index){
+        state.subCategories=index.data.sub_categories;
+    },
 };
 const actions={
     /*province.vue*/
@@ -80,7 +84,11 @@ const actions={
     loadCanComment({commit},userId,courseId){
         Axios.get('/api/course/'+courseId+'/canComment/'+userId)
             .then(response =>commit('setCanComment',response));
-    }
+    },
+    loadSubCategories({commit},id){
+        Axios.get('/api/category/'+id)
+            .then(response =>commit('setSubCategory', response.data))
+    },
 };
 
 const store=new Vuex.Store({

@@ -15,35 +15,16 @@
                     <div uk-grid>
                         <!-- page content -->
                         <div id="courseContent" class="tabcontent tab-default-open  animation: uk-animation-slide-right-medium">
-                            <div class="uk-margin-top ">
+                            <div class="uk-margin-top">
                                 <h4>@lang('front/auth.course_detail')</h4>
                             </div>
                             <hr>
-                            <div class="uk-grid uk-margin-remove-top uk-child-width-1-2@m uk-margin-remove-bottom">
-                                <div>
-                                    <div class="uk-form-label"> @lang('front/auth.price')  </div>
-                                    <input class="uk-input form-control @error('price') is-invalid @enderror" type="text" name="price" required>
-                                    @error('price')
-                                    <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                                <div>
-                                    <div class="uk-form-label"> @lang('front/auth.access_time')  </div>
-                                    <input class="uk-input form-control @error('access_time') is-invalid @enderror" type="text" name="access_time" required>
-                                    @error('access_time')
-                                    <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
-                                </div>
-                            </div>
+                            <category-select category-default="@lang('front/auth.province')" sub-category-default="@lang('front/auth.district')"></category-select>
                             <div class="uk-grid uk-margin-remove-bottom uk-margin-remove-top">
                                 <div class="uk-width-1-2@m">
                                     <div >
                                         <div class="uk-form-label"> @lang('front/auth.course_img')  </div>
-                                        <img src="#">
+                                        <img src="{{Auth::user()->avatar}}">
                                     </div>
                                     <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                                         <input name="image" type="file" accept="image/*"  required>
