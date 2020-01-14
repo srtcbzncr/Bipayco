@@ -107,5 +107,6 @@ return [
     'price'=>'Fiyat',
     'access_time'=>'Erişim Süresi',
     'month'=>'Ay',
-    'has_certificate'=>'Kursunuz Sertifikalı Mı?'
+    'has_certificate'=>'Kursunuz Sertifikalı Mı?',
+    'category'=>'Kategori',
 ];

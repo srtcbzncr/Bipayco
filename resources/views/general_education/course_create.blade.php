@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-    <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 90%">
+    <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 80%">
         <div class="uk-card-body uk-margin-xlarge-top">
             <div class="uk-grid">
                 <div class="uk-width-1-4@m">
@@ -48,7 +48,7 @@
                                     </div>
                                     <div>
                                         <div class="uk-form-label"> @lang('front/auth.course_desc')</div>
-                                        <textarea class="uk-textarea form-control @error('description') is-invalid @enderror" type="text" rows="10" name="description" style=" resize: none" required> </textarea>
+                                        <textarea class="uk-textarea form-control @error('description') is-invalid @enderror" type="text" rows="8" name="description" style=" resize: none" required> </textarea>
                                         @error('description')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
