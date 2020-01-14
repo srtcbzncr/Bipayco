@@ -60,8 +60,6 @@ Route::group(['prefix' => 'ge'], function(){
     Route::group(['prefix' => 'course'], function(){
         Route::get('{id}', 'GeneralEducation\CourseController@show')->name('ge_course');
         Route::get('{id}/watch', 'GeneralEduation\CourseController@watch')->name('ge_watch');
-        Route::get('create', 'GeneralEducation\CourseController@createGet')->name('ge_create_get');
-        Route::post('create', 'GeneralEducation\CourseController@createPost')->name('ge_create_post');
     });
     Route::get('index', 'HomeController@ge_index')->name('ge_index');
 });
