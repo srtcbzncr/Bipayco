@@ -96,5 +96,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="uikit" level="application" />
     <orderEntry type="library" name="uikit-icons" level="application" />
+    <orderEntry type="library" name="axios" level="application" />
   </component>
 </module>

@@ -135,4 +135,19 @@
         </div>
     </div>
 </body>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    function coursePost(){
+        axios.post('/api/instructor/course/create',{
+            image:document.getElementsByName('image').value,
+            name:document.getElementsByName('name').value,
+            description:document.getElementsByName('description').innerHTML,
+            price:document.getElementsByName('price').value,
+            access_time:document.getElementsByName('access_time').value,
+            category_id:document.getElementsByName('category').value,
+            sub_category_id:document.getElementsByName('subCategory').value,
+            certificate:document.getElementsByName('certificate').value,
+        }).catch(error=>console.log(error));
+    }
+</script>
 </html>

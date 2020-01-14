@@ -24,7 +24,10 @@
         props:{
             categoryDefault:String,
             subCategoryDefault:String,
-            hasSelectedOption:Boolean,
+            hasSelectedOption:{
+                type:Boolean,
+                default:false,
+            },
             selectedSubCategory:String,
             selectedCategory:String,
             selectedSubCategoryId:String,
@@ -32,7 +35,7 @@
         },
         data(){
             return {
-                selectedId:'1',
+                selectedId:'',
                 changing:Boolean,
             }
         },

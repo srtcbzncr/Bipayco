@@ -2871,7 +2871,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   props: {
     categoryDefault: String,
     subCategoryDefault: String,
-    hasSelectedOption: Boolean,
+    hasSelectedOption: {
+      type: Boolean,
+      "default": false
+    },
     selectedSubCategory: String,
     selectedCategory: String,
     selectedSubCategoryId: String,
@@ -2879,7 +2882,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      selectedId: '1',
+      selectedId: '',
       changing: Boolean
     };
   },

@@ -4,7 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 import Vue from 'vue';
-import store from './store/index.js'
+import store from './store/index.js';
 
 window.Vue = require('vue');
 
@@ -49,5 +49,4 @@ Vue.component('category-card', require('./components/category/category-card.vue'
 const app = new Vue({
     el: '#app1',
     store,
-
 });

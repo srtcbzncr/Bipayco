@@ -7,7 +7,7 @@
                 <h2>@lang('front/auth.general_education')</h2>
             </div>
             <div class="uk-float-right">
-                <a href="{{route('ge_index')}}" class="uk-button uk-button-success uk-margin-small-right uk-margin-small-top"><i class="fas fa-plus uk-margin-small-right"></i>@lang('front/auth.add_lessons')</a>
+                <a href="{{route('ge_course_create_get')}}" class="uk-button uk-button-success uk-margin-small-right uk-margin-small-top"><i class="fas fa-plus uk-margin-small-right"></i>@lang('front/auth.add_lessons')</a>
                 <a href="{{route('ge_index')}}" class="uk-button uk-button-grey uk-margin-small-top">@lang('front/auth.see_more')</a>
             </div>
         </div>

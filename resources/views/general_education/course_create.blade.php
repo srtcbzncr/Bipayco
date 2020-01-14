@@ -19,7 +19,7 @@
                                 <h4>@lang('front/auth.course_detail')</h4>
                             </div>
                             <hr>
-                            <category-select category-default="@lang('front/auth.province')" sub-category-default="@lang('front/auth.district')"></category-select>
+                            <category-select category-default="@lang('front/auth.category')" sub-category-default="@lang('front/auth.sub_category')"></category-select>
                             <div class="uk-grid uk-margin-remove-bottom uk-margin-remove-top">
                                 <div class="uk-width-1-2@m">
                                     <div >
@@ -84,7 +84,7 @@
                                 </label>
                             </div>
                             <div class="uk-margin">
-                                <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')">
+                                <input class="uk-button uk-button-grey button uk-margin" type="button" onclick="coursePost()" value="@lang('front/auth.save')">
                             </div>
                         </div>
                         <div id="achievements" class="tabcontent  animation: uk-animation-slide-right-medium">
