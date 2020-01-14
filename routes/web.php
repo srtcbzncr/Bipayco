@@ -46,14 +46,7 @@ Route::group(['prefix' => 'instructor', 'middleware' => 'auth'], function(){
    Route::get('performance', 'Auth\InstructorController@performance')->middleware('hasInstructorProfile')->name('instructor_performance');
    Route::get('questions', 'Auth\InstructorController@questions')->middleware('hasInstructorProfile')->name('instructor_questions');
    Route::group(['prefix' => 'ge', 'middleware' => 'hasInstructorProfile'], function(){
-       Route::get('course/create', 'GeneralEducation\CourseController@createGet')->name('ge_course_create_get');
-       Route::post('course/create', 'GeneralEducation\CourseController@createPost')->name('ge_course_create_post');
-       Route::get('course/{id}/goals', 'GeneralEducation\CourseController@goalsGet')->name('ge_course_goals_get');
-       Route::post('course/{id}/goals', 'GeneralEducation\CourseController@goalsPost')->name('ge_course_goals_post');
-       Route::get('course/{id}/sections', 'GeneralEducation\CourseController@sectionsGet')->name('ge_course_sections_get');
-       Route::post('course/{id}/sections', 'GeneralEducation\CourseController@sectionsPost')->name('ge_course_sections_post');
-       Route::get('course/{id}/instructors', 'GeneralEducation\CourseController@instructorsGet')->name('ge_course_instructors_get');
-       Route::post('course/{id}/instructors', 'GeneralEducation\CourseController@instructorsPost')->name('ge_course_instructors_post');
+       Route::get('course/create/{id?}', 'GeneralEducation\CourseController@createGet')->name('ge_course_create_get');
    });
 });
 

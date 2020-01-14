@@ -68,4 +68,11 @@ Route::prefix('district')->group(function(){
     Route::get('{id}', 'API\Base\DistrictController@show')->name('api_district_show');
 });
 
+Route::prefix('instructor')->group(function(){
+    Route::post('course/create', 'API\GeneralEducation\CourseController@createPost')->name('api_ge_course_create_post');
+    Route::post('course/{id}/goals', 'API\GeneralEducation\CourseController@goalsPost')->name('api_ge_course_goals_post');
+    Route::post('course/{id}/sections', 'API\GeneralEducation\CourseController@sectionsPost')->name('api_ge_course_sections_post');
+    Route::post('course/{id}/instructors', 'API\GeneralEducation\CourseController@instructorsPost')->name('api_ge_course_instructors_post');
+});
+
 Route::get('myCourses/{id}', 'API\Auth\AuthController@courses')->name('api_my_courses');
