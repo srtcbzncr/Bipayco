@@ -151,7 +151,7 @@
             </div>
         @endif
         @if($has_instructor_profile)
-            <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 75%">
+            <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 90%">
                 <div class="uk-card-header uk-text-bold">
                     <span class="fas icon-medium uk-margin-small-right fa-chalkboard-teacher"></span>
                     @lang('front/auth.instructor_infos')
@@ -200,8 +200,8 @@
                                         @enderror
                                     </div>
                                     <div>
-                                        <div class="uk-form-label form-control @error('new_password') is-invalid @enderror">@lang('front/auth.reference_code') </div>
-                                        <input class="uk-input" type="text" disabled name="reference_code" value="{{$instructor_profile->reference_code}}" required>
+                                        <div class="uk-form-label">@lang('front/auth.reference_code') </div>
+                                        <input class="uk-input form-control @error('new_password') is-invalid @enderror" type="text" disabled name="reference_code" value="{{$instructor_profile->reference_code}}" required>
                                         @error('reference_code')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

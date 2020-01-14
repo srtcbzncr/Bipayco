@@ -37,25 +37,28 @@
         </div>
         <ul>
             <li>
-                <a href="{{route('instructor_courses')}}"> <i class="fas fa-user"></i>  @lang('front/auth.my_courses') </a>
+                <a href="{{route('instructor_courses')}}"> <i class="fas fa-chalkboard"></i>  @lang('front/auth.my_courses') </a>
             </li>
             <li>
                 <a href="{{route('instructor_books')}}"> <i class="fas fa-book-open"></i>@lang('front/auth.my_books')</a>
             </li>
             <li>
-                <a href="{{route('instructor_exams')}}"> <i class="fas fa-user"></i>@lang('front/auth.my_exams')</a>
+                <a href="{{route('instructor_exams')}}"> <i class="fas fa-pencil-alt"></i>@lang('front/auth.my_exams')</a>
             </li>
             <li>
-                <a href="{{route('instructor_homeworks')}}"> <i class="fas fa-code"></i>@lang('front/auth.my_homework_packages')</a>
+                <a href="{{route('instructor_homeworks')}}"> <i class="fas fa-book"></i>@lang('front/auth.my_homework_packages')</a>
             </li>
             <li>
-                <a href="{{route('instructor_performance')}}"> <i class="fas fa-play"></i>@lang('front/auth.performance')</a>
+                <a href="{{route('instructor_performance')}}"> <i class="fas fa-chart-line"></i>@lang('front/auth.performance')</a>
             </li>
             <li>
-                <a href="{{route('instructor_questions')}}"> <i class="fas fa-user"></i>@lang('front/auth.questions')</a>
+                <a href="{{route('instructor_questions')}}"> <i class="fas fa-question"></i>@lang('front/auth.questions')</a>
             </li>
             <li>
-                <a href="{{route('student_profile', Auth::user()->id)}}"> <i class="fas fa-sign-out-alt"></i>@lang('front/auth.student_mode')</a>
+                <a href="{{route('student_profile', Auth::user()->id)}}"> <i class="fas fa-user"></i>@lang('front/auth.student_mode')</a>
+            </li>
+            <li>
+                <a href="{{route('settings')}}"> <i class="fas fa-cog"></i>@lang('front/auth.settings')</a>
             </li>
             <li>
                 <a href="{{route('logout')}}"> <i class="fas fa-sign-out-alt"></i>@lang('front/auth.log_out')</a>
