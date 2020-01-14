@@ -483,6 +483,81 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
+    public function syncRequirements($id, array $data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $course = Course::find($id);
+            $course->requirements()->delete();
+            $course->requirements()->saveMany($data);
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function syncAchievements($id, array $data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $course = Course::find($id);
+            $course->achievements()->delete();
+            $course->achievements()->saveMany($data);
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function syncTags($id, array $data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $course = Course::find($id);
+            $course->tags()->delete();
+            $course->tags()->saveMany($data);
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
     public function updateImage($id, array $data){
         // Response variables
         $result = true;
