@@ -428,7 +428,7 @@ class CourseRepository implements IRepository{
             $object->price = $data['price'];
             $object->price_with_discount = $data['price'];
             $object->save();
-            $object->instructors()->save(Instructor::find($data['instructor_id']), ['is_manager' => true, 'percent' => $data['percent']]);
+            $object->instructors()->save(Instructor::find($data['instructor_id']), ['is_manager' => true, 'percent' => 100]);
             DB::commit();
         }
         catch(\Exception $e){
