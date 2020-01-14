@@ -74,61 +74,61 @@
     <div id="app1" class="admin-content-inner">
         @yield('content')
     </div>
-</div>
-<div class="uk-section-small uk-margin-medium-top">
-    <hr class="uk-margin-remove">
-    <div class="uk-container uk-align-center uk-margin-remove-bottom uk-position-relative">
-        <div uk-grid>
-            <div class="uk-width-1-3@m uk-width-1-2@s uk-first-column">
-                <a class="" href="{{route('home')}}"> <img class="uk-logo uk-width-small@s uk-width-medium@m" src="{{asset('images/logo2.png')}}"/> </a>
-                <div class="uk-width-xlarge tm-footer-description">Bilgi paylaştıkça çoğalır.</div>
-            </div>
-            <div class="uk-width-expand@m uk-width-1-2@s">
-                <ul class="uk-list  tm-footer-list">
+    <div class="uk-section-small uk-margin-medium-top">
+        <hr class="uk-margin-remove">
+        <div class="uk-container uk-align-center uk-margin-remove-bottom uk-position-relative">
+            <div uk-grid>
+                <div class="uk-width-1-3@m uk-width-1-2@s uk-first-column">
+                    <a class="" href="{{route('home')}}"> <img class="uk-logo uk-width-small@s uk-width-medium@m" src="{{asset('images/logo2.png')}}"/> </a>
+                    <div class="uk-width-xlarge tm-footer-description">Bilgi paylaştıkça çoğalır.</div>
+                </div>
+                <div class="uk-width-expand@m uk-width-1-2@s">
+                    <ul class="uk-list  tm-footer-list">
 
-                </ul>
+                    </ul>
+                </div>
+                <div class="uk-width-expand@m uk-width-1-2@s">
+                    <ul class="uk-list tm-footer-list">
+                        <li>
+                            <a href="{{route('ge_index')}}">Genel Eğitim Modülü </a>
+                        </li>
+                        <li>
+                            <a href="#">Sınavlara Hazırlık Modülü  </a>
+                        </li>
+                        <li>
+                            <a href="#"> Derslere Hazırlık Modülü </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="uk-width-expand@m uk-width-1-2@s">
+                    <ul class="uk-list  tm-footer-list">
+                        <li>
+                            <a href="#"> Denemeler </a>
+                        </li>
+                        <li>
+                            <a href="#"> Ödemeler </a>
+                        </li>
+                        <li>
+                            <a href="#"> İletişim </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="uk-width-expand@m uk-width-1-2@s">
-                <ul class="uk-list tm-footer-list">
-                    <li>
-                        <a href="{{route('ge_index')}}">Genel Eğitim Modülü </a>
-                    </li>
-                    <li>
-                        <a href="#">Sınavlara Hazırlık Modülü  </a>
-                    </li>
-                    <li>
-                        <a href="#"> Derslere Hazırlık Modülü </a>
-                    </li>
-                </ul>
-            </div>
-            <div class="uk-width-expand@m uk-width-1-2@s">
-                <ul class="uk-list  tm-footer-list">
-                    <li>
-                        <a href="#"> Denemeler </a>
-                    </li>
-                    <li>
-                        <a href="#"> Ödemeler </a>
-                    </li>
-                    <li>
-                        <a href="#"> İletişim </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <hr>
-        <div class="uk-margin-medium uk-margin-remove-right" uk-grid>
-            <div class="uk-width-1-3@m uk-width-1-1@s uk-first-column">
-                <p class="uk-text-small"><i class="fas fa-copyright"></i> 2020 <span class="uk-text-bold">Bipayco</span>  Bütün hakları saklıdır.</p>
-            </div>
-            <div class="uk-width-1-3@m uk-width-1-1@s">
-                <a href="#" class="uk-icon-button uk-link-reset" uk-tooltip="title: Our Youtube Chanal; pos: top-center"><i class="fab fa-youtube" style=" color: #fb7575  !important;"></i></a>
-                <a href="#" class="uk-icon-button uk-link-reset" uk-tooltip="title: Our Facebook; pos: top-center"><i class="fab fa-facebook" style=" color: #9160ec  !important;"></i></a>
-                <a href="#" class="uk-icon-button uk-link-reset" uk-tooltip="title: Our Instagram; pos: top-center"><i class="fab fa-instagram" style=" color: #dc2d2d  !important;"></i></a>
-                <a href="#" class="uk-icon-button uk-link-reset" uk-tooltip="title: Our linkedin; pos: top-center"><i class="fab fa-linkedin " style=" color: #6949a5  !important;"></i></a>
-                <a href="#" class="uk-icon-button uk-link-reset" uk-tooltip="title: Our Twitter; pos: top-center"><i class="fab fa-twitter" style=" color: #6f23ff !important;"></i></a>
-            </div>
-            <div class="uk-width-1-3@m uk-width-1-1@s">
-                <p><a href="#"  class="uk-text-bold uk-link-reset"> Sanalist </a> tarafından geliştirildi. </p>
+            <hr>
+            <div class="uk-margin-medium uk-margin-remove-right" uk-grid>
+                <div class="uk-width-1-3@m uk-width-1-1@s uk-first-column">
+                    <p class="uk-text-small"><i class="fas fa-copyright"></i> 2020 <span class="uk-text-bold">Bipayco</span>  Bütün hakları saklıdır.</p>
+                </div>
+                <div class="uk-width-1-3@m uk-width-1-1@s">
+                    <a href="#" class="uk-icon-button uk-link-reset" uk-tooltip="title: Our Youtube Chanal; pos: top-center"><i class="fab fa-youtube" style=" color: #fb7575  !important;"></i></a>
+                    <a href="#" class="uk-icon-button uk-link-reset" uk-tooltip="title: Our Facebook; pos: top-center"><i class="fab fa-facebook" style=" color: #9160ec  !important;"></i></a>
+                    <a href="#" class="uk-icon-button uk-link-reset" uk-tooltip="title: Our Instagram; pos: top-center"><i class="fab fa-instagram" style=" color: #dc2d2d  !important;"></i></a>
+                    <a href="#" class="uk-icon-button uk-link-reset" uk-tooltip="title: Our linkedin; pos: top-center"><i class="fab fa-linkedin " style=" color: #6949a5  !important;"></i></a>
+                    <a href="#" class="uk-icon-button uk-link-reset" uk-tooltip="title: Our Twitter; pos: top-center"><i class="fab fa-twitter" style=" color: #6f23ff !important;"></i></a>
+                </div>
+                <div class="uk-width-1-3@m uk-width-1-1@s">
+                    <p><a href="#"  class="uk-text-bold uk-link-reset"> Sanalist </a> tarafından geliştirildi. </p>
+                </div>
             </div>
         </div>
     </div>

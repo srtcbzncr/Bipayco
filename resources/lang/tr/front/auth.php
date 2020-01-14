@@ -100,4 +100,12 @@ return [
     'student_mode'=>'Öğrenci Modu',
     'instructor_mode'=>'Eğitmen Modu',
     'add_lessons'=>'Ders Ekle',
+    'course_detail'=>'Kurs Detayı',
+    'course_img'=>'Kurs Resmi',
+    'course_name'=>'Kurs Adı',
+    'course_desc'=>'Kurs Açıklaması',
+    'price'=>'Fiyat',
+    'access_time'=>'Erişim Süresi',
+    'month'=>'Ay',
+    'has_certificate'=>'Kursunuz Sertifikalı Mı?'
 ];
