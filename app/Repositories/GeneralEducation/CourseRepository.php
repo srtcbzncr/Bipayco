@@ -4,9 +4,12 @@ namespace App\Repositories\GeneralEducation;
 
 use App\Models\Auth\Instructor;
 use App\Models\Auth\Student;
+use App\Models\GeneralEducation\Achievement;
 use App\Models\GeneralEducation\Comment;
 use App\Models\GeneralEducation\Entry;
+use App\Models\GeneralEducation\Requirement;
 use App\Models\GeneralEducation\Section;
+use App\Models\GeneralEducation\Tag;
 use App\Repositories\IRepository;
 use App\Models\GeneralEducation\Course;
 use App\Repositories\RepositoryResponse;
@@ -470,6 +473,102 @@ class CourseRepository implements IRepository{
             }
             $object->price_with_discount = $price_with_discount;
             $object->save();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function syncRequirements($id, array $data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $course = Course::find($id);
+            $course->requirements()->delete();
+            foreach ($data as $requirement){
+                $newRequirement = new Requirement();
+                $newRequirement->course_id = $id;
+                $newRequirement->course_type = 'App\Models\GeneralEducation\Course';
+                $newRequirement->content = $requirement;
+                $newRequirement->save();
+            }
+            $object = $course->requirements;
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function syncAchievements($id, array $data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $course = Course::find($id);
+            $course->achievements()->delete();
+            foreach ($data as $achievement){
+                $newAchievement = new Achievement();
+                $newAchievement->course_id = $id;
+                $newAchievement->course_type = 'App\Models\GeneralEducation\Course';
+                $newAchievement->content = $achievement;
+                $newAchievement->save();
+            }
+            $object = $course->achievements;
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function syncTags($id, array $data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $course = Course::find($id);
+            $course->tags()->delete();
+            foreach ($data as $tag){
+                $newTag = new Tag();
+                $newTag->course_id = $id;
+                $newTag->course_type = 'App\Models\GeneralEducation\Course';
+                $newTag->content = $tag;
+                $newTag->save();
+            }
+            $object = $course->tags;
             DB::commit();
         }
         catch(\Exception $e){

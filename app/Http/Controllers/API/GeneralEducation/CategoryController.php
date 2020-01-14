@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\GeneralEducation;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\GE_SubCategoryResource;
 use App\Repositories\GeneralEducation\CategoryRepository;
 use Illuminate\Http\Request;
 use App\Http\Resources\GE_CategoryResource;
