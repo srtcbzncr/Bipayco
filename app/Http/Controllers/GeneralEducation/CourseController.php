@@ -58,21 +58,4 @@ class CourseController extends Controller
             }
         }
     }
-    public function createPost(CourseRequest $request){
-        // Validation
-        $validateData = $request->validated();
-
-        // Initializations
-        $repoCourse = new CourseRepository();
-
-        // Operations
-        $respCourse = $repoCourse->create($validateData);
-
-        if($respCourse->getResult()){
-            return redirect()->route('ge_course_create_get');
-        }
-        else{
-            return redirect()->back()->with('error', $respCourse->getError()->getMessage());
-        }
-    }
 }
