@@ -388,14 +388,14 @@ class CourseController extends Controller
     }
 
     public function sectionsPost($id,Request $request){
-        // todo : burası değişecek.
+        // todo : burası değişecek. Repository de sync metoduna gönderilecek
         // Initializing
         $repoSection = new SectionRepository();
         $repoLesson = new LessonRepository();
         $repoSource = new SourceRepository();
 
         // Operations
-        $respSection = $repoSection->create($request);
+        $respSection = $repoSection->create($request); // ok
         $respLesson = $repoLesson->create($request);
         $respSource = $repoSource->create($request);
 

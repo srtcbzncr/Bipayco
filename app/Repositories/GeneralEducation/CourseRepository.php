@@ -582,6 +582,62 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
+    public function syncSections($id, array $data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $course = Course::find($id);
+            $course->sections()->delete();
+            foreach ($data as $section){
+                $newSection = new Section();
+                $newSection->course_id = $id;
+                $newSection->no = $section->no;
+                $newSection->name = $section->name;
+                $newSection->content = $section->active;
+                $newSection->save();
+            }
+            $object = $course->sections;
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+    public function syncLesson($id, array $data){
+        // todo : bir kurs içerisinde birden fazla 'section' var, bir 'section' altında da birden fazla 'lesson' olabilir.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
     public function updateImage($id, array $data){
         // Response variables
         $result = true;
