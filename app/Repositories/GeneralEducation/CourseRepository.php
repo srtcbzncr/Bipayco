@@ -637,6 +637,42 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+    public function syncInstructor($course_id,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $course = Course::find($course_id);
+            DB::table("ge_courses_instructors")->where('course_id',$course_id)->delete();
+            foreach ($data as  $item){
+                foreach ($item as $key => $item2){
+                    DB::table("ge_courses_instructors")->insert(array(
+                        'course_id' => $course_id,
+                        'course_type' => 'App\Models\GeneralEducation\Course',
+                        'instructor_id' => $item['instructor_id'][$key],
+                        'is_manager' => $item['is_manager'][$key],
+                        'percent' => $item['percent'],
+                        'active' => $item['active']
+                    ));
+                }
+            }
+            $object = $course->instructors;
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
 
     public function updateImage($id, array $data){
         // Response variables
