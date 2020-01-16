@@ -28,7 +28,7 @@
                                         <img src="{{Auth::user()->avatar}}">
                                     </div>
                                     <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
-                                        <input name="image" type="file" accept="image/*"  required>
+                                        <input name="image" type="file" accept="image/*" id="newCourseImage" required>
                                         <input class="uk-input form-control @error('image') is-invalid @enderror" type="text" tabindex="-1" disabled placeholder="@lang('front/auth.select_file')">
                                         @error('image')
                                         <span class="invalid-feedback" role="alert">

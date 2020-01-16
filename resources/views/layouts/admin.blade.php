@@ -138,10 +138,12 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
     function coursePost(){
-        FormData formData =new FormData();
+        var formData =new FormData();
+        var image=document.querySelector('#newCourseImage');
+        formData.append('image', image);
         axios.post('/api/instructor/course/create',{
             instructor_id:document.getElementsByName('instructorId').value,
-            image:document.getElementsByName('image'),
+            image:formData,
             name:document.getElementsByName('name').value,
             description:document.getElementsByName('description').innerHTML,
             price:document.getElementsByName('price').value,
