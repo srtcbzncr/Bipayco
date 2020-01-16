@@ -8,7 +8,7 @@
             </select>
         </div>
         <div class="uk-width-1-2@l">
-            <select class="uk-select" name="subCategory" required>
+            <select class="uk-select" name="subCategory" id="subCategory" required>
                 <option v-if="hasSelectedOption && hasChange" selected hidden :value="selectedSubCategoryId">{{selectedSubCategory}} </option>
                 <option v-if="!(hasSelectedOption)|| !hasChange" disabled hidden selected value="">{{subCategoryDefault}}</option>
                 <option v-for='subCategory in subCategories.data' :value='subCategory.id'>{{subCategory.name}}</option>

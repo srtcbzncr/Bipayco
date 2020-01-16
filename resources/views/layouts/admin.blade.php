@@ -139,19 +139,39 @@
 <script>
     function coursePost(){
         var formData =new FormData();
+        var certificate;
+        switch(document.querySelector('#certificate').value){
+            case true:
+            case "true":
+            case 1:
+            case "1":
+            case "on":
+            case "yes":
+                certificate=true;
+                break;
+            default:
+                certificate=false;
+                break;
+        }
         var image=document.querySelector('#newCourseImage');
-        formData.append('image', image);
-        axios.post('/api/instructor/course/create',{
-            instructor_id:document.getElementsByName('instructorId').value,
-            image:formData,
-            name:document.getElementsByName('name').value,
-            description:document.getElementsByName('description').innerHTML,
-            price:document.getElementsByName('price').value,
-            access_time:document.getElementsByName('accessTime').value,
-            category_id:document.getElementsByName('category').value,
-            sub_category_id:document.getElementsByName('subCategory').value,
-            certificate:document.getElementsByName('certificate').value,
-        }).then(response=>console.log(response.data)).catch(error=>console.log(error));
+        formData.append('name',document.querySelector('#name').value);
+        formData.append('description',document.querySelector('#description').value);
+        formData.append('price',document.querySelector('#price').value);
+        formData.append('access_time',document.querySelector('#accessTime').value);
+        formData.append('instructor_id',document.querySelector('#instructorId').value);
+        formData.append('category_id',document.querySelector('#category').value);
+        formData.append('sub_category_id',document.querySelector('#subCategory').value);
+        formData.append('certificate',certificate);
+        formData.append('image', image.files[0]);
+        for( var a of formData.entries()){
+            console.log(a);
+        }
+        axios.post('/api/instructor/course/create',
+            formData, {headers: {
+            'Content-Type': 'multipart/form-data'
+        }})
+            .then(response=>console.log(response.data))
+                .catch(error=>console.log(error));
     }
 </script>
 </html>

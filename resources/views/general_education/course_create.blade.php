@@ -15,13 +15,14 @@
                     <div uk-grid>
                         <!-- page content -->
                         <div id="courseContent" class="tabcontent tab-default-open  animation: uk-animation-slide-right-medium">
+                            <form>
                             <div class="uk-margin-top">
                                 <h4>@lang('front/auth.course_detail')</h4>
                             </div>
                             <hr>
                             <category-select category-default="@lang('front/auth.category')" sub-category-default="@lang('front/auth.sub_category')"></category-select>
                             <div class="uk-grid uk-margin-remove-bottom uk-margin-remove-top">
-                                <input type="text" value="{{Auth::user()->instructor->id}}" name="instructorId" hidden disabled>
+                                <input type="text" value="{{Auth::user()->instructor->id}}" id="instructorId" hidden disabled>
                                 <div class="uk-width-1-2@m">
                                     <div >
                                         <div class="uk-form-label"> @lang('front/auth.course_img')  </div>
@@ -40,7 +41,7 @@
                                 <div class="uk-width-1-2@m">
                                     <div>
                                         <div class="uk-form-label"> @lang('front/auth.course_name')  </div>
-                                        <input class="uk-input form-control @error('name') is-invalid @enderror" type="text" name="name" required>
+                                        <input class="uk-input form-control @error('name') is-invalid @enderror" type="text" id="name" required>
                                         @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -49,7 +50,7 @@
                                     </div>
                                     <div>
                                         <div class="uk-form-label"> @lang('front/auth.course_desc')</div>
-                                        <textarea class="uk-textarea form-control @error('description') is-invalid @enderror" type="text" rows="8" name="description" style=" resize: none" required> </textarea>
+                                        <textarea class="uk-textarea form-control @error('description') is-invalid @enderror" type="text" rows="8" id="description" style=" resize: none" required> </textarea>
                                         @error('description')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -61,7 +62,7 @@
                             <div class="uk-grid uk-margin-remove-top uk-child-width-1-2@m">
                                 <div>
                                     <div class="uk-form-label"> @lang('front/auth.price')  </div>
-                                    <input class="uk-input form-control @error('price') is-invalid @enderror" type="text" name="price" required>
+                                    <input class="uk-input form-control @error('price') is-invalid @enderror" type="text" id="price" required>
                                     @error('price')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -70,7 +71,7 @@
                                 </div>
                                 <div>
                                     <div class="uk-form-label"> @lang('front/auth.access_time') (@lang('front/auth.month'))  </div>
-                                    <input class="uk-input form-control @error('accessTime') is-invalid @enderror" type="number" min="1" name="accessTime" required>
+                                    <input class="uk-input form-control @error('accessTime') is-invalid @enderror" type="number" min="1" id="accessTime" required>
                                     @error('accessTime')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -80,13 +81,14 @@
                             </div>
                             <div class="uk-margin uk-flex justify-content-start align-items-center">
                                 <label>
-                                    <input class="uk-checkbox" type="checkbox" value="false" name="certificate">
+                                    <input class="uk-checkbox" type="checkbox" id="certificate">
                                     <span class="checkmark uk-text-small">@lang('front/auth.has_certificate')</span>
                                 </label>
                             </div>
                             <div class="uk-margin">
                                 <input class="uk-button uk-button-grey button uk-margin" type="button" onclick="coursePost()" value="@lang('front/auth.save')">
                             </div>
+                            </form>
                         </div>
                         <div id="achievements" class="tabcontent  animation: uk-animation-slide-right-medium">
                             <h2>Başarımlar</h2>
