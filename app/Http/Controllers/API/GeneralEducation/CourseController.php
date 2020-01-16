@@ -334,7 +334,6 @@ class CourseController extends Controller
             else{
                 return response()->json([
                     'error' => true,
-                    'result' => $respCourse->getData(),
                     'message' => $respCourse->getError()->getMeesage(),
                 ]);
             }
