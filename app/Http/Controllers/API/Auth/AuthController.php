@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Auth\User;
+use App\Repositories\Auth\InstructorRepository;
 use App\Repositories\Auth\StudentRepository;
 use App\Repositories\GeneralEducation\CourseRepository;
 use Illuminate\Http\Request;
@@ -35,6 +36,22 @@ class AuthController extends Controller
         }
         else {
             return response()->json(['error' => true, 'message' => $courses->getError()]);
+        }
+    }
+
+    public function getInstructorByMail(Request $request){
+        // Initializations
+        $instructorRepo = new InstructorRepository();
+
+        // Operations
+        $instructorResp = $instructorRepo->getByEmail($request->query('email'));
+
+        // Response
+        if($instructorResp->getResult() and $instructorResp->isDataNull() == false){
+            return response()->json(['error' => false, 'instructor' => $instructorResp->getData()]);
+        }
+        else{
+            return response()->json(['error' => true, 'message' => 'Eğitmen bulunamadı.']);
         }
     }
 }

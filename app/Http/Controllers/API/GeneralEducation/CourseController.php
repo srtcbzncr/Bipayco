@@ -322,6 +322,7 @@ class CourseController extends Controller
         if($id==null){
             $repoCourse = new CourseRepository();
             $data = $request->toArray();
+
             $respCourse = $repoCourse->create($data);
 
             return response()->json([

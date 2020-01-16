@@ -73,6 +73,7 @@ Route::prefix('instructor')->group(function(){
     Route::post('course/{id}/goals', 'API\GeneralEducation\CourseController@goalsPost')->name('api_ge_course_goals_post');
     Route::post('course/{id}/sections', 'API\GeneralEducation\CourseController@sectionsPost')->name('api_ge_course_sections_post');
     Route::post('course/{id}/instructors', 'API\GeneralEducation\CourseController@instructorsPost')->name('api_ge_course_instructors_post');
+    Route::get('search', 'API\Auth\AuthController@getInstructorByMail')->name('api_search_instructor');
 });
 
 Route::get('myCourses/{id}', 'API\Auth\AuthController@courses')->name('api_my_courses');
