@@ -2,7 +2,7 @@
     <div id="watch-example">
         <p>
             Ask a yes/no question:
-            <input v-model="question">
+            <input v-model="email">
         </p>
         <p>{{ answer }}</p>
     </div>
@@ -20,26 +20,26 @@
         watch:{
             email: function () {
                 this.hasInstructorAccount='Yazmanı Bekliyorum';
-                this.debouncedGetAnswer();
+                this.debouncedGethasInstructorAccount();
             }
         },
         created() {
-            this.debouncedGetAnswer = _.debounce(this.getAnswer, 500);
+            this.debouncedGethasInstructorAccount = _.debounce(this.getAnswer, 500);
         },
         methods:{
             getAnswer: function () {
-                if (this.question.indexOf('?') === -1) {
-                    this.answer = 'Questions usually contain a question mark. ;-)';
+                if (this.email.indexOf('?') === -1) {
+                    this.hasInstructorAccount = 'Questions usually contain a question mark. ;-)';
                     return
                 }
-                this.answer = 'Thinking...';
+                this.hasInstructorAccount = 'Thinking...';
                 var vm = this;
                 axios.get('https://yesno.wtf/api')
                     .then(function (response) {
-                        vm.answer = _.capitalize(response.data.answer);
+                        vm.hasInstructorAccount = _.capitalize(response.data.hasInstructorAccount);
                     })
                     .catch(function (error) {
-                        vm.answer = 'Error! Could not reach the API. ' + error;
+                        vm.hasInstructorAccount = 'Error! Could not reach the API. ' + error;
                     })
             }
         }

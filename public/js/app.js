@@ -2878,17 +2878,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     selectedSubCategory: String,
     selectedCategory: String,
     selectedSubCategoryId: String,
-    selectedCategoryId: String
+    selectedCategoryId: {
+      type: String,
+      "default": ""
+    }
   },
   data: function data() {
     return {
-      selectedId: '',
+      selected: this.selectedCategoryId,
       changing: Boolean
     };
   },
   computed: _objectSpread({
     hasChange: function hasChange() {
       return this.changing;
+    },
+    selectedId: function selectedId() {
+      return this.selected;
     }
   }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categories', 'subCategories'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCategories', 'loadSubCategories']), {
@@ -2934,25 +2940,25 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     email: function email() {
       this.hasInstructorAccount = 'Yazmanı Bekliyorum';
-      this.debouncedGetAnswer();
+      this.debouncedGethasInstructorAccount();
     }
   },
   created: function created() {
-    this.debouncedGetAnswer = _.debounce(this.getAnswer, 500);
+    this.debouncedGethasInstructorAccount = _.debounce(this.getAnswer, 500);
   },
   methods: {
     getAnswer: function getAnswer() {
-      if (this.question.indexOf('?') === -1) {
-        this.answer = 'Questions usually contain a question mark. ;-)';
+      if (this.email.indexOf('?') === -1) {
+        this.hasInstructorAccount = 'Questions usually contain a question mark. ;-)';
         return;
       }
 
-      this.answer = 'Thinking...';
+      this.hasInstructorAccount = 'Thinking...';
       var vm = this;
       axios.get('https://yesno.wtf/api').then(function (response) {
-        vm.answer = _.capitalize(response.data.answer);
+        vm.hasInstructorAccount = _.capitalize(response.data.hasInstructorAccount);
       })["catch"](function (error) {
-        vm.answer = 'Error! Could not reach the API. ' + error;
+        vm.hasInstructorAccount = 'Error! Could not reach the API. ' + error;
       });
     }
   }
@@ -6933,17 +6939,17 @@ var render = function() {
           {
             name: "model",
             rawName: "v-model",
-            value: _vm.question,
-            expression: "question"
+            value: _vm.email,
+            expression: "email"
           }
         ],
-        domProps: { value: _vm.question },
+        domProps: { value: _vm.email },
         on: {
           input: function($event) {
             if ($event.target.composing) {
               return
             }
-            _vm.question = $event.target.value
+            _vm.email = $event.target.value
           }
         }
       })

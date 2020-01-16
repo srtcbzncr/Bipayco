@@ -139,20 +139,7 @@
 <script>
     function coursePost(){
         var formData =new FormData();
-        var certificate;
-        switch(document.querySelector('#certificate').value){
-            case true:
-            case "true":
-            case 1:
-            case "1":
-            case "on":
-            case "yes":
-                certificate=true;
-                break;
-            default:
-                certificate=false;
-                break;
-        }
+
         var image=document.querySelector('#newCourseImage');
         formData.append('name',document.querySelector('#name').value);
         formData.append('description',document.querySelector('#description').value);
@@ -161,16 +148,16 @@
         formData.append('instructor_id',document.querySelector('#instructorId').value);
         formData.append('category_id',document.querySelector('#category').value);
         formData.append('sub_category_id',document.querySelector('#subCategory').value);
-        formData.append('certificate',certificate);
+        formData.append('certificate',document.querySelector('#certificate').checked);
         formData.append('image', image.files[0]);
         for( var a of formData.entries()){
             console.log(a);
         }
         axios.post('/api/instructor/course/create',
-            formData, {headers: {
-            'Content-Type': 'multipart/form-data'
-        }})
-            .then(response=>console.log(response.data))
+            formData, {
+                headers: {'Content-Type': 'multipart/form-data'}
+            })
+            .then(result=>window.location.replace('/instructor/ge/course/create/'+result.data.id))
                 .catch(error=>console.log(error));
     }
 </script>
