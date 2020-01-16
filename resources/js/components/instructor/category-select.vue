@@ -31,17 +31,23 @@
             selectedSubCategory:String,
             selectedCategory:String,
             selectedSubCategoryId:String,
-            selectedCategoryId:String,
+            selectedCategoryId:{
+                type:String,
+                default: "",
+            },
         },
         data(){
             return {
-                selectedId:'',
+                selected: this.selectedCategoryId,
                 changing:Boolean,
             }
         },
         computed:{
             hasChange:function () {
                 return this.changing;
+            },
+            selectedId: function () {
+                return this.selected;
             },
             ...mapState([
                 'categories',
