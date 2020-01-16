@@ -387,17 +387,16 @@ class CourseController extends Controller
         }
     }
 
+
     public function sectionsPost($id,Request $request){
-        // todo : burası değişecek. Repository de sync metoduna gönderilecek
         // Initializing
-        $repoSection = new SectionRepository();
-        $repoLesson = new LessonRepository();
-        $repoSource = new SourceRepository();
+        $repo = new CourseRepository();
+        $data = $request->toArray();
 
         // Operations
-        $respSection = $repoSection->create($request); // bu bölümü course repo'da syncSection metodu ile çözdüm.
-        $respLesson = $repoLesson->create($request);
-        $respSource = $repoSource->create($request);
+        $respSection = $repo->syncSections($id,$data);
+        $respLesson = $repo->syncLesson($id,$data);
+        $respSource = $repo->syncSource($id,$data);
 
         if($respSection->getResult() and $respLesson->getResult() and $respSource->getResult()){
             return response()->json([
@@ -408,10 +407,11 @@ class CourseController extends Controller
         else{
             return response()->json([
                 'error' => true,
-                'result' => 'Kurs Güncellenemdi'
+                'result' => 'Kurs Güncellenemedi'
             ]);
         }
     }
+
 
     public function instructorsPost($id,Request $request){
         // Initializin
