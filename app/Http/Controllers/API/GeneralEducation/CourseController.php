@@ -394,7 +394,7 @@ class CourseController extends Controller
         $repoSource = new SourceRepository();
 
         // Operations
-        $respSection = $repoSection->create($request); // ok
+        $respSection = $repoSection->create($request); // bu bölümü course repo'da syncSection metodu ile çözdüm.
         $respLesson = $repoLesson->create($request);
         $respSource = $repoSource->create($request);
 
@@ -412,7 +412,24 @@ class CourseController extends Controller
         }
     }
 
-    public function instructorsPost($id){
+    public function instructorsPost($id,Request $request){
+        // Initializin
+        $repo = new CourseRepository();
+        $data = $request->toArray();
 
+        // Operations
+        $resp = $repo->syncInstructor($id,$data);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Eğitimenler kursa eklendi'
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Eğitimenler kursa eklenemedi'
+            ]);
+        }
     }
 }
