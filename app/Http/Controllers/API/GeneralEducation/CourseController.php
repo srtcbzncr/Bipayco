@@ -325,11 +325,20 @@ class CourseController extends Controller
 
             $respCourse = $repoCourse->create($data);
 
-            return response()->json([
-                'error' => !$respCourse->getResult(),
-                'result' => $respCourse->getData(),
-                'message' => $respCourse->getError()->getMessage(),
-            ]);
+            if($respCourse->getResult()){
+                return response()->json([
+                    'error' => false,
+                    'result' => $respCourse->getData()
+                ]);
+            }
+            else{
+                return response()->json([
+                    'error' => true,
+                    'result' => $respCourse->getData(),
+                    'message' => $respCourse->getError()->getMeesage(),
+                ]);
+            }
+
         }
         else{
             $course = Course::find($id);

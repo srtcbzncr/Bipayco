@@ -419,6 +419,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
+            print_r($data['image']);
             $imagePath = $data['image']->store('public/images');
             $object = new Course;
             $object->category_id = $data['category_id'];
