@@ -109,4 +109,5 @@ return [
     'month'=>'Ay',
     'has_certificate'=>'Kursunuz Sertifikalı Mı?',
     'category'=>'Kategori',
+    'instructors'=>'Eğitmenler',
 ];

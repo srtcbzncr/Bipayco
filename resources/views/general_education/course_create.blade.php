@@ -21,6 +21,7 @@
                             <hr>
                             <category-select category-default="@lang('front/auth.category')" sub-category-default="@lang('front/auth.sub_category')"></category-select>
                             <div class="uk-grid uk-margin-remove-bottom uk-margin-remove-top">
+                                <input type="text" value="{{Auth::user()->instructor->id}}" name="instructorId" hidden disabled>
                                 <div class="uk-width-1-2@m">
                                     <div >
                                         <div class="uk-form-label"> @lang('front/auth.course_img')  </div>
@@ -69,8 +70,8 @@
                                 </div>
                                 <div>
                                     <div class="uk-form-label"> @lang('front/auth.access_time') (@lang('front/auth.month'))  </div>
-                                    <input class="uk-input form-control @error('access_time') is-invalid @enderror" type="number" min="1" name="access_time" required>
-                                    @error('access_time')
+                                    <input class="uk-input form-control @error('accessTime') is-invalid @enderror" type="number" min="1" name="accessTime" required>
+                                    @error('accessTime')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -79,7 +80,7 @@
                             </div>
                             <div class="uk-margin uk-flex justify-content-start align-items-center">
                                 <label>
-                                    <input class="uk-checkbox" type="checkbox" name="certificate">
+                                    <input class="uk-checkbox" type="checkbox" value="false" name="certificate">
                                     <span class="checkmark uk-text-small">@lang('front/auth.has_certificate')</span>
                                 </label>
                             </div>
@@ -94,7 +95,11 @@
                             <h2>Dersler</h2>
                         </div>
                         <div id="instructors" class="tabcontent  animation: uk-animation-slide-right-medium">
-                            <h2>Eğitmenler</h2>
+                            <div class="uk-margin-top">
+                                <h4>@lang('front/auth.instructors')</h4>
+                            </div>
+                            <hr>
+                            <div></div>
                         </div>
                     </div>
                 </div>
