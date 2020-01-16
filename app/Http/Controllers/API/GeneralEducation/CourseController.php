@@ -322,13 +322,12 @@ class CourseController extends Controller
         if($id==null){
             $repoCourse = new CourseRepository();
             $data = $request->toArray();
-            $data['instructor_id'] = Auth::user()->instructor->id;
             $respCourse = $repoCourse->create($data);
 
             return response()->json([
                 'error' => !$respCourse->getResult(),
                 'result' => $respCourse->getData(),
-                'message' => $respCourse->getResult() ? 'Kurs Oluşturuldu' : 'Kurs Oluşturılamadı'
+                'message' => $respCourse->getError()->getMessage(),
             ]);
         }
         else{
