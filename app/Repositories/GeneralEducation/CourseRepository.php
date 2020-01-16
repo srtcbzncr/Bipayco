@@ -637,6 +637,9 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+    public function syncSource($id,$data){
+
+    }
     public function syncInstructor($course_id,$data){
         // Response variables
         $result = true;
