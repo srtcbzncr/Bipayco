@@ -139,7 +139,6 @@
 <script>
     function coursePost(){
         var formData =new FormData();
-
         var image=document.querySelector('#newCourseImage');
         formData.append('name',document.querySelector('#name').value);
         formData.append('description',document.querySelector('#description').value);
@@ -160,5 +159,21 @@
             .then(result=>window.location.replace('/instructor/ge/course/create/'+result.data.id))
                 .catch(error=>console.log(error));
     }
+
+    function previewImage(input){
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                document.querySelector('#imagePreview').setAttribute('style', 'background-image:url('+e.target.result+')');
+            };
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 </script>
+<style>
+    #imagePreview{
+        padding-top:calc( 190 / 367 * 90%);
+    }
+</style>
 </html>
