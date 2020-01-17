@@ -25,6 +25,7 @@ Vue.component('course-card', require('./components/course-card.vue').default);
 Vue.component('stars-rating', require('./components/stars-rating.vue').default);
 Vue.component('category-select', require('./components/instructor/category-select.vue').default);
 Vue.component('course-create-instructors', require('./components/instructor/course-create-instructors.vue').default);
+Vue.component('add-instructor', require('./components/instructor/course-add-instructor.vue').default);
 Vue.component('provinces', require('./components/auth/province.vue').default);
 Vue.component('course-progress-card', require('./components/auth/course-progress-card.vue').default);
 Vue.component('notification-card', require('./components/top-bar/notification-card.vue').default);

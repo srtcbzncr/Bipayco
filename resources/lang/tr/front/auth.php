@@ -110,4 +110,5 @@ return [
     'has_certificate'=>'Kursunuz Sertifikalı Mı?',
     'category'=>'Kategori',
     'instructors'=>'Eğitmenler',
+    'add'=>'Ekle'
 ];

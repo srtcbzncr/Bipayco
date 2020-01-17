@@ -111,14 +111,20 @@
                                 <h4>@lang('front/auth.instructors')</h4>
                             </div>
                             <hr>
-                            <div class="uk-flex align-items-center" id="instructorsArea">
+                            <div class="uk-flex uk-flex-column align-items-center" id="instructorsArea">
+                                <add-instructor
+                                    instructor-id="{{Auth::user()->instructor->id}}"
+                                    instructor-name="{{Auth::user()->first_name}} {{Auth::user()->last_name}}"
+                                    instructor-photo="{{Auth::user()->avatar}}"
+                                ></add-instructor>
+                                <add-instructor
+                                    instructor-id="{{Auth::user()->instructor->id}}"
+                                    instructor-name="{{Auth::user()->first_name}} {{Auth::user()->last_name}}"
+                                    instructor-photo="{{Auth::user()->avatar}}"
+                                ></add-instructor>
                                 <div>
-                                    <img class="user-profile-tiny uk-circle" src="{{asset(Auth::user()->avatar)}}">
-                                    <b class="uk-margin-left">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</b>
+                                    <button class="uk-button uk-button-success"><i class="fas fa-plus uk-margin-small-right"></i>@lang('front/auth.add')</button>
                                 </div>
-                            </div>
-                            <div>
-                                <button class="uk-button uk-button-success"></button>
                             </div>
                         </div>
                     </div>

@@ -147,7 +147,11 @@
         formData.append('instructor_id',document.querySelector('#instructorId').value);
         formData.append('category_id',document.querySelector('#category').value);
         formData.append('sub_category_id',document.querySelector('#subCategory').value);
-        formData.append('certificate',document.querySelector('#certificate').checked);
+        if(document.querySelector('#certificate').checked){
+            formData.append('certificate',1);
+        }else{
+            formData.append('certificate',0);
+        }
         if(image.files[0]!=undefined){
             formData.append('image', image.files[0]);
         }
