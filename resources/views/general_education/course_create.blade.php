@@ -28,13 +28,14 @@
                                     selected-sub-category-id="{{$course->subCategory->id}}"
                                 ></category-select>
                             @else
-                                    <category-select category-default="@lang('front/auth.category')" sub-category-default="@lang('front/auth.sub_category')"></category-select>
+                                <category-select category-default="@lang('front/auth.category')" sub-category-default="@lang('front/auth.sub_category')"></category-select>
                             @endif
                             <div class="uk-margin-remove-bottom uk-margin-remove-top">
                                 <input type="text" value="{{Auth::user()->instructor->id}}" id="instructorId" hidden disabled>
                                 <div>
                                     <div class="uk-form-label"> @lang('front/auth.course_img')  </div>
                                     @if(isset($course))
+                                        <input type="text" value="{{$course->id}}" id="courseCreateId" hidden disabled>
                                         <div id="imagePreview" class="uk-background-center-center uk-background-cover uk-height" style="background-image: url({{$course->image}})"></div>
                                     @else
                                         <div id="imagePreview" class="uk-background-center-center uk-background-cover uk-height-small" style="background-image: url({{asset('images/courses/course-1.jpg')}});"></div>
@@ -60,7 +61,7 @@
                                 </div>
                                 <div>
                                     <div class="uk-form-label"> @lang('front/auth.course_desc')</div>
-                                    <textarea class="uk-textarea form-control @error('description') is-invalid @enderror" type="text" rows="8" id="description" style="resize: none" required>@if(isset($course)){{$course->description}} @endif </textarea>
+                                    <textarea class="uk-textarea form-control @error('description') is-invalid @enderror" type="text" rows="8" id="description" style="resize: none" required>@if(isset($course)){{$course->description}}@endif</textarea>
                                     @error('description')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -95,7 +96,7 @@
                                 </label>
                             </div>
                             <div class="uk-margin">
-                                <input class="uk-button uk-button-grey button uk-margin" type="button" onclick="coursePost()" value="@lang('front/auth.save')">
+                                <input class="uk-button uk-button-grey button uk-margin" type="button" @if(isset($course)) onclick="coursePost(false)" @else onclick="coursePost(true)" @endif  value="@lang('front/auth.save')">
                             </div>
                             </form>
                         </div>

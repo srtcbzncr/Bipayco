@@ -137,9 +137,10 @@
 </body>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-    function coursePost(){
+    function coursePost(bool){
         var formData =new FormData();
         var image=document.querySelector('#newCourseImage');
+
         formData.append('name',document.querySelector('#name').value);
         formData.append('description',document.querySelector('#description').value);
         formData.append('price',document.querySelector('#price').value);
@@ -156,11 +157,20 @@
         for( var a of formData.entries()){
             console.log(a);
         }
-        axios.post('/api/instructor/course/create',
-            formData, {
-                headers: {'Content-Type': 'multipart/form-data'}
-            })
-            .then(result=>window.location.replace('/instructor/ge/course/create/'+result.data.id));
+        if(bool){
+            axios.post('/api/instructor/course/create',
+                formData, {
+                    headers: {'Content-Type': 'multipart/form-data'}
+                })
+                .then(result=>window.location.replace('/instructor/ge/course/create/'+result.data.id));
+        }else{
+            var courseId=document.querySelector('#courseCreateId').value;
+            axios.post('/api/instructor/course/create/'+courseId,
+                formData, {
+                    headers: {'Content-Type': 'multipart/form-data'}
+                })
+                .then(result=>window.location.replace('/instructor/ge/course/create/'+result.data.id));
+        }
     }
 
     function previewImage(input){

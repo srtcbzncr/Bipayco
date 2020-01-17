@@ -1,7 +1,7 @@
 <template>
     <div class="uk-grid">
         <div class="uk-width-1-2@l">
-            <select class='uk-select uk-margin-small-bottom' name="category" id="category" v-model="selectedId" @change="loadSubCategoryList" required>
+            <select class='uk-select uk-margin-small-bottom' name="category" id="category" v-model="selected" @change="loadSubCategoryList" required>
                 <option v-if="hasSelectedOption" hidden selected :value="selectedCategoryId">{{selectedCategory}} </option>
                 <option v-if="!(hasSelectedOption)" disabled hidden selected value="">{{categoryDefault}}</option>
                 <option v-for='category in categories' :value='category.id'>{{category.name}}</option>

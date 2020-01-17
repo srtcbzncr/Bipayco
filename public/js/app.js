@@ -6812,8 +6812,8 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.selectedId,
-              expression: "selectedId"
+              value: _vm.selected,
+              expression: "selected"
             }
           ],
           staticClass: "uk-select uk-margin-small-bottom",
@@ -6829,7 +6829,7 @@ var render = function() {
                     var val = "_value" in o ? o._value : o.value
                     return val
                   })
-                _vm.selectedId = $event.target.multiple
+                _vm.selected = $event.target.multiple
                   ? $$selectedVal
                   : $$selectedVal[0]
               },
