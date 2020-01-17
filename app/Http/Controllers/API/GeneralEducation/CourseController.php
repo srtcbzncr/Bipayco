@@ -322,6 +322,7 @@ class CourseController extends Controller
         if($id==null){
             $repoCourse = new CourseRepository();
             $data = $request->toArray();
+            $data['hasPhoto'] = $request->hasFile('image');
 
             $respCourse = $repoCourse->create($data);
 
