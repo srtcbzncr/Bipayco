@@ -320,30 +320,21 @@ class CourseController extends Controller
 
     public function createPost($id = null,Request $request){
         if($id==null){
-            $user = Auth::user();
-            if($user->can('create')){
-                $repoCourse = new CourseRepository();
-                $data = $request->toArray();
+            $repoCourse = new CourseRepository();
+            $data = $request->toArray();
 
-                $respCourse = $repoCourse->create($data);
+            $respCourse = $repoCourse->create($data);
 
-                if($respCourse->getResult()){
-                    return response()->json([
-                        'error' => false,
-                        'result' => $respCourse->getData()
-                    ]);
-                }
-                else{
-                    return response()->json([
-                        'error' => true,
-                        'message' => $respCourse->getError()->getMeesage(),
-                    ]);
-                }
+            if($respCourse->getResult()){
+                return response()->json([
+                    'error' => false,
+                    'result' => $respCourse->getData()
+                ]);
             }
             else{
                 return response()->json([
                     'error' => true,
-                    'message' => "Eğitimci değilsin",
+                    'message' => $respCourse->getError()->getMeesage(),
                 ]);
             }
         }
