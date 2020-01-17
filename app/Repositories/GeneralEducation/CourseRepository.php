@@ -459,7 +459,7 @@ class CourseRepository implements IRepository{
             if(array_key_exists('image', $data)){
                 $imagePath = Storage::url($data['image']->store('public/images'));
                 Storage::delete($object->image);
-                $object->imagePath = $imagePath;
+                $object->image = $imagePath;
             }
             $object->category_id = $data['category_id'];
             $object->sub_category_id = $data['sub_category_id'];
@@ -485,6 +485,7 @@ class CourseRepository implements IRepository{
 
         // Response
         $resp = new RepositoryResponse($result, $object, $error);
+        dd($resp);
         return $resp;
     }
 
