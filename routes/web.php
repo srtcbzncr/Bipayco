@@ -64,6 +64,20 @@ Route::group(['prefix' => 'ge'], function(){
     Route::get('index', 'HomeController@ge_index')->name('ge_index');
 });
 
+Route::group(['prefix' => 'pl'],function (){
+    Route::group(['prefix' => 'category'],function (){
+        Route::get('{id}','PrepareLesson\CategoryController@show')->name('pl_category_courses');
+    });
+    Route::group(['prefix' => 'subCategory'], function(){
+        Route::get('{id}', 'PrepareLesson\SubCategoryController@show')->name('pl_sub_category_courses');
+    });
+    Route::group(['prefix' => 'course'], function(){
+        Route::get('{id}', 'PrepareLesson\CourseController@show')->name('pl_course');
+        Route::get('{id}/watch', 'PrepareLesson\CourseController@watch')->name('pl_watch');
+    });
+    Route::get('index', 'HomeController@pl_index')->name('pl_index');
+});
+
 
 
 
