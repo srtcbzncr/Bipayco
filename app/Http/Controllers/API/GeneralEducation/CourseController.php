@@ -427,46 +427,60 @@ class CourseController extends Controller
         $course = Course::find($id);
         $user = Auth::user();
         if($user->can('update',$course)){
+            // Operations
+            $respSection = $repo->syncSections($id,$data);
+            $respLesson = $repo->syncLesson($id,$data);
+            $respSource = $repo->syncSource($id,$data);
 
-        }
-
-        // Operations
-        $respSection = $repo->syncSections($id,$data);
-        $respLesson = $repo->syncLesson($id,$data);
-        $respSource = $repo->syncSource($id,$data);
-
-        if($respSection->getResult() and $respLesson->getResult() and $respSource->getResult()){
-            return response()->json([
-                'error' => false,
-                'result' => 'Kurs Güncellendi'
-            ]);
+            if($respSection->getResult() and $respLesson->getResult() and $respSource->getResult()){
+                return response()->json([
+                    'error' => false,
+                    'result' => 'Kurs Güncellendi'
+                ]);
+            }
+            else{
+                return response()->json([
+                    'error' => true,
+                    'result' => 'Kurs Güncellenemedi'
+                ]);
+            }
         }
         else{
             return response()->json([
                 'error' => true,
-                'result' => 'Kurs Güncellenemedi'
+                'message' => 'Eğitimci değilsin veya bu kursun eğitimcisi değilsin'
             ]);
         }
     }
 
 
     public function instructorsPost($id,Request $request){
-        // Initializin
-        $repo = new CourseRepository();
-        $data = $request->toArray();
+        $user = Auth::user();
+        $course = Course::find($id);
+        if($user->can('update',$course)){
+            // Initializin
+            $repo = new CourseRepository();
+            $data = $request->toArray();
 
-        // Operations
-        $resp = $repo->syncInstructor($id,$data);
-        if($resp->getResult()){
-            return response()->json([
-                'error' => false,
-                'message' => 'Eğitimenler kursa eklendi'
-            ]);
+            // Operations
+            $resp = $repo->syncInstructor($id,$data);
+            if($resp->getResult()){
+                return response()->json([
+                    'error' => false,
+                    'message' => 'Eğitimenler kursa eklendi'
+                ]);
+            }
+            else{
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Eğitimenler kursa eklenemedi'
+                ]);
+            }
         }
         else{
             return response()->json([
                 'error' => true,
-                'message' => 'Eğitimenler kursa eklenemedi'
+                'message' => 'Eğitimci değilsin veya bu kursun eğitimcisi değilsin'
             ]);
         }
     }
