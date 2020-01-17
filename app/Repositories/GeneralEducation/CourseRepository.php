@@ -456,11 +456,11 @@ class CourseRepository implements IRepository{
         try{
             DB::beginTransaction();
             $object = Course::find($id);
-            //if($data['image'] != 'null'){
+            if($data['image'] != null){
                 $imagePath = Storage::url($data['image']->store('public/images'));
                 Storage::delete($object->image);
                 $object->imagePath = $imagePath;
-            //}
+            }
             $object->category_id = $data['category_id'];
             $object->sub_category_id = $data['sub_category_id'];
             $object->name = $data['name'];
