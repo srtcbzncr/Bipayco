@@ -140,7 +140,6 @@
     function coursePost(bool){
         var formData =new FormData();
         var image=document.querySelector('#newCourseImage');
-
         formData.append('name',document.querySelector('#name').value);
         formData.append('description',document.querySelector('#description').value);
         formData.append('price',document.querySelector('#price').value);
@@ -152,22 +151,19 @@
         if(image.files[0]!=undefined){
             formData.append('image', image.files[0]);
         }
-        for( var a of formData.entries()){
-            console.log(a);
-        }
         if(bool){
             axios.post('/api/instructor/course/create',
                 formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
-                .then(result=>window.location.replace('/instructor/ge/course/create/'+result.data.id));
+                .then(result=>window.location.replace('/instructor/ge/course/create/'+result.data.result.id));
         }else{
             var courseId=document.querySelector('#courseCreateId').value;
             axios.post('/api/instructor/course/create/'+courseId,
                 formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
-                .then(result=>window.location.replace('/instructor/ge/course/create/'+result.data.id));
+                .then(result=>window.location.replace('/instructor/ge/course/create/'+result.data.result.id));
         }
     }
 

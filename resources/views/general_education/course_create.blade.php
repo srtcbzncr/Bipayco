@@ -111,9 +111,14 @@
                                 <h4>@lang('front/auth.instructors')</h4>
                             </div>
                             <hr>
-                            <div class="uk-flex align-items-center">
-                                <img class="user-profile-tiny uk-circle" src="{{asset(Auth::user()->avatar)}}">
-                                <b class="uk-margin-left">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</b>
+                            <div class="uk-flex align-items-center" id="instructorsArea">
+                                <div>
+                                    <img class="user-profile-tiny uk-circle" src="{{asset(Auth::user()->avatar)}}">
+                                    <b class="uk-margin-left">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</b>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="uk-button uk-button-success"></button>
                             </div>
                         </div>
                     </div>
