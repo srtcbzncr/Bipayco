@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\GE_CommentResource;
 use App\Http\Resources\GE_CourseCollection;
 use App\Http\Resources\GE_CourseResource;
+use App\Models\Auth\Instructor;
+use App\Models\Auth\User;
 use App\Models\GeneralEducation\Course;
 use App\Repositories\Auth\UserRepository;
 use App\Repositories\GeneralEducation\AchievementRepository;
@@ -340,7 +342,7 @@ class CourseController extends Controller
         }
         else{
             $course = Course::find($id);
-            $user = Auth::user();
+            $user = User::find(Instructor::find($request->instructor_id)->user->id);
             if($user->can('update',$course)){
                 $data = $request->toArray();
                 $repoCourse = new CourseRepository();
@@ -375,9 +377,9 @@ class CourseController extends Controller
         }
     }
 
-    public function goalsPost($id){
+    public function goalsPost($id,Request $request){
         $course = Course::find($id);
-        $user = Auth::user();
+        $user = User::find(Instructor::find($request->instructor_id)->user->id);
         if($user->can('update',$course)){
             // Initializing
             $data = array();
@@ -416,7 +418,7 @@ class CourseController extends Controller
         $repo = new CourseRepository();
         $data = $request->toArray();
         $course = Course::find($id);
-        $user = Auth::user();
+        $user = User::find(Instructor::find($request->instructor_id)->user->id);
         if($user->can('update',$course)){
             // Operations
             $respSection = $repo->syncSections($id,$data);
@@ -446,7 +448,7 @@ class CourseController extends Controller
 
 
     public function instructorsPost($id,Request $request){
-        $user = Auth::user();
+        $user = User::find(Instructor::find($request->instructor_id)->user->id);
         $course = Course::find($id);
         if($user->can('update',$course)){
             // Initializin
