@@ -45,16 +45,28 @@ class CourseController extends Controller
 
     public function createGet($id = null){
         if($id==null){
-            return view("general_education.course_create");
-        }
-        else{
-            $course = Course::find($id);
-            if($course==null){
+            $user = Auth::user();
+            if($user->can('create')){
                 return view("general_education.course_create");
             }
             else{
-                View::share('course',$course);
-                return view("general_education.course_create");
+                return redirect()->route('instructor_courses');
+            }
+        }
+        else{
+            $course = Course::find($id);
+            $user = Auth::user();
+            if($user->can('update',$course)){
+                if($course==null){
+                    return view("general_education.course_create");
+                }
+                else{
+                    View::share('course',$course);
+                    return view("general_education.course_create");
+                }
+            }
+            else{
+                return redirect()->route('instructor_courses');
             }
         }
     }
