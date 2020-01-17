@@ -485,7 +485,6 @@ class CourseRepository implements IRepository{
 
         // Response
         $resp = new RepositoryResponse($result, $object, $error);
-        dd($resp);
         return $resp;
     }
 
