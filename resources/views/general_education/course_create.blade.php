@@ -96,7 +96,7 @@
                                 </label>
                             </div>
                             <div class="uk-margin">
-                                <input class="uk-button uk-button-grey button uk-margin" type="button" @if(isset($course)) onclick="coursePost(false)" @else onclick="coursePost(true)" @endif  value="@lang('front/auth.save')">
+                                <input class="uk-button uk-button-grey button uk-margin uk-width-small@m" type="button" @if(isset($course)) onclick="coursePost(false)" @else onclick="coursePost(true)" @endif  value="@lang('front/auth.save')">
                             </div>
                             </form>
                         </div>
@@ -111,20 +111,36 @@
                                 <h4>@lang('front/auth.instructors')</h4>
                             </div>
                             <hr>
-                            <div class="uk-flex uk-flex-column align-items-center" id="instructorsArea">
-                                <add-instructor
-                                    instructor-id="{{Auth::user()->instructor->id}}"
-                                    instructor-name="{{Auth::user()->first_name}} {{Auth::user()->last_name}}"
-                                    instructor-photo="{{Auth::user()->avatar}}"
-                                ></add-instructor>
-                                <add-instructor
-                                    instructor-id="{{Auth::user()->instructor->id}}"
-                                    instructor-name="{{Auth::user()->first_name}} {{Auth::user()->last_name}}"
-                                    instructor-photo="{{Auth::user()->avatar}}"
-                                ></add-instructor>
-                                <div>
-                                    <button class="uk-button uk-button-success"><i class="fas fa-plus uk-margin-small-right"></i>@lang('front/auth.add')</button>
+                            <div class="">
+                                <input class="uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m" type="text">
+                                <button class="uk-button uk-button-success uk-margin-small-top uk-width-1-6@m"><i class="fas fa-plus"></i> <span class="uk-hidden@m"> @lang('front/auth.add')</span></button>
+                            </div>
+                            <div class="uk-margin-medium">
+                                <hr class="uk-hidden@m">
+                                <div class="uk-grid uk-visible@m">
+                                    <div class="uk-width-3-5@m ">
+                                        <b class="uk-margin-left">@lang('front/auth.instructor')</b>
+                                    </div>
+                                    <div class="uk-width-1-5@m">
+                                        <b>Percent</b>
+                                    </div>
+
                                 </div>
+                                <div class="uk-margin-small" id="instructorsArea">
+                                    <add-instructor
+                                        instructor-id="{{Auth::user()->instructor->id}}"
+                                        instructor-name="{{Auth::user()->first_name}} {{Auth::user()->last_name}}"
+                                        instructor-photo="{{Auth::user()->avatar}}"
+                                    ></add-instructor>
+                                    <add-instructor
+                                        instructor-id="{{Auth::user()->instructor->id}}"
+                                        instructor-name="{{Auth::user()->first_name}} {{Auth::user()->last_name}}"
+                                        instructor-photo="{{Auth::user()->avatar}}"
+                                    ></add-instructor>
+                                </div>
+                            </div>
+                            <div class=uk-margin">
+                                <input class="uk-button uk-button-grey uk-margin uk-width-small@m" type="button" @if(isset($course)) onclick="coursePost(false)" @else onclick="coursePost(true)" @endif  value="@lang('front/auth.save')">
                             </div>
                         </div>
                     </div>

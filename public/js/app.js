@@ -2929,6 +2929,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "add-instructor",
   props: {
@@ -6974,42 +6985,61 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", {}, [
-    _c("input", {
-      attrs: { type: "text", hidden: "", disabled: "" },
-      domProps: { value: _vm.instructorId }
-    }),
+  return _c("div", { staticClass: "uk-margin-small" }, [
+    _c("div", { staticClass: "uk-grid align-items-center" }, [
+      _c("input", {
+        attrs: { type: "text", hidden: "", disabled: "" },
+        domProps: { value: _vm.instructorId }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "uk-width-3-5@m" }, [
+        _c("div", { staticClass: "uk-form-label uk-hidden@m" }, [
+          _vm._v(" Eğitmen")
+        ]),
+        _vm._v(" "),
+        _c("img", {
+          staticClass: "user-profile-tiny uk-circle",
+          attrs: { src: _vm.instructorPhoto }
+        }),
+        _vm._v(" "),
+        _c("b", { staticClass: "uk-margin-left" }, [
+          _vm._v(_vm._s(_vm.instructorName))
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "uk-width-1-5@m" }, [
+        _c("div", { staticClass: "uk-form-label uk-hidden@m" }, [
+          _vm._v(" Percent")
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "uk-input uk-padding-remove",
+          attrs: {
+            type: "number",
+            name: "percent",
+            id: "percent",
+            max: _vm.maxPercent,
+            min: "1"
+          }
+        })
+      ]),
+      _vm._v(" "),
+      _vm._m(0)
+    ]),
     _vm._v(" "),
-    _c("img", {
-      staticClass: "user-profile-tiny uk-circle",
-      attrs: { src: _vm.instructorPhoto }
-    }),
-    _vm._v(" "),
-    _c(
-      "b",
-      { staticClass: "uk-margin-left", staticStyle: { "flex-grow": "5" } },
-      [_vm._v(_vm._s(_vm.instructorName))]
-    ),
-    _vm._v(" "),
-    _c("input", {
-      staticClass: "uk-checkbox",
-      staticStyle: { "flex-grow": "3" },
-      attrs: { type: "checkbox", name: "isManager", id: "isManager" }
-    }),
-    _vm._v(" "),
-    _c("input", {
-      staticClass: "uk-input uk-width-small",
-      attrs: {
-        type: "number",
-        name: "percent",
-        id: "percent",
-        max: _vm.maxPercent,
-        min: "1"
-      }
-    })
+    _c("hr", { staticClass: "uk-hidden@m uk-margin-medium-top" })
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-width-1-5@m" }, [
+      _c("i", { staticClass: "fas fa-trash-alt text-danger icon-small" })
+    ])
+  }
+]
 render._withStripped = true
 
 
