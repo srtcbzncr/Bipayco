@@ -456,7 +456,7 @@ class CourseRepository implements IRepository{
         try{
             DB::beginTransaction();
             $object = Course::find($id);
-            if($data['hasPhoto']){
+            if(array_key_exists('image', $data)){
                 $imagePath = Storage::url($data['image']->store('public/images'));
                 Storage::delete($object->image);
                 $object->imagePath = $imagePath;
