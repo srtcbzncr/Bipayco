@@ -34,7 +34,7 @@
                                     <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-calendar-alt uk-margin-small-right"></i>{{date("d/m/Y", strtotime($course->created_at))}}</p>
                                 </div>
                                 <div class="uk-flex justify-content-between align-items-center ">
-                                    <a class="uk-button-text uk-button" href="#"><i class="fas fa-cog"></i></a>
+                                    <a class="uk-button-text uk-button" href="{{route('ge_course_create_get',$course->id)}}"><i class="fas fa-cog"></i></a>
                                     @if($course->active)
                                         <a class="uk-button-text uk-button" href="#"><i class="fas fa-times-circle"></i></a>
                                     @else

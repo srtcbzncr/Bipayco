@@ -151,8 +151,6 @@
         formData.append('certificate',document.querySelector('#certificate').checked);
         if(image.files[0]!=undefined){
             formData.append('image', image.files[0]);
-        }else{
-            formData.append('image', null);
         }
         for( var a of formData.entries()){
             console.log(a);
