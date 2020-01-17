@@ -6992,7 +6992,7 @@ var render = function() {
         domProps: { value: _vm.instructorId }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "uk-width-3-5@m" }, [
+      _c("div", { staticClass: "uk-width-3-5@m uk-margin-small-bottom" }, [
         _c("div", { staticClass: "uk-form-label uk-hidden@m" }, [
           _vm._v(" Eğitmen")
         ]),
@@ -7007,7 +7007,7 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "uk-width-1-5@m" }, [
+      _c("div", { staticClass: "uk-width-1-5@m uk-margin-small-bottom" }, [
         _c("div", { staticClass: "uk-form-label uk-hidden@m" }, [
           _vm._v(" Percent")
         ]),
@@ -7035,7 +7035,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-width-1-5@m" }, [
+    return _c("div", { staticClass: "uk-width-1-5@m uk-margin-small-bottom" }, [
       _c("i", { staticClass: "fas fa-trash-alt text-danger icon-small" })
     ])
   }
