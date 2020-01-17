@@ -148,7 +148,11 @@
         formData.append('category_id',document.querySelector('#category').value);
         formData.append('sub_category_id',document.querySelector('#subCategory').value);
         formData.append('certificate',document.querySelector('#certificate').checked);
-        formData.append('image', image.files[0]);
+        if(image.files[0]!=undefined){
+            formData.append('image', image.files[0]);
+        }else{
+            formData.append('image', null);
+        }
         for( var a of formData.entries()){
             console.log(a);
         }
@@ -156,8 +160,7 @@
             formData, {
                 headers: {'Content-Type': 'multipart/form-data'}
             })
-            .then(result=>window.location.replace('/instructor/ge/course/create/'+result.data.id))
-                .catch(error=>console.log(error));
+            .then(result=>window.location.replace('/instructor/ge/course/create/'+result.data.id));
     }
 
     function previewImage(input){
