@@ -320,7 +320,6 @@ class CourseController extends Controller
 
     public function createPost($id = null,Request $request){
         if($id==null){
-            $user = Auth::user();
             $repoCourse = new CourseRepository();
             $data = $request->toArray();
 
