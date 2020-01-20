@@ -626,7 +626,14 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
+            $course = Course::find($id);
+            $sections = $course->sections();
+            foreach ($sections as $section){
+                $section->lessons()->delete();
+            }
+            foreach ($data as $item){
 
+            }
             DB::commit();
         }
         catch(\Exception $e){
@@ -649,26 +656,41 @@ class CourseRepository implements IRepository{
         $object = null;
 
         // Operations
+        $isManagers = array();
+        foreach ($data as $key => $item){
+            $geCoursesInstructor = DB::select('select * from ge_courses_instructors where course_id = '.$course_id.' and instructor_id = '.$item['instructor_id']);
+            try {
+                if($geCoursesInstructor[0]->is_manager == 1){
+                    $isManagers[$key] = 1;
+                }
+                else{
+                    $isManagers[$key] = 0;
+                }
+            } catch(\Exception $e){
+                $isManagers[$key] = 0;
+            }
+        }
+
         try{
             DB::beginTransaction();
             $course = Course::find($course_id);
             DB::table("ge_courses_instructors")->where('course_id',$course_id)->delete();
-            foreach ($data as  $item){
-                foreach ($item as $key => $item2){
-                    DB::table("ge_courses_instructors")->insert(array(
-                        'course_id' => $course_id,
-                        'course_type' => 'App\Models\GeneralEducation\Course',
-                        'instructor_id' => $item['instructor_id'][$key],
-                        'is_manager' => $item['is_manager'][$key],
-                        'percent' => $item['percent'],
-                        'active' => $item['active']
-                    ));
-                }
+            foreach ($data as $key => $item){
+               /* DB::insert('insert into ge_courses_instructors (course_id,course_type,instructor_id,is_manager,percent) values (?,?,?,?,?)',
+                    [$course_id,'App\Models\GeneralEducation\Course', $item['instructor_id'],$isManagers[$key],$item['percent']]);*/
+                DB::table("ge_courses_instructors")->insert(array(
+                    'course_id' => $course_id,
+                    'course_type' => 'App\Models\GeneralEducation\Course',
+                    'instructor_id' => $item['instructor_id'],
+                    'is_manager' => $isManagers[$key],
+                    'percent' => $item['percent'],
+                ));
             }
             $object = $course->instructors;
             DB::commit();
         }
         catch(\Exception $e){
+            print_r($e->getMessage());
             DB::rollBack();
             $error = $e;
             $result = false;
