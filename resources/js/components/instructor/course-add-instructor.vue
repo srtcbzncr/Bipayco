@@ -4,15 +4,17 @@
             <input type="text" hidden disabled :value="instructorId">
             <div class="uk-width-3-5@m uk-margin-small-bottom">
                 <div class="uk-form-label uk-hidden@m"> Eğitmen</div>
-                <img class="user-profile-tiny uk-circle" :src="instructorPhoto">
-                <b class="uk-margin-left">{{instructorName}}</b>
+                <div class="uk-flex align-items-center">
+                    <img class="user-profile-tiny uk-circle" :src="instructorPhoto">
+                    <b class="uk-margin-left">{{instructorName}}</b>
+                </div>
             </div>
             <div class="uk-width-1-5@m uk-margin-small-bottom">
                 <div class="uk-form-label uk-hidden@m"> Percent</div>
-                <input type="number" name="percent" id="percent" class="uk-input uk-padding-remove" :max="maxPercent" min="1">
+                <input type="number" name="percent" id="percent" class="uk-input uk-padding-remove" max="100" min="1">
             </div>
             <div class="uk-width-1-5@m uk-margin-small-bottom">
-                <i class="fas fa-trash-alt text-danger icon-small"> </i>
+                <a class="uk-button-icon" onclick=""><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
             </div>
         </div>
         <hr class="uk-hidden@m uk-margin-medium-top">
@@ -35,10 +37,6 @@
                 type:String,
                 required:true,
             },
-            maxPercent:{
-                type:String,
-                default:'100'
-            }
         }
     }
 </script>

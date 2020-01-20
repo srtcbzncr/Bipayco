@@ -110,5 +110,8 @@ return [
     'has_certificate'=>'Kursunuz Sertifikalı Mı?',
     'category'=>'Kategori',
     'instructors'=>'Eğitmenler',
-    'add'=>'Ekle'
+    'add'=>'Ekle',
+    'add_instructor'=>'Eğitmen Ekle',
+    'manager'=>'Yönetici',
+    'percent'=>'Yüzde'
 ];

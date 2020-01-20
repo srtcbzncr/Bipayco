@@ -181,6 +181,18 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+
+    function instructorPost(courseId) {
+        var instructors=[];
+        var instructorIds=document.getElementsByName('instructorsId[]');
+        var percents=document.getElementsByName('percent[]');
+        for(var i=0;i<instructorIds.length && i<percents.length; i++) {
+            var id=instructorIds[i].value;
+            var percent=percents[i].value;
+            instructors.push({'instructor_id':id,'percent': percent});
+        }
+        axios.post('/api/instructor/course/'+courseId+'/instructors',instructors).then(console.log('gönderildi'));
+    }
 </script>
 <style>
     #imagePreview{

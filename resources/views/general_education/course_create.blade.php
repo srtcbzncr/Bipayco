@@ -111,36 +111,18 @@
                                 <h4>@lang('front/auth.instructors')</h4>
                             </div>
                             <hr>
-                            <div class="">
-                                <input class="uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m" type="text">
-                                <button class="uk-button uk-button-success uk-margin-small-top uk-width-1-6@m"><i class="fas fa-plus"></i> <span class="uk-hidden@m"> @lang('front/auth.add')</span></button>
-                            </div>
-                            <div class="uk-margin-medium">
-                                <hr class="uk-hidden@m">
-                                <div class="uk-grid uk-visible@m">
-                                    <div class="uk-width-3-5@m ">
-                                        <b class="uk-margin-left">@lang('front/auth.instructor')</b>
-                                    </div>
-                                    <div class="uk-width-1-5@m">
-                                        <b>Percent</b>
-                                    </div>
-
-                                </div>
-                                <div class="uk-margin-small" id="instructorsArea">
-                                    <add-instructor
-                                        instructor-id="{{Auth::user()->instructor->id}}"
-                                        instructor-name="{{Auth::user()->first_name}} {{Auth::user()->last_name}}"
-                                        instructor-photo="{{Auth::user()->avatar}}"
-                                    ></add-instructor>
-                                    <add-instructor
-                                        instructor-id="{{Auth::user()->instructor->id}}"
-                                        instructor-name="{{Auth::user()->first_name}} {{Auth::user()->last_name}}"
-                                        instructor-photo="{{Auth::user()->avatar}}"
-                                    ></add-instructor>
-                                </div>
-                            </div>
+                            <instructor-area
+                                user-img="{{Auth::user()->avatar}}"
+                                user-name="{{Auth::user()-> first_name}} {{Auth::user()->last_name}}"
+                                user-id="{{Auth::user()->instructor->id}}"
+                                addtinstructor-text="@lang('front/auth.add_instructor')"
+                                instructor-text="@lang('front/auth.instructor')"
+                                percent-text="@lang('front/auth.percent')"
+                                manager-text="@lang('front/auth.manager')"
+                                add-text="@lang('front/auth.add')"
+                            > </instructor-area>
                             <div class=uk-margin">
-                                <input class="uk-button uk-button-grey uk-margin uk-width-small@m" type="button" @if(isset($course)) onclick="coursePost(false)" @else onclick="coursePost(true)" @endif  value="@lang('front/auth.save')">
+                                <input class="uk-button uk-button-grey uk-margin uk-width-small@m" type="button" onclick="instructorPost({{$course->id}})"  value="@lang('front/auth.save')">
                             </div>
                         </div>
                     </div>
