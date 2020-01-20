@@ -19,6 +19,7 @@ use App\Repositories\GeneralEducation\SourceRepository;
 use App\Repositories\GeneralEducation\TagRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
@@ -448,7 +449,21 @@ class CourseController extends Controller
 
 
     public function instructorsPost($id,Request $request){
-        $user = User::find(Instructor::find($request->instructor_id)->user->id);
+        $user = null;
+        $data = $request->toArray();
+        foreach ($data as $key => $item){
+            $geCoursesInstructor = DB::select('select * from ge_courses_instructors where course_id = '.$id.' and instructor_id = '.$item['instructor_id']);
+            try {
+                if($geCoursesInstructor[0]->is_manager == 1){
+                    $instructor = Instructor::find($geCoursesInstructor[0]->instructor_id);
+                    $user = User::find($instructor->user_id);
+                    print_r("merer");
+                    break;
+                }
+            } catch(\Exception $e){
+            }
+        }
+
         $course = Course::find($id);
         if($user->can('update',$course)){
             // Initializin
