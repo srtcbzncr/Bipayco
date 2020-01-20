@@ -75,7 +75,8 @@ class InstructorRepository implements IRepository{
 
         // Operations
         try{
-            $object = Instructor::where('email', $email)->first();
+            $user = User::where('email',$email)->first();
+            $object = Instructor::where('user_id', $user->id)->first();
         }
         catch (\Exception $e){
             $error = $e;
