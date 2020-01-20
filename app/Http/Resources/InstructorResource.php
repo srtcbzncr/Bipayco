@@ -16,6 +16,7 @@ class InstructorResource extends JsonResource
     public function toArray($request)
     {
         return [
+        'error' => false,
         'id' => $this->id,
         'identification_number' => $this->identification_number,
         'title' => $this->title,
