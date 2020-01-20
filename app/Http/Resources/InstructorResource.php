@@ -16,17 +16,17 @@ class InstructorResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'identification_number' => $this->identification_number,
-            'title' => $this->title,
-            'bio' => $this->bio,
-            'iban' => $this->iban,
-            'reference_code' => $this->reference_code,
-            'active' => $this->active,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
-            'school' => new SchoolResource($this->school),
-            'user' => new UserResource($this->user),
+        'id' => $this->id,
+        'identification_number' => $this->identification_number,
+        'title' => $this->title,
+        'bio' => $this->bio,
+        'iban' => $this->iban,
+        'reference_code' => $this->reference_code,
+        'active' => $this->active,
+        'created_at' => $this->created_at,
+        'updated_at' => $this->updated_at,
+        'school' => new SchoolResource($this->school),
+        'user' => new UserResource($this->user),
         ];
     }
 }

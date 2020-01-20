@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\InstructorResource;
 use App\Models\Auth\User;
 use App\Repositories\Auth\InstructorRepository;
 use App\Repositories\Auth\StudentRepository;
@@ -48,7 +49,7 @@ class AuthController extends Controller
 
         // Response
         if($instructorResp->getResult() and $instructorResp->isDataNull() == false){
-            return response()->json(['error' => false, 'instructor' => $instructorResp->getData()]);
+            return new InstructorResource($instructorResp->getData());
         }
         else{
             return response()->json(['error' => true, 'message' => 'Eğitmen bulunamadı.']);
