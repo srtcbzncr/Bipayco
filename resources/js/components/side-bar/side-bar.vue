@@ -28,48 +28,19 @@
             <li>
                 <!-- scripts -->
                 <a href="#"> <i class="fas fa-school icon-medium"/> </a>
-                <div class="side-menu-slide">
-                    <div class="side-menu-slide-content">
-                        <ul>
-                            <li>
-                                <a href="Scripts.html"> <i class="fas fa-code icon-medium"/> Browse All Scripts </a>
-                            </li>
-                            <li>
-                                <a href="Scripts_single_page.html"> <i class="fab fa-wordpress icon-medium"/>   Cms Plugins </a>
-                            </li>
-                            <li>
-                                <a href="Scripts_single_page.html"> <i class="fab fa-php icon-medium"/>   PHP Scripts </a>
-                            </li>
-                            <li>
-                                <a href="Scripts_single_page.html"> <i class="fab fa-wordpress-simple icon-medium"/> Cms themes </a>
-                            </li>
-                            <li>
-                                <a href="Scripts_single_page.html"> <i class="fab fa-html5 icon-medium"/> Html templates  </a>
-                            </li>
-                            <li>
-                                <a href="Scripts_single_page.html"> <i class="fab fa-android icon-medium"/>  Apps Source codes </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+
             </li>
             <li>
-                <a href="Discussion.html" class="active" uk-tooltip="title: Discussion ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"> <i class="fas fa-user-graduate icon-medium"></i> </a>
+                <a href="#" class="active" uk-tooltip="title: Discussion ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"> <i class="fas fa-user-graduate icon-medium"></i> </a>
             </li>
             <li>
                 <!-- blog -->
-                <a href="Blog.html" class="active" uk-tooltip="title: Blogs ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"> <i class="fas fa-book icon-medium"></i> </a>
+                <a href="#" class="active" uk-tooltip="title: Blogs ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"> <i class="fas fa-book icon-medium"></i> </a>
             </li>
             <li>
                 <!-- ui compounents -->
                 <a href="#"> <i class="fas fa-award icon-medium"></i> </a>
-                <div class="side-menu-slide">
-                    <div class="side-menu-slide-content">
-                        <ul uk-accordion>
 
-                        </ul>
-                    </div>
-                </div>
             </li>
         </ul>
         <ul class="uk-position-bottom">

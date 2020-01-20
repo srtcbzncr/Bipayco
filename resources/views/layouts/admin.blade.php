@@ -193,6 +193,7 @@
         }
         axios.post('/api/instructor/course/'+courseId+'/instructors',instructors).then(console.log('gönderildi'));
     }
+
 </script>
 <style>
     #imagePreview{

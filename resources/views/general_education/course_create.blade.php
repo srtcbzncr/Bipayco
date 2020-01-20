@@ -5,10 +5,10 @@
             <div class="uk-grid">
                 <div class="uk-width-1-4@m">
                     <ul class="uk-tab-left" uk-tab>
-                        <li class="uk-active"><a href="#" class="tablinks" onclick="openTabs(event, 'courseContent')">Kurs</a></li>
-                        <li><a href="#" class="tablinks" onclick="openTabs(event, 'achievements')">Hedefler</a></li>
+                        <li class="uk-active"><a href="#" class="tablinks" onclick="openTabs(event, 'courseContent')">@lang('front/auth.course')</a></li>
+                        <li><a href="#" class="tablinks" onclick="openTabs(event, 'achievements')">@lang('front/auth.achievements')</a></li>
                         <li><a href="#" class="tablinks" onclick="openTabs(event, 'lessons')">Müfredat</a></li>
-                        <li><a href="#" class="tablinks" onclick="openTabs(event, 'instructors')">Eğitmenler</a></li>
+                        <li><a href="#" class="tablinks" onclick="openTabs(event, 'instructors')">@lang('front/auth.instructors')</a></li>
                     </ul>
                 </div>
                 <div class="uk-width-3-4@m">
@@ -101,10 +101,40 @@
                             </form>
                         </div>
                         <div id="achievements" class="tabcontent  animation: uk-animation-slide-right-medium">
-                            <h2>Başarımlar</h2>
+                            <div class="uk-margin-top">
+                                <h4>@lang('front/auth.achievements')</h4>
+                            </div>
+                            <hr>
+                            <add-list
+                                id="achievement-list"
+                                add-text="@lang('front/auth.add')"
+                                add-default-text="@lang('front/auth.add_achievement')"
+                            > </add-list>
+                            <div class="uk-margin-top">
+                                <h4>@lang('front/auth.requirements')</h4>
+                            </div>
+                            <hr>
+                            <add-list
+                                id="requirement-list"
+                                add-text="@lang('front/auth.add')"
+                                add-default-text="@lang('front/auth.add_requirement')"
+                            > </add-list>
+                            <div class="uk-margin-top">
+                                <h4>@lang('front/auth.tags')</h4>
+                            </div>
+                            <hr>
+                            <add-list
+                                id="tag-list"
+                                add-text="@lang('front/auth.add')"
+                                add-default-text="@lang('front/auth.add_tag')"
+                            > </add-list>
                         </div>
                         <div id="lessons" class="tabcontent  animation: uk-animation-slide-right-medium">
-                            <h2>Dersler</h2>
+                            <div class="uk-margin-top">
+                                <h4>@lang('front/auth.lessons')</h4>
+                            </div>
+                            <hr>
+
                         </div>
                         <div id="instructors" class="tabcontent  animation: uk-animation-slide-right-medium">
                             <div class="uk-margin-top">

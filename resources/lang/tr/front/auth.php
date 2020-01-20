@@ -49,9 +49,9 @@ return [
     'select_file'=>'Dosya Seç',
     'exams'=>'Deneme Sınavları',
     'books'=>'Soru Bankaları',
-    'prepare_for_lessons'=>'Derslere Hazırlık Bölümü',
-    'prepare_for_exams'=>'Sınavlara Hazırlık Bölümü',
-    'general_education'=>'Genel Eğitim Bölümü',
+    'prepare_for_lessons'=>'Derslere Hazırlık',
+    'prepare_for_exams'=>'Sınavlara Hazırlık',
+    'general_education'=>'Genel Eğitim',
     'not_found_content'=>'İçerik bulunamadı.',
     'see_more'=>'Tümünü Gör',
     'popular_in_category'=>'Bu bölümde popüler olan içerikler',
@@ -113,5 +113,10 @@ return [
     'add'=>'Ekle',
     'add_instructor'=>'Eğitmen Ekle',
     'manager'=>'Yönetici',
-    'percent'=>'Yüzde'
+    'percent'=>'Yüzde',
+    'lessons'=>'Dersler',
+    'tags'=>'Etiketler',
+    'add_tag'=>'Etiket Ekle',
+    'add_requirement'=>'Gereksinim Ekle',
+    'add_achievement'=>'Kazanım Ekle'
 ];
