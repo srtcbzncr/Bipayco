@@ -106,7 +106,6 @@
                                 <h4>@lang('front/auth.achievements')</h4>
                             </div>
                             <hr>
-                            <input type="text" value="{{Auth::user()->instructor->id}}" id="instructorId" hidden disabled>
                             <add-list
                                 id="achievement-list"
                                 add-text="@lang('front/auth.add')"
@@ -160,8 +159,7 @@
                                 <h4>@lang('front/auth.instructors')</h4>
                             </div>
                             <hr>
-                                <input type="text" value="{{Auth::user()->instructor->id}}" id="instructorId" hidden disabled>
-                                <instructor-area
+                            <instructor-area
                                 user-img="{{Auth::user()->avatar}}"
                                 user-name="{{Auth::user()-> first_name}} {{Auth::user()->last_name}}"
                                 user-id="{{Auth::user()->instructor->id}}"
