@@ -455,7 +455,7 @@ class CourseController extends Controller
         if($respAchievement->getResult() or $respRequiement->getResult() or $respTag->getResult()){
             $data = array();
             $data['achievements'] = $respAchievement->getData();
-            $data['requierements'] = $respRequiement->getData();
+            $data['requirements'] = $respRequiement->getData();
             $data['tags'] = $respTag->getData();
             return response()->json([
                 'error' => false,
@@ -557,7 +557,6 @@ class CourseController extends Controller
             $data = array();
             $data['instructor'] = $respCourse->getData();
             $data['users'] = $this->getUsers($data);
-            print_r($data);
             return response()->json([
                 'error' => false,
                 'data' => $data
