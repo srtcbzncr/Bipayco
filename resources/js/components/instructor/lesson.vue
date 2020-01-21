@@ -7,7 +7,7 @@
             <!-- Course title  -->
             <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{index}}. {{lessonName}}</div>
             <!-- preview link -->
-            <a v-if="isPreview" style="color:#666666" class="uk-link-reset uk-margin-xlarge-right uk-position-center-right uk-padding-small uk-text-small uk-visible@s" href="#" uk-toggle> <i class="fas fa-play icon-small uk-text-grey"></i>{{preview}}</a>
+            <a v-if="isPreview" style="color:#666666" class="uk-link-reset uk-margin-xlarge-right uk-position-center-right uk-padding-small uk-text-small uk-visible@s" href="#" uk-toggle> <i class="fas fa-play icon-small uk-text-grey"></i>  {{previewText}}</a>
         </a>
 </template>
 
@@ -20,7 +20,7 @@
                 required:true,
             },
             index:{
-                type:String,
+                type:Number,
                 required:true,
             },
             isPreview:{

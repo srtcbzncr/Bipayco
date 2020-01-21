@@ -1,8 +1,8 @@
 <template>
     <div>
         <div class="">
-            <input class="uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m" type="text" :placeholder="addDefaultSectionText">
-            <button class="uk-button uk-button-success uk-margin-small-top uk-width-1-6@m"><i class="fas fa-plus"></i> <span class="uk-hidden@m">{{addText}}</span></button>
+            <input class="uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m" type="text" id="sectionInput" :placeholder="addDefaultSectionText">
+            <button class="uk-button uk-button-success uk-margin-small-top uk-width-1-6@m" @click="add"><i class="fas fa-plus"></i> <span class="uk-hidden@m">{{addText}}</span></button>
         </div>
         <div v-for="(section, index) in sections" class="uk-margin-top">
             <add-lesson
@@ -52,7 +52,12 @@
             }
         },
         methods:{
-
+            addSection:function (section) {
+                this.sections.push(section);
+            },
+            add:function () {
+                this.addSection(document.getElementById('sectionInput').value)
+            }
         }
     }
 </script>

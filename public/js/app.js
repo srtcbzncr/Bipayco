@@ -2888,7 +2888,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   props: {
     index: {
-      type: String,
+      type: Number,
       required: true
     },
     sectionName: {
@@ -2910,6 +2910,17 @@ __webpack_require__.r(__webpack_exports__);
     previewText: {
       type: String,
       "default": 'Önizle'
+    }
+  },
+  methods: {
+    addLesson: function addLesson(lesson) {
+      this.lessons.push(lesson);
+    },
+    add: function add() {
+      this.addLesson({
+        'name': document.getElementById('lessonInput').value,
+        'isPreview': true
+      });
     }
   }
 });
@@ -3095,7 +3106,14 @@ __webpack_require__.r(__webpack_exports__);
       "default": 'Bölüm'
     }
   },
-  methods: {}
+  methods: {
+    addSection: function addSection(section) {
+      this.sections.push(section);
+    },
+    add: function add() {
+      this.addSection(document.getElementById('sectionInput').value);
+    }
+  }
 });
 
 /***/ }),
@@ -3490,7 +3508,7 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     },
     index: {
-      type: String,
+      type: Number,
       required: true
     },
     isPreview: {
@@ -7328,7 +7346,7 @@ var render = function() {
             },
             [
               _c("h6", [
-                _vm._v(_vm._s(_vm.sectionText) + " " + _vm._s(_vm.index))
+                _vm._v(_vm._s(_vm.sectionText) + " " + _vm._s(_vm.index + 1))
               ]),
               _vm._v(" "),
               _c("h4", { staticClass: "uk-margin-remove" }, [
@@ -7352,6 +7370,7 @@ var render = function() {
                             "uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m",
                           attrs: {
                             type: "text",
+                            id: "lessonInput",
                             placeholder: _vm.addDefaultLessonText
                           }
                         }),
@@ -7360,7 +7379,8 @@ var render = function() {
                           "button",
                           {
                             staticClass:
-                              "uk-button uk-button-success uk-margin-small-top uk-width-1-6@m"
+                              "uk-button uk-button-success uk-margin-small-top uk-width-1-6@m",
+                            on: { click: _vm.add }
                           },
                           [
                             _c("i", { staticClass: "fas fa-plus" }),
@@ -7521,14 +7541,19 @@ var render = function() {
         _c("input", {
           staticClass:
             "uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m",
-          attrs: { type: "text", placeholder: _vm.addDefaultSectionText }
+          attrs: {
+            type: "text",
+            id: "sectionInput",
+            placeholder: _vm.addDefaultSectionText
+          }
         }),
         _vm._v(" "),
         _c(
           "button",
           {
             staticClass:
-              "uk-button uk-button-success uk-margin-small-top uk-width-1-6@m"
+              "uk-button uk-button-success uk-margin-small-top uk-width-1-6@m",
+            on: { click: _vm.add }
           },
           [
             _c("i", { staticClass: "fas fa-plus" }),
@@ -8110,7 +8135,7 @@ var render = function() {
           },
           [
             _c("i", { staticClass: "fas fa-play icon-small uk-text-grey" }),
-            _vm._v(_vm._s(_vm.preview))
+            _vm._v("  " + _vm._s(_vm.previewText))
           ]
         )
       : _vm._e()

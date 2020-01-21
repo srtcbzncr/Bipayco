@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('content')
-    <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 80%">
+    <div class="uk-card uk-card-default uk-align-center uk-margin-xlarge-bottom" style="max-width: 80%">
         <div class="uk-card-body uk-margin-xlarge-top">
             <div class="uk-grid">
                 <div class="uk-width-1-4@m">
