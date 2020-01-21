@@ -33,11 +33,32 @@ class CoursePolicy
         }
     }
 
-    public function update(User $user, Course $course){
+    public function checkManager(User $user, Course $course){
         $instructor = Instructor::where('user_id',$user->id)->first();
         if($instructor != null){
             $geCourseInstructor = DB::table("ge_courses_instructors")->where('course_id',$course->id)
             ->where('instructor_id',$instructor->id)->first();
+            if($geCourseInstructor != null){
+                if($geCourseInstructor->is_manager){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+    }
+    public function checkInstructor(User $user, Course $course){ // update metodundan farkı sadece o kursun eğitimci olup olmadığını kontrol ediyor.
+        $instructor = Instructor::where('user_id',$user->id)->first();
+        if($instructor != null){
+            $geCourseInstructor = DB::table("ge_courses_instructors")->where('course_id',$course->id)
+                ->where('instructor_id',$instructor->id)->first();
             if($geCourseInstructor != null){
                 return true;
             }

@@ -376,7 +376,7 @@ class CourseController extends Controller
         else{
             $course = Course::find($id);
             $user = User::find(Instructor::find($request->instructor_id)->user->id);
-            if($user->can('update',$course)){
+            if($user->can('checkManager',$course)){
                 $data = $request->toArray();
                 $repoCourse = new CourseRepository();
                 $respCourse=$repoCourse->update($id,$data);
@@ -413,7 +413,7 @@ class CourseController extends Controller
     public function goalsPost($id,Request $request){
         $course = Course::find($id);
         $user = User::find(Instructor::find($request->toArray()['instructor_id'])->user->id);
-        if($user->can('update',$course)){
+        if($user->can('checkManager',$course)){
             // Initializing
             $achievementData = explode(',',$request->toArray()['achievements']);
             $requirementData = explode(',',$request->toArray()['requirements']);
@@ -445,7 +445,9 @@ class CourseController extends Controller
             ]);
         }
     }
-
+    public function goalsGet($id){
+        // Initializing
+    }
 
     public function sectionsPost($id,Request $request){
         // Initializing
@@ -453,7 +455,7 @@ class CourseController extends Controller
         $data = $request->toArray();
         $course = Course::find($id);
         $user = User::find(Instructor::find($request->instructor_id)->user->id);
-        if($user->can('update',$course)){
+        if($user->can('checkInstructor',$course)){
             // Operations
             $respSection = $repo->syncSections($id,$data);
             $respLesson = $repo->syncLesson($id,$data);
@@ -496,7 +498,7 @@ class CourseController extends Controller
         }
 
         $course = Course::find($id);
-        if($user->can('update',$course)){
+        if($user->can('checkManager',$course)){
             // Initializin
             $repo = new CourseRepository();
             $data = $request->toArray();
