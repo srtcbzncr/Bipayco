@@ -457,7 +457,6 @@ class CourseController extends Controller
                 if($geCoursesInstructor[0]->is_manager == 1){
                     $instructor = Instructor::find($geCoursesInstructor[0]->instructor_id);
                     $user = User::find($instructor->user_id);
-                    print_r("merer");
                     break;
                 }
             } catch(\Exception $e){
