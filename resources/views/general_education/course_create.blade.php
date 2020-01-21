@@ -102,36 +102,42 @@
                         </div>
                         <div id="achievements" class="tabcontent  animation: uk-animation-slide-right-medium">
                             @if(isset($course))
-                            <div class="uk-margin-top">
-                                <h4>@lang('front/auth.achievements')</h4>
-                            </div>
-                            <hr>
-                            <add-list
-                                id="achievement-list"
-                                add-text="@lang('front/auth.add')"
-                                add-default-text="@lang('front/auth.add_achievement')"
-                            > </add-list>
-                            <div class="uk-margin-top">
-                                <h4>@lang('front/auth.requirements')</h4>
-                            </div>
-                            <hr>
-                            <add-list
-                                id="requirement-list"
-                                add-text="@lang('front/auth.add')"
-                                add-default-text="@lang('front/auth.add_requirement')"
-                            > </add-list>
-                            <div class="uk-margin-top">
-                                <h4>@lang('front/auth.tags')</h4>
-                            </div>
-                            <hr>
-                            <add-list
-                                id="tag-list"
-                                add-text="@lang('front/auth.add')"
-                                add-default-text="@lang('front/auth.add_tag')"
-                            > </add-list>
-                            <div class=uk-margin">
-                                <input class="uk-button uk-button-grey uk-margin uk-width-small@m" type="button" onclick="achievementsPost({{$course->id}})"  value="@lang('front/auth.save')">
-                            </div>
+                                <div class="uk-margin-top">
+                                    <h4>@lang('front/auth.achievements')</h4>
+                                </div>
+                                <hr>
+                                <add-list
+                                    id="achievement-list"
+                                    add-text="@lang('front/auth.add')"
+                                    add-default-text="@lang('front/auth.add_achievement')"
+                                    field="achievements"
+                                    course-id="{{$course->id}}"
+                                > </add-list>
+                                <div class="uk-margin-top">
+                                    <h4>@lang('front/auth.requirements')</h4>
+                                </div>
+                                <hr>
+                                <add-list
+                                    id="requirement-list"
+                                    add-text="@lang('front/auth.add')"
+                                    add-default-text="@lang('front/auth.add_requirement')"
+                                    field="requirements"
+                                    course-id="{{$course->id}}"
+                                > </add-list>
+                                <div class="uk-margin-top">
+                                    <h4>@lang('front/auth.tags')</h4>
+                                </div>
+                                <hr>
+                                <add-list
+                                    id="tag-list"
+                                    add-text="@lang('front/auth.add')"
+                                    add-default-text="@lang('front/auth.add_tag')"
+                                    field="tags"
+                                    course-id="{{$course->id}}"
+                                > </add-list>
+                                <div class=uk-margin">
+                                    <input class="uk-button uk-button-grey uk-margin uk-width-small@m" type="button" onclick="achievementsPost({{$course->id}})"  value="@lang('front/auth.save')">
+                                </div>
                             @else
                                 <div>
                                     <h3>Kurs bölümünü doldurduktan sonra Kaydet butonuna tıklayınız.</h3>
@@ -140,13 +146,13 @@
                         </div>
                         <div id="lessons" class="tabcontent  animation: uk-animation-slide-right-medium">
                             @if(isset($course))
-                            <div class="uk-margin-top">
-                                <h4>@lang('front/auth.lessons')</h4>
-                            </div>
-                            <hr>
-                            <div>
+                                <div class="uk-margin-top">
+                                    <h4>@lang('front/auth.lessons')</h4>
+                                </div>
+                                <hr>
+                                <add-section>
 
-                            </div>
+                                </add-section>
                             @else
                                 <div>
                                     <h3>Kurs bölümünü doldurduktan sonra Kaydet butonuna tıklayınız.</h3>
@@ -155,27 +161,28 @@
                         </div>
                         <div id="instructors" class="tabcontent  animation: uk-animation-slide-right-medium">
                             @if(isset($course))
-                            <div class="uk-margin-top">
-                                <h4>@lang('front/auth.instructors')</h4>
-                            </div>
-                            <hr>
-                            <instructor-area
-                                user-img="{{Auth::user()->avatar}}"
-                                user-name="{{Auth::user()-> first_name}} {{Auth::user()->last_name}}"
-                                user-id="{{Auth::user()->instructor->id}}"
-                                addtinstructor-text="@lang('front/auth.add_instructor')"
-                                instructor-text="@lang('front/auth.instructor')"
-                                percent-text="@lang('front/auth.percent')"
-                                manager-text="@lang('front/auth.manager')"
-                                add-text="@lang('front/auth.add')"
-                            > </instructor-area>
-                            <div class=uk-margin">
-                                <input class="uk-button uk-button-grey uk-margin uk-width-small@m" type="button" onclick="instructorPost({{$course->id}})"  value="@lang('front/auth.save')">
-                            </div>
+                                <div class="uk-margin-top">
+                                    <h4>@lang('front/auth.instructors')</h4>
+                                </div>
+                                <hr>
+                                <instructor-area
+                                    user-img="{{Auth::user()->avatar}}"
+                                    user-name="{{Auth::user()-> first_name}} {{Auth::user()->last_name}}"
+                                    user-id="{{Auth::user()->instructor->id}}"
+                                    addtinstructor-text="@lang('front/auth.add_instructor')"
+                                    instructor-text="@lang('front/auth.instructor')"
+                                    percent-text="@lang('front/auth.percent')"
+                                    manager-text="@lang('front/auth.manager')"
+                                    add-text="@lang('front/auth.add')"
+                                    course-id="{{$course->id}}"
+                                > </instructor-area>
+                                <div class=uk-margin">
+                                    <input class="uk-button uk-button-grey uk-margin uk-width-small@m" type="button" onclick="instructorPost({{$course->id}})"  value="@lang('front/auth.save')">
+                                </div>
                             @else
-                            <div>
-                                <h3>Kurs bölümünü doldurduktan sonra Kaydet butonuna tıklayınız.</h3>
-                            </div>
+                                <div>
+                                    <h3>Kurs bölümünü doldurduktan sonra Kaydet butonuna tıklayınız.</h3>
+                                </div>
                             @endif
                         </div>
                     </div>

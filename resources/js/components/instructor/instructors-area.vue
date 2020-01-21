@@ -105,6 +105,10 @@
             hasInstructorText:{
                 type:String,
                 default:'Eğitmen Zaten Eklendi'
+            },
+            courseId:{
+                type:String,
+                required:true,
             }
         },
         data(){
@@ -132,8 +136,17 @@
             },
             removeInstructor:function (index) {
                 this.instructors.splice(index,1);
-            }
+            },
         },
+        created() {
+            axios.get('/api/instructor/course/'+this.courseId+'/instructors')
+                .then(response=>response.data)
+                .then(response=>{
+                    for (var i=0; i<response.users.length; i++){
+                        this.addInstructor(response.users[i]);
+                    }
+                });
+        }
     }
 </script>
 

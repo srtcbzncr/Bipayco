@@ -160,8 +160,7 @@
                 formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 }).then(result=>result.data)
-                .then(result=>
-                    window.location.replace('/instructor/ge/course/create/'+result.result.id));
+                .then(result=>window.location.replace('/instructor/ge/course/create/'+result.result.id));
         }else{
             var courseId=document.querySelector('#courseCreateId').value;
             axios.post('/api/instructor/course/create/'+courseId,
@@ -187,12 +186,12 @@
         var instructors=[];
         var instructorIds=document.getElementsByName('instructorsId[]');
         var percents=document.getElementsByName('percent[]');
-        for(var i=0;i<instructorIds.length && i<percents.length; i++) {
+        for(var i=0;i<instructorIds.length; i++) {
             var id=instructorIds[i].value;
             var percent=percents[i].value;
             instructors.push({'instructor_id':id,'percent': percent});
         }
-        axios.post('/api/instructor/course/'+courseId+'/instructors',instructors).then(console.log('gönderildi'));
+        axios.post('/api/instructor/course/'+courseId+'/instructors',instructors);
     }
 
     function achievementsPost(courseId) {
@@ -216,6 +215,7 @@
         formData.append('instructor_id', document.getElementById('instructorId').value);
         axios.post('/api/instructor/course/'+courseId+'/goals', formData);
     }
+
 </script>
 <style>
     #imagePreview{
