@@ -133,7 +133,7 @@
             removeInstructor:function (index) {
                 this.instructors.splice(index,1);
             }
-        }
+        },
     }
 </script>
 

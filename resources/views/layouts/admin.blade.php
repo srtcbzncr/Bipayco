@@ -213,6 +213,7 @@
         formData.append('achievements', achievementList);
         formData.append('requirements', requirementList);
         formData.append('tags', tagList);
+        formData.append('instructor_id', document.getElementById('instructorId').value);
         axios.post('/api/instructor/course/'+courseId+'/goals', formData);
     }
 </script>
