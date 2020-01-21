@@ -71,19 +71,19 @@
                     switch (this.field) {
                     case "achievements":{
                         for (var i=0; i<response.achievements.length; i++){
-                            this.addInstructor(response.achievements[i]);
+                            this.addItem(response.achievements[i].content);
                         }
                         break;
                     }
                     case "requirements":{
                         for (var i=0; i<response.requirements.length; i++){
-                            this.addInstructor(response.requirements[i]);
+                            this.addItem(response.requirements[i].content);
                         }
                         break;
                     }
                     case "tags":{
                         for (var i=0; i<response.tags.length; i++){
-                            this.addInstructor(response.tags[i]);
+                            this.addItem(response.tags[i].tag);
                         }
                         break;
                     }
