@@ -8,7 +8,7 @@
                         <ul>
                             <li>
                                 <div class="">
-                                    <input class="uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m" type="text" id="lessonInput" :placeholder="addDefaultLessonText">
+                                    <input class="uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m" type="text" :id="lessonInput" :placeholder="addDefaultLessonText">
                                     <button class="uk-button uk-button-success uk-margin-small-top uk-width-1-6@m" @click="add"><i class="fas fa-plus"></i> <span class="uk-hidden@m">{{addText}}</span></button>
                                 </div>
                             </li>
@@ -71,12 +71,17 @@
                 default:'Önizle',
             }
         },
+        computed:{
+              lessonInput(){
+                  return 'lessonInput'+this.index
+              }
+        },
         methods:{
             addLesson: function (lesson) {
                 this.lessons.push(lesson)
             },
             add:function () {
-                this.addLesson({'name':document.getElementById('lessonInput').value, 'isPreview':true});
+                this.addLesson({'name':document.getElementById(this.lessonInput).value, 'isPreview':true});
             }
         }
     }

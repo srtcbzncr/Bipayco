@@ -2912,13 +2912,18 @@ __webpack_require__.r(__webpack_exports__);
       "default": 'Önizle'
     }
   },
+  computed: {
+    lessonInput: function lessonInput() {
+      return 'lessonInput' + this.index;
+    }
+  },
   methods: {
     addLesson: function addLesson(lesson) {
       this.lessons.push(lesson);
     },
     add: function add() {
       this.addLesson({
-        'name': document.getElementById('lessonInput').value,
+        'name': document.getElementById(this.lessonInput).value,
         'isPreview': true
       });
     }
@@ -7370,7 +7375,7 @@ var render = function() {
                             "uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m",
                           attrs: {
                             type: "text",
-                            id: "lessonInput",
+                            id: _vm.lessonInput,
                             placeholder: _vm.addDefaultLessonText
                           }
                         }),
