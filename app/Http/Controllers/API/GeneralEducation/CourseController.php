@@ -556,7 +556,7 @@ class CourseController extends Controller
         if($respCourse->getResult()){
             $data = array();
             $data['instructor'] = $respCourse->getData();
-            $data['users'] = $this->getUsers($data);
+            $data['users'] = $this->getUsers($data['instructor']);
             return response()->json([
                 'error' => false,
                 'data' => $data
@@ -574,7 +574,7 @@ class CourseController extends Controller
         $data = array();
         $i=0;
         foreach ($instructors as $instructor){
-            $ins = Instructor::find($instructor->id);
+            $ins = Instructor::find($instructor->instructor_id);
             $user = User::find($ins->user_id);
             $data[$i] = $user;
             $i++;
