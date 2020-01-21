@@ -712,7 +712,7 @@ class CourseRepository implements IRepository{
         // Response variables
         $result = true;
         $error = null;
-        $object = null;
+        $object = array();
 
         // Operations
         try{
