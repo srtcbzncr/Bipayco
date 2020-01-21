@@ -322,6 +322,35 @@ class CourseController extends Controller
     }
 
     public function createPost($id = null,Request $request){
+        // $request control
+        foreach ($request->toArray() as $item){
+            $b = false;
+            if($item['name']=="" or $item['name']==null){
+                $b=true;
+            }
+            else if($item['description']=="" or $item['description']==null){
+                $b=true;
+            }
+            else if($item['price']=="" or $item['price']==null){
+                $b=true;
+            }
+            else if($item['access_time']=="" or $item['access_time']==null){
+                $b=true;
+            }
+            else if($item['category_id']=="" or $item['category_id']==null){
+                $b=true;
+            }
+            else if($item['sub_category_id']=="" or $item['sub_category_id']==null){
+                $b=true;
+            }
+            if($b){
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Eksik bilgi girdiniz',
+                ]);
+            }
+        }
+      
         if($id==null){
             $repoCourse = new CourseRepository();
             $data = $request->toArray();
