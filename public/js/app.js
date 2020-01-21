@@ -7075,7 +7075,7 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "uk-margin-medium" }, [
+    _c("form", { staticClass: "uk-margin-medium" }, [
       _c(
         "ul",
         _vm._l(_vm.items, function(item, index) {

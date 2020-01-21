@@ -4,7 +4,7 @@
             <input class="uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m" type="text" :id="id" :placeholder="addDefaultText">
             <button class="uk-button uk-button-success uk-margin-small-top uk-width-1-6@m" @click="addItem"><i class="fas fa-plus"></i> <span class="uk-hidden@m">{{addText}}</span></button>
         </div>
-        <div class="uk-margin-medium">
+        <form class="uk-margin-medium">
             <ul>
                 <li v-for="(item,index) in items">
                     <div class="uk-flex flex-wrap">
@@ -14,7 +14,7 @@
                     </div>
                 </li>
             </ul>
-        </div>
+        </form>
     </div>
 </template>
 

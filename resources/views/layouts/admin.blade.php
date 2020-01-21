@@ -159,8 +159,9 @@
             axios.post('/api/instructor/course/create',
                 formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
-                })
-                .then(result=>window.location.replace('/instructor/ge/course/create/'+result.data.result.id));
+                }).then(result=>result.data)
+                .then(result=>
+                    window.location.replace('/instructor/ge/course/create/'+result.result.id));
         }else{
             var courseId=document.querySelector('#courseCreateId').value;
             axios.post('/api/instructor/course/create/'+courseId,
@@ -196,9 +197,22 @@
 
     function achievementsPost(courseId) {
         var formData =new FormData();
-        formData.append('achievements', document.getElementsByName('achievement-list[]').value);
-        formData.append('requirements', document.getElementsByName('requirement-list[]').value);
-        formData.append('tags', document.getElementsByName('tag-list[]').value);
+        var achievementList=[],requirementList=[], tagList=[];
+        var achievements= document.getElementsByName('achievement-list[]');
+        for(var i=0;i<achievements.length;i++){
+            achievementList.push(achievements[i].value);
+        }
+        var requirements= document.getElementsByName('requirement-list[]');
+        for(var i=0;i<requirements.length;i++){
+            requirementList.push(requirements[i].value);
+        }
+        var tags= document.getElementsByName('tag-list[]');
+        for(var i=0;i<tags.length;i++){
+            tagList.push(tags[i].value);
+        }
+        formData.append('achievements', achievementList);
+        formData.append('requirements', requirementList);
+        formData.append('tags', tagList);
         axios.post('/api/instructor/course/'+courseId+'/goals', formData);
     }
 </script>
