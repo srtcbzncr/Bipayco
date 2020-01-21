@@ -447,6 +447,28 @@ class CourseController extends Controller
     }
     public function goalsGet($id){
         // Initializing
+        $repo = new CourseRepository();
+
+        // Operations
+        $respAchievement = $repo->syncAchievementGet($id);
+        $respRequiement = $repo->syncRequierementGet($id);
+        $respTag = $repo->syncTagGet($id);
+        if($respAchievement->getResult() or $respRequiement->getResult() or $respTag->getResult()){
+            $data = array();
+            $data['achievements'] = $respAchievement->getData();
+            $data['requierements'] = $respRequiement->getData();
+            $data['tags'] = $respTag->getData();
+            return response()->json([
+                'error' => false,
+                'data' => $data,
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Kazanımlar getirilirken bir hata meydana geldi'
+            ]);
+        }
     }
 
     public function sectionsPost($id,Request $request){

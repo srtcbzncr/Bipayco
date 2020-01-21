@@ -591,6 +591,78 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+    public function syncAchievementGet($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $achievements = Achievement::where('course_id',$id)->get();
+            $object = $achievements;
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $object = array();
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+    public function syncRequierementGet($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $requierements = Requirement::where('course_id',$id)->get();
+            $object = $requierements;
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $object = array();
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+    public function syncTagGet($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $tag = Tag::where('course_id',$id)->get();
+            $object = $tag;
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $object = array();
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
 
     public function syncSections($id, array $data){
         // Response variables
