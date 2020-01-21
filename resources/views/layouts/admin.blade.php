@@ -195,9 +195,11 @@
     }
 
     function achievementsPost(courseId) {
-        axios.post('/api/instructor/course/'+courseId+'',
-            
-        );
+        var formData =new FormData();
+        formData.append('achievements', document.getElementsByName('achievement-list[]').value);
+        formData.append('requirements', document.getElementsByName('requirement-list[]').value);
+        formData.append('tags', document.getElementsByName('tag-list[]').value);
+        axios.post('/api/instructor/course/'+courseId+'/goals', formData);
     }
 </script>
 <style>

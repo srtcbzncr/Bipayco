@@ -129,6 +129,9 @@
                                 add-text="@lang('front/auth.add')"
                                 add-default-text="@lang('front/auth.add_tag')"
                             > </add-list>
+                            <div class=uk-margin">
+                                <input class="uk-button uk-button-grey uk-margin uk-width-small@m" type="button" onclick="achievementsPost({{$course->id}})"  value="@lang('front/auth.save')">
+                            </div>
                             @else
                                 <div>
                                     <h3>Kurs bölümünü doldurduktan sonra Kaydet butonuna tıklayınız.</h3>
