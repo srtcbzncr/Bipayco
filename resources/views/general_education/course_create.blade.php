@@ -101,6 +101,7 @@
                             </form>
                         </div>
                         <div id="achievements" class="tabcontent  animation: uk-animation-slide-right-medium">
+                            @if(isset($course))
                             <div class="uk-margin-top">
                                 <h4>@lang('front/auth.achievements')</h4>
                             </div>
@@ -128,15 +129,26 @@
                                 add-text="@lang('front/auth.add')"
                                 add-default-text="@lang('front/auth.add_tag')"
                             > </add-list>
+                            @else
+                                <div>
+                                    <h3>Kurs bölümünü doldurduktan sonra Kaydet butonuna tıklayınız.</h3>
+                                </div>
+                            @endif
                         </div>
                         <div id="lessons" class="tabcontent  animation: uk-animation-slide-right-medium">
+                            @if(isset($course))
                             <div class="uk-margin-top">
                                 <h4>@lang('front/auth.lessons')</h4>
                             </div>
                             <hr>
-
+                            @else
+                                <div>
+                                    <h3>Kurs bölümünü doldurduktan sonra Kaydet butonuna tıklayınız.</h3>
+                                </div>
+                            @endif
                         </div>
                         <div id="instructors" class="tabcontent  animation: uk-animation-slide-right-medium">
+                            @if(isset($course))
                             <div class="uk-margin-top">
                                 <h4>@lang('front/auth.instructors')</h4>
                             </div>
@@ -154,6 +166,11 @@
                             <div class=uk-margin">
                                 <input class="uk-button uk-button-grey uk-margin uk-width-small@m" type="button" onclick="instructorPost({{$course->id}})"  value="@lang('front/auth.save')">
                             </div>
+                            @else
+                            <div>
+                                <h3>Kurs bölümünü doldurduktan sonra Kaydet butonuna tıklayınız.</h3>
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>

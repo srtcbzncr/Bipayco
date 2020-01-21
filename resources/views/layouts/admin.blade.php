@@ -194,6 +194,11 @@
         axios.post('/api/instructor/course/'+courseId+'/instructors',instructors).then(console.log('gönderildi'));
     }
 
+    function achievementsPost(courseId) {
+        axios.post('/api/instructor/course/'+courseId+'',
+            
+        );
+    }
 </script>
 <style>
     #imagePreview{

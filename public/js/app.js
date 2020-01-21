@@ -2858,6 +2858,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "add-achievements",
   props: {
@@ -2878,6 +2879,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       items: []
     };
+  },
+  computed: {
+    inputName: function inputName() {
+      return this.id + "[]";
+    }
   },
   methods: {
     addItem: function addItem() {
@@ -7076,6 +7082,11 @@ var render = function() {
           return _c("li", [
             _c("div", { staticClass: "uk-flex flex-wrap" }, [
               _c("p", [_vm._v(_vm._s(item))]),
+              _vm._v(" "),
+              _c("input", {
+                attrs: { name: _vm.inputName, hidden: "", disabled: "" },
+                domProps: { value: item }
+              }),
               _vm._v(" "),
               _c(
                 "a",

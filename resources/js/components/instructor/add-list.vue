@@ -9,6 +9,7 @@
                 <li v-for="(item,index) in items">
                     <div class="uk-flex flex-wrap">
                         <p>{{item}}</p>
+                        <input :name="inputName" hidden disabled :value="item">
                         <a class="uk-button-icon uk-margin-left" @click="removeItem(index)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
                     </div>
                 </li>
@@ -37,6 +38,11 @@
         data(){
             return{
                 items:[]
+            }
+        },
+        computed:{
+            inputName(){
+                return this.id+"[]";
             }
         },
         methods:{
