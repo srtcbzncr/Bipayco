@@ -50,7 +50,7 @@ class CourseController extends Controller
         else{
             $course = Course::find($id);
             $user = Auth::user();
-            if($user->can('update',$course)){
+            if($user->can('checkManager',$course)){
                 if($course==null){
                     return view("general_education.course_create");
                 }

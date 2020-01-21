@@ -46,7 +46,7 @@ Route::group(['prefix' => 'instructor', 'middleware' => 'auth'], function(){
    Route::get('performance', 'Auth\InstructorController@performance')->middleware('hasInstructorProfile')->name('instructor_performance');
    Route::get('questions', 'Auth\InstructorController@questions')->middleware('hasInstructorProfile')->name('instructor_questions');
    Route::group(['prefix' => 'ge', 'middleware' => 'hasInstructorProfile'], function(){
-       Route::get('course/create/{id?}', 'GeneralEducation\CourseController@createGet')->name('ge_course_create_get');
+           Route::get('course/create/{id?}', 'GeneralEducation\CourseController@createGet')->name('ge_course_create_get');
    });
 });
 
