@@ -524,7 +524,7 @@ class CourseController extends Controller
         }
     }
 
-    public function instructorGet($id){
+    public function instructorsGet($id){
         // Initializing
         $repoCourse  = new CourseRepository();
 
