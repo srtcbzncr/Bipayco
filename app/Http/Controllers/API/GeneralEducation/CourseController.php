@@ -556,7 +556,7 @@ class CourseController extends Controller
         if($respCourse->getResult()){
             $data = array();
             $data['instructor'] = $respCourse->getData();
-            $data['users'] = $this->getUsers($data);
+            //$data['users'] = $this->getUsers($data);
             return response()->json([
                 'error' => false,
                 'data' => $data
