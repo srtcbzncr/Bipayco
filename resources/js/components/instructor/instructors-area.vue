@@ -140,7 +140,7 @@
         },
         created() {
             axios.get('/api/instructor/course/'+this.courseId+'/instructors')
-                .then(response=>response.data)
+                .then(response=>response.data).then(response=>console.log(response))
                 .then(response=>{
                     for (var i=0; i<response.users.length; i++){
                         this.addInstructor(response.users[i]);

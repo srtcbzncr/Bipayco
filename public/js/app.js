@@ -3371,6 +3371,8 @@ __webpack_require__.r(__webpack_exports__);
     axios.get('/api/instructor/course/' + this.courseId + '/instructors').then(function (response) {
       return response.data;
     }).then(function (response) {
+      return console.log(response);
+    }).then(function (response) {
       for (var i = 0; i < response.users.length; i++) {
         _this2.addInstructor(response.users[i]);
       }
