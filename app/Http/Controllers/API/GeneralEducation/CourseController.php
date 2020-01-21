@@ -8,7 +8,10 @@ use App\Http\Resources\GE_CourseCollection;
 use App\Http\Resources\GE_CourseResource;
 use App\Models\Auth\Instructor;
 use App\Models\Auth\User;
+use App\Models\GeneralEducation\Achievement;
 use App\Models\GeneralEducation\Course;
+use App\Models\GeneralEducation\Requirement;
+use App\Models\GeneralEducation\Tag;
 use App\Repositories\Auth\UserRepository;
 use App\Repositories\GeneralEducation\AchievementRepository;
 use App\Repositories\GeneralEducation\CourseRepository;
@@ -350,7 +353,7 @@ class CourseController extends Controller
                 ]);
             }
         }
-      
+
         if($id==null){
             $repoCourse = new CourseRepository();
             $data = $request->toArray();
@@ -409,17 +412,18 @@ class CourseController extends Controller
 
     public function goalsPost($id,Request $request){
         $course = Course::find($id);
-        $user = User::find(Instructor::find($request->instructor_id)->user->id);
+        $user = User::find(Instructor::find($request->toArray()['instructor_id'])->user->id);
         if($user->can('update',$course)){
             // Initializing
-            $data = array();
-            $data['course'] = $course;
+            $achievementData = explode(',',$request->toArray()['achievements']);
+            $requirementData = explode(',',$request->toArray()['requirements']);
+            $tagsData = explode(',',$request->toArray()['tags']);
             $repoCourse = new CourseRepository();
 
             // Operations
-            $respAchievement = $repoCourse->syncAchievements($id,$data);
-            $respRequirement = $repoCourse->syncRequirements($id,$data);
-            $respTag = $repoCourse->syncTags($id,$data);
+            $respAchievement = $repoCourse->syncAchievements($id,$achievementData);
+            $respRequirement = $repoCourse->syncRequirements($id,$requirementData);
+            $respTag = $repoCourse->syncTags($id,$tagsData);
 
             if($respAchievement->getResult() and $respRequirement->getResult() and $respTag->getResult()){
                 return response()->json([

@@ -497,8 +497,10 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
-            $course = Course::find($id);
-            $course->requirements()->delete();
+            $requirements = Requirement::where('course_id',$id)->get();
+            foreach ($requirements as $item){
+                $item->delete();
+            }
             foreach ($data as $requirement){
                 $newRequirement = new Requirement();
                 $newRequirement->course_id = $id;
@@ -506,7 +508,7 @@ class CourseRepository implements IRepository{
                 $newRequirement->content = $requirement;
                 $newRequirement->save();
             }
-            $object = $course->requirements;
+            $object = Requirement::where('course_id',$id)->get();
             DB::commit();
         }
         catch(\Exception $e){
@@ -529,8 +531,11 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
-            $course = Course::find($id);
-            $course->achievements()->delete();
+            $achievements = Achievement::where('course_id',$id)->get();
+            foreach ($achievements as $item){
+                $item->delete();
+            }
+
             foreach ($data as $achievement){
                 $newAchievement = new Achievement();
                 $newAchievement->course_id = $id;
@@ -538,10 +543,11 @@ class CourseRepository implements IRepository{
                 $newAchievement->content = $achievement;
                 $newAchievement->save();
             }
-            $object = $course->achievements;
+            $object = Achievement::where('course_id',$id)->get();
             DB::commit();
         }
         catch(\Exception $e){
+            print_r($e->getMessage());
             DB::rollBack();
             $error = $e;
             $result = false;
@@ -561,16 +567,18 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
-            $course = Course::find($id);
-            $course->tags()->delete();
+            $tags = Tag::where('course_id',$id)->get();
+            foreach ($tags as $item){
+                $item->delete();
+            }
             foreach ($data as $tag){
                 $newTag = new Tag();
                 $newTag->course_id = $id;
                 $newTag->course_type = 'App\Models\GeneralEducation\Course';
-                $newTag->content = $tag;
+                $newTag->tag = $tag;
                 $newTag->save();
             }
-            $object = $course->tags;
+            $object = Tag::where('course_id',$id)->get();
             DB::commit();
         }
         catch(\Exception $e){
