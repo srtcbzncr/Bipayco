@@ -447,7 +447,6 @@ class CourseController extends Controller
         }
     }
 
-
     public function instructorsPost($id,Request $request){
         $user = null;
         $data = $request->toArray();
@@ -488,6 +487,26 @@ class CourseController extends Controller
             return response()->json([
                 'error' => true,
                 'message' => 'Eğitimci değilsin veya bu kursun eğitimcisi değilsin'
+            ]);
+        }
+    }
+
+    public function instructorGet($id){
+        // Initializing
+        $repoCourse  = new CourseRepository();
+
+        // Operations
+        $respCourse = $repoCourse->syncInstructorGet($id);
+        if($respCourse->getResult()){
+            return response()->json([
+                'error' => false,
+                'users' => $respCourse->getData()
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Eğitimciler gelirken hata meydana geldi'
             ]);
         }
     }
