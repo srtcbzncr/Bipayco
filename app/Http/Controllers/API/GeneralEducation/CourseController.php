@@ -554,9 +554,13 @@ class CourseController extends Controller
         // Operations
         $respCourse = $repoCourse->syncInstructorGet($id);
         if($respCourse->getResult()){
+            $data = array();
+            $data['instructor'] = $respCourse->getData();
+            $data['users'] = $this->getUsers($data);
+            print_r($data);
             return response()->json([
                 'error' => false,
-                'users' => $respCourse->getData()
+                'data' => $data
             ]);
         }
         else{
@@ -565,5 +569,16 @@ class CourseController extends Controller
                 'message' => 'Eğitimciler gelirken hata meydana geldi'
             ]);
         }
+    }
+
+    private function getUsers($instructors){
+        $data = array();
+        $i=0;
+        foreach ($instructors as $instructor){
+            $user = User::find($instructor->user_id);
+            $data[$i] = $user;
+            $i++;
+        }
+        return $data;
     }
 }
