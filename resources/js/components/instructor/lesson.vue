@@ -2,12 +2,12 @@
         <a href="#" class="uk-link-reset">
             <!-- Play icon  -->
             <span>
-                <i style="color:#2ED24A" class="fas fa-check-circle icon-medium" uk-tooltip="title: @lang('front/auth.watch_again')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>
+                <i style="color:#666666" class="fas fa-play-circle icon-medium"> </i>
             </span>
             <!-- Course title  -->
-            <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{lessonName}}</div>
+            <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{index}}. {{lessonName}}</div>
             <!-- preview link -->
-            <span style="color:#666666" class="uk-visible@m uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i> $lesson->long}}</span>
+            <a v-if="isPreview" style="color:#666666" class="uk-link-reset uk-margin-xlarge-right uk-position-center-right uk-padding-small uk-text-small uk-visible@s" href="#" uk-toggle> <i class="fas fa-play icon-small uk-text-grey"></i>{{preview}}</a>
         </a>
 </template>
 
@@ -22,6 +22,14 @@
             index:{
                 type:String,
                 required:true,
+            },
+            isPreview:{
+                type:Boolean,
+                default:false,
+            },
+            previewText:{
+                type:String,
+                default:'Önizle'
             }
         }
     }

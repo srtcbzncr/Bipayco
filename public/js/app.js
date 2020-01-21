@@ -2868,6 +2868,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "add-lesson",
@@ -2887,6 +2894,22 @@ __webpack_require__.r(__webpack_exports__);
     sectionName: {
       type: String,
       required: true
+    },
+    sectionText: {
+      type: String,
+      "default": 'Bölüm'
+    },
+    addText: {
+      type: String,
+      "default": 'Ekle'
+    },
+    addDefaultLessonText: {
+      type: String,
+      "default": 'Ders Ekle'
+    },
+    previewText: {
+      type: String,
+      "default": 'Önizle'
     }
   }
 });
@@ -3035,6 +3058,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "add-section",
@@ -3045,6 +3072,28 @@ __webpack_require__.r(__webpack_exports__);
     return {
       sections: []
     };
+  },
+  props: {
+    previewText: {
+      type: String,
+      "default": 'Önizle'
+    },
+    addText: {
+      type: String,
+      "default": 'Ekle'
+    },
+    addDefaultSectionText: {
+      type: String,
+      "default": 'Bölüm Ekle'
+    },
+    addDefaultLessonText: {
+      type: String,
+      "default": 'Ders Ekle'
+    },
+    sectionText: {
+      type: String,
+      "default": 'Bölüm'
+    }
   },
   methods: {}
 });
@@ -3443,6 +3492,14 @@ __webpack_require__.r(__webpack_exports__);
     index: {
       type: String,
       required: true
+    },
+    isPreview: {
+      type: Boolean,
+      "default": false
+    },
+    previewText: {
+      type: String,
+      "default": 'Önizle'
     }
   }
 });
@@ -7270,7 +7327,9 @@ var render = function() {
               attrs: { href: "#" }
             },
             [
-              _c("h6", [_vm._v("Bölüm " + _vm._s(_vm.index))]),
+              _c("h6", [
+                _vm._v(_vm._s(_vm.sectionText) + " " + _vm._s(_vm.index))
+              ]),
               _vm._v(" "),
               _c("h4", { staticClass: "uk-margin-remove" }, [
                 _vm._v(_vm._s(_vm.sectionName))
@@ -7286,15 +7345,54 @@ var render = function() {
                 _c(
                   "ul",
                   [
-                    _vm._m(0),
+                    _c("li", [
+                      _c("div", {}, [
+                        _c("input", {
+                          staticClass:
+                            "uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m",
+                          attrs: {
+                            type: "text",
+                            placeholder: _vm.addDefaultLessonText
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "uk-button uk-button-success uk-margin-small-top uk-width-1-6@m"
+                          },
+                          [
+                            _c("i", { staticClass: "fas fa-plus" }),
+                            _vm._v(" "),
+                            _c("span", { staticClass: "uk-hidden@m" }, [
+                              _vm._v(_vm._s(_vm.addText))
+                            ])
+                          ]
+                        )
+                      ])
+                    ]),
                     _vm._v(" "),
                     _vm._l(_vm.lessons, function(lesson, index) {
                       return _c(
                         "li",
                         [
-                          _c("lesson", {
-                            attrs: { "lesson-name": lesson, index: index }
-                          })
+                          lesson.isPreview
+                            ? _c("lesson", {
+                                attrs: {
+                                  "lesson-name": lesson.name,
+                                  index: index,
+                                  "is-preview": "",
+                                  "preview-text": _vm.previewText
+                                }
+                              })
+                            : _c("lesson", {
+                                attrs: {
+                                  "lesson-name": lesson.name,
+                                  index: index,
+                                  "preview-text": _vm.previewText
+                                }
+                              })
                         ],
                         1
                       )
@@ -7310,35 +7408,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("div", {}, [
-        _c("input", {
-          staticClass:
-            "uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m",
-          attrs: { type: "text", placeholder: "addDefaultText" }
-        }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass:
-              "uk-button uk-button-success uk-margin-small-top uk-width-1-6@m"
-          },
-          [
-            _c("i", { staticClass: "fas fa-plus" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "uk-hidden@m" }, [_vm._v("ekle")])
-          ]
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -7447,7 +7517,28 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm._m(0),
+      _c("div", {}, [
+        _c("input", {
+          staticClass:
+            "uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m",
+          attrs: { type: "text", placeholder: _vm.addDefaultSectionText }
+        }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass:
+              "uk-button uk-button-success uk-margin-small-top uk-width-1-6@m"
+          },
+          [
+            _c("i", { staticClass: "fas fa-plus" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "uk-hidden@m" }, [
+              _vm._v(_vm._s(_vm.addText))
+            ])
+          ]
+        )
+      ]),
       _vm._v(" "),
       _vm._l(_vm.sections, function(section, index) {
         return _c(
@@ -7455,7 +7546,14 @@ var render = function() {
           { staticClass: "uk-margin-top" },
           [
             _c("add-lesson", {
-              attrs: { index: index, "section-name": section }
+              attrs: {
+                index: index,
+                "section-name": section,
+                "preview-text": _vm.previewText,
+                "add-text": _vm.addText,
+                "add-default-lesson-text": _vm.addDefaultLessonText,
+                "section-text": _vm.sectionText
+              }
             })
           ],
           1
@@ -7465,33 +7563,7 @@ var render = function() {
     2
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", {}, [
-      _c("input", {
-        staticClass:
-          "uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m",
-        attrs: { type: "text", placeholder: "addDefaultText" }
-      }),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass:
-            "uk-button uk-button-success uk-margin-small-top uk-width-1-6@m"
-        },
-        [
-          _c("i", { staticClass: "fas fa-plus" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "uk-hidden@m" }, [_vm._v("ekle")])
-        ]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -8024,10 +8096,24 @@ var render = function() {
         staticClass:
           "uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right"
       },
-      [_vm._v(_vm._s(_vm.lessonName))]
+      [_vm._v(_vm._s(_vm.index) + ". " + _vm._s(_vm.lessonName))]
     ),
     _vm._v(" "),
-    _vm._m(1)
+    _vm.isPreview
+      ? _c(
+          "a",
+          {
+            staticClass:
+              "uk-link-reset uk-margin-xlarge-right uk-position-center-right uk-padding-small uk-text-small uk-visible@s",
+            staticStyle: { color: "#666666" },
+            attrs: { href: "#", "uk-toggle": "" }
+          },
+          [
+            _c("i", { staticClass: "fas fa-play icon-small uk-text-grey" }),
+            _vm._v(_vm._s(_vm.preview))
+          ]
+        )
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
@@ -8037,31 +8123,10 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", [
       _c("i", {
-        staticClass: "fas fa-check-circle icon-medium",
-        staticStyle: { color: "#2ED24A" },
-        attrs: {
-          "uk-tooltip":
-            "title: @lang('front/auth.watch_again')  ; delay: 300 ; pos: top ;animation:\tuk-animation-slide-bottom-small"
-        }
+        staticClass: "fas fa-play-circle icon-medium",
+        staticStyle: { color: "#666666" }
       })
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "span",
-      {
-        staticClass:
-          "uk-visible@m uk-position-center-right time uk-margin-right",
-        staticStyle: { color: "#666666" }
-      },
-      [
-        _c("i", { staticClass: "fas fa-clock icon-small" }),
-        _vm._v(" $lesson->long}}")
-      ]
-    )
   }
 ]
 render._withStripped = true

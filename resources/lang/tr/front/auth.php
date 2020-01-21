@@ -118,5 +118,8 @@ return [
     'tags'=>'Etiketler',
     'add_tag'=>'Etiket Ekle',
     'add_requirement'=>'Gereksinim Ekle',
-    'add_achievement'=>'Kazanım Ekle'
+    'add_achievement'=>'Kazanım Ekle',
+    'add_lesson'=>'Ders Ekle',
+    'add_section'=>'Bölüm Ekle',
+    'preview'=>'Önizle'
 ];

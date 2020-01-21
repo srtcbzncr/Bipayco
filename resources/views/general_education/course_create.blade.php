@@ -150,9 +150,13 @@
                                     <h4>@lang('front/auth.lessons')</h4>
                                 </div>
                                 <hr>
-                                <add-section>
-
-                                </add-section>
+                                <add-section
+                                    preview-text="@lang('front/auth.preview')"
+                                    section-text="@lang('front/auth.section')"
+                                    add-default-section-text="@lang('front/auth.add_section')"
+                                    add-default-lesson-text="@lang('front/auth.add_lesson')"
+                                    add-text="@lang('front/auth.add')"
+                                > </add-section>
                             @else
                                 <div>
                                     <h3>Kurs bölümünü doldurduktan sonra Kaydet butonuna tıklayınız.</h3>
