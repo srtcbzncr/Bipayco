@@ -23,6 +23,7 @@ use App\Repositories\GeneralEducation\TagRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use function Sodium\add;
 
 class CourseController extends Controller
 {
@@ -556,7 +557,13 @@ class CourseController extends Controller
         if($respCourse->getResult()){
             $data = array();
             $data['instructor'] = $respCourse->getData();
-            $data['users'] = $this->getUsers($data['instructor']);
+            $i=0;
+            foreach ($data['instructor'] as $instructor){
+                $ins = Instructor::find($instructor->instructor_id);
+                $user = User::find($ins->user_id);
+                $data['instructor'][$i]->user = $user;
+                $i++;
+            }
             return response()->json([
                 'error' => false,
                 'data' => $data
@@ -576,6 +583,7 @@ class CourseController extends Controller
         foreach ($instructors as $instructor){
             $ins = Instructor::find($instructor->instructor_id);
             $user = User::find($ins->user_id);
+            $instructors['user'] = $user;
             $data[$i] = $user;
             $i++;
         }
