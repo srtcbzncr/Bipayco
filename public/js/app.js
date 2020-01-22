@@ -3167,7 +3167,19 @@ __webpack_require__.r(__webpack_exports__);
     },
     postSection: function postSection() {
       var formData = new FormData();
-      formData.append('section', this.sections);
+
+      for (var i = 0; i < this.sections.length; i++) {
+        formData.append("sections[" + i + "].name", this.sections[i].name);
+
+        for (var j = 0; j < this.sections[i].length; j++) {
+          formData.append("sections[" + i + "].lessons[" + j + "].name", this.sections[i].lessons[j].name);
+          formData.append("sections[" + i + "].lessons[" + j + "].is_preview", this.sections[i].lessons[j].is_preview);
+          formData.append("sections[" + i + "].lessons[" + j + "].source", this.sections[i].lessons[j].source);
+          formData.append("sections[" + i + "].lessons[" + j + "].is_video", this.sections[i].lessons[j].is_video);
+          formData.append("sections[" + i + "].lessons[" + j + "].document", this.sections[i].lessons[j].document);
+        }
+      }
+
       formData.append('instructorId', this.instructorId);
       axios.post('/api/instructor/course/' + this.courseId + '/sections', formData, {
         headers: {
