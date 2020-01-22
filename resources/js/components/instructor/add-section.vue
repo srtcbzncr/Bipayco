@@ -159,11 +159,28 @@
             },
             postSection:function () {
                 axios.post('/api/instructor/course/'+this.courseId+'/sections', {'section':this.sections, 'instructorId': this.instructorId})
-                    .catch((error) => {
-                        UIkit.notification({message:error.message, status: 'danger'});
-                    });
+                    .then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:error.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:this.savedSuccessText, status: 'success'});
+                        }
+                    })
+            },
+            checkSection:function(sections){
+                for (var i=0; i<sections.length; i++){
+                    this.addSections({'name':sections[i].name,'lessons':[]});
+                    for(var j=0; j<sections[i].lessons.length;j++){
+                        this.addLessons(sections[i].lessons[j],i)
+                    }
+                }
             }
         },
+        created() {
+            axios.get('/api/instructor/course/'+this.courseId+'/sections')
+                .then(response=>response.data.data)
+                .then(response=>this.checkSection(response.sections));
+        }
     }
 </script>
 

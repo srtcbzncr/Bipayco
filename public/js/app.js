@@ -3133,16 +3133,46 @@ __webpack_require__.r(__webpack_exports__);
       this.sections[sectionIndex].lessons.splice(lessonIndex, 1);
     },
     postSection: function postSection() {
+      var _this = this;
+
       axios.post('/api/instructor/course/' + this.courseId + '/sections', {
         'section': this.sections,
         'instructorId': this.instructorId
-      })["catch"](function (error) {
-        UIkit.notification({
-          message: error.message,
-          status: 'danger'
-        });
+      }).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: error.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: _this.savedSuccessText,
+            status: 'success'
+          });
+        }
       });
+    },
+    checkSection: function checkSection(sections) {
+      for (var i = 0; i < sections.length; i++) {
+        this.addSections({
+          'name': sections[i].name,
+          'lessons': []
+        });
+
+        for (var j = 0; j < sections[i].lessons.length; j++) {
+          this.addLessons(sections[i].lessons[j], i);
+        }
+      }
     }
+  },
+  created: function created() {
+    var _this2 = this;
+
+    axios.get('/api/instructor/course/' + this.courseId + '/sections').then(function (response) {
+      return response.data.data;
+    }).then(function (response) {
+      return _this2.checkSection(response.sections);
+    });
   }
 });
 
