@@ -157,6 +157,7 @@
                                     add-default-lesson-text="@lang('front/auth.add_lesson')"
                                     add-text="@lang('front/auth.add')"
                                     save-text="@lang('front/auth.save')"
+                                    select-file-text="@lang('front/auth.select_file')"
                                     course-id="{{$course->id}}"
                                     instructor-id="{{Auth::user()->instructor->id}}"
                                 > </add-section>

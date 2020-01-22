@@ -15,8 +15,33 @@
                                     <ul>
                                         <li>
                                             <div class="">
-                                                <input class="uk-padding-small uk-margin-small-top uk-input uk-width" type="text" :id="sectionIndex" :placeholder="addDefaultLessonText">
-                                                <input class="uk-padding-small uk-margin-small-top uk-input uk-width" type="text" :id="sectionIndex" :placeholder="addDefaultLessonText">
+                                                <div class="uk-width uk-flex uk-flex-row align-items-center justify-content-around">
+                                                    <div class="uk-flex align-items-center">
+                                                        <input class="uk-radio uk-margin-remove" type="radio" name="documentType" v-model="isVideo" checked value="1">
+                                                        <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">Video</p>
+                                                    </div>
+                                                    <div class="uk-flex align-items-center">
+                                                        <input class="uk-radio uk-margin-remove" type="radio" name="documentType" v-model="isVideo" value="0">
+                                                        <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">PDF</p>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <input class="uk-padding-small uk-margin-small-top uk-input uk-width" type="text" :id="sectionIndex" :placeholder="addDefaultLessonText">
+                                                    <div v-if="isVideo=='1'" uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
+                                                        <input name="document" type="file" accept="video/*" id="courseVideo" required>
+                                                        <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
+                                                    </div>
+                                                    <div v-else uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
+                                                        <input name="document" type="file" accept="application/pdf,application/vnd.ms-excel" id="coursePdf" required>
+                                                        <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
+                                                    </div>
+                                                    <div class="uk-margin uk-flex justify-content-start align-items-center">
+                                                        <label>
+                                                            <input class="uk-checkbox" type="checkbox" id="preview">
+                                                            <span class="checkmark uk-text-small">{{isPreviewText}}</span>
+                                                        </label>
+                                                    </div>
+                                                </div>
                                                 <button class="uk-button uk-button-success uk-margin-small-top uk-width" @click="addLesson(sectionIndex)"><i class="fas fa-plus"></i> <span class="uk-hidden@m">{{addText}}</span></button>
                                             </div>
                                         </li>
@@ -56,6 +81,7 @@
         data(){
             return{
                 sections:[],
+                isVideo:1,
             }
         },
         props:{
@@ -90,6 +116,14 @@
             instructorId:{
                 type:String,
                 required:true,
+            },
+            selectFileText:{
+                type:String,
+                default:'Dosya Seç'
+            },
+            isPreviewText:{
+                type:String,
+                default:'Önizleme'
             }
         },
         computed:{
@@ -108,7 +142,8 @@
                 this.sections[index].lessons.push(lesson)
             },
             addLesson:function (index) {
-                this.addLessons({'name':document.getElementById(index).value, 'isPreview':true, 'source':[]}, index);
+                var isPreview = document.querySelector('#preview').checked ? 1 : 0;
+                this.addLessons({'name':document.getElementById(index).value, 'isPreview':isPreview, 'source':[], 'isVideo':this.isVideo}, index);
             },
             removeLesson:function (lessonIndex, sectionIndex) {
                 this.sections[sectionIndex].lessons.splice(lessonIndex, 1)
