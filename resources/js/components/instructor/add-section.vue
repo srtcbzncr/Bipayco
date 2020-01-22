@@ -154,15 +154,13 @@
             },
             addLesson:function (index) {
                 var isPreview = document.querySelector('#preview').checked ? 1 : 0;
-                var formData=new FormData();
+                var doc;
                 if(this.isVideo=='1'){
-                    formData.append('file',document.querySelector('#courseVideo').files[0]);
+                    doc=document.querySelector('#courseVideo');
                 }else{
-                    formData.append('file',document.querySelector('#coursePdf').files[0]);
+                    doc=document.querySelector('#coursePdf');
                 }
-                for (var pair of formData.entries()) {
-                    this.addLessons({'name':document.getElementById(index).value, 'is_preview':isPreview, 'source':[], 'is_video':this.isVideo, 'document':pair[1]}, index);
-                }
+                this.addLessons({'name':document.getElementById(index).value, 'is_preview':isPreview, 'source':[], 'is_video':this.isVideo, 'document':doc }, index);
             },
             removeLesson:function (lessonIndex, sectionIndex) {
                 this.sections[sectionIndex].lessons.splice(lessonIndex, 1)
@@ -171,15 +169,17 @@
                 var formData=new FormData();
                 for (var i = 0; i < this.sections.length; i++) {
                     formData.append("sections[" + i + "].name", this.sections[i].name);
-                    for(var j=0; j<this.sections[i].length;j++){
-                        formData.append("sections[" + i + "].lessons["+j+"].name", this.sections[i].lessons[j].name);
-                        formData.append("sections[" + i + "].lessons["+j+"].is_preview", this.sections[i].lessons[j].is_preview);
-                        formData.append("sections[" + i + "].lessons["+j+"].source", this.sections[i].lessons[j].source);
-                        formData.append("sections[" + i + "].lessons["+j+"].is_video", this.sections[i].lessons[j].is_video);
-                        formData.append("sections[" + i + "].lessons["+j+"].document", this.sections[i].lessons[j].document);
+                    for(var j=0;j<this.sections[i].lessons.length;j++){
+                        formData.append("sections["+i+"].lessons["+j+"].name", this.sections[i].lessons[i].name);
+                        formData.append("sections["+i+"].lessons["+j+"].is_preview", this.sections[i].lessons[i].is_preview);
+                        formData.append("sections["+i+"].lessons["+j+"].is_video", this.sections[i].lessons[i].is_video);
+                        formData.append("sections["+i+"].lessons["+j+"].source", this.sections[i].lessons[i].source);
+                        formData.append("sections["+i+"].lessons["+j+"].document", this.sections[i].lessons[i].document.files[0]);
                     }
                 }
-                formData.append('instructorId', this.instructorId);
+                for (var pair of formData.entries()) {
+                    console.log(pair[1]);
+                }
                 axios.post('/api/instructor/course/'+this.courseId+'/sections', formData,{ headers: {'Content-Type': 'multipart/form-data'}})
             },
             checkSection:function(sections){

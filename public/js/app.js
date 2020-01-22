@@ -3124,12 +3124,38 @@ __webpack_require__.r(__webpack_exports__);
     },
     addLesson: function addLesson(index) {
       var isPreview = document.querySelector('#preview').checked ? 1 : 0;
-      var formData = new FormData();
+      var doc;
 
       if (this.isVideo == '1') {
-        formData.append('file', document.querySelector('#courseVideo').files[0]);
+        doc = document.querySelector('#courseVideo');
       } else {
-        formData.append('file', document.querySelector('#coursePdf').files[0]);
+        doc = document.querySelector('#coursePdf');
+      }
+
+      this.addLessons({
+        'name': document.getElementById(index).value,
+        'is_preview': isPreview,
+        'source': [],
+        'is_video': this.isVideo,
+        'document': doc
+      }, index);
+    },
+    removeLesson: function removeLesson(lessonIndex, sectionIndex) {
+      this.sections[sectionIndex].lessons.splice(lessonIndex, 1);
+    },
+    postSection: function postSection() {
+      var formData = new FormData();
+
+      for (var i = 0; i < this.sections.length; i++) {
+        formData.append("sections[" + i + "].name", this.sections[i].name);
+
+        for (var j = 0; j < this.sections[i].lessons.length; j++) {
+          formData.append("sections[" + i + "].lessons[" + j + "].name", this.sections[i].lessons[i].name);
+          formData.append("sections[" + i + "].lessons[" + j + "].is_preview", this.sections[i].lessons[i].is_preview);
+          formData.append("sections[" + i + "].lessons[" + j + "].is_video", this.sections[i].lessons[i].is_video);
+          formData.append("sections[" + i + "].lessons[" + j + "].source", this.sections[i].lessons[i].source);
+          formData.append("sections[" + i + "].lessons[" + j + "].document", this.sections[i].lessons[i].document.files[0]);
+        }
       }
 
       var _iteratorNormalCompletion = true;
@@ -3139,13 +3165,7 @@ __webpack_require__.r(__webpack_exports__);
       try {
         for (var _iterator = formData.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
           var pair = _step.value;
-          this.addLessons({
-            'name': document.getElementById(index).value,
-            'is_preview': isPreview,
-            'source': [],
-            'is_video': this.isVideo,
-            'document': pair[1]
-          }, index);
+          console.log(pair[1]);
         }
       } catch (err) {
         _didIteratorError = true;
@@ -3161,26 +3181,7 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
       }
-    },
-    removeLesson: function removeLesson(lessonIndex, sectionIndex) {
-      this.sections[sectionIndex].lessons.splice(lessonIndex, 1);
-    },
-    postSection: function postSection() {
-      var formData = new FormData();
 
-      for (var i = 0; i < this.sections.length; i++) {
-        formData.append("sections[" + i + "].name", this.sections[i].name);
-
-        for (var j = 0; j < this.sections[i].length; j++) {
-          formData.append("sections[" + i + "].lessons[" + j + "].name", this.sections[i].lessons[j].name);
-          formData.append("sections[" + i + "].lessons[" + j + "].is_preview", this.sections[i].lessons[j].is_preview);
-          formData.append("sections[" + i + "].lessons[" + j + "].source", this.sections[i].lessons[j].source);
-          formData.append("sections[" + i + "].lessons[" + j + "].is_video", this.sections[i].lessons[j].is_video);
-          formData.append("sections[" + i + "].lessons[" + j + "].document", this.sections[i].lessons[j].document);
-        }
-      }
-
-      formData.append('instructorId', this.instructorId);
       axios.post('/api/instructor/course/' + this.courseId + '/sections', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
