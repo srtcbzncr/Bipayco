@@ -472,6 +472,7 @@ class CourseController extends Controller
     }
 
     public function sectionsPost($id,Request $request){
+        return $request->all();
         // Initializing
         $repo = new CourseRepository();
         $data = $request->toArray();

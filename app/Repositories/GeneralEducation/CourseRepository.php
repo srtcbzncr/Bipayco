@@ -15,6 +15,7 @@ use App\Repositories\IRepository;
 use App\Models\GeneralEducation\Course;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 
 class CourseRepository implements IRepository{
@@ -625,7 +626,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
-            $achievements = Achievement::where('course_id',$id)->get();
+            $achievements = Achievement::where('course_id',$id)->where('active',1)->get();
             $object = $achievements;
             DB::commit();
         }
@@ -649,7 +650,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
-            $requierements = Requirement::where('course_id',$id)->get();
+            $requierements = Requirement::where('course_id',$id)->where('active',1)->get();
             $object = $requierements;
             DB::commit();
         }
@@ -749,8 +750,12 @@ class CourseRepository implements IRepository{
                     $objLesson->is_video = $lesson['is_video'];
                     $objLesson->no = $key_lesson;
                     $objLesson->long = 1;
+                    $file = Request::file($lesson['file']);
+                    $filename = $file->getClientOriginalName();
+                    $path = public_path().'/storage/app/lessons';
+                    $objLesson->file_path = $file->move($path, $filename);
                     //$videoPath = Storage::url($data['image']->store('public/videos'));
-                    $objLesson->file_path = "boş";
+                    //$objLesson->file_path = "boş";
                     $objLesson->preview = $lesson['is_preview'];
                     $objLesson->name = $lesson['name'];
                     $objLesson->save();
@@ -821,7 +826,7 @@ class CourseRepository implements IRepository{
 
             $object = array();
             $course = Course::find($id);
-            $sections = $course->sections;
+            $sections = $course->sections->where('active', true);
             $object['sections'] = $sections;
             foreach ($sections as $key => $section){
                 $lessons = $section->lessons;
@@ -901,7 +906,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
-            $object =  DB::table("ge_courses_instructors")->where('course_id',$id)->get();
+            $object =  DB::table("ge_courses_instructors")->where('course_id',$id)->where('active',true)->get();
             DB::commit();
         }
         catch(\Exception $e){
