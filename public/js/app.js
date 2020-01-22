@@ -3166,9 +3166,13 @@ __webpack_require__.r(__webpack_exports__);
       this.sections[sectionIndex].lessons.splice(lessonIndex, 1);
     },
     postSection: function postSection() {
-      axios.post('/api/instructor/course/' + this.courseId + '/sections', {
-        'section': this.sections,
-        'instructorId': this.instructorId
+      var formData = new FormData();
+      formData.append('section', this.sections);
+      formData.append('instructorId', this.instructorId);
+      axios.post('/api/instructor/course/' + this.courseId + '/sections', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
       });
     },
     checkSection: function checkSection(sections) {
