@@ -7,6 +7,7 @@ use App\Models\Auth\Student;
 use App\Models\GeneralEducation\Achievement;
 use App\Models\GeneralEducation\Comment;
 use App\Models\GeneralEducation\Entry;
+use App\Models\GeneralEducation\Lesson;
 use App\Models\GeneralEducation\Requirement;
 use App\Models\GeneralEducation\Section;
 use App\Models\GeneralEducation\Tag;
@@ -698,13 +699,22 @@ class CourseRepository implements IRepository{
         try{
             DB::beginTransaction();
             $course = Course::find($id);
-            $course->sections()->delete();
-            foreach ($data as $section){
+            $sections = Section::where('course_id',$id)->get();
+            // var olan sectionları ve lessonsları sil
+            foreach ($sections as $item){
+                $lessons = Lesson::where('section_id',$item->id)->get();
+                foreach ($lessons as $lesson){
+                    $lesson->delete();
+                }
+                $item->delete();
+            }
+
+            // yeni sectionları ekle
+            foreach ($data as $key => $section){
                 $newSection = new Section();
                 $newSection->course_id = $id;
-                $newSection->no = $section->no;
-                $newSection->name = $section->name;
-                $newSection->content = $section->active;
+                $newSection->no = $key;
+                $newSection->name = $section['name'];
                 $newSection->save();
             }
             $object = $course->sections;
@@ -721,7 +731,6 @@ class CourseRepository implements IRepository{
         return $resp;
     }
     public function syncLesson($id, array $data){
-        // todo : bir kurs içerisinde birden fazla 'section' var, bir 'section' altında da birden fazla 'lesson' olabilir.
         // Response variables
         $result = true;
         $error = null;
@@ -731,12 +740,21 @@ class CourseRepository implements IRepository{
         try{
             DB::beginTransaction();
             $course = Course::find($id);
-            $sections = $course->sections();
-            foreach ($sections as $section){
-                $section->lessons()->delete();
-            }
-            foreach ($data as $item){
-
+            $sections = $course->sections;
+            // yeni lessons ekle
+            foreach ($data as $key => $section){
+                foreach($section['lessons'] as $key_lesson => $lesson){
+                    $objLesson = new Lesson();
+                    $objLesson->section_id = $sections[$key]->id;
+                    $objLesson->is_video = $lesson['isVideo'];
+                    $objLesson->no = $key_lesson;
+                    $objLesson->long = 1;
+                    $videoPath = Storage::url($data['image']->store('public/videos'));
+                    $objLesson->file_path = $videoPath;
+                    $objLesson->preview = $lesson['isPreview'];
+                    $objLesson->name = $lesson['name'];
+                    $objLesson->save();
+                }
             }
             DB::commit();
         }
@@ -751,7 +769,76 @@ class CourseRepository implements IRepository{
         return $resp;
     }
     public function syncSource($id,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
 
+        // Operations
+        try{
+            DB::beginTransaction();
+            $course = Course::find($id);
+            $sections = $course->sections;
+            $myLessons = $sections->lessons;
+
+            // yeni source ekle
+            foreach ($data as $key => $section){
+                foreach($section['lessons'] as $key_lesson => $lesson){
+                    $objLesson = new Lesson();
+                    $objLesson->section_id = $sections[$key]->id;
+                    $objLesson->is_video = $lesson['isVideo'];
+                    $objLesson->no = $key_lesson;
+                    $objLesson->long = 1;
+                    $videoPath = Storage::url($data['image']->store('public/videos'));
+                    $objLesson->file_path = $videoPath;
+                    $objLesson->preview = $lesson['isPreview'];
+                    $objLesson->name = $lesson['name'];
+                    $objLesson->save();
+                }
+            }
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+    public function syncSectionGet($id){
+        // section->lessonsları çek
+
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        try{
+            DB::beginTransaction();
+
+            $object = array();
+            $course = Course::find($id);
+            $sections = $course->sections;
+            $object['sections'] = $sections;
+            foreach ($sections as $key => $section){
+                $lessons = $section->lessons;
+                $object['sections'][$key]['lessons'] = $lessons;
+            }
+
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
     public function syncInstructor($course_id,$data){
         // Response variables
