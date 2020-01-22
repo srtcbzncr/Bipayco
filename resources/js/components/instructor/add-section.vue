@@ -15,8 +15,9 @@
                                     <ul>
                                         <li>
                                             <div class="">
-                                                <input class="uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m" type="text" :id="sectionIndex" :placeholder="addDefaultLessonText">
-                                                <button class="uk-button uk-button-success uk-margin-small-top uk-width-1-6@m" @click="addLesson(sectionIndex)"><i class="fas fa-plus"></i> <span class="uk-hidden@m">{{addText}}</span></button>
+                                                <input class="uk-padding-small uk-margin-small-top uk-input uk-width" type="text" :id="sectionIndex" :placeholder="addDefaultLessonText">
+                                                <input class="uk-padding-small uk-margin-small-top uk-input uk-width" type="text" :id="sectionIndex" :placeholder="addDefaultLessonText">
+                                                <button class="uk-button uk-button-success uk-margin-small-top uk-width" @click="addLesson(sectionIndex)"><i class="fas fa-plus"></i> <span class="uk-hidden@m">{{addText}}</span></button>
                                             </div>
                                         </li>
                                         <li v-for="(lesson,lessonIndex) in section.lessons" class="uk-flex">
@@ -85,6 +86,10 @@
             courseId:{
                 type:String,
                 required:true,
+            },
+            instructorId:{
+                type:String,
+                required:true,
             }
         },
         computed:{
@@ -109,7 +114,7 @@
                 this.sections[sectionIndex].lessons.splice(lessonIndex, 1)
             },
             postSection:function () {
-                axios.post('/api/instructor/course/'+this.courseId+'/sections', this.sections).then(response=>console.log(response))
+                axios.post('/api/instructor/course/'+this.courseId+'/sections', {'section':this.sections, 'instructorId': this.instructorId}).then(response=>console.log(response))
             }
         },
     }

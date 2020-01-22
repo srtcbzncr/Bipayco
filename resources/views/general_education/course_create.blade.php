@@ -158,6 +158,7 @@
                                     add-text="@lang('front/auth.add')"
                                     save-text="@lang('front/auth.save')"
                                     course-id="{{$course->id}}"
+                                    instructor-id="{{Auth::user()->instructor->id}}"
                                 > </add-section>
                             @else
                                 <div>

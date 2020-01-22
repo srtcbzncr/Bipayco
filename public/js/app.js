@@ -3012,6 +3012,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "add-section",
   data: function data() {
@@ -3047,6 +3048,10 @@ __webpack_require__.r(__webpack_exports__);
     courseId: {
       type: String,
       required: true
+    },
+    instructorId: {
+      type: String,
+      required: true
     }
   },
   computed: {},
@@ -3077,7 +3082,10 @@ __webpack_require__.r(__webpack_exports__);
       this.sections[sectionIndex].lessons.splice(lessonIndex, 1);
     },
     postSection: function postSection() {
-      axios.post('/api/instructor/course/' + this.courseId + '/sections', this.sections).then(function (response) {
+      axios.post('/api/instructor/course/' + this.courseId + '/sections', {
+        'section': this.sections,
+        'instructorId': this.instructorId
+      }).then(function (response) {
         return console.log(response);
       });
     }
@@ -7441,7 +7449,18 @@ var render = function() {
                                         _c("div", {}, [
                                           _c("input", {
                                             staticClass:
-                                              "uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m",
+                                              "uk-padding-small uk-margin-small-top uk-input uk-width",
+                                            attrs: {
+                                              type: "text",
+                                              id: sectionIndex,
+                                              placeholder:
+                                                _vm.addDefaultLessonText
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("input", {
+                                            staticClass:
+                                              "uk-padding-small uk-margin-small-top uk-input uk-width",
                                             attrs: {
                                               type: "text",
                                               id: sectionIndex,
@@ -7454,7 +7473,7 @@ var render = function() {
                                             "button",
                                             {
                                               staticClass:
-                                                "uk-button uk-button-success uk-margin-small-top uk-width-1-6@m",
+                                                "uk-button uk-button-success uk-margin-small-top uk-width",
                                               on: {
                                                 click: function($event) {
                                                   return _vm.addLesson(
