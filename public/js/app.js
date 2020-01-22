@@ -3169,10 +3169,6 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/api/instructor/course/' + this.courseId + '/sections', {
         'section': this.sections,
         'instructorId': this.instructorId
-      }, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
       });
     },
     checkSection: function checkSection(sections) {

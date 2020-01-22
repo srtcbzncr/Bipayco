@@ -168,7 +168,7 @@
                 this.sections[sectionIndex].lessons.splice(lessonIndex, 1)
             },
             postSection:function () {
-                axios.post('/api/instructor/course/'+this.courseId+'/sections', {'section':this.sections, 'instructorId': this.instructorId},{ headers: {'Content-Type': 'multipart/form-data'}})
+                axios.post('/api/instructor/course/'+this.courseId+'/sections', {'section':this.sections, 'instructorId': this.instructorId})
             },
             checkSection:function(sections){
                 for (var i=0; i<sections.length; i++){
