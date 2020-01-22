@@ -489,6 +489,14 @@ class CourseRepository implements IRepository{
     }
 
     public function syncRequirements($id, array $data){
+        // data empty control
+        if(count($data) == 0){
+            $object = array();
+            $error = false;
+            $result = true;
+            $resp = new RepositoryResponse($result, $object, $error);
+            return $resp;
+        }
         // Response variables
         $result = true;
         $error = null;
@@ -523,6 +531,14 @@ class CourseRepository implements IRepository{
     }
 
     public function syncAchievements($id, array $data){
+        // data empty control
+        if(count($data) == 0){
+            $object = array();
+            $error = false;
+            $result = true;
+            $resp = new RepositoryResponse($result, $object, $error);
+            return $resp;
+        }
         // Response variables
         $result = true;
         $error = null;
@@ -559,6 +575,14 @@ class CourseRepository implements IRepository{
     }
 
     public function syncTags($id, array $data){
+        // data empty control
+        if(count($data) == 0){
+            $object = array();
+            $error = false;
+            $result = true;
+            $resp = new RepositoryResponse($result, $object, $error);
+            return $resp;
+        }
         // Response variables
         $result = true;
         $error = null;
