@@ -83,6 +83,7 @@
         data(){
             return{
                 sections:[],
+                files:[],
                 isVideo:1,
             }
         },
@@ -153,13 +154,15 @@
             },
             addLesson:function (index) {
                 var isPreview = document.querySelector('#preview').checked ? 1 : 0;
-                var formData=new FormData;
+                var formData=new FormData();
                 if(this.isVideo=='1'){
                     formData.append('file',document.querySelector('#courseVideo').files[0]);
                 }else{
                     formData.append('file',document.querySelector('#coursePdf').files[0]);
                 }
-                this.addLessons({'name':document.getElementById(index).value, 'is_preview':isPreview, 'source':[], 'is_video':this.isVideo, 'document':formData}, index);
+                for (var pair of formData.entries()) {
+                    this.addLessons({'name':document.getElementById(index).value, 'is_preview':isPreview, 'source':[], 'is_video':this.isVideo, 'document':pair[1]}, index);
+                }
             },
             removeLesson:function (lessonIndex, sectionIndex) {
                 this.sections[sectionIndex].lessons.splice(lessonIndex, 1)

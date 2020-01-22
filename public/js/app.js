@@ -3051,6 +3051,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       sections: [],
+      files: [],
       isVideo: 1
     };
   },
@@ -3131,13 +3132,35 @@ __webpack_require__.r(__webpack_exports__);
         formData.append('file', document.querySelector('#coursePdf').files[0]);
       }
 
-      this.addLessons({
-        'name': document.getElementById(index).value,
-        'is_preview': isPreview,
-        'source': [],
-        'is_video': this.isVideo,
-        'document': formData
-      }, index);
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = formData.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var pair = _step.value;
+          this.addLessons({
+            'name': document.getElementById(index).value,
+            'is_preview': isPreview,
+            'source': [],
+            'is_video': this.isVideo,
+            'document': pair[1]
+          }, index);
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
     },
     removeLesson: function removeLesson(lessonIndex, sectionIndex) {
       this.sections[sectionIndex].lessons.splice(lessonIndex, 1);
