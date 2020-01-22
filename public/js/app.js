@@ -2824,6 +2824,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     pPrice: function pPrice() {
       return this.prevPrice.toFixed(2);
+    },
+    image: function image() {
+      return {
+        backgroundImage: "url(" + this.imgPath + ")"
+      };
     }
   }
 });
@@ -2840,6 +2845,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _lesson_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lesson.vue */ "./resources/js/components/instructor/lesson.vue");
+//
+//
+//
 //
 //
 //
@@ -2926,6 +2934,9 @@ __webpack_require__.r(__webpack_exports__);
         'name': document.getElementById(this.lessonInput).value,
         'isPreview': true
       });
+    },
+    removeLesson: function removeLesson(index) {
+      this.lesson.splice(index, 1);
     }
   }
 });
@@ -3059,6 +3070,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _add_lesson_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./add-lesson.vue */ "./resources/js/components/instructor/add-lesson.vue");
+//
 //
 //
 //
@@ -7221,7 +7233,12 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("a", { staticClass: "uk-link-reset", attrs: { href: _vm.pageLink } }, [
-        _c("img", { staticClass: "course-img", attrs: { src: _vm.imgPath } }),
+        _c("img", {
+          staticClass:
+            "course-img uk-background-center-center uk-background-cover uk-height",
+          style: _vm.image,
+          attrs: { src: _vm.imgPath }
+        }),
         _vm._v(" "),
         _c("div", { staticClass: "uk-card-body" }, [
           _c("h4", [_vm._v(_vm._s(_vm.title))]),
@@ -7337,7 +7354,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "uk-margin-top" }, [
+  return _c("div", { staticClass: "uk-margin-top uk-width-4-5@m" }, [
     _c("ul", { staticClass: "uk-accordion", attrs: { "uk-accordion": "" } }, [
       _c(
         "li",
@@ -7399,28 +7416,48 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _vm._l(_vm.lessons, function(lesson, index) {
-                      return _c(
-                        "li",
-                        [
-                          lesson.isPreview
-                            ? _c("lesson", {
-                                attrs: {
-                                  "lesson-name": lesson.name,
-                                  index: index,
-                                  "is-preview": "",
-                                  "preview-text": _vm.previewText
-                                }
-                              })
-                            : _c("lesson", {
-                                attrs: {
-                                  "lesson-name": lesson.name,
-                                  index: index,
-                                  "preview-text": _vm.previewText
-                                }
-                              })
-                        ],
-                        1
-                      )
+                      return _c("li", { staticClass: "uk-flex" }, [
+                        _c(
+                          "div",
+                          [
+                            lesson.isPreview
+                              ? _c("lesson", {
+                                  attrs: {
+                                    "lesson-name": lesson.name,
+                                    index: index,
+                                    "is-preview": "",
+                                    "preview-text": _vm.previewText
+                                  }
+                                })
+                              : _c("lesson", {
+                                  attrs: {
+                                    "lesson-name": lesson.name,
+                                    index: index,
+                                    "preview-text": _vm.previewText
+                                  }
+                                })
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "uk-button-icon uk-margin-left",
+                            on: {
+                              click: function($event) {
+                                return _vm.removeLesson(index)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass:
+                                "fas fa-trash-alt text-danger icon-small"
+                            })
+                          ]
+                        )
+                      ])
                     })
                   ],
                   2
@@ -7573,7 +7610,9 @@ var render = function() {
       _vm._l(_vm.sections, function(section, index) {
         return _c(
           "div",
-          { staticClass: "uk-margin-top" },
+          {
+            staticClass: "uk-margin-top uk-flex align-items-center uk-flex-wrap"
+          },
           [
             _c("add-lesson", {
               attrs: {
@@ -7584,7 +7623,24 @@ var render = function() {
                 "add-default-lesson-text": _vm.addDefaultLessonText,
                 "section-text": _vm.sectionText
               }
-            })
+            }),
+            _vm._v(" "),
+            _c(
+              "a",
+              {
+                staticClass: "uk-button-icon uk-margin-left uk-width-1-5@m",
+                on: {
+                  click: function($event) {
+                    return _vm.removeItem(index)
+                  }
+                }
+              },
+              [
+                _c("i", {
+                  staticClass: "fas fa-trash-alt text-danger icon-small"
+                })
+              ]
+            )
           ],
           1
         )
@@ -8126,17 +8182,17 @@ var render = function() {
         staticClass:
           "uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right"
       },
-      [_vm._v(_vm._s(_vm.index) + ". " + _vm._s(_vm.lessonName))]
+      [_vm._v(_vm._s(_vm.index + 1) + ". " + _vm._s(_vm.lessonName))]
     ),
     _vm._v(" "),
     _vm.isPreview
       ? _c(
-          "a",
+          "div",
           {
             staticClass:
-              "uk-link-reset uk-margin-xlarge-right uk-position-center-right uk-padding-small uk-text-small uk-visible@s",
+              "uk-link-reset uk-margin-xlarge-right uk-padding-small uk-text-small uk-visible@s",
             staticStyle: { color: "#666666" },
-            attrs: { href: "#", "uk-toggle": "" }
+            attrs: { href: "#" }
           },
           [
             _c("i", { staticClass: "fas fa-play icon-small uk-text-grey" }),

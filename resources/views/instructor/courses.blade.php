@@ -23,7 +23,7 @@
             <li>
                 <div class="uk-card-default uk-card-hover uk-card-small uk-width Course-card uk-inline-clip uk-transition-toggle" tabindex="0">
                     <a href="{{route('ge_course', $course->id)}}" class="uk-link-reset">
-                        <img src="{{$course->image}}" class="course-img">
+                        <div class="course-img uk-background-center-center uk-background-cover uk-height-medium" style="background-image: url({{$course->image}})"></div>
                         <div class="uk-card-body">
                             <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{$course->name}}</h4>
                             <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small">{{$course->description}}</p>
@@ -81,7 +81,7 @@
                 <li>
                     <div class="uk-card-default uk-card-hover uk-card-small uk-width Course-card uk-inline-clip uk-transition-toggle" tabindex="0">
                         <a href="{{route('ge_course', $course->id)}}" class="uk-link-reset">
-                            <img src="{{$course->image}}" class="course-img">
+                            <div class="course-img uk-background-center-center uk-background-cover uk-height-medium" style="background-image: url({{$course->image}})"></div>
                             <div class="uk-card-body">
                                 <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{$course->name}}</h4>
                                 <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small">{{$course->description}}</p>
@@ -139,7 +139,7 @@
                 <li>
                     <div class="uk-card-default uk-card-hover uk-card-small uk-width Course-card uk-inline-clip uk-transition-toggle" tabindex="0">
                         <a href="{{route('ge_course', $course->id)}}" class="uk-link-reset">
-                            <img src="{{$course->image}}" class="course-img">
+                            <div class="course-img uk-background-center-center uk-background-cover uk-height-medium" style="background-image: url({{$course->image}})"></div>
                             <div class="uk-card-body">
                                 <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{$course->name}}</h4>
                                 <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small">{{$course->description}}</p>
