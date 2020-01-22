@@ -3044,7 +3044,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "add-section",
   data: function data() {
@@ -3124,32 +3123,18 @@ __webpack_require__.r(__webpack_exports__);
       var isPreview = document.querySelector('#preview').checked ? 1 : 0;
       this.addLessons({
         'name': document.getElementById(index).value,
-        'isPreview': isPreview,
+        'is_preview': isPreview,
         'source': [],
-        'isVideo': this.isVideo
+        'is_video': this.isVideo
       }, index);
     },
     removeLesson: function removeLesson(lessonIndex, sectionIndex) {
       this.sections[sectionIndex].lessons.splice(lessonIndex, 1);
     },
     postSection: function postSection() {
-      var _this = this;
-
       axios.post('/api/instructor/course/' + this.courseId + '/sections', {
         'section': this.sections,
         'instructorId': this.instructorId
-      }).then(function (response) {
-        if (response.data.error) {
-          UIkit.notification({
-            message: error.message,
-            status: 'danger'
-          });
-        } else {
-          UIkit.notification({
-            message: _this.savedSuccessText,
-            status: 'success'
-          });
-        }
       });
     },
     checkSection: function checkSection(sections) {
@@ -3166,12 +3151,12 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   created: function created() {
-    var _this2 = this;
+    var _this = this;
 
     axios.get('/api/instructor/course/' + this.courseId + '/sections').then(function (response) {
       return response.data.data;
     }).then(function (response) {
-      return _this2.checkSection(response.sections);
+      return _this.checkSection(response.sections);
     });
   }
 });
@@ -3375,26 +3360,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -7795,7 +7760,10 @@ var render = function() {
                                       ) {
                                         return _c(
                                           "li",
-                                          { staticClass: "uk-flex" },
+                                          {
+                                            staticClass:
+                                              "uk-flex align-items-center"
+                                          },
                                           [
                                             _c(
                                               "div",
@@ -7805,12 +7773,12 @@ var render = function() {
                                                   "a",
                                                   {
                                                     staticClass:
-                                                      "uk-link-reset",
+                                                      "uk-link-reset uk-flex align-items-center",
                                                     attrs: { href: "#" }
                                                   },
                                                   [
                                                     _c("span", [
-                                                      lesson.isVideo == "1"
+                                                      lesson.is_video == "1"
                                                         ? _c("i", {
                                                             staticClass:
                                                               "fas fa-play-circle icon-medium",
@@ -7831,15 +7799,26 @@ var render = function() {
                                                       "div",
                                                       {
                                                         staticClass:
-                                                          "uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right"
+                                                          "uk-text-truncate uk-margin-small-right "
                                                       },
                                                       [
-                                                        _vm._v(
-                                                          _vm._s(
-                                                            lessonIndex + 1
-                                                          ) +
-                                                            ". " +
-                                                            _vm._s(lesson.name)
+                                                        _c(
+                                                          "p",
+                                                          {
+                                                            staticClass:
+                                                              "uk-margin-remove"
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              _vm._s(
+                                                                lessonIndex + 1
+                                                              ) +
+                                                                ". " +
+                                                                _vm._s(
+                                                                  lesson.name
+                                                                )
+                                                            )
+                                                          ]
                                                         )
                                                       ]
                                                     )
@@ -7848,28 +7827,23 @@ var render = function() {
                                               ]
                                             ),
                                             _vm._v(" "),
-                                            lesson.isPreview
-                                              ? _c(
-                                                  "div",
-                                                  {
-                                                    staticClass:
-                                                      " uk-width-1-6 uk-visible@s",
-                                                    staticStyle: {
-                                                      color: "#666666"
-                                                    }
-                                                  },
-                                                  [
-                                                    _c("i", {
+                                            _c(
+                                              "div",
+                                              {
+                                                staticClass: "uk-width-1-6",
+                                                staticStyle: {
+                                                  color: "#666666"
+                                                }
+                                              },
+                                              [
+                                                lesson.is_preview
+                                                  ? _c("i", {
                                                       staticClass:
-                                                        "fas fa-play icon-small uk-text-grey"
-                                                    }),
-                                                    _vm._v(
-                                                      "  " +
-                                                        _vm._s(_vm.previewText)
-                                                    )
-                                                  ]
-                                                )
-                                              : _vm._e(),
+                                                        "fas fa-play icon-tiny uk-text-grey uk-visible@s"
+                                                    })
+                                                  : _vm._e()
+                                              ]
+                                            ),
                                             _vm._v(" "),
                                             _c(
                                               "a",
@@ -8275,11 +8249,17 @@ var render = function() {
         _c(
           "div",
           { staticClass: "uk-margin-small", attrs: { id: "instructorsArea" } },
-          [
-            _c("div", { staticClass: "uk-margin-remove-bottom" }, [
+          _vm._l(_vm.instructors, function(instructor, index) {
+            return _c("div", { staticClass: "uk-margin-small" }, [
               _c("div", { staticClass: "uk-grid align-items-center" }, [
                 _c("input", {
-                  attrs: { type: "text", hidden: "", disabled: "", value: "1" }
+                  attrs: {
+                    type: "text",
+                    hidden: "",
+                    disabled: "",
+                    name: "instructorsId[]"
+                  },
+                  domProps: { value: instructor.id }
                 }),
                 _vm._v(" "),
                 _c(
@@ -8287,23 +8267,13 @@ var render = function() {
                   { staticClass: "uk-width-3-5@m uk-margin-small-bottom" },
                   [
                     _c("div", { staticClass: "uk-form-label uk-hidden@m" }, [
-                      _vm._v(_vm._s(_vm.instructorText))
+                      _vm._v(" " + _vm._s(_vm.instructorText))
                     ]),
-                    _vm._v(" "),
-                    _c("input", {
-                      attrs: {
-                        type: "text",
-                        hidden: "",
-                        disabled: "",
-                        name: "instructorsId[]"
-                      },
-                      domProps: { value: _vm.userId }
-                    }),
                     _vm._v(" "),
                     _c("div", { staticClass: "uk-flex align-items-center" }, [
                       _c("img", {
                         staticClass: "user-profile-tiny uk-circle",
-                        attrs: { src: _vm.userImg }
+                        attrs: { src: instructor.user.avatar }
                       }),
                       _vm._v(" "),
                       _c(
@@ -8313,8 +8283,19 @@ var render = function() {
                             "uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right"
                         },
                         [
-                          _c("b", [_vm._v(_vm._s(_vm.userName))]),
-                          _vm._v(" (" + _vm._s(_vm.managerText) + ")")
+                          _c("b", [
+                            _vm._v(
+                              _vm._s(instructor.user.first_name) +
+                                " " +
+                                _vm._s(instructor.user.last_name)
+                            )
+                          ]),
+                          _vm._v(" "),
+                          instructor.is_manager
+                            ? _c("span", [
+                                _vm._v("(" + _vm._s(_vm.managerText) + ")")
+                              ])
+                            : _vm._e()
                         ]
                       )
                     ])
@@ -8326,7 +8307,7 @@ var render = function() {
                   { staticClass: "uk-width-1-5@m uk-margin-small-bottom" },
                   [
                     _c("div", { staticClass: "uk-form-label uk-hidden@m" }, [
-                      _vm._v(" " + _vm._s(_vm.percentText))
+                      _vm._v(_vm._s(_vm.percentText))
                     ]),
                     _vm._v(" "),
                     _c("input", {
@@ -8342,103 +8323,37 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                _c("div", {
-                  staticClass: "uk-width-1-5@m uk-margin-small-bottom"
-                })
+                !instructor.is_manager
+                  ? _c(
+                      "div",
+                      { staticClass: "uk-width-1-5@m uk-margin-small-bottom" },
+                      [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "uk-button-icon",
+                            on: {
+                              click: function($event) {
+                                return _vm.removeInstructor(index)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass:
+                                "fas fa-trash-alt text-danger icon-small"
+                            })
+                          ]
+                        )
+                      ]
+                    )
+                  : _vm._e()
               ]),
               _vm._v(" "),
               _c("hr", { staticClass: "uk-hidden@m uk-margin-medium-top" })
-            ]),
-            _vm._v(" "),
-            _vm._l(_vm.instructors, function(instructor, index) {
-              return _c("div", { staticClass: "uk-margin-small" }, [
-                _c("div", { staticClass: "uk-grid align-items-center" }, [
-                  _c("input", {
-                    attrs: {
-                      type: "text",
-                      hidden: "",
-                      disabled: "",
-                      name: "instructorsId[]"
-                    },
-                    domProps: { value: instructor.id }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "uk-width-3-5@m uk-margin-small-bottom" },
-                    [
-                      _c("div", { staticClass: "uk-form-label uk-hidden@m" }, [
-                        _vm._v(" " + _vm._s(_vm.instructorText))
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "uk-flex align-items-center" }, [
-                        _c("img", {
-                          staticClass: "user-profile-tiny uk-circle",
-                          attrs: { src: instructor.user.avatar }
-                        }),
-                        _vm._v(" "),
-                        _c("b", { staticClass: "uk-margin-left" }, [
-                          _vm._v(
-                            _vm._s(instructor.user.first_name) +
-                              " " +
-                              _vm._s(instructor.user.last_name)
-                          )
-                        ])
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "uk-width-1-5@m uk-margin-small-bottom" },
-                    [
-                      _c("div", { staticClass: "uk-form-label uk-hidden@m" }, [
-                        _vm._v(_vm._s(_vm.percentText))
-                      ]),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "uk-input uk-padding-remove",
-                        attrs: {
-                          type: "number",
-                          name: "percent[]",
-                          max: "100",
-                          min: "1",
-                          required: ""
-                        }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "uk-width-1-5@m uk-margin-small-bottom" },
-                    [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "uk-button-icon",
-                          on: {
-                            click: function($event) {
-                              return _vm.removeInstructor(index)
-                            }
-                          }
-                        },
-                        [
-                          _c("i", {
-                            staticClass:
-                              "fas fa-trash-alt text-danger icon-small"
-                          })
-                        ]
-                      )
-                    ]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("hr", { staticClass: "uk-hidden@m uk-margin-medium-top" })
-              ])
-            })
-          ],
-          2
+            ])
+          }),
+          0
         )
       ])
     ])

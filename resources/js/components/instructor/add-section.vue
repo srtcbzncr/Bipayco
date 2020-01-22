@@ -45,20 +45,19 @@
                                                 <button class="uk-button uk-button-success uk-margin-small-top uk-width" @click="addLesson(sectionIndex)"><i class="fas fa-plus"></i> {{addText}}</button>
                                             </div>
                                         </li>
-                                        <li v-for="(lesson,lessonIndex) in section.lessons" class="uk-flex">
+                                        <li v-for="(lesson,lessonIndex) in section.lessons" class="uk-flex align-items-center">
                                             <div class="uk-width-4-6">
-                                                <a href="#" class="uk-link-reset">
+                                                <a href="#" class="uk-link-reset uk-flex align-items-center">
                                                     <!-- Play icon  -->
                                                     <span>
-                                                        <i v-if="lesson.isVideo=='1'" style="color:#666666" class="fas fa-play-circle icon-medium"> </i>
+                                                        <i v-if="lesson.is_video=='1'" style="color:#666666" class="fas fa-play-circle icon-medium"> </i>
                                                         <i v-else style="color:#666666" class="fas fa-file-alt icon-medium"> </i>
                                                     </span>
                                                     <!-- Course title  -->
-                                                    <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{lessonIndex+1}}. {{lesson.name}}</div>
-                                                    <!-- preview link -->
+                                                    <div class="uk-text-truncate uk-margin-small-right "><p class="uk-margin-remove">{{lessonIndex+1}}. {{lesson.name}}</p></div>
                                                 </a>
                                             </div>
-                                            <div v-if="lesson.isPreview" style="color:#666666" class=" uk-width-1-6 uk-visible@s"> <i class="fas fa-play icon-small uk-text-grey"></i>  {{previewText}}</div>
+                                            <div style="color:#666666" class="uk-width-1-6"> <i v-if="lesson.is_preview" class="fas fa-play icon-tiny uk-text-grey uk-visible@s"></i> </div>
                                             <a class="uk-button-icon uk-margin-left uk-width-1-6" @click="removeLesson(lessonIndex, sectionIndex)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
                                         </li>
                                     </ul>
@@ -152,20 +151,13 @@
             },
             addLesson:function (index) {
                 var isPreview = document.querySelector('#preview').checked ? 1 : 0;
-                this.addLessons({'name':document.getElementById(index).value, 'isPreview':isPreview, 'source':[], 'isVideo':this.isVideo}, index);
+                this.addLessons({'name':document.getElementById(index).value, 'is_preview':isPreview, 'source':[], 'is_video':this.isVideo}, index);
             },
             removeLesson:function (lessonIndex, sectionIndex) {
                 this.sections[sectionIndex].lessons.splice(lessonIndex, 1)
             },
             postSection:function () {
                 axios.post('/api/instructor/course/'+this.courseId+'/sections', {'section':this.sections, 'instructorId': this.instructorId})
-                    .then(response=>{
-                        if(response.data.error){
-                            UIkit.notification({message:error.message, status: 'danger'});
-                        }else{
-                            UIkit.notification({message:this.savedSuccessText, status: 'success'});
-                        }
-                    })
             },
             checkSection:function(sections){
                 for (var i=0; i<sections.length; i++){

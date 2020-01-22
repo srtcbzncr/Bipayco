@@ -158,7 +158,7 @@
                                     add-text="@lang('front/auth.add')"
                                     save-text="@lang('front/auth.save')"
                                     select-file-text="@lang('front/auth.select_file')"
-                                    saved-success-text="@lang('front/auth.saved_success')"
+                                    saved-success-text="@lang('front/auth.saved_successful')"
                                     course-id="{{$course->id}}"
                                     instructor-id="{{Auth::user()->instructor->id}}"
                                 > </add-section>

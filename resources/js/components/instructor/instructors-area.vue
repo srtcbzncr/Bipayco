@@ -16,26 +16,6 @@
             </div>
             <form id="instructorForm">
                 <div class="uk-margin-small" id="instructorsArea">
-                    <div class="uk-margin-remove-bottom">
-                        <div class="uk-grid align-items-center">
-                            <input type="text" hidden disabled value="1">
-                            <div class="uk-width-3-5@m uk-margin-small-bottom">
-                                <div class="uk-form-label uk-hidden@m">{{instructorText}}</div>
-                                <input type="text" hidden disabled name="instructorsId[]" :value="userId">
-                                <div class="uk-flex align-items-center">
-                                    <img class="user-profile-tiny uk-circle" :src="userImg">
-                                    <p class="uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right"><b>{{userName}}</b> ({{managerText}})</p>
-                                </div>
-                            </div>
-                            <div class="uk-width-1-5@m uk-margin-small-bottom">
-                                <div class="uk-form-label uk-hidden@m"> {{percentText}}</div>
-                                <input type="number" name="percent[]" class="uk-input uk-padding-remove" max="100" min="1" required>
-                            </div>
-                            <div class="uk-width-1-5@m uk-margin-small-bottom">
-                            </div>
-                        </div>
-                        <hr class="uk-hidden@m uk-margin-medium-top">
-                    </div>
                     <div v-for="(instructor,index) in instructors" class="uk-margin-small">
                         <div class="uk-grid align-items-center">
                             <input type="text" hidden disabled name='instructorsId[]' :value="instructor.id">
@@ -43,14 +23,14 @@
                                 <div class="uk-form-label uk-hidden@m"> {{instructorText}}</div>
                                 <div class="uk-flex align-items-center">
                                     <img class="user-profile-tiny uk-circle" :src="instructor.user.avatar">
-                                    <b class="uk-margin-left">{{instructor.user.first_name}} {{instructor.user.last_name}}</b>
+                                    <p class="uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right"><b>{{instructor.user.first_name}} {{instructor.user.last_name}}</b> <span v-if="instructor.is_manager">({{managerText}})</span></p>
                                 </div>
                             </div>
                             <div class="uk-width-1-5@m uk-margin-small-bottom">
                                 <div class="uk-form-label uk-hidden@m">{{percentText}}</div>
                                 <input type="number" name="percent[]" class="uk-input uk-padding-remove" max="100" min="1" required>
                             </div>
-                            <div class="uk-width-1-5@m uk-margin-small-bottom">
+                            <div v-if="!instructor.is_manager" class="uk-width-1-5@m uk-margin-small-bottom">
                                 <a class="uk-button-icon" @click="removeInstructor(index)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
                             </div>
                         </div>
