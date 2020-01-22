@@ -3069,7 +3069,8 @@ __webpack_require__.r(__webpack_exports__);
     addLesson: function addLesson(index) {
       this.addLessons({
         'name': document.getElementById(index).value,
-        'isPreview': true
+        'isPreview': true,
+        'source': []
       }, index);
     },
     removeLesson: function removeLesson(lessonIndex, sectionIndex) {

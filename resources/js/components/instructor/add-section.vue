@@ -103,7 +103,7 @@
                 this.sections[index].lessons.push(lesson)
             },
             addLesson:function (index) {
-                this.addLessons({'name':document.getElementById(index).value, 'isPreview':true}, index);
+                this.addLessons({'name':document.getElementById(index).value, 'isPreview':true, 'source':[]}, index);
             },
             removeLesson:function (lessonIndex, sectionIndex) {
                 this.sections[sectionIndex].lessons.splice(lessonIndex, 1)
