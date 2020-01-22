@@ -749,8 +749,8 @@ class CourseRepository implements IRepository{
                     $objLesson->is_video = $lesson['isVideo'];
                     $objLesson->no = $key_lesson;
                     $objLesson->long = 1;
-                    $videoPath = Storage::url($data['image']->store('public/videos'));
-                    $objLesson->file_path = $videoPath;
+                    //$videoPath = Storage::url($data['image']->store('public/videos'));
+                    $objLesson->file_path = "boş";
                     $objLesson->preview = $lesson['isPreview'];
                     $objLesson->name = $lesson['name'];
                     $objLesson->save();
