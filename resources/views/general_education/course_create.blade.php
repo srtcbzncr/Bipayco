@@ -156,6 +156,8 @@
                                     add-default-section-text="@lang('front/auth.add_section')"
                                     add-default-lesson-text="@lang('front/auth.add_lesson')"
                                     add-text="@lang('front/auth.add')"
+                                    save-text="@lang('front/auth.save')"
+                                    course-id="{{$course->id}}"
                                 > </add-section>
                             @else
                                 <div>
