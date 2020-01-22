@@ -177,6 +177,9 @@
                         formData.append("sections["+i+"].lessons["+j+"].document", this.sections[i].lessons[i].document);
                     }
                 }
+                for(var pair of formData.entries()){
+                    console.log(pair[1]);
+                }
                 formData.append('instructorId',this.instructorId);
                 axios.post('/api/instructor/course/'+this.courseId+'/sections', formData,{ headers: {'Content-Type': 'multipart/form-data'}})
             },
