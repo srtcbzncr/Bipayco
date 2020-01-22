@@ -160,14 +160,20 @@
                 formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 }).then(result=>result.data)
-                .then(result=>window.location.replace('/instructor/ge/course/create/'+result.result.id));
+                .then(result=>window.location.replace('/instructor/ge/course/create/'+result.result.id))
+                .catch((error) => {
+                    UIkit.notification({message:error.message, status: 'danger'});
+                });
         }else{
             var courseId=document.querySelector('#courseCreateId').value;
             axios.post('/api/instructor/course/create/'+courseId,
                 formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
-                .then(result=>window.location.replace('/instructor/ge/course/create/'+result.data.result.id));
+                .then(result=>window.location.replace('/instructor/ge/course/create/'+result.data.result.id))
+                .catch((error) => {
+                    UIkit.notification({message:error.message, status: 'danger'});
+                });
         }
     }
 
@@ -191,7 +197,10 @@
             var percent=percents[i].value;
             instructors.push({'instructor_id':id,'percent': percent});
         }
-        axios.post('/api/instructor/course/'+courseId+'/instructors',instructors);
+        axios.post('/api/instructor/course/'+courseId+'/instructors',instructors)
+            .catch((error) => {
+                UIkit.notification({message:error.message, status: 'danger'});
+            });
     }
 
     function achievementsPost(courseId) {
@@ -213,7 +222,10 @@
         formData.append('requirements', requirementList);
         formData.append('tags', tagList);
         formData.append('instructor_id', document.getElementById('instructorId').value);
-        axios.post('/api/instructor/course/'+courseId+'/goals', formData);
+        axios.post('/api/instructor/course/'+courseId+'/goals', formData)
+            .catch((error) => {
+                UIkit.notification({message:error.message, status: 'danger'});
+            });
     }
 
 </script>

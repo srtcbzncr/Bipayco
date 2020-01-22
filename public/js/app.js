@@ -2864,6 +2864,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "add-achievements",
   props: {
@@ -2900,7 +2904,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addItem: function addItem(item) {
-      this.items.push(item);
+      if (item.trim() != "" && item != null && item != undefined) {
+        this.items.push(item);
+      }
     },
     add: function add() {
       this.addItem(document.getElementById(this.id).value);
@@ -3087,12 +3093,18 @@ __webpack_require__.r(__webpack_exports__);
     isPreviewText: {
       type: String,
       "default": 'Önizleme'
+    },
+    savedSuccessText: {
+      type: String,
+      "default": 'Başarıyla Kaydedildi'
     }
   },
   computed: {},
   methods: {
     addSections: function addSections(section) {
-      this.sections.push(section);
+      if (section.name.trim() != "" && section.name != null && section.name != undefined) {
+        this.sections.push(section);
+      }
     },
     addSection: function addSection() {
       this.addSections({
@@ -3104,7 +3116,9 @@ __webpack_require__.r(__webpack_exports__);
       this.sections.splice(index, 1);
     },
     addLessons: function addLessons(lesson, index) {
-      this.sections[index].lessons.push(lesson);
+      if (lesson.name.trim() != "" && lesson.name != null && lesson.name != undefined) {
+        this.sections[index].lessons.push(lesson);
+      }
     },
     addLesson: function addLesson(index) {
       var isPreview = document.querySelector('#preview').checked ? 1 : 0;
@@ -3122,8 +3136,11 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/api/instructor/course/' + this.courseId + '/sections', {
         'section': this.sections,
         'instructorId': this.instructorId
-      }).then(function (response) {
-        return console.log(response);
+      })["catch"](function (error) {
+        UIkit.notification({
+          message: error.message,
+          status: 'danger'
+        });
       });
     }
   }
@@ -7334,30 +7351,45 @@ var render = function() {
         "ul",
         _vm._l(_vm.items, function(item, index) {
           return _c("li", [
-            _c("div", { staticClass: "uk-flex" }, [
-              _c("p", [_vm._v(_vm._s(item))]),
+            _c("div", { staticClass: "uk-flex align-items-center uk-margin" }, [
+              _c("div", { staticClass: "uk-width-5-6 uk-flex uk-flex-wrap" }, [
+                _c(
+                  "p",
+                  {
+                    staticClass: "uk-margin-remove",
+                    staticStyle: {
+                      "text-overflow": "ellipsis",
+                      overflow: "hidden"
+                    }
+                  },
+                  [_vm._v(_vm._s(item))]
+                )
+              ]),
               _vm._v(" "),
               _c("input", {
                 attrs: { name: _vm.inputName, hidden: "", disabled: "" },
                 domProps: { value: item }
               }),
               _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "uk-button-icon uk-margin-left",
-                  on: {
-                    click: function($event) {
-                      return _vm.removeItem(index)
+              _c("div", { staticClass: "uk-width-1-6" }, [
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right",
+                    on: {
+                      click: function($event) {
+                        return _vm.removeItem(index)
+                      }
                     }
-                  }
-                },
-                [
-                  _c("i", {
-                    staticClass: "fas fa-trash-alt text-danger icon-small"
-                  })
-                ]
-              )
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fas fa-trash-alt text-danger icon-small"
+                    })
+                  ]
+                )
+              ])
             ])
           ])
         }),

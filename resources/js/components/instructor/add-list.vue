@@ -7,10 +7,14 @@
         <form class="uk-margin-medium">
             <ul>
                 <li v-for="(item,index) in items">
-                    <div class="uk-flex">
-                        <p>{{item}}</p>
+                    <div class="uk-flex align-items-center uk-margin">
+                        <div class="uk-width-5-6 uk-flex uk-flex-wrap">
+                            <p class="uk-margin-remove" style="text-overflow: ellipsis; overflow:hidden;">{{item}}</p>
+                        </div>
                         <input :name="inputName" hidden disabled :value="item">
-                        <a class="uk-button-icon uk-margin-left" @click="removeItem(index)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
+                        <div class="uk-width-1-6">
+                            <a class="uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right" @click="removeItem(index)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
+                        </div>
                     </div>
                 </li>
             </ul>
@@ -55,7 +59,9 @@
         },
         methods:{
             addItem:function (item) {
-                this.items.push(item);
+                if(item.trim()!=""&&item!=null&&item!=undefined){
+                    this.items.push(item);
+                }
             },
             add:function(){
               this.addItem(document.getElementById(this.id).value);

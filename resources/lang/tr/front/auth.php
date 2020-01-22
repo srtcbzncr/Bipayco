@@ -121,5 +121,6 @@ return [
     'add_achievement'=>'Kazanım Ekle',
     'add_lesson'=>'Ders Ekle',
     'add_section'=>'Bölüm Ekle',
-    'preview'=>'Önizle'
+    'preview'=>'Önizle',
+    'saved_successful'=>'Başarıyla Kaydedildi'
 ];

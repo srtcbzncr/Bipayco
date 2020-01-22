@@ -99,20 +99,26 @@
                                             <a href="#" class="uk-link-reset">
                                                 <!-- Play icon  -->
                                                 <span>
-                                                    @if(Auth::check()&& in_array($lesson->id, $completed) )<i style="color:#2ED24A" class="fas fa-check-circle icon-medium" uk-tooltip="title: @lang('front/auth.watch_again')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>
-                                                    @else<i style="color:#666666" class="fas fa-play-circle icon-medium" uk-tooltip="title: @lang('front/auth.watch')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>@endif
+                                                    @if(Auth::check()&& in_array($lesson->id, $completed) )
+                                                        <i style="color:#2ED24A" class="fas fa-check-circle icon-medium" uk-tooltip="title: @lang('front/auth.watch_again')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>
+                                                    @elseif($lesson->is_video)
+                                                        <i style="color:#666666" class="fas fa-play-circle icon-medium" uk-tooltip="title: @lang('front/auth.watch')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>
+                                                    @else
+                                                        <i style="color:#666666" class="fas fa-file-alt icon-medium" uk-tooltip="title: @lang('front/auth.watch')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>
+                                                    @endif
                                                 </span>
                                                 <!-- Course title  -->
                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{$lesson->name}}</div>
+                                                </a>
                                             @if($lesson->preview)
                                                <!-- preview link -->
-                                                </a>
                                                 <a style="color:#666666" class="uk-link-reset uk-margin-xlarge-right uk-position-center-right uk-padding-small uk-text-small uk-visible@s" href="#preview-video-1" uk-toggle> <i class="fas fa-play icon-small uk-text-grey"></i> @lang('front/auth.preview')  </a>
                                                 <!-- time -->
-                                                <span style="color:#666666" class="uk-visible@m uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{$lesson->long}}</span>
-                                            @else
-                                                <span style="color:#666666" class="uk-visible@m uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{$lesson->long}}</span>
-                                                </a>
+                                                @if($lesson->is_video)
+                                                   <span style="color:#666666" class="uk-visible@m uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{$lesson->long}}</span>
+                                                @endif
+                                            @elseif($lesson->is_video)
+                                                    <span style="color:#666666" class="uk-visible@m uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{$lesson->long}}</span>
                                             @endif
                                         </li>
                                         @empty

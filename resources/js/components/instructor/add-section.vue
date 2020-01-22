@@ -125,13 +125,19 @@
             isPreviewText:{
                 type:String,
                 default:'Önizleme'
+            },
+            savedSuccessText:{
+                type:String,
+                default:'Başarıyla Kaydedildi'
             }
         },
         computed:{
         },
         methods:{
             addSections:function (section) {
-                this.sections.push(section);
+                if(section.name.trim()!="" && section.name!=null && section.name!=undefined) {
+                    this.sections.push(section);
+                }
             },
             addSection:function () {
                 this.addSections({'name':document.getElementById('sectionInput').value, 'lessons':[]})
@@ -140,7 +146,9 @@
                 this.sections.splice(index,1)
             },
             addLessons: function (lesson,index) {
-                this.sections[index].lessons.push(lesson)
+                if(lesson.name.trim()!=""&&lesson.name!=null&&lesson.name!=undefined) {
+                    this.sections[index].lessons.push(lesson)
+                }
             },
             addLesson:function (index) {
                 var isPreview = document.querySelector('#preview').checked ? 1 : 0;
@@ -150,7 +158,10 @@
                 this.sections[sectionIndex].lessons.splice(lessonIndex, 1)
             },
             postSection:function () {
-                axios.post('/api/instructor/course/'+this.courseId+'/sections', {'section':this.sections, 'instructorId': this.instructorId}).then(response=>console.log(response))
+                axios.post('/api/instructor/course/'+this.courseId+'/sections', {'section':this.sections, 'instructorId': this.instructorId})
+                    .catch((error) => {
+                        UIkit.notification({message:error.message, status: 'danger'});
+                    });
             }
         },
     }
