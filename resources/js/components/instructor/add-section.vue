@@ -27,14 +27,16 @@
                                                 </div>
                                                 <div>
                                                     <input class="uk-padding-small uk-margin-small-top uk-input uk-width" type="text" :id="sectionIndex" :placeholder="addDefaultLessonText">
-                                                    <div v-if="isVideo=='1'" uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
-                                                        <input name="document" type="file" accept="video/*" id="courseVideo" required>
-                                                        <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
-                                                    </div>
-                                                    <div v-else uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
-                                                        <input name="document" type="file" accept="application/pdf,application/vnd.ms-excel" id="coursePdf" required>
-                                                        <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
-                                                    </div>
+                                                    <form class="uk-margin-remove uk-padding-remove">
+                                                        <div v-if="isVideo=='1'" uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
+                                                            <input name="document" type="file" accept="video/*" id="courseVideo" required>
+                                                            <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
+                                                        </div>
+                                                        <div v-else uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
+                                                            <input name="document" type="file" accept="application/pdf,application/vnd.ms-excel" id="coursePdf" required>
+                                                            <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
+                                                        </div>
+                                                    </form>
                                                     <div class="uk-margin uk-flex justify-content-start align-items-center">
                                                         <label>
                                                             <input class="uk-checkbox" type="checkbox" id="preview">
@@ -57,7 +59,7 @@
                                                     <div class="uk-text-truncate uk-margin-small-right "><p class="uk-margin-remove">{{lessonIndex+1}}. {{lesson.name}}</p></div>
                                                 </a>
                                             </div>
-                                            <div style="color:#666666" class="uk-width-1-6"> <i v-if="lesson.is_preview" class="fas fa-play icon-tiny uk-text-grey uk-visible@s"></i> </div>
+                                            <div style="color:#666666" class="uk-width-1-6"> <i v-if="lesson.preview" class="fas fa-play icon-tiny uk-text-grey uk-visible@s"></i> </div>
                                             <a class="uk-button-icon uk-margin-left uk-width-1-6" @click="removeLesson(lessonIndex, sectionIndex)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
                                         </li>
                                     </ul>
@@ -151,13 +153,19 @@
             },
             addLesson:function (index) {
                 var isPreview = document.querySelector('#preview').checked ? 1 : 0;
-                this.addLessons({'name':document.getElementById(index).value, 'is_preview':isPreview, 'source':[], 'is_video':this.isVideo}, index);
+                var formData=new FormData;
+                if(this.isVideo=='1'){
+                    formData.append('file',document.querySelector('#courseVideo').files[0]);
+                }else{
+                    formData.append('file',document.querySelector('#coursePdf').files[0]);
+                }
+                this.addLessons({'name':document.getElementById(index).value, 'is_preview':isPreview, 'source':[], 'is_video':this.isVideo, 'document':formData}, index);
             },
             removeLesson:function (lessonIndex, sectionIndex) {
                 this.sections[sectionIndex].lessons.splice(lessonIndex, 1)
             },
             postSection:function () {
-                axios.post('/api/instructor/course/'+this.courseId+'/sections', {'section':this.sections, 'instructorId': this.instructorId})
+                axios.post('/api/instructor/course/'+this.courseId+'/sections', {'section':this.sections, 'instructorId': this.instructorId},{ headers: {'Content-Type': 'multipart/form-data'}})
             },
             checkSection:function(sections){
                 for (var i=0; i<sections.length; i++){

@@ -3044,6 +3044,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "add-section",
   data: function data() {
@@ -3121,11 +3123,20 @@ __webpack_require__.r(__webpack_exports__);
     },
     addLesson: function addLesson(index) {
       var isPreview = document.querySelector('#preview').checked ? 1 : 0;
+      var formData = new FormData();
+
+      if (this.isVideo == '1') {
+        formData.append('file', document.querySelector('#courseVideo').files[0]);
+      } else {
+        formData.append('file', document.querySelector('#coursePdf').files[0]);
+      }
+
       this.addLessons({
         'name': document.getElementById(index).value,
         'is_preview': isPreview,
         'source': [],
-        'is_video': this.isVideo
+        'is_video': this.isVideo,
+        'document': formData
       }, index);
     },
     removeLesson: function removeLesson(lessonIndex, sectionIndex) {
@@ -3135,6 +3146,10 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/api/instructor/course/' + this.courseId + '/sections', {
         'section': this.sections,
         'instructorId': this.instructorId
+      }, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
       });
     },
     checkSection: function checkSection(sections) {
@@ -7627,74 +7642,85 @@ var render = function() {
                                               }
                                             }),
                                             _vm._v(" "),
-                                            _vm.isVideo == "1"
-                                              ? _c(
-                                                  "div",
-                                                  {
-                                                    staticClass:
-                                                      "uk-flex uk-flex-center uk-margin",
-                                                    attrs: {
-                                                      "uk-form-custom":
-                                                        "target: true"
-                                                    }
-                                                  },
-                                                  [
-                                                    _c("input", {
-                                                      attrs: {
-                                                        name: "document",
-                                                        type: "file",
-                                                        accept: "video/*",
-                                                        id: "courseVideo",
-                                                        required: ""
-                                                      }
-                                                    }),
-                                                    _vm._v(" "),
-                                                    _c("input", {
-                                                      staticClass: "uk-input",
-                                                      attrs: {
-                                                        type: "text",
-                                                        tabindex: "-1",
-                                                        disabled: "",
-                                                        placeholder:
-                                                          _vm.selectFileText
-                                                      }
-                                                    })
-                                                  ]
-                                                )
-                                              : _c(
-                                                  "div",
-                                                  {
-                                                    staticClass:
-                                                      "uk-flex uk-flex-center uk-margin",
-                                                    attrs: {
-                                                      "uk-form-custom":
-                                                        "target: true"
-                                                    }
-                                                  },
-                                                  [
-                                                    _c("input", {
-                                                      attrs: {
-                                                        name: "document",
-                                                        type: "file",
-                                                        accept:
-                                                          "application/pdf,application/vnd.ms-excel",
-                                                        id: "coursePdf",
-                                                        required: ""
-                                                      }
-                                                    }),
-                                                    _vm._v(" "),
-                                                    _c("input", {
-                                                      staticClass: "uk-input",
-                                                      attrs: {
-                                                        type: "text",
-                                                        tabindex: "-1",
-                                                        disabled: "",
-                                                        placeholder:
-                                                          _vm.selectFileText
-                                                      }
-                                                    })
-                                                  ]
-                                                ),
+                                            _c(
+                                              "form",
+                                              {
+                                                staticClass:
+                                                  "uk-margin-remove uk-padding-remove"
+                                              },
+                                              [
+                                                _vm.isVideo == "1"
+                                                  ? _c(
+                                                      "div",
+                                                      {
+                                                        staticClass:
+                                                          "uk-flex uk-flex-center uk-margin",
+                                                        attrs: {
+                                                          "uk-form-custom":
+                                                            "target: true"
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("input", {
+                                                          attrs: {
+                                                            name: "document",
+                                                            type: "file",
+                                                            accept: "video/*",
+                                                            id: "courseVideo",
+                                                            required: ""
+                                                          }
+                                                        }),
+                                                        _vm._v(" "),
+                                                        _c("input", {
+                                                          staticClass:
+                                                            "uk-input",
+                                                          attrs: {
+                                                            type: "text",
+                                                            tabindex: "-1",
+                                                            disabled: "",
+                                                            placeholder:
+                                                              _vm.selectFileText
+                                                          }
+                                                        })
+                                                      ]
+                                                    )
+                                                  : _c(
+                                                      "div",
+                                                      {
+                                                        staticClass:
+                                                          "uk-flex uk-flex-center uk-margin",
+                                                        attrs: {
+                                                          "uk-form-custom":
+                                                            "target: true"
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("input", {
+                                                          attrs: {
+                                                            name: "document",
+                                                            type: "file",
+                                                            accept:
+                                                              "application/pdf,application/vnd.ms-excel",
+                                                            id: "coursePdf",
+                                                            required: ""
+                                                          }
+                                                        }),
+                                                        _vm._v(" "),
+                                                        _c("input", {
+                                                          staticClass:
+                                                            "uk-input",
+                                                          attrs: {
+                                                            type: "text",
+                                                            tabindex: "-1",
+                                                            disabled: "",
+                                                            placeholder:
+                                                              _vm.selectFileText
+                                                          }
+                                                        })
+                                                      ]
+                                                    )
+                                              ]
+                                            ),
                                             _vm._v(" "),
                                             _c(
                                               "div",
@@ -7836,7 +7862,7 @@ var render = function() {
                                                 }
                                               },
                                               [
-                                                lesson.is_preview
+                                                lesson.preview
                                                   ? _c("i", {
                                                       staticClass:
                                                         "fas fa-play icon-tiny uk-text-grey uk-visible@s"
