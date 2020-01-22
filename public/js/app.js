@@ -3038,6 +3038,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "add-section",
   data: function data() {
@@ -7720,12 +7721,7 @@ var render = function() {
                                               _c("i", {
                                                 staticClass: "fas fa-plus"
                                               }),
-                                              _vm._v(" "),
-                                              _c(
-                                                "span",
-                                                { staticClass: "uk-hidden@m" },
-                                                [_vm._v(_vm._s(_vm.addText))]
-                                              )
+                                              _vm._v(" " + _vm._s(_vm.addText))
                                             ]
                                           )
                                         ])
@@ -7741,7 +7737,7 @@ var render = function() {
                                           [
                                             _c(
                                               "div",
-                                              { staticClass: "uk-width-5-6" },
+                                              { staticClass: "uk-width-4-6" },
                                               [
                                                 _c(
                                                   "a",
@@ -7751,7 +7747,23 @@ var render = function() {
                                                     attrs: { href: "#" }
                                                   },
                                                   [
-                                                    _vm._m(0, true),
+                                                    _c("span", [
+                                                      lesson.isVideo == "1"
+                                                        ? _c("i", {
+                                                            staticClass:
+                                                              "fas fa-play-circle icon-medium",
+                                                            staticStyle: {
+                                                              color: "#666666"
+                                                            }
+                                                          })
+                                                        : _c("i", {
+                                                            staticClass:
+                                                              "fas fa-file-alt icon-medium",
+                                                            staticStyle: {
+                                                              color: "#666666"
+                                                            }
+                                                          })
+                                                    ]),
                                                     _vm._v(" "),
                                                     _c(
                                                       "div",
@@ -7768,36 +7780,34 @@ var render = function() {
                                                             _vm._s(lesson.name)
                                                         )
                                                       ]
-                                                    ),
-                                                    _vm._v(" "),
-                                                    lesson.isPreview
-                                                      ? _c(
-                                                          "div",
-                                                          {
-                                                            staticClass:
-                                                              "uk-link-reset uk-margin-xlarge-right uk-padding-small uk-text-small uk-visible@s",
-                                                            staticStyle: {
-                                                              color: "#666666"
-                                                            }
-                                                          },
-                                                          [
-                                                            _c("i", {
-                                                              staticClass:
-                                                                "fas fa-play icon-small uk-text-grey"
-                                                            }),
-                                                            _vm._v(
-                                                              "  " +
-                                                                _vm._s(
-                                                                  _vm.previewText
-                                                                )
-                                                            )
-                                                          ]
-                                                        )
-                                                      : _vm._e()
+                                                    )
                                                   ]
                                                 )
                                               ]
                                             ),
+                                            _vm._v(" "),
+                                            lesson.isPreview
+                                              ? _c(
+                                                  "div",
+                                                  {
+                                                    staticClass:
+                                                      " uk-width-1-6 uk-visible@s",
+                                                    staticStyle: {
+                                                      color: "#666666"
+                                                    }
+                                                  },
+                                                  [
+                                                    _c("i", {
+                                                      staticClass:
+                                                        "fas fa-play icon-small uk-text-grey"
+                                                    }),
+                                                    _vm._v(
+                                                      "  " +
+                                                        _vm._s(_vm.previewText)
+                                                    )
+                                                  ]
+                                                )
+                                              : _vm._e(),
                                             _vm._v(" "),
                                             _c(
                                               "a",
@@ -7870,19 +7880,7 @@ var render = function() {
     2
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", [
-      _c("i", {
-        staticClass: "fas fa-play-circle icon-medium",
-        staticStyle: { color: "#666666" }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

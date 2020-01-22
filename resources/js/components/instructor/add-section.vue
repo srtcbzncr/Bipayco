@@ -42,22 +42,23 @@
                                                         </label>
                                                     </div>
                                                 </div>
-                                                <button class="uk-button uk-button-success uk-margin-small-top uk-width" @click="addLesson(sectionIndex)"><i class="fas fa-plus"></i> <span class="uk-hidden@m">{{addText}}</span></button>
+                                                <button class="uk-button uk-button-success uk-margin-small-top uk-width" @click="addLesson(sectionIndex)"><i class="fas fa-plus"></i> {{addText}}</button>
                                             </div>
                                         </li>
                                         <li v-for="(lesson,lessonIndex) in section.lessons" class="uk-flex">
-                                            <div class="uk-width-5-6">
+                                            <div class="uk-width-4-6">
                                                 <a href="#" class="uk-link-reset">
                                                     <!-- Play icon  -->
                                                     <span>
-                                                        <i style="color:#666666" class="fas fa-play-circle icon-medium"> </i>
+                                                        <i v-if="lesson.isVideo=='1'" style="color:#666666" class="fas fa-play-circle icon-medium"> </i>
+                                                        <i v-else style="color:#666666" class="fas fa-file-alt icon-medium"> </i>
                                                     </span>
                                                     <!-- Course title  -->
                                                     <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{lessonIndex+1}}. {{lesson.name}}</div>
                                                     <!-- preview link -->
-                                                    <div v-if="lesson.isPreview" style="color:#666666" class="uk-link-reset uk-margin-xlarge-right uk-padding-small uk-text-small uk-visible@s"> <i class="fas fa-play icon-small uk-text-grey"></i>  {{previewText}}</div>
                                                 </a>
                                             </div>
+                                            <div v-if="lesson.isPreview" style="color:#666666" class=" uk-width-1-6 uk-visible@s"> <i class="fas fa-play icon-small uk-text-grey"></i>  {{previewText}}</div>
                                             <a class="uk-button-icon uk-margin-left uk-width-1-6" @click="removeLesson(lessonIndex, sectionIndex)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
                                         </li>
                                     </ul>
