@@ -476,14 +476,14 @@ class CourseController extends Controller
         $repo = new CourseRepository();
         $data = $request->toArray();
         $course = Course::find($id);
-        $user = User::find(Instructor::find($request->instructor_id)->user->id);
+        $user = User::find(Instructor::find($data['instructorId'])->user->id);
         if($user->can('checkInstructor',$course)){
             // Operations
-            $respSection = $repo->syncSections($id,$data);
-            $respLesson = $repo->syncLesson($id,$data);
-            $respSource = $repo->syncSource($id,$data);
+            $respSection = $repo->syncSections($id,$data['section']);
+            $respLesson = $repo->syncLesson($id,$data['section']);
+            $respSource = $repo->syncSource($id,$data['section']);
 
-            if($respSection->getResult() and $respLesson->getResult() and $respSource->getResult()){
+            if($respSection->getResult() and $respLesson->getResult()){
                 return response()->json([
                     'error' => false,
                     'result' => 'Kurs Güncellendi'
@@ -500,6 +500,25 @@ class CourseController extends Controller
             return response()->json([
                 'error' => true,
                 'message' => 'Eğitimci değilsin veya bu kursun eğitimcisi değilsin'
+            ]);
+        }
+    }
+    public function sectionsGet($id){
+        // Initializing
+        $repo = new CourseRepository();
+
+        // Operations
+        $resp = $repo->syncSectionGet($id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'data' => 'Bir hata meydana geldi'
             ]);
         }
     }
