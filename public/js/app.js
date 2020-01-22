@@ -3127,9 +3127,9 @@ __webpack_require__.r(__webpack_exports__);
       var doc;
 
       if (this.isVideo == '1') {
-        doc = document.querySelector('#courseVideo');
+        doc = document.querySelector('#courseVideo').files[0];
       } else {
-        doc = document.querySelector('#coursePdf');
+        doc = document.querySelector('#coursePdf').files[0];
       }
 
       this.addLessons({
@@ -3154,7 +3154,7 @@ __webpack_require__.r(__webpack_exports__);
           formData.append("sections[" + i + "].lessons[" + j + "].is_preview", this.sections[i].lessons[i].is_preview);
           formData.append("sections[" + i + "].lessons[" + j + "].is_video", this.sections[i].lessons[i].is_video);
           formData.append("sections[" + i + "].lessons[" + j + "].source", this.sections[i].lessons[i].source);
-          formData.append("sections[" + i + "].lessons[" + j + "].document", this.sections[i].lessons[i].document.files[0]);
+          formData.append("sections[" + i + "].lessons[" + j + "].document", this.sections[i].lessons[i].document);
         }
       }
 

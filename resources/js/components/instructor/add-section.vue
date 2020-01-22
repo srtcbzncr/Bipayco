@@ -156,9 +156,9 @@
                 var isPreview = document.querySelector('#preview').checked ? 1 : 0;
                 var doc;
                 if(this.isVideo=='1'){
-                    doc=document.querySelector('#courseVideo');
+                    doc=document.querySelector('#courseVideo').files[0];
                 }else{
-                    doc=document.querySelector('#coursePdf');
+                    doc=document.querySelector('#coursePdf').files[0];
                 }
                 this.addLessons({'name':document.getElementById(index).value, 'is_preview':isPreview, 'source':[], 'is_video':this.isVideo, 'document':doc }, index);
             },
@@ -174,7 +174,7 @@
                         formData.append("sections["+i+"].lessons["+j+"].is_preview", this.sections[i].lessons[i].is_preview);
                         formData.append("sections["+i+"].lessons["+j+"].is_video", this.sections[i].lessons[i].is_video);
                         formData.append("sections["+i+"].lessons["+j+"].source", this.sections[i].lessons[i].source);
-                        formData.append("sections["+i+"].lessons["+j+"].document", this.sections[i].lessons[i].document.files[0]);
+                        formData.append("sections["+i+"].lessons["+j+"].document", this.sections[i].lessons[i].document);
                     }
                 }
                 for (var pair of formData.entries()) {
