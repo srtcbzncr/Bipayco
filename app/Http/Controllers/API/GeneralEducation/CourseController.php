@@ -471,7 +471,7 @@ class CourseController extends Controller
         }
     }
 
-    public function sectionsPost($id,Request $request){
+    /*public function sectionsPost($id,Request $request){
         return $request->all();
         // Initializing
         $repo = new CourseRepository();
@@ -503,7 +503,56 @@ class CourseController extends Controller
                 'message' => 'Eğitimci değilsin veya bu kursun eğitimcisi değilsin'
             ]);
         }
+    }*/
+    public function sectionsPost($id = null,Request $request){
+        // Initializing
+        $repo = new SectionRepository();
+
+        // Operations
+        $resp = null;
+        if($id == null){
+            $resp = $repo->create($request->toArray());
+        }
+        else{
+            $resp = $repo->update($id,$request->toArray());
+        }
+
+        // Response
+        if($resp->getResult()){
+            return response()->json([
+               'error' => false,
+               'message' => 'Section Eklendi'
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Section Eklenemedi'
+            ]);
+        }
     }
+    public function sectionsDelete($id){
+        // Initializing
+        $repo = new SectionRepository();
+
+        // Operations
+        $resp = null;
+        $resp=$repo->delete($id);
+        // Response
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Section Silindi'
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Section Silinemedi'
+            ]);
+        }
+    }
+
     public function sectionsGet($id){
         // Initializing
         $repo = new CourseRepository();
