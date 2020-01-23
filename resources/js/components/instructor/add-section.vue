@@ -78,12 +78,12 @@
 </template>
 
 <script>
+    import {mapState, mapActions} from "vuex";
+
     export default {
         name: "add-section",
         data(){
             return{
-                sections:[],
-                files:[],
                 isVideo:1,
             }
         },
@@ -134,15 +134,19 @@
             }
         },
         computed:{
+            ...mapState([
+                'sections',
+            ]),
         },
         methods:{
-            addSections:function (section) {
-                if(section.name.trim()!="" && section.name!=null && section.name!=undefined) {
-                    this.sections.push(section);
-                }
-            },
+            ...mapActions([
+                'loadSections',
+            ]),
             addSection:function () {
-                this.addSections({'name':document.getElementById('sectionInput').value, 'lessons':[]})
+                var formData=new FormData();
+                formData.append('name', document.getElementById('sectionInput').value);
+                formData.append('lessons', []);
+                axios.post('/api/instructor/course/'+this.courseId+'/sections', formData).then(response=>console.log(response)).then(this.$store.dispatch('loadSections',this.courseId))
             },
             removeSection:function (index) {
                 this.sections.splice(index,1)
@@ -183,20 +187,11 @@
                 formData.append('instructorId',this.instructorId);
                 axios.post('/api/instructor/course/'+this.courseId+'/sections', formData,{ headers: {'Content-Type': 'multipart/form-data'}})
             },
-            checkSection:function(sections){
-                for (var i=0; i<sections.length; i++){
-                    this.addSections({'name':sections[i].name,'lessons':[]});
-                    for(var j=0; j<sections[i].lessons.length;j++){
-                        this.addLessons(sections[i].lessons[j],i)
-                    }
-                }
-            }
         },
-        created() {
-            axios.get('/api/instructor/course/'+this.courseId+'/sections')
-                .then(response=>response.data.data)
-                .then(response=>this.checkSection(response.sections));
-        }
+        mounted() {
+            this.$store.dispatch('loadSections',this.courseId);
+            console.log('çalışıyor')
+        },
     }
 </script>
 

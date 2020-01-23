@@ -2967,6 +2967,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3046,12 +3053,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "add-section",
   data: function data() {
     return {
-      sections: [],
-      files: [],
       isVideo: 1
     };
   },
@@ -3101,18 +3107,15 @@ __webpack_require__.r(__webpack_exports__);
       "default": 'Başarıyla Kaydedildi'
     }
   },
-  computed: {},
-  methods: {
-    addSections: function addSections(section) {
-      if (section.name.trim() != "" && section.name != null && section.name != undefined) {
-        this.sections.push(section);
-      }
-    },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['sections'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections']), {
     addSection: function addSection() {
-      this.addSections({
-        'name': document.getElementById('sectionInput').value,
-        'lessons': []
-      });
+      var formData = new FormData();
+      formData.append('name', document.getElementById('sectionInput').value);
+      formData.append('lessons', []);
+      axios.post('/api/instructor/course/' + this.courseId + '/sections', formData).then(function (response) {
+        return console.log(response);
+      }).then(this.$store.dispatch('loadSections', this.courseId));
     },
     removeSection: function removeSection(index) {
       this.sections.splice(index, 1);
@@ -3188,28 +3191,11 @@ __webpack_require__.r(__webpack_exports__);
           'Content-Type': 'multipart/form-data'
         }
       });
-    },
-    checkSection: function checkSection(sections) {
-      for (var i = 0; i < sections.length; i++) {
-        this.addSections({
-          'name': sections[i].name,
-          'lessons': []
-        });
-
-        for (var j = 0; j < sections[i].lessons.length; j++) {
-          this.addLessons(sections[i].lessons[j], i);
-        }
-      }
     }
-  },
-  created: function created() {
-    var _this = this;
-
-    axios.get('/api/instructor/course/' + this.courseId + '/sections').then(function (response) {
-      return response.data.data;
-    }).then(function (response) {
-      return _this.checkSection(response.sections);
-    });
+  }),
+  mounted: function mounted() {
+    this.$store.dispatch('loadSections', this.courseId);
+    console.log('çalışıyor');
   }
 });
 
@@ -23372,14 +23358,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!************************************************************!*\
   !*** ./resources/js/components/instructor/add-section.vue ***!
   \************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _add_section_vue_vue_type_template_id_7962b85c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./add-section.vue?vue&type=template&id=7962b85c&scoped=true& */ "./resources/js/components/instructor/add-section.vue?vue&type=template&id=7962b85c&scoped=true&");
 /* harmony import */ var _add_section_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./add-section.vue?vue&type=script&lang=js& */ "./resources/js/components/instructor/add-section.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _add_section_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _add_section_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -23409,7 +23396,7 @@ component.options.__file = "resources/js/components/instructor/add-section.vue"
 /*!*************************************************************************************!*\
   !*** ./resources/js/components/instructor/add-section.vue?vue&type=script&lang=js& ***!
   \*************************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -24259,7 +24246,8 @@ var state = {
   categoryCourses: {},
   courseReviews: {},
   myCourses: {},
-  canComment: {}
+  canComment: {},
+  sections: {}
 };
 var getters = {};
 var mutations = {
@@ -24291,6 +24279,10 @@ var mutations = {
   },
   setSubCategory: function setSubCategory(state, index) {
     state.subCategories = index.data.sub_categories;
+  },
+  setSections: function setSections(state, index) {
+    state.sections = index.data.sections;
+    console.log(index.data.sections);
   }
 };
 var actions = {
@@ -24355,6 +24347,12 @@ var actions = {
     var commit = _ref10.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/category/' + id).then(function (response) {
       return commit('setSubCategory', response.data);
+    });
+  },
+  loadSections: function loadSections(_ref11, courseId) {
+    var commit = _ref11.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/instructor/course/' + courseId + '/sections').then(function (response) {
+      return commit('setSections', response.data);
     });
   }
 };

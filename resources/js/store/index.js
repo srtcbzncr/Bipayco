@@ -14,6 +14,7 @@ const state={
     courseReviews:{},
     myCourses:{},
     canComment:{},
+    sections:{},
 };
 const getters={};
 const mutations={
@@ -44,6 +45,10 @@ const mutations={
     setSubCategory(state,index){
         state.subCategories=index.data.sub_categories;
     },
+    setSections(state,index){
+        state.sections=index.data.sections;
+        console.log(index.data.sections)
+    }
 };
 const actions={
     /*province.vue*/
@@ -89,6 +94,12 @@ const actions={
         Axios.get('/api/category/'+id)
             .then(response =>commit('setSubCategory', response.data))
     },
+    loadSections({commit},courseId){
+        Axios.get('/api/instructor/course/'+courseId+'/sections')
+            .then(response=>commit('setSections',response.data));
+
+    }
+
 };
 
 const store=new Vuex.Store({
