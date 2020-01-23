@@ -2,6 +2,7 @@
 
 namespace App\Repositories\GeneralEducation;
 
+use App\Models\GeneralEducation\Lesson;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use App\Repositories\GeneralEducation\LessonRepository;
@@ -64,6 +65,7 @@ class SectionRepository implements IRepository{
             $object->course_id = $data['courseId'];
             $object->no = 1;
             $object->name = $data['name'];
+            $object->active = true;
             $object->save();
         }
         catch(\Exception $e){
@@ -109,7 +111,16 @@ class SectionRepository implements IRepository{
 
         // Operations
         try{
-            Section::destroy($id);
+            $section = Section::find($id);
+            $lessons = Lesson::where('section_id',$id);
+            foreach ($lessons as $lesson){
+                $lesson->sources()->delete();
+                $lesson->sources()->delete();
+                $lesson->sources()->questions();
+                $lesson->sources()->completed();
+                $lesson->delete();
+            }
+            $section->delete();
         }
         catch(\Exception $e){
             $error = $e;

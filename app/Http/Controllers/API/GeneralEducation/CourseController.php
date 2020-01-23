@@ -504,7 +504,7 @@ class CourseController extends Controller
             ]);
         }
     }*/
-    public function sectionsPost($section_id = null,Request $request){
+    public function sectionsPost($id,$section_id = null,Request $request){
         // Initializing
         $repo = new SectionRepository();
 
@@ -531,13 +531,13 @@ class CourseController extends Controller
             ]);
         }
     }
-    public function sectionsDelete($id){
+    public function sectionsDelete($id,$section_id){
         // Initializing
         $repo = new SectionRepository();
 
         // Operations
         $resp = null;
-        $resp=$repo->delete($id);
+        $resp=$repo->delete($section_id);
         // Response
         if($resp->getResult()){
             return response()->json([
