@@ -95,7 +95,7 @@ const actions={
             .then(response =>commit('setSubCategory', response.data))
     },
     loadSections({commit},courseId){
-        Axios.get('/api/instructor/course/'+courseId+'/sections')
+        Axios.get('/api/instructor/course/'+courseId+'/sections/get')
             .then(response=>commit('setSections',response.data));
 
     }

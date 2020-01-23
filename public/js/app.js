@@ -3113,12 +3113,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var formData = new FormData();
       formData.append('name', document.getElementById('sectionInput').value);
       formData.append('courseId', this.courseId);
-      axios.post('/api/instructor/course/' + this.courseId + '/sections', formData).then(function (response) {
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/create', formData).then(function (response) {
         return console.log(response);
       }).then(this.$store.dispatch('loadSections', this.courseId));
     },
-    removeSection: function removeSection(index) {
-      this.sections.splice(index, 1);
+    removeSection: function removeSection(sectionId) {
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/delete/' + sectionId).then(this.$store.dispatch('loadSections', this.courseId));
     },
     addLessons: function addLessons(lesson, index) {
       if (lesson.name.trim() != "" && lesson.name != null && lesson.name != undefined) {
@@ -7939,7 +7939,7 @@ var render = function() {
                 staticClass: "uk-button-icon uk-width-1-6 uk-margin-left",
                 on: {
                   click: function($event) {
-                    return _vm.removeSection(sectionIndex)
+                    return _vm.removeSection(section.id)
                   }
                 }
               },
@@ -24351,7 +24351,7 @@ var actions = {
   },
   loadSections: function loadSections(_ref11, courseId) {
     var commit = _ref11.commit;
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/instructor/course/' + courseId + '/sections').then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/instructor/course/' + courseId + '/sections/get').then(function (response) {
       return commit('setSections', response.data);
     });
   }

@@ -69,7 +69,7 @@
                     </ul>
                 </div>
             </div>
-            <a class="uk-button-icon uk-width-1-6 uk-margin-left" @click="removeSection(sectionIndex)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
+            <a class="uk-button-icon uk-width-1-6 uk-margin-left" @click="removeSection(section.id)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
         </div>
         <div class="uk-margin">
             <input class="uk-button uk-button-grey button uk-margin uk-width-small@m" type="button" @click="postSection" :value="saveText">
@@ -146,10 +146,10 @@
                 var formData=new FormData();
                 formData.append('name', document.getElementById('sectionInput').value);
                 formData.append('courseId', this.courseId);
-                axios.post('/api/instructor/course/'+this.courseId+'/sections', formData).then(response=>console.log(response)).then(this.$store.dispatch('loadSections',this.courseId))
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/create', formData).then(response=>console.log(response)).then(this.$store.dispatch('loadSections',this.courseId))
             },
-            removeSection:function (index) {
-                this.sections.splice(index,1)
+            removeSection:function (sectionId) {
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/delete/'+sectionId).then(this.$store.dispatch('loadSections',this.courseId))
             },
             addLessons: function (lesson,index) {
                 if(lesson.name.trim()!=""&&lesson.name!=null&&lesson.name!=undefined) {
