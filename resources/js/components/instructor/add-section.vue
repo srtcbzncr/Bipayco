@@ -5,15 +5,15 @@
             <button class="uk-button uk-button-success uk-margin-small-top uk-width-1-6@m" @click="addSection"><i class="fas fa-plus"></i> <span class="uk-hidden@m">{{addText}}</span></button>
         </div>
         <div v-for="(section, sectionIndex) in sections" class="uk-margin-top uk-flex align-items-center justify-content-center">
-            <div class="uk-width-5-6" :id="sectionIndex">
+            <div class="uk-width-5-6">
                 <div class="uk-margin-top uk-margin-remove-right">
                     <ul uk-accordion="" class="uk-accordion">
                         <li class="tm-course-lesson-section uk-background-default">
                             <a class="uk-accordion-title uk-padding-small" href="#"><h6>{{sectionText}} {{sectionIndex}}</h6>
                                 <h4 class="uk-margin-remove section-name">{{section.name}}</h4>
-                                <div class="uk-margin-remove section-name uk-grid" hidden>
-                                    <input class="uk-width-4-5@m uk-input uk-padding-small" :value="section.name">
-                                    <button class="uk-margin-small-left uk-button uk-button-success uk-width-1-6@m uk-padding-remove" @click="updateSection" uk-toggle="target: .section-name;"><i class="fas fa-save"></i></button>
+                                <div class="uk-margin-remove section-name uk-grid" id="test" hidden>
+                                    <input class="uk-width-4-5@m uk-input uk-padding-small" name="sectionNameInput" :value="section.name">
+                                    <button class="uk-margin-small-left uk-button uk-button-success uk-width-1-6@m uk-padding-remove" @click="updateSection(section.id,sectionIndex)" uk-toggle="target: .section-name;"><i class="fas fa-save"></i></button>
                                 </div>
                             </a>
                             <div class="uk-accordion-content uk-margin-remove-top">
@@ -156,9 +156,10 @@
             removeSection:function (sectionId) {
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/delete/'+sectionId).then(this.$store.dispatch('loadSections',this.courseId))
             },
-            updateSection:function(sectionId){
+            updateSection:function(sectionId, index){
                 var formData=new FormData();
-                formData.append('name', document.getElementById('sectionInput').value);
+                var section= document.querySelector('#test');
+                formData.append('name', section.querySelector('input[name="sectionNameInput"]').value);
                 formData.append('courseId', this.courseId);
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/create/'+sectionId, formData).then(response=>console.log(response)).then(this.$store.dispatch('loadSections',this.courseId))
             },

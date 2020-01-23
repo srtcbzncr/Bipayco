@@ -3125,9 +3125,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     removeSection: function removeSection(sectionId) {
       axios.post('/api/instructor/course/' + this.courseId + '/sections/delete/' + sectionId).then(this.$store.dispatch('loadSections', this.courseId));
     },
-    updateSection: function updateSection(sectionId) {
+    updateSection: function updateSection(sectionId, index) {
       var formData = new FormData();
-      formData.append('name', document.getElementById('sectionInput').value);
+      var section = document.querySelector('#test');
+      formData.append('name', section.querySelector('input[name="sectionNameInput"]').value);
       formData.append('courseId', this.courseId);
       axios.post('/api/instructor/course/' + this.courseId + '/sections/create/' + sectionId, formData).then(function (response) {
         return console.log(response);
@@ -7459,291 +7460,155 @@ var render = function() {
               "uk-margin-top uk-flex align-items-center justify-content-center"
           },
           [
-            _c(
-              "div",
-              { staticClass: "uk-width-5-6", attrs: { id: sectionIndex } },
-              [
-                _c(
-                  "div",
-                  { staticClass: "uk-margin-top uk-margin-remove-right" },
-                  [
-                    _c(
-                      "ul",
-                      {
-                        staticClass: "uk-accordion",
-                        attrs: { "uk-accordion": "" }
-                      },
-                      [
-                        _c(
-                          "li",
-                          {
-                            staticClass:
-                              "tm-course-lesson-section uk-background-default"
-                          },
-                          [
-                            _c(
-                              "a",
-                              {
-                                staticClass:
-                                  "uk-accordion-title uk-padding-small",
-                                attrs: { href: "#" }
-                              },
-                              [
-                                _c("h6", [
-                                  _vm._v(
-                                    _vm._s(_vm.sectionText) +
-                                      " " +
-                                      _vm._s(sectionIndex)
-                                  )
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "h4",
-                                  {
-                                    staticClass: "uk-margin-remove section-name"
-                                  },
-                                  [_vm._v(_vm._s(section.name))]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "uk-margin-remove section-name uk-grid",
-                                    attrs: { hidden: "" }
-                                  },
-                                  [
-                                    _c("input", {
-                                      staticClass:
-                                        "uk-width-4-5@m uk-input uk-padding-small",
-                                      domProps: { value: section.name }
-                                    }),
-                                    _vm._v(" "),
-                                    _c(
-                                      "button",
-                                      {
-                                        staticClass:
-                                          "uk-margin-small-left uk-button uk-button-success uk-width-1-6@m uk-padding-remove",
-                                        attrs: {
-                                          "uk-toggle": "target: .section-name;"
-                                        },
-                                        on: { click: _vm.updateSection }
-                                      },
-                                      [_c("i", { staticClass: "fas fa-save" })]
-                                    )
-                                  ]
+            _c("div", { staticClass: "uk-width-5-6" }, [
+              _c(
+                "div",
+                { staticClass: "uk-margin-top uk-margin-remove-right" },
+                [
+                  _c(
+                    "ul",
+                    {
+                      staticClass: "uk-accordion",
+                      attrs: { "uk-accordion": "" }
+                    },
+                    [
+                      _c(
+                        "li",
+                        {
+                          staticClass:
+                            "tm-course-lesson-section uk-background-default"
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              staticClass:
+                                "uk-accordion-title uk-padding-small",
+                              attrs: { href: "#" }
+                            },
+                            [
+                              _c("h6", [
+                                _vm._v(
+                                  _vm._s(_vm.sectionText) +
+                                    " " +
+                                    _vm._s(sectionIndex)
                                 )
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "uk-accordion-content uk-margin-remove-top"
-                              },
-                              [
-                                _c(
-                                  "div",
-                                  { staticClass: "tm-course-section-list" },
-                                  [
-                                    _c(
-                                      "ul",
-                                      [
-                                        _c("li", [
-                                          _c(
-                                            "div",
-                                            {
-                                              staticClass:
-                                                "uk-width uk-flex uk-flex-row align-items-center justify-content-around"
-                                            },
-                                            [
-                                              _c(
-                                                "div",
-                                                {
-                                                  staticClass:
-                                                    "uk-flex align-items-center"
-                                                },
-                                                [
-                                                  _c("input", {
-                                                    directives: [
-                                                      {
-                                                        name: "model",
-                                                        rawName: "v-model",
-                                                        value: _vm.isVideo,
-                                                        expression: "isVideo"
-                                                      }
-                                                    ],
-                                                    staticClass:
-                                                      "uk-radio uk-margin-remove",
-                                                    attrs: {
-                                                      type: "radio",
-                                                      name: "documentType",
-                                                      checked: "",
-                                                      value: "1"
-                                                    },
-                                                    domProps: {
-                                                      checked: _vm._q(
-                                                        _vm.isVideo,
-                                                        "1"
-                                                      )
-                                                    },
-                                                    on: {
-                                                      change: function($event) {
-                                                        _vm.isVideo = "1"
-                                                      }
-                                                    }
-                                                  }),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "p",
-                                                    {
-                                                      staticClass:
-                                                        "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
-                                                    },
-                                                    [_vm._v("Video")]
-                                                  )
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "div",
-                                                {
-                                                  staticClass:
-                                                    "uk-flex align-items-center"
-                                                },
-                                                [
-                                                  _c("input", {
-                                                    directives: [
-                                                      {
-                                                        name: "model",
-                                                        rawName: "v-model",
-                                                        value: _vm.isVideo,
-                                                        expression: "isVideo"
-                                                      }
-                                                    ],
-                                                    staticClass:
-                                                      "uk-radio uk-margin-remove",
-                                                    attrs: {
-                                                      type: "radio",
-                                                      name: "documentType",
-                                                      value: "0"
-                                                    },
-                                                    domProps: {
-                                                      checked: _vm._q(
-                                                        _vm.isVideo,
-                                                        "0"
-                                                      )
-                                                    },
-                                                    on: {
-                                                      change: function($event) {
-                                                        _vm.isVideo = "0"
-                                                      }
-                                                    }
-                                                  }),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "p",
-                                                    {
-                                                      staticClass:
-                                                        "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
-                                                    },
-                                                    [_vm._v("PDF")]
-                                                  )
-                                                ]
-                                              )
-                                            ]
-                                          ),
-                                          _vm._v(" "),
-                                          _c("div", [
-                                            _c("input", {
-                                              staticClass:
-                                                "uk-padding-small uk-margin-small-top uk-input uk-width",
-                                              attrs: {
-                                                type: "text",
-                                                id: sectionIndex,
-                                                placeholder:
-                                                  _vm.addDefaultLessonText
-                                              }
-                                            }),
-                                            _vm._v(" "),
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "h4",
+                                {
+                                  staticClass: "uk-margin-remove section-name"
+                                },
+                                [_vm._v(_vm._s(section.name))]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "uk-margin-remove section-name uk-grid",
+                                  attrs: { id: "test", hidden: "" }
+                                },
+                                [
+                                  _c("input", {
+                                    staticClass:
+                                      "uk-width-4-5@m uk-input uk-padding-small",
+                                    attrs: { name: "sectionNameInput" },
+                                    domProps: { value: section.name }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "button",
+                                    {
+                                      staticClass:
+                                        "uk-margin-small-left uk-button uk-button-success uk-width-1-6@m uk-padding-remove",
+                                      attrs: {
+                                        "uk-toggle": "target: .section-name;"
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.updateSection(
+                                            section.id,
+                                            sectionIndex
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fas fa-save" })]
+                                  )
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "uk-accordion-content uk-margin-remove-top"
+                            },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "tm-course-section-list" },
+                                [
+                                  _c(
+                                    "ul",
+                                    [
+                                      _c("li", [
+                                        _c(
+                                          "div",
+                                          {
+                                            staticClass:
+                                              "uk-width uk-flex uk-flex-row align-items-center justify-content-around"
+                                          },
+                                          [
                                             _c(
-                                              "form",
+                                              "div",
                                               {
                                                 staticClass:
-                                                  "uk-margin-remove uk-padding-remove"
+                                                  "uk-flex align-items-center"
                                               },
                                               [
-                                                _vm.isVideo == "1"
-                                                  ? _c(
-                                                      "div",
-                                                      {
-                                                        staticClass:
-                                                          "uk-flex uk-flex-center uk-margin",
-                                                        attrs: {
-                                                          "uk-form-custom":
-                                                            "target: true"
-                                                        }
-                                                      },
-                                                      [
-                                                        _c("input", {
-                                                          attrs: {
-                                                            name: "document",
-                                                            type: "file",
-                                                            accept: "video/*",
-                                                            id: "courseVideo",
-                                                            required: ""
-                                                          }
-                                                        }),
-                                                        _vm._v(" "),
-                                                        _c("input", {
-                                                          staticClass:
-                                                            "uk-input",
-                                                          attrs: {
-                                                            type: "text",
-                                                            tabindex: "-1",
-                                                            disabled: "",
-                                                            placeholder:
-                                                              _vm.selectFileText
-                                                          }
-                                                        })
-                                                      ]
+                                                _c("input", {
+                                                  directives: [
+                                                    {
+                                                      name: "model",
+                                                      rawName: "v-model",
+                                                      value: _vm.isVideo,
+                                                      expression: "isVideo"
+                                                    }
+                                                  ],
+                                                  staticClass:
+                                                    "uk-radio uk-margin-remove",
+                                                  attrs: {
+                                                    type: "radio",
+                                                    name: "documentType",
+                                                    checked: "",
+                                                    value: "1"
+                                                  },
+                                                  domProps: {
+                                                    checked: _vm._q(
+                                                      _vm.isVideo,
+                                                      "1"
                                                     )
-                                                  : _c(
-                                                      "div",
-                                                      {
-                                                        staticClass:
-                                                          "uk-flex uk-flex-center uk-margin",
-                                                        attrs: {
-                                                          "uk-form-custom":
-                                                            "target: true"
-                                                        }
-                                                      },
-                                                      [
-                                                        _c("input", {
-                                                          attrs: {
-                                                            name: "document",
-                                                            type: "file",
-                                                            accept:
-                                                              "application/pdf,application/vnd.ms-excel",
-                                                            id: "coursePdf",
-                                                            required: ""
-                                                          }
-                                                        }),
-                                                        _vm._v(" "),
-                                                        _c("input", {
-                                                          staticClass:
-                                                            "uk-input",
-                                                          attrs: {
-                                                            type: "text",
-                                                            tabindex: "-1",
-                                                            disabled: "",
-                                                            placeholder:
-                                                              _vm.selectFileText
-                                                          }
-                                                        })
-                                                      ]
-                                                    )
+                                                  },
+                                                  on: {
+                                                    change: function($event) {
+                                                      _vm.isVideo = "1"
+                                                    }
+                                                  }
+                                                }),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "p",
+                                                  {
+                                                    staticClass:
+                                                      "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
+                                                  },
+                                                  [_vm._v("Video")]
+                                                )
                                               ]
                                             ),
                                             _vm._v(" "),
@@ -7751,212 +7616,347 @@ var render = function() {
                                               "div",
                                               {
                                                 staticClass:
-                                                  "uk-margin uk-flex justify-content-start align-items-center"
+                                                  "uk-flex align-items-center"
                                               },
                                               [
-                                                _c("label", [
-                                                  _c("input", {
-                                                    staticClass: "uk-checkbox",
-                                                    attrs: {
-                                                      type: "checkbox",
-                                                      id: "preview"
-                                                    }
-                                                  }),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "span",
+                                                _c("input", {
+                                                  directives: [
                                                     {
-                                                      staticClass:
-                                                        "checkmark uk-text-small"
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          _vm.isPreviewText
-                                                        )
-                                                      )
-                                                    ]
-                                                  )
-                                                ])
+                                                      name: "model",
+                                                      rawName: "v-model",
+                                                      value: _vm.isVideo,
+                                                      expression: "isVideo"
+                                                    }
+                                                  ],
+                                                  staticClass:
+                                                    "uk-radio uk-margin-remove",
+                                                  attrs: {
+                                                    type: "radio",
+                                                    name: "documentType",
+                                                    value: "0"
+                                                  },
+                                                  domProps: {
+                                                    checked: _vm._q(
+                                                      _vm.isVideo,
+                                                      "0"
+                                                    )
+                                                  },
+                                                  on: {
+                                                    change: function($event) {
+                                                      _vm.isVideo = "0"
+                                                    }
+                                                  }
+                                                }),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "p",
+                                                  {
+                                                    staticClass:
+                                                      "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
+                                                  },
+                                                  [_vm._v("PDF")]
+                                                )
                                               ]
                                             )
-                                          ]),
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("div", [
+                                          _c("input", {
+                                            staticClass:
+                                              "uk-padding-small uk-margin-small-top uk-input uk-width",
+                                            attrs: {
+                                              type: "text",
+                                              id: sectionIndex,
+                                              placeholder:
+                                                _vm.addDefaultLessonText
+                                            }
+                                          }),
                                           _vm._v(" "),
                                           _c(
-                                            "button",
+                                            "form",
                                             {
                                               staticClass:
-                                                "uk-button uk-button-success uk-margin-small-top uk-width",
-                                              on: {
-                                                click: function($event) {
-                                                  return _vm.addLesson(
-                                                    sectionIndex
-                                                  )
-                                                }
-                                              }
+                                                "uk-margin-remove uk-padding-remove"
                                             },
                                             [
-                                              _c("i", {
-                                                staticClass: "fas fa-plus"
-                                              }),
-                                              _vm._v(" " + _vm._s(_vm.addText))
+                                              _vm.isVideo == "1"
+                                                ? _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "uk-flex uk-flex-center uk-margin",
+                                                      attrs: {
+                                                        "uk-form-custom":
+                                                          "target: true"
+                                                      }
+                                                    },
+                                                    [
+                                                      _c("input", {
+                                                        attrs: {
+                                                          name: "document",
+                                                          type: "file",
+                                                          accept: "video/*",
+                                                          id: "courseVideo",
+                                                          required: ""
+                                                        }
+                                                      }),
+                                                      _vm._v(" "),
+                                                      _c("input", {
+                                                        staticClass: "uk-input",
+                                                        attrs: {
+                                                          type: "text",
+                                                          tabindex: "-1",
+                                                          disabled: "",
+                                                          placeholder:
+                                                            _vm.selectFileText
+                                                        }
+                                                      })
+                                                    ]
+                                                  )
+                                                : _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "uk-flex uk-flex-center uk-margin",
+                                                      attrs: {
+                                                        "uk-form-custom":
+                                                          "target: true"
+                                                      }
+                                                    },
+                                                    [
+                                                      _c("input", {
+                                                        attrs: {
+                                                          name: "document",
+                                                          type: "file",
+                                                          accept:
+                                                            "application/pdf,application/vnd.ms-excel",
+                                                          id: "coursePdf",
+                                                          required: ""
+                                                        }
+                                                      }),
+                                                      _vm._v(" "),
+                                                      _c("input", {
+                                                        staticClass: "uk-input",
+                                                        attrs: {
+                                                          type: "text",
+                                                          tabindex: "-1",
+                                                          disabled: "",
+                                                          placeholder:
+                                                            _vm.selectFileText
+                                                        }
+                                                      })
+                                                    ]
+                                                  )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "div",
+                                            {
+                                              staticClass:
+                                                "uk-margin uk-flex justify-content-start align-items-center"
+                                            },
+                                            [
+                                              _c("label", [
+                                                _c("input", {
+                                                  staticClass: "uk-checkbox",
+                                                  attrs: {
+                                                    type: "checkbox",
+                                                    id: "preview"
+                                                  }
+                                                }),
+                                                _vm._v(" "),
+                                                _c(
+                                                  "span",
+                                                  {
+                                                    staticClass:
+                                                      "checkmark uk-text-small"
+                                                  },
+                                                  [
+                                                    _vm._v(
+                                                      _vm._s(_vm.isPreviewText)
+                                                    )
+                                                  ]
+                                                )
+                                              ])
                                             ]
                                           )
                                         ]),
                                         _vm._v(" "),
-                                        _vm._l(section.lessons, function(
-                                          lesson,
-                                          lessonIndex
-                                        ) {
-                                          return _c(
-                                            "li",
-                                            {
-                                              staticClass:
-                                                "uk-flex align-items-center"
-                                            },
-                                            [
-                                              _c(
-                                                "div",
-                                                { staticClass: "uk-width-4-6" },
-                                                [
-                                                  _c(
-                                                    "a",
-                                                    {
-                                                      staticClass:
-                                                        "uk-link-reset uk-flex align-items-center",
-                                                      attrs: { href: "#" }
-                                                    },
-                                                    [
-                                                      _c("span", [
-                                                        lesson.is_video == "1"
-                                                          ? _c("i", {
-                                                              staticClass:
-                                                                "fas fa-play-circle icon-medium",
-                                                              staticStyle: {
-                                                                color: "#666666"
-                                                              }
-                                                            })
-                                                          : _c("i", {
-                                                              staticClass:
-                                                                "fas fa-file-alt icon-medium",
-                                                              staticStyle: {
-                                                                color: "#666666"
-                                                              }
-                                                            })
-                                                      ]),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "div",
-                                                        {
-                                                          staticClass:
-                                                            "uk-text-truncate uk-margin-small-right "
-                                                        },
-                                                        [
-                                                          _c(
-                                                            "p",
-                                                            {
-                                                              staticClass:
-                                                                "uk-margin-remove"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                _vm._s(
-                                                                  lessonIndex +
-                                                                    1
-                                                                ) +
-                                                                  ". " +
-                                                                  _vm._s(
-                                                                    lesson.name
-                                                                  )
-                                                              )
-                                                            ]
-                                                          )
-                                                        ]
-                                                      )
-                                                    ]
-                                                  )
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "div",
-                                                {
-                                                  staticClass: "uk-width-1-6",
-                                                  staticStyle: {
-                                                    color: "#666666"
-                                                  }
-                                                },
-                                                [
-                                                  lesson.preview
-                                                    ? _c("i", {
+                                        _c(
+                                          "button",
+                                          {
+                                            staticClass:
+                                              "uk-button uk-button-success uk-margin-small-top uk-width",
+                                            on: {
+                                              click: function($event) {
+                                                return _vm.addLesson(
+                                                  sectionIndex
+                                                )
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _c("i", {
+                                              staticClass: "fas fa-plus"
+                                            }),
+                                            _vm._v(" " + _vm._s(_vm.addText))
+                                          ]
+                                        )
+                                      ]),
+                                      _vm._v(" "),
+                                      _vm._l(section.lessons, function(
+                                        lesson,
+                                        lessonIndex
+                                      ) {
+                                        return _c(
+                                          "li",
+                                          {
+                                            staticClass:
+                                              "uk-flex align-items-center"
+                                          },
+                                          [
+                                            _c(
+                                              "div",
+                                              { staticClass: "uk-width-4-6" },
+                                              [
+                                                _c(
+                                                  "a",
+                                                  {
+                                                    staticClass:
+                                                      "uk-link-reset uk-flex align-items-center",
+                                                    attrs: { href: "#" }
+                                                  },
+                                                  [
+                                                    _c("span", [
+                                                      lesson.is_video == "1"
+                                                        ? _c("i", {
+                                                            staticClass:
+                                                              "fas fa-play-circle icon-medium",
+                                                            staticStyle: {
+                                                              color: "#666666"
+                                                            }
+                                                          })
+                                                        : _c("i", {
+                                                            staticClass:
+                                                              "fas fa-file-alt icon-medium",
+                                                            staticStyle: {
+                                                              color: "#666666"
+                                                            }
+                                                          })
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "div",
+                                                      {
                                                         staticClass:
-                                                          "fas fa-play icon-tiny uk-text-grey uk-visible@s"
-                                                      })
-                                                    : _vm._e()
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "a",
-                                                {
-                                                  staticClass:
-                                                    "uk-button-icon uk-margin-left uk-width-1-6",
-                                                  on: {
-                                                    click: function($event) {
-                                                      return _vm.removeLesson(
-                                                        lessonIndex,
-                                                        sectionIndex
-                                                      )
-                                                    }
+                                                          "uk-text-truncate uk-margin-small-right "
+                                                      },
+                                                      [
+                                                        _c(
+                                                          "p",
+                                                          {
+                                                            staticClass:
+                                                              "uk-margin-remove"
+                                                          },
+                                                          [
+                                                            _vm._v(
+                                                              _vm._s(
+                                                                lessonIndex + 1
+                                                              ) +
+                                                                ". " +
+                                                                _vm._s(
+                                                                  lesson.name
+                                                                )
+                                                            )
+                                                          ]
+                                                        )
+                                                      ]
+                                                    )
+                                                  ]
+                                                )
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "div",
+                                              {
+                                                staticClass: "uk-width-1-6",
+                                                staticStyle: {
+                                                  color: "#666666"
+                                                }
+                                              },
+                                              [
+                                                lesson.preview
+                                                  ? _c("i", {
+                                                      staticClass:
+                                                        "fas fa-play icon-tiny uk-text-grey uk-visible@s"
+                                                    })
+                                                  : _vm._e()
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "uk-button-icon uk-margin-left uk-width-1-6",
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.removeLesson(
+                                                      lessonIndex,
+                                                      sectionIndex
+                                                    )
                                                   }
-                                                },
-                                                [
-                                                  _c("i", {
-                                                    staticClass:
-                                                      "fas fa-trash-alt text-danger icon-small"
-                                                  })
-                                                ]
-                                              ),
-                                              _vm._v(" "),
-                                              _c(
-                                                "a",
-                                                {
+                                                }
+                                              },
+                                              [
+                                                _c("i", {
                                                   staticClass:
-                                                    "uk-button-icon uk-margin-left uk-width-1-6",
-                                                  on: {
-                                                    click: function($event) {
-                                                      return _vm.removeLesson(
-                                                        lessonIndex,
-                                                        sectionIndex
-                                                      )
-                                                    }
+                                                    "fas fa-trash-alt text-danger icon-small"
+                                                })
+                                              ]
+                                            ),
+                                            _vm._v(" "),
+                                            _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "uk-button-icon uk-margin-left uk-width-1-6",
+                                                on: {
+                                                  click: function($event) {
+                                                    return _vm.removeLesson(
+                                                      lessonIndex,
+                                                      sectionIndex
+                                                    )
                                                   }
-                                                },
-                                                [
-                                                  _c("i", {
-                                                    staticClass:
-                                                      "fas fa-cog text-danger icon-small"
-                                                  })
-                                                ]
-                                              )
-                                            ]
-                                          )
-                                        })
-                                      ],
-                                      2
-                                    )
-                                  ]
-                                )
-                              ]
-                            )
-                          ]
-                        )
-                      ]
-                    )
-                  ]
-                )
-              ]
-            ),
+                                                }
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass:
+                                                    "fas fa-cog text-danger icon-small"
+                                                })
+                                              ]
+                                            )
+                                          ]
+                                        )
+                                      })
+                                    ],
+                                    2
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ]
+              )
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "uk-width-1-6" }, [
               _c(
