@@ -64,4 +64,7 @@ class CourseController extends Controller
             }
         }
     }
+    public function watch($id){
+        return view('general_education.watch');
+    }
 }
