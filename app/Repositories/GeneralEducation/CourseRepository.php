@@ -828,10 +828,10 @@ class CourseRepository implements IRepository{
             $course = Course::find($id);
             $sections = $course->sections->where('active', true);
             $object['sections'] = $sections;
-            foreach ($sections as $key => $section){
+            /*foreach ($sections as $key => $section){
                 $lessons = $section->lessons;
                 $object['sections'][$key]['lessons'] = $lessons;
-            }
+            }*/
 
             DB::commit();
         }
