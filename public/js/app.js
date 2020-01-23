@@ -3112,7 +3112,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     addSection: function addSection() {
       var formData = new FormData();
       formData.append('name', document.getElementById('sectionInput').value);
-      formData.append('lessons', []);
       axios.post('/api/instructor/course/' + this.courseId + '/sections', formData).then(function (response) {
         return console.log(response);
       }).then(this.$store.dispatch('loadSections', this.courseId));

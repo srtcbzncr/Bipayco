@@ -145,7 +145,6 @@
             addSection:function () {
                 var formData=new FormData();
                 formData.append('name', document.getElementById('sectionInput').value);
-                formData.append('lessons', []);
                 axios.post('/api/instructor/course/'+this.courseId+'/sections', formData).then(response=>console.log(response)).then(this.$store.dispatch('loadSections',this.courseId))
             },
             removeSection:function (index) {
