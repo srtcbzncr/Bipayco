@@ -505,6 +505,7 @@ class CourseController extends Controller
         }
     }*/
     public function sectionsPost($id = null,Request $request){
+        return $request->toArray();
         // Initializing
         $repo = new SectionRepository();
 
