@@ -37,7 +37,7 @@
         <!-- mobile-sidebar  -->
         <i class="fas fa-video icon-large tm-side-right-mobile-icon uk-hidden@m" uk-toggle="target: #filters"></i>
         <div class="side-nav uk-animation-slide-left-medium" id="side-nav">
-            <span class="uk-animation-fade tm-mobile-close-icon" uk-toggle="target: #side-nav; cls: side-nav-active"> <i class="fas fa-times icon-large"></i></span>
+            <span class="uk-animation-fade tm-mobile-close-icon tm-side-close-icon" uk-toggle="target: #side-nav; cls: side-nav-active"> <i class="fas fa-times icon-large"></i></span>
             <side-bar
                 general-education-route="{{route('ge_index')}}"
                 home-route="{{route('home')}}"
@@ -53,7 +53,7 @@
             </div>
             <div class="uk-width-3-4@m uk-margin-auto">
                 <header class="tm-course-content-header uk-background-grey">
-                    <a href="#" class="back-to-dhashboard uk-margin-large-left" uk-tooltip="title: Back to Course Dashboard  ; delay: 200 ; pos: bottom-left ;animation:uk-animation-scale-up ; offset:20"> Course Dhashboard</a>
+                    <a class=" uk-margin-large-left" href="{{route('home')}}"> <img class="uk-width-small" src="{{asset('images/logo2.png')}}"/> </a>
                 </header>
                 <!--Course-side icon make Hidden sidebar -->
                 <i class="fas fa-angle-right icon-large uk-float-right tm-side-course-icon  uk-visible@m" uk-toggle="target: #course-fliud; cls: tm-course-fliud" uk-tooltip="title: Hide sidebar  ; delay: 200 ; pos: bottom-right ;animation:uk-animation-scale-up ; offset:20"></i>

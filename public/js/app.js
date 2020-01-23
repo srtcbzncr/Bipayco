@@ -3053,6 +3053,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "add-section",
@@ -3120,6 +3125,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     removeSection: function removeSection(sectionId) {
       axios.post('/api/instructor/course/' + this.courseId + '/sections/delete/' + sectionId).then(this.$store.dispatch('loadSections', this.courseId));
     },
+    updateSection: function updateSection(sectionId) {
+      var formData = new FormData();
+      formData.append('name', document.getElementById('sectionInput').value);
+      formData.append('courseId', this.courseId);
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/create/' + sectionId, formData).then(function (response) {
+        return console.log(response);
+      }).then(this.$store.dispatch('loadSections', this.courseId));
+    },
     addLessons: function addLessons(lesson, index) {
       if (lesson.name.trim() != "" && lesson.name != null && lesson.name != undefined) {
         this.sections[index].lessons.push(lesson);
@@ -3145,52 +3158,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     removeLesson: function removeLesson(lessonIndex, sectionIndex) {
       this.sections[sectionIndex].lessons.splice(lessonIndex, 1);
-    },
-    postSection: function postSection() {
-      var formData = new FormData();
-
-      for (var i = 0; i < this.sections.length; i++) {
-        formData.append("sections[" + i + "].name", this.sections[i].name);
-
-        for (var j = 0; j < this.sections[i].lessons.length; j++) {
-          formData.append("sections[" + i + "].lessons[" + j + "].name", this.sections[i].lessons[i].name);
-          formData.append("sections[" + i + "].lessons[" + j + "].is_preview", this.sections[i].lessons[i].is_preview);
-          formData.append("sections[" + i + "].lessons[" + j + "].is_video", this.sections[i].lessons[i].is_video);
-          formData.append("sections[" + i + "].lessons[" + j + "].source", this.sections[i].lessons[i].source);
-          formData.append("sections[" + i + "].lessons[" + j + "].document", this.sections[i].lessons[i].document);
-        }
-      }
-
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = formData.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var pair = _step.value;
-          console.log(pair[1]);
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-            _iterator["return"]();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-
-      formData.append('instructorId', this.instructorId);
-      axios.post('/api/instructor/course/' + this.courseId + '/sections', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
     }
   }),
   mounted: function mounted() {
@@ -7492,63 +7459,98 @@ var render = function() {
               "uk-margin-top uk-flex align-items-center justify-content-center"
           },
           [
-            _c("div", { staticClass: "uk-width-5-6" }, [
-              _c(
-                "div",
-                { staticClass: "uk-margin-top uk-margin-remove-right" },
-                [
-                  _c(
-                    "ul",
-                    {
-                      staticClass: "uk-accordion",
-                      attrs: { "uk-accordion": "" }
-                    },
-                    [
-                      _c(
-                        "li",
-                        {
-                          staticClass:
-                            "tm-course-lesson-section uk-background-default"
-                        },
-                        [
-                          _c(
-                            "a",
-                            {
-                              staticClass:
-                                "uk-accordion-title uk-padding-small",
-                              attrs: { href: "#" }
-                            },
-                            [
-                              _c("h6", [
-                                _vm._v(
-                                  _vm._s(_vm.sectionText) +
-                                    " " +
-                                    _vm._s(sectionIndex + 1)
+            _c(
+              "div",
+              { staticClass: "uk-width-5-6", attrs: { id: sectionIndex } },
+              [
+                _c(
+                  "div",
+                  { staticClass: "uk-margin-top uk-margin-remove-right" },
+                  [
+                    _c(
+                      "ul",
+                      {
+                        staticClass: "uk-accordion",
+                        attrs: { "uk-accordion": "" }
+                      },
+                      [
+                        _c(
+                          "li",
+                          {
+                            staticClass:
+                              "tm-course-lesson-section uk-background-default"
+                          },
+                          [
+                            _c(
+                              "a",
+                              {
+                                staticClass:
+                                  "uk-accordion-title uk-padding-small",
+                                attrs: { href: "#" }
+                              },
+                              [
+                                _c("h6", [
+                                  _vm._v(
+                                    _vm._s(_vm.sectionText) +
+                                      " " +
+                                      _vm._s(sectionIndex)
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "h4",
+                                  {
+                                    staticClass: "uk-margin-remove section-name"
+                                  },
+                                  [_vm._v(_vm._s(section.name))]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "uk-margin-remove section-name uk-grid",
+                                    attrs: { hidden: "" }
+                                  },
+                                  [
+                                    _c("input", {
+                                      staticClass:
+                                        "uk-width-4-5@m uk-input uk-padding-small",
+                                      domProps: { value: section.name }
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass:
+                                          "uk-margin-small-left uk-button uk-button-success uk-width-1-6@m uk-padding-remove",
+                                        attrs: {
+                                          "uk-toggle": "target: .section-name;"
+                                        },
+                                        on: { click: _vm.updateSection }
+                                      },
+                                      [_c("i", { staticClass: "fas fa-save" })]
+                                    )
+                                  ]
                                 )
-                              ]),
-                              _vm._v(" "),
-                              _c("h4", { staticClass: "uk-margin-remove" }, [
-                                _vm._v(_vm._s(section.name))
-                              ])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "uk-accordion-content uk-margin-remove-top"
-                            },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "tm-course-section-list" },
-                                [
-                                  _c(
-                                    "ul",
-                                    [
-                                      _c("li", [
-                                        _c("div", {}, [
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "uk-accordion-content uk-margin-remove-top"
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  { staticClass: "tm-course-section-list" },
+                                  [
+                                    _c(
+                                      "ul",
+                                      [
+                                        _c("li", [
                                           _c(
                                             "div",
                                             {
@@ -7800,172 +7802,204 @@ var render = function() {
                                               _vm._v(" " + _vm._s(_vm.addText))
                                             ]
                                           )
-                                        ])
-                                      ]),
-                                      _vm._v(" "),
-                                      _vm._l(section.lessons, function(
-                                        lesson,
-                                        lessonIndex
-                                      ) {
-                                        return _c(
-                                          "li",
-                                          {
-                                            staticClass:
-                                              "uk-flex align-items-center"
-                                          },
-                                          [
-                                            _c(
-                                              "div",
-                                              { staticClass: "uk-width-4-6" },
-                                              [
-                                                _c(
-                                                  "a",
-                                                  {
-                                                    staticClass:
-                                                      "uk-link-reset uk-flex align-items-center",
-                                                    attrs: { href: "#" }
-                                                  },
-                                                  [
-                                                    _c("span", [
-                                                      lesson.is_video == "1"
-                                                        ? _c("i", {
-                                                            staticClass:
-                                                              "fas fa-play-circle icon-medium",
-                                                            staticStyle: {
-                                                              color: "#666666"
-                                                            }
-                                                          })
-                                                        : _c("i", {
-                                                            staticClass:
-                                                              "fas fa-file-alt icon-medium",
-                                                            staticStyle: {
-                                                              color: "#666666"
-                                                            }
-                                                          })
-                                                    ]),
-                                                    _vm._v(" "),
-                                                    _c(
-                                                      "div",
-                                                      {
-                                                        staticClass:
-                                                          "uk-text-truncate uk-margin-small-right "
-                                                      },
-                                                      [
-                                                        _c(
-                                                          "p",
-                                                          {
-                                                            staticClass:
-                                                              "uk-margin-remove"
-                                                          },
-                                                          [
-                                                            _vm._v(
-                                                              _vm._s(
-                                                                lessonIndex + 1
-                                                              ) +
-                                                                ". " +
-                                                                _vm._s(
-                                                                  lesson.name
-                                                                )
-                                                            )
-                                                          ]
-                                                        )
-                                                      ]
-                                                    )
-                                                  ]
-                                                )
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "div",
-                                              {
-                                                staticClass: "uk-width-1-6",
-                                                staticStyle: {
-                                                  color: "#666666"
-                                                }
-                                              },
-                                              [
-                                                lesson.preview
-                                                  ? _c("i", {
+                                        ]),
+                                        _vm._v(" "),
+                                        _vm._l(section.lessons, function(
+                                          lesson,
+                                          lessonIndex
+                                        ) {
+                                          return _c(
+                                            "li",
+                                            {
+                                              staticClass:
+                                                "uk-flex align-items-center"
+                                            },
+                                            [
+                                              _c(
+                                                "div",
+                                                { staticClass: "uk-width-4-6" },
+                                                [
+                                                  _c(
+                                                    "a",
+                                                    {
                                                       staticClass:
-                                                        "fas fa-play icon-tiny uk-text-grey uk-visible@s"
-                                                    })
-                                                  : _vm._e()
-                                              ]
-                                            ),
-                                            _vm._v(" "),
-                                            _c(
-                                              "a",
-                                              {
-                                                staticClass:
-                                                  "uk-button-icon uk-margin-left uk-width-1-6",
-                                                on: {
-                                                  click: function($event) {
-                                                    return _vm.removeLesson(
-                                                      lessonIndex,
-                                                      sectionIndex
-                                                    )
+                                                        "uk-link-reset uk-flex align-items-center",
+                                                      attrs: { href: "#" }
+                                                    },
+                                                    [
+                                                      _c("span", [
+                                                        lesson.is_video == "1"
+                                                          ? _c("i", {
+                                                              staticClass:
+                                                                "fas fa-play-circle icon-medium",
+                                                              staticStyle: {
+                                                                color: "#666666"
+                                                              }
+                                                            })
+                                                          : _c("i", {
+                                                              staticClass:
+                                                                "fas fa-file-alt icon-medium",
+                                                              staticStyle: {
+                                                                color: "#666666"
+                                                              }
+                                                            })
+                                                      ]),
+                                                      _vm._v(" "),
+                                                      _c(
+                                                        "div",
+                                                        {
+                                                          staticClass:
+                                                            "uk-text-truncate uk-margin-small-right "
+                                                        },
+                                                        [
+                                                          _c(
+                                                            "p",
+                                                            {
+                                                              staticClass:
+                                                                "uk-margin-remove"
+                                                            },
+                                                            [
+                                                              _vm._v(
+                                                                _vm._s(
+                                                                  lessonIndex +
+                                                                    1
+                                                                ) +
+                                                                  ". " +
+                                                                  _vm._s(
+                                                                    lesson.name
+                                                                  )
+                                                              )
+                                                            ]
+                                                          )
+                                                        ]
+                                                      )
+                                                    ]
+                                                  )
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "div",
+                                                {
+                                                  staticClass: "uk-width-1-6",
+                                                  staticStyle: {
+                                                    color: "#666666"
                                                   }
-                                                }
-                                              },
-                                              [
-                                                _c("i", {
+                                                },
+                                                [
+                                                  lesson.preview
+                                                    ? _c("i", {
+                                                        staticClass:
+                                                          "fas fa-play icon-tiny uk-text-grey uk-visible@s"
+                                                      })
+                                                    : _vm._e()
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "a",
+                                                {
                                                   staticClass:
-                                                    "fas fa-trash-alt text-danger icon-small"
-                                                })
-                                              ]
-                                            )
-                                          ]
-                                        )
-                                      })
-                                    ],
-                                    2
-                                  )
-                                ]
-                              )
-                            ]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c(
-              "a",
-              {
-                staticClass: "uk-button-icon uk-width-1-6 uk-margin-left",
-                on: {
-                  click: function($event) {
-                    return _vm.removeSection(section.id)
-                  }
-                }
-              },
-              [
-                _c("i", {
-                  staticClass: "fas fa-trash-alt text-danger icon-small"
-                })
+                                                    "uk-button-icon uk-margin-left uk-width-1-6",
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.removeLesson(
+                                                        lessonIndex,
+                                                        sectionIndex
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _c("i", {
+                                                    staticClass:
+                                                      "fas fa-trash-alt text-danger icon-small"
+                                                  })
+                                                ]
+                                              ),
+                                              _vm._v(" "),
+                                              _c(
+                                                "a",
+                                                {
+                                                  staticClass:
+                                                    "uk-button-icon uk-margin-left uk-width-1-6",
+                                                  on: {
+                                                    click: function($event) {
+                                                      return _vm.removeLesson(
+                                                        lessonIndex,
+                                                        sectionIndex
+                                                      )
+                                                    }
+                                                  }
+                                                },
+                                                [
+                                                  _c("i", {
+                                                    staticClass:
+                                                      "fas fa-cog text-danger icon-small"
+                                                  })
+                                                ]
+                                              )
+                                            ]
+                                          )
+                                        })
+                                      ],
+                                      2
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ]
+                )
               ]
-            )
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "uk-width-1-6" }, [
+              _c(
+                "a",
+                {
+                  staticClass: "uk-button-icon uk-margin-left",
+                  on: {
+                    click: function($event) {
+                      return _vm.removeSection(section.id)
+                    }
+                  }
+                },
+                [
+                  _c("i", {
+                    staticClass: "fas fa-trash-alt text-danger icon-small"
+                  })
+                ]
+              ),
+              _vm._v(" "),
+              _vm._m(0, true)
+            ])
           ]
         )
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "uk-margin" }, [
-        _c("input", {
-          staticClass:
-            "uk-button uk-button-grey button uk-margin uk-width-small@m",
-          attrs: { type: "button", value: _vm.saveText },
-          on: { click: _vm.postSection }
-        })
-      ])
+      })
     ],
     2
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "uk-button-icon uk-margin-left",
+        attrs: { "uk-toggle": "target: .section-name ;" }
+      },
+      [_c("i", { staticClass: "fas fa-cog icon-small" })]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -23358,15 +23392,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!************************************************************!*\
   !*** ./resources/js/components/instructor/add-section.vue ***!
   \************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _add_section_vue_vue_type_template_id_7962b85c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./add-section.vue?vue&type=template&id=7962b85c&scoped=true& */ "./resources/js/components/instructor/add-section.vue?vue&type=template&id=7962b85c&scoped=true&");
 /* harmony import */ var _add_section_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./add-section.vue?vue&type=script&lang=js& */ "./resources/js/components/instructor/add-section.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _add_section_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _add_section_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -23396,7 +23429,7 @@ component.options.__file = "resources/js/components/instructor/add-section.vue"
 /*!*************************************************************************************!*\
   !*** ./resources/js/components/instructor/add-section.vue?vue&type=script&lang=js& ***!
   \*************************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
