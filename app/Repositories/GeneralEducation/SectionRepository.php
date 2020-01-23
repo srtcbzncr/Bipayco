@@ -61,8 +61,8 @@ class SectionRepository implements IRepository{
         // Operations
         try{
             $object = new Section;
-            $object->course_id = $data['course_id'];
-            $object->no = $data['no'];
+            $object->course_id = $data['courseId'];
+            $object->no = 1;
             $object->name = $data['name'];
             $object->save();
         }

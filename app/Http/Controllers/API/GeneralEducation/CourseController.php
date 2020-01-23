@@ -504,18 +504,17 @@ class CourseController extends Controller
             ]);
         }
     }*/
-    public function sectionsPost($id = null,Request $request){
-        return $request->toArray();
+    public function sectionsPost($section_id = null,Request $request){
         // Initializing
         $repo = new SectionRepository();
 
         // Operations
         $resp = null;
-        if($id == null){
+        if($section_id == null){
             $resp = $repo->create($request->toArray());
         }
         else{
-            $resp = $repo->update($id,$request->toArray());
+            $resp = $repo->update($section_id,$request->toArray());
         }
 
         // Response
