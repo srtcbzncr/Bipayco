@@ -2,7 +2,7 @@
 @section('content')
     <div class="uk-card uk-card-default uk-align-center uk-margin-xlarge-bottom" style="max-width: 80%">
         <div class="uk-card-body uk-margin-xlarge-top">
-            <div class="uk-grid">
+            <div id="createPage" class="uk-grid">
                 <div class="uk-width-1-4@m">
                     <ul class="uk-tab-left" uk-tab>
                         <li class="uk-active"><a href="#" class="tablinks" onclick="openTabs(event, 'courseContent')">@lang('front/auth.course')</a></li>

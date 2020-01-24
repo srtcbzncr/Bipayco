@@ -3681,9 +3681,52 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "lesson",
+  data: function data() {
+    return {
+      lessonName: 'lessonName' + this.lessonIndex,
+      preview: 'lessonPreview' + this.lessonIndex
+    };
+  },
   props: {
     lesson: {
       type: Object,
@@ -3692,6 +3735,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     lessonIndex: {
       type: Number,
       required: true
+    },
+    lessonNameText: {
+      type: String,
+      "default": 'Ders Adı'
+    },
+    sourcesText: {
+      type: String,
+      "default": 'Kaynaklar'
     },
     previewText: {
       type: String,
@@ -3734,9 +3785,43 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": 'Başarıyla Kaydedildi'
     }
   },
+  computed: {
+    toggleObject: function toggleObject() {
+      return 'target: .' + this.lessonName;
+    }
+  },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections']), {
     removeLesson: function removeLesson() {
       axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/delete/' + this.lesson.id).then(this.$store.dispatch('loadSections', this.courseId));
+    },
+    updateLesson: function updateLesson() {
+      var _this = this;
+
+      var isPreview = document.querySelector('#' + this.preview).checked ? 1 : 0;
+      var source = document.querySelector('#' + this.courseSource);
+      var courseSources = [];
+
+      for (var i = 0; i < source.files.length; i++) {
+        courseSources.push(source.files[i]);
+        console.log(source.files[i]);
+      }
+
+      var formData = new FormData();
+      formData.append('name', document.getElementById(this.lessonName).value);
+      formData.append('is_preview', isPreview);
+      formData.append('is_video', this.lesson.is_video);
+      formData.append('file_path', this.lesson.file_path);
+      formData.append('source', courseSources);
+      formData.append('courseId', this.courseId);
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/create/' + this.lesson.id, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        if (!response.data.error) {
+          _this.$store.dispatch('loadSections', _this.courseId);
+        }
+      });
     }
   })
 });
@@ -8620,69 +8705,250 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "uk-flex align-items-center" }, [
-    _c("div", { staticClass: "uk-width-4-6" }, [
+  return _c(
+    "div",
+    { staticClass: "uk-grid align-items-center uk-padding-remove" },
+    [
       _c(
-        "a",
+        "div",
         {
-          staticClass: "uk-link-reset uk-flex align-items-center",
-          attrs: { href: "#" }
+          staticClass:
+            "uk-width-5-6 uk-grid uk-margin-remove uk-padding-remove",
+          class: _vm.lessonName
         },
         [
-          _c("span", [
-            _vm.lesson.is_video == "1"
-              ? _c("i", {
-                  staticClass: "fas fa-play-circle icon-medium",
-                  staticStyle: { color: "#666666" }
-                })
-              : _c("i", {
-                  staticClass: "fas fa-file-alt icon-medium",
-                  staticStyle: { color: "#666666" }
-                })
+          _c(
+            "div",
+            { staticClass: "uk-width-5-6@m uk-width uk-padding-remove-right" },
+            [
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "uk-link-reset uk-width uk-flex align-items-center",
+                  attrs: { href: "#" }
+                },
+                [
+                  _c("span", { staticClass: "uk-visible@s" }, [
+                    _vm.lesson.is_video == "1"
+                      ? _c("i", {
+                          staticClass: "fas fa-play-circle icon-medium",
+                          staticStyle: { color: "#666666" }
+                        })
+                      : _c("i", {
+                          staticClass: "fas fa-file-alt icon-medium",
+                          staticStyle: { color: "#666666" }
+                        })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "p",
+                    {
+                      staticClass:
+                        "uk-text-truncate uk-margin-small-right uk-margin-remove-left uk-margin-remove-top uk-margin-remove-bottom"
+                    },
+                    [
+                      _c(
+                        "span",
+                        {
+                          staticClass:
+                            "uk-visible@s uk-padding-remove uk-margin-remove"
+                        },
+                        [_vm._v(_vm._s(_vm.lessonIndex + 1) + ".  ")]
+                      ),
+                      _vm._v(" " + _vm._s(_vm.lesson.name))
+                    ]
+                  )
+                ]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "uk-width-1-6@m uk-visible@m",
+              staticStyle: { color: "#666666" }
+            },
+            [
+              _vm.lesson.preview
+                ? _c("i", {
+                    staticClass:
+                      "fas fa-play icon-tiny uk-text-grey uk-visible@s"
+                  })
+                : _vm._e()
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "uk-width-5-6",
+          class: _vm.lessonName,
+          attrs: { hidden: "" }
+        },
+        [
+          _c("div", [
+            _c("div", { staticClass: "uk-form-label" }, [
+              _vm._v(_vm._s(_vm.lessonNameText))
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "uk-input",
+              attrs: { type: "text", required: "" },
+              domProps: { value: _vm.lesson.name }
+            })
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _vm.lesson.source != null &&
+            _vm.lesson.source != undefined &&
+            _vm.lesson.source != []
+              ? _c("div", { staticClass: "uk-form-label" }, [
+                  _vm._v(_vm._s(_vm.sourcesText))
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c(
+              "ul",
+              _vm._l(_vm.lesson.source, function(item) {
+                return _c("li", [
+                  _c(
+                    "div",
+                    { staticClass: "uk-flex align-items-center uk-margin" },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "uk-width-5-6 uk-flex uk-flex-wrap" },
+                        [
+                          _c(
+                            "p",
+                            {
+                              staticClass: "uk-margin-remove",
+                              staticStyle: {
+                                "text-overflow": "ellipsis",
+                                overflow: "hidden"
+                              }
+                            },
+                            [_vm._v(_vm._s(item.name))]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        attrs: {
+                          name: _vm.inputName,
+                          hidden: "",
+                          disabled: ""
+                        },
+                        domProps: { value: item }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(0, true)
+                    ]
+                  )
+                ])
+              }),
+              0
+            )
           ]),
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "uk-text-truncate uk-margin-small-right " },
+            {
+              staticClass:
+                " uk-margin-small uk-flex justify-content-start align-items-center"
+            },
             [
-              _c("p", { staticClass: "uk-margin-remove" }, [
-                _vm._v(
-                  _vm._s(_vm.lessonIndex + 1) + ". " + _vm._s(_vm.lesson.name)
-                )
+              _c("label", [
+                _vm.lesson.preview == "1"
+                  ? _c("input", {
+                      staticClass: "uk-checkbox",
+                      attrs: { checked: "", type: "checkbox", id: _vm.preview }
+                    })
+                  : _c("input", {
+                      staticClass: "uk-checkbox",
+                      attrs: { type: "checkbox", id: _vm.preview }
+                    }),
+                _vm._v(" "),
+                _c("span", { staticClass: "checkmark uk-text-small" }, [
+                  _vm._v(_vm._s(_vm.isPreviewText))
+                ])
               ])
             ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "uk-width-1-1" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "uk-button uk-button-success uk-width uk-margin-small-top",
+                attrs: { "uk-toggle": _vm.toggleObject },
+                on: { click: _vm.updateLesson }
+              },
+              [
+                _c("i", { staticClass: "fas fa-save" }),
+                _vm._v("  " + _vm._s(_vm.saveText))
+              ]
+            )
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "uk-width-1-6 uk-flex flex-wrap uk-padding-remove" },
+        [
+          _c(
+            "a",
+            {
+              staticClass: "uk-button-icon uk-padding-remove uk-margin-left",
+              on: {
+                click: function($event) {
+                  return _vm.removeLesson()
+                }
+              }
+            },
+            [
+              _c("i", {
+                staticClass: "fas fa-trash-alt text-danger icon-small"
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "a",
+            {
+              staticClass: "uk-button-icon uk-padding-remove uk-margin-left",
+              attrs: { "uk-toggle": _vm.toggleObject }
+            },
+            [_c("i", { staticClass: "fas fa-cog icon-small" })]
           )
         ]
       )
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "uk-width-1-6", staticStyle: { color: "#666666" } },
-      [
-        _vm.lesson.preview
-          ? _c("i", {
-              staticClass: "fas fa-play icon-tiny uk-text-grey uk-visible@s"
-            })
-          : _vm._e()
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "a",
-      {
-        staticClass: "uk-button-icon uk-margin-left uk-width-1-6",
-        on: {
-          click: function($event) {
-            return _vm.removeLesson()
-          }
-        }
-      },
-      [_c("i", { staticClass: "fas fa-trash-alt text-danger icon-small" })]
-    )
-  ])
+    ]
+  )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-width-1-6" }, [
+      _c(
+        "a",
+        {
+          staticClass:
+            "uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right"
+        },
+        [_c("i", { staticClass: "fas fa-trash-alt text-danger icon-small" })]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
