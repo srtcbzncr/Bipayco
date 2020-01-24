@@ -625,7 +625,7 @@ class CourseController extends Controller
         }
         else{
             return response()->json([
-                'error' => false,
+                'error' => true,
                 'message' => 'Ders Silinemedi'
             ]);
         }

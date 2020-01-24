@@ -164,7 +164,7 @@ class LessonRepository implements IRepository{
         try{
             DB::beginTransaction();
             $lesson = Lesson::find($id);
-            Storage::delete($object->file_path);
+            Storage::delete($lesson->file_path);
             $lesson->delete();
             DB::commit();
         }
