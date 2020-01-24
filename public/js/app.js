@@ -3059,12 +3059,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var formData = new FormData();
       formData.append('name', document.getElementById('sectionInput').value);
       formData.append('courseId', this.courseId);
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/create', formData).then(function (response) {
-        return console.log(response);
-      }).then(this.$store.dispatch('loadSections', this.courseId));
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/create', formData).then(this.$store.dispatch('loadSections', this.courseId));
     }
   }),
-  mounted: function mounted() {
+  created: function created() {
     this.$store.dispatch('loadSections', this.courseId);
   }
 });
@@ -3354,6 +3352,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3370,7 +3372,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       preview: 'preview' + this.sectionIndex,
       sectionNameInput: 'sectionNameInput' + this.sectionIndex,
       sectionName: 'sectionName' + this.sectionIndex,
-      lessonInput: 'lessonInput' + this.sectionIndex
+      lessonInput: 'lessonInput' + this.sectionIndex,
+      courseSource: 'courseSource' + this.sectionIndex
     };
   },
   props: {
@@ -3389,6 +3392,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     addText: {
       type: String,
       "default": 'Ekle'
+    },
+    addSourceText: {
+      type: String,
+      "default": 'Kaynak Ekle'
     },
     addDefaultLessonText: {
       type: String,
@@ -3439,6 +3446,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios.post('/api/instructor/course/' + this.courseId + '/sections/create/' + this.section.id, formData).then(this.$store.dispatch('loadSections', this.courseId));
     },
     addLesson: function addLesson() {
+      var _this = this;
+
       var isPreview = document.querySelector('#' + this.preview).checked ? 1 : 0;
       var doc;
 
@@ -3448,44 +3457,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         doc = document.querySelector('#' + this.coursePdf).files[0];
       }
 
+      var source = document.querySelector('#' + this.courseSource);
+      var courseSources = [];
+
+      for (var i = 0; i < source.files.length; i++) {
+        courseSources.push(source.files[i]);
+        console.log(source.files[i]);
+      }
+
       var formData = new FormData();
       formData.append('name', document.getElementById(this.lessonInput).value);
       formData.append('is_preview', isPreview);
       formData.append('is_video', this.isVideo);
       formData.append('document', doc);
-      formData.append('source', []);
+      formData.append('source', courseSources);
       formData.append('courseId', this.courseId);
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = formData.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var pair = _step.value;
-          console.log(pair[1]);
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-            _iterator["return"]();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-
       axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.section.id + '/lessons/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
-        return console.log(response);
-      }).then(this.$store.dispatch('loadSections', this.courseId));
+        if (!response.data.error) {
+          _this.$store.dispatch('loadSections', _this.courseId);
+        }
+      });
     }
   })
 });
@@ -3715,7 +3710,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       required: true
     },
     sectionId: {
-      type: String,
+      type: Number,
       required: true
     },
     selectFileText: {
@@ -3731,7 +3726,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": 'Başarıyla Kaydedildi'
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadLessons']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections']), {
     removeLesson: function removeLesson() {
       axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/delete/' + this.lesson.id).then(this.$store.dispatch('loadSections', this.courseId));
     }
@@ -8257,7 +8252,38 @@ var render = function() {
                                               }
                                             })
                                           ]
-                                        )
+                                        ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "uk-flex uk-flex-center uk-margin",
+                                        attrs: {
+                                          "uk-form-custom": "target: true"
+                                        }
+                                      },
+                                      [
+                                        _c("input", {
+                                          attrs: {
+                                            name: "document",
+                                            type: "file",
+                                            id: _vm.courseSource,
+                                            multiple: ""
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c("input", {
+                                          staticClass: "uk-input",
+                                          attrs: {
+                                            type: "text",
+                                            tabindex: "-1",
+                                            disabled: "",
+                                            placeholder: _vm.addSourceText
+                                          }
+                                        })
+                                      ]
+                                    )
                                   ]
                                 ),
                                 _vm._v(" "),
@@ -24642,7 +24668,6 @@ var mutations = {
   },
   setSections: function setSections(state, index) {
     state.sections = index.data.sections;
-    console.log(index.data.sections);
   }
 };
 var actions = {

@@ -36,6 +36,10 @@
                                                     <input name="document" type="file" accept="application/pdf,application/vnd.ms-excel" :id="coursePdf" required>
                                                     <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
                                                 </div>
+                                                <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
+                                                    <input name="document" type="file" :id="courseSource" multiple>
+                                                    <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="addSourceText">
+                                                </div>
                                             </form>
                                             <div class="uk-margin uk-flex justify-content-start align-items-center">
                                                 <label>
@@ -94,6 +98,7 @@
                 sectionNameInput: 'sectionNameInput'+this.sectionIndex,
                 sectionName:'sectionName'+this.sectionIndex,
                 lessonInput:'lessonInput'+this.sectionIndex,
+                courseSource:'courseSource'+this.sectionIndex,
             }
         },
         props:{
@@ -112,6 +117,10 @@
             addText:{
                 type:String,
                 default:'Ekle',
+            },
+            addSourceText:{
+                type:String,
+                default:'Kaynak Ekle',
             },
             addDefaultLessonText:{
                 type:String,
@@ -172,21 +181,29 @@
                 }else{
                     doc=document.querySelector('#'+this.coursePdf).files[0];
                 }
+                var source=document.querySelector('#'+this.courseSource);
+                var courseSources=[];
+                for (var i=0; i<source.files.length;i++){
+                    courseSources.push(source.files[i]);
+                    console.log(source.files[i]);
+                }
                 var formData=new FormData();
                 formData.append('name', document.getElementById(this.lessonInput).value);
                 formData.append('is_preview', isPreview);
                 formData.append('is_video', this.isVideo);
                 formData.append('document', doc);
-                formData.append('source',[]);
+                formData.append('source',courseSources);
                 formData.append('courseId', this.courseId);
-                for (var pair of formData.entries()){
-                    console.log(pair[1])
-                }
+
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.section.id+'/lessons/create', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }})
-                    .then(response=>console.log(response)).then(this.$store.dispatch('loadSections',this.courseId))
+                    .then(response=>{
+                        if(!response.data.error){
+                            this.$store.dispatch('loadSections',this.courseId)
+                        }
+                    })
             },
         }
     }

@@ -55,7 +55,7 @@
                 required:true,
             },
             sectionId:{
-                type:String,
+                type:Number,
                 required:true,
             },
             selectFileText:{
@@ -73,7 +73,7 @@
         },
         methods:{
             ...mapActions([
-                'loadLessons',
+                'loadSections',
             ]),
             removeLesson:function () {
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sectionId+'/lessons/delete/'+this.lesson.id).then(this.$store.dispatch('loadSections',this.courseId));

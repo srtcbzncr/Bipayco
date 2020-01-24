@@ -47,7 +47,6 @@ const mutations={
     },
     setSections(state,index){
         state.sections=index.data.sections;
-        console.log(index.data.sections)
     }
 };
 const actions={

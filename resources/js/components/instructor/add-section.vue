@@ -89,10 +89,11 @@
                 var formData=new FormData();
                 formData.append('name', document.getElementById('sectionInput').value);
                 formData.append('courseId', this.courseId);
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/create', formData).then(response=>console.log(response)).then(this.$store.dispatch('loadSections',this.courseId))
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/create', formData)
+                    .then(this.$store.dispatch('loadSections',this.courseId))
             },
         },
-        mounted() {
+        created() {
             this.$store.dispatch('loadSections',this.courseId);
         },
     }
