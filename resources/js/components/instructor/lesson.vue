@@ -12,7 +12,7 @@
             </a>
         </div>
         <div style="color:#666666" class="uk-width-1-6"> <i v-if="lesson.preview" class="fas fa-play icon-tiny uk-text-grey uk-visible@s"></i> </div>
-        <a class="uk-button-icon uk-margin-left uk-width-1-6" @click="removeLesson(lessonIndex, sectionIndex)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
+        <a class="uk-button-icon uk-margin-left uk-width-1-6" @click="removeLesson()"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
     </div>
 </template>
 
@@ -54,6 +54,10 @@
                 type:String,
                 required:true,
             },
+            sectionId:{
+                type:String,
+                required:true,
+            },
             selectFileText:{
                 type:String,
                 default:'Dosya Seç'
@@ -71,10 +75,8 @@
             ...mapActions([
                 'loadLessons',
             ]),
-            removeLesson:function (lessonIndex, sectionIndex) {
-                /*'course/{id}/sections/{section_id}/lessons/create/{lesson_id?}'*/
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/delete/'+sectionId).then(this.$store.dispatch('loadSections',this.courseId));
-                this.sections[sectionIndex].lessons.splice(lessonIndex, 1)
+            removeLesson:function () {
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sectionId+'/lesson/delete/'+this.lesson.id).then(this.$store.dispatch('loadSections',this.courseId));
             },
         }
     }

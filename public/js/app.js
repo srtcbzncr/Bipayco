@@ -3344,6 +3344,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3418,26 +3428,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadSections']), {
-    removeSection: function removeSection(sectionId) {
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/delete/' + sectionId).then(this.$store.dispatch('loadSections', this.courseId));
+    removeSection: function removeSection() {
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/delete/' + this.section.id).then(this.$store.dispatch('loadSections', this.courseId));
     },
-    updateSection: function updateSection(sectionId) {
+    updateSection: function updateSection() {
       var formData = new FormData();
       var section = document.querySelector('#test');
       formData.append('name', section.querySelector('input[name="' + this.sectionNameInput + '"]').value);
       formData.append('courseId', this.courseId);
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/create/' + sectionId, formData).then(function (response) {
-        return console.log(response);
-      }).then(this.$store.dispatch('loadSections', this.courseId));
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/create/' + this.section.id, formData).then(this.$store.dispatch('loadSections', this.courseId));
     },
-    addLesson: function addLesson(index) {
+    addLesson: function addLesson() {
       var isPreview = document.querySelector('#' + this.preview).checked ? 1 : 0;
       var doc;
 
       if (this.isVideo == '1') {
-        doc = document.querySelector(this.courseVideo).files[0];
+        doc = document.querySelector('#' + this.courseVideo).files[0];
       } else {
-        doc = document.querySelector(this.coursePdf).files[0];
+        doc = document.querySelector('#' + this.coursePdf).files[0];
       }
 
       var formData = new FormData();
@@ -3448,6 +3456,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('source', []);
       formData.append('courseId', this.courseId);
       formData.append('sectionId', this.sectionId);
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.section.id + '/lesson', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        return console.log(response);
+      }).then(this.$store.dispatch('loadSections', this.courseId));
     }
   })
 });
@@ -3676,6 +3691,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       required: true
     },
+    sectionId: {
+      type: String,
+      required: true
+    },
     selectFileText: {
       type: String,
       "default": 'Dosya Seç'
@@ -3690,10 +3709,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadLessons']), {
-    removeLesson: function removeLesson(lessonIndex, sectionIndex) {
-      /*'course/{id}/sections/{section_id}/lessons/create/{lesson_id?}'*/
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/delete/' + sectionId).then(this.$store.dispatch('loadSections', this.courseId));
-      this.sections[sectionIndex].lessons.splice(lessonIndex, 1);
+    removeLesson: function removeLesson() {
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lesson/delete/' + this.lesson.id).then(this.$store.dispatch('loadSections', this.courseId));
     }
   })
 });
@@ -8284,7 +8301,19 @@ var render = function() {
                                   _c("lesson", {
                                     attrs: {
                                       lesson: lesson,
-                                      "lesson-index": lessonIndex
+                                      "lesson-index": lessonIndex,
+                                      "section-id": _vm.section.id,
+                                      "add-default-lesson-text":
+                                        _vm.addDefaultLessonText,
+                                      "add-text": _vm.addText,
+                                      "preview-text": _vm.previewText,
+                                      "course-id": _vm.courseId,
+                                      "instructor-id": _vm.instructorId,
+                                      "is-preview-text": _vm.isPreviewText,
+                                      "save-text": _vm.saveText,
+                                      "saved-success-text":
+                                        _vm.savedSuccessText,
+                                      "select-file-text": _vm.selectFileText
                                     }
                                   })
                                 ],
@@ -8311,7 +8340,7 @@ var render = function() {
             staticClass: "uk-button-icon uk-margin-left",
             on: {
               click: function($event) {
-                return _vm.removeSection(_vm.section.id)
+                return _vm.removeSection()
               }
             }
           },
@@ -8586,7 +8615,7 @@ var render = function() {
         staticClass: "uk-button-icon uk-margin-left uk-width-1-6",
         on: {
           click: function($event) {
-            return _vm.removeLesson(_vm.lessonIndex, _vm.sectionIndex)
+            return _vm.removeLesson()
           }
         }
       },

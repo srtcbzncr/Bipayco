@@ -50,6 +50,16 @@
                                         <lesson
                                             :lesson=lesson
                                             :lesson-index="lessonIndex"
+                                            :section-id="section.id"
+                                            :add-default-lesson-text="addDefaultLessonText"
+                                            :add-text="addText"
+                                            :preview-text="previewText"
+                                            :course-id="courseId"
+                                            :instructor-id="instructorId"
+                                            :is-preview-text="isPreviewText"
+                                            :save-text="saveText"
+                                            :saved-success-text="savedSuccessText"
+                                            :select-file-text="selectFileText"
                                         > </lesson>
                                     </li>
                                 </ul>
@@ -60,7 +70,7 @@
             </div>
         </div>
         <div class="uk-width-1-6">
-            <a class="uk-button-icon uk-margin-left" @click="removeSection(section.id)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
+            <a class="uk-button-icon uk-margin-left" @click="removeSection()"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
             <a class="uk-button-icon uk-margin-left" :uk-toggle="toggleObject"><i class="fas fa-cog icon-small"> </i></a>
         </div>
     </div>
@@ -144,23 +154,23 @@
             ...mapActions([
                 'loadSections',
             ]),
-            removeSection:function (sectionId) {
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/delete/'+sectionId).then(this.$store.dispatch('loadSections',this.courseId))
+            removeSection:function () {
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/delete/'+this.section.id).then(this.$store.dispatch('loadSections',this.courseId))
             },
-            updateSection:function(sectionId){
+            updateSection:function(){
                 var formData=new FormData();
                 var section= document.querySelector('#test');
                 formData.append('name', section.querySelector('input[name="'+this.sectionNameInput+'"]').value);
                 formData.append('courseId', this.courseId);
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/create/'+sectionId, formData).then(response=>console.log(response)).then(this.$store.dispatch('loadSections',this.courseId))
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/create/'+this.section.id, formData).then(this.$store.dispatch('loadSections',this.courseId))
             },
-            addLesson:function (index) {
+            addLesson:function () {
                 var isPreview = document.querySelector('#'+this.preview).checked ? 1 : 0;
                 var doc;
                 if(this.isVideo=='1'){
-                    doc=document.querySelector(this.courseVideo).files[0];
+                    doc=document.querySelector('#'+this.courseVideo).files[0];
                 }else{
-                    doc=document.querySelector(this.coursePdf).files[0];
+                    doc=document.querySelector('#'+this.coursePdf).files[0];
                 }
                 var formData=new FormData();
                 formData.append('name', document.getElementById('sectionInput').value);
@@ -170,6 +180,11 @@
                 formData.append('source',[]);
                 formData.append('courseId', this.courseId);
                 formData.append('sectionId', this.sectionId);
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.section.id+'/lesson', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }})
+                    .then(response=>console.log(response)).then(this.$store.dispatch('loadSections',this.courseId))
             },
         }
     }
