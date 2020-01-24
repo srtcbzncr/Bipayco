@@ -3455,7 +3455,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('document', doc);
       formData.append('source', []);
       formData.append('courseId', this.courseId);
-      formData.append('sectionId', this.sectionId);
+      formData.append('sectionId', this.section.id);
       axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.section.id + '/lesson', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
