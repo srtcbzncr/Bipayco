@@ -63,19 +63,19 @@ class LessonRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
-            $fileExtension = $data['file']->extension();
+            $fileExtension = $data['document']->extension();
             $is_video = true;
             if($fileExtension == 'jpg' or $fileExtension == 'png'){
                 $is_video = false;
             }
-            $filePath = Storage::putFile('lessons', $data['file']);
+            $filePath = Storage::putFile('lessons', $data['document']);
             $object = new Lesson;
             $object->section_id = $data['section_id'];
             $object->is_video = $is_video;
-            $object->no = $data['no'];
+            $object->no = 1;
             $object->name = $data['name'];
             $object->long = 0;
-            $object->preview = $data['preview'];
+            $object->preview = $data['is_preview'];
             $object->file_path = $filePath;
             $object->save();
             DB::commit();
@@ -103,9 +103,9 @@ class LessonRepository implements IRepository{
             DB::beginTransaction();
             $object = Lesson::find($id);
             $object->section_id = $data['section_id'];
-            $object->no = $data['no'];
+            $object->no = 1;
             $object->name = $data['name'];
-            $object->preview = $data['preview'];
+            $object->preview = $data['is_preview'];
             $object->save();
             DB::commit();
         }

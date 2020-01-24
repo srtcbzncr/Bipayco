@@ -574,10 +574,61 @@ class CourseController extends Controller
     }
 
     public function lessonsPost($id,$section_id,$lesson_id = null,Request $request){
+        // Initializing
+        $repo = new LessonRepository();
+        $data = $request->toArray();
+        $data['section_id'] = $section_id;
 
+        // Operations
+        if($lesson_id == null){
+            $resp = $repo->create($data);
+            if($resp->getResult()){
+                return response()->json([
+                    'error' => false,
+                    'message' => 'Ders Eklendi'
+                ]);
+            }
+            else{
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Ders Eklenemedi'
+                ]);
+            }
+        }
+        else{
+            $resp = $repo->update($lesson_id,$data);
+            if($resp->getResult()){
+                return response()->json([
+                    'error' => false,
+                    'message' => 'Ders Eklendi'
+                ]);
+            }
+            else{
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Ders Eklenemedi'
+                ]);
+            }
+        }
     }
     public function lessonsDelete($id,$section_id,$lesson_id){
-        
+        // Initializing
+        $repo = new LessonRepository();
+
+        // Operations
+        $resp = $repo->delete($lesson_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Ders Silindi'
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => false,
+                'message' => 'Ders Silinemedi'
+            ]);
+        }
     }
 
     public function instructorsPost($id,Request $request){
