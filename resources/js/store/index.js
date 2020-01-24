@@ -97,7 +97,10 @@ const actions={
     loadSections({commit},courseId){
         Axios.get('/api/instructor/course/'+courseId+'/sections/get')
             .then(response=>commit('setSections',response.data));
-
+    },
+    loadLessons({commit},{courseId,sectionId}){
+        Axios.get('/api/instructor/course/'+courseId+'/sections/'+sectionId+'/lesson')
+            .then(response=>commit('setSections',response.data));
     }
 
 };
