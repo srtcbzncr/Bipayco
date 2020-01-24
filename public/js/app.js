@@ -3455,7 +3455,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('document', doc);
       formData.append('source', []);
       formData.append('courseId', this.courseId);
-      formData.append('sectionId', this.section.id);
       axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.section.id + '/lesson', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -8032,14 +8031,7 @@ var render = function() {
                               staticClass:
                                 "uk-button uk-button-success uk-width-1-6@m uk-margin-small-top ",
                               attrs: { "uk-toggle": _vm.toggleObject },
-                              on: {
-                                click: function($event) {
-                                  return _vm.updateSection(
-                                    _vm.section.id,
-                                    _vm.sectionIndex
-                                  )
-                                }
-                              }
+                              on: { click: _vm.updateSection }
                             },
                             [
                               _c("i", { staticClass: "fas fa-save" }),
@@ -8278,11 +8270,7 @@ var render = function() {
                                 {
                                   staticClass:
                                     "uk-button uk-button-success uk-margin-small-top uk-width",
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.addLesson(_vm.sectionIndex)
-                                    }
-                                  }
+                                  on: { click: _vm.addLesson }
                                 },
                                 [
                                   _c("i", { staticClass: "fas fa-plus" }),
@@ -8338,11 +8326,7 @@ var render = function() {
           "a",
           {
             staticClass: "uk-button-icon uk-margin-left",
-            on: {
-              click: function($event) {
-                return _vm.removeSection()
-              }
-            }
+            on: { click: _vm.removeSection }
           },
           [_c("i", { staticClass: "fas fa-trash-alt text-danger icon-small" })]
         ),

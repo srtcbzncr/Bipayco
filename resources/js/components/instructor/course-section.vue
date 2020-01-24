@@ -8,7 +8,7 @@
                             <h4 class="uk-margin-remove" :class="sectionName">{{section.name}}</h4>
                             <div class="uk-margin-remove" :class="sectionName" id="test" hidden>
                                 <input class="uk-width-4-5@m uk-input uk-margin-small-top uk-padding-small" :name="sectionNameInput" :value="section.name">
-                                <button class="uk-button uk-button-success uk-width-1-6@m uk-margin-small-top " @click="updateSection(section.id,sectionIndex)" :uk-toggle="toggleObject"><i class="fas fa-save"></i><span class="uk-hidden@m">  {{saveText}}</span></button>
+                                <button class="uk-button uk-button-success uk-width-1-6@m uk-margin-small-top " @click="updateSection" :uk-toggle="toggleObject"><i class="fas fa-save"></i><span class="uk-hidden@m">  {{saveText}}</span></button>
                             </div>
                         </a>
                         <div class="uk-accordion-content uk-margin-remove-top">
@@ -44,7 +44,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <button class="uk-button uk-button-success uk-margin-small-top uk-width" @click="addLesson(sectionIndex)"><i class="fas fa-plus"></i> {{addText}}</button>
+                                        <button class="uk-button uk-button-success uk-margin-small-top uk-width" @click="addLesson"><i class="fas fa-plus"></i> {{addText}}</button>
                                     </li>
                                     <li v-for="(lesson,lessonIndex) in section.lessons">
                                         <lesson
@@ -70,7 +70,7 @@
             </div>
         </div>
         <div class="uk-width-1-6">
-            <a class="uk-button-icon uk-margin-left" @click="removeSection()"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
+            <a class="uk-button-icon uk-margin-left" @click="removeSection"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
             <a class="uk-button-icon uk-margin-left" :uk-toggle="toggleObject"><i class="fas fa-cog icon-small"> </i></a>
         </div>
     </div>
@@ -179,7 +179,6 @@
                 formData.append('document', doc);
                 formData.append('source',[]);
                 formData.append('courseId', this.courseId);
-                formData.append('sectionId', this.section.id);
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.section.id+'/lesson', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
