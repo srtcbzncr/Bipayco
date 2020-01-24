@@ -573,6 +573,13 @@ class CourseController extends Controller
         }
     }
 
+    public function lessonsPost($id,$section_id,$lesson_id = null,Request $request){
+
+    }
+    public function lessonsDelete($id,$section_id,$lesson_id){
+        
+    }
+
     public function instructorsPost($id,Request $request){
         $user = null;
         $data = $request->toArray();
