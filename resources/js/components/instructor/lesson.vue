@@ -76,7 +76,7 @@
                 'loadLessons',
             ]),
             removeLesson:function () {
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sectionId+'/lesson/delete/'+this.lesson.id).then(this.$store.dispatch('loadSections',this.courseId));
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sectionId+'/lessons/delete/'+this.lesson.id).then(this.$store.dispatch('loadSections',this.courseId));
             },
         }
     }

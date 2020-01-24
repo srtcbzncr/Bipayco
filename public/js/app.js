@@ -3455,7 +3455,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('document', doc);
       formData.append('source', []);
       formData.append('courseId', this.courseId);
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.section.id + '/lesson', formData, {
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.section.id + '/lessons/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -3709,7 +3709,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadLessons']), {
     removeLesson: function removeLesson() {
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lesson/delete/' + this.lesson.id).then(this.$store.dispatch('loadSections', this.courseId));
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/delete/' + this.lesson.id).then(this.$store.dispatch('loadSections', this.courseId));
     }
   })
 });

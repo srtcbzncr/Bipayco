@@ -179,7 +179,7 @@
                 formData.append('document', doc);
                 formData.append('source',[]);
                 formData.append('courseId', this.courseId);
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.section.id+'/lesson', formData, {
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.section.id+'/lessons/create', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }})
