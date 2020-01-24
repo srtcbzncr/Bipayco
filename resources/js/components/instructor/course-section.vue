@@ -6,8 +6,8 @@
                     <li class="tm-course-lesson-section uk-background-default">
                         <a class="uk-accordion-title uk-padding-small"><h6>{{sectionText}} {{sectionIndex+1}}</h6>
                             <h4 class="uk-margin-remove" :class="sectionName">{{section.name}}</h4>
-                            <div class="uk-margin-remove" :class="sectionName" id="test" hidden>
-                                <input class="uk-width-4-5@m uk-input uk-margin-small-top uk-padding-small" :name="sectionNameInput" :value="section.name">
+                            <div class="uk-margin-remove" :class="sectionName" hidden>
+                                <input class="uk-width-4-5@m uk-input uk-margin-small-top uk-padding-small" :id="sectionNameInput" :value="section.name">
                                 <button class="uk-button uk-button-success uk-width-1-6@m uk-margin-small-top " @click="updateSection" :uk-toggle="toggleObject"><i class="fas fa-save"></i><span class="uk-hidden@m">  {{saveText}}</span></button>
                             </div>
                         </a>
@@ -160,8 +160,7 @@
             },
             updateSection:function(){
                 var formData=new FormData();
-                var section= document.querySelector('#test');
-                formData.append('name', section.querySelector('input[name="'+this.sectionNameInput+'"]').value);
+                formData.append('name', document.getElementById(this.sectionNameInput).value);
                 formData.append('courseId', this.courseId);
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/create/'+this.section.id, formData).then(this.$store.dispatch('loadSections',this.courseId))
             },

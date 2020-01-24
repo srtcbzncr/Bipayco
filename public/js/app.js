@@ -3434,8 +3434,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     updateSection: function updateSection() {
       var formData = new FormData();
-      var section = document.querySelector('#test');
-      formData.append('name', section.querySelector('input[name="' + this.sectionNameInput + '"]').value);
+      formData.append('name', document.getElementById(this.sectionNameInput).value);
       formData.append('courseId', this.courseId);
       axios.post('/api/instructor/course/' + this.courseId + '/sections/create/' + this.section.id, formData).then(this.$store.dispatch('loadSections', this.courseId));
     },
@@ -8040,13 +8039,13 @@ var render = function() {
                         {
                           staticClass: "uk-margin-remove",
                           class: _vm.sectionName,
-                          attrs: { id: "test", hidden: "" }
+                          attrs: { hidden: "" }
                         },
                         [
                           _c("input", {
                             staticClass:
                               "uk-width-4-5@m uk-input uk-margin-small-top uk-padding-small",
-                            attrs: { name: _vm.sectionNameInput },
+                            attrs: { id: _vm.sectionNameInput },
                             domProps: { value: _vm.section.name }
                           }),
                           _vm._v(" "),
