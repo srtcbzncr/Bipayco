@@ -3356,6 +3356,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8186,7 +8194,7 @@ var render = function() {
                                   "form",
                                   {
                                     staticClass:
-                                      "uk-margin-remove uk-padding-remove"
+                                      "uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove"
                                   },
                                   [
                                     _vm.isVideo == "1"
@@ -8258,32 +8266,49 @@ var render = function() {
                                       "div",
                                       {
                                         staticClass:
-                                          "uk-flex uk-flex-center uk-margin",
-                                        attrs: {
-                                          "uk-form-custom": "target: true"
-                                        }
+                                          "js-upload uk-placeholder uk-text-center"
                                       },
                                       [
-                                        _c("input", {
-                                          attrs: {
-                                            name: "document",
-                                            type: "file",
-                                            id: _vm.courseSource,
-                                            multiple: ""
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        _c("input", {
-                                          staticClass: "uk-input",
-                                          attrs: {
-                                            type: "text",
-                                            tabindex: "-1",
-                                            disabled: "",
-                                            placeholder: _vm.addSourceText
-                                          }
-                                        })
+                                        _c(
+                                          "div",
+                                          { attrs: { "uk-form-custom": "" } },
+                                          [
+                                            _c("input", {
+                                              attrs: {
+                                                type: "file",
+                                                id: _vm.courseSource,
+                                                multiple: ""
+                                              }
+                                            }),
+                                            _vm._v(" "),
+                                            _c("span", {
+                                              staticClass:
+                                                "fas fa-upload uk-margin-small"
+                                            }),
+                                            _vm._v(" "),
+                                            _c(
+                                              "span",
+                                              { staticClass: "uk-link" },
+                                              [
+                                                _vm._v(
+                                                  _vm._s(_vm.addSourceText)
+                                                )
+                                              ]
+                                            )
+                                          ]
+                                        )
                                       ]
-                                    )
+                                    ),
+                                    _vm._v(" "),
+                                    _c("progress", {
+                                      staticClass: "uk-progress",
+                                      attrs: {
+                                        id: "js-progressbar",
+                                        value: "0",
+                                        max: "100",
+                                        hidden: ""
+                                      }
+                                    })
                                   ]
                                 ),
                                 _vm._v(" "),

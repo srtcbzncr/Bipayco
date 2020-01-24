@@ -27,7 +27,7 @@
                                         </div>
                                         <div>
                                             <input class="uk-padding-small uk-margin-small-top uk-input uk-width" type="text" :id="lessonInput" :placeholder="addDefaultLessonText">
-                                            <form class="uk-margin-remove uk-padding-remove">
+                                            <form class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove">
                                                 <div v-if="isVideo=='1'" uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                                                     <input name="document" type="file" accept="video/*" :id="courseVideo" required>
                                                     <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
@@ -36,10 +36,18 @@
                                                     <input name="document" type="file" accept="application/pdf,application/vnd.ms-excel" :id="coursePdf" required>
                                                     <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
                                                 </div>
-                                                <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
+                                                <div class="js-upload uk-placeholder uk-text-center">
+                                                    <div uk-form-custom>
+                                                        <input type="file" :id="courseSource" multiple>
+                                                        <span class="fas fa-upload uk-margin-small"></span>
+                                                        <span class="uk-link">{{addSourceText}}</span>
+                                                    </div>
+                                                </div>
+                                                <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden> </progress>
+                                                <!--<div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                                                     <input name="document" type="file" :id="courseSource" multiple>
                                                     <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="addSourceText">
-                                                </div>
+                                                </div>-->
                                             </form>
                                             <div class="uk-margin uk-flex justify-content-start align-items-center">
                                                 <label>
@@ -158,7 +166,7 @@
         computed:{
             toggleObject(){
                 return 'target: .'+this.sectionName;
-            }
+            },
         },
         methods:{
             ...mapActions([
