@@ -3369,7 +3369,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       documentType: 'documentType' + this.sectionIndex,
       preview: 'preview' + this.sectionIndex,
       sectionNameInput: 'sectionNameInput' + this.sectionIndex,
-      sectionName: 'sectionName' + this.sectionIndex
+      sectionName: 'sectionName' + this.sectionIndex,
+      lessonInput: 'lessonInput' + this.sectionIndex
     };
   },
   props: {
@@ -3449,12 +3450,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       var formData = new FormData();
-      formData.append('name', document.getElementById('sectionInput').value);
+      formData.append('name', document.getElementById(this.lessonInput).value);
       formData.append('is_preview', isPreview);
       formData.append('is_video', this.isVideo);
       formData.append('document', doc);
       formData.append('source', []);
       formData.append('courseId', this.courseId);
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = formData.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var pair = _step.value;
+          console.log(pair[1]);
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
       axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.section.id + '/lessons/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -8158,7 +8183,7 @@ var render = function() {
                                     "uk-padding-small uk-margin-small-top uk-input uk-width",
                                   attrs: {
                                     type: "text",
-                                    id: _vm.sectionIndex,
+                                    id: _vm.lessonInput,
                                     placeholder: _vm.addDefaultLessonText
                                   }
                                 }),

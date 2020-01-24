@@ -26,7 +26,7 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <input class="uk-padding-small uk-margin-small-top uk-input uk-width" type="text" :id="sectionIndex" :placeholder="addDefaultLessonText">
+                                            <input class="uk-padding-small uk-margin-small-top uk-input uk-width" type="text" :id="lessonInput" :placeholder="addDefaultLessonText">
                                             <form class="uk-margin-remove uk-padding-remove">
                                                 <div v-if="isVideo=='1'" uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                                                     <input name="document" type="file" accept="video/*" :id="courseVideo" required>
@@ -93,6 +93,7 @@
                 preview: 'preview'+this.sectionIndex,
                 sectionNameInput: 'sectionNameInput'+this.sectionIndex,
                 sectionName:'sectionName'+this.sectionIndex,
+                lessonInput:'lessonInput'+this.sectionIndex,
             }
         },
         props:{
@@ -173,12 +174,15 @@
                     doc=document.querySelector('#'+this.coursePdf).files[0];
                 }
                 var formData=new FormData();
-                formData.append('name', document.getElementById('sectionInput').value);
+                formData.append('name', document.getElementById(this.lessonInput).value);
                 formData.append('is_preview', isPreview);
                 formData.append('is_video', this.isVideo);
                 formData.append('document', doc);
                 formData.append('source',[]);
                 formData.append('courseId', this.courseId);
+                for (var pair of formData.entries()){
+                    console.log(pair[1])
+                }
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.section.id+'/lessons/create', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
