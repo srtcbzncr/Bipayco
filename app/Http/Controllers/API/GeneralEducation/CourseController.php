@@ -574,7 +574,6 @@ class CourseController extends Controller
     }
 
     public function lessonsPost($id,$section_id,$lesson_id = null,Request $request){
-        return $request->all();
         // Initializing
         $repo = new LessonRepository();
         $data = $request->toArray();
