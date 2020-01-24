@@ -64,14 +64,10 @@ class LessonRepository implements IRepository{
         try{
             DB::beginTransaction();
             $fileExtension = $data['document']->extension();
-            $is_video = true;
-            if($fileExtension == 'jpg' or $fileExtension == 'png'){
-                $is_video = false;
-            }
             $filePath = Storage::putFile('lessons', $data['document']);
             $object = new Lesson;
             $object->section_id = $data['section_id'];
-            $object->is_video = $is_video;
+            $object->is_video = $data['is_video'];
             $object->no = 1;
             $object->name = $data['name'];
             $object->long = 0;
