@@ -189,14 +189,13 @@
                 }else{
                     doc=document.querySelector('#'+this.coursePdf).files[0];
                 }
-                let source=document.querySelector('#'+this.courseSource);
                 var formData=new FormData();
                 formData.append('name', document.getElementById(this.lessonInput).value);
                 formData.append('is_preview', isPreview);
                 formData.append('is_video', this.isVideo);
                 formData.append('document', doc);
-                for (var i=0; i<source.files.length;i++){
-                    formData.append('source['+i+']', source.files[i]);
+                for (var i=0; i< document.querySelector('#'+this.courseSource).files.length;i++){
+                    formData.append('source['+i+']', document.querySelector('#'+this.courseSource).files[i]);
                 }
                 formData.append('courseId', this.courseId);
                 for(var pair of formData.entries()){
