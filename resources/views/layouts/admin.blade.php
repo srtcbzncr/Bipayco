@@ -30,7 +30,7 @@
 </head>
 <body>
     <!-- sidebar -->
-    <div class="admin-side" id="admin-side">
+    <div class="admin-side overflow-auto" id="admin-side">
         <div class="uk-flex uk-flex-center uk-margin-small-top">
             <a class="" href="{{route('home')}}">
                 <img class="uk-logo uk-width-small" src="{{asset('images/logo1.png')}}"/>

@@ -1,5 +1,5 @@
 <template>
-    <div class="star-rating">
+    <div class="star-rating uk-width-2-3">
         <div v-for="(star, index) in stars" :key="index" class="star-container">
             <svg
                 class="star-svg"
@@ -212,6 +212,8 @@
         .star-container {
             display: flex;
             .star-svg {
+                max-height: 20px;
+                max-width:25px;
             }
         }
         .indicator {
