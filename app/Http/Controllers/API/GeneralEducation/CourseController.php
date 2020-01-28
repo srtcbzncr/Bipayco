@@ -574,10 +574,13 @@ class CourseController extends Controller
     }
 
     public function lessonsPost($id,$section_id,$lesson_id = null,Request $request){
+        return gettype($request->file('document'));
+        $sources = explode(',',$request->input('source'));
         // Initializing
         $repo = new LessonRepository();
         $data = $request->toArray();
         $data['section_id'] = $section_id;
+        $data['sources'] = $sources;
 
         // Operations
         if($lesson_id == null){

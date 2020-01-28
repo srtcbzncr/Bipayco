@@ -3,6 +3,7 @@
 namespace App\Repositories\GeneralEducation;
 
 use App\Events\GeneralEducation\ChangeLessonStatus;
+use App\Models\GeneralEducation\Source;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use App\Models\GeneralEducation\Lesson;
@@ -63,11 +64,6 @@ class LessonRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
-            $fileExtension = $data['document']->extension();
-            ini_set('upload_max_filesize', '500M');
-            ini_set('post_max_size', '500M');
-            ini_set('max_input_time', 300);
-            ini_set('max_execution_time', 300);
             $filePath = Storage::putFile('lessons', $data['document']);
             $object = new Lesson;
             $object->section_id = $data['section_id'];
@@ -78,6 +74,25 @@ class LessonRepository implements IRepository{
             $object->preview = $data['is_preview'];
             $object->file_path = $filePath;
             $object->save();
+
+            // add sources
+            $object = null;
+            $lessons = Lesson::where('section_id',$data['section_id'])->get();
+            $lesson = null;
+            foreach ($lessons as $item){
+                $lesson = $item;
+            }
+            foreach ($data['sources'] as $source){
+                $filePath = Storage::putFile('sources', $source);
+                // kaynaklar string olarak geldiği için Storage ile ekleme yapılmıyor hata veriyor.
+                $object = new Source;
+                $object->lesson_id = $lesson->id;
+                $object->lesson_type = get_class($data['lesson']);
+                $object->title = 'source 1';
+                $object->file_path = $filePath;
+                $object->save();
+            }
+
             DB::commit();
         }
         catch(\Exception $e){
@@ -104,6 +119,7 @@ class LessonRepository implements IRepository{
             $object = Lesson::find($id);
             $object->section_id = $data['section_id'];
             $object->no = 1;
+            $object->file_path = $data['file_path'];
             $object->name = $data['name'];
             $object->preview = $data['is_preview'];
             $object->save();

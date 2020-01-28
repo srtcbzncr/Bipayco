@@ -59,13 +59,16 @@ class SourceRepository implements IRepository{
 
         // Operations
         try{
-            $filePath = Storage::putFile('sources', $data['file']);
-            $object = new Source;
-            $object->lesson_id = $data['lesson']->id;
-            $object->lesson_type = get_class($data['lesson']);
-            $object->title = $data['title'];
-            $object->file_path = $filePath;
-            $object->save();
+            $sources = explode(',',$data['source']);
+            foreach ($sources as $source){
+                $filePath = Storage::putFile('sources', $source);
+                $object = new Source;
+                $object->lesson_id = $data['lesson']->id;
+                $object->lesson_type = get_class($data['lesson']);
+                $object->title = $data['title'];
+                $object->file_path = $filePath;
+                $object->save();
+            }
         }
         catch(\Exception $e){
             $error = $e;
