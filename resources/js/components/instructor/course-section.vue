@@ -195,7 +195,7 @@
                 formData.append('is_video', this.isVideo);
                 formData.append('document', doc);
                 for (var i=0; i< document.querySelector('#'+this.courseSource).files.length; i++){
-                    formData.append('source'+i, document.querySelector('#'+this.courseSource).files[i]);
+                    formData.append(i, document.querySelector('#'+this.courseSource).files[i]);
                 }
                 formData.append('courseId', this.courseId);
                 for(var pair of formData.entries()){
