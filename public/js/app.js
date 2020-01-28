@@ -3465,21 +3465,43 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         doc = document.querySelector('#' + this.coursePdf).files[0];
       }
 
-      var source = document.querySelector('#' + this.courseSource);
-      var courseSources = [];
-
-      for (var i = 0; i < source.files.length; i++) {
-        courseSources.push(source.files[i]);
-        console.log(source.files[i]);
-      }
-
       var formData = new FormData();
       formData.append('name', document.getElementById(this.lessonInput).value);
       formData.append('is_preview', isPreview);
       formData.append('is_video', this.isVideo);
       formData.append('document', doc);
-      formData.append('source', courseSources);
+
+      for (var i = 0; i < document.querySelector('#' + this.courseSource).files.length; i++) {
+        var file = document.querySelector('#' + this.courseSource).files[i];
+        formData.append('source[' + i + ']', file);
+      }
+
       formData.append('courseId', this.courseId);
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = formData.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var pair = _step.value;
+          console.log(pair[0]);
+          console.log(pair[1]);
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
       axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.section.id + '/lessons/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -4434,7 +4456,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, ".star-rating[data-v-dc02c858] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.star-rating .star-container[data-v-dc02c858] {\n  display: -webkit-box;\n  display: flex;\n}\n.star-rating .star-container[data-v-dc02c858]:not(:last-child) {\n  margin-right: 5px;\n}\n.star-button[data-v-dc02c858] {\n  background-color: white;\n}\n.star-button[data-v-dc02c858]:focus {\n  background-color: white;\n}", ""]);
+exports.push([module.i, ".star-rating[data-v-dc02c858] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.star-rating .star-container[data-v-dc02c858] {\n  display: -webkit-box;\n  display: flex;\n}\n.star-rating .star-container .star-svg[data-v-dc02c858] {\n  max-height: 20px;\n  max-width: 25px;\n}\n.star-rating .star-container[data-v-dc02c858]:not(:last-child) {\n  margin-right: 5px;\n}\n.star-button[data-v-dc02c858] {\n  background-color: white;\n}\n.star-button[data-v-dc02c858]:focus {\n  background-color: white;\n}", ""]);
 
 // exports
 
@@ -9268,7 +9290,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "star-rating" },
+    { staticClass: "star-rating uk-width-2-3" },
     [
       _vm._l(_vm.stars, function(star, index) {
         return _c("div", { key: index, staticClass: "star-container" }, [
@@ -25068,8 +25090,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\talhakirgel\Documents\GitHub\Bipayco\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\talhakirgel\Documents\GitHub\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Bedrifa\Documents\GitHub\Bipayco\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Bedrifa\Documents\GitHub\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
