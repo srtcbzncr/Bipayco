@@ -633,6 +633,26 @@ class CourseController extends Controller
         }
     }
 
+    public function sourceDelete($id){
+        // Initializing
+        $repo = new SourceRepository();
+
+        // Operations
+        $resp =  $repo->delete($id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'source silindi'
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'source silinemedi'
+            ]);
+        }
+    }
+
     public function instructorsPost($id,Request $request){
         $user = null;
         $data = $request->toArray();
