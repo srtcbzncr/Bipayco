@@ -124,4 +124,5 @@ return [
     'preview'=>'Önizle',
     'saved_successful'=>'Başarıyla Kaydedildi',
     'more'=>'Dahası',
+    'title_example'=>'Matematik Öğretmeni vb.'
 ];

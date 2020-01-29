@@ -58,7 +58,7 @@
                                     </div>
                                     <div>
                                         <div class="uk-form-label"> @lang('front/auth.title')  </div>
-                                        <input class="uk-input form-control @error('title') is-invalid @enderror" type="text" placeholder="@lang('front/auth.title')" name="title" required>
+                                        <input class="uk-input form-control @error('title') is-invalid @enderror" type="text" placeholder="@lang('front/auth.title_example')" name="title" required>
                                         @error('title')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
