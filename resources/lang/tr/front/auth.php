@@ -122,5 +122,6 @@ return [
     'add_lesson'=>'Ders Ekle',
     'add_section'=>'Bölüm Ekle',
     'preview'=>'Önizle',
-    'saved_successful'=>'Başarıyla Kaydedildi'
+    'saved_successful'=>'Başarıyla Kaydedildi',
+    'more'=>'Dahası',
 ];
