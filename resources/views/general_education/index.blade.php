@@ -1,15 +1,15 @@
 @extends('layouts.app')
 @section('content')
     <div class="uk-container">
-        <ul uk-tab uk-switcher="connect: #subCategories" class="uk-flex-center uk-margin-medium-top">
+        <ul uk-switcher="connect: #subCategories" class="uk-flex-center uk-margin-medium-top uk-subnav uk-subnav-pill uk-margin-remove-bottom">
             @if(count($categories)< 7)
                 @foreach($categories as $category)
-                    <li class="toggle-link"><a href="#">{{$category->name}}</a></li>
+                    <li><a href="#">{{$category->name}}</a></li>
                 @endforeach
             @else
                 @foreach($categories as $category)
                     @if($loop->index < 5)
-                        <li class="toggle-link"><a href="#">{{$category->name}}</a></li>
+                        <li><a href="#">{{$category->name}}</a></li>
                     @endif
                 @endforeach
                 <li>
@@ -18,9 +18,9 @@
                         <ul class="uk-nav uk-dropdown-nav" uk-switcher="connect: #subCategories">
                             @foreach($categories as $category)
                                 @if($loop->index >= 5)
-                                    <li class="toggle-link"><a href="#">{{$category->name}}</a></li>
+                                    <li><a href="#">{{$category->name}}</a></li>
                                 @else
-                                    <li hidden></li>
+                                    <li class="uk-hidden"></li>
                                 @endif
                             @endforeach
                         </ul>
@@ -28,6 +28,7 @@
                 </li>
             @endif
         </ul>
+        <hr class="uk-margin-remove-top">
         <ul class="uk-switcher uk-margin-medium-top" id="subCategories">
             @foreach($categories as $category)
                 <li>
