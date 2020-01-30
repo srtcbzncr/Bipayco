@@ -36,6 +36,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\GeneralEducation\DeleteDiscount' => [
             'App\Listeners\GeneralEducation\UpdateCoursePriceWithoutDiscount',
         ],
+        'App\Events\UsersOperations\CreateLastWatchedCourse' => [
+            'App\Listeners\UsersOperations\LastWacthedCourse'
+        ],
     ];
 
     /**
