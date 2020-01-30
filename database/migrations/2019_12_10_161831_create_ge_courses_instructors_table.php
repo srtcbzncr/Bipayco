@@ -20,7 +20,7 @@ class CreateGeCoursesInstructorsTable extends Migration
             $table->unsignedBigInteger('instructor_id');
             $table->boolean('is_manager');
             $table->float('percent');
-            $table->boolean('active')->default(true);
+            $table->boolean('active')->default(false);
             $table->timestamps();
             $table->softDeletes();
 
