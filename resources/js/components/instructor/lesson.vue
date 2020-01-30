@@ -149,14 +149,12 @@
                     console.log(pair[0]);
                     console.log(pair[1]);
                 }
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sectionId+'/lessons/create/'+this.lesson.id, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }})
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sectionId+'/lessons/create/'+this.lesson.id, formData)
                     .then(response=>{
                         if(!response.data.error){
-                            this.$store.dispatch('loadSections',this.courseId)
+                            this.$store.dispatch('loadSections',this.courseId);
                         }
+                        console.log(response);
                     })
             },
             removeSource:function(index){

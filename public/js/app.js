@@ -3831,14 +3831,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }
 
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/create/' + this.lesson.id, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }).then(function (response) {
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/create/' + this.lesson.id, formData).then(function (response) {
         if (!response.data.error) {
           _this.$store.dispatch('loadSections', _this.courseId);
         }
+
+        console.log(response);
       });
     },
     removeSource: function removeSource(index) {
