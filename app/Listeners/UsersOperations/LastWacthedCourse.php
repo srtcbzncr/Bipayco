@@ -26,6 +26,26 @@ class LastWacthedCourse
      */
     public function handle(CreateLastWatchedCourse $event)
     {
-        //
+        $lastWatchedCourse = LastWacthedCourse::where('student_id',$event->student_id)
+        ->where('course_type',$event->course_type)->where('course_id',$event->course_id)->first();
+        if($lastWatchedCourse==null){
+            $lastWatchedCourse = new LastWacthedCourse();
+            $lastWatchedCourse->student_id = $event->student_id;
+            $lastWatchedCourse->course_type = $event->course_type;
+            $lastWatchedCourse->course_id = $event->course_id;
+
+            $lastWatchedCourse->save();
+        }
+        else{
+            $lastWatchedCourse->delete();
+            $lastWatchedCourse = null;
+
+            $lastWatchedCourse = new LastWacthedCourse();
+            $lastWatchedCourse->student_id = $event->student_id;
+            $lastWatchedCourse->course_type = $event->course_type;
+            $lastWatchedCourse->course_id = $event->course_id;
+
+            $lastWatchedCourse->save();
+        }
     }
 }
