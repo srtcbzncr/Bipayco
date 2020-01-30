@@ -831,6 +831,10 @@ class CourseRepository implements IRepository{
             foreach ($sections as $key => $section){
                 $lessons = $section->lessons;
                 $object['sections'][$key]['lessons'] = $lessons;
+                foreach ($lessons as $keyLesson => $lesson){
+                    $sources = $lesson->sources;
+                    $object['sections'][$key]['lessons'][$keyLesson]['sources'] = $sources;
+                }
             }
 
             DB::commit();
