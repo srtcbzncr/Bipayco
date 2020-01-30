@@ -15,7 +15,8 @@ class CreateLastWatchedCoursesTable extends Migration
     {
         Schema::create('last_watched_courses', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
+            $table->integer('student_id');
+            $table->string('course_type');
             $table->integer('course_id');
             $table->timestamps();
         });

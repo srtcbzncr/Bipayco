@@ -41,4 +41,8 @@ class Student extends Model
     public function gePurchases(){
         return $this->hasMany('App\Models\GeneralEducation\Purchase');
     }
+
+    public function lastWatchedCourses(){
+        return $this->hasMany('App\Models\UsersOperations\LastWatchedCourses','student_id','id');
+    }
 }

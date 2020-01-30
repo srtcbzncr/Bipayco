@@ -16,7 +16,7 @@ class LastWatchedCourses extends Model
     ];
 
     public function students(){
-        return $this->morphToMany('App\Models\Auth\Student');
+        return $this->hasMany('App\Models\Auth\Student');
     }
 
     public function ge(){ // general educations
