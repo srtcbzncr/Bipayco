@@ -124,5 +124,6 @@ return [
     'preview'=>'Önizle',
     'saved_successful'=>'Başarıyla Kaydedildi',
     'more'=>'Dahası',
-    'title_example'=>'Matematik Öğretmeni vb.'
+    'title_example'=>'Matematik Öğretmeni vb.',
+    'reference_code_explain'=>'Referans kodunuz yok ise ****** şirket referans konu giriniz'
 ];

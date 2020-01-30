@@ -77,7 +77,7 @@
                                         @enderror
                                     </div>
                                     <div>
-                                        <div class="uk-form-label">@lang('front/auth.reference_code') </div>
+                                        <div class="uk-form-label">@lang('front/auth.reference_code') <i class="fas fa-question-circle" uk-tooltip="title: @lang('front/auth.reference_code_explain') ; delay: 500 ; pos: bottom ; animation: uk-animation-scale-up"></i></div>
                                         <input class="uk-input" type="text" name="reference_code" placeholder="@lang('front/auth.reference_code')">
                                         @error('reference_code')
                                         <span class="invalid-feedback" role="alert">
