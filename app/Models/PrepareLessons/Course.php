@@ -78,6 +78,6 @@ class Course extends Model
     }
 
     public function lastWatchedCourses(){
-        return $this->morphMany('App\Models\UsersOperations\LastWatchedCourses','lastWatchedCourse');
+        return $this->morphMany('App\Models\UsersOperations\LastWatchedCourses','course');
     }
 }
