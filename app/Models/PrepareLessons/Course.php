@@ -13,15 +13,11 @@ class Course extends Model
     protected $guarded = ['id'];
 
     public function lesson(){
-        return $this->belongsTo('App\Models\PrepareLessons\Lesson');
+        return $this->belongsTo('App\Models\Curriculum\Lesson');
     }
 
     public function grade(){
-        return $this->belongsTo('App\Models\PrepareLessons\Grade');
-    }
-
-    public function subject(){
-        return $this->belongsTo('App\Models\PrepareLessons\Subject');
+        return $this->belongsTo('App\Models\Curriculum\Grade');
     }
 
     public function sections(){

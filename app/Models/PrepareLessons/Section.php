@@ -16,6 +16,10 @@ class Section extends Model
         return $this->belongsTo('App\Models\PrepareLessons\Course');
     }
 
+    public function subject(){
+        return $this->belongsTo('App\Models\Curriculum\Subject');
+    }
+
     public function lessons(){
         return $this->hasMany('App\Models\PrepareLessons\Lesson');
     }
