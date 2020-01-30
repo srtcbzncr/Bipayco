@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="uk-container uk-margin-large-top">
+    <div class="uk-container uk-margin-medium-top">
         <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 90%">
             <div class="uk-card-body">
                 <div class="uk-flex-center uk-margin-remove">
