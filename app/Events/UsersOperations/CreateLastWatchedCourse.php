@@ -14,14 +14,18 @@ class CreateLastWatchedCourse
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
+    public $student_id, $course_type, $course_id;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($student_id,$course_type,$course_id)
     {
-        //
+        $this->student_id = $student_id;
+        $this->course_type = $course_type;
+        $this->course_id = $course_id;
     }
 
     /**
