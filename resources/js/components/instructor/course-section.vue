@@ -15,18 +15,18 @@
                             <div class="tm-course-section-list">
                                 <ul>
                                     <li>
-                                        <div class="uk-width uk-flex uk-flex-row align-items-center justify-content-around">
-                                            <div class="uk-flex align-items-center">
-                                                <input class="uk-radio uk-margin-remove" type="radio" :name="documentType" v-model="isVideo" checked value="1">
-                                                <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">Video</p>
-                                            </div>
-                                            <div class="uk-flex align-items-center">
-                                                <input class="uk-radio uk-margin-remove" type="radio" :name="documentType" v-model="isVideo" value="0">
-                                                <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">PDF</p>
-                                            </div>
-                                        </div>
                                         <div>
                                             <input class="uk-padding-small uk-margin-small-top uk-input uk-width" type="text" :id="lessonInput" :placeholder="addDefaultLessonText">
+                                            <div class="uk-width uk-flex uk-flex-row align-items-center justify-content-around uk-margin-top">
+                                                <div class="uk-flex align-items-center">
+                                                    <input class="uk-radio uk-margin-remove" type="radio" :name="documentType" v-model="isVideo" checked value="1">
+                                                    <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">Video</p>
+                                                </div>
+                                                <div class="uk-flex align-items-center">
+                                                    <input class="uk-radio uk-margin-remove" type="radio" :name="documentType" v-model="isVideo" value="0">
+                                                    <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">PDF</p>
+                                                </div>
+                                            </div>
                                             <form class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove">
                                                 <div v-if="isVideo=='1'" uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                                                     <input name="document" type="file" accept="video/*" :id="courseVideo" required>

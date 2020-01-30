@@ -53,7 +53,7 @@
     <div class="app">
         <main>
             <!--  Top bar nav -->
-            <nav class="tm-mobile-header uk-navbar"style="height:auto;">
+            <nav class="tm-mobile-header uk-navbar uk-padding-remove-top uk-padding-remove-bottom"style="height:auto;">
                 <!-- mobile icon for side nav on nav-mobile-->
                 <span class="uk-hidden@m tm-mobile-menu-icon" uk-toggle="target: #side-nav; cls: side-nav-active"><i class="fas fa-bars icon-large"></i></span>
                 <!-- mobile icon for user icon on nav-mobile -->
@@ -63,9 +63,9 @@
                 <div class="uk-navbar-left uk-visible@m uk-flex-center">
                 @if(Auth::check())
                     @if(!isSet(Auth::user()->instructor))
-                        <a href="{{route('instructor_create_get')}}" class="uk-navbar-item uk-button-text back-to-dashboard"> @lang('front/auth.be_instructor') </a>
+                        <a href="{{route('instructor_create_get')}}" class="uk-navbar-item uk-button-text back-to-dashboard uk-margin-small-top"> @lang('front/auth.be_instructor') </a>
                     @else
-                        <a href="{{route('instructor_courses')}}" class="uk-navbar-item uk-button-text back-to-dashboard">@lang('front/auth.instructor_mode')</a>
+                        <a href="{{route('instructor_courses')}}" class="uk-navbar-item uk-button-text back-to-dashboard uk-margin-small-top">@lang('front/auth.instructor_mode')</a>
                     @endif
                 @endif
                 </div>

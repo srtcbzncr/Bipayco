@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="hero-bg uk-margin-remove-top" style="background: {{$sub_category->color}}">
+    <div class="hero-bg" style="background: {{$sub_category->color}}; margin-top: -70px">
         <div uk-grid>
             <div class="uk-width-1-2@m">
                 <h1 class="uk-animation-fade">{{$sub_category->name}}</h1>

@@ -3715,6 +3715,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "lesson",
@@ -3789,10 +3790,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections']), {
     removeLesson: function removeLesson() {
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/delete/' + this.lesson.id).then(this.$store.dispatch('loadSections', this.courseId));
+      var _this = this;
+
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/delete/' + this.lesson.id).then(this.$store.dispatch('loadSections', this.courseId)).then(function (response) {
+        console.log(_this.lesson);
+      });
     },
     updateLesson: function updateLesson() {
-      var _this = this;
+      var _this2 = this;
 
       var isPreview = document.querySelector('#' + this.preview).checked ? 1 : 0;
       var doc;
@@ -3821,7 +3826,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (response) {
         if (!response.data.error) {
-          _this.$store.dispatch('loadSections', _this.courseId);
+          _this2.$store.dispatch('loadSections', _this2.courseId);
         }
       });
     },
@@ -8173,102 +8178,6 @@ var render = function() {
                           "ul",
                           [
                             _c("li", [
-                              _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "uk-width uk-flex uk-flex-row align-items-center justify-content-around"
-                                },
-                                [
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass: "uk-flex align-items-center"
-                                    },
-                                    [
-                                      _c("input", {
-                                        directives: [
-                                          {
-                                            name: "model",
-                                            rawName: "v-model",
-                                            value: _vm.isVideo,
-                                            expression: "isVideo"
-                                          }
-                                        ],
-                                        staticClass:
-                                          "uk-radio uk-margin-remove",
-                                        attrs: {
-                                          type: "radio",
-                                          name: _vm.documentType,
-                                          checked: "",
-                                          value: "1"
-                                        },
-                                        domProps: {
-                                          checked: _vm._q(_vm.isVideo, "1")
-                                        },
-                                        on: {
-                                          change: function($event) {
-                                            _vm.isVideo = "1"
-                                          }
-                                        }
-                                      }),
-                                      _vm._v(" "),
-                                      _c(
-                                        "p",
-                                        {
-                                          staticClass:
-                                            "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
-                                        },
-                                        [_vm._v("Video")]
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "div",
-                                    {
-                                      staticClass: "uk-flex align-items-center"
-                                    },
-                                    [
-                                      _c("input", {
-                                        directives: [
-                                          {
-                                            name: "model",
-                                            rawName: "v-model",
-                                            value: _vm.isVideo,
-                                            expression: "isVideo"
-                                          }
-                                        ],
-                                        staticClass:
-                                          "uk-radio uk-margin-remove",
-                                        attrs: {
-                                          type: "radio",
-                                          name: _vm.documentType,
-                                          value: "0"
-                                        },
-                                        domProps: {
-                                          checked: _vm._q(_vm.isVideo, "0")
-                                        },
-                                        on: {
-                                          change: function($event) {
-                                            _vm.isVideo = "0"
-                                          }
-                                        }
-                                      }),
-                                      _vm._v(" "),
-                                      _c(
-                                        "p",
-                                        {
-                                          staticClass:
-                                            "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
-                                        },
-                                        [_vm._v("PDF")]
-                                      )
-                                    ]
-                                  )
-                                ]
-                              ),
-                              _vm._v(" "),
                               _c("div", [
                                 _c("input", {
                                   staticClass:
@@ -8279,6 +8188,104 @@ var render = function() {
                                     placeholder: _vm.addDefaultLessonText
                                   }
                                 }),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "uk-width uk-flex uk-flex-row align-items-center justify-content-around uk-margin-top"
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "uk-flex align-items-center"
+                                      },
+                                      [
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: _vm.isVideo,
+                                              expression: "isVideo"
+                                            }
+                                          ],
+                                          staticClass:
+                                            "uk-radio uk-margin-remove",
+                                          attrs: {
+                                            type: "radio",
+                                            name: _vm.documentType,
+                                            checked: "",
+                                            value: "1"
+                                          },
+                                          domProps: {
+                                            checked: _vm._q(_vm.isVideo, "1")
+                                          },
+                                          on: {
+                                            change: function($event) {
+                                              _vm.isVideo = "1"
+                                            }
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "p",
+                                          {
+                                            staticClass:
+                                              "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
+                                          },
+                                          [_vm._v("Video")]
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "uk-flex align-items-center"
+                                      },
+                                      [
+                                        _c("input", {
+                                          directives: [
+                                            {
+                                              name: "model",
+                                              rawName: "v-model",
+                                              value: _vm.isVideo,
+                                              expression: "isVideo"
+                                            }
+                                          ],
+                                          staticClass:
+                                            "uk-radio uk-margin-remove",
+                                          attrs: {
+                                            type: "radio",
+                                            name: _vm.documentType,
+                                            value: "0"
+                                          },
+                                          domProps: {
+                                            checked: _vm._q(_vm.isVideo, "0")
+                                          },
+                                          on: {
+                                            change: function($event) {
+                                              _vm.isVideo = "0"
+                                            }
+                                          }
+                                        }),
+                                        _vm._v(" "),
+                                        _c(
+                                          "p",
+                                          {
+                                            staticClass:
+                                              "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
+                                          },
+                                          [_vm._v("PDF")]
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                ),
                                 _vm._v(" "),
                                 _c(
                                   "form",
@@ -8714,6 +8721,7 @@ var render = function() {
     "div",
     { staticClass: "uk-grid align-items-center uk-padding-remove" },
     [
+      _vm._v("\n    " + _vm._s(_vm.lesson) + "\n    "),
       _c(
         "div",
         {

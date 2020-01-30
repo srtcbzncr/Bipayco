@@ -1,5 +1,6 @@
 <template>
     <div class="uk-grid align-items-center uk-padding-remove">
+        {{lesson}}
         <div class="uk-width-5-6 uk-grid uk-margin-remove uk-padding-remove" :class="lessonName">
             <div class="uk-width-5-6@m uk-width uk-padding-remove-right">
                 <a href="#" class="uk-link-reset uk-width uk-flex align-items-center">
@@ -132,8 +133,10 @@
                 'loadSections',
             ]),
             removeLesson:function () {
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sectionId+'/lessons/delete/'+this.lesson.id).then(this.$store.dispatch('loadSections',this.courseId));
-            },
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sectionId+'/lessons/delete/'+this.lesson.id).then(this.$store.dispatch('loadSections',this.courseId)).then(response=>{
+                    console.log(this.lesson)
+                });
+                },
             updateLesson:function () {
                 var isPreview = document.querySelector('#'+this.preview).checked ? 1 : 0;
                 let doc;
