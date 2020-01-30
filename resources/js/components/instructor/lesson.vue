@@ -17,19 +17,18 @@
         <div class="uk-width-5-6" :class="lessonName" hidden>
             <div>
                 <div class="uk-form-label">{{lessonNameText}}</div>
-                <input class="uk-input" type="text" :value="lesson.name" required>
+                <input class="uk-input" type="text" :value="lesson.name" :id="inputName" required>
             </div>
             <div>
-                <div v-if="lesson.sources!=null&&lesson.sources!=undefined&&lesson.source!=[]" class="uk-form-label">{{sourcesText}}</div>
+                <div v-if="lessonSources!=null && lessonSources!=[]" class="uk-form-label">{{sourcesText}}</div>
                 <ul>
-                    <li v-for="item in lesson.sources">
+                    <li v-for="(item, index) in lessonSources">
                         <div class="uk-flex align-items-center uk-margin">
                             <div class="uk-width-5-6 uk-flex uk-flex-wrap">
                                 <p class="uk-margin-remove" style="text-overflow: ellipsis; overflow:hidden;">{{item.title}}</p>
                             </div>
-                            <input :id="inputName" hidden disabled :value="item.file_path">
                             <div class="uk-width-1-6">
-                                <a class="uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right" @click="removeSource(item.id)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
+                                <a class="uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right" @click="removeSource(index)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
                             </div>
                         </div>
                     </li>
@@ -60,6 +59,7 @@
         name: "lesson",
         data(){
             return{
+                lessonSources: [],
                 lessonName: 'lessonName'+this.lessonIndex,
                 inputName:'inputName'+this.lessonIndex,
                 preview: 'lessonPreview'+this.lessonIndex,
@@ -124,29 +124,31 @@
             },
         },
         computed:{
-          toggleObject(){
-              return 'target: .'+this.lessonName;
-          }
+            toggleObject(){
+                return 'target: .'+this.lessonName;
+            },
         },
         methods:{
             ...mapActions([
                 'loadSections',
             ]),
             removeLesson:function () {
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sectionId+'/lessons/delete/'+this.lesson.id).then(this.$store.dispatch('loadSections',this.courseId)).then(response=>{
-                    console.log(this.lesson)
-                });
-                },
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sectionId+'/lessons/delete/'+this.lesson.id).then(this.$store.dispatch('loadSections',this.courseId))
+            },
             updateLesson:function () {
                 var isPreview = document.querySelector('#'+this.preview).checked ? 1 : 0;
                 var formData=new FormData();
                 formData.append('name', document.getElementById(this.inputName).value);
                 formData.append('is_preview', isPreview);
-                for (var i=0; i< document.querySelector('#'+this.courseSource).files.length;i++){
-                    let file=document.querySelector('#'+this.courseSource).files[i];
-                    formData.append('source['+i+']', file);
+                for (var i=0;i<this.lessonSources.length;i++){
+                    formData.append('source['+i+']', this.lessonSources[i]);
                 }
+                formData.append('sectionId', this.sectionId);
                 formData.append('courseId', this.courseId);
+                for(let pair of formData){
+                    console.log(pair[0]);
+                    console.log(pair[1]);
+                }
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sectionId+'/lessons/create/'+this.lesson.id, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
@@ -157,10 +159,21 @@
                         }
                     })
             },
-            removeSource:function(sourceId){
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sectionId+'/lessons/'+this.lesson.id+'/source/delete/'+sourceId).then(this.$store.dispatch('loadSections',this.courseId))
+            removeSource:function(index){
+                this.lessonSources.splice(index,1);
+            },
+            getSource(){
+                for( let doc of this.lesson.sources){
+                    this.lessonSources.push(doc)
+                }
+            },
+
+        },
+        created(){
+            if(this.lesson!=null && this.lesson!==[]){
+                this.getSource();
             }
-        }
+        },
     }
 </script>
 

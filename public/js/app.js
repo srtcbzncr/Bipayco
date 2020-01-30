@@ -3714,12 +3714,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "lesson",
   data: function data() {
     return {
+      lessonSources: [],
       lessonName: 'lessonName' + this.lessonIndex,
       inputName: 'inputName' + this.lessonIndex,
       preview: 'lessonPreview' + this.lessonIndex
@@ -3790,40 +3790,91 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections']), {
     removeLesson: function removeLesson() {
-      var _this = this;
-
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/delete/' + this.lesson.id).then(this.$store.dispatch('loadSections', this.courseId)).then(function (response) {
-        console.log(_this.lesson);
-      });
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/delete/' + this.lesson.id).then(this.$store.dispatch('loadSections', this.courseId));
     },
     updateLesson: function updateLesson() {
-      var _this2 = this;
+      var _this = this;
 
       var isPreview = document.querySelector('#' + this.preview).checked ? 1 : 0;
       var formData = new FormData();
       formData.append('name', document.getElementById(this.inputName).value);
       formData.append('is_preview', isPreview);
 
-      for (var i = 0; i < document.querySelector('#' + this.courseSource).files.length; i++) {
-        var file = document.querySelector('#' + this.courseSource).files[i];
-        formData.append('source[' + i + ']', file);
+      for (var i = 0; i < this.lessonSources.length; i++) {
+        formData.append('source[' + i + ']', this.lessonSources[i]);
       }
 
+      formData.append('sectionId', this.sectionId);
       formData.append('courseId', this.courseId);
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = formData[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var pair = _step.value;
+          console.log(pair[0]);
+          console.log(pair[1]);
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
       axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/create/' + this.lesson.id, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
         if (!response.data.error) {
-          _this2.$store.dispatch('loadSections', _this2.courseId);
+          _this.$store.dispatch('loadSections', _this.courseId);
         }
       });
     },
-    removeSource: function removeSource(sourceId) {
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/' + this.lesson.id + '/source/delete/' + sourceId).then(this.$store.dispatch('loadSections', this.courseId));
+    removeSource: function removeSource(index) {
+      this.lessonSources.splice(index, 1);
+    },
+    getSource: function getSource() {
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = this.lesson.sources[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var doc = _step2.value;
+          this.lessonSources.push(doc);
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+            _iterator2["return"]();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
     }
-  })
+  }),
+  created: function created() {
+    if (this.lesson != null && this.lesson !== []) {
+      this.getSource();
+    }
+  }
 });
 
 /***/ }),
@@ -8799,15 +8850,13 @@ var render = function() {
             _vm._v(" "),
             _c("input", {
               staticClass: "uk-input",
-              attrs: { type: "text", required: "" },
+              attrs: { type: "text", id: _vm.inputName, required: "" },
               domProps: { value: _vm.lesson.name }
             })
           ]),
           _vm._v(" "),
           _c("div", [
-            _vm.lesson.sources != null &&
-            _vm.lesson.sources != undefined &&
-            _vm.lesson.source != []
+            _vm.lessonSources != null && _vm.lessonSources != []
               ? _c("div", { staticClass: "uk-form-label" }, [
                   _vm._v(_vm._s(_vm.sourcesText))
                 ])
@@ -8815,7 +8864,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "ul",
-              _vm._l(_vm.lesson.sources, function(item) {
+              _vm._l(_vm.lessonSources, function(item, index) {
                 return _c("li", [
                   _c(
                     "div",
@@ -8839,11 +8888,6 @@ var render = function() {
                         ]
                       ),
                       _vm._v(" "),
-                      _c("input", {
-                        attrs: { id: _vm.inputName, hidden: "", disabled: "" },
-                        domProps: { value: item.file_path }
-                      }),
-                      _vm._v(" "),
                       _c("div", { staticClass: "uk-width-1-6" }, [
                         _c(
                           "a",
@@ -8852,7 +8896,7 @@ var render = function() {
                               "uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right",
                             on: {
                               click: function($event) {
-                                return _vm.removeSource(item.id)
+                                return _vm.removeSource(index)
                               }
                             }
                           },
