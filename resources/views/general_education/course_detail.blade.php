@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <div class="course-dhashboard topic{{rand(1,10)}}" style="margin-top: -70px">
+    <div class="course-dhashboard topic{{rand(1,10)}}" style="margin-top: -80px">
         <div uk-grid>
             <div class="uk-width-1-2@m uk-padding-remove-left uk-visible@m">
                 <div class="course-video-demo uk-position-relative">
