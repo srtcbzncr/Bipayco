@@ -3477,31 +3477,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       formData.append('courseId', this.courseId);
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = formData.entries()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var pair = _step.value;
-          console.log(pair[0]);
-          console.log(pair[1]);
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-            _iterator["return"]();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-
       axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.section.id + '/lessons/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -3820,22 +3795,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       var isPreview = document.querySelector('#' + this.preview).checked ? 1 : 0;
-      var source = document.querySelector('#' + this.courseSource);
-      var courseSources = [];
+      var doc;
 
-      for (var i = 0; i < source.files.length; i++) {
-        courseSources.push(source.files[i]);
-        console.log(source.files[i]);
+      if (this.isVideo == '1') {
+        doc = document.querySelector('#' + this.courseVideo).files[0];
+      } else {
+        doc = document.querySelector('#' + this.coursePdf).files[0];
       }
 
       var formData = new FormData();
-      formData.append('name', document.getElementById(this.lessonName).value);
+      formData.append('name', document.getElementById(this.lessonInput).value);
       formData.append('is_preview', isPreview);
-      formData.append('is_video', this.lesson.is_video);
-      formData.append('file_path', this.lesson.file_path);
-      formData.append('source', courseSources);
+      formData.append('is_video', this.isVideo);
+      formData.append('document', doc);
+
+      for (var i = 0; i < document.querySelector('#' + this.courseSource).files.length; i++) {
+        var file = document.querySelector('#' + this.courseSource).files[i];
+        formData.append('source[' + i + ']', file);
+      }
+
       formData.append('courseId', this.courseId);
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/create/' + this.lesson.id, formData, {
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.section.id + '/lessons/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -3844,6 +3824,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this.$store.dispatch('loadSections', _this.courseId);
         }
       });
+    },
+    removeSource: function removeSource(sourceId) {
+      axios.post('course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/' + this.lesson.id + '/source/delete/' + sourceId);
     }
   })
 });
@@ -8868,7 +8851,22 @@ var render = function() {
                         domProps: { value: item }
                       }),
                       _vm._v(" "),
-                      _vm._m(0, true)
+                      _c("div", { staticClass: "uk-width-1-6" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass:
+                              "uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right",
+                            on: { click: _vm.removeSource }
+                          },
+                          [
+                            _c("i", {
+                              staticClass:
+                                "fas fa-trash-alt text-danger icon-small"
+                            })
+                          ]
+                        )
+                      ])
                     ]
                   )
                 ])
@@ -8954,23 +8952,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-width-1-6" }, [
-      _c(
-        "a",
-        {
-          staticClass:
-            "uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right"
-        },
-        [_c("i", { staticClass: "fas fa-trash-alt text-danger icon-small" })]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

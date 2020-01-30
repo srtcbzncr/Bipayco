@@ -125,5 +125,5 @@ return [
     'saved_successful'=>'Başarıyla Kaydedildi',
     'more'=>'Dahası',
     'title_example'=>'Matematik Öğretmeni vb.',
-    'reference_code_explain'=>'Referans kodunuz yok ise ****** şirket referans konu giriniz'
+    'reference_code_explain'=>'Referans kodunuz yok ise ****** şirket referans kodunu giriniz'
 ];

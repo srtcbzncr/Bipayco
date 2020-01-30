@@ -199,10 +199,6 @@
                     formData.append('source['+i+']', file);
                 }
                 formData.append('courseId', this.courseId);
-                for(var pair of formData.entries()){
-                    console.log(pair[0]);
-                    console.log(pair[1]);
-                }
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.section.id+'/lessons/create', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'

@@ -29,7 +29,7 @@
                             </div>
                             <input :name="inputName" hidden disabled :value="item">
                             <div class="uk-width-1-6">
-                                <a class="uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
+                                <a class="uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right" @click="removeSource"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
                             </div>
                         </div>
                     </li>
@@ -136,21 +136,23 @@
             },
             updateLesson:function () {
                 var isPreview = document.querySelector('#'+this.preview).checked ? 1 : 0;
-                var source=document.querySelector('#'+this.courseSource);
-                var courseSources=[];
-                for (var i=0; i<source.files.length;i++){
-                    courseSources.push(source.files[i]);
-                    console.log(source.files[i]);
+                let doc;
+                if(this.isVideo=='1'){
+                    doc=document.querySelector('#'+this.courseVideo).files[0];
+                }else{
+                    doc=document.querySelector('#'+this.coursePdf).files[0];
                 }
                 var formData=new FormData();
-                formData.append('name', document.getElementById(this.lessonName).value);
+                formData.append('name', document.getElementById(this.lessonInput).value);
                 formData.append('is_preview', isPreview);
-                formData.append('is_video', this.lesson.is_video);
-                formData.append('file_path', this.lesson.file_path);
-                formData.append('source', courseSources);
+                formData.append('is_video', this.isVideo);
+                formData.append('document', doc);
+                for (var i=0; i< document.querySelector('#'+this.courseSource).files.length;i++){
+                    let file=document.querySelector('#'+this.courseSource).files[i];
+                    formData.append('source['+i+']', file);
+                }
                 formData.append('courseId', this.courseId);
-
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sectionId+'/lessons/create/'+this.lesson.id, formData, {
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.section.id+'/lessons/create', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }})
@@ -160,6 +162,9 @@
                         }
                     })
             },
+            removeSource:function(sourceId){
+                axios.post('course/'+this.courseId+'/sections/'+this.sectionId+'/lessons/'+this.lesson.id+'/source/delete/'+sourceId)
+            }
         }
     }
 </script>
