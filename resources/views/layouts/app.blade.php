@@ -53,14 +53,14 @@
     <div class="app">
         <main>
             <!--  Top bar nav -->
-            <nav class="tm-mobile-header uk-navbar">
+            <nav class="tm-mobile-header uk-navbar"style="height:auto;">
                 <!-- mobile icon for side nav on nav-mobile-->
                 <span class="uk-hidden@m tm-mobile-menu-icon" uk-toggle="target: #side-nav; cls: side-nav-active"><i class="fas fa-bars icon-large"></i></span>
                 <!-- mobile icon for user icon on nav-mobile -->
                 <span class="uk-hidden@m tm-mobile-user-icon uk-align-right" uk-toggle="target: #tm-show-on-mobile; cls: tm-show-on-mobile-active"><i class="far fa-user icon-large"></i></span>
                 <!-- mobile logo -->
                 <a class="uk-hidden@m uk-logo" href="{{route('home')}}">Bipayco</a>
-                <div class="uk-navbar-left uk-visible@m uk-margin-top">
+                <div class="uk-navbar-left uk-visible@m uk-flex-center">
                 @if(Auth::check())
                     @if(!isSet(Auth::user()->instructor))
                         <a href="{{route('instructor_create_get')}}" class="uk-navbar-item uk-button-text back-to-dashboard"> @lang('front/auth.be_instructor') </a>
@@ -72,7 +72,7 @@
                 <div class="uk-navbar-right tm-show-on-mobile uk-flex-right" id="tm-show-on-mobile" >
                     <!-- this will clouse after display user icon -->
                     <span class="uk-hidden@m tm-mobile-user-close-icon uk-align-right" uk-toggle="target: #tm-show-on-mobile; cls: tm-show-on-mobile-active"><i class="fas fa-times icon-large"></i></span>
-                    <ul class="uk-navbar-nav uk-flex-middle  uk-margin-small-top">
+                    <ul class="uk-navbar-nav uk-flex-middle" style="margin:10px;">
                         <li>
                             <a href="#modal-full" uk-toggle><i style="color: #424242" class="fas fa-search icon-medium"></i></a>
                         </li>
@@ -175,7 +175,9 @@
                     <search></search>
                 </div>
             </nav>
-            @yield('content')
+            <div class="uk-margin-remove uk-padding-remove">
+                @yield('content')
+            </div>
             <div class="uk-section-small uk-margin-medium-top">
                 <hr class="uk-margin-remove">
                 <div class="uk-container uk-align-center uk-margin-remove-bottom uk-position-relative">
