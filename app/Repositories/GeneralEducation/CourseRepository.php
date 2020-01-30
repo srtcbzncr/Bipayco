@@ -53,7 +53,7 @@ class CourseRepository implements IRepository{
                 ->where('point', '>=', 2.0)
                 ->orderBy('purchase_count', 'desc')
                 ->orderBy('point', 'desc')
-                ->take(20)
+                ->take(12)
                 ->get();
         }
         catch(\Exception $e){
@@ -831,6 +831,10 @@ class CourseRepository implements IRepository{
             foreach ($sections as $key => $section){
                 $lessons = $section->lessons;
                 $object['sections'][$key]['lessons'] = $lessons;
+                foreach ($lessons as $keyLesson => $lesson){
+                    $sources = $lesson->sources;
+                    $object['sections'][$key]['lessons'][$keyLesson]['sources'] = $sources;
+                }
             }
 
             DB::commit();
