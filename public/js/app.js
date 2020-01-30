@@ -3715,7 +3715,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "lesson",
@@ -3781,6 +3780,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     savedSuccessText: {
       type: String,
       "default": 'Başarıyla Kaydedildi'
+    },
+    inputName: {
+      type: String
     }
   },
   computed: {
@@ -3831,7 +3833,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     removeSource: function removeSource(sourceId) {
-      axios.post('course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/' + this.lesson.id + '/source/delete/' + sourceId);
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/' + this.lesson.id + '/source/delete/' + sourceId).then(this.$store.dispatch('loadSections', this.courseId));
     }
   })
 });
@@ -8721,7 +8723,6 @@ var render = function() {
     "div",
     { staticClass: "uk-grid align-items-center uk-padding-remove" },
     [
-      _vm._v("\n    " + _vm._s(_vm.lesson) + "\n    "),
       _c(
         "div",
         {
@@ -8816,8 +8817,8 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", [
-            _vm.lesson.source != null &&
-            _vm.lesson.source != undefined &&
+            _vm.lesson.sources != null &&
+            _vm.lesson.sources != undefined &&
             _vm.lesson.source != []
               ? _c("div", { staticClass: "uk-form-label" }, [
                   _vm._v(_vm._s(_vm.sourcesText))
@@ -8826,7 +8827,7 @@ var render = function() {
             _vm._v(" "),
             _c(
               "ul",
-              _vm._l(_vm.lesson.source, function(item) {
+              _vm._l(_vm.lesson.sources, function(item) {
                 return _c("li", [
                   _c(
                     "div",
@@ -8845,7 +8846,7 @@ var render = function() {
                                 overflow: "hidden"
                               }
                             },
-                            [_vm._v(_vm._s(item.name))]
+                            [_vm._v(_vm._s(item.title))]
                           )
                         ]
                       ),
@@ -8856,7 +8857,7 @@ var render = function() {
                           hidden: "",
                           disabled: ""
                         },
-                        domProps: { value: item }
+                        domProps: { value: item.file_path }
                       }),
                       _vm._v(" "),
                       _c("div", { staticClass: "uk-width-1-6" }, [
@@ -8865,7 +8866,11 @@ var render = function() {
                           {
                             staticClass:
                               "uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right",
-                            on: { click: _vm.removeSource }
+                            on: {
+                              click: function($event) {
+                                return _vm.removeSource(item.id)
+                              }
+                            }
                           },
                           [
                             _c("i", {

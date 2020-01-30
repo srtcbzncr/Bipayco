@@ -1,6 +1,5 @@
 <template>
     <div class="uk-grid align-items-center uk-padding-remove">
-        {{lesson}}
         <div class="uk-width-5-6 uk-grid uk-margin-remove uk-padding-remove" :class="lessonName">
             <div class="uk-width-5-6@m uk-width uk-padding-remove-right">
                 <a href="#" class="uk-link-reset uk-width uk-flex align-items-center">
@@ -21,16 +20,16 @@
                 <input class="uk-input" type="text" :value="lesson.name" required>
             </div>
             <div>
-                <div v-if="lesson.source!=null&&lesson.source!=undefined&&lesson.source!=[]" class="uk-form-label">{{sourcesText}}</div>
+                <div v-if="lesson.sources!=null&&lesson.sources!=undefined&&lesson.source!=[]" class="uk-form-label">{{sourcesText}}</div>
                 <ul>
-                    <li v-for="item in lesson.source">
+                    <li v-for="item in lesson.sources">
                         <div class="uk-flex align-items-center uk-margin">
                             <div class="uk-width-5-6 uk-flex uk-flex-wrap">
-                                <p class="uk-margin-remove" style="text-overflow: ellipsis; overflow:hidden;">{{item.name}}</p>
+                                <p class="uk-margin-remove" style="text-overflow: ellipsis; overflow:hidden;">{{item.title}}</p>
                             </div>
-                            <input :name="inputName" hidden disabled :value="item">
+                            <input :name="inputName" hidden disabled :value="item.file_path">
                             <div class="uk-width-1-6">
-                                <a class="uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right" @click="removeSource"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
+                                <a class="uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right" @click="removeSource(item.id)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
                             </div>
                         </div>
                     </li>
@@ -121,6 +120,9 @@
             savedSuccessText:{
                 type:String,
                 default:'Başarıyla Kaydedildi'
+            },
+            inputName:{
+                type:String,
             }
         },
         computed:{
@@ -166,7 +168,7 @@
                     })
             },
             removeSource:function(sourceId){
-                axios.post('course/'+this.courseId+'/sections/'+this.sectionId+'/lessons/'+this.lesson.id+'/source/delete/'+sourceId)
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sectionId+'/lessons/'+this.lesson.id+'/source/delete/'+sourceId).then(this.$store.dispatch('loadSections',this.courseId))
             }
         }
     }
