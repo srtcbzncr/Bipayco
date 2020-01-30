@@ -27,7 +27,7 @@
                             <div class="uk-width-5-6 uk-flex uk-flex-wrap">
                                 <p class="uk-margin-remove" style="text-overflow: ellipsis; overflow:hidden;">{{item.title}}</p>
                             </div>
-                            <input :name="inputName" hidden disabled :value="item.file_path">
+                            <input :id="inputName" hidden disabled :value="item.file_path">
                             <div class="uk-width-1-6">
                                 <a class="uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right" @click="removeSource(item.id)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
                             </div>
@@ -61,6 +61,7 @@
         data(){
             return{
                 lessonName: 'lessonName'+this.lessonIndex,
+                inputName:'inputName'+this.lessonIndex,
                 preview: 'lessonPreview'+this.lessonIndex,
             }
         },
@@ -121,9 +122,6 @@
                 type:String,
                 default:'Başarıyla Kaydedildi'
             },
-            inputName:{
-                type:String,
-            }
         },
         computed:{
           toggleObject(){
@@ -141,23 +139,15 @@
                 },
             updateLesson:function () {
                 var isPreview = document.querySelector('#'+this.preview).checked ? 1 : 0;
-                let doc;
-                if(this.isVideo=='1'){
-                    doc=document.querySelector('#'+this.courseVideo).files[0];
-                }else{
-                    doc=document.querySelector('#'+this.coursePdf).files[0];
-                }
                 var formData=new FormData();
-                formData.append('name', document.getElementById(this.lessonInput).value);
+                formData.append('name', document.getElementById(this.inputName).value);
                 formData.append('is_preview', isPreview);
-                formData.append('is_video', this.isVideo);
-                formData.append('document', doc);
                 for (var i=0; i< document.querySelector('#'+this.courseSource).files.length;i++){
                     let file=document.querySelector('#'+this.courseSource).files[i];
                     formData.append('source['+i+']', file);
                 }
                 formData.append('courseId', this.courseId);
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.section.id+'/lessons/create', formData, {
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sectionId+'/lessons/create/'+this.lesson.id, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     }})

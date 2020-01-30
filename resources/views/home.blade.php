@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div src="/images/slider_bg.jpg" style="background-image: url(../images/slider_bg.jpg); margin-top:-70px" uk-img class="uk-height-large uk-background-norepeat  uk-background-center-center uk-section uk-flex uk-flex-bottom uk-background-cover">
+    <div src="/images/slider_bg.jpg" style="background-image: url(../images/slider_bg.jpg); margin-top:-80px" uk-img class="uk-height-large uk-background-norepeat  uk-background-center-center uk-section uk-flex uk-flex-bottom uk-background-cover">
         <div class="uk-width-1-1 uk-container uk-margin-large-top uk-margin-large-left ">
             <h1 class="uk-text-bold uk-text-white uk-margin-small-bottom"> Türkiye'nin en büyük <br>  online eğitim platformu</h1>
             <h4 class="uk-text-bold uk-light uk-margin-remove-top"></h4>

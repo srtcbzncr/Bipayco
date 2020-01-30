@@ -3721,6 +3721,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       lessonName: 'lessonName' + this.lessonIndex,
+      inputName: 'inputName' + this.lessonIndex,
       preview: 'lessonPreview' + this.lessonIndex
     };
   },
@@ -3780,9 +3781,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     savedSuccessText: {
       type: String,
       "default": 'Başarıyla Kaydedildi'
-    },
-    inputName: {
-      type: String
     }
   },
   computed: {
@@ -3802,19 +3800,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this2 = this;
 
       var isPreview = document.querySelector('#' + this.preview).checked ? 1 : 0;
-      var doc;
-
-      if (this.isVideo == '1') {
-        doc = document.querySelector('#' + this.courseVideo).files[0];
-      } else {
-        doc = document.querySelector('#' + this.coursePdf).files[0];
-      }
-
       var formData = new FormData();
-      formData.append('name', document.getElementById(this.lessonInput).value);
+      formData.append('name', document.getElementById(this.inputName).value);
       formData.append('is_preview', isPreview);
-      formData.append('is_video', this.isVideo);
-      formData.append('document', doc);
 
       for (var i = 0; i < document.querySelector('#' + this.courseSource).files.length; i++) {
         var file = document.querySelector('#' + this.courseSource).files[i];
@@ -3822,7 +3810,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       formData.append('courseId', this.courseId);
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.section.id + '/lessons/create', formData, {
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/create/' + this.lesson.id, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -8852,11 +8840,7 @@ var render = function() {
                       ),
                       _vm._v(" "),
                       _c("input", {
-                        attrs: {
-                          name: _vm.inputName,
-                          hidden: "",
-                          disabled: ""
-                        },
+                        attrs: { id: _vm.inputName, hidden: "", disabled: "" },
                         domProps: { value: item.file_path }
                       }),
                       _vm._v(" "),
