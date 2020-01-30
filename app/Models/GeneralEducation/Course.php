@@ -72,4 +72,8 @@ class Course extends Model
     public function studentCount(){
         return $this->entries->count();
     }
+
+    public function lastWatchedCourses(){
+        return $this->morphMany('App\Models\UsersOperations\LastWatchedCourses','lastWatchedCourse');
+    }
 }

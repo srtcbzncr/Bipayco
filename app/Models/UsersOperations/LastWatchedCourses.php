@@ -16,16 +16,10 @@ class LastWatchedCourses extends Model
     ];
 
     public function students(){
-        return $this->hasMany('App\Models\Auth\Student');
+        return $this->belongsTo('App\Models\Auth\Student');
     }
 
-    public function ge(){ // general educations
-        return $this->morphToMany('App\Models\GeneralEducation\Course');
+    public function lastWatchedCourse(){
+        return $this->morphTo();
     }
-    public function pl(){ // preapera lessons
-        return $this->morphToMany('App\Models\PrepareLessons\Course');
-    }
-
-    // bundan sonra: sınavlara hazırlık (pe), deneme sınavları (pratic_exam) ...
-
 }
