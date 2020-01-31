@@ -5,9 +5,11 @@ namespace App\Http\Controllers\API\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\InstructorResource;
 use App\Models\Auth\User;
+use App\Models\UsersOperations\LastWatchedCourses;
 use App\Repositories\Auth\InstructorRepository;
 use App\Repositories\Auth\StudentRepository;
 use App\Repositories\GeneralEducation\CourseRepository;
+use App\Repositories\UserOperations\UserOperations;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -37,6 +39,27 @@ class AuthController extends Controller
         }
         else {
             return response()->json(['error' => true, 'message' => $courses->getError()]);
+        }
+    }
+
+    // explain: this method get last 6 watched courses.
+    public function getLastWatchedCourses($student_id){
+        // Initializing
+        $repo = new UserOperations();
+
+        // Operations
+        $resp = $repo->getLastWatchedCourses($student_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Son izlenen kurslar getirilemedi'
+            ]);
         }
     }
 
