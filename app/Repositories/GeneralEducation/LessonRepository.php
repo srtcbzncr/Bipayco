@@ -9,6 +9,7 @@ use App\Repositories\RepositoryResponse;
 use App\Models\GeneralEducation\Lesson;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Pbmedia\LaravelFFMpeg\FFMpegFacade as FFMpeg;
 
 class LessonRepository implements IRepository{
 
@@ -65,12 +66,14 @@ class LessonRepository implements IRepository{
         try{
             DB::beginTransaction();
             $filePath = Storage::putFile('lessons', $data['document']);
+            $media=FFMpeg::open($filePath);
+            $long=$media->getDurationInSeconds();
             $object = new Lesson;
             $object->section_id = $data['section_id'];
             $object->is_video = $data['is_video'];
             $object->no = 1;
             $object->name = $data['name'];
-            $object->long = 0;
+            $object->long = $long;
             $object->preview = $data['is_preview'];
             $object->file_path = $filePath;
             $object->save();

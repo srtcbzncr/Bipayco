@@ -6,6 +6,7 @@ use App\Repositories\GeneralEducation\CategoryRepository;
 use App\Repositories\GeneralEducation\CourseRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Pbmedia\LaravelFFMpeg\FFMpegFacade as FFMpeg;
 
 class HomeController extends Controller
 {
@@ -17,6 +18,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        //FFMpeg::open('wwdc_2006.mp4');
         // Repo initializations
         $geCourseRepo = new CourseRepository;
 
