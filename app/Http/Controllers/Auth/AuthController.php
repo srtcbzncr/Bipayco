@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Events\Auth\RegisterEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\InstructorRequest;
 use App\Http\Requests\LoginRequest;
@@ -16,8 +17,10 @@ use App\Repositories\Auth\StudentRepository;
 use App\Repositories\Auth\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -32,6 +35,11 @@ class AuthController extends Controller
 
     public function registerPost(RegisterRequest $request)
     {
+        $name = $request->toArray()['first_name'].' '.$request->toArray()['last_name'];
+        $email = $request->toArray()['email'];
+        $data = array();
+        $data['name'] = $name;
+        $data['email'] = $email;
         // Validation
         $validatedData = $request->validated();
 
@@ -44,6 +52,8 @@ class AuthController extends Controller
             if(Auth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password']], false)){
                 return redirect()->route('home');
             }
+
+            Event::fire(new RegisterEvent($data));
             return redirect()->route('loginGet');
         }
         else {
