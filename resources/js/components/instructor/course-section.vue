@@ -37,8 +37,9 @@
             </div>
         </div>
         <div class="uk-width-1-6">
-            <a class="uk-button-icon uk-margin-left" @click="removeSection"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
-            <a class="uk-button-icon uk-margin-left" @click="sendInfo" uk-toggle="target: .sectionSettings"><i class="fas fa-cog icon-small"> </i></a>
+            <a class="uk-button-icon uk-margin-small-left" @click="removeSection"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
+            <a class="uk-button-icon uk-margin-small-left" @click="sendInfo" uk-toggle="target: .sectionSettings"><i class="fas fa-cog icon-small"> </i></a>
+            <i class="fas fa-arrows-alt-v uk-margin-small-left uk-sortable-handle"></i>
         </div>
     </div>
 </template>

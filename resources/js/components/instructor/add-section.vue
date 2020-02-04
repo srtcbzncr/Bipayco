@@ -4,21 +4,23 @@
             <input class="uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m" type="text" id="sectionInput" :placeholder="addDefaultSectionText">
             <button class="uk-button uk-button-success uk-margin-small-top uk-width-1-6@m" @click="addSection"><i class="fas fa-plus"></i> <span class="uk-hidden@m">{{addText}}</span></button>
         </div>
-        <div v-for="(section,sectionIndex) in sections" class="uk-margin-top">
-            <course-section
-                :section="section"
-                :section-index="sectionIndex"
-                :section-text="sectionText"
-                :add-default-lesson-text="addDefaultLessonText"
-                :add-text="addText"
-                :preview-text="previewText"
-                :course-id="courseId"
-                :instructor-id="instructorId"
-                :is-preview-text="isPreviewText"
-                :save-text="saveText"
-                :saved-success-text="savedSuccessText"
-                :select-file-text="selectFileText"
-            > </course-section>
+        <div uk-sortable="handle: .uk-sortable-handle">
+            <div v-for="(section,sectionIndex) in sections" class="uk-margin-top">
+                <course-section
+                    :section="section"
+                    :section-index="sectionIndex"
+                    :section-text="sectionText"
+                    :add-default-lesson-text="addDefaultLessonText"
+                    :add-text="addText"
+                    :preview-text="previewText"
+                    :course-id="courseId"
+                    :instructor-id="instructorId"
+                    :is-preview-text="isPreviewText"
+                    :save-text="saveText"
+                    :saved-success-text="savedSuccessText"
+                    :select-file-text="selectFileText"
+                > </course-section>
+            </div>
         </div>
     </div>
 </template>

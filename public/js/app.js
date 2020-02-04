@@ -3000,6 +3000,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3274,6 +3276,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -7924,37 +7927,38 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("div", {}, [
-        _c("input", {
-          staticClass:
-            "uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m",
-          attrs: {
-            type: "text",
-            id: "sectionInput",
-            placeholder: _vm.addDefaultSectionText
-          }
-        }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass:
-              "uk-button uk-button-success uk-margin-small-top uk-width-1-6@m",
-            on: { click: _vm.addSection }
-          },
-          [
-            _c("i", { staticClass: "fas fa-plus" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "uk-hidden@m" }, [
-              _vm._v(_vm._s(_vm.addText))
-            ])
-          ]
-        )
-      ]),
+  return _c("div", [
+    _c("div", {}, [
+      _c("input", {
+        staticClass:
+          "uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m",
+        attrs: {
+          type: "text",
+          id: "sectionInput",
+          placeholder: _vm.addDefaultSectionText
+        }
+      }),
       _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "uk-button uk-button-success uk-margin-small-top uk-width-1-6@m",
+          on: { click: _vm.addSection }
+        },
+        [
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v(" "),
+          _c("span", { staticClass: "uk-hidden@m" }, [
+            _vm._v(_vm._s(_vm.addText))
+          ])
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { attrs: { "uk-sortable": "handle: .uk-sortable-handle" } },
       _vm._l(_vm.sections, function(section, sectionIndex) {
         return _c(
           "div",
@@ -7979,10 +7983,10 @@ var render = function() {
           ],
           1
         )
-      })
-    ],
-    2
-  )
+      }),
+      0
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -8377,7 +8381,7 @@ var render = function() {
         _c(
           "a",
           {
-            staticClass: "uk-button-icon uk-margin-left",
+            staticClass: "uk-button-icon uk-margin-small-left",
             on: { click: _vm.removeSection }
           },
           [_c("i", { staticClass: "fas fa-trash-alt text-danger icon-small" })]
@@ -8386,12 +8390,17 @@ var render = function() {
         _c(
           "a",
           {
-            staticClass: "uk-button-icon uk-margin-left",
+            staticClass: "uk-button-icon uk-margin-small-left",
             attrs: { "uk-toggle": "target: .sectionSettings" },
             on: { click: _vm.sendInfo }
           },
           [_c("i", { staticClass: "fas fa-cog icon-small" })]
-        )
+        ),
+        _vm._v(" "),
+        _c("i", {
+          staticClass:
+            "fas fa-arrows-alt-v uk-margin-small-left uk-sortable-handle"
+        })
       ])
     ]
   )
