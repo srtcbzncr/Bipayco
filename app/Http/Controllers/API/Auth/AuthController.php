@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\Auth;
 
+use App\Events\Auth\InstructorCallEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\InstructorResource;
 use App\Models\Auth\User;
@@ -11,6 +12,7 @@ use App\Repositories\Auth\StudentRepository;
 use App\Repositories\GeneralEducation\CourseRepository;
 use App\Repositories\UserOperations\UserOperations;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 
 class AuthController extends Controller
 {
@@ -72,6 +74,15 @@ class AuthController extends Controller
 
         // Response
         if($instructorResp->getResult() and $instructorResp->isDataNull() == false){
+
+            $user = User::where('email',$request->query('email'))->first();
+            $name = $user->first_name.' '.$user->last_name;
+            $email = $request->query('email');
+            $data = array();
+            $data['name'] = $name;
+            $data['email'] = $email;
+            Event::fire(new InstructorCallEvent($data));
+
             return new InstructorResource($instructorResp->getData());
         }
         else{

@@ -45,6 +45,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Auth\RegisterEvent' => [
             'App\Listeners\Auth\RegisterListener'
         ],
+        'App\Events\Auth\InstructorCallEvent' => [
+            'App\Listeners\Auth\InstructorCallListener'
+        ],
     ];
 
     /**
