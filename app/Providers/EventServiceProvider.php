@@ -39,6 +39,12 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\UsersOperations\CreateLastWatchedCourse' => [
             'App\Listeners\UsersOperations\LastWacthedCourse'
         ],
+        'App\Events\UsersOperations\CalculateCourseLong' => [
+            'App\Listeners\UsersOperations\CalculateCourseLongListener'
+        ],
+        'App\Events\Auth\RegisterEvent' => [
+            'App\Listeners\Auth\RegisterListener'
+        ],
     ];
 
     /**

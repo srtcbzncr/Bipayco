@@ -2,6 +2,7 @@
 
 namespace App\Models\Auth;
 
+use App\Events\Auth\RegisterEvent;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -39,6 +40,11 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+    ];
+
+    // retrieved,creating,created,updating,updated,saving,saved,deleting,deleted,restoring,restored
+    protected $dispatchesEvents= [
+        'created'=>RegisterEvent::class
     ];
 
     public function student(){
