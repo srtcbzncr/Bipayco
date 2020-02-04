@@ -14,40 +14,9 @@
                 <i v-if="lesson.preview" class="fas fa-play icon-tiny uk-text-grey uk-visible@s"> </i>
             </div>
         </div>
-        <div class="uk-width-5-6" :class="lessonName" hidden>
-            <div>
-                <div class="uk-form-label">{{lessonNameText}}</div>
-                <input class="uk-input" type="text" :value="lesson.name" :id="inputName" required>
-            </div>
-            <div>
-                <div v-if="lessonSources!=null && lessonSources!=[]" class="uk-form-label">{{sourcesText}}</div>
-                <ul>
-                    <li v-for="(item, index) in lessonSources">
-                        <div class="uk-flex align-items-center uk-margin">
-                            <div class="uk-width-5-6 uk-flex uk-flex-wrap">
-                                <p class="uk-margin-remove" style="text-overflow: ellipsis; overflow:hidden;">{{item.title}}</p>
-                            </div>
-                            <div class="uk-width-1-6">
-                                <a class="uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right" @click="removeSource(index)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class=" uk-margin-small uk-flex justify-content-start align-items-center">
-                <label>
-                    <input v-if="lesson.preview=='1'" class="uk-checkbox" checked type="checkbox" :id="preview">
-                    <input v-else class="uk-checkbox" type="checkbox" :id="preview">
-                    <span class="checkmark uk-text-small">{{isPreviewText}}</span>
-                </label>
-            </div>
-            <div class="uk-width-1-1">
-                <button class="uk-button uk-button-success uk-width uk-margin-small-top" @click="updateLesson" :uk-toggle="toggleObject"><i class="fas fa-save"></i>  {{saveText}}</button>
-            </div>
-        </div>
         <div class="uk-width-1-6 uk-flex flex-wrap uk-padding-remove">
             <a class="uk-button-icon uk-padding-remove uk-margin-left" @click="removeLesson()"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
-            <a class="uk-button-icon uk-padding-remove uk-margin-left" :uk-toggle="toggleObject"><i class="fas fa-cog icon-small"> </i></a>
+            <a class="uk-button-icon uk-padding-remove uk-margin-left" @click="sendInfo" uk-toggle="target: .lessonSettings"><i class="fas fa-cog icon-small"> </i></a>
         </div>
     </div>
 </template>
@@ -131,10 +100,11 @@
         methods:{
             ...mapActions([
                 'loadSections',
+                'loadSelectedLessonInfo'
             ]),
             removeLesson:function () {
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sectionId+'/lessons/delete/'+this.lesson.id).then(this.$store.dispatch('loadSections',this.courseId))
-            },
+            },/*
             updateLesson:function () {
                 var isPreview = document.querySelector('#'+this.preview).checked ? 1 : 0;
                 var formData=new FormData();
@@ -156,16 +126,18 @@
                         }
                         console.log(response);
                     })
-            },
+            },*/
             removeSource:function(index){
                 this.lessonSources.splice(index,1);
             },
-            getSource(){
+            getSource:function(){
                 for( let doc of this.lesson.sources){
                     this.lessonSources.push(doc)
                 }
             },
-
+            sendInfo:function () {
+                this.$store.dispatch('loadSelectedLessonInfo',this.lesson);
+            }
         },
         created(){
             if(this.lesson!=null && this.lesson!==[]){

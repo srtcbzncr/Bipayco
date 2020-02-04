@@ -15,6 +15,8 @@ const state={
     myCourses:{},
     canComment:{},
     sections:{},
+    selectedLessonInfo:{},
+    selectedSectionInfo:{},
 };
 const getters={};
 const mutations={
@@ -47,6 +49,12 @@ const mutations={
     },
     setSections(state,index){
         state.sections=index.data.sections;
+    },
+    setSelectedLessonInfo(state,index){
+        state.selectedLessonInfo=index;
+    },
+    setSelectedSectionInfo(state,index){
+        state.selectedSectionInfo=index;
     }
 };
 const actions={
@@ -100,8 +108,13 @@ const actions={
     loadLessons({commit},{courseId,sectionId}){
         Axios.get('/api/instructor/course/'+courseId+'/sections/'+sectionId+'/lesson')
             .then(response=>commit('setSections',response.data));
-    }
-
+    },
+    loadSelectedLessonInfo({commit},lesson){
+        commit('setSelectedLessonInfo',lesson);
+    },
+    loadSelectedSectionInfo({commit},lesson){
+        commit('setSelectedSectionInfo',lesson);
+    },
 };
 
 const store=new Vuex.Store({

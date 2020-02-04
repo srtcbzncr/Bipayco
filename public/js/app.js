@@ -3319,51 +3319,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3453,40 +3408,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('courseId', this.courseId);
       axios.post('/api/instructor/course/' + this.courseId + '/sections/create/' + this.section.id, formData).then(this.$store.dispatch('loadSections', this.courseId));
     },
-    addLesson: function addLesson() {
-      var _this = this;
-
-      var isPreview = document.querySelector('#' + this.preview).checked ? 1 : 0;
-      var doc;
-
-      if (this.isVideo == '1') {
-        doc = document.querySelector('#' + this.courseVideo).files[0];
-      } else {
-        doc = document.querySelector('#' + this.coursePdf).files[0];
-      }
-
-      var formData = new FormData();
-      formData.append('name', document.getElementById(this.lessonInput).value);
-      formData.append('is_preview', isPreview);
-      formData.append('is_video', this.isVideo);
-      formData.append('document', doc);
-
-      for (var i = 0; i < document.querySelector('#' + this.courseSource).files.length; i++) {
-        var file = document.querySelector('#' + this.courseSource).files[i];
-        formData.append('source[' + i + ']', file);
-      }
-
-      formData.append('courseId', this.courseId);
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.section.id + '/lessons/create', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      }).then(function (response) {
-        if (!response.data.error) {
-          _this.$store.dispatch('loadSections', _this.courseId);
-        }
-      });
+    sendInfo: function sendInfo() {
+      this.$store.dispatch('loadSelectedSectionInfo', this.section);
     }
+    /*addLesson:function () {
+        var isPreview = document.querySelector('#'+this.preview).checked ? 1 : 0;
+        let doc;
+        if(this.isVideo=='1'){
+            doc=document.querySelector('#'+this.courseVideo).files[0];
+        }else{
+            doc=document.querySelector('#'+this.coursePdf).files[0];
+        }
+        var formData=new FormData();
+        formData.append('name', document.getElementById(this.lessonInput).value);
+        formData.append('is_preview', isPreview);
+        formData.append('is_video', this.isVideo);
+        formData.append('document', doc);
+        for (var i=0; i< document.querySelector('#'+this.courseSource).files.length;i++){
+            let file=document.querySelector('#'+this.courseSource).files[i];
+            formData.append('source['+i+']', file);
+        }
+        formData.append('courseId', this.courseId);
+        axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.section.id+'/lessons/create', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }})
+            .then(response=>{
+                if(!response.data.error){
+                    this.$store.dispatch('loadSections',this.courseId)
+                }
+            })
+    },*/
+
   })
 });
 
@@ -3644,10 +3597,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/lesson.vue?vue&type=script&lang=js&":
-/*!****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/instructor/lesson.vue?vue&type=script&lang=js& ***!
-  \****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/lesson-settings.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/instructor/lesson-settings.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -3691,6 +3644,69 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "lesson-settings",
+  props: {
+    editLessonText: {
+      type: String,
+      "default": 'Ders Düzenle'
+    },
+    lessonNameText: {
+      type: String,
+      "default": 'Ders Adı'
+    },
+    sourcesText: {
+      type: String,
+      "default": 'Kaynaklar'
+    },
+    isPreviewText: {
+      type: String,
+      "default": 'Önizleme'
+    },
+    saveText: {
+      type: String,
+      "default": 'Kaydet'
+    },
+    cancelText: {
+      type: String,
+      "default": 'Vazgeç'
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['selectedLessonInfo'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSelectedLessonInfo']))
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/lesson.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/instructor/lesson.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3788,33 +3804,46 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return 'target: .' + this.lessonName;
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections', 'loadSelectedLessonInfo']), {
     removeLesson: function removeLesson() {
       axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/delete/' + this.lesson.id).then(this.$store.dispatch('loadSections', this.courseId));
     },
-    updateLesson: function updateLesson() {
-      var _this = this;
 
-      var isPreview = document.querySelector('#' + this.preview).checked ? 1 : 0;
-      var formData = new FormData();
+    /*
+    updateLesson:function () {
+      var isPreview = document.querySelector('#'+this.preview).checked ? 1 : 0;
+      var formData=new FormData();
       formData.append('name', document.getElementById(this.inputName).value);
       formData.append('is_preview', isPreview);
-
-      for (var i = 0; i < this.lessonSources.length; i++) {
-        formData.append('source[' + i + ']', this.lessonSources[i]);
+      for (var i=0;i<this.lessonSources.length;i++){
+          formData.append('source['+i+']', this.lessonSources[i]);
       }
-
       formData.append('sectionId', this.sectionId);
       formData.append('courseId', this.courseId);
+      for(let pair of formData){
+          console.log(pair[0]);
+          console.log(pair[1]);
+      }
+      axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sectionId+'/lessons/create/'+this.lesson.id, formData)
+          .then(response=>{
+              if(!response.data.error){
+                  this.$store.dispatch('loadSections',this.courseId);
+              }
+              console.log(response);
+          })
+    },*/
+    removeSource: function removeSource(index) {
+      this.lessonSources.splice(index, 1);
+    },
+    getSource: function getSource() {
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
       var _iteratorError = undefined;
 
       try {
-        for (var _iterator = formData[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var pair = _step.value;
-          console.log(pair[0]);
-          console.log(pair[1]);
+        for (var _iterator = this.lesson.sources[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var doc = _step.value;
+          this.lessonSources.push(doc);
         }
       } catch (err) {
         _didIteratorError = true;
@@ -3830,48 +3859,154 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         }
       }
-
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/create/' + this.lesson.id, formData).then(function (response) {
-        if (!response.data.error) {
-          _this.$store.dispatch('loadSections', _this.courseId);
-        }
-
-        console.log(response);
-      });
     },
-    removeSource: function removeSource(index) {
-      this.lessonSources.splice(index, 1);
-    },
-    getSource: function getSource() {
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
-
-      try {
-        for (var _iterator2 = this.lesson.sources[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var doc = _step2.value;
-          this.lessonSources.push(doc);
-        }
-      } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
-            _iterator2["return"]();
-          }
-        } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
-          }
-        }
-      }
+    sendInfo: function sendInfo() {
+      this.$store.dispatch('loadSelectedLessonInfo', this.lesson);
     }
   }),
   created: function created() {
     if (this.lesson != null && this.lesson !== []) {
       this.getSource();
     }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/section-settings.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/instructor/section-settings.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _lesson_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lesson.vue */ "./resources/js/components/instructor/lesson.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "section-settings",
+  components: {
+    lesson: _lesson_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['selectedSectionInfo'])),
+  props: {
+    editSectionText: {
+      type: String,
+      "default": 'Bölüm Düzenle'
+    },
+    lessonsText: {
+      type: String,
+      "default": 'Dersler'
+    },
+    sectionNameText: {
+      type: String,
+      "default": 'Bölüm Adı'
+    },
+    lessonNameText: {
+      type: String,
+      "default": 'Ders Adı'
+    },
+    previewText: {
+      type: String,
+      "default": 'Önizle'
+    },
+    addText: {
+      type: String,
+      "default": 'Ekle'
+    },
+    addDefaultLessonText: {
+      type: String,
+      "default": 'Ders Ekle'
+    },
+    saveText: {
+      type: String,
+      "default": "Kaydet"
+    },
+    courseId: {
+      type: String,
+      required: true
+    },
+    instructorId: {
+      type: String,
+      required: true
+    },
+    sectionId: {
+      type: Number,
+      required: true
+    },
+    savedSuccessText: {
+      type: String,
+      "default": 'Başarıyla Kaydedildi'
+    },
+    cancelText: {
+      type: String,
+      "default": 'Vazgeç'
+    },
+    hasNoLessonText: {
+      type: String,
+      "default": 'Ders Bulunmuyor'
+    }
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadSelectedSectionInfo'])),
+  created: function created() {
+    this.$store.dispatch('loadSelectedSectionInfo', this.courseId);
   }
 });
 
@@ -8162,47 +8297,9 @@ var render = function() {
                         )
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "h4",
-                        {
-                          staticClass: "uk-margin-remove",
-                          class: _vm.sectionName
-                        },
-                        [_vm._v(_vm._s(_vm.section.name))]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass: "uk-margin-remove",
-                          class: _vm.sectionName,
-                          attrs: { hidden: "" }
-                        },
-                        [
-                          _c("input", {
-                            staticClass:
-                              "uk-width-4-5@m uk-input uk-margin-small-top uk-padding-small",
-                            attrs: { id: _vm.sectionNameInput },
-                            domProps: { value: _vm.section.name }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "button",
-                            {
-                              staticClass:
-                                "uk-button uk-button-success uk-width-1-6@m uk-margin-small-top ",
-                              attrs: { "uk-toggle": _vm.toggleObject },
-                              on: { click: _vm.updateSection }
-                            },
-                            [
-                              _c("i", { staticClass: "fas fa-save" }),
-                              _c("span", { staticClass: "uk-hidden@m" }, [
-                                _vm._v("  " + _vm._s(_vm.saveText))
-                              ])
-                            ]
-                          )
-                        ]
-                      )
+                      _c("h4", { staticClass: "uk-margin-remove" }, [
+                        _vm._v(_vm._s(_vm.section.name))
+                      ])
                     ]
                   ),
                   _vm._v(" "),
@@ -8216,280 +8313,6 @@ var render = function() {
                         _c(
                           "ul",
                           [
-                            _c("li", [
-                              _c("div", [
-                                _c("input", {
-                                  staticClass:
-                                    "uk-padding-small uk-margin-small-top uk-input uk-width",
-                                  attrs: {
-                                    type: "text",
-                                    id: _vm.lessonInput,
-                                    placeholder: _vm.addDefaultLessonText
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "uk-width uk-flex uk-flex-row align-items-center justify-content-around uk-margin-top"
-                                  },
-                                  [
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "uk-flex align-items-center"
-                                      },
-                                      [
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value: _vm.isVideo,
-                                              expression: "isVideo"
-                                            }
-                                          ],
-                                          staticClass:
-                                            "uk-radio uk-margin-remove",
-                                          attrs: {
-                                            type: "radio",
-                                            name: _vm.documentType,
-                                            checked: "",
-                                            value: "1"
-                                          },
-                                          domProps: {
-                                            checked: _vm._q(_vm.isVideo, "1")
-                                          },
-                                          on: {
-                                            change: function($event) {
-                                              _vm.isVideo = "1"
-                                            }
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        _c(
-                                          "p",
-                                          {
-                                            staticClass:
-                                              "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
-                                          },
-                                          [_vm._v("Video")]
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "uk-flex align-items-center"
-                                      },
-                                      [
-                                        _c("input", {
-                                          directives: [
-                                            {
-                                              name: "model",
-                                              rawName: "v-model",
-                                              value: _vm.isVideo,
-                                              expression: "isVideo"
-                                            }
-                                          ],
-                                          staticClass:
-                                            "uk-radio uk-margin-remove",
-                                          attrs: {
-                                            type: "radio",
-                                            name: _vm.documentType,
-                                            value: "0"
-                                          },
-                                          domProps: {
-                                            checked: _vm._q(_vm.isVideo, "0")
-                                          },
-                                          on: {
-                                            change: function($event) {
-                                              _vm.isVideo = "0"
-                                            }
-                                          }
-                                        }),
-                                        _vm._v(" "),
-                                        _c(
-                                          "p",
-                                          {
-                                            staticClass:
-                                              "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
-                                          },
-                                          [_vm._v("PDF")]
-                                        )
-                                      ]
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "form",
-                                  {
-                                    staticClass:
-                                      "uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove"
-                                  },
-                                  [
-                                    _vm.isVideo == "1"
-                                      ? _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "uk-flex uk-flex-center uk-margin",
-                                            attrs: {
-                                              "uk-form-custom": "target: true"
-                                            }
-                                          },
-                                          [
-                                            _c("input", {
-                                              attrs: {
-                                                name: "document",
-                                                type: "file",
-                                                accept: "video/*",
-                                                id: _vm.courseVideo,
-                                                required: ""
-                                              }
-                                            }),
-                                            _vm._v(" "),
-                                            _c("input", {
-                                              staticClass: "uk-input",
-                                              attrs: {
-                                                type: "text",
-                                                tabindex: "-1",
-                                                disabled: "",
-                                                placeholder: _vm.selectFileText
-                                              }
-                                            })
-                                          ]
-                                        )
-                                      : _c(
-                                          "div",
-                                          {
-                                            staticClass:
-                                              "uk-flex uk-flex-center uk-margin",
-                                            attrs: {
-                                              "uk-form-custom": "target: true"
-                                            }
-                                          },
-                                          [
-                                            _c("input", {
-                                              attrs: {
-                                                name: "document",
-                                                type: "file",
-                                                accept:
-                                                  "application/pdf,application/vnd.ms-excel",
-                                                id: _vm.coursePdf,
-                                                required: ""
-                                              }
-                                            }),
-                                            _vm._v(" "),
-                                            _c("input", {
-                                              staticClass: "uk-input",
-                                              attrs: {
-                                                type: "text",
-                                                tabindex: "-1",
-                                                disabled: "",
-                                                placeholder: _vm.selectFileText
-                                              }
-                                            })
-                                          ]
-                                        ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "div",
-                                      {
-                                        staticClass:
-                                          "js-upload uk-placeholder uk-text-center"
-                                      },
-                                      [
-                                        _c(
-                                          "div",
-                                          { attrs: { "uk-form-custom": "" } },
-                                          [
-                                            _c("input", {
-                                              attrs: {
-                                                type: "file",
-                                                id: _vm.courseSource,
-                                                multiple: ""
-                                              }
-                                            }),
-                                            _vm._v(" "),
-                                            _c("span", {
-                                              staticClass:
-                                                "fas fa-upload uk-margin-small"
-                                            }),
-                                            _vm._v(" "),
-                                            _c(
-                                              "span",
-                                              { staticClass: "uk-link" },
-                                              [
-                                                _vm._v(
-                                                  _vm._s(_vm.addSourceText)
-                                                )
-                                              ]
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c("progress", {
-                                      staticClass: "uk-progress",
-                                      attrs: {
-                                        id: "js-progressbar",
-                                        value: "0",
-                                        max: "100",
-                                        hidden: ""
-                                      }
-                                    })
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "div",
-                                  {
-                                    staticClass:
-                                      "uk-margin uk-flex justify-content-start align-items-center"
-                                  },
-                                  [
-                                    _c("label", [
-                                      _c("input", {
-                                        staticClass: "uk-checkbox",
-                                        attrs: {
-                                          type: "checkbox",
-                                          id: _vm.preview
-                                        }
-                                      }),
-                                      _vm._v(" "),
-                                      _c(
-                                        "span",
-                                        {
-                                          staticClass: "checkmark uk-text-small"
-                                        },
-                                        [_vm._v(_vm._s(_vm.isPreviewText))]
-                                      )
-                                    ])
-                                  ]
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "button",
-                                {
-                                  staticClass:
-                                    "uk-button uk-button-success uk-margin-small-top uk-width",
-                                  on: { click: _vm.addLesson }
-                                },
-                                [
-                                  _c("i", { staticClass: "fas fa-plus" }),
-                                  _vm._v(" " + _vm._s(_vm.addText))
-                                ]
-                              )
-                            ]),
-                            _vm._v(" "),
                             _vm._l(_vm.section.lessons, function(
                               lesson,
                               lessonIndex
@@ -8518,7 +8341,25 @@ var render = function() {
                                 ],
                                 1
                               )
-                            })
+                            }),
+                            _vm._v(" "),
+                            _c("li", [
+                              _c(
+                                "button",
+                                {
+                                  staticClass:
+                                    "uk-button uk-button-success uk-margin-small uk-width",
+                                  attrs: { "uk-toggle": "target: .addLesson" }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "fas fa-plus uk-margin-small-right"
+                                  }),
+                                  _vm._v(_vm._s(_vm.addDefaultLessonText))
+                                ]
+                              )
+                            ])
                           ],
                           2
                         )
@@ -8546,7 +8387,8 @@ var render = function() {
           "a",
           {
             staticClass: "uk-button-icon uk-margin-left",
-            attrs: { "uk-toggle": _vm.toggleObject }
+            attrs: { "uk-toggle": "target: .sectionSettings" },
+            on: { click: _vm.sendInfo }
           },
           [_c("i", { staticClass: "fas fa-cog icon-small" })]
         )
@@ -8741,6 +8583,153 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/lesson-settings.vue?vue&type=template&id=7889899e&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/instructor/lesson-settings.vue?vue&type=template&id=7889899e&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "lessonSettings", attrs: { hidden: "" } }, [
+    _c("div", { staticClass: "uk-margin-top" }, [
+      _c("h4", [_vm._v(_vm._s(_vm.editLessonText))])
+    ]),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("div", [
+      _c("div", { staticClass: "uk-form-label" }, [
+        _vm._v(_vm._s(_vm.lessonNameText))
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "uk-input",
+        attrs: { type: "text", id: "inputName", required: "" },
+        domProps: { value: _vm.selectedLessonInfo.name }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", [
+      _c("div", { staticClass: "uk-form-label" }, [
+        _vm._v(_vm._s(_vm.sourcesText))
+      ]),
+      _vm._v(" "),
+      _c(
+        "ul",
+        _vm._l(_vm.selectedLessonInfo.sources, function(source) {
+          return _c("li", [
+            _c("div", { staticClass: "uk-flex align-items-center uk-margin" }, [
+              _c("div", { staticClass: "uk-width-5-6 uk-flex uk-flex-wrap" }, [
+                _c(
+                  "p",
+                  {
+                    staticClass: "uk-margin-remove",
+                    staticStyle: {
+                      "text-overflow": "ellipsis",
+                      overflow: "hidden"
+                    }
+                  },
+                  [_vm._v(_vm._s(source.title))]
+                )
+              ]),
+              _vm._v(" "),
+              _vm._m(0, true)
+            ])
+          ])
+        }),
+        0
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass:
+          " uk-margin-small uk-flex justify-content-start align-items-center"
+      },
+      [
+        _c("label", [
+          _vm.selectedLessonInfo.isPreview == "0"
+            ? _c("input", {
+                staticClass: "uk-checkbox",
+                attrs: { type: "checkbox" }
+              })
+            : _c("input", {
+                staticClass: "uk-checkbox",
+                attrs: { checked: "", type: "checkbox" }
+              }),
+          _vm._v(" "),
+          _c("span", { staticClass: "checkmark uk-text-small" }, [
+            _vm._v(_vm._s(_vm.isPreviewText))
+          ])
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "uk-width-1-1 uk-grid" }, [
+      _c("div", { staticClass: "uk-width-1-2@m" }, [
+        _c(
+          "button",
+          {
+            staticClass:
+              "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+            attrs: { "uk-toggle": "target: .lessonSettings" }
+          },
+          [
+            _c("i", { staticClass: "fas fa-times uk-margin-small-right" }),
+            _vm._v(_vm._s(_vm.cancelText))
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "uk-width-1-2@m" }, [
+        _c(
+          "button",
+          {
+            staticClass:
+              "uk-button uk-button-success uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+            attrs: { "uk-toggle": "target: .lessonSettings" }
+          },
+          [
+            _c("i", { staticClass: "fas fa-save uk-margin-small-right" }),
+            _vm._v(_vm._s(_vm.saveText) + " ")
+          ]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-width-1-6" }, [
+      _c(
+        "a",
+        {
+          staticClass:
+            "uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right"
+        },
+        [_c("i", { staticClass: "fas fa-trash-alt text-danger icon-small" })]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/lesson.vue?vue&type=template&id=b16209a2&scoped=true&":
 /*!********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/instructor/lesson.vue?vue&type=template&id=b16209a2&scoped=true& ***!
@@ -8835,130 +8824,6 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        {
-          staticClass: "uk-width-5-6",
-          class: _vm.lessonName,
-          attrs: { hidden: "" }
-        },
-        [
-          _c("div", [
-            _c("div", { staticClass: "uk-form-label" }, [
-              _vm._v(_vm._s(_vm.lessonNameText))
-            ]),
-            _vm._v(" "),
-            _c("input", {
-              staticClass: "uk-input",
-              attrs: { type: "text", id: _vm.inputName, required: "" },
-              domProps: { value: _vm.lesson.name }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", [
-            _vm.lessonSources != null && _vm.lessonSources != []
-              ? _c("div", { staticClass: "uk-form-label" }, [
-                  _vm._v(_vm._s(_vm.sourcesText))
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _c(
-              "ul",
-              _vm._l(_vm.lessonSources, function(item, index) {
-                return _c("li", [
-                  _c(
-                    "div",
-                    { staticClass: "uk-flex align-items-center uk-margin" },
-                    [
-                      _c(
-                        "div",
-                        { staticClass: "uk-width-5-6 uk-flex uk-flex-wrap" },
-                        [
-                          _c(
-                            "p",
-                            {
-                              staticClass: "uk-margin-remove",
-                              staticStyle: {
-                                "text-overflow": "ellipsis",
-                                overflow: "hidden"
-                              }
-                            },
-                            [_vm._v(_vm._s(item.title))]
-                          )
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "uk-width-1-6" }, [
-                        _c(
-                          "a",
-                          {
-                            staticClass:
-                              "uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right",
-                            on: {
-                              click: function($event) {
-                                return _vm.removeSource(index)
-                              }
-                            }
-                          },
-                          [
-                            _c("i", {
-                              staticClass:
-                                "fas fa-trash-alt text-danger icon-small"
-                            })
-                          ]
-                        )
-                      ])
-                    ]
-                  )
-                ])
-              }),
-              0
-            )
-          ]),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                " uk-margin-small uk-flex justify-content-start align-items-center"
-            },
-            [
-              _c("label", [
-                _vm.lesson.preview == "1"
-                  ? _c("input", {
-                      staticClass: "uk-checkbox",
-                      attrs: { checked: "", type: "checkbox", id: _vm.preview }
-                    })
-                  : _c("input", {
-                      staticClass: "uk-checkbox",
-                      attrs: { type: "checkbox", id: _vm.preview }
-                    }),
-                _vm._v(" "),
-                _c("span", { staticClass: "checkmark uk-text-small" }, [
-                  _vm._v(_vm._s(_vm.isPreviewText))
-                ])
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "uk-width-1-1" }, [
-            _c(
-              "button",
-              {
-                staticClass:
-                  "uk-button uk-button-success uk-width uk-margin-small-top",
-                attrs: { "uk-toggle": _vm.toggleObject },
-                on: { click: _vm.updateLesson }
-              },
-              [
-                _c("i", { staticClass: "fas fa-save" }),
-                _vm._v("  " + _vm._s(_vm.saveText))
-              ]
-            )
-          ])
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
         { staticClass: "uk-width-1-6 uk-flex flex-wrap uk-padding-remove" },
         [
           _c(
@@ -8982,7 +8847,8 @@ var render = function() {
             "a",
             {
               staticClass: "uk-button-icon uk-padding-remove uk-margin-left",
-              attrs: { "uk-toggle": _vm.toggleObject }
+              attrs: { "uk-toggle": "target: .lessonSettings" },
+              on: { click: _vm.sendInfo }
             },
             [_c("i", { staticClass: "fas fa-cog icon-small" })]
           )
@@ -8992,6 +8858,208 @@ var render = function() {
   )
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/section-settings.vue?vue&type=template&id=a42c187c&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/instructor/section-settings.vue?vue&type=template&id=a42c187c&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "sectionSettings", attrs: { hidden: "" } }, [
+    _c("div", { staticClass: "uk-margin-top" }, [
+      _c("h4", [_vm._v(_vm._s(_vm.editSectionText))])
+    ]),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("div", { staticClass: "uk-margin-small-top" }, [
+      _c("div", { staticClass: "uk-form-label" }, [
+        _vm._v(_vm._s(_vm.sectionNameText))
+      ]),
+      _vm._v(" "),
+      _c("input", {
+        staticClass: "uk-padding-small uk-margin-small-top uk-input uk-width",
+        attrs: { type: "text" },
+        domProps: { value: _vm.selectedSectionInfo.name }
+      })
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "uk-margin-remove-top" }, [
+      _c(
+        "div",
+        {
+          staticClass: "tm-course-section-list",
+          attrs: { "uk-sortable": "handle: .uk-sortable-handle" }
+        },
+        [
+          _c("div", { staticClass: "uk-form-label" }, [
+            _vm._v(_vm._s(_vm.lessonsText))
+          ]),
+          _vm._v(" "),
+          _vm.selectedSectionInfo != null &&
+          _vm.selectedSectionInfo != undefined
+            ? _c(
+                "ul",
+                _vm._l(_vm.selectedSectionInfo.lessons, function(
+                  lesson,
+                  lessonIndex
+                ) {
+                  return _c(
+                    "li",
+                    {
+                      staticClass:
+                        "uk-card uk-card-default uk-padding-small uk-flex align-items-center justify-content-between"
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "uk-grid uk-margin-remove uk-padding-remove"
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "uk-width-5-6@m uk-width uk-padding-remove-right"
+                            },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  staticClass:
+                                    "uk-link-reset uk-width uk-flex align-items-center",
+                                  attrs: { href: "#" }
+                                },
+                                [
+                                  _c("span", { staticClass: "uk-visible@s" }, [
+                                    lesson.is_video == "1"
+                                      ? _c("i", {
+                                          staticClass:
+                                            "fas fa-play-circle icon-medium",
+                                          staticStyle: { color: "#666666" }
+                                        })
+                                      : _c("i", {
+                                          staticClass:
+                                            "fas fa-file-alt icon-medium",
+                                          staticStyle: { color: "#666666" }
+                                        })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "p",
+                                    {
+                                      staticClass:
+                                        "uk-text-truncate uk-margin-small-right uk-margin-remove-left uk-margin-remove-top uk-margin-remove-bottom"
+                                    },
+                                    [
+                                      _c(
+                                        "span",
+                                        {
+                                          staticClass:
+                                            "uk-visible@s uk-padding-remove uk-margin-remove"
+                                        },
+                                        [
+                                          _vm._v(
+                                            _vm._s(lessonIndex + 1) + ".  "
+                                          )
+                                        ]
+                                      ),
+                                      _vm._v(" " + _vm._s(lesson.name))
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass: "uk-width-1-6@m uk-visible@m",
+                              staticStyle: { color: "#666666" }
+                            },
+                            [
+                              lesson.preview
+                                ? _c("i", {
+                                    staticClass:
+                                      "fas fa-play icon-tiny uk-text-grey uk-visible@s"
+                                  })
+                                : _vm._e()
+                            ]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm._m(0, true)
+                    ]
+                  )
+                }),
+                0
+              )
+            : _c("h4", [_vm._v(_vm._s(_vm.hasNoLessonText))])
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "uk-grid uk-margin-top" }, [
+      _c("div", { staticClass: "uk-width-1-2@m" }, [
+        _c(
+          "button",
+          {
+            staticClass:
+              "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+            attrs: { "uk-toggle": "target: .sectionSettings" }
+          },
+          [
+            _c("i", { staticClass: "fas fa-times uk-margin-small-right" }),
+            _vm._v(" " + _vm._s(_vm.cancelText) + " ")
+          ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "uk-width-1-2@m" }, [
+        _c(
+          "button",
+          {
+            staticClass:
+              "uk-button uk-button-success uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+            attrs: { "uk-toggle": "target: .sectionSettings" }
+          },
+          [
+            _c("i", { staticClass: "fas fa-save uk-margin-small-right" }),
+            _vm._v(" " + _vm._s(_vm.saveText))
+          ]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-padding-remove uk-sortable-handle" }, [
+      _c("i", { staticClass: "fas fa-arrows-alt-v" })
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -23176,6 +23244,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('add-instructor', __webpack
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('instructor-area', __webpack_require__(/*! ./components/instructor/instructors-area.vue */ "./resources/js/components/instructor/instructors-area.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('add-list', __webpack_require__(/*! ./components/instructor/add-list.vue */ "./resources/js/components/instructor/add-list.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('add-section', __webpack_require__(/*! ./components/instructor/add-section.vue */ "./resources/js/components/instructor/add-section.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('section-settings', __webpack_require__(/*! ./components/instructor/section-settings.vue */ "./resources/js/components/instructor/section-settings.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('lesson-settings', __webpack_require__(/*! ./components/instructor/lesson-settings.vue */ "./resources/js/components/instructor/lesson-settings.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('provinces', __webpack_require__(/*! ./components/auth/province.vue */ "./resources/js/components/auth/province.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('course-progress-card', __webpack_require__(/*! ./components/auth/course-progress-card.vue */ "./resources/js/components/auth/course-progress-card.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('notification-card', __webpack_require__(/*! ./components/top-bar/notification-card.vue */ "./resources/js/components/top-bar/notification-card.vue")["default"]);
@@ -24345,6 +24415,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/instructor/lesson-settings.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/instructor/lesson-settings.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _lesson_settings_vue_vue_type_template_id_7889899e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lesson-settings.vue?vue&type=template&id=7889899e&scoped=true& */ "./resources/js/components/instructor/lesson-settings.vue?vue&type=template&id=7889899e&scoped=true&");
+/* harmony import */ var _lesson_settings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lesson-settings.vue?vue&type=script&lang=js& */ "./resources/js/components/instructor/lesson-settings.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _lesson_settings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _lesson_settings_vue_vue_type_template_id_7889899e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _lesson_settings_vue_vue_type_template_id_7889899e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "7889899e",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/instructor/lesson-settings.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/instructor/lesson-settings.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/instructor/lesson-settings.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_lesson_settings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./lesson-settings.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/lesson-settings.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_lesson_settings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/instructor/lesson-settings.vue?vue&type=template&id=7889899e&scoped=true&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/instructor/lesson-settings.vue?vue&type=template&id=7889899e&scoped=true& ***!
+  \***********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lesson_settings_vue_vue_type_template_id_7889899e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./lesson-settings.vue?vue&type=template&id=7889899e&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/lesson-settings.vue?vue&type=template&id=7889899e&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lesson_settings_vue_vue_type_template_id_7889899e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lesson_settings_vue_vue_type_template_id_7889899e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/instructor/lesson.vue":
 /*!*******************************************************!*\
   !*** ./resources/js/components/instructor/lesson.vue ***!
@@ -24409,6 +24548,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lesson_vue_vue_type_template_id_b16209a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_lesson_vue_vue_type_template_id_b16209a2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/instructor/section-settings.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/js/components/instructor/section-settings.vue ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _section_settings_vue_vue_type_template_id_a42c187c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./section-settings.vue?vue&type=template&id=a42c187c&scoped=true& */ "./resources/js/components/instructor/section-settings.vue?vue&type=template&id=a42c187c&scoped=true&");
+/* harmony import */ var _section_settings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./section-settings.vue?vue&type=script&lang=js& */ "./resources/js/components/instructor/section-settings.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _section_settings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _section_settings_vue_vue_type_template_id_a42c187c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _section_settings_vue_vue_type_template_id_a42c187c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "a42c187c",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/instructor/section-settings.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/instructor/section-settings.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/instructor/section-settings.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_section_settings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./section-settings.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/section-settings.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_section_settings_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/instructor/section-settings.vue?vue&type=template&id=a42c187c&scoped=true&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/js/components/instructor/section-settings.vue?vue&type=template&id=a42c187c&scoped=true& ***!
+  \************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_section_settings_vue_vue_type_template_id_a42c187c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./section-settings.vue?vue&type=template&id=a42c187c&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/section-settings.vue?vue&type=template&id=a42c187c&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_section_settings_vue_vue_type_template_id_a42c187c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_section_settings_vue_vue_type_template_id_a42c187c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -24961,7 +25169,9 @@ var state = {
   courseReviews: {},
   myCourses: {},
   canComment: {},
-  sections: {}
+  sections: {},
+  selectedLessonInfo: {},
+  selectedSectionInfo: {}
 };
 var getters = {};
 var mutations = {
@@ -24996,6 +25206,12 @@ var mutations = {
   },
   setSections: function setSections(state, index) {
     state.sections = index.data.sections;
+  },
+  setSelectedLessonInfo: function setSelectedLessonInfo(state, index) {
+    state.selectedLessonInfo = index;
+  },
+  setSelectedSectionInfo: function setSelectedSectionInfo(state, index) {
+    state.selectedSectionInfo = index;
   }
 };
 var actions = {
@@ -25075,6 +25291,14 @@ var actions = {
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/instructor/course/' + courseId + '/sections/' + sectionId + '/lesson').then(function (response) {
       return commit('setSections', response.data);
     });
+  },
+  loadSelectedLessonInfo: function loadSelectedLessonInfo(_ref14, lesson) {
+    var commit = _ref14.commit;
+    commit('setSelectedLessonInfo', lesson);
+  },
+  loadSelectedSectionInfo: function loadSelectedSectionInfo(_ref15, lesson) {
+    var commit = _ref15.commit;
+    commit('setSelectedSectionInfo', lesson);
   }
 };
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({

@@ -145,6 +145,7 @@
                             @endif
                         </div>
                         <div id="lessons" class="tabcontent  animation: uk-animation-slide-right-medium">
+                            <div class='lessonSettings addLesson sectionSettings'>
                             @if(isset($course))
                                 <div class="uk-margin-top">
                                     <h4>@lang('front/auth.lessons')</h4>
@@ -154,7 +155,7 @@
                                     preview-text="@lang('front/auth.preview')"
                                     section-text="@lang('front/auth.section')"
                                     add-default-section-text="@lang('front/auth.add_section')"
-                                    add-default-lesson-text="@lang('front/auth.add_lesson')"
+                                    add-default-lesson-text="@lang('front/auth.add_lessons')"
                                     add-text="@lang('front/auth.add')"
                                     save-text="@lang('front/auth.save')"
                                     select-file-text="@lang('front/auth.select_file')"
@@ -167,6 +168,75 @@
                                     <h3>Kurs bölümünü doldurduktan sonra Kaydet butonuna tıklayınız.</h3>
                                 </div>
                             @endif
+                            </div>
+                            <div class='addLesson' hidden>
+                                <div class="uk-margin-top">
+                                    <h4>@lang('front/auth.add_lessons')</h4>
+                                </div>
+                                <hr>
+                                <input class="uk-padding-small uk-margin-small-top uk-input uk-width" type="text">
+                                <div class="uk-width uk-flex uk-flex-row align-items-center justify-content-around uk-margin-top">
+                                    <div class="uk-flex align-items-center">
+                                        <input class="uk-radio uk-margin-remove" type="radio" checked value="1">
+                                        <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">Video</p>
+                                    </div>
+                                    <div class="uk-flex align-items-center">
+                                        <input class="uk-radio uk-margin-remove" type="radio" value="0">
+                                        <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">PDF</p>
+                                    </div>
+                                </div>
+                                <form class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove">
+                                    <div v-if="isVideo=='1'" uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
+                                        <input name="document" type="file" accept="video/*" required>
+                                        <input class="uk-input" type="text" tabindex="-1" disabled>
+                                    </div>
+                                    <div v-else uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
+                                        <input name="document" type="file" accept="application/pdf,application/vnd.ms-excel" required>
+                                        <input class="uk-input" type="text" tabindex="-1" disabled>
+                                    </div>
+                                    <div class="js-upload uk-placeholder uk-text-center">
+                                        <div uk-form-custom>
+                                            <input type="file" :id="courseSource" multiple>
+                                            <span class="fas fa-upload uk-margin-small"></span>
+                                            <span class="uk-link"> </span>
+                                        </div>
+                                    </div>
+                                    <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden> </progress>
+                                    <!--<div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
+                                        <input name="document" type="file" :id="courseSource" multiple>
+                                        <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="addSourceText">
+                                    </div>-->
+                                </form>
+                                <div class="uk-margin uk-flex justify-content-start align-items-center">
+                                    <label>
+                                        <input class="uk-checkbox" type="checkbox">
+                                        <span class="checkmark uk-text-small">Preview</span>
+                                    </label>
+                                </div>
+                                <div class="uk-grid">
+                                    <div class="uk-width-1-2@m">
+                                        <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .addLesson"><i class="fas fa-times uk-margin-small-right"></i> @lang('front/auth.cancel')</button>
+                                    </div>
+                                    <div class="uk-width-1-2@m">
+                                        <button class="uk-button uk-button-success uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .addLesson"><i class="fas fa-save uk-margin-small-right"></i> @lang('front/auth.save')</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <lesson-settings>
+
+                            </lesson-settings>
+                            <section-settings
+                                preview-text="@lang('front/auth.preview')"
+                                section-text="@lang('front/auth.section')"
+                                add-default-section-text="@lang('front/auth.add_section')"
+                                add-default-lesson-text="@lang('front/auth.add_lessons')"
+                                add-text="@lang('front/auth.add')"
+                                save-text="@lang('front/auth.save')"
+                                select-file-text="@lang('front/auth.select_file')"
+                                saved-success-text="@lang('front/auth.saved_successful')"
+                                course-id="{{$course->id}}"
+                                instructor-id="{{Auth::user()->instructor->id}}"
+                            > </section-settings>
                         </div>
                         <div id="instructors" class="tabcontent  animation: uk-animation-slide-right-medium">
                             @if(isset($course))

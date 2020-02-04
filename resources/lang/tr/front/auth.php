@@ -119,11 +119,11 @@ return [
     'add_tag'=>'Etiket Ekle',
     'add_requirement'=>'Gereksinim Ekle',
     'add_achievement'=>'Kazanım Ekle',
-    'add_lesson'=>'Ders Ekle',
     'add_section'=>'Bölüm Ekle',
     'preview'=>'Önizle',
     'saved_successful'=>'Başarıyla Kaydedildi',
     'more'=>'Dahası',
     'title_example'=>'Matematik Öğretmeni vb.',
-    'reference_code_explain'=>'Referans kodunuz yok ise ****** şirket referans kodunu giriniz'
+    'reference_code_explain'=>'Referans kodunuz yok ise ****** şirket referans kodunu giriniz',
+    'cancel'=>'Vazgeç',
 ];
