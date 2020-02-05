@@ -872,6 +872,7 @@ class CourseRepository implements IRepository{
         }
 
         try{
+            $course = null;
             DB::beginTransaction();
             $course = Course::find($course_id);
             DB::table("ge_courses_instructors")->where('course_id',$course_id)->delete();
