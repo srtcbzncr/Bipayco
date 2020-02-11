@@ -43,9 +43,9 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
     // retrieved,creating,created,updating,updated,saving,saved,deleting,deleted,restoring,restored
-    protected $dispatchesEvents= [
+    /*protected $dispatchesEvents= [
         'created'=>RegisterEvent::class
-    ];
+    ];*/
 
     public function student(){
         return $this->hasOne('App\Models\Auth\Student');

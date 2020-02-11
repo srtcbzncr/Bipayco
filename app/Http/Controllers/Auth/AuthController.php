@@ -53,7 +53,7 @@ class AuthController extends Controller
                 return redirect()->route('home');
             }
 
-            Event::fire(new RegisterEvent($data));
+            //Event::fire(new RegisterEvent($data));
             return redirect()->route('loginGet');
         }
         else {
