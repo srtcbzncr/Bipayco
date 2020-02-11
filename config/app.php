@@ -136,6 +136,8 @@ return [
 
     'providers' => [
 
+        Pbmedia\LaravelFFMpeg\FFMpegServiceProvider::class,
+
         /*
          * Laravel Framework Service Providers...
          */
@@ -190,7 +192,7 @@ return [
     */
 
     'aliases' => [
-
+        'FFMpeg' => Pbmedia\LaravelFFMpeg\FFMpegFacade::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
