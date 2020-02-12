@@ -204,10 +204,10 @@
                                     </div>
                                     <div class="uk-grid">
                                         <div class="uk-width-1-2@m">
-                                            <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .addLesson"><i class="fas fa-times uk-margin-small-right"></i> @lang('front/auth.cancel')</button>
+                                            <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .addLesson">@lang('front/auth.cancel')</button>
                                         </div>
                                         <div class="uk-width-1-2@m">
-                                            <button class="uk-button uk-button-success uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .addLesson"><i class="fas fa-save uk-margin-small-right"></i> @lang('front/auth.save')</button>
+                                            <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .addLesson">@lang('front/auth.save')</button>
                                         </div>
                                     </div>
                                 </div>
@@ -215,16 +215,16 @@
 
                                 </lesson-settings>
                                 <section-settings
-                                preview-text="@lang('front/auth.preview')"
-                                section-text="@lang('front/auth.section')"
-                                add-default-section-text="@lang('front/auth.add_section')"
-                                add-default-lesson-text="@lang('front/auth.add_lessons')"
-                                add-text="@lang('front/auth.add')"
-                                save-text="@lang('front/auth.save')"
-                                select-file-text="@lang('front/auth.select_file')"
-                                saved-success-text="@lang('front/auth.saved_successful')"
-                                course-id="{{$course->id}}"
-                                instructor-id="{{Auth::user()->instructor->id}}"
+                                    preview-text="@lang('front/auth.preview')"
+                                    section-text="@lang('front/auth.section')"
+                                    add-default-section-text="@lang('front/auth.add_section')"
+                                    add-default-lesson-text="@lang('front/auth.add_lessons')"
+                                    add-text="@lang('front/auth.add')"
+                                    save-text="@lang('front/auth.save')"
+                                    select-file-text="@lang('front/auth.select_file')"
+                                    saved-success-text="@lang('front/auth.saved_successful')"
+                                    course-id="{{$course->id}}"
+                                    instructor-id="{{Auth::user()->instructor->id}}"
                                 > </section-settings>
                             </div>
                             <div id="instructors" class="tabcontent  animation: uk-animation-slide-right-medium">

@@ -8692,10 +8692,7 @@ var render = function() {
               "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
             attrs: { "uk-toggle": "target: .lessonSettings" }
           },
-          [
-            _c("i", { staticClass: "fas fa-times uk-margin-small-right" }),
-            _vm._v(_vm._s(_vm.cancelText))
-          ]
+          [_vm._v(_vm._s(_vm.cancelText))]
         )
       ]),
       _vm._v(" "),
@@ -8704,13 +8701,10 @@ var render = function() {
           "button",
           {
             staticClass:
-              "uk-button uk-button-success uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+              "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
             attrs: { "uk-toggle": "target: .lessonSettings" }
           },
-          [
-            _c("i", { staticClass: "fas fa-save uk-margin-small-right" }),
-            _vm._v(_vm._s(_vm.saveText) + " ")
-          ]
+          [_vm._v(_vm._s(_vm.saveText) + " ")]
         )
       ])
     ])
@@ -9035,10 +9029,7 @@ var render = function() {
               "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
             attrs: { "uk-toggle": "target: .sectionSettings" }
           },
-          [
-            _c("i", { staticClass: "fas fa-times uk-margin-small-right" }),
-            _vm._v(" " + _vm._s(_vm.cancelText) + " ")
-          ]
+          [_vm._v(" " + _vm._s(_vm.cancelText) + " ")]
         )
       ]),
       _vm._v(" "),
@@ -9047,13 +9038,10 @@ var render = function() {
           "button",
           {
             staticClass:
-              "uk-button uk-button-success uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+              "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
             attrs: { "uk-toggle": "target: .sectionSettings" }
           },
-          [
-            _c("i", { staticClass: "fas fa-save uk-margin-small-right" }),
-            _vm._v(" " + _vm._s(_vm.saveText))
-          ]
+          [_vm._v(_vm._s(_vm.saveText))]
         )
       ])
     ])

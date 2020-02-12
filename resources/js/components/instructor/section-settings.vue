@@ -37,10 +37,10 @@
         </div>
         <div class="uk-grid uk-margin-top">
             <div class="uk-width-1-2@m">
-                <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .sectionSettings"><i class="fas fa-times uk-margin-small-right"></i> {{cancelText}} </button>
+                <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .sectionSettings"> {{cancelText}} </button>
             </div>
             <div class="uk-width-1-2@m">
-                <button class="uk-button uk-button-success uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .sectionSettings"><i class="fas fa-save uk-margin-small-right"></i> {{saveText}}</button>
+                <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .sectionSettings">{{saveText}}</button>
             </div>
         </div>
     </div>
