@@ -145,8 +145,8 @@
                             @endif
                         </div>
                         <div id="lessons" class="tabcontent  animation: uk-animation-slide-right-medium">
-                            <div class='lessonSettings addLesson sectionSettings'>
                             @if(isset($course))
+                            <div class='lessonSettings addLesson sectionSettings'>
                                 <div class="uk-margin-top">
                                     <h4>@lang('front/auth.lessons')</h4>
                                 </div>
@@ -163,11 +163,6 @@
                                     course-id="{{$course->id}}"
                                     instructor-id="{{Auth::user()->instructor->id}}"
                                 > </add-section>
-                            @else
-                                <div>
-                                    <h3>Kurs bölümünü doldurduktan sonra Kaydet butonuna tıklayınız.</h3>
-                                </div>
-                            @endif
                             </div>
                             <div class='addLesson' hidden>
                                 <div class="uk-margin-top">
@@ -202,9 +197,9 @@
                                         </div>
                                     </div>
                                     <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden> </progress>
-                                    <!--<div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
-                                        <input name="document" type="file" :id="courseSource" multiple>
-                                        <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="addSourceText">
+                                <!--<div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
+                                    <input name="document" type="file" :id="courseSource" multiple>
+                                    <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="addSourceText">
                                     </div>-->
                                 </form>
                                 <div class="uk-margin uk-flex justify-content-start align-items-center">
@@ -226,17 +221,22 @@
 
                             </lesson-settings>
                             <section-settings
-                                preview-text="@lang('front/auth.preview')"
-                                section-text="@lang('front/auth.section')"
-                                add-default-section-text="@lang('front/auth.add_section')"
-                                add-default-lesson-text="@lang('front/auth.add_lessons')"
-                                add-text="@lang('front/auth.add')"
-                                save-text="@lang('front/auth.save')"
-                                select-file-text="@lang('front/auth.select_file')"
-                                saved-success-text="@lang('front/auth.saved_successful')"
-                                course-id="{{$course->id}}"
-                                instructor-id="{{Auth::user()->instructor->id}}"
+                            preview-text="@lang('front/auth.preview')"
+                            section-text="@lang('front/auth.section')"
+                            add-default-section-text="@lang('front/auth.add_section')"
+                            add-default-lesson-text="@lang('front/auth.add_lessons')"
+                            add-text="@lang('front/auth.add')"
+                            save-text="@lang('front/auth.save')"
+                            select-file-text="@lang('front/auth.select_file')"
+                            saved-success-text="@lang('front/auth.saved_successful')"
+                            course-id="{{$course->id}}"
+                            instructor-id="{{Auth::user()->instructor->id}}"
                             > </section-settings>
+                            @else
+                                <div>
+                                    <h3>Kurs bölümünü doldurduktan sonra Kaydet butonuna tıklayınız.</h3>
+                                </div>
+                            @endif
                         </div>
                         <div id="instructors" class="tabcontent  animation: uk-animation-slide-right-medium">
                             @if(isset($course))
