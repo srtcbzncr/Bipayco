@@ -658,8 +658,8 @@ class CourseController extends Controller
         $data = $request->toArray();
         foreach ($data as $key => $item){
             $geCoursesInstructor = DB::select('select * from ge_courses_instructors where course_id = '.$id.' and instructor_id = '.$item['instructor_id']);
-            try {
-                if($geCoursesInstructor[0]->is_manager == 1){
+                try {
+                if($geCoursesInstructor[0]->is_manager == true){
                     $instructor = Instructor::find($geCoursesInstructor[0]->instructor_id);
                     $user = User::find($instructor->user_id);
                     break;
@@ -667,6 +667,7 @@ class CourseController extends Controller
             } catch(\Exception $e){
             }
         }
+
 
         $course = Course::find($id);
         if($user->can('checkManager',$course)){

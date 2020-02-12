@@ -81,7 +81,7 @@ class AuthController extends Controller
             $data = array();
             $data['name'] = $name;
             $data['email'] = $email;
-            Event::fire(new InstructorCallEvent($data));
+            //Event::fire(new InstructorCallEvent($data));
 
             return new InstructorResource($instructorResp->getData());
         }
