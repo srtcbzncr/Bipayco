@@ -40,7 +40,7 @@ class CourseController extends Controller
             return GE_CourseResource::collection($resp->getData());
         }
         else{
-            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
         }
     }
 
@@ -56,7 +56,7 @@ class CourseController extends Controller
             return GE_CourseResource::collection($resp->getData());
         }
         else{
-            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
         }
     }
 
@@ -72,7 +72,7 @@ class CourseController extends Controller
             return GE_CourseResource::collection($resp->getData());
         }
         else{
-            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
         }
     }
 
@@ -88,7 +88,7 @@ class CourseController extends Controller
             return GE_CourseResource::collection($resp->getData());
         }
         else{
-            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
         }
     }
 
@@ -105,7 +105,7 @@ class CourseController extends Controller
             return GE_CourseResource::collection($resp->getData());
         }
         else{
-            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
         }
     }
 
@@ -121,7 +121,7 @@ class CourseController extends Controller
             return GE_CourseResource::collection($resp->getData());
         }
         else{
-            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
         }
     }
 
@@ -137,7 +137,7 @@ class CourseController extends Controller
             return GE_CourseResource::collection($resp->getData());
         }
         else{
-            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
         }
     }
 
@@ -153,7 +153,7 @@ class CourseController extends Controller
             return GE_CourseResource::collection($resp->getData());
         }
         else{
-            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
         }
     }
 
@@ -169,7 +169,7 @@ class CourseController extends Controller
             return GE_CourseResource::collection($resp->getData());
         }
         else{
-            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
         }
     }
 
@@ -185,7 +185,7 @@ class CourseController extends Controller
             return GE_CourseResource::collection($resp->getData());
         }
         else{
-            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
         }
     }
 
@@ -201,7 +201,7 @@ class CourseController extends Controller
             return GE_CourseResource::collection($resp->getData());
         }
         else{
-            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
         }
     }
 
@@ -217,7 +217,7 @@ class CourseController extends Controller
             return GE_CourseResource::collection($resp->getData());
         }
         else{
-            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
         }
     }
 
@@ -233,7 +233,7 @@ class CourseController extends Controller
             return GE_CourseResource::collection($resp->getData());
         }
         else{
-            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
         }
     }
 
@@ -249,7 +249,7 @@ class CourseController extends Controller
             return GE_CourseResource::collection($resp->getData());
         }
         else{
-            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
         }
     }
 
@@ -265,7 +265,7 @@ class CourseController extends Controller
             return GE_CourseResource::collection($resp->getData());
         }
         else{
-            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
         }
     }
 
@@ -281,7 +281,7 @@ class CourseController extends Controller
             return GE_CommentResource::collection($resp->getData());
         }
         else{
-            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
+            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
         }
     }
 
@@ -298,10 +298,10 @@ class CourseController extends Controller
         if($courseResp->getResult() and $userResp->getResult()){
             $user = $userResp->getData();
             $course = $courseResp->getData();
-            return response()->json(['error' => false, 'result' => $user->can('entry', $course)]);
+            return response()->json(['error' => false, 'result' => $user->can('entry', $course)],200);
         }
         else{
-            return response()->json(['error' => true, 'message' => 'Bir hata oluştu.']);
+            return response()->json(['error' => true, 'message' => 'Bir hata oluştu.'],400);
         }
     }
 
@@ -321,7 +321,7 @@ class CourseController extends Controller
             return response()->json(['error' => false, 'result' => $user->can('comment', $course)]);
         }
         else{
-            return response()->json(['error' => true, 'message' => 'Bir hata oluştu.']);
+            return response()->json(['error' => true, 'message' => 'Bir hata oluştu.'],400);
         }
     }
 
@@ -350,8 +350,8 @@ class CourseController extends Controller
         if($b){
             return response()->json([
                 'error' => true,
-                'message' => 'Eksik bilgi girdiniz',
-            ]);
+                'message' => 'Eksik bilgi girdin.',
+            ],400);
         }
 
         if($id==null){
@@ -363,14 +363,15 @@ class CourseController extends Controller
             if($respCourse->getResult()){
                 return response()->json([
                     'error' => false,
-                    'result' => $respCourse->getData()
+                    'result' => $respCourse->getData(),
+                    'message' => 'Kurs başarıyla oluşturuldu.'
                 ]);
             }
             else{
                 return response()->json([
                     'error' => true,
                     'message' => $respCourse->getError()->getMeesage(),
-                ]);
+                ],400);
             }
         }
         else{
@@ -390,22 +391,22 @@ class CourseController extends Controller
                     return response()->json([
                         'error' => false,
                         'result' => $course,
-                        'message' => 'Kurs başarıyla güncellendi'
+                        'message' => 'Kurs başarıyla güncellendi.'
                     ]);
                 }
                 else {
                     return response()->json([
                         'error' => true,
                         'result' => $course,
-                        'message' => 'Kurs güncellenemedi'
-                    ]);
+                        'message' => 'Kurs güncellenirken hata oluştu.Tekrar deneyin.'
+                    ],400);
                 }
             }
             else{
                 return response()->json([
                     'error' => true,
                     'message' => 'Eğitimci değilsin veya bu kursun eğitimcisi değilsin'
-                ]);
+                ],400);
             }
         }
     }
@@ -428,21 +429,21 @@ class CourseController extends Controller
             if($respAchievement->getResult() and $respRequirement->getResult() and $respTag->getResult()){
                 return response()->json([
                     'error' => false,
-                    'result' => 'Kurs Güncellendi'
+                    'result' => 'Kurs başarıyla güncellendi.'
                 ]);
             }
             else{
                 return response()->json([
                     'error' => true,
-                    'result' => 'Kurs Güncellenemdi'
-                ]);
+                    'message' => 'Kurs güncellenirken hata oluştu.Tekrar deneyin.',
+                ],400);
             }
         }
         else{
             return response()->json([
                 'error' => true,
                 'message' => 'Eğitimci değilsin veya bu kursun eğitimcisi değilsin'
-            ]);
+            ],400);
         }
     }
     public function goalsGet($id){
@@ -461,13 +462,14 @@ class CourseController extends Controller
             return response()->json([
                 'error' => false,
                 'data' => $data,
+                'message' => 'Veriler başarıyla veritabanından getirildi.'
             ]);
         }
         else{
             return response()->json([
                 'error' => true,
-                'message' => 'Kazanımlar getirilirken bir hata meydana geldi'
-            ]);
+                'message' => 'Veriler getirilirken hata oluştu.Tekrar deneyin.'
+            ],400);
         }
     }
 
@@ -521,14 +523,14 @@ class CourseController extends Controller
         if($resp->getResult()){
             return response()->json([
                'error' => false,
-               'message' => 'Section Eklendi'
+               'message' => 'Bölüm başarıyla eklendi.'
             ]);
         }
         else{
             return response()->json([
                 'error' => true,
-                'message' => 'Section Eklenemedi'
-            ]);
+                'message' => 'Bölüm eklenirken hata oluştu.Tekrar deneyin.'
+            ],400);
         }
     }
     public function sectionsDelete($id,$section_id){
@@ -542,14 +544,14 @@ class CourseController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'message' => 'Section Silindi'
+                'message' => 'Bölüm başarıyla silindi.'
             ]);
         }
         else{
             return response()->json([
                 'error' => true,
-                'message' => 'Section Silinemedi'
-            ]);
+                'message' => 'Bölüm silinirken hata oluştu.Tekrar deneyin.'
+            ],400);
         }
     }
 
@@ -562,19 +564,20 @@ class CourseController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Bölümler veritabanından başarıyla getirildi.'
             ]);
         }
         else{
             return response()->json([
                 'error' => true,
-                'data' => 'Bir hata meydana geldi'
-            ]);
+                'message' => 'Bölümler veritabanından getirilirken hata oluştu.Tekrar deneyin.'
+            ],400);
         }
     }
 
     public function lessonsPost($id,$section_id,$lesson_id = null,Request $request){
-     
+
         $sources = null;
         if(isset($request->toArray()['source'])){
             $sources = $request->toArray()['source'];
@@ -592,14 +595,14 @@ class CourseController extends Controller
             if($resp->getResult()){
                 return response()->json([
                     'error' => false,
-                    'message' => 'Ders Eklendi'
+                    'message' => 'Ders başarıyla eklendi.'
                 ]);
             }
             else{
                 return response()->json([
                     'error' => true,
-                    'message' => 'Ders Eklenemedi'
-                ]);
+                    'message' => 'Ders eklenirken hata oluştu.Tekrar deneyin.'
+                ],400);
             }
         }
         else{
@@ -607,14 +610,14 @@ class CourseController extends Controller
             if($resp->getResult()){
                 return response()->json([
                     'error' => false,
-                    'message' => 'Ders Eklendi'
+                    'message' => 'Ders başarıyla güncellendi'
                 ]);
             }
             else{
                 return response()->json([
                     'error' => true,
-                    'message' => 'Ders Eklenemedi'
-                ]);
+                    'message' => 'Ders güncellenirken hata oluştu.Tekrar deneyin.'
+                ],400);
             }
         }
     }
@@ -627,14 +630,14 @@ class CourseController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'message' => 'Ders Silindi'
+                'message' => 'Ders başarıyla silindi'
             ]);
         }
         else{
             return response()->json([
                 'error' => true,
-                'message' => 'Ders Silinemedi'
-            ]);
+                'message' => 'Ders silinirken hata oluştu.Tekrar deneyin.'
+            ],400);
         }
     }
 
@@ -647,14 +650,14 @@ class CourseController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'message' => 'source silindi'
+                'message' => 'Kaynak başarıyla silindi.'
             ]);
         }
         else{
             return response()->json([
                 'error' => true,
-                'message' => 'source silinemedi'
-            ]);
+                'message' => 'Kaynak silinirken hata oluştu.Tekrar deneyin.'
+            ],400);
         }
     }
 
@@ -685,21 +688,21 @@ class CourseController extends Controller
             if($resp->getResult()){
                 return response()->json([
                     'error' => false,
-                    'message' => 'Eğitimenler kursa eklendi'
+                    'message' => 'Eğitimenler kursa başarıyla eklendi'
                 ]);
             }
             else{
                 return response()->json([
                     'error' => true,
-                    'message' => 'Eğitimenler kursa eklenemedi'
-                ]);
+                    'message' => 'Eğitimenler kursa eklenirken hata oluştu.Tekrar deneyin.'
+                ],400);
             }
         }
         else{
             return response()->json([
                 'error' => true,
-                'message' => 'Eğitimci değilsin veya bu kursun eğitimcisi değilsin'
-            ]);
+                'message' => 'Bu kursun eğitimcisi değilsin veya eklenen eğitmen eğitimci değil.'
+            ],400);
         }
     }
 
@@ -721,14 +724,15 @@ class CourseController extends Controller
             }
             return response()->json([
                 'error' => false,
-                'data' => $data
+                'data' => $data,
+                'message' => 'Eğitimcilerin bilgisi veritabanından başarıyla çekildi.'
             ]);
         }
         else{
             return response()->json([
                 'error' => true,
-                'message' => 'Eğitimciler gelirken hata meydana geldi'
-            ]);
+                'message' => 'Eğitimcilerin bilgisi veritabanından çekilirken hata oluştur.Tekrar deneyin.'
+            ],400);
         }
     }
 
