@@ -66,8 +66,11 @@ class LessonRepository implements IRepository{
         try{
             DB::beginTransaction();
             $filePath = Storage::putFile('lessons', $data['document']);
-            $media=FFMpeg::open($filePath);
-            $long=$media->getDurationInSeconds();
+            $long = 0;
+            if($data['is_video'] != 0){
+                $media=FFMpeg::open($filePath);
+                $long=$media->getDurationInSeconds();
+            }
             $object = new Lesson;
             $object->section_id = $data['section_id'];
             $object->is_video = $data['is_video'];
