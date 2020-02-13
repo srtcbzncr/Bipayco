@@ -112,8 +112,8 @@ const actions={
     loadSelectedLessonInfo({commit},lesson){
         commit('setSelectedLessonInfo',lesson);
     },
-    loadSelectedSectionInfo({commit},lesson){
-        commit('setSelectedSectionInfo',lesson);
+    loadSelectedSectionInfo({commit}, courseSection){
+        commit('setSelectedSectionInfo',courseSection);
     },
 };
 

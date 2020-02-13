@@ -2835,6 +2835,131 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/add-lesson.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/instructor/add-lesson.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "add-lesson",
+  props: {
+    courseId: {
+      type: String,
+      required: true
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['selectedSectionInfo'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSelectedSectionInfo']), {
+    addLesson: function addLesson() {
+      var _this = this;
+
+      var isPreview = document.querySelector('#lessonPreview').checked ? 1 : 0;
+      var doc;
+
+      if (document.getElementsByName('isVideo') == '1') {
+        doc = document.querySelector('#courseVideo').files[0];
+      } else {
+        doc = document.querySelector('#coursePdf').files[0];
+      }
+
+      var formData = new FormData();
+      formData.append('name', document.getElementById('lessonNameInput').value);
+      formData.append('is_preview', isPreview);
+      formData.append('is_video', document.getElementsByName('isVideo'));
+      formData.append('document', doc);
+
+      for (var i = 0; i < document.querySelector('#courseSource').files.length; i++) {
+        var file = document.querySelector('#courseSource').files[i];
+        formData.append('source[' + i + ']', file);
+      }
+
+      formData.append('courseId', this.courseId);
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.selectedSectionInfo.id + '/lessons/create', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        if (!response.data.error) {
+          _this.$store.dispatch('loadSections', _this.courseId);
+
+          _this.$store.dispatch('loadSelectedSectionInfo', {});
+        }
+      });
+    }
+  }),
+  created: function created() {}
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/add-list.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/instructor/add-list.vue?vue&type=script&lang=js& ***!
@@ -3401,16 +3526,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return 'target: .' + this.sectionName;
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadSections']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadSections', 'loadSelectedSectionInfo']), {
     removeSection: function removeSection() {
       axios.post('/api/instructor/course/' + this.courseId + '/sections/delete/' + this.section.id).then(this.$store.dispatch('loadSections', this.courseId));
     },
-    updateSection: function updateSection() {
-      var formData = new FormData();
-      formData.append('name', document.getElementById(this.sectionNameInput).value);
-      formData.append('courseId', this.courseId);
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/create/' + this.section.id, formData).then(this.$store.dispatch('loadSections', this.courseId));
-    },
+
+    /*updateSection:function(){
+        var formData=new FormData();
+        formData.append('name', document.getElementById(this.sectionNameInput).value);
+        formData.append('courseId', this.courseId);
+        axios.post('/api/instructor/course/'+this.courseId+'/sections/create/'+this.section.id, formData).then(this.$store.dispatch('loadSections',this.courseId))
+    },*/
     sendInfo: function sendInfo() {
       this.$store.dispatch('loadSelectedSectionInfo', this.section);
     }
@@ -3662,6 +3788,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "lesson-settings",
+  data: function data() {
+    return {
+      lessonSources: []
+    };
+  },
   props: {
     editLessonText: {
       type: String,
@@ -3689,7 +3820,92 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['selectedLessonInfo'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSelectedLessonInfo']))
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSelectedLessonInfo', 'loadSelectedSectionInfo']), {
+    removeSource: function removeSource(index) {
+      this.lessonSources.splice(index, 1);
+    },
+    getSource: function getSource() {
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = this.lesson.sources[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var doc = _step.value;
+          this.lessonSources.push(doc);
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+    },
+    updateLesson: function updateLesson() {
+      var _this = this;
+
+      var isPreview = document.querySelector('#settingsPreview').checked ? 1 : 0;
+      var formData = new FormData();
+      formData.append('name', document.getElementById('lessonSettingsName').value);
+      formData.append('is_preview', isPreview);
+
+      for (var i = 0; i < this.lessonSources.length; i++) {
+        formData.append('source[' + i + ']', this.lessonSources[i]);
+      }
+
+      formData.append('sectionId', this.selectedSectionInfo);
+      formData.append('courseId', this.courseId);
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = formData[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var pair = _step2.value;
+          console.log(pair[0]);
+          console.log(pair[1]);
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+            _iterator2["return"]();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.loadSelectedSectionInfo.id + '/lessons/create/' + this.selectedLessonInfo.id, formData).then(function (response) {
+        if (!response.data.error) {
+          _this.$store.dispatch('loadSections', _this.courseId);
+
+          _this.$store.dispatch('loadSelectedLessonInfo', {});
+
+          _this.$store.dispatch('loadSelectedSectionInfo', {});
+        }
+
+        console.log(response);
+      });
+    }
+  }),
+  created: function created() {
+    if (this.lesson != null && this.lesson !== []) {
+      this.getSource();
+    }
+  }
 });
 
 /***/ }),
@@ -3785,8 +4001,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       required: true
     },
-    sectionId: {
-      type: Number,
+    section: {
+      type: Object,
       required: true
     },
     selectFileText: {
@@ -3807,9 +4023,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return 'target: .' + this.lessonName;
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections', 'loadSelectedLessonInfo']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections', 'loadSelectedLessonInfo', 'loadSelectedSectionInfo']), {
     removeLesson: function removeLesson() {
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sectionId + '/lessons/delete/' + this.lesson.id).then(this.$store.dispatch('loadSections', this.courseId));
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.section.id + '/lessons/delete/' + this.lesson.id).then(this.$store.dispatch('loadSections', this.courseId));
     },
 
     /*
@@ -3865,6 +4081,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     sendInfo: function sendInfo() {
       this.$store.dispatch('loadSelectedLessonInfo', this.lesson);
+      this.$store.dispatch('loadSelectedSectionInfo', this.section);
     }
   }),
   created: function created() {
@@ -3948,7 +4165,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   components: {
     lesson: _lesson_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['selectedSectionInfo'])),
   props: {
     editSectionText: {
       type: String,
@@ -3990,10 +4206,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       required: true
     },
-    sectionId: {
-      type: Number,
-      required: true
-    },
     savedSuccessText: {
       type: String,
       "default": 'Başarıyla Kaydedildi'
@@ -4007,9 +4219,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": 'Ders Bulunmuyor'
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadSelectedSectionInfo'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['selectedSectionInfo'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadSelectedSectionInfo']), {
+    updateSection: function updateSection() {
+      var _this = this;
+
+      var formData = new FormData();
+      formData.append('name', document.getElementById('sectionSettingsName').value);
+      formData.append('courseId', this.courseId);
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/create/' + this.selectedSectionInfo.id, formData).then(function (response) {
+        if (!response.data.error) {
+          _this.$store.dispatch('loadSections', _this.courseId);
+
+          _this.$store.dispatch('loadSelectedSectionInfo', {});
+        }
+      });
+    }
+  }),
   created: function created() {
-    this.$store.dispatch('loadSelectedSectionInfo', this.courseId);
+    console.log(this.section);
   }
 });
 
@@ -7813,6 +8041,243 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/add-lesson.vue?vue&type=template&id=c9f3af4a&scoped=true&":
+/*!************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/instructor/add-lesson.vue?vue&type=template&id=c9f3af4a&scoped=true& ***!
+  \************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "addLesson", attrs: { hidden: "" } }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c("input", {
+      staticClass: "uk-padding-small uk-margin-small-top uk-input uk-width",
+      attrs: { type: "text", id: "lessonNameInput" }
+    }),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _vm._m(2),
+    _vm._v(" "),
+    _vm._m(3),
+    _vm._v(" "),
+    _c("div", { staticClass: "uk-grid" }, [
+      _vm._m(4),
+      _vm._v(" "),
+      _c("div", { staticClass: "uk-width-1-2@m" }, [
+        _c(
+          "button",
+          {
+            staticClass:
+              "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+            attrs: { "uk-toggle": "target: .addLesson" },
+            on: { click: _vm.addLesson }
+          },
+          [_vm._v("@lang('front/auth.save')")]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-margin-top" }, [
+      _c("h4", [_vm._v("@lang('front/auth.add_lessons')")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "uk-width uk-flex uk-flex-row align-items-center justify-content-around uk-margin-top"
+      },
+      [
+        _c("div", { staticClass: "uk-flex align-items-center" }, [
+          _c("input", {
+            staticClass: "uk-radio uk-margin-remove",
+            attrs: {
+              type: "radio",
+              name: "isVideo",
+              "uk-toggle": "target: .document",
+              checked: "",
+              value: "1"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "p",
+            {
+              staticClass:
+                "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
+            },
+            [_vm._v("Video")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-flex align-items-center" }, [
+          _c("input", {
+            staticClass: "uk-radio uk-margin-remove",
+            attrs: {
+              type: "radio",
+              name: "isVideo",
+              "uk-toggle": "target: .document",
+              value: "0"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "p",
+            {
+              staticClass:
+                "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
+            },
+            [_vm._v("PDF")]
+          )
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "form",
+      {
+        staticClass:
+          "uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove"
+      },
+      [
+        _c(
+          "div",
+          {
+            staticClass: "uk-flex uk-flex-center uk-margin document",
+            attrs: { "uk-form-custom": "target: true" }
+          },
+          [
+            _c("input", {
+              attrs: {
+                id: "courseVideo",
+                type: "file",
+                accept: "video/*",
+                required: ""
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "uk-input",
+              attrs: { type: "text", tabindex: "-1", disabled: "" }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "uk-flex uk-flex-center uk-margin document",
+            attrs: { "uk-form-custom": "target: true", hidden: "" }
+          },
+          [
+            _c("input", {
+              attrs: {
+                id: "coursePdf",
+                type: "file",
+                accept: "application/pdf,application/vnd.ms-excel",
+                required: ""
+              }
+            }),
+            _vm._v(" "),
+            _c("input", {
+              staticClass: "uk-input",
+              attrs: { type: "text", tabindex: "-1", disabled: "" }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "js-upload uk-placeholder uk-text-center" }, [
+          _c("div", { attrs: { "uk-form-custom": "" } }, [
+            _c("input", {
+              attrs: { type: "file", id: "courseSource", multiple: "" }
+            }),
+            _vm._v(" "),
+            _c("span", { staticClass: "fas fa-upload uk-margin-small" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "uk-link" })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("progress", {
+          staticClass: "uk-progress",
+          attrs: { id: "js-progressbar", value: "0", max: "100", hidden: "" }
+        })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "uk-margin uk-flex justify-content-start align-items-center"
+      },
+      [
+        _c("label", [
+          _c("input", {
+            staticClass: "uk-checkbox",
+            attrs: { id: "lessonPreview", type: "checkbox" }
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "checkmark uk-text-small" }, [
+            _vm._v("Preview")
+          ])
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-width-1-2@m" }, [
+      _c(
+        "button",
+        {
+          staticClass:
+            "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+          attrs: { "uk-toggle": "target: .addLesson" }
+        },
+        [_vm._v("@lang('front/auth.cancel')")]
+      )
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/add-list.vue?vue&type=template&id=ff5ca0fe&scoped=true&":
 /*!**********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/instructor/add-list.vue?vue&type=template&id=ff5ca0fe&scoped=true& ***!
@@ -8326,9 +8791,9 @@ var render = function() {
                                 [
                                   _c("lesson", {
                                     attrs: {
+                                      section: this.section,
                                       lesson: lesson,
                                       "lesson-index": lessonIndex,
-                                      "section-id": _vm.section.id,
                                       "add-default-lesson-text":
                                         _vm.addDefaultLessonText,
                                       "add-text": _vm.addText,
@@ -8353,7 +8818,8 @@ var render = function() {
                                 {
                                   staticClass:
                                     "uk-button uk-button-success uk-margin-small uk-width",
-                                  attrs: { "uk-toggle": "target: .addLesson" }
+                                  attrs: { "uk-toggle": "target: .addLesson" },
+                                  on: { click: _vm.sendInfo }
                                 },
                                 [
                                   _c("i", {
@@ -8621,7 +9087,7 @@ var render = function() {
       _vm._v(" "),
       _c("input", {
         staticClass: "uk-input",
-        attrs: { type: "text", id: "inputName", required: "" },
+        attrs: { type: "text", id: "lessonSettingsName", required: "" },
         domProps: { value: _vm.selectedLessonInfo.name }
       })
     ]),
@@ -8669,11 +9135,11 @@ var render = function() {
           _vm.selectedLessonInfo.isPreview == "0"
             ? _c("input", {
                 staticClass: "uk-checkbox",
-                attrs: { type: "checkbox" }
+                attrs: { id: "settingsPreview", type: "checkbox" }
               })
             : _c("input", {
                 staticClass: "uk-checkbox",
-                attrs: { checked: "", type: "checkbox" }
+                attrs: { checked: "", type: "checkbox", id: "settingsPreview" }
               }),
           _vm._v(" "),
           _c("span", { staticClass: "checkmark uk-text-small" }, [
@@ -8896,7 +9362,7 @@ var render = function() {
       _vm._v(" "),
       _c("input", {
         staticClass: "uk-padding-small uk-margin-small-top uk-input uk-width",
-        attrs: { type: "text" },
+        attrs: { id: "sectionSettingsName", type: "text" },
         domProps: { value: _vm.selectedSectionInfo.name }
       })
     ]),
@@ -9039,7 +9505,8 @@ var render = function() {
           {
             staticClass:
               "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
-            attrs: { "uk-toggle": "target: .sectionSettings" }
+            attrs: { "uk-toggle": "target: .sectionSettings" },
+            on: { click: _vm.updateSection }
           },
           [_vm._v(_vm._s(_vm.saveText))]
         )
@@ -23241,6 +23708,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('add-instructor', __webpack
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('instructor-area', __webpack_require__(/*! ./components/instructor/instructors-area.vue */ "./resources/js/components/instructor/instructors-area.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('add-list', __webpack_require__(/*! ./components/instructor/add-list.vue */ "./resources/js/components/instructor/add-list.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('add-section', __webpack_require__(/*! ./components/instructor/add-section.vue */ "./resources/js/components/instructor/add-section.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('add-lesson', __webpack_require__(/*! ./components/instructor/add-lesson.vue */ "./resources/js/components/instructor/add-lesson.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('section-settings', __webpack_require__(/*! ./components/instructor/section-settings.vue */ "./resources/js/components/instructor/section-settings.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('lesson-settings', __webpack_require__(/*! ./components/instructor/lesson-settings.vue */ "./resources/js/components/instructor/lesson-settings.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('provinces', __webpack_require__(/*! ./components/auth/province.vue */ "./resources/js/components/auth/province.vue")["default"]);
@@ -23924,6 +24392,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_course_card_vue_vue_type_template_id_d16b70f2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_course_card_vue_vue_type_template_id_d16b70f2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/instructor/add-lesson.vue":
+/*!***********************************************************!*\
+  !*** ./resources/js/components/instructor/add-lesson.vue ***!
+  \***********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _add_lesson_vue_vue_type_template_id_c9f3af4a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./add-lesson.vue?vue&type=template&id=c9f3af4a&scoped=true& */ "./resources/js/components/instructor/add-lesson.vue?vue&type=template&id=c9f3af4a&scoped=true&");
+/* harmony import */ var _add_lesson_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./add-lesson.vue?vue&type=script&lang=js& */ "./resources/js/components/instructor/add-lesson.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _add_lesson_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _add_lesson_vue_vue_type_template_id_c9f3af4a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _add_lesson_vue_vue_type_template_id_c9f3af4a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "c9f3af4a",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/instructor/add-lesson.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/instructor/add-lesson.vue?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./resources/js/components/instructor/add-lesson.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_add_lesson_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./add-lesson.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/add-lesson.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_add_lesson_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/instructor/add-lesson.vue?vue&type=template&id=c9f3af4a&scoped=true&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/components/instructor/add-lesson.vue?vue&type=template&id=c9f3af4a&scoped=true& ***!
+  \******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_add_lesson_vue_vue_type_template_id_c9f3af4a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./add-lesson.vue?vue&type=template&id=c9f3af4a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/add-lesson.vue?vue&type=template&id=c9f3af4a&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_add_lesson_vue_vue_type_template_id_c9f3af4a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_add_lesson_vue_vue_type_template_id_c9f3af4a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -25293,9 +25830,9 @@ var actions = {
     var commit = _ref14.commit;
     commit('setSelectedLessonInfo', lesson);
   },
-  loadSelectedSectionInfo: function loadSelectedSectionInfo(_ref15, lesson) {
+  loadSelectedSectionInfo: function loadSelectedSectionInfo(_ref15, courseSection) {
     var commit = _ref15.commit;
-    commit('setSelectedSectionInfo', lesson);
+    commit('setSelectedSectionInfo', courseSection);
   }
 };
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({

@@ -75,8 +75,8 @@
                 type:String,
                 required:true,
             },
-            sectionId:{
-                type:Number,
+            section:{
+                type:Object,
                 required:true,
             },
             selectFileText:{
@@ -100,10 +100,12 @@
         methods:{
             ...mapActions([
                 'loadSections',
-                'loadSelectedLessonInfo'
+                'loadSelectedLessonInfo',
+                'loadSelectedSectionInfo'
             ]),
             removeLesson:function () {
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sectionId+'/lessons/delete/'+this.lesson.id).then(this.$store.dispatch('loadSections',this.courseId))
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.section.id+'/lessons/delete/'+this.lesson.id)
+                    .then(this.$store.dispatch('loadSections',this.courseId))
             },/*
             updateLesson:function () {
                 var isPreview = document.querySelector('#'+this.preview).checked ? 1 : 0;
@@ -137,6 +139,7 @@
             },
             sendInfo:function () {
                 this.$store.dispatch('loadSelectedLessonInfo',this.lesson);
+                this.$store.dispatch('loadSelectedSectionInfo',this.section);
             }
         },
         created(){

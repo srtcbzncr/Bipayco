@@ -12,9 +12,9 @@
                                 <ul>
                                     <li v-for="(lesson,lessonIndex) in section.lessons">
                                         <lesson
+                                            :section="this.section"
                                             :lesson=lesson
                                             :lesson-index="lessonIndex"
-                                            :section-id="section.id"
                                             :add-default-lesson-text="addDefaultLessonText"
                                             :add-text="addText"
                                             :preview-text="previewText"
@@ -27,7 +27,7 @@
                                         > </lesson>
                                     </li>
                                     <li>
-                                        <button class="uk-button uk-button-success uk-margin-small uk-width" uk-toggle="target: .addLesson"><i class="fas fa-plus uk-margin-small-right"></i>{{addDefaultLessonText}}</button>
+                                        <button class="uk-button uk-button-success uk-margin-small uk-width" @click="sendInfo" uk-toggle="target: .addLesson"><i class="fas fa-plus uk-margin-small-right"></i>{{addDefaultLessonText}}</button>
                                     </li>
                                 </ul>
                             </div>
@@ -127,16 +127,17 @@
         methods:{
             ...mapActions([
                 'loadSections',
+                'loadSelectedSectionInfo',
             ]),
             removeSection:function () {
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/delete/'+this.section.id).then(this.$store.dispatch('loadSections',this.courseId))
             },
-            updateSection:function(){
+            /*updateSection:function(){
                 var formData=new FormData();
                 formData.append('name', document.getElementById(this.sectionNameInput).value);
                 formData.append('courseId', this.courseId);
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/create/'+this.section.id, formData).then(this.$store.dispatch('loadSections',this.courseId))
-            },
+            },*/
             sendInfo:function () {
                 this.$store.dispatch('loadSelectedSectionInfo', this.section)
             },

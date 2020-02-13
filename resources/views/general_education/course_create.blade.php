@@ -158,59 +158,10 @@
                                         instructor-id="{{Auth::user()->instructor->id}}"
                                     > </add-section>
                                 </div>
-                                <div class='addLesson' hidden>
-                                    <div class="uk-margin-top">
-                                        <h4>@lang('front/auth.add_lessons')</h4>
-                                    </div>
-                                    <hr>
-                                    <input class="uk-padding-small uk-margin-small-top uk-input uk-width" type="text">
-                                    <div class="uk-width uk-flex uk-flex-row align-items-center justify-content-around uk-margin-top">
-                                        <div class="uk-flex align-items-center">
-                                            <input class="uk-radio uk-margin-remove" type="radio" checked value="1">
-                                            <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">Video</p>
-                                        </div>
-                                        <div class="uk-flex align-items-center">
-                                            <input class="uk-radio uk-margin-remove" type="radio" value="0">
-                                            <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">PDF</p>
-                                        </div>
-                                    </div>
-                                    <form class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove">
-                                        <div v-if="isVideo=='1'" uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
-                                            <input name="document" type="file" accept="video/*" required>
-                                            <input class="uk-input" type="text" tabindex="-1" disabled>
-                                        </div>
-                                        <div v-else uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
-                                            <input name="document" type="file" accept="application/pdf,application/vnd.ms-excel" required>
-                                            <input class="uk-input" type="text" tabindex="-1" disabled>
-                                        </div>
-                                        <div class="js-upload uk-placeholder uk-text-center">
-                                            <div uk-form-custom>
-                                                <input type="file" :id="courseSource" multiple>
-                                                <span class="fas fa-upload uk-margin-small"></span>
-                                                <span class="uk-link"> </span>
-                                            </div>
-                                        </div>
-                                        <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden> </progress>
-                                    <!--<div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
-                                        <input name="document" type="file" :id="courseSource" multiple>
-                                        <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="addSourceText">
-                                        </div>-->
-                                    </form>
-                                    <div class="uk-margin uk-flex justify-content-start align-items-center">
-                                        <label>
-                                            <input class="uk-checkbox" type="checkbox">
-                                            <span class="checkmark uk-text-small">Preview</span>
-                                        </label>
-                                    </div>
-                                    <div class="uk-grid">
-                                        <div class="uk-width-1-2@m">
-                                            <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .addLesson">@lang('front/auth.cancel')</button>
-                                        </div>
-                                        <div class="uk-width-1-2@m">
-                                            <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .addLesson">@lang('front/auth.save')</button>
-                                        </div>
-                                    </div>
-                                </div>
+                                <add-lesson
+                                    course-id="{{$course->id}}"
+                                > </add-lesson>
+
                                 <lesson-settings>
 
                                 </lesson-settings>

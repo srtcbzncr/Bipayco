@@ -6,7 +6,7 @@
         <hr>
         <div>
             <div class="uk-form-label">{{lessonNameText}}</div>
-            <input class="uk-input" type="text" :value="selectedLessonInfo.name" id="inputName" required>
+            <input class="uk-input" type="text" :value="selectedLessonInfo.name" id="lessonSettingsName" required>
         </div>
         <div>
             <div class="uk-form-label">{{sourcesText}}</div>
@@ -25,8 +25,8 @@
         </div>
         <div class=" uk-margin-small uk-flex justify-content-start align-items-center">
             <label>
-                <input v-if="selectedLessonInfo.isPreview=='0'" class="uk-checkbox" type="checkbox">
-                <input v-else checked class="uk-checkbox" type="checkbox">
+                <input v-if="selectedLessonInfo.isPreview=='0'" class="uk-checkbox" id="settingsPreview" type="checkbox">
+                <input v-else checked class="uk-checkbox" type="checkbox" id="settingsPreview">
                 <span class="checkmark uk-text-small">{{isPreviewText}}</span>
             </label>
         </div>
@@ -46,6 +46,11 @@
 
     export default {
         name: "lesson-settings",
+        data(){
+            return{
+                lessonSources: [],
+            }
+        },
         props:{
             editLessonText:{
                 type:String,
@@ -80,7 +85,46 @@
         methods:{
             ...mapActions([
                 'loadSelectedLessonInfo',
+                'loadSelectedSectionInfo',
             ]),
+            removeSource:function(index){
+                this.lessonSources.splice(index,1);
+            },
+            getSource:function(){
+                for( let doc of this.lesson.sources){
+                    this.lessonSources.push(doc)
+                }
+            },
+            updateLesson:function () {
+                var isPreview = document.querySelector('#settingsPreview').checked ? 1 : 0;
+                var formData=new FormData();
+                formData.append('name', document.getElementById('lessonSettingsName').value);
+                formData.append('is_preview', isPreview);
+                for (var i=0;i<this.lessonSources.length;i++){
+                    formData.append('source['+i+']', this.lessonSources[i]);
+                }
+                formData.append('sectionId', this.selectedSectionInfo);
+                formData.append('courseId', this.courseId);
+                for(let pair of formData){
+                    console.log(pair[0]);
+                    console.log(pair[1]);
+                }
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.loadSelectedSectionInfo.id+'/lessons/create/'+this.selectedLessonInfo.id, formData)
+                    .then(response=>{
+                        if(!response.data.error){
+                            this.$store.dispatch('loadSections',this.courseId);
+                            this.$store.dispatch('loadSelectedLessonInfo',{});
+                            this.$store.dispatch('loadSelectedSectionInfo',{});
+
+                        }
+                        console.log(response);
+                    })
+            },
+        },
+        created(){
+            if(this.lesson!=null && this.lesson!==[]){
+                this.getSource();
+            }
         },
     }
 </script>

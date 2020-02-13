@@ -29,6 +29,7 @@ Vue.component('add-instructor', require('./components/instructor/course-add-inst
 Vue.component('instructor-area', require('./components/instructor/instructors-area.vue').default);
 Vue.component('add-list', require('./components/instructor/add-list.vue').default);
 Vue.component('add-section', require('./components/instructor/add-section.vue').default);
+Vue.component('add-lesson', require('./components/instructor/add-lesson.vue').default);
 Vue.component('section-settings', require('./components/instructor/section-settings.vue').default);
 Vue.component('lesson-settings', require('./components/instructor/lesson-settings.vue').default);
 Vue.component('provinces', require('./components/auth/province.vue').default);

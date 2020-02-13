@@ -6,7 +6,7 @@
         <hr>
         <div class="uk-margin-small-top">
             <div class="uk-form-label">{{sectionNameText}}</div>
-            <input class="uk-padding-small uk-margin-small-top uk-input uk-width" type="text" :value="selectedSectionInfo.name">
+            <input class="uk-padding-small uk-margin-small-top uk-input uk-width" id="sectionSettingsName" type="text" :value="selectedSectionInfo.name">
         </div>
         <div class="uk-margin-remove-top">
             <div class="tm-course-section-list" uk-sortable="handle: .uk-sortable-handle">
@@ -40,7 +40,7 @@
                 <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .sectionSettings"> {{cancelText}} </button>
             </div>
             <div class="uk-width-1-2@m">
-                <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .sectionSettings">{{saveText}}</button>
+                <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="updateSection" uk-toggle="target: .sectionSettings">{{saveText}}</button>
             </div>
         </div>
     </div>
@@ -54,11 +54,6 @@
         name: "section-settings",
         components:{
             lesson,
-        },
-        computed:{
-            ...mapState([
-                'selectedSectionInfo',
-            ]),
         },
         props:{
             editSectionText:{
@@ -101,10 +96,6 @@
                 type:String,
                 required:true,
             },
-            sectionId:{
-                type:Number,
-                required:true,
-            },
             savedSuccessText:{
                 type:String,
                 default:'Başarıyla Kaydedildi'
@@ -118,13 +109,31 @@
                 default:'Ders Bulunmuyor'
             }
         },
+        computed:{
+            ...mapState([
+                'selectedSectionInfo',
+            ]),
+
+        },
         methods:{
             ...mapActions([
                 'loadSelectedSectionInfo',
             ]),
+            updateSection:function(){
+                var formData=new FormData();
+                formData.append('name', document.getElementById('sectionSettingsName').value);
+                formData.append('courseId', this.courseId);
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/create/'+this.selectedSectionInfo.id, formData)
+                    .then(response=>{
+                        if(!response.data.error){
+                            this.$store.dispatch('loadSections',this.courseId);
+                            this.$store.dispatch('loadSelectedSectionInfo',{});
+                        }
+                    })
+            },
         },
         created() {
-            this.$store.dispatch('loadSelectedSectionInfo',this.courseId)
+            console.log(this.section)
         }
     }
 </script>
