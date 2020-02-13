@@ -124,9 +124,9 @@ class LessonRepository implements IRepository{
         try{
             DB::beginTransaction();
             $object = Lesson::find($id);
-            $object->section_id = $data['section_id'];
+            $object->section_id = $data['sectionId'];
             $object->no = 1;
-            $object->file_path = $data['file_path'];
+            //$object->file_path = $data['file_path'];
             $object->name = $data['name'];
             $object->preview = $data['is_preview'];
             $object->save();
