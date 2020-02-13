@@ -78,21 +78,24 @@ class LessonRepository implements IRepository{
             $object->file_path = $filePath;
             $object->save();
 
-            // add sources
-            $lessons = Lesson::where('section_id',$data['section_id'])->get();
-            $lesson = null;
-            foreach ($lessons as $item){
-                $lesson = $item;
+            if($data['sources']!=null){
+                // add sources
+                $lessons = Lesson::where('section_id',$data['section_id'])->get();
+                $lesson = null;
+                foreach ($lessons as $item){
+                    $lesson = $item;
+                }
+                foreach ($data['sources'] as $source){
+                    $filePath = Storage::putFile('sources', $source);
+                    $newSource = new Source;
+                    $newSource->lesson_id = $lesson->id;
+                    $newSource->lesson_type = get_class($lesson);
+                    $newSource->title = $source->getClientOriginalName();
+                    $newSource->file_path = $filePath;
+                    $newSource->save();
+                }
             }
-            foreach ($data['sources'] as $source){
-                $filePath = Storage::putFile('sources', $source);
-                $newSource = new Source;
-                $newSource->lesson_id = $lesson->id;
-                $newSource->lesson_type = get_class($lesson);
-                $newSource->title = $source->getClientOriginalName();
-                $newSource->file_path = $filePath;
-                $newSource->save();
-            }
+
 
             DB::commit();
         }

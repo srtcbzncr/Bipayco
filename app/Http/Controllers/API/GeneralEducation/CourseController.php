@@ -574,7 +574,11 @@ class CourseController extends Controller
     }
 
     public function lessonsPost($id,$section_id,$lesson_id = null,Request $request){
-        $sources = $request->toArray()['source'];
+        $sources = null;
+        if(isset($request->toArray()['source'])){
+            $sources = $request->toArray()['source'];
+        }
+
         // Initializing
         $repo = new LessonRepository();
         $data = $request->toArray();
