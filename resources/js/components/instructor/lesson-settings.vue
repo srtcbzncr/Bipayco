@@ -11,7 +11,7 @@
         <div>
             <div class="uk-form-label">{{sourcesText}}</div>
             <ul>
-                <li v-for="source in selectedLessonInfo.sources">
+                <li v-for="source in lessonSources">
                     <div class="uk-flex align-items-center uk-margin">
                         <div class="uk-width-5-6 uk-flex uk-flex-wrap">
                             <p class="uk-margin-remove" style="text-overflow: ellipsis; overflow:hidden;">{{source.title}}</p>

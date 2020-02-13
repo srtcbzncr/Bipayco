@@ -2910,6 +2910,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "add-lesson",
+  data: function data() {
+    return {
+      isVideo: '1'
+    };
+  },
   props: {
     courseId: {
       type: String,
@@ -2921,10 +2926,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     addLesson: function addLesson() {
       var _this = this;
 
-      var isPreview = document.querySelector('#lessonPreview').checked ? 1 : 0;
+      var isPreview = document.querySelector('#lessonPreview').checked ? '1' : '0';
       var doc;
 
-      if (document.getElementsByName('isVideo') == '1') {
+      if (this.isVideo == '1') {
         doc = document.querySelector('#courseVideo').files[0];
       } else {
         doc = document.querySelector('#coursePdf').files[0];
@@ -2933,7 +2938,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var formData = new FormData();
       formData.append('name', document.getElementById('lessonNameInput').value);
       formData.append('is_preview', isPreview);
-      formData.append('is_video', document.getElementsByName('isVideo'));
+      formData.append('is_video', this.isVideo);
       formData.append('document', doc);
 
       for (var i = 0; i < document.querySelector('#courseSource').files.length; i++) {
@@ -2942,6 +2947,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       formData.append('courseId', this.courseId);
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = formData[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var pair = _step.value;
+          console.log(pair[0]);
+          console.log(pair[1]);
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
       axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.selectedSectionInfo.id + '/lessons/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -8066,14 +8096,92 @@ var render = function() {
       attrs: { type: "text", id: "lessonNameInput" }
     }),
     _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass:
+          "uk-width uk-flex uk-flex-row align-items-center justify-content-around uk-margin-top"
+      },
+      [
+        _c("div", { staticClass: "uk-flex align-items-center" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.isVideo,
+                expression: "isVideo"
+              }
+            ],
+            staticClass: "uk-radio uk-margin-remove",
+            attrs: {
+              type: "radio",
+              name: "isVideo",
+              "uk-toggle": "target: .document",
+              checked: "",
+              value: "1"
+            },
+            domProps: { checked: _vm._q(_vm.isVideo, "1") },
+            on: {
+              change: function($event) {
+                _vm.isVideo = "1"
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "p",
+            {
+              staticClass:
+                "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
+            },
+            [_vm._v("Video")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-flex align-items-center" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.isVideo,
+                expression: "isVideo"
+              }
+            ],
+            staticClass: "uk-radio uk-margin-remove",
+            attrs: {
+              type: "radio",
+              name: "isVideo",
+              "uk-toggle": "target: .document",
+              value: "0"
+            },
+            domProps: { checked: _vm._q(_vm.isVideo, "0") },
+            on: {
+              change: function($event) {
+                _vm.isVideo = "0"
+              }
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "p",
+            {
+              staticClass:
+                "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
+            },
+            [_vm._v("PDF")]
+          )
+        ])
+      ]
+    ),
+    _vm._v(" "),
     _vm._m(1),
     _vm._v(" "),
     _vm._m(2),
     _vm._v(" "),
-    _vm._m(3),
-    _vm._v(" "),
     _c("div", { staticClass: "uk-grid" }, [
-      _vm._m(4),
+      _vm._m(3),
       _vm._v(" "),
       _c("div", { staticClass: "uk-width-1-2@m" }, [
         _c(
@@ -8098,62 +8206,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "uk-margin-top" }, [
       _c("h4", [_vm._v("@lang('front/auth.add_lessons')")])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          "uk-width uk-flex uk-flex-row align-items-center justify-content-around uk-margin-top"
-      },
-      [
-        _c("div", { staticClass: "uk-flex align-items-center" }, [
-          _c("input", {
-            staticClass: "uk-radio uk-margin-remove",
-            attrs: {
-              type: "radio",
-              name: "isVideo",
-              "uk-toggle": "target: .document",
-              checked: "",
-              value: "1"
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "p",
-            {
-              staticClass:
-                "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
-            },
-            [_vm._v("Video")]
-          )
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "uk-flex align-items-center" }, [
-          _c("input", {
-            staticClass: "uk-radio uk-margin-remove",
-            attrs: {
-              type: "radio",
-              name: "isVideo",
-              "uk-toggle": "target: .document",
-              value: "0"
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "p",
-            {
-              staticClass:
-                "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
-            },
-            [_vm._v("PDF")]
-          )
-        ])
-      ]
-    )
   },
   function() {
     var _vm = this
@@ -9099,7 +9151,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "ul",
-        _vm._l(_vm.selectedLessonInfo.sources, function(source) {
+        _vm._l(_vm.lessonSources, function(source) {
           return _c("li", [
             _c("div", { staticClass: "uk-flex align-items-center uk-margin" }, [
               _c("div", { staticClass: "uk-width-5-6 uk-flex uk-flex-wrap" }, [

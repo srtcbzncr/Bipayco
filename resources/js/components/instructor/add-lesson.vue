@@ -7,11 +7,11 @@
         <input class="uk-padding-small uk-margin-small-top uk-input uk-width" type="text" id="lessonNameInput">
         <div class="uk-width uk-flex uk-flex-row align-items-center justify-content-around uk-margin-top">
             <div class="uk-flex align-items-center">
-                <input class="uk-radio uk-margin-remove" type="radio" name="isVideo" uk-toggle="target: .document" checked value="1">
+                <input class="uk-radio uk-margin-remove" type="radio" name="isVideo" uk-toggle="target: .document" checked v-model="isVideo" value="1">
                 <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">Video</p>
             </div>
             <div class="uk-flex align-items-center">
-                <input class="uk-radio uk-margin-remove" type="radio" name="isVideo" uk-toggle="target: .document" value="0">
+                <input class="uk-radio uk-margin-remove" type="radio" name="isVideo" uk-toggle="target: .document" v-model="isVideo" value="0">
                 <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">PDF</p>
             </div>
         </div>
@@ -59,6 +59,11 @@
 
     export default {
         name: "add-lesson",
+        data(){
+            return{
+                isVideo:'1',
+            }
+        },
         props:{
             courseId:{
                 type:String,
@@ -75,9 +80,9 @@
                 'loadSelectedSectionInfo',
             ]),
             addLesson: function () {
-                var isPreview = document.querySelector('#lessonPreview').checked ? 1 : 0;
+                var isPreview = document.querySelector('#lessonPreview').checked ? '1' : '0';
                 let doc;
-                if(document.getElementsByName('isVideo')=='1'){
+                if(this.isVideo=='1'){
                     doc=document.querySelector('#courseVideo').files[0];
                 }else{
                     doc=document.querySelector('#coursePdf').files[0];
@@ -85,13 +90,17 @@
                 var formData=new FormData();
                 formData.append('name', document.getElementById('lessonNameInput').value);
                 formData.append('is_preview', isPreview);
-                formData.append('is_video', document.getElementsByName('isVideo'));
+                formData.append('is_video', this.isVideo);
                 formData.append('document', doc);
                 for (var i=0; i< document.querySelector('#courseSource').files.length;i++){
                     let file=document.querySelector('#courseSource').files[i];
                     formData.append('source['+i+']', file);
                 }
                 formData.append('courseId', this.courseId);
+                for(var pair of formData){
+                   console.log(pair[0]);
+                   console.log(pair[1])
+                }
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.selectedSectionInfo.id+'/lessons/create', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
