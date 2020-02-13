@@ -86,7 +86,6 @@ class LessonRepository implements IRepository{
             }
             foreach ($data['sources'] as $source){
                 $filePath = Storage::putFile('sources', $source);
-                // kaynaklar string olarak geldiği için Storage ile ekleme yapılmıyor hata veriyor.
                 $newSource = new Source;
                 $newSource->lesson_id = $lesson->id;
                 $newSource->lesson_type = get_class($lesson);
