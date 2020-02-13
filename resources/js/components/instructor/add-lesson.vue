@@ -31,6 +31,7 @@
                     <span class="uk-link"> </span>
                 </div>
             </div>
+            
             <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden> </progress>
             <!--<div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                 <input name="document" type="file" :id="courseSource" multiple>

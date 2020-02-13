@@ -7,12 +7,13 @@
                         <a class="uk-accordion-title uk-padding-small"><h6>{{sectionText}} {{sectionIndex+1}}</h6>
                             <h4 class="uk-margin-remove">{{section.name}}</h4>
                         </a>
+                        {{section}}
                         <div class="uk-accordion-content uk-margin-remove-top">
                             <div class="tm-course-section-list">
                                 <ul>
                                     <li v-for="(lesson,lessonIndex) in section.lessons">
                                         <lesson
-                                            :section="this.section"
+                                            :section="section"
                                             :lesson=lesson
                                             :lesson-index="lessonIndex"
                                             :add-default-lesson-text="addDefaultLessonText"

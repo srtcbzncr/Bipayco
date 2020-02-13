@@ -2907,6 +2907,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "add-lesson",
@@ -3431,6 +3432,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -8823,7 +8825,11 @@ var render = function() {
                       ])
                     ]
                   ),
-                  _vm._v(" "),
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(_vm.section) +
+                      "\n                    "
+                  ),
                   _c(
                     "div",
                     {
@@ -8843,7 +8849,7 @@ var render = function() {
                                 [
                                   _c("lesson", {
                                     attrs: {
-                                      section: this.section,
+                                      section: _vm.section,
                                       lesson: lesson,
                                       "lesson-index": lessonIndex,
                                       "add-default-lesson-text":
