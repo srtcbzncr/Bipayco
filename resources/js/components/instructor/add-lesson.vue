@@ -46,7 +46,7 @@
         </div>
         <div class="uk-grid">
             <div class="uk-width-1-2@m">
-                <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .addLesson">@lang('front/auth.cancel')</button>
+                <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="clearForm" uk-toggle="target: .addLesson">@lang('front/auth.cancel')</button>
             </div>
             <div class="uk-width-1-2@m">
                 <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="addLesson" uk-toggle="target: .addLesson">@lang('front/auth.save')</button>
@@ -109,10 +109,22 @@
                     .then(response=>{
                         if(!response.data.error){
                             this.$store.dispatch('loadSections',this.courseId);
-                            this.$store.dispatch('loadSelectedSectionInfo',{})
+                            this.$store.dispatch('loadSelectedSectionInfo',{});
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.clearForm();
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                            this.clearForm();
                         }
                     })
             },
+            clearForm: function(){
+                document.querySelector('#lessonPreview').checked=false;
+                document.querySelector('#courseVideo').files=undefined;
+                document.querySelector('#coursePdf').files=undefined;
+                document.querySelector('#courseSource').files=undefined;
+                document.getElementById('lessonNameInput').value="";
+            }
         },
         created() {
         }

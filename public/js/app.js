@@ -2982,8 +2982,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this.$store.dispatch('loadSections', _this.courseId);
 
           _this.$store.dispatch('loadSelectedSectionInfo', {});
+
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this.clearForm();
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+
+          _this.clearForm();
         }
       });
+    },
+    clearForm: function clearForm() {
+      document.querySelector('#lessonPreview').checked = false;
+      document.querySelector('#courseVideo').files = undefined;
+      document.querySelector('#coursePdf').files = undefined;
+      document.querySelector('#courseSource').files = undefined;
+      document.getElementById('lessonNameInput').value = "";
     }
   }),
   created: function created() {}
@@ -3214,10 +3235,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['sections'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections']), {
     addSection: function addSection() {
+      var _this = this;
+
       var formData = new FormData();
       formData.append('name', document.getElementById('sectionInput').value);
       formData.append('courseId', this.courseId);
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/create', formData).then(this.$store.dispatch('loadSections', this.courseId));
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/create', formData).then(function (response) {
+        return response.data;
+      }).then(function (response) {
+        if (response.error) {
+          UIkit.notification({
+            message: response.message,
+            status: 'danger'
+          });
+        } else {
+          _this.$store.dispatch('loadSections', _this.courseId);
+
+          UIkit.notification({
+            message: response.message,
+            status: 'success'
+          });
+        }
+      });
+      document.getElementById('sectionInput').value = "";
     }
   }),
   created: function created() {
@@ -3817,12 +3857,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "lesson-settings",
   data: function data() {
     return {
-      lessonSources: []
+      lessonSources: [],
+      newSources: []
     };
   },
   props: {
@@ -3899,42 +3943,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       formData.append('sectionId', this.selectedSectionInfo.id);
       formData.append('courseId', this.courseId);
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
-
-      try {
-        for (var _iterator2 = formData[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var pair = _step2.value;
-          console.log(pair[0]);
-          console.log(pair[1]);
-        }
-      } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
-            _iterator2["return"]();
-          }
-        } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
-          }
-        }
-      }
-
       axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.selectedSectionInfo.id + '/lessons/create/' + this.selectedLessonInfo.id, formData).then(function (response) {
         if (!response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
           _this.$store.dispatch('loadSections', _this.courseId);
 
           _this.$store.dispatch('loadSelectedLessonInfo', {});
 
           _this.$store.dispatch('loadSelectedSectionInfo', {});
-        }
 
-        console.log(response);
+          _this.clearForm();
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        }
       });
+    },
+    clearForm: function clearForm() {
+      document.querySelector('#settingsPreview').checked = false;
+      document.getElementById('lessonSettingsName').value = "";
+      this.lessonSources = [];
+      this.newSources = [];
     }
   }),
   created: function created() {
@@ -4268,6 +4303,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this.$store.dispatch('loadSections', _this.courseId);
 
           _this.$store.dispatch('loadSelectedSectionInfo', {});
+
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
         }
       });
     }
@@ -8187,7 +8232,18 @@ var render = function() {
     _vm._m(2),
     _vm._v(" "),
     _c("div", { staticClass: "uk-grid" }, [
-      _vm._m(3),
+      _c("div", { staticClass: "uk-width-1-2@m" }, [
+        _c(
+          "button",
+          {
+            staticClass:
+              "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+            attrs: { "uk-toggle": "target: .addLesson" },
+            on: { click: _vm.clearForm }
+          },
+          [_vm._v("@lang('front/auth.cancel')")]
+        )
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "uk-width-1-2@m" }, [
         _c(
@@ -8312,22 +8368,6 @@ var staticRenderFns = [
         ])
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-width-1-2@m" }, [
-      _c(
-        "button",
-        {
-          staticClass:
-            "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
-          attrs: { "uk-toggle": "target: .addLesson" }
-        },
-        [_vm._v("@lang('front/auth.cancel')")]
-      )
-    ])
   }
 ]
 render._withStripped = true
@@ -9133,8 +9173,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "lessonSettings", attrs: { hidden: "" } }, [
     _c("div", { staticClass: "uk-margin-top" }, [
-      _c("h4", [_vm._v(_vm._s(_vm.editLessonText))]),
-      _vm._v("\n        " + _vm._s(_vm.selectedLessonInfo) + "\n    ")
+      _c("h4", [_vm._v(_vm._s(_vm.editLessonText))])
     ]),
     _vm._v(" "),
     _c("hr"),
@@ -9156,6 +9195,8 @@ var render = function() {
         _vm._v(_vm._s(_vm.sourcesText))
       ]),
       _vm._v(" "),
+      _vm._m(0),
+      _vm._v(" "),
       _c(
         "ul",
         _vm._l(_vm.lessonSources, function(source) {
@@ -9175,7 +9216,7 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _vm._m(0, true)
+              _vm._m(1, true)
             ])
           ])
         }),
@@ -9215,7 +9256,8 @@ var render = function() {
           {
             staticClass:
               "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
-            attrs: { "uk-toggle": "target: .lessonSettings" }
+            attrs: { "uk-toggle": "target: .lessonSettings" },
+            on: { click: _vm.clearForm }
           },
           [_vm._v(_vm._s(_vm.cancelText))]
         )
@@ -9237,6 +9279,26 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "uk-flex uk-flex-center uk-margin document",
+        attrs: { "uk-form-custom": "target: true", hidden: "" }
+      },
+      [
+        _c("input", { attrs: { id: "addSource", type: "file" } }),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "uk-input",
+          attrs: { type: "text", tabindex: "-1", disabled: "" }
+        })
+      ]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -9428,6 +9490,10 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "uk-margin-remove-top" }, [
+      _c("div", { staticClass: "uk-form-label" }, [
+        _vm._v(_vm._s(_vm.lessonsText))
+      ]),
+      _vm._v(" "),
       _c(
         "div",
         {
@@ -9435,10 +9501,6 @@ var render = function() {
           attrs: { "uk-sortable": "handle: .uk-sortable-handle" }
         },
         [
-          _c("div", { staticClass: "uk-form-label" }, [
-            _vm._v(_vm._s(_vm.lessonsText))
-          ]),
-          _vm._v(" "),
           _vm.selectedSectionInfo != null &&
           _vm.selectedSectionInfo != undefined
             ? _c(

@@ -9,8 +9,8 @@
             <input class="uk-padding-small uk-margin-small-top uk-input uk-width" id="sectionSettingsName" type="text" :value="selectedSectionInfo.name">
         </div>
         <div class="uk-margin-remove-top">
+            <div class="uk-form-label">{{lessonsText}}</div>
             <div class="tm-course-section-list" uk-sortable="handle: .uk-sortable-handle">
-                <div class="uk-form-label">{{lessonsText}}</div>
                 <ul v-if="selectedSectionInfo!=null && selectedSectionInfo!=undefined">
                     <li v-for="(lesson,lessonIndex) in selectedSectionInfo.lessons" class="uk-card uk-card-default uk-padding-small uk-flex align-items-center justify-content-between">
                         <div class="uk-grid uk-margin-remove uk-padding-remove">
@@ -128,6 +128,9 @@
                         if(!response.data.error){
                             this.$store.dispatch('loadSections',this.courseId);
                             this.$store.dispatch('loadSelectedSectionInfo',{});
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'danger'});
                         }
                     })
             },

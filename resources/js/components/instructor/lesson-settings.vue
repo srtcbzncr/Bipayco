@@ -2,7 +2,6 @@
     <div class="lessonSettings" hidden>
         <div class="uk-margin-top">
             <h4>{{editLessonText}}</h4>
-            {{selectedLessonInfo}}
         </div>
         <hr>
         <div>
@@ -11,6 +10,10 @@
         </div>
         <div>
             <div class="uk-form-label">{{sourcesText}}</div>
+            <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin document" hidden>
+                <input id="addSource" type="file">
+                <input class="uk-input" type="text" tabindex="-1" disabled>
+            </div>
             <ul>
                 <li v-for="source in lessonSources">
                     <div class="uk-flex align-items-center uk-margin">
@@ -33,7 +36,7 @@
         </div>
         <div class="uk-width-1-1 uk-grid">
             <div class="uk-width-1-2@m">
-                <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .lessonSettings">{{cancelText}}</button>
+                <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="clearForm" uk-toggle="target: .lessonSettings">{{cancelText}}</button>
             </div>
             <div class="uk-width-1-2@m">
                 <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="updateLesson" uk-toggle="target: .lessonSettings">{{saveText}} </button>
@@ -50,6 +53,7 @@
         data(){
             return{
                 lessonSources: [],
+                newSources:[],
             }
         },
         props:{
@@ -111,20 +115,25 @@
                 }
                 formData.append('sectionId', this.selectedSectionInfo.id);
                 formData.append('courseId', this.courseId);
-                for(let pair of formData){
-                    console.log(pair[0]);
-                    console.log(pair[1]);
-                }
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.selectedSectionInfo.id+'/lessons/create/'+this.selectedLessonInfo.id, formData)
                     .then(response=>{
                         if(!response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadSections',this.courseId);
                             this.$store.dispatch('loadSelectedLessonInfo',{});
                             this.$store.dispatch('loadSelectedSectionInfo',{});
+                            this.clearForm();
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'danger'});
                         }
-                        console.log(response);
                     })
             },
+            clearForm:function () {
+                document.querySelector('#settingsPreview').checked=false;
+                document.getElementById('lessonSettingsName').value="";
+                this.lessonSources=[];
+                this.newSources=[];
+            }
         },
         created(){
             if(this.lesson!=null && this.lesson!==[]){

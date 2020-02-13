@@ -92,7 +92,16 @@
                 formData.append('name', document.getElementById('sectionInput').value);
                 formData.append('courseId', this.courseId);
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/create', formData)
-                    .then(this.$store.dispatch('loadSections',this.courseId))
+                    .then(response=>response.data)
+                    .then(response=>{
+                        if(response.error){
+                            UIkit.notification({message:response.message, status: 'danger'});
+                        }else{
+                            this.$store.dispatch('loadSections',this.courseId);
+                            UIkit.notification({message:response.message, status: 'success'});
+                        }
+                    });
+                    document.getElementById('sectionInput').value="";
             },
         },
         created() {
