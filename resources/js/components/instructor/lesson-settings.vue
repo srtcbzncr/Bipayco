@@ -2,6 +2,7 @@
     <div class="lessonSettings" hidden>
         <div class="uk-margin-top">
             <h4>{{editLessonText}}</h4>
+            {{selectedLessonInfo}}
         </div>
         <hr>
         <div>
@@ -25,7 +26,7 @@
         </div>
         <div class=" uk-margin-small uk-flex justify-content-start align-items-center">
             <label>
-                <input v-if="selectedLessonInfo.isPreview=='0'" class="uk-checkbox" id="settingsPreview" type="checkbox">
+                <input v-if="selectedLessonInfo.preview=='0'" class="uk-checkbox" id="settingsPreview" type="checkbox">
                 <input v-else checked class="uk-checkbox" type="checkbox" id="settingsPreview">
                 <span class="checkmark uk-text-small">{{isPreviewText}}</span>
             </label>
@@ -35,7 +36,7 @@
                 <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .lessonSettings">{{cancelText}}</button>
             </div>
             <div class="uk-width-1-2@m">
-                <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .lessonSettings">{{saveText}} </button>
+                <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="updateLesson" uk-toggle="target: .lessonSettings">{{saveText}} </button>
             </div>
         </div>
     </div>
@@ -76,10 +77,15 @@
                 type:String,
                 default:'Vazgeç'
             },
+            courseId:{
+                type:String,
+                required:true,
+            }
         },
         computed:{
             ...mapState([
                 'selectedLessonInfo',
+                'selectedSectionInfo',
             ]),
         },
         methods:{
@@ -96,26 +102,25 @@
                 }
             },
             updateLesson:function () {
-                var isPreview = document.querySelector('#settingsPreview').checked ? 1 : 0;
+                var isPreview = document.querySelector('#settingsPreview').checked ? '1' : '0';
                 var formData=new FormData();
                 formData.append('name', document.getElementById('lessonSettingsName').value);
                 formData.append('is_preview', isPreview);
                 for (var i=0;i<this.lessonSources.length;i++){
                     formData.append('source['+i+']', this.lessonSources[i]);
                 }
-                formData.append('sectionId', this.selectedSectionInfo);
+                formData.append('sectionId', this.selectedSectionInfo.id);
                 formData.append('courseId', this.courseId);
                 for(let pair of formData){
                     console.log(pair[0]);
                     console.log(pair[1]);
                 }
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.loadSelectedSectionInfo.id+'/lessons/create/'+this.selectedLessonInfo.id, formData)
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.selectedSectionInfo.id+'/lessons/create/'+this.selectedLessonInfo.id, formData)
                     .then(response=>{
                         if(!response.data.error){
                             this.$store.dispatch('loadSections',this.courseId);
                             this.$store.dispatch('loadSelectedLessonInfo',{});
                             this.$store.dispatch('loadSelectedSectionInfo',{});
-
                         }
                         console.log(response);
                     })

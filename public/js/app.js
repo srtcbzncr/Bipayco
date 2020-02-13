@@ -3478,7 +3478,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3817,6 +3816,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "lesson-settings",
@@ -3849,9 +3849,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     cancelText: {
       type: String,
       "default": 'Vazgeç'
+    },
+    courseId: {
+      type: String,
+      required: true
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['selectedLessonInfo'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['selectedLessonInfo', 'selectedSectionInfo'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSelectedLessonInfo', 'loadSelectedSectionInfo']), {
     removeSource: function removeSource(index) {
       this.lessonSources.splice(index, 1);
@@ -3884,7 +3888,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     updateLesson: function updateLesson() {
       var _this = this;
 
-      var isPreview = document.querySelector('#settingsPreview').checked ? 1 : 0;
+      var isPreview = document.querySelector('#settingsPreview').checked ? '1' : '0';
       var formData = new FormData();
       formData.append('name', document.getElementById('lessonSettingsName').value);
       formData.append('is_preview', isPreview);
@@ -3893,7 +3897,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         formData.append('source[' + i + ']', this.lessonSources[i]);
       }
 
-      formData.append('sectionId', this.selectedSectionInfo);
+      formData.append('sectionId', this.selectedSectionInfo.id);
       formData.append('courseId', this.courseId);
       var _iteratorNormalCompletion2 = true;
       var _didIteratorError2 = false;
@@ -3920,7 +3924,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }
 
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.loadSelectedSectionInfo.id + '/lessons/create/' + this.selectedLessonInfo.id, formData).then(function (response) {
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.selectedSectionInfo.id + '/lessons/create/' + this.selectedLessonInfo.id, formData).then(function (response) {
         if (!response.data.error) {
           _this.$store.dispatch('loadSections', _this.courseId);
 
@@ -8825,11 +8829,7 @@ var render = function() {
                       ])
                     ]
                   ),
-                  _vm._v(
-                    "\n                    " +
-                      _vm._s(_vm.section) +
-                      "\n                    "
-                  ),
+                  _vm._v(" "),
                   _c(
                     "div",
                     {
@@ -9133,7 +9133,8 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "lessonSettings", attrs: { hidden: "" } }, [
     _c("div", { staticClass: "uk-margin-top" }, [
-      _c("h4", [_vm._v(_vm._s(_vm.editLessonText))])
+      _c("h4", [_vm._v(_vm._s(_vm.editLessonText))]),
+      _vm._v("\n        " + _vm._s(_vm.selectedLessonInfo) + "\n    ")
     ]),
     _vm._v(" "),
     _c("hr"),
@@ -9190,7 +9191,7 @@ var render = function() {
       },
       [
         _c("label", [
-          _vm.selectedLessonInfo.isPreview == "0"
+          _vm.selectedLessonInfo.preview == "0"
             ? _c("input", {
                 staticClass: "uk-checkbox",
                 attrs: { id: "settingsPreview", type: "checkbox" }
@@ -9226,7 +9227,8 @@ var render = function() {
           {
             staticClass:
               "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
-            attrs: { "uk-toggle": "target: .lessonSettings" }
+            attrs: { "uk-toggle": "target: .lessonSettings" },
+            on: { click: _vm.updateLesson }
           },
           [_vm._v(_vm._s(_vm.saveText) + " ")]
         )

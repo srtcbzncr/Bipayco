@@ -162,9 +162,9 @@
                                     course-id="{{$course->id}}"
                                 > </add-lesson>
 
-                                <lesson-settings>
-
-                                </lesson-settings>
+                                <lesson-settings
+                                    course-id="{{$course->id}}"
+                                > </lesson-settings>
                                 <section-settings
                                     preview-text="@lang('front/auth.preview')"
                                     section-text="@lang('front/auth.section')"
