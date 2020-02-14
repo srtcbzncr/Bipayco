@@ -3034,7 +3034,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             cls: false
           }).toggle();
           _this.uploadPercentage = 0;
+
+          _this.clearForm();
         }
+      })["catch"](function (error) {
+        UIkit.notification({
+          message: response.data.message,
+          status: 'danger'
+        });
+
+        _this.changeMessage("Ders Yüklenemedi");
+
+        UIkit.toggle({
+          target: ".toggleByAxios",
+          cls: false
+        }).toggle();
+        UIkit.toggle({
+          target: ".toggleButton",
+          cls: false
+        }).toggle();
+        _this.uploadPercentage = 0;
+
+        _this.clearForm();
       });
     },
     clearForm: function clearForm() {

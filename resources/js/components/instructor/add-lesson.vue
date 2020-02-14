@@ -153,7 +153,22 @@
                                 cls:false,
                             }).toggle();
                             this.uploadPercentage=0;
+                            this.clearForm();
                         }
+                    })
+                    .catch(error=>{
+                        UIkit.notification({message:response.data.message, status: 'danger'});
+                        this.changeMessage("Ders Yüklenemedi");
+                        UIkit.toggle( {
+                            target:".toggleByAxios",
+                            cls:false,
+                        }).toggle();
+                        UIkit.toggle( {
+                            target:".toggleButton",
+                            cls:false,
+                        }).toggle();
+                        this.uploadPercentage=0;
+                        this.clearForm();
                     })
             },
             clearForm: function(){
