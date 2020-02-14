@@ -31,7 +31,6 @@
                     <span class="uk-link"> </span>
                 </div>
             </div>
-
             <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden> </progress>
             <!--<div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                 <input name="document" type="file" :id="courseSource" multiple>
@@ -49,7 +48,18 @@
                 <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="clearForm" uk-toggle="target: .addLesson">@lang('front/auth.cancel')</button>
             </div>
             <div class="uk-width-1-2@m">
-                <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="addLesson" uk-toggle="target: .addLesson">@lang('front/auth.save')</button>
+                <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="addLesson" uk-toggle="target: #modal-example">@lang('front/auth.save')</button>
+            </div>
+        </div>
+        <div id="modal-example" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 v-if="uploadPercentage<100" class="uk-modal-title">Yükleniyor</h2>
+                <h2 v-if="uploadPercentage>=100" class="uk-modal-title">Yükleme Tamamlandı</h2>
+                <progress v-if="uploadPercentage<100" max="100" class="uk-progress" :value.prop="uploadPercentage"></progress>
+                <p class="uk-text-right">
+                    <button v-if="uploadPercentage<100" disabled class="uk-button uk-button-default" type="button">Devam Et</button>
+                    <button v-else class="uk-button uk-button-default uk-modal-close" type="button" uk-toggle="target: .addLesson">Devam Et</button>
+                </p>
             </div>
         </div>
     </div>
@@ -63,6 +73,7 @@
         data(){
             return{
                 isVideo:'1',
+                uploadPercentage: 0,
             }
         },
         props:{
@@ -105,7 +116,10 @@
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.selectedSectionInfo.id+'/lessons/create', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
-                    }})
+                    },
+                    onUploadProgress: function( progressEvent ) {
+                        this.uploadPercentage = parseInt( Math.round( ( progressEvent.loaded / progressEvent.total ) * 100 ));
+                    }.bind(this)})
                     .then(response=>{
                         if(!response.data.error){
                             this.$store.dispatch('loadSections',this.courseId);
@@ -114,7 +128,7 @@
                             this.clearForm();
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
-                            this.clearForm();
+                            this.uploadPercentage=0;
                         }
                     })
             },
@@ -124,7 +138,7 @@
                 document.querySelector('#coursePdf').files=undefined;
                 document.querySelector('#courseSource').files=undefined;
                 document.getElementById('lessonNameInput').value="";
-            }
+            },
         },
         created() {
         }

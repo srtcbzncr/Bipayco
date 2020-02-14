@@ -2908,12 +2908,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "add-lesson",
   data: function data() {
     return {
-      isVideo: '1'
+      isVideo: '1',
+      uploadPercentage: 0
     };
   },
   props: {
@@ -2976,7 +2987,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.selectedSectionInfo.id + '/lessons/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
-        }
+        },
+        onUploadProgress: function (progressEvent) {
+          this.uploadPercentage = parseInt(Math.round(progressEvent.loaded / progressEvent.total * 100));
+        }.bind(this)
       }).then(function (response) {
         if (!response.data.error) {
           _this.$store.dispatch('loadSections', _this.courseId);
@@ -2994,8 +3008,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             message: response.data.message,
             status: 'danger'
           });
-
-          _this.clearForm();
+          _this.uploadPercentage = 0;
         }
       });
     },
@@ -8251,11 +8264,53 @@ var render = function() {
           {
             staticClass:
               "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
-            attrs: { "uk-toggle": "target: .addLesson" },
+            attrs: { "uk-toggle": "target: #modal-example" },
             on: { click: _vm.addLesson }
           },
           [_vm._v("@lang('front/auth.save')")]
         )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "modal-example", "uk-modal": "" } }, [
+      _c("div", { staticClass: "uk-modal-dialog uk-modal-body" }, [
+        _vm.uploadPercentage < 100
+          ? _c("h2", { staticClass: "uk-modal-title" }, [_vm._v("Yükleniyor")])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.uploadPercentage >= 100
+          ? _c("h2", { staticClass: "uk-modal-title" }, [
+              _vm._v("Yükleme Tamamlandı")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.uploadPercentage < 100
+          ? _c("progress", {
+              staticClass: "uk-progress",
+              attrs: { max: "100" },
+              domProps: { value: _vm.uploadPercentage }
+            })
+          : _vm._e(),
+        _vm._v(" "),
+        _c("p", { staticClass: "uk-text-right" }, [
+          _vm.uploadPercentage < 100
+            ? _c(
+                "button",
+                {
+                  staticClass: "uk-button uk-button-default",
+                  attrs: { disabled: "", type: "button" }
+                },
+                [_vm._v("Devam Et")]
+              )
+            : _c(
+                "button",
+                {
+                  staticClass: "uk-button uk-button-default uk-modal-close",
+                  attrs: { type: "button", "uk-toggle": "target: .addLesson" }
+                },
+                [_vm._v("Devam Et")]
+              )
+        ])
       ])
     ])
   ])
