@@ -53,12 +53,12 @@
         </div>
         <div id="modal-example" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">
-                <h2 v-if="uploadPercentage<100" class="uk-modal-title">Yükleniyor</h2>
-                <h2 v-if="uploadPercentage>=100" class="uk-modal-title">Yükleme Tamamlandı</h2>
-                <progress v-if="uploadPercentage<100" max="100" class="uk-progress" :value.prop="uploadPercentage"></progress>
+                <h2 class="uk-modal-title toggleByAxios">Yükleniyor</h2>
+                <h2 class="uk-modal-title toggleByAxios" hidden>{{notificationMessage}}</h2>
+                <progress max="100" class="uk-progress toggleByAxios" :value.prop="uploadPercentage"></progress>
                 <p class="uk-text-right">
-                    <button v-if="uploadPercentage<100" disabled class="uk-button uk-button-default" type="button">Devam Et</button>
-                    <button v-else class="uk-button uk-button-default uk-modal-close" type="button" uk-toggle="target: .addLesson">Devam Et</button>
+                    <button disabled class="uk-button uk-button-default toggleButton" type="button">Devam Et</button>
+                    <button hidden class="uk-button uk-button-default uk-modal-close toggleButton" uk-toggle="target: .addLesson" type="button" >Devam Et</button>
                 </p>
             </div>
         </div>
@@ -74,6 +74,7 @@
             return{
                 isVideo:'1',
                 uploadPercentage: 0,
+                message:"",
             }
         },
         props:{
@@ -86,11 +87,17 @@
             ...mapState([
                 'selectedSectionInfo',
             ]),
+            notificationMessage(){
+                return this.message;
+            }
         },
         methods:{
             ...mapActions([
                 'loadSelectedSectionInfo',
             ]),
+            changeMessage: function(message){
+                this.message=message;
+            },
             addLesson: function () {
                 var isPreview = document.querySelector('#lessonPreview').checked ? '1' : '0';
                 let doc;
@@ -124,10 +131,27 @@
                         if(!response.data.error){
                             this.$store.dispatch('loadSections',this.courseId);
                             this.$store.dispatch('loadSelectedSectionInfo',{});
-                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.changeMessage(response.data.message);
+                            UIkit.toggle( {
+                                target:".toggleByAxios",
+                                cls:false,
+                            }).toggle();
+                            UIkit.toggle( {
+                                target:".toggleButton",
+                                cls:false,
+                            }).toggle();
                             this.clearForm();
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
+                            this.changeMessage("Ders Yüklenemedi");
+                            UIkit.toggle( {
+                                target:".toggleByAxios",
+                                cls:false,
+                            }).toggle();
+                            UIkit.toggle( {
+                                target:".toggleButton",
+                                cls:false,
+                            }).toggle();
                             this.uploadPercentage=0;
                         }
                     })
@@ -139,6 +163,9 @@
                 document.querySelector('#courseSource').files=undefined;
                 document.getElementById('lessonNameInput').value="";
             },
+            toggleLesson(){
+                UIkit.toggle(".addLesson").toggle()
+            }
         },
         created() {
         }

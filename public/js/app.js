@@ -2924,7 +2924,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       isVideo: '1',
-      uploadPercentage: 0
+      uploadPercentage: 0,
+      message: ""
     };
   },
   props: {
@@ -2933,8 +2934,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       required: true
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['selectedSectionInfo'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['selectedSectionInfo']), {
+    notificationMessage: function notificationMessage() {
+      return this.message;
+    }
+  }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSelectedSectionInfo']), {
+    changeMessage: function changeMessage(message) {
+      this.message = message;
+    },
     addLesson: function addLesson() {
       var _this = this;
 
@@ -2997,10 +3005,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this.$store.dispatch('loadSelectedSectionInfo', {});
 
-          UIkit.notification({
-            message: response.data.message,
-            status: 'success'
-          });
+          _this.changeMessage(response.data.message);
+
+          UIkit.toggle({
+            target: ".toggleByAxios",
+            cls: false
+          }).toggle();
+          UIkit.toggle({
+            target: ".toggleButton",
+            cls: false
+          }).toggle();
 
           _this.clearForm();
         } else {
@@ -3008,6 +3022,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             message: response.data.message,
             status: 'danger'
           });
+
+          _this.changeMessage("Ders Yüklenemedi");
+
+          UIkit.toggle({
+            target: ".toggleByAxios",
+            cls: false
+          }).toggle();
+          UIkit.toggle({
+            target: ".toggleButton",
+            cls: false
+          }).toggle();
           _this.uploadPercentage = 0;
         }
       });
@@ -3018,6 +3043,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       document.querySelector('#coursePdf').files = undefined;
       document.querySelector('#courseSource').files = undefined;
       document.getElementById('lessonNameInput').value = "";
+    },
+    toggleLesson: function toggleLesson() {
+      UIkit.toggle(".addLesson").toggle();
     }
   }),
   created: function created() {}
@@ -8274,43 +8302,26 @@ var render = function() {
     _vm._v(" "),
     _c("div", { attrs: { id: "modal-example", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog uk-modal-body" }, [
-        _vm.uploadPercentage < 100
-          ? _c("h2", { staticClass: "uk-modal-title" }, [_vm._v("Yükleniyor")])
-          : _vm._e(),
+        _c("h2", { staticClass: "uk-modal-title toggleByAxios" }, [
+          _vm._v("Yükleniyor")
+        ]),
         _vm._v(" "),
-        _vm.uploadPercentage >= 100
-          ? _c("h2", { staticClass: "uk-modal-title" }, [
-              _vm._v("Yükleme Tamamlandı")
-            ])
-          : _vm._e(),
+        _c(
+          "h2",
+          {
+            staticClass: "uk-modal-title toggleByAxios",
+            attrs: { hidden: "" }
+          },
+          [_vm._v(_vm._s(_vm.notificationMessage))]
+        ),
         _vm._v(" "),
-        _vm.uploadPercentage < 100
-          ? _c("progress", {
-              staticClass: "uk-progress",
-              attrs: { max: "100" },
-              domProps: { value: _vm.uploadPercentage }
-            })
-          : _vm._e(),
+        _c("progress", {
+          staticClass: "uk-progress toggleByAxios",
+          attrs: { max: "100" },
+          domProps: { value: _vm.uploadPercentage }
+        }),
         _vm._v(" "),
-        _c("p", { staticClass: "uk-text-right" }, [
-          _vm.uploadPercentage < 100
-            ? _c(
-                "button",
-                {
-                  staticClass: "uk-button uk-button-default",
-                  attrs: { disabled: "", type: "button" }
-                },
-                [_vm._v("Devam Et")]
-              )
-            : _c(
-                "button",
-                {
-                  staticClass: "uk-button uk-button-default uk-modal-close",
-                  attrs: { type: "button", "uk-toggle": "target: .addLesson" }
-                },
-                [_vm._v("Devam Et")]
-              )
-        ])
+        _vm._m(3)
       ])
     ])
   ])
@@ -8423,6 +8434,35 @@ var staticRenderFns = [
         ])
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "uk-text-right" }, [
+      _c(
+        "button",
+        {
+          staticClass: "uk-button uk-button-default toggleButton",
+          attrs: { disabled: "", type: "button" }
+        },
+        [_vm._v("Devam Et")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "uk-button uk-button-default uk-modal-close toggleButton",
+          attrs: {
+            hidden: "",
+            "uk-toggle": "target: .addLesson",
+            type: "button"
+          }
+        },
+        [_vm._v("Devam Et")]
+      )
+    ])
   }
 ]
 render._withStripped = true
