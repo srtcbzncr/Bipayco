@@ -10,18 +10,30 @@
         </div>
         <div>
             <div class="uk-form-label">{{sourcesText}}</div>
-            <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin document" hidden>
-                <input id="addSource" type="file">
-                <input class="uk-input" type="text" tabindex="-1" disabled>
+            <div class="js-upload uk-flex uk-flex-center uk-margin" uk-form-custom>
+                <input type="file" id="courseSourceSettings" @change="addSource">
+                <button class="uk-button uk-button-default uk-width" type="button" tabindex="-1"><span class="fas fa-upload uk-margin-small"></span> {{addSourceText}}</button>
             </div>
             <ul>
-                <li v-for="source in lessonSources">
+                <li v-for="(source, index) in selectedLessonInfo.sources">
                     <div class="uk-flex align-items-center uk-margin">
                         <div class="uk-width-5-6 uk-flex uk-flex-wrap">
                             <p class="uk-margin-remove" style="text-overflow: ellipsis; overflow:hidden;">{{source.title}}</p>
                         </div>
                         <div class="uk-width-1-6">
-                            <a class="uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
+                            <a class="uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right" @click="deleteSource(index)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul>
+                <li v-for="(source, index) in lessonSources">
+                    <div class="uk-flex align-items-center uk-margin">
+                        <div class="uk-width-5-6 uk-flex uk-flex-wrap">
+                            <p class="uk-margin-remove" style="text-overflow: ellipsis; overflow:hidden;">{{source.name}}</p>
+                        </div>
+                        <div class="uk-width-1-6">
+                            <a class="uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right" @click="deleteSource(index)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
                         </div>
                     </div>
                 </li>
@@ -29,7 +41,7 @@
         </div>
         <div class=" uk-margin-small uk-flex justify-content-start align-items-center">
             <label>
-                <input v-if="selectedLessonInfo.preview=='0'" class="uk-checkbox" id="settingsPreview" type="checkbox">
+                <input v-if="selectedLessonInfo.preview=='0'" class="uk-checkbox" type="checkbox" id="settingsPreview">
                 <input v-else checked class="uk-checkbox" type="checkbox" id="settingsPreview">
                 <span class="checkmark uk-text-small">{{isPreviewText}}</span>
             </label>
@@ -84,6 +96,10 @@
             courseId:{
                 type:String,
                 required:true,
+            },
+            addSourceText:{
+                type:String,
+                default:"Kaynak Ekle"
             }
         },
         computed:{
@@ -97,21 +113,17 @@
                 'loadSelectedLessonInfo',
                 'loadSelectedSectionInfo',
             ]),
-            removeSource:function(index){
-                this.lessonSources.splice(index,1);
-            },
-            getSource:function(){
-                for( let doc of this.lesson.sources){
-                    this.lessonSources.push(doc)
-                }
-            },
             updateLesson:function () {
                 var isPreview = document.querySelector('#settingsPreview').checked ? '1' : '0';
                 var formData=new FormData();
                 formData.append('name', document.getElementById('lessonSettingsName').value);
                 formData.append('is_preview', isPreview);
-                for (var i=0;i<this.lessonSources.length;i++){
+                var i=0;
+                for (i;i<this.lessonSources.length;i++){
                     formData.append('source['+i+']', this.lessonSources[i]);
+                }
+                for (var j=0;j<this.newSources.length; i++, j++){
+                    formData.append('source['+i+']', this.newSources[j]);
                 }
                 formData.append('sectionId', this.selectedSectionInfo.id);
                 formData.append('courseId', this.courseId);
@@ -129,15 +141,13 @@
                     })
             },
             clearForm:function () {
-                document.querySelector('#settingsPreview').checked=false;
-                document.getElementById('lessonSettingsName').value="";
                 this.lessonSources=[];
-                this.newSources=[];
-            }
-        },
-        created(){
-            if(this.lesson!=null && this.lesson!==[]){
-                this.getSource();
+            },
+            addSource(){
+                this.lessonSources.push(document.querySelector('#courseSourceSettings').files[0]);
+            },
+            deleteSource(index){
+                this.lessonSources.splice(index,1);
             }
         },
     }

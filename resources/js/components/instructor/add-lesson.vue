@@ -1,64 +1,81 @@
 <template>
     <div class='addLesson' hidden>
         <div class="uk-margin-top">
-            <h4>@lang('front/auth.add_lessons')</h4>
+            <h4>{{addLessonText}}</h4>
         </div>
         <hr>
-        <input class="uk-padding-small uk-margin-small-top uk-input uk-width" type="text" id="lessonNameInput">
-        <div class="uk-width uk-flex uk-flex-row align-items-center justify-content-around uk-margin-top">
-            <div class="uk-flex align-items-center">
-                <input class="uk-radio uk-margin-remove" type="radio" name="isVideo" uk-toggle="target: .document" checked v-model="isVideo" value="1">
-                <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">Video</p>
-            </div>
-            <div class="uk-flex align-items-center">
-                <input class="uk-radio uk-margin-remove" type="radio" name="isVideo" uk-toggle="target: .document" v-model="isVideo" value="0">
-                <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">PDF</p>
+        <div class="uk-form-label">{{lessonNameText}}</div>
+        <input class="uk-padding-small uk-margin-small-top uk-input uk-width" type="text" id="lessonNameInput" :placeholder="lessonNameText">
+        <div class="uk-margin-top">
+            <div class="uk-form-label">{{fileTypeText}}</div>
+            <div class="uk-width uk-flex uk-flex-row align-items-center justify-content-around">
+                <div class="uk-flex align-items-center">
+                    <input class="uk-radio uk-margin-remove" type="radio" name="document" checked @click="isVideo=1">
+                    <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">{{videoText}}</p>
+                </div>
+                <div class="uk-flex align-items-center">
+                    <input class="uk-radio uk-margin-remove" type="radio" name="document" @click="isVideo=0">
+                    <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">{{pdfText}}</p>
+                </div>
             </div>
         </div>
         <form class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove">
-            <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin document">
-                <input id="courseVideo" type="file" accept="video/*" required>
-                <input class="uk-input" type="text" tabindex="-1" disabled>
-            </div>
-            <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin document" hidden>
-                <input id="coursePdf" type="file" accept="application/pdf,application/vnd.ms-excel" required>
-                <input class="uk-input" type="text" tabindex="-1" disabled>
-            </div>
-            <div class="js-upload uk-placeholder uk-text-center">
-                <div uk-form-custom>
-                    <input type="file" id="courseSource" multiple>
-                    <span class="fas fa-upload uk-margin-small"></span>
-                    <span class="uk-link"> </span>
+            <div v-if="isVideo==1">
+                <div class="uk-form-label">{{uploadVideoText}}</div>
+                <div uk-form-custom="target: true" class="uk-flex uk-flex-center">
+                    <input id="courseVideo" type="file" accept="video/*" required>
+                    <input class="uk-input" type="text" tabindex="-1" :placeholder="uploadVideoText" disabled>
                 </div>
             </div>
-            <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden> </progress>
-            <!--<div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
-                <input name="document" type="file" :id="courseSource" multiple>
-                <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="addSourceText">
-                </div>-->
+            <div v-else>
+                <div class="uk-form-label">{{uploadDocumentText}}</div>
+                <div uk-form-custom="target: true" class="uk-flex uk-flex-center">
+                    <input id="coursePdf" type="file" accept="application/pdf,application/vnd.ms-excel" required>
+                    <input class="uk-input" type="text" tabindex="-1" :placeholder="uploadDocumentText" disabled>
+                </div>
+            </div>
+            <div class="uk-margin">
+                <div class="uk-form-label">{{addSourceText}}</div>
+                <div class="js-upload uk-flex uk-flex-center" uk-form-custom>
+                    <input type="file" id="courseSource" @change="addSource">
+                    <button class="uk-button uk-button-default uk-width" type="button" tabindex="-1"><span class="fas fa-upload uk-margin-small"></span> {{addSourceText}}</button>
+                </div>
+            </div>
+            <ul>
+                <li v-for="(source,index) in sources">
+                    <div class="uk-flex align-items-center uk-margin">
+                        <div class="uk-width-5-6 uk-flex uk-flex-wrap">
+                            <p class="uk-margin-remove" style="text-overflow: ellipsis; overflow:hidden;">{{source.name}}</p>
+                        </div>
+                        <div class="uk-width-1-6">
+                            <a class="uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right" @click="deleteSource(index)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </form>
         <div class="uk-margin uk-flex justify-content-start align-items-center">
             <label>
                 <input class="uk-checkbox" id="lessonPreview" type="checkbox">
-                <span class="checkmark uk-text-small">Preview</span>
+                <span class="checkmark uk-text-small">{{previewText}}</span>
             </label>
         </div>
         <div class="uk-grid">
             <div class="uk-width-1-2@m">
-                <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="clearForm" uk-toggle="target: .addLesson">@lang('front/auth.cancel')</button>
+                <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="cancel" uk-toggle="target: .addLesson">{{cancelText}}</button>
             </div>
             <div class="uk-width-1-2@m">
-                <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="addLesson" uk-toggle="target: #modal-example">@lang('front/auth.save')</button>
+                <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="addLesson" uk-toggle="target: #modal-example">{{saveText}}</button>
             </div>
         </div>
         <div id="modal-example" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">
-                <h2 class="uk-modal-title toggleByAxios">Yükleniyor</h2>
-                <h2 class="uk-modal-title toggleByAxios" hidden>{{notificationMessage}}</h2>
-                <progress max="100" class="uk-progress toggleByAxios" :value.prop="uploadPercentage"></progress>
+                <h2 class="uk-modal-title toggleByAxios" hidden>{{uploadingText}}</h2>
+                <h2 class="uk-modal-title toggleByAxios">{{notificationMessage}}</h2>
+                <progress max="100" class="uk-progress toggleByAxios" :value.prop="uploadPercentage" hidden></progress>
                 <p class="uk-text-right">
-                    <button disabled class="uk-button uk-button-default toggleButton" type="button">Devam Et</button>
-                    <button hidden class="uk-button uk-button-default uk-modal-close toggleButton" uk-toggle="target: .addLesson" type="button" >Devam Et</button>
+                    <button hidden disabled class="uk-button uk-button-default toggleButton" type="button">{{continueText}}</button>
+                    <button class="uk-button uk-button-default uk-modal-close toggleButton" uk-toggle="target: .addLesson" type="button" >{{continueText}}</button>
                 </p>
             </div>
         </div>
@@ -72,9 +89,10 @@
         name: "add-lesson",
         data(){
             return{
-                isVideo:'1',
+                isVideo: 1,
                 uploadPercentage: 0,
                 message:"",
+                sources:[],
             }
         },
         props:{
@@ -82,6 +100,58 @@
                 type:String,
                 required:true,
             },
+            lessonNameText:{
+                type:String,
+                default:"Ders Adı"
+            },
+            uploadVideoText:{
+                type:String,
+                default:"Video Seç"
+            },
+            uploadDocumentText:{
+                type:String,
+                default:"Döküman Seç"
+            },
+            addLessonText:{
+                type:String,
+                default:"Ders Ekle"
+            },
+            addSourceText:{
+                type:String,
+                default:"Kaynak Ekle"
+            },
+            previewText:{
+                type:String,
+                default:"Önizleme"
+            },
+            continueText:{
+                type:String,
+                default:"Devam Et"
+            },
+            uploadingText:{
+                type:String,
+                default:"Yükleniyor"
+            },
+            saveText:{
+                type:String,
+                default:"Kaydet"
+            },
+            cancelText:{
+                type:String,
+                default:"Vazgeç"
+            },
+            videoText:{
+                type:String,
+                default:"Video"
+            },
+            pdfText:{
+                type:String,
+                default:"Döküman"
+            },
+            fileTypeText:{
+                type:String,
+                default:"Dosya Tipi"
+            }
         },
         computed:{
             ...mapState([
@@ -89,7 +159,7 @@
             ]),
             notificationMessage(){
                 return this.message;
-            }
+            },
         },
         methods:{
             ...mapActions([
@@ -101,7 +171,7 @@
             addLesson: function () {
                 var isPreview = document.querySelector('#lessonPreview').checked ? '1' : '0';
                 let doc;
-                if(this.isVideo=='1'){
+                if(this.isVideo== 1){
                     doc=document.querySelector('#courseVideo').files[0];
                 }else{
                     doc=document.querySelector('#coursePdf').files[0];
@@ -111,8 +181,8 @@
                 formData.append('is_preview', isPreview);
                 formData.append('is_video', this.isVideo);
                 formData.append('document', doc);
-                for (var i=0; i< document.querySelector('#courseSource').files.length;i++){
-                    let file=document.querySelector('#courseSource').files[i];
+                for (var i=0; i< this.sources.length;i++){
+                    let file=this.sources[i];
                     formData.append('source['+i+']', file);
                 }
                 formData.append('courseId', this.courseId);
@@ -156,9 +226,9 @@
                             this.clearForm();
                         }
                     })
-                    .catch(error=>{
-                        UIkit.notification({message:response.data.message, status: 'danger'});
-                        this.changeMessage("Ders Yüklenemedi");
+                    .catch(response=>{
+                        this.changeMessage("" +
+                            "Ders Yüklenemedi");
                         UIkit.toggle( {
                             target:".toggleByAxios",
                             cls:false,
@@ -172,14 +242,26 @@
                     })
             },
             clearForm: function(){
-                document.querySelector('#lessonPreview').checked=false;
-                document.querySelector('#courseVideo').files=undefined;
-                document.querySelector('#coursePdf').files=undefined;
-                document.querySelector('#courseSource').files=undefined;
                 document.getElementById('lessonNameInput').value="";
             },
-            toggleLesson(){
+            toggleLesson:function(){
                 UIkit.toggle(".addLesson").toggle()
+            },
+            addSource:function(){
+                this.sources.push(document.querySelector('#courseSource').files[0]);
+            },
+            deleteSource:function(index){
+                this.sources.splice(index,1);
+            },
+            cancel:function(){
+                UIkit.toggle( {
+                    target:".toggleByAxios",
+                    cls:false,
+                }).toggle();
+                UIkit.toggle( {
+                    target:".toggleButton",
+                    cls:false,
+                }).toggle();
             }
         },
         created() {

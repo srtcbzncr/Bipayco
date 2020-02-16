@@ -139,7 +139,15 @@
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/create/'+this.section.id, formData).then(this.$store.dispatch('loadSections',this.courseId))
             },*/
             sendInfo:function () {
-                this.$store.dispatch('loadSelectedSectionInfo', this.section)
+                this.$store.dispatch('loadSelectedSectionInfo', this.section);
+                UIkit.toggle( {
+                    target:".toggleByAxios",
+                    cls:false,
+                }).toggle();
+                UIkit.toggle( {
+                    target:".toggleButton",
+                    cls:false,
+                }).toggle();
             },
             /*addLesson:function () {
                 var isPreview = document.querySelector('#'+this.preview).checked ? 1 : 0;
