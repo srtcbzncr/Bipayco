@@ -571,7 +571,8 @@ class CourseController extends Controller
         else{
             return response()->json([
                 'error' => true,
-                'message' => 'Bölümler veritabanından getirilirken hata oluştu.Tekrar deneyin.'
+                'message' => 'Bölümler veritabanından getirilirken hata oluştu.Tekrar deneyin.',
+                'error_message' => $resp->getError()
             ],400);
         }
     }
