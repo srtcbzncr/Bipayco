@@ -113,6 +113,7 @@
                             this.addInstructor(response.data);
                         }
                     });
+                document.getElementById('instructorEmail').value="";
             },
             removeInstructor:function (index) {
                 this.instructors.splice(index,1);

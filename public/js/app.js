@@ -3230,6 +3230,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     add: function add() {
       this.addItem(document.getElementById(this.id).value);
+      document.getElementById(this.id).value = "";
     },
     removeItem: function removeItem(index) {
       this.items.splice(index, 1);
@@ -3892,6 +3893,7 @@ __webpack_require__.r(__webpack_exports__);
           _this.addInstructor(response.data);
         }
       });
+      document.getElementById('instructorEmail').value = "";
     },
     removeInstructor: function removeInstructor(index) {
       this.instructors.splice(index, 1);

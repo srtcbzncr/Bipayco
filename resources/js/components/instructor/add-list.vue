@@ -65,6 +65,7 @@
             },
             add:function(){
               this.addItem(document.getElementById(this.id).value);
+                document.getElementById(this.id).value="";
             },
             removeItem:function ( index) {
                 this.items.splice(index,1);
