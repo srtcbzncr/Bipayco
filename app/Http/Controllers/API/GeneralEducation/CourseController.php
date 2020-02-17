@@ -748,4 +748,45 @@ class CourseController extends Controller
         }
         return $data;
     }
+
+    public function sectionUp($course_id,$section_id){
+        // Initializing
+        $repo = new SectionRepository();
+
+        // Operations
+        $resp = $repo->sectionUp($course_id,$section_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Bölümler başarıyla güncellendi',
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Bölümler güncellenirken hata oluştu.Tekrar deneyin.',
+            'data' => $resp->getData()
+        ]);
+    }
+    public function sectionDown($course_id,$section_id){
+        // Initializing
+        $repo = new SectionRepository();
+
+        // Operations
+        $resp = $repo->sectionDown($course_id,$section_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Bölümler başarıyla güncellendi',
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Bölümler güncellenirken hata oluştu.Tekrar deneyin.',
+            'message' => $resp->getError()
+        ]);
+    }
 }
