@@ -333,4 +333,73 @@ class LessonRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+
+    public function lessonUp($course_id,$section_id,$lesson_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $lessons = Lesson::where('section_id',$section_id)->orderBy('no','asc')->get();
+            $before_lesson = null;
+            foreach ($lessons as $key=> $lesson){
+                if($lesson->id == $lesson_id){
+                    $temp_no = $before_lesson->no;
+                    $before_lesson->no = $lesson->no;
+                    $before_lesson->save();
+
+                    $lesson->no = $temp_no;
+                    $lesson->save();
+                    break;
+                }
+                $before_lesson = $lesson;
+            }
+            $object = Lesson::where('section_id',$section_id)->orderBy('no','asc')->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+    public function lessonDown($course_id,$section_id,$lesson_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $lessons = Lesson::where('section_id',$section_id)->orderBy('no','asc')->get();
+            $after_lesson = null;
+            foreach ($lessons as $key=> $lesson){
+                if($lesson->id == $lesson_id){
+                    $after_lesson = $lessons[$key+1];
+
+                    $temp_no = $after_lesson->no;
+                    $after_lesson->no = $lesson->no;
+                    $after_lesson->save();
+
+                    $lesson->no = $temp_no;
+                    $lesson->save();
+                    break;
+                }
+            }
+            $object = Lesson::where('section_id',$section_id)->orderBy('no','asc')->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
 }

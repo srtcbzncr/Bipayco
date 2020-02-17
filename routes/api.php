@@ -83,6 +83,8 @@ Route::prefix('instructor')->group(function(){
     Route::get('search', 'API\Auth\AuthController@getInstructorByMail')->name('api_search_instructor');
     Route::post('course/{id}/section/{section_id}/up','API\GeneralEducation\CourseController@sectionUp')->name('api_ge_course_section_up');
     Route::post('course/{id}/section/{section_id}/down','API\GeneralEducation\CourseController@sectionDown')->name('api_ge_course_section_down');
+    Route::post('course/{id}/section/{section_id}/lesson/{lesson_id}/up','API\GeneralEducation\CourseController@lessonUp')->name('api_ge_course_lesson_up');
+    Route::post('course/{id}/section/{section_id}/lesson/{lesson_id}/down','API\GeneralEducation\CourseController@lessonDown')->name('api_ge_course_lesson_down');
 });
 
 Route::get('myCourses/{id}', 'API\Auth\AuthController@courses')->name('api_my_courses');

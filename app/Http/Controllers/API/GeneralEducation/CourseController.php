@@ -789,4 +789,46 @@ class CourseController extends Controller
             'message' => $resp->getError()
         ]);
     }
+
+    public function lessonUp($course_id,$section_id,$lesson_id){
+        // Initializing
+        $repo = new LessonRepository();
+
+        // Operations
+        $resp = $repo->lessonUp($course_id,$section_id,$lesson_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Dersler başarıyla güncellendi',
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Dersler güncellenirken hata oluştu.Tekrar deneyin.',
+            'message' => $resp->getError()
+        ]);
+    }
+    public function lessonDown($course_id,$section_id,$lesson_id){
+        // Initializing
+        $repo = new LessonRepository();
+
+        // Operations
+        $resp = $repo->lessonDown($course_id,$section_id,$lesson_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Dersler başarıyla güncellendi',
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Dersler güncellenirken hata oluştu.Tekrar deneyin.',
+            'message' => $resp->getError()
+        ]);
+    }
+
 }
