@@ -829,7 +829,7 @@ class CourseRepository implements IRepository{
             $sections = $course->sections->where('active', true)->orderBy('no','asc')->get();
             $object['sections'] = $sections;
             foreach ($sections as $key => $section){
-                $lessons = $section->lessons->orderBy('no','asc');
+                $lessons = $section->lessons;
                 $object['sections'][$key]['lessons'] = $lessons;
                 foreach ($lessons as $keyLesson => $lesson){
                     $sources = $lesson->sources;
