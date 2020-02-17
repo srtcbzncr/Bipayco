@@ -179,7 +179,7 @@
                                 <lesson-settings
                                     course-id="{{$course->id}}"
                                     edit-lesson-text="@lang('front/auth.edit_lesson')"
-                                    lesson-name-text="@lang('front/lesson_name')"
+                                    lesson-name-text="@lang('front/auth.lesson_name')"
                                     sources-text="@lang('front/auth.sources')"
                                     is-preview-text="@lang('front/auth.preview')"
                                     save-text="@lang('front/auth.save')"

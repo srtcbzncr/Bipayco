@@ -36,10 +36,13 @@
                 </ul>
             </div>
         </div>
-        <div class="uk-width-1-6">
-            <a class="uk-button-icon uk-margin-small-left" @click="removeSection"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
-            <a class="uk-button-icon uk-margin-small-left" @click="sendInfo" uk-toggle="target: .sectionSettings"><i class="fas fa-cog icon-small"> </i></a>
-            <i class="fas fa-arrows-alt-v uk-margin-small-left uk-sortable-handle"></i>
+        <div class="uk-width-1-6 uk-flex align-items-center">
+            <a class="uk-button-icon uk-margin-small-left uk-width-1-4" @click="removeSection"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
+            <a class="uk-button-icon uk-margin-small-left uk-width-1-4" @click="sendInfo" uk-toggle="target: .sectionSettings"><i class="fas fa-cog icon-small"> </i></a>
+            <div class="uk-margin-small-left uk-padding-remove uk-flex uk-flex-column uk-width-1-4">
+                <a @click="sectionUp"><i class="fas fa-sort-up"></i></a>
+                <a @click="sectionDown"><i class="fas fa-sort-down"></i></a>
+            </div>
         </div>
     </div>
 </template>
@@ -143,6 +146,14 @@
                     cls:false,
                 }).toggle();
             },
+            sectionUp:function () {
+                axios.post('/api/instructor/course/'+this.courseId+'/section/'+this.section.id+'/up').then(response=>console.log(response.data))
+                    .then(this.$store.dispatch('loadSections',this.courseId))
+            },
+            sectionDown:function(){
+                axios.post('/api/instructor/course/'+this.courseId+'/section/'+this.section.id+'/down').then(response=>console.log(response.data))
+                    .then(this.$store.dispatch('loadSections',this.courseId))
+            }
         }
     }
 </script>

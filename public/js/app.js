@@ -3662,6 +3662,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3755,6 +3758,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         target: ".toggleButton",
         cls: false
       }).toggle();
+    },
+    sectionUp: function sectionUp() {
+      axios.post('/api/instructor/course/' + this.courseId + '/section/' + this.section.id + '/up').then(function (response) {
+        return console.log(response.data);
+      }).then(this.$store.dispatch('loadSections', this.courseId));
+    },
+    sectionDown: function sectionDown() {
+      axios.post('/api/instructor/course/' + this.courseId + '/section/' + this.section.id + '/down').then(function (response) {
+        return console.log(response.data);
+      }).then(this.$store.dispatch('loadSections', this.courseId));
     }
   })
 });
@@ -9121,11 +9134,11 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "uk-width-1-6" }, [
+      _c("div", { staticClass: "uk-width-1-6 uk-flex align-items-center" }, [
         _c(
           "a",
           {
-            staticClass: "uk-button-icon uk-margin-small-left",
+            staticClass: "uk-button-icon uk-margin-small-left uk-width-1-4",
             on: { click: _vm.removeSection }
           },
           [_c("i", { staticClass: "fas fa-trash-alt text-danger icon-small" })]
@@ -9134,17 +9147,29 @@ var render = function() {
         _c(
           "a",
           {
-            staticClass: "uk-button-icon uk-margin-small-left",
+            staticClass: "uk-button-icon uk-margin-small-left uk-width-1-4",
             attrs: { "uk-toggle": "target: .sectionSettings" },
             on: { click: _vm.sendInfo }
           },
           [_c("i", { staticClass: "fas fa-cog icon-small" })]
         ),
         _vm._v(" "),
-        _c("i", {
-          staticClass:
-            "fas fa-arrows-alt-v uk-margin-small-left uk-sortable-handle"
-        })
+        _c(
+          "div",
+          {
+            staticClass:
+              "uk-margin-small-left uk-padding-remove uk-flex uk-flex-column uk-width-1-4"
+          },
+          [
+            _c("a", { on: { click: _vm.sectionUp } }, [
+              _c("i", { staticClass: "fas fa-sort-up" })
+            ]),
+            _vm._v(" "),
+            _c("a", { on: { click: _vm.sectionDown } }, [
+              _c("i", { staticClass: "fas fa-sort-down" })
+            ])
+          ]
+        )
       ])
     ]
   )
