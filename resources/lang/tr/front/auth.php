@@ -137,5 +137,5 @@ return [
     'uploading'=>'Yükleniyor',
     'upload_document'=>'Döküman Yükle',
     'upload_video'=>'Video Yükle',
-
+    'add_lesson'=>'Ders Ekle'
 ];

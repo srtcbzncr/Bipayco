@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-        <form class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove">
+        <form class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove" id="uploadForm">
             <div v-if="isVideo==1">
                 <div class="uk-form-label">{{uploadVideoText}}</div>
                 <div uk-form-custom="target: true" class="uk-flex uk-flex-center">
@@ -56,7 +56,7 @@
         </form>
         <div class="uk-margin uk-flex justify-content-start align-items-center">
             <label>
-                <input class="uk-checkbox" id="lessonPreview" type="checkbox">
+                <input class="uk-checkbox" id="lessonPreview" type="checkbox" v-model="checked" :checked="checked">
                 <span class="checkmark uk-text-small">{{previewText}}</span>
             </label>
         </div>
@@ -93,6 +93,7 @@
                 uploadPercentage: 0,
                 message:"",
                 sources:[],
+                checked:false,
             }
         },
         props:{
@@ -246,6 +247,11 @@
             },
             clearForm: function(){
                 document.getElementById('lessonNameInput').value="";
+                document.getElementById("uploadForm").reset();
+                document.getElementById("lessonPreview").checked=false;
+                this.sources=[];
+                this.uploadPercentage=0;
+                this.checked=false;
             },
             toggleLesson:function(){
                 UIkit.toggle(".addLesson").toggle()
@@ -257,6 +263,7 @@
                 this.sources.splice(index,1);
             },
             cancel:function(){
+                this.clearForm();
                 UIkit.toggle( {
                     target:".toggleByAxios",
                     cls:false,

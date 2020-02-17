@@ -2943,7 +2943,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       isVideo: 1,
       uploadPercentage: 0,
       message: "",
-      sources: []
+      sources: [],
+      checked: false
     };
   },
   props: {
@@ -3129,6 +3130,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     clearForm: function clearForm() {
       document.getElementById('lessonNameInput').value = "";
+      document.getElementById("uploadForm").reset();
+      document.getElementById("lessonPreview").checked = false;
+      this.sources = [];
+      this.uploadPercentage = 0;
+      this.checked = false;
     },
     toggleLesson: function toggleLesson() {
       UIkit.toggle(".addLesson").toggle();
@@ -3140,6 +3146,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.sources.splice(index, 1);
     },
     cancel: function cancel() {
+      this.clearForm();
       UIkit.toggle({
         target: ".toggleByAxios",
         cls: false
@@ -8355,7 +8362,8 @@ var render = function() {
       "form",
       {
         staticClass:
-          "uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove"
+          "uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove",
+        attrs: { id: "uploadForm" }
       },
       [
         _vm.isVideo == 1
@@ -8521,8 +8529,43 @@ var render = function() {
       [
         _c("label", [
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.checked,
+                expression: "checked"
+              }
+            ],
             staticClass: "uk-checkbox",
-            attrs: { id: "lessonPreview", type: "checkbox" }
+            attrs: { id: "lessonPreview", type: "checkbox" },
+            domProps: {
+              checked: _vm.checked,
+              checked: Array.isArray(_vm.checked)
+                ? _vm._i(_vm.checked, null) > -1
+                : _vm.checked
+            },
+            on: {
+              change: function($event) {
+                var $$a = _vm.checked,
+                  $$el = $event.target,
+                  $$c = $$el.checked ? true : false
+                if (Array.isArray($$a)) {
+                  var $$v = null,
+                    $$i = _vm._i($$a, $$v)
+                  if ($$el.checked) {
+                    $$i < 0 && (_vm.checked = $$a.concat([$$v]))
+                  } else {
+                    $$i > -1 &&
+                      (_vm.checked = $$a
+                        .slice(0, $$i)
+                        .concat($$a.slice($$i + 1)))
+                  }
+                } else {
+                  _vm.checked = $$c
+                }
+              }
+            }
           }),
           _vm._v(" "),
           _c("span", { staticClass: "checkmark uk-text-small" }, [
