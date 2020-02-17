@@ -65,6 +65,11 @@ class LessonRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
+            $my_lessons = Lesson::where('section_id',$data['section_id'])->get();
+            $last_lesson = null;
+            foreach ($my_lessons as $item){
+                $last_lesson = $item;
+            }
             $filePath = Storage::putFile('lessons', $data['document']);
             $long = 0;
             if($data['is_video'] != 0){
@@ -74,7 +79,7 @@ class LessonRepository implements IRepository{
             $object = new Lesson;
             $object->section_id = $data['section_id'];
             $object->is_video = $data['is_video'];
-            $object->no = 1;
+            $object->no = $last_lesson->no+1;
             $object->name = $data['name'];
             $object->long = $long;
             $object->preview = $data['is_preview'];

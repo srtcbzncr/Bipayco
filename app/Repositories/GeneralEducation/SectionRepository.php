@@ -62,8 +62,13 @@ class SectionRepository implements IRepository{
         // Operations
         try{
             $object = new Section;
+            $sections = Section::where('course_id',$data['courseId'])->orderBy('no','asc')->get();
+            $last_section = null;
+            foreach ($sections as $item){
+                $last_section = $item;
+            }
             $object->course_id = $data['courseId'];
-            $object->no = 1;
+            $object->no = $last_section->no+1;
             $object->name = $data['name'];
             $object->active = true;
             $object->save();
