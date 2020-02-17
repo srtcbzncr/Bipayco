@@ -562,6 +562,7 @@ class CourseController extends Controller
         // Operations
         $resp = $repo->syncSectionGet($id);
         if($resp->getResult()){
+
             return response()->json([
                 'error' => false,
                 'data' => $resp->getData(),
