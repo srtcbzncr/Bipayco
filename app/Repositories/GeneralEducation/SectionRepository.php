@@ -233,7 +233,7 @@ class SectionRepository implements IRepository{
 
         // Operations
         try{
-            $sections = Section::where('course_id',$course_id)->get();
+            $sections = Section::where('course_id',$course_id)->orderBy('no','asc')->get();
             $before_section = null;
             foreach ($sections as $section){
                 if($section->id == $section_id){
@@ -266,7 +266,7 @@ class SectionRepository implements IRepository{
 
         // Operations
         try{
-            $sections = Section::where('course_id',$course_id)->get();
+            $sections = Section::where('course_id',$course_id)->orderBy('no','asc')->get();
             $after_section = null;
             foreach ($sections as $key => $section){
                 if($section->id == $section_id){
