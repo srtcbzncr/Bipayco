@@ -826,10 +826,10 @@ class CourseRepository implements IRepository{
 
             $object = array();
             $course = Course::find($id);
-            $sections = $course->sections->where('active', true);
+            $sections = $course->sections->where('active', true)->orderBy('no','asc')->get();
             $object['sections'] = $sections;
             foreach ($sections as $key => $section){
-                $lessons = $section->lessons;
+                $lessons = $section->lessons->orderBy('no','asc');
                 $object['sections'][$key]['lessons'] = $lessons;
                 foreach ($lessons as $keyLesson => $lesson){
                     $sources = $lesson->sources;
