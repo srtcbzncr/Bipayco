@@ -106,29 +106,7 @@
             removeLesson:function () {
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.section.id+'/lessons/delete/'+this.lesson.id)
                     .then(this.$store.dispatch('loadSections',this.courseId))
-            },/*
-            updateLesson:function () {
-                var isPreview = document.querySelector('#'+this.preview).checked ? 1 : 0;
-                var formData=new FormData();
-                formData.append('name', document.getElementById(this.inputName).value);
-                formData.append('is_preview', isPreview);
-                for (var i=0;i<this.lessonSources.length;i++){
-                    formData.append('source['+i+']', this.lessonSources[i]);
-                }
-                formData.append('sectionId', this.sectionId);
-                formData.append('courseId', this.courseId);
-                for(let pair of formData){
-                    console.log(pair[0]);
-                    console.log(pair[1]);
-                }
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sectionId+'/lessons/create/'+this.lesson.id, formData)
-                    .then(response=>{
-                        if(!response.data.error){
-                            this.$store.dispatch('loadSections',this.courseId);
-                        }
-                        console.log(response);
-                    })
-            },*/
+            },
             removeSource:function(index){
                 this.lessonSources.splice(index,1);
             },

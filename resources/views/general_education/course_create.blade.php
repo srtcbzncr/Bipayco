@@ -160,10 +160,31 @@
                                 </div>
                                 <add-lesson
                                     course-id="{{$course->id}}"
+                                    notAddedLessonText="@lang('front/auth.not_uploaded_lesson')"
+                                    fileTypeText="@lang('front/auth.file_type')"
+                                    pdfText="@lang('front/auth.pdf')"
+                                    videoText="@lang('front/auth.video')"
+                                    saveText="@lang('front/auth.save')"
+                                    cancelText="@lang('front/auth.cancel')"
+                                    uploadingText="@lang('front/auth.uploading')"
+                                    continueText="@lang('front/auth.continue')"
+                                    previewText="@lang('front/auth.preview')"
+                                    addSourceText="@lang('front/auth.add_source')"
+                                    addLessonText="@lang('front/auth.add_lesson')"
+                                    uploadDocumentText="@lang('front/auth.upload_document')"
+                                    uploadVideoText="@lang('front/auth.upload_video')"
+                                    lessonNameText="@lang('front/auth.lesson_name')"
                                 > </add-lesson>
 
                                 <lesson-settings
                                     course-id="{{$course->id}}"
+                                    editLessonText="@lang('front/auth.edit_lesson')"
+                                    lessonNameText="@lang('front/lesson_name')"
+                                    sourcesText="@lang('front/auth.sources')"
+                                    isPreviewText="@lang('front/auth.preview')"
+                                    saveText="@lang('front/auth.save')"
+                                    cancelText="@lang('front/auth.cancel')"
+                                    addSourceText="@lang('front/auth.add_source')"
                                 > </lesson-settings>
                                 <section-settings
                                     preview-text="@lang('front/auth.preview')"

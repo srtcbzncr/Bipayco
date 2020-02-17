@@ -146,11 +146,15 @@
             },
             pdfText:{
                 type:String,
-                default:"Döküman"
+                default:"PDF"
             },
             fileTypeText:{
                 type:String,
                 default:"Dosya Tipi"
+            },
+            notAddedLessonText:{
+                type:String,
+                default:"Ders Eklenemedi"
             }
         },
         computed:{
@@ -213,7 +217,7 @@
                             this.clearForm();
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
-                            this.changeMessage("Ders Yüklenemedi");
+                            this.changeMessage(this.notAddedLessonTextt);
                             UIkit.toggle( {
                                 target:".toggleByAxios",
                                 cls:false,
@@ -227,8 +231,7 @@
                         }
                     })
                     .catch(response=>{
-                        this.changeMessage("" +
-                            "Ders Yüklenemedi");
+                        this.changeMessage(this.notAddedLessonText);
                         UIkit.toggle( {
                             target:".toggleByAxios",
                             cls:false,

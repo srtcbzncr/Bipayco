@@ -132,12 +132,6 @@
             removeSection:function () {
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/delete/'+this.section.id).then(this.$store.dispatch('loadSections',this.courseId))
             },
-            /*updateSection:function(){
-                var formData=new FormData();
-                formData.append('name', document.getElementById(this.sectionNameInput).value);
-                formData.append('courseId', this.courseId);
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/create/'+this.section.id, formData).then(this.$store.dispatch('loadSections',this.courseId))
-            },*/
             sendInfo:function () {
                 this.$store.dispatch('loadSelectedSectionInfo', this.section);
                 UIkit.toggle( {
@@ -149,34 +143,6 @@
                     cls:false,
                 }).toggle();
             },
-            /*addLesson:function () {
-                var isPreview = document.querySelector('#'+this.preview).checked ? 1 : 0;
-                let doc;
-                if(this.isVideo=='1'){
-                    doc=document.querySelector('#'+this.courseVideo).files[0];
-                }else{
-                    doc=document.querySelector('#'+this.coursePdf).files[0];
-                }
-                var formData=new FormData();
-                formData.append('name', document.getElementById(this.lessonInput).value);
-                formData.append('is_preview', isPreview);
-                formData.append('is_video', this.isVideo);
-                formData.append('document', doc);
-                for (var i=0; i< document.querySelector('#'+this.courseSource).files.length;i++){
-                    let file=document.querySelector('#'+this.courseSource).files[i];
-                    formData.append('source['+i+']', file);
-                }
-                formData.append('courseId', this.courseId);
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.section.id+'/lessons/create', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }})
-                    .then(response=>{
-                        if(!response.data.error){
-                            this.$store.dispatch('loadSections',this.courseId)
-                        }
-                    })
-            },*/
         }
     }
 </script>

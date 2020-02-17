@@ -126,4 +126,16 @@ return [
     'title_example'=>'Matematik Öğretmeni vb.',
     'reference_code_explain'=>'Referans kodunuz yok ise ****** şirket referans kodunu giriniz',
     'cancel'=>'Vazgeç',
+    'edit_lesson'=>'Ders Düzenle',
+    'lesson_name'=>'Ders Adı',
+    'sources'=>'Kaynaklar',
+    'add_source'=>'Kaynak Ekle',
+    'not_uploaded_lesson'=>'Ders Yüklenemedi',
+    'file_type'=>'Dosya Tipi',
+    'pdf'=>'PDF',
+    'video'=>'Video',
+    'uploading'=>'Yükleniyor',
+    'upload_document'=>'Döküman Yükle',
+    'upload_video'=>'Video Yükle',
+
 ];
