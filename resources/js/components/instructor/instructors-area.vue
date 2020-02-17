@@ -39,6 +39,9 @@
                 </div>
             </form>
         </div>
+        <div class="uk-margin">
+            <input class="uk-button uk-button-grey uk-margin uk-width-small@m" type="button" @click="instructorPost(courseId)"  :value="saveText">
+        </div>
     </div>
 </template>
 
@@ -89,6 +92,10 @@
             courseId:{
                 type:String,
                 required:true,
+            },
+            saveText:{
+                type:String,
+                default:"Kaydet"
             }
         },
         data(){
@@ -111,6 +118,7 @@
                         }else{
                             UIkit.notification({message:this.instructorAddedText, status: 'success'});
                             this.addInstructor(response.data);
+                            console.log(this.instructors)
                         }
                     });
                 document.getElementById('instructorEmail').value="";
@@ -118,6 +126,20 @@
             removeInstructor:function (index) {
                 this.instructors.splice(index,1);
             },
+            instructorPost:function(courseId) {
+                var instructorsInfo=[];
+                var percents=document.getElementsByName('percent[]');
+                for(var i=0;i<this.instructors.length; i++) {
+                    var id=this.instructors[i].id;
+                    var percent=percents[i].value;
+                    console.log("id:"+id+ " percent:"+percent);
+                    instructorsInfo.push({'instructor_id':id,'percent': percent});
+                }
+                axios.post('/api/instructor/course/'+courseId+'/instructors',instructorsInfo)
+                    .then(response=>console.log(response)).catch((error) => {
+                        UIkit.notification({message:error.message, status: 'danger'});
+                    });
+            }
         },
         created() {
             axios.get('/api/instructor/course/'+this.courseId+'/instructors')

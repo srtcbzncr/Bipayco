@@ -11,7 +11,7 @@
         <div class="uk-margin-remove-top">
             <div class="uk-form-label">{{lessonsText}}</div>
             <div class="tm-course-section-list">
-                <ul v-if="selectedSectionInfo!=null && selectedSectionInfo!=undefined"  uk-sortable="handle: .uk-sortable-handle">
+                <ul v-if="selectedSectionInfo!=null && selectedSectionInfo!=undefined">
                     <li v-for="(lesson,lessonIndex) in selectedSectionInfo.lessons" class="uk-card uk-card-default uk-padding-small uk-flex align-items-center justify-content-between">
                         <div class="uk-grid uk-margin-remove uk-padding-remove">
                             <div class="uk-width-5-6@m uk-width uk-padding-remove-right">
@@ -27,8 +27,9 @@
                                 <i v-if="lesson.preview" class="fas fa-play icon-tiny uk-text-grey uk-visible@s"> </i>
                             </div>
                         </div>
-                        <div class="uk-padding-remove uk-sortable-handle">
-                            <i class="fas fa-arrows-alt-v"></i>
+                        <div class="uk-margin-small-left uk-padding-remove uk-flex uk-flex-column uk-width-1-4">
+                            <a @click="lessonUp"><i class="fas fa-sort-up"></i></a>
+                            <a @click="lessonDown"><i class="fas fa-sort-down"></i></a>
                         </div>
                     </li>
                 </ul>
@@ -37,10 +38,10 @@
         </div>
         <div class="uk-grid uk-margin-top">
             <div class="uk-width-1-2@m">
-                <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .sectionSettings"> {{cancelText}} </button>
+                <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="updateSection" uk-toggle="target: .sectionSettings">{{saveText}}</button>
             </div>
             <div class="uk-width-1-2@m">
-                <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="updateSection" uk-toggle="target: .sectionSettings">{{saveText}}</button>
+                <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .sectionSettings"> {{cancelText}} </button>
             </div>
         </div>
     </div>
@@ -134,6 +135,14 @@
                         }
                     })
             },
+            lessonUp:function (lessonId) {
+                axios.post('/api/instructor/course/'+this.courseId+'/section/'+this.selectedSectionInfo.id+'/lesson/'+lessonId+"/up").then(response=>console.log(response.data))
+                    .then(this.$store.dispatch('loadSections',this.courseId))
+            },
+            lessonDown:function (lessonId) {
+                axios.post('/api/instructor/course/'+this.courseId+'/section/'+this.selectedSectionInfo.id+'/lesson/'+lessonId+'/up').then(response=>console.log(response.data))
+                    .then(this.$store.dispatch('loadSections',this.courseId))
+            }
         },
     }
 </script>

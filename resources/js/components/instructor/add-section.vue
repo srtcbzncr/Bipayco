@@ -4,7 +4,7 @@
             <input class="uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m" type="text" id="sectionInput" :placeholder="addDefaultSectionText">
             <button class="uk-button uk-button-success uk-margin-small-top uk-width-1-6@m" @click="addSection"><i class="fas fa-plus"></i> <span class="uk-hidden@m">{{addText}}</span></button>
         </div>
-        <div uk-sortable="handle: .uk-sortable-handle">
+        <div>
             <div v-for="(section,sectionIndex) in sections" class="uk-margin-top">
                 <course-section
                     :section="section"

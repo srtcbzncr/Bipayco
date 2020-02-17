@@ -48,10 +48,10 @@
         </div>
         <div class="uk-width-1-1 uk-grid">
             <div class="uk-width-1-2@m">
-                <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="clearForm" uk-toggle="target: .lessonSettings">{{cancelText}}</button>
+                <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="updateLesson" uk-toggle="target: .lessonSettings">{{saveText}} </button>
             </div>
             <div class="uk-width-1-2@m">
-                <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="updateLesson" uk-toggle="target: .lessonSettings">{{saveText}} </button>
+                <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="clearForm" uk-toggle="target: .lessonSettings">{{cancelText}}</button>
             </div>
         </div>
     </div>

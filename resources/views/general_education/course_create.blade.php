@@ -214,10 +214,8 @@
                                     manager-text="@lang('front/auth.manager')"
                                     add-text="@lang('front/auth.add')"
                                     course-id="{{$course->id}}"
+                                    save-text="@lang('front/auth.save')"
                                 > </instructor-area>
-                                <div class=uk-margin">
-                                    <input class="uk-button uk-button-grey uk-margin uk-width-small@m" type="button" onclick="instructorPost({{$course->id}})"  value="@lang('front/auth.save')">
-                                </div>
                             </div>
                         @endif
                     </div>

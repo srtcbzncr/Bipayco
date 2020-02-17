@@ -188,21 +188,6 @@
         }
     }
 
-    function instructorPost(courseId) {
-        var instructors=[];
-        var instructorIds=document.getElementsByName('instructorsId[]');
-        var percents=document.getElementsByName('percent[]');
-        for(var i=0;i<instructorIds.length; i++) {
-            var id=instructorIds[i].value;
-            var percent=percents[i].value;
-            instructors.push({'instructor_id':id,'percent': percent});
-        }
-        axios.post('/api/instructor/course/'+courseId+'/instructors',instructors)
-            .catch((error) => {
-                UIkit.notification({message:error.message, status: 'danger'});
-            });
-    }
-
     function achievementsPost(courseId) {
         var formData =new FormData();
         var achievementList=[],requirementList=[], tagList=[];

@@ -62,10 +62,10 @@
         </div>
         <div class="uk-grid">
             <div class="uk-width-1-2@m">
-                <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="cancel" uk-toggle="target: .addLesson">{{cancelText}}</button>
+                <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="addLesson" uk-toggle="target: #modal-example">{{saveText}}</button>
             </div>
             <div class="uk-width-1-2@m">
-                <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="addLesson" uk-toggle="target: #modal-example">{{saveText}}</button>
+                <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="cancel" uk-toggle="target: .addLesson">{{cancelText}}</button>
             </div>
         </div>
         <div id="modal-example" uk-modal>

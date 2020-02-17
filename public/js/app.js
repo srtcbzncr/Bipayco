@@ -3827,6 +3827,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "instructors-area",
   props: {
@@ -3873,6 +3876,10 @@ __webpack_require__.r(__webpack_exports__);
     courseId: {
       type: String,
       required: true
+    },
+    saveText: {
+      type: String,
+      "default": "Kaydet"
     }
   },
   data: function data() {
@@ -3904,12 +3911,37 @@ __webpack_require__.r(__webpack_exports__);
           });
 
           _this.addInstructor(response.data);
+
+          console.log(_this.instructors);
         }
       });
       document.getElementById('instructorEmail').value = "";
     },
     removeInstructor: function removeInstructor(index) {
       this.instructors.splice(index, 1);
+    },
+    instructorPost: function instructorPost(courseId) {
+      var instructorsInfo = [];
+      var percents = document.getElementsByName('percent[]');
+
+      for (var i = 0; i < this.instructors.length; i++) {
+        var id = this.instructors[i].id;
+        var percent = percents[i].value;
+        console.log("id:" + id + " percent:" + percent);
+        instructorsInfo.push({
+          'instructor_id': id,
+          'percent': percent
+        });
+      }
+
+      axios.post('/api/instructor/course/' + courseId + '/instructors', instructorsInfo).then(function (response) {
+        return console.log(response);
+      })["catch"](function (error) {
+        UIkit.notification({
+          message: error.message,
+          status: 'danger'
+        });
+      });
     }
   },
   created: function created() {
@@ -4326,6 +4358,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4412,6 +4445,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
         }
       });
+    },
+    lessonUp: function lessonUp(lessonId) {
+      axios.post('/api/instructor/course/' + this.courseId + '/section/' + this.selectedSectionInfo.id + '/lesson/' + lessonId + "/up").then(function (response) {
+        return console.log(response.data);
+      }).then(this.$store.dispatch('loadSections', this.courseId));
+    },
+    lessonDown: function lessonDown(lessonId) {
+      axios.post('/api/instructor/course/' + this.courseId + '/section/' + this.selectedSectionInfo.id + '/lesson/' + lessonId + '/up').then(function (response) {
+        return console.log(response.data);
+      }).then(this.$store.dispatch('loadSections', this.courseId));
     }
   })
 });
@@ -8495,11 +8538,11 @@ var render = function() {
           "button",
           {
             staticClass:
-              "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
-            attrs: { "uk-toggle": "target: .addLesson" },
-            on: { click: _vm.cancel }
+              "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+            attrs: { "uk-toggle": "target: #modal-example" },
+            on: { click: _vm.addLesson }
           },
-          [_vm._v(_vm._s(_vm.cancelText))]
+          [_vm._v(_vm._s(_vm.saveText))]
         )
       ]),
       _vm._v(" "),
@@ -8508,11 +8551,11 @@ var render = function() {
           "button",
           {
             staticClass:
-              "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
-            attrs: { "uk-toggle": "target: #modal-example" },
-            on: { click: _vm.addLesson }
+              "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+            attrs: { "uk-toggle": "target: .addLesson" },
+            on: { click: _vm.cancel }
           },
-          [_vm._v(_vm._s(_vm.saveText))]
+          [_vm._v(_vm._s(_vm.cancelText))]
         )
       ])
     ]),
@@ -8714,7 +8757,6 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { attrs: { "uk-sortable": "handle: .uk-sortable-handle" } },
       _vm._l(_vm.sections, function(section, sectionIndex) {
         return _c(
           "div",
@@ -9351,6 +9393,18 @@ var render = function() {
           0
         )
       ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "uk-margin" }, [
+      _c("input", {
+        staticClass: "uk-button uk-button-grey uk-margin uk-width-small@m",
+        attrs: { type: "button", value: _vm.saveText },
+        on: {
+          click: function($event) {
+            return _vm.instructorPost(_vm.courseId)
+          }
+        }
+      })
     ])
   ])
 }
@@ -9546,11 +9600,11 @@ var render = function() {
           "button",
           {
             staticClass:
-              "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+              "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
             attrs: { "uk-toggle": "target: .lessonSettings" },
-            on: { click: _vm.clearForm }
+            on: { click: _vm.updateLesson }
           },
-          [_vm._v(_vm._s(_vm.cancelText))]
+          [_vm._v(_vm._s(_vm.saveText) + " ")]
         )
       ]),
       _vm._v(" "),
@@ -9559,11 +9613,11 @@ var render = function() {
           "button",
           {
             staticClass:
-              "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+              "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
             attrs: { "uk-toggle": "target: .lessonSettings" },
-            on: { click: _vm.updateLesson }
+            on: { click: _vm.clearForm }
           },
-          [_vm._v(_vm._s(_vm.saveText) + " ")]
+          [_vm._v(_vm._s(_vm.cancelText))]
         )
       ])
     ])
@@ -9753,7 +9807,6 @@ var render = function() {
         _vm.selectedSectionInfo != null && _vm.selectedSectionInfo != undefined
           ? _c(
               "ul",
-              { attrs: { "uk-sortable": "handle: .uk-sortable-handle" } },
               _vm._l(_vm.selectedSectionInfo.lessons, function(
                 lesson,
                 lessonIndex
@@ -9842,7 +9895,22 @@ var render = function() {
                       ]
                     ),
                     _vm._v(" "),
-                    _vm._m(0, true)
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "uk-margin-small-left uk-padding-remove uk-flex uk-flex-column uk-width-1-4"
+                      },
+                      [
+                        _c("a", { on: { click: _vm.lessonUp } }, [
+                          _c("i", { staticClass: "fas fa-sort-up" })
+                        ]),
+                        _vm._v(" "),
+                        _c("a", { on: { click: _vm.lessonDown } }, [
+                          _c("i", { staticClass: "fas fa-sort-down" })
+                        ])
+                      ]
+                    )
                   ]
                 )
               }),
@@ -9858,10 +9926,11 @@ var render = function() {
           "button",
           {
             staticClass:
-              "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
-            attrs: { "uk-toggle": "target: .sectionSettings" }
+              "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+            attrs: { "uk-toggle": "target: .sectionSettings" },
+            on: { click: _vm.updateSection }
           },
-          [_vm._v(" " + _vm._s(_vm.cancelText) + " ")]
+          [_vm._v(_vm._s(_vm.saveText))]
         )
       ]),
       _vm._v(" "),
@@ -9870,26 +9939,16 @@ var render = function() {
           "button",
           {
             staticClass:
-              "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
-            attrs: { "uk-toggle": "target: .sectionSettings" },
-            on: { click: _vm.updateSection }
+              "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+            attrs: { "uk-toggle": "target: .sectionSettings" }
           },
-          [_vm._v(_vm._s(_vm.saveText))]
+          [_vm._v(" " + _vm._s(_vm.cancelText) + " ")]
         )
       ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-padding-remove uk-sortable-handle" }, [
-      _c("i", { staticClass: "fas fa-arrows-alt-v" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
