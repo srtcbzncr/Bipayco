@@ -78,7 +78,7 @@ Route::prefix('instructor')->group(function(){
     Route::post('course/{id}/sections/{section_id}/lessons/create/{lesson_id?}','API\GeneralEducation\CourseController@lessonsPost')->name('api_ge_course_sections_lessons_post');
     Route::post('course/{id}/sections/{section_id}/lessons/delete/{lesson_id}','API\GeneralEducation\CourseController@lessonsDelete')->name('api_ge_course_sections_lessons_delete');
     Route::post('course/{id}/sections/{section_id}/lessons/{lesson_id}/source/delete/{source_id}','API\GeneralEducation\CourseController@sourceDelete')->name('api_ge_course_sections_lessons_sources_delete');
-    Route::post('course/{id}/sections/{section_id}/lessons/{lesson_id}/source/cancel/{source_id}','API\GeneralEducation\CourseController@sourceDeleteCancel')->name('api_ge_course_sections_lessons_sources_delete');
+    Route::post('course/{id}/sections/{section_id}/lessons/{lesson_id}/source/cancel','API\GeneralEducation\CourseController@sourceDeleteCancel')->name('api_ge_course_sections_lessons_sources_delete_cancel');
 
     Route::post('course/{id}/instructors', 'API\GeneralEducation\CourseController@instructorsPost')->name('api_ge_course_instructors_post');
     Route::get('course/{id}/instructors','API\GeneralEducation\CourseController@instructorsGet')->name('api_ge_course_instructors_get');

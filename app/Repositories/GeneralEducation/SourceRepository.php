@@ -2,6 +2,7 @@
 
 namespace App\Repositories\GeneralEducation;
 
+use App\Models\GeneralEducation\Lesson;
 use App\Models\GeneralEducation\Source;
 use App\Repositories\RepositoryResponse;
 use App\Repositories\IRepository;use Illuminate\Support\Facades\DB;use Illuminate\Support\Facades\Storage;
@@ -158,7 +159,7 @@ class SourceRepository implements IRepository{
         return $resp;
     }
 
-    public function setActive($id)
+    public function setActive($lesson_id)
     {
         // Response variables
         $result = true;
@@ -167,9 +168,13 @@ class SourceRepository implements IRepository{
 
         // Operations
         try{
-            $object = Source::find($id);
-            $object->active = true;
-            $object->save();
+            $lesson = Lesson::find($lesson_id);
+            $sources = $lesson->sources;
+            foreach ($sources as $source){
+                $source->active = true;
+                $source->save();
+            }
+            $object = $lesson->sources;
         }
         catch(\Exception $e){
             $error = $e;
