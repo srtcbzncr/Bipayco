@@ -9894,7 +9894,7 @@ var render = function() {
       _c("input", {
         staticClass: "uk-padding-small uk-margin-small-top uk-input uk-width",
         attrs: { id: "sectionSettingsName", type: "text" },
-        domProps: { value: _vm.selectedSectionInfo.name }
+        domProps: { value: _vm.sections[_vm.selectedSectionIndex].name }
       })
     ]),
     _vm._v(" "),
@@ -9904,11 +9904,11 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "tm-course-section-list" }, [
-        _vm.section[_vm.selectedSectionIndex].lessons != null &&
-        _vm.section[_vm.selectedSectionIndex].lessons != undefined
+        _vm.sections[_vm.selectedSectionIndex].lessons != null &&
+        _vm.sections[_vm.selectedSectionIndex].lessons != undefined
           ? _c(
               "ul",
-              _vm._l(_vm.section[_vm.selectedSectionIndex].lessons, function(
+              _vm._l(_vm.sections[_vm.selectedSectionIndex].lessons, function(
                 lesson,
                 lessonIndex
               ) {
@@ -10019,8 +10019,8 @@ var render = function() {
             )
           : _vm._e(),
         _vm._v(" "),
-        _vm.section[_vm.selectedSectionIndex].lessons == null ||
-        _vm.section[_vm.selectedSectionIndex].lessons == undefined
+        _vm.sections[_vm.selectedSectionIndex].lessons == null ||
+        _vm.sections[_vm.selectedSectionIndex].lessons == undefined
           ? _c("h4", [_vm._v(_vm._s(_vm.hasNoLessonText))])
           : _vm._e()
       ])

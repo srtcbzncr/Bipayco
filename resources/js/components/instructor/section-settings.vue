@@ -6,13 +6,13 @@
         <hr>
         <div class="uk-margin-small-top">
             <div class="uk-form-label">{{sectionNameText}}</div>
-            <input class="uk-padding-small uk-margin-small-top uk-input uk-width" id="sectionSettingsName" type="text" :value="selectedSectionInfo.name">
+            <input class="uk-padding-small uk-margin-small-top uk-input uk-width" id="sectionSettingsName" type="text" :value="sections[selectedSectionIndex].name">
         </div>
         <div class="uk-margin-remove-top">
             <div class="uk-form-label">{{lessonsText}}</div>
             <div class="tm-course-section-list">
-                <ul v-if="section[selectedSectionIndex].lessons!=null && section[selectedSectionIndex].lessons!=undefined">
-                    <li v-for="(lesson,lessonIndex) in section[selectedSectionIndex].lessons" class="uk-card uk-card-default uk-padding-small uk-flex align-items-center justify-content-between">
+                <ul v-if="sections[selectedSectionIndex].lessons!=null && sections[selectedSectionIndex].lessons!=undefined">
+                    <li v-for="(lesson,lessonIndex) in sections[selectedSectionIndex].lessons" class="uk-card uk-card-default uk-padding-small uk-flex align-items-center justify-content-between">
                         <div class="uk-grid uk-margin-remove uk-padding-remove">
                             <div class="uk-width-5-6@m uk-width uk-padding-remove-right">
                                 <a href="#" class="uk-link-reset uk-width uk-flex align-items-center">
@@ -33,7 +33,7 @@
                         </div>
                     </li>
                 </ul>
-                <h4 v-if="section[selectedSectionIndex].lessons==null || section[selectedSectionIndex].lessons==undefined">{{hasNoLessonText}}</h4>
+                <h4 v-if="sections[selectedSectionIndex].lessons==null || sections[selectedSectionIndex].lessons==undefined">{{hasNoLessonText}}</h4>
             </div>
         </div>
         <div class="uk-grid uk-margin-top">
