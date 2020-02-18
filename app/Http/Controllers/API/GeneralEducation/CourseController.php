@@ -674,7 +674,8 @@ class CourseController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'message' => 'Kaynak başarıyla geri getirildi.'
+                'message' => 'Kaynak başarıyla geri getirildi.',
+                'data' => $resp->getData()
             ]);
         }
         else{
