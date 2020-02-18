@@ -643,12 +643,12 @@ class CourseController extends Controller
         }
     }
 
-    public function sourceDelete($id){
+    public function sourceDelete($course_id,$section_id,$lesson_id,$source_id){
         // Initializing
         $repo = new SourceRepository();
 
         // Operations
-        $resp =  $repo->delete($id);
+        $resp =  $repo->delete($source_id);
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
@@ -659,6 +659,27 @@ class CourseController extends Controller
             return response()->json([
                 'error' => true,
                 'message' => 'Kaynak silinirken hata oluştu.Tekrar deneyin.'
+            ],400);
+        }
+    }
+
+    public function sourceDeleteCancel($course_id,$section_id,$lesson_id,$source_id){
+        // Initializing
+        $repo = new SourceRepository();
+
+        // Operations
+        $resp =  $repo->setActive($source_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Kaynak başarıyla geri getirildi.'
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Kaynak geri getirilirken hata oluştu.Tekrar deneyin.',
+                'errorMessage' => $resp->getError()
             ],400);
         }
     }

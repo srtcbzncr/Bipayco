@@ -834,7 +834,7 @@ class CourseRepository implements IRepository{
                 //$lessons = $section->lessons->sortBy('no');
                 $object['sections'][$key]['lessons'] = $lessons;
                 foreach ($lessons as $keyLesson => $lesson){
-                    $sources = $lesson->sources;
+                    $sources = $lesson->sources->where('active',true);
                     $object['sections'][$key]['lessons'][$keyLesson]['sources'] = $sources;
                 }
             }

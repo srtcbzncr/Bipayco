@@ -141,8 +141,10 @@ class SourceRepository implements IRepository{
         try{
             DB::beginTransaction();
             $object = Source::find($id);
-            Storage::delete($object->file_path);
-            $object->delete();
+            $object->active = false;
+            //Storage::delete($object->file_path);
+            //$object->delete();
+            $object->save();
             DB::commit();
         }
         catch(\Exception $e){
