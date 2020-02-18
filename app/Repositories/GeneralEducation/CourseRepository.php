@@ -10,6 +10,7 @@ use App\Models\GeneralEducation\Entry;
 use App\Models\GeneralEducation\Lesson;
 use App\Models\GeneralEducation\Requirement;
 use App\Models\GeneralEducation\Section;
+use App\Models\GeneralEducation\Source;
 use App\Models\GeneralEducation\Tag;
 use App\Repositories\IRepository;
 use App\Models\GeneralEducation\Course;
@@ -834,7 +835,8 @@ class CourseRepository implements IRepository{
                 //$lessons = $section->lessons->sortBy('no');
                 $object['sections'][$key]['lessons'] = $lessons;
                 foreach ($lessons as $keyLesson => $lesson){
-                    $sources = $lesson->sources->where('active',true);
+                    $sources = Source::where('lesson_id',$lesson->id)->where('active',true)->get();
+                    //$sources = $lesson->sources->where('active',true);
                     $object['sections'][$key]['lessons'][$keyLesson]['sources'] = $sources;
                 }
             }
