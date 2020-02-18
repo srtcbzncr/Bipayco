@@ -126,11 +126,14 @@
                 formData.append('name', document.getElementById('lessonSettingsName').value);
                 formData.append('is_preview', isPreview);
                 var i=0;
-                for (i;i<this.lessonSources.length;i++){
+                for (i;i<this.selectedLessonInfo.sources.length;i++){
                     formData.append('source['+i+']', this.lessonSources[i]);
+                    console.log(i);
                 }
-                for (var j=0;j<this.newSources.length; i++, j++){
+                for (var j=0 ;j<this.newSources.length; j++){
                     formData.append('source['+i+']', this.newSources[j]);
+                    i++
+                    console.log(i);
                 }
                 formData.append('sectionId', this.selectedSectionInfo.id);
                 formData.append('courseId', this.courseId);
@@ -160,9 +163,10 @@
                     .then(this.$store.dispatch('loadSections',this.courseId));
             },
             cancel:function () {
-                this.clearForm();
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.selectedSectionInfo.id+'/lessons/'+this.selectedLessonInfo.id+'/source/cancel')
-                    .then(this.$store.dispatch('loadSections',this.courseId));
+                    .then(response=>console.log(response))
+                    .catch(response=>console.log(response));
+                this.clearForm();
             },
             refreshDate:function () {
                 this.$store.dispatch('loadSections',this.courseId)
