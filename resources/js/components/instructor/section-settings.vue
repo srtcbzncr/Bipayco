@@ -33,7 +33,7 @@
                         </div>
                     </li>
                 </ul>
-                <h4 v-else>{{hasNoLessonText}}</h4>
+                <h4 v-if="selectedSectionInfo==null || selectedSectionInfo==undefined">{{hasNoLessonText}}</h4>
             </div>
         </div>
         <div class="uk-grid uk-margin-top">
@@ -128,7 +128,7 @@
                     .then(response=>{
                         if(!response.data.error){
                             this.$store.dispatch('loadSections',this.courseId);
-                            this.$store.dispatch('loadSelectedSectionInfo',{});
+                            this.$store.dispatch('loadSelectedSectionInfo',undefined);
                             UIkit.notification({message:response.data.message, status: 'success'});
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});

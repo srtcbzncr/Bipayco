@@ -24,10 +24,11 @@
                                             :save-text="saveText"
                                             :saved-success-text="savedSuccessText"
                                             :select-file-text="selectFileText"
+                                            :section-index="sectionIndex"
                                         > </lesson>
                                     </li>
                                     <li>
-                                        <button class="uk-button uk-button-success uk-margin-small uk-width" @click="sendInfo" uk-toggle="target: .addLesson"><i class="fas fa-plus uk-margin-small-right"></i>{{addDefaultLessonText}}</button>
+                                        <button class="uk-button uk-button-success uk-margin-small uk-width" @click="sendInfo(sectionIndex)" uk-toggle="target: .addLesson"><i class="fas fa-plus uk-margin-small-right"></i>{{addDefaultLessonText}}</button>
                                     </li>
                                 </ul>
                             </div>
@@ -38,7 +39,7 @@
         </div>
         <div class="uk-width-1-6 uk-flex align-items-center">
             <a class="uk-button-icon uk-margin-small-left uk-width-1-4" @click="removeSection"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
-            <a class="uk-button-icon uk-margin-small-left uk-width-1-4" @click="sendInfo" uk-toggle="target: .sectionSettings"><i class="fas fa-cog icon-small"> </i></a>
+            <a class="uk-button-icon uk-margin-small-left uk-width-1-4" @click="sendInfo(sectionIndex)" uk-toggle="target: .sectionSettings"><i class="fas fa-cog icon-small"> </i></a>
             <div class="uk-margin-small-left uk-padding-remove uk-flex uk-flex-column uk-width-1-4">
                 <a @click="sectionUp"><i class="fas fa-sort-up"></i></a>
                 <a @click="sectionDown"><i class="fas fa-sort-down"></i></a>
@@ -135,8 +136,8 @@
             removeSection:function () {
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/delete/'+this.section.id).then(this.$store.dispatch('loadSections',this.courseId))
             },
-            sendInfo:function () {
-                this.$store.dispatch('loadSelectedSectionInfo', this.section);
+            sendInfo:function (index) {
+                this.$store.dispatch('loadSelectedSectionInfo', index);
                 UIkit.toggle( {
                     target:".toggleByAxios",
                     cls:false,

@@ -15,19 +15,19 @@
                 <button class="uk-button uk-button-default uk-width" type="button" tabindex="-1"><span class="fas fa-upload uk-margin-small"></span> {{addSourceText}}</button>
             </div>
             <ul>
-                <li v-for="(source, index) in selectedLessonInfo.sources">
+                <li v-for="source in selectedLessonInfo.sources">
                     <div class="uk-flex align-items-center uk-margin">
                         <div class="uk-width-5-6 uk-flex uk-flex-wrap">
                             <p class="uk-margin-remove" style="text-overflow: ellipsis; overflow:hidden;">{{source.title}}</p>
                         </div>
                         <div class="uk-width-1-6">
-                            <a class="uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right" @click="deleteSource(index)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
+                            <a class="uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right" @click="deleteSourceFromDatabase(source.id)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
                         </div>
                     </div>
                 </li>
             </ul>
             <ul>
-                <li v-for="(source, index) in lessonSources">
+                <li v-for="(source, index) in newSources">
                     <div class="uk-flex align-items-center uk-margin">
                         <div class="uk-width-5-6 uk-flex uk-flex-wrap">
                             <p class="uk-margin-remove" style="text-overflow: ellipsis; overflow:hidden;">{{source.name}}</p>
@@ -41,8 +41,7 @@
         </div>
         <div class=" uk-margin-small uk-flex justify-content-start align-items-center">
             <label>
-                <input v-if="selectedLessonInfo.preview=='0'" class="uk-checkbox" type="checkbox" id="settingsPreview">
-                <input v-else checked class="uk-checkbox" type="checkbox" id="settingsPreview">
+                <input class="uk-checkbox" type="checkbox" id="settingsPreview" :checked="selectedLessonInfo.preview">
                 <span class="checkmark uk-text-small">{{isPreviewText}}</span>
             </label>
         </div>
@@ -51,14 +50,14 @@
                 <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="updateLesson" uk-toggle="target: .lessonSettings">{{saveText}} </button>
             </div>
             <div class="uk-width-1-2@m">
-                <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="clearForm" uk-toggle="target: .lessonSettings">{{cancelText}}</button>
+                <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="cancel" uk-toggle="target: .lessonSettings">{{cancelText}}</button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import {mapActions, mapState} from "vuex";
+    import {mapActions, mapState, mapGetters} from "vuex";
 
     export default {
         name: "lesson-settings",
@@ -107,12 +106,20 @@
                 'selectedLessonInfo',
                 'selectedSectionInfo',
             ]),
+            ...mapGetters([
+                'selectedLessonSources'
+            ]),
         },
         methods:{
             ...mapActions([
                 'loadSelectedLessonInfo',
                 'loadSelectedSectionInfo',
             ]),
+            getSource:function(){
+                for(var i=0;i<this.selectedLessonSources.length; i++){
+                    this.lessonSources.push(this.selectedLessonSources[i]);
+                }
+            },
             updateLesson:function () {
                 var isPreview = document.querySelector('#settingsPreview').checked ? '1' : '0';
                 var formData=new FormData();
@@ -132,8 +139,6 @@
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadSections',this.courseId);
-                            this.$store.dispatch('loadSelectedLessonInfo',{});
-                            this.$store.dispatch('loadSelectedSectionInfo',{});
                             this.clearForm();
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
@@ -142,12 +147,25 @@
             },
             clearForm:function () {
                 this.lessonSources=[];
+                this.newSources=[];
             },
             addSource(){
-                this.lessonSources.push(document.querySelector('#courseSourceSettings').files[0]);
+                this.newSources.push(document.querySelector('#courseSourceSettings').files[0]);
             },
             deleteSource(index){
-                this.lessonSources.splice(index,1);
+                this.newSources.splice(index,1);
+            },
+            deleteSourceFromDatabase:function(sourceId){
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.selectedSectionInfo.id+'/lessons/'+this.selectedLessonInfo.id+'/source/delete/'+sourceId)
+                    .then(this.$store.dispatch('loadSections',this.courseId));
+            },
+            cancel:function () {
+                this.clearForm();
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.selectedSectionInfo.id+'/lessons/'+this.selectedLessonInfo.id+'/source/cancel')
+                    .then(this.$store.dispatch('loadSections',this.courseId));
+            },
+            refreshDate:function () {
+                this.$store.dispatch('loadSections',this.courseId)
             }
         },
     }

@@ -3078,8 +3078,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (!response.data.error) {
           _this.$store.dispatch('loadSections', _this.courseId);
 
-          _this.$store.dispatch('loadSelectedSectionInfo', {});
-
           _this.changeMessage(response.data.message);
 
           UIkit.toggle({
@@ -3131,7 +3129,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     clearForm: function clearForm() {
       document.getElementById('lessonNameInput').value = "";
       document.getElementById("uploadForm").reset();
-      document.getElementById("lessonPreview").checked = false;
       this.sources = [];
       this.uploadPercentage = 0;
       this.checked = false;
@@ -3672,6 +3669,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3755,8 +3753,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     removeSection: function removeSection() {
       axios.post('/api/instructor/course/' + this.courseId + '/sections/delete/' + this.section.id).then(this.$store.dispatch('loadSections', this.courseId));
     },
-    sendInfo: function sendInfo() {
-      this.$store.dispatch('loadSelectedSectionInfo', this.section);
+    sendInfo: function sendInfo(index) {
+      this.$store.dispatch('loadSelectedSectionInfo', index);
       UIkit.toggle({
         target: ".toggleByAxios",
         cls: false
@@ -4040,7 +4038,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "lesson-settings",
@@ -4084,8 +4081,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Kaynak Ekle"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['selectedLessonInfo', 'selectedSectionInfo'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['selectedLessonInfo', 'selectedSectionInfo']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['selectedLessonSources'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSelectedLessonInfo', 'loadSelectedSectionInfo']), {
+    getSource: function getSource() {
+      for (var i = 0; i < this.selectedLessonSources.length; i++) {
+        this.lessonSources.push(this.selectedLessonSources[i]);
+      }
+    },
     updateLesson: function updateLesson() {
       var _this = this;
 
@@ -4114,10 +4116,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this.$store.dispatch('loadSections', _this.courseId);
 
-          _this.$store.dispatch('loadSelectedLessonInfo', {});
-
-          _this.$store.dispatch('loadSelectedSectionInfo', {});
-
           _this.clearForm();
         } else {
           UIkit.notification({
@@ -4129,12 +4127,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     clearForm: function clearForm() {
       this.lessonSources = [];
+      this.newSources = [];
     },
     addSource: function addSource() {
-      this.lessonSources.push(document.querySelector('#courseSourceSettings').files[0]);
+      this.newSources.push(document.querySelector('#courseSourceSettings').files[0]);
     },
     deleteSource: function deleteSource(index) {
-      this.lessonSources.splice(index, 1);
+      this.newSources.splice(index, 1);
+    },
+    deleteSourceFromDatabase: function deleteSourceFromDatabase(sourceId) {
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.selectedSectionInfo.id + '/lessons/' + this.selectedLessonInfo.id + '/source/delete/' + sourceId).then(this.$store.dispatch('loadSections', this.courseId));
+    },
+    cancel: function cancel() {
+      this.clearForm();
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.selectedSectionInfo.id + '/lessons/' + this.selectedLessonInfo.id + '/source/cancel').then(this.$store.dispatch('loadSections', this.courseId));
+    },
+    refreshDate: function refreshDate() {
+      this.$store.dispatch('loadSections', this.courseId);
     }
   })
 });
@@ -4247,6 +4256,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     savedSuccessText: {
       type: String,
       "default": 'Başarıyla Kaydedildi'
+    },
+    sectionIndex: {
+      type: Number,
+      required: true
     }
   },
   computed: {
@@ -4287,8 +4300,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     sendInfo: function sendInfo() {
-      this.$store.dispatch('loadSelectedLessonInfo', this.lesson);
-      this.$store.dispatch('loadSelectedSectionInfo', this.section);
+      this.$store.dispatch('loadSelectedSectionInfo', this.sectionIndex);
+      this.$store.dispatch('loadSelectedLessonInfo', this.lessonIndex);
     }
   }),
   created: function created() {
@@ -4439,7 +4452,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         if (!response.data.error) {
           _this.$store.dispatch('loadSections', _this.courseId);
 
-          _this.$store.dispatch('loadSelectedSectionInfo', {});
+          _this.$store.dispatch('loadSelectedSectionInfo', undefined);
 
           UIkit.notification({
             message: response.data.message,
@@ -8603,49 +8616,58 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("div", { attrs: { id: "modal-example", "uk-modal": "" } }, [
-      _c("div", { staticClass: "uk-modal-dialog uk-modal-body" }, [
-        _c(
-          "h2",
-          {
-            staticClass: "uk-modal-title toggleByAxios",
-            attrs: { hidden: "" }
-          },
-          [_vm._v(_vm._s(_vm.uploadingText))]
-        ),
-        _vm._v(" "),
-        _c("h2", { staticClass: "uk-modal-title toggleByAxios" }, [
-          _vm._v(_vm._s(_vm.notificationMessage))
-        ]),
-        _vm._v(" "),
-        _c("progress", {
-          staticClass: "uk-progress toggleByAxios",
-          attrs: { max: "100", hidden: "" },
-          domProps: { value: _vm.uploadPercentage }
-        }),
-        _vm._v(" "),
-        _c("p", { staticClass: "uk-text-right" }, [
+    _c(
+      "div",
+      {
+        attrs: {
+          id: "modal-example",
+          "uk-modal": "bg-close:false; esc-close:false; "
+        }
+      },
+      [
+        _c("div", { staticClass: "uk-modal-dialog uk-modal-body" }, [
           _c(
-            "button",
+            "h2",
             {
-              staticClass: "uk-button uk-button-default toggleButton",
-              attrs: { hidden: "", disabled: "", type: "button" }
+              staticClass: "uk-modal-title toggleByAxios",
+              attrs: { hidden: "" }
             },
-            [_vm._v(_vm._s(_vm.continueText))]
+            [_vm._v(_vm._s(_vm.uploadingText))]
           ),
           _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass:
-                "uk-button uk-button-default uk-modal-close toggleButton",
-              attrs: { "uk-toggle": "target: .addLesson", type: "button" }
-            },
-            [_vm._v(_vm._s(_vm.continueText))]
-          )
+          _c("h2", { staticClass: "uk-modal-title toggleByAxios" }, [
+            _vm._v(_vm._s(_vm.notificationMessage))
+          ]),
+          _vm._v(" "),
+          _c("progress", {
+            staticClass: "uk-progress toggleByAxios",
+            attrs: { max: "100", hidden: "" },
+            domProps: { value: _vm.uploadPercentage }
+          }),
+          _vm._v(" "),
+          _c("p", { staticClass: "uk-text-right" }, [
+            _c(
+              "button",
+              {
+                staticClass: "uk-button uk-button-default toggleButton",
+                attrs: { hidden: "", disabled: "", type: "button" }
+              },
+              [_vm._v(_vm._s(_vm.continueText))]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass:
+                  "uk-button uk-button-default uk-modal-close toggleButton",
+                attrs: { "uk-toggle": "target: .addLesson", type: "button" }
+              },
+              [_vm._v(_vm._s(_vm.continueText))]
+            )
+          ])
         ])
-      ])
-    ])
+      ]
+    )
   ])
 }
 var staticRenderFns = []
@@ -9180,7 +9202,8 @@ var render = function() {
                                       "save-text": _vm.saveText,
                                       "saved-success-text":
                                         _vm.savedSuccessText,
-                                      "select-file-text": _vm.selectFileText
+                                      "select-file-text": _vm.selectFileText,
+                                      "section-index": _vm.sectionIndex
                                     }
                                   })
                                 ],
@@ -9195,7 +9218,11 @@ var render = function() {
                                   staticClass:
                                     "uk-button uk-button-success uk-margin-small uk-width",
                                   attrs: { "uk-toggle": "target: .addLesson" },
-                                  on: { click: _vm.sendInfo }
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.sendInfo(_vm.sectionIndex)
+                                    }
+                                  }
                                 },
                                 [
                                   _c("i", {
@@ -9234,7 +9261,11 @@ var render = function() {
           {
             staticClass: "uk-button-icon uk-margin-small-left uk-width-1-4",
             attrs: { "uk-toggle": "target: .sectionSettings" },
-            on: { click: _vm.sendInfo }
+            on: {
+              click: function($event) {
+                return _vm.sendInfo(_vm.sectionIndex)
+              }
+            }
           },
           [_c("i", { staticClass: "fas fa-cog icon-small" })]
         ),
@@ -9525,7 +9556,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "ul",
-        _vm._l(_vm.selectedLessonInfo.sources, function(source, index) {
+        _vm._l(_vm.selectedLessonInfo.sources, function(source) {
           return _c("li", [
             _c("div", { staticClass: "uk-flex align-items-center uk-margin" }, [
               _c("div", { staticClass: "uk-width-5-6 uk-flex uk-flex-wrap" }, [
@@ -9550,7 +9581,7 @@ var render = function() {
                       "uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right",
                     on: {
                       click: function($event) {
-                        return _vm.deleteSource(index)
+                        return _vm.deleteSourceFromDatabase(source.id)
                       }
                     }
                   },
@@ -9569,7 +9600,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "ul",
-        _vm._l(_vm.lessonSources, function(source, index) {
+        _vm._l(_vm.newSources, function(source, index) {
           return _c("li", [
             _c("div", { staticClass: "uk-flex align-items-center uk-margin" }, [
               _c("div", { staticClass: "uk-width-5-6 uk-flex uk-flex-wrap" }, [
@@ -9620,15 +9651,11 @@ var render = function() {
       },
       [
         _c("label", [
-          _vm.selectedLessonInfo.preview == "0"
-            ? _c("input", {
-                staticClass: "uk-checkbox",
-                attrs: { type: "checkbox", id: "settingsPreview" }
-              })
-            : _c("input", {
-                staticClass: "uk-checkbox",
-                attrs: { checked: "", type: "checkbox", id: "settingsPreview" }
-              }),
+          _c("input", {
+            staticClass: "uk-checkbox",
+            attrs: { type: "checkbox", id: "settingsPreview" },
+            domProps: { checked: _vm.selectedLessonInfo.preview }
+          }),
           _vm._v(" "),
           _c("span", { staticClass: "checkmark uk-text-small" }, [
             _vm._v(_vm._s(_vm.isPreviewText))
@@ -9658,7 +9685,7 @@ var render = function() {
             staticClass:
               "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
             attrs: { "uk-toggle": "target: .lessonSettings" },
-            on: { click: _vm.clearForm }
+            on: { click: _vm.cancel }
           },
           [_vm._v(_vm._s(_vm.cancelText))]
         )
@@ -9959,7 +9986,11 @@ var render = function() {
               }),
               0
             )
-          : _c("h4", [_vm._v(_vm._s(_vm.hasNoLessonText))])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.selectedSectionInfo == null || _vm.selectedSectionInfo == undefined
+          ? _c("h4", [_vm._v(_vm._s(_vm.hasNoLessonText))])
+          : _vm._e()
       ])
     ]),
     _vm._v(" "),
@@ -26175,7 +26206,13 @@ var state = {
   selectedLessonInfo: {},
   selectedSectionInfo: {}
 };
-var getters = {};
+var getters = {
+  selectedLessonSources: function selectedLessonSources(state) {
+    if (state.selectedLessonInfo != undefined) {
+      return state.selectedLessonInfo.sources;
+    }
+  }
+};
 var mutations = {
   /*province.vue*/
   setCities: function setCities(state, index) {
@@ -26208,12 +26245,13 @@ var mutations = {
   },
   setSections: function setSections(state, index) {
     state.sections = index.data.sections;
+    console.log(index.data.sections);
   },
-  setSelectedLessonInfo: function setSelectedLessonInfo(state, index) {
-    state.selectedLessonInfo = index;
+  setSelectedLessonInfo: function setSelectedLessonInfo(state, lessonIndex) {
+    state.selectedLessonInfo = state.selectedSectionInfo.lessons[lessonIndex];
   },
-  setSelectedSectionInfo: function setSelectedSectionInfo(state, index) {
-    state.selectedSectionInfo = index;
+  setSelectedSectionInfo: function setSelectedSectionInfo(state, sectionIndex) {
+    state.selectedSectionInfo = state.sections[sectionIndex];
   }
 };
 var actions = {
@@ -26294,13 +26332,13 @@ var actions = {
       return commit('setSections', response.data);
     });
   },
-  loadSelectedLessonInfo: function loadSelectedLessonInfo(_ref14, lesson) {
+  loadSelectedLessonInfo: function loadSelectedLessonInfo(_ref14, lessonIndex) {
     var commit = _ref14.commit;
-    commit('setSelectedLessonInfo', lesson);
+    commit('setSelectedLessonInfo', lessonIndex);
   },
-  loadSelectedSectionInfo: function loadSelectedSectionInfo(_ref15, courseSection) {
+  loadSelectedSectionInfo: function loadSelectedSectionInfo(_ref15, sectionIndex) {
     var commit = _ref15.commit;
-    commit('setSelectedSectionInfo', courseSection);
+    commit('setSelectedSectionInfo', sectionIndex);
   }
 };
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({

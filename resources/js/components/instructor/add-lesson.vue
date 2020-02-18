@@ -68,7 +68,7 @@
                 <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="cancel" uk-toggle="target: .addLesson">{{cancelText}}</button>
             </div>
         </div>
-        <div id="modal-example" uk-modal>
+        <div id="modal-example" uk-modal="bg-close:false; esc-close:false; ">
             <div class="uk-modal-dialog uk-modal-body">
                 <h2 class="uk-modal-title toggleByAxios" hidden>{{uploadingText}}</h2>
                 <h2 class="uk-modal-title toggleByAxios">{{notificationMessage}}</h2>
@@ -205,7 +205,6 @@
                     .then(response=>{
                         if(!response.data.error){
                             this.$store.dispatch('loadSections',this.courseId);
-                            this.$store.dispatch('loadSelectedSectionInfo',{});
                             this.changeMessage(response.data.message);
                             UIkit.toggle( {
                                 target:".toggleByAxios",
@@ -248,7 +247,6 @@
             clearForm: function(){
                 document.getElementById('lessonNameInput').value="";
                 document.getElementById("uploadForm").reset();
-                document.getElementById("lessonPreview").checked=false;
                 this.sources=[];
                 this.uploadPercentage=0;
                 this.checked=false;

@@ -18,7 +18,13 @@ const state={
     selectedLessonInfo:{},
     selectedSectionInfo:{},
 };
-const getters={};
+const getters={
+    selectedLessonSources:state=>{
+        if(state.selectedLessonInfo != undefined){
+            return state.selectedLessonInfo.sources;
+        }
+    }
+};
 const mutations={
     /*province.vue*/
     setCities(state, index){
@@ -49,12 +55,13 @@ const mutations={
     },
     setSections(state,index){
         state.sections=index.data.sections;
+        console.log(index.data.sections)
     },
-    setSelectedLessonInfo(state,index){
-        state.selectedLessonInfo=index;
+    setSelectedLessonInfo(state,lessonIndex){
+        state.selectedLessonInfo=state.selectedSectionInfo.lessons[lessonIndex];
     },
-    setSelectedSectionInfo(state,index){
-        state.selectedSectionInfo=index;
+    setSelectedSectionInfo(state,sectionIndex){
+        state.selectedSectionInfo=state.sections[sectionIndex];
     }
 };
 const actions={
@@ -109,11 +116,11 @@ const actions={
         Axios.get('/api/instructor/course/'+courseId+'/sections/'+sectionId+'/lesson')
             .then(response=>commit('setSections',response.data));
     },
-    loadSelectedLessonInfo({commit},lesson){
-        commit('setSelectedLessonInfo',lesson);
+    loadSelectedLessonInfo({commit},lessonIndex){
+        commit('setSelectedLessonInfo',lessonIndex);
     },
-    loadSelectedSectionInfo({commit}, courseSection){
-        commit('setSelectedSectionInfo',courseSection);
+    loadSelectedSectionInfo({commit}, sectionIndex){
+        commit('setSelectedSectionInfo',sectionIndex);
     },
 };
 

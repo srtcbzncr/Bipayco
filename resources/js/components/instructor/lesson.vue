@@ -91,6 +91,10 @@
                 type:String,
                 default:'Başarıyla Kaydedildi'
             },
+            sectionIndex:{
+                type:Number,
+                required:true,
+            }
         },
         computed:{
             toggleObject(){
@@ -116,8 +120,8 @@
                 }
             },
             sendInfo:function () {
-                this.$store.dispatch('loadSelectedLessonInfo',this.lesson);
-                this.$store.dispatch('loadSelectedSectionInfo',this.section);
+                this.$store.dispatch('loadSelectedSectionInfo',this.sectionIndex);
+                this.$store.dispatch('loadSelectedLessonInfo', this.lessonIndex);
             }
         },
         created(){
