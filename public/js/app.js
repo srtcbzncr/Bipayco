@@ -4099,13 +4099,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       for (i; i < this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].sources.length; i++) {
         formData.append('source[' + i + ']', this.lessonSources[i]);
-        console.log(i);
       }
 
       for (var j = 0; j < this.newSources.length; j++) {
         formData.append('source[' + i + ']', this.newSources[j]);
         i++;
-        console.log(i);
       }
 
       formData.append('sectionId', this.sections[this.selectedSectionIndex].id);
@@ -4126,6 +4124,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             status: 'danger'
           });
         }
+
+        console.log(response);
       });
     },
     clearForm: function clearForm() {
@@ -9904,10 +9904,11 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "tm-course-section-list" }, [
-        _vm.selectedSectionInfo != null && _vm.selectedSectionInfo != undefined
+        _vm.section[_vm.selectedSectionIndex].lessons != null &&
+        _vm.section[_vm.selectedSectionIndex].lessons != undefined
           ? _c(
               "ul",
-              _vm._l(_vm.selectedSectionInfo.lessons, function(
+              _vm._l(_vm.section[_vm.selectedSectionIndex].lessons, function(
                 lesson,
                 lessonIndex
               ) {
@@ -10018,7 +10019,8 @@ var render = function() {
             )
           : _vm._e(),
         _vm._v(" "),
-        _vm.selectedSectionInfo == null || _vm.selectedSectionInfo == undefined
+        _vm.section[_vm.selectedSectionIndex].lessons == null ||
+        _vm.section[_vm.selectedSectionIndex].lessons == undefined
           ? _c("h4", [_vm._v(_vm._s(_vm.hasNoLessonText))])
           : _vm._e()
       ])
@@ -26233,8 +26235,8 @@ var state = {
   myCourses: {},
   canComment: {},
   sections: {},
-  selectedLessonIndex: {},
-  selectedSectionIndex: {}
+  selectedLessonIndex: 0,
+  selectedSectionIndex: 0
 };
 var getters = {};
 var mutations = {
@@ -26269,7 +26271,6 @@ var mutations = {
   },
   setSections: function setSections(state, index) {
     state.sections = index.data.sections;
-    console.log(index.data.sections);
   },
   setSelectedLessonIndex: function setSelectedLessonIndex(state, lessonIndex) {
     state.selectedLessonIndex = lessonIndex;

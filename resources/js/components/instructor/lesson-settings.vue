@@ -127,12 +127,10 @@
                 var i=0;
                 for (i;i<this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].sources.length;i++){
                     formData.append('source['+i+']', this.lessonSources[i]);
-                    console.log(i);
                 }
                 for (var j=0 ;j<this.newSources.length; j++){
                     formData.append('source['+i+']', this.newSources[j]);
                     i++;
-                    console.log(i);
                 }
                 formData.append('sectionId', this.sections[this.selectedSectionIndex].id);
                 formData.append('courseId', this.courseId);
@@ -145,6 +143,7 @@
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
+                        console.log(response)
                     })
             },
             clearForm:function () {

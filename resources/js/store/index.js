@@ -15,8 +15,8 @@ const state={
     myCourses:{},
     canComment:{},
     sections:{},
-    selectedLessonIndex:{},
-    selectedSectionIndex:{},
+    selectedLessonIndex:0,
+    selectedSectionIndex:0,
 };
 const getters={};
 const mutations={
@@ -49,7 +49,6 @@ const mutations={
     },
     setSections(state,index){
         state.sections=index.data.sections;
-        console.log(index.data.sections)
     },
     setSelectedLessonIndex(state,lessonIndex){
         state.selectedLessonIndex=lessonIndex;
