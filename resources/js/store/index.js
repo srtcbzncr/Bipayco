@@ -14,7 +14,13 @@ const state={
     courseReviews:{},
     myCourses:{},
     canComment:{},
-    sections:{},
+    sections:[{
+        lessons:[{
+            name:"",
+            sources:[]
+        }],
+        name:"",
+    }],
     selectedLessonIndex:0,
     selectedSectionIndex:0,
 };
@@ -103,10 +109,6 @@ const actions={
     },
     loadSections({commit},courseId){
         Axios.get('/api/instructor/course/'+courseId+'/sections/get')
-            .then(response=>commit('setSections',response.data));
-    },
-    loadLessons({commit},{courseId,sectionId}){
-        Axios.get('/api/instructor/course/'+courseId+'/sections/'+sectionId+'/lesson')
             .then(response=>commit('setSections',response.data));
     },
     loadSelectedLessonIndex({commit},lessonIndex){

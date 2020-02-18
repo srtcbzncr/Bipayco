@@ -26234,7 +26234,13 @@ var state = {
   courseReviews: {},
   myCourses: {},
   canComment: {},
-  sections: {},
+  sections: [{
+    lessons: [{
+      name: "",
+      sources: []
+    }],
+    name: ""
+  }],
   selectedLessonIndex: 0,
   selectedSectionIndex: 0
 };
@@ -26349,20 +26355,12 @@ var actions = {
       return commit('setSections', response.data);
     });
   },
-  loadLessons: function loadLessons(_ref12, _ref13) {
+  loadSelectedLessonIndex: function loadSelectedLessonIndex(_ref12, lessonIndex) {
     var commit = _ref12.commit;
-    var courseId = _ref13.courseId,
-        sectionId = _ref13.sectionId;
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/instructor/course/' + courseId + '/sections/' + sectionId + '/lesson').then(function (response) {
-      return commit('setSections', response.data);
-    });
-  },
-  loadSelectedLessonIndex: function loadSelectedLessonIndex(_ref14, lessonIndex) {
-    var commit = _ref14.commit;
     commit('setSelectedLessonIndex', lessonIndex);
   },
-  loadSelectedSectionIndex: function loadSelectedSectionIndex(_ref15, sectionIndex) {
-    var commit = _ref15.commit;
+  loadSelectedSectionIndex: function loadSelectedSectionIndex(_ref13, sectionIndex) {
+    var commit = _ref13.commit;
     commit('setSelectedSectionIndex', sectionIndex);
   }
 };
