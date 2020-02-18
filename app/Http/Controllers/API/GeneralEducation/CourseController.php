@@ -585,6 +585,7 @@ class CourseController extends Controller
             $sources = $request->toArray()['source'];
         }
 
+
         // Initializing
         $repo = new LessonRepository();
         $data = $request->toArray();
@@ -603,7 +604,8 @@ class CourseController extends Controller
             else{
                 return response()->json([
                     'error' => true,
-                    'message' => 'Ders eklenirken hata oluştu.Tekrar deneyin.'
+                    'message' => 'Ders eklenirken hata oluştu.Tekrar deneyin.',
+                    'errorMessage' => $resp->getError()
                 ],400);
             }
         }
@@ -663,12 +665,12 @@ class CourseController extends Controller
         }
     }
 
-    public function sourceDeleteCancel($course_id,$section_id,$lesson_id,$source_id){
+    public function sourceDeleteCancel($course_id,$section_id,$lesson_id){
         // Initializing
         $repo = new SourceRepository();
 
         // Operations
-        $resp =  $repo->setActive($source_id);
+        $resp =  $repo->setActive($lesson_id);
         if($resp->getResult()){
             return response()->json([
                 'error' => false,

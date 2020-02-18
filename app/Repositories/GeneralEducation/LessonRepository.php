@@ -79,7 +79,10 @@ class LessonRepository implements IRepository{
             $object = new Lesson;
             $object->section_id = $data['section_id'];
             $object->is_video = $data['is_video'];
-            $object->no = $last_lesson->no+1;
+            if($last_lesson!=null)
+                $object->no = $last_lesson->no+1;
+            else
+                $object->no = 1;
             $object->name = $data['name'];
             $object->long = $long;
             $object->preview = $data['is_preview'];

@@ -174,6 +174,7 @@ class SourceRepository implements IRepository{
                 $source->active = true;
                 $source->save();
             }
+            $lesson = Lesson::find($lesson_id);
             $object = $lesson->sources;
         }
         catch(\Exception $e){
