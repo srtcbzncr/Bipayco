@@ -131,13 +131,13 @@
         methods:{
             ...mapActions([
                 'loadSections',
-                'loadSelectedSectionInfo',
+                'loadSelectedSectionIndex',
             ]),
             removeSection:function () {
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/delete/'+this.section.id).then(this.$store.dispatch('loadSections',this.courseId))
             },
             sendInfo:function (index) {
-                this.$store.dispatch('loadSelectedSectionInfo', index);
+                this.$store.dispatch('loadSelectedSectionIndex', index);
                 UIkit.toggle( {
                     target:".toggleByAxios",
                     cls:false,

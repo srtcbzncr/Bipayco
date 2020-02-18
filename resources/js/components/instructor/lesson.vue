@@ -104,8 +104,8 @@
         methods:{
             ...mapActions([
                 'loadSections',
-                'loadSelectedLessonInfo',
-                'loadSelectedSectionInfo'
+                'loadSelectedLessonIndex',
+                'loadSelectedSectionIndex'
             ]),
             removeLesson:function () {
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.section.id+'/lessons/delete/'+this.lesson.id)
@@ -120,8 +120,8 @@
                 }
             },
             sendInfo:function () {
-                this.$store.dispatch('loadSelectedSectionInfo',this.sectionIndex);
-                this.$store.dispatch('loadSelectedLessonInfo', this.lessonIndex);
+                this.$store.dispatch('loadSelectedSectionIndex',this.sectionIndex);
+                this.$store.dispatch('loadSelectedLessonIndex', this.lessonIndex);
             }
         },
         created(){

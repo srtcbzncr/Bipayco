@@ -3009,12 +3009,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Ders Eklenemedi"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['selectedSectionInfo']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['sections', 'selectedSectionIndex']), {
     notificationMessage: function notificationMessage() {
       return this.message;
     }
   }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSelectedSectionInfo']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections', 'loadSelectedSectionIndex']), {
     changeMessage: function changeMessage(message) {
       this.message = message;
     },
@@ -3067,7 +3067,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }
 
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.selectedSectionInfo.id + '/lessons/create', formData, {
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },
@@ -3749,12 +3749,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return 'target: .' + this.sectionName;
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadSections', 'loadSelectedSectionInfo']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadSections', 'loadSelectedSectionIndex']), {
     removeSection: function removeSection() {
       axios.post('/api/instructor/course/' + this.courseId + '/sections/delete/' + this.section.id).then(this.$store.dispatch('loadSections', this.courseId));
     },
     sendInfo: function sendInfo(index) {
-      this.$store.dispatch('loadSelectedSectionInfo', index);
+      this.$store.dispatch('loadSelectedSectionIndex', index);
       UIkit.toggle({
         target: ".toggleByAxios",
         cls: false
@@ -4081,8 +4081,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Kaynak Ekle"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['selectedLessonInfo', 'selectedSectionInfo']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['selectedLessonSources'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSelectedLessonInfo', 'loadSelectedSectionInfo']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['sections', 'selectedLessonIndex', 'selectedSectionIndex'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSelectedLessonIndex', 'loadSelectedSectionIndex', 'loadSections']), {
     getSource: function getSource() {
       for (var i = 0; i < this.selectedLessonSources.length; i++) {
         this.lessonSources.push(this.selectedLessonSources[i]);
@@ -4097,7 +4097,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('is_preview', isPreview);
       var i = 0;
 
-      for (i; i < this.selectedLessonInfo.sources.length; i++) {
+      for (i; i < this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].sources.length; i++) {
         formData.append('source[' + i + ']', this.lessonSources[i]);
         console.log(i);
       }
@@ -4108,9 +4108,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         console.log(i);
       }
 
-      formData.append('sectionId', this.selectedSectionInfo.id);
+      formData.append('sectionId', this.sections[this.selectedSectionIndex].id);
       formData.append('courseId', this.courseId);
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.selectedSectionInfo.id + '/lessons/create/' + this.selectedLessonInfo.id, formData).then(function (response) {
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/create/' + this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id, formData).then(function (response) {
         if (!response.data.error) {
           UIkit.notification({
             message: response.data.message,
@@ -4139,12 +4139,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.newSources.splice(index, 1);
     },
     deleteSourceFromDatabase: function deleteSourceFromDatabase(sourceId) {
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.selectedSectionInfo.id + '/lessons/' + this.selectedLessonInfo.id + '/source/delete/' + sourceId).then(this.$store.dispatch('loadSections', this.courseId));
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/' + this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id + '/source/delete/' + sourceId).then(function (response) {
+        return console.log(response);
+      }).then(this.$store.dispatch('loadSections', this.courseId));
     },
     cancel: function cancel() {
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.selectedSectionInfo.id + '/lessons/' + this.selectedLessonInfo.id + '/source/cancel').then(function (response) {
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/' + this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id + '/source/cancel').then(function (response) {
         return console.log(response);
-      })["catch"](function (response) {
+      }).then(this.$store.dispatch('loadSections', this.courseId))["catch"](function (response) {
         return console.log(response);
       });
       this.clearForm();
@@ -4274,7 +4276,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return 'target: .' + this.lessonName;
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections', 'loadSelectedLessonInfo', 'loadSelectedSectionInfo']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections', 'loadSelectedLessonIndex', 'loadSelectedSectionIndex']), {
     removeLesson: function removeLesson() {
       axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.section.id + '/lessons/delete/' + this.lesson.id).then(this.$store.dispatch('loadSections', this.courseId));
     },
@@ -4307,8 +4309,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     sendInfo: function sendInfo() {
-      this.$store.dispatch('loadSelectedSectionInfo', this.sectionIndex);
-      this.$store.dispatch('loadSelectedLessonInfo', this.lessonIndex);
+      this.$store.dispatch('loadSelectedSectionIndex', this.sectionIndex);
+      this.$store.dispatch('loadSelectedLessonIndex', this.lessonIndex);
     }
   }),
   created: function created() {
@@ -4447,19 +4449,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": 'Ders Bulunmuyor'
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['selectedSectionInfo'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadSelectedSectionInfo']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['sections', 'selectedSectionIndex'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadSections', 'loadSelectedSectionIndex']), {
     updateSection: function updateSection() {
       var _this = this;
 
       var formData = new FormData();
       formData.append('name', document.getElementById('sectionSettingsName').value);
       formData.append('courseId', this.courseId);
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/create/' + this.selectedSectionInfo.id, formData).then(function (response) {
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/create/' + this.sections[this.selectedSectionIndex].id, formData).then(function (response) {
         if (!response.data.error) {
           _this.$store.dispatch('loadSections', _this.courseId);
-
-          _this.$store.dispatch('loadSelectedSectionInfo', undefined);
 
           UIkit.notification({
             message: response.data.message,
@@ -4474,12 +4474,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     lessonUp: function lessonUp(lessonId) {
-      axios.post('/api/instructor/course/' + this.courseId + '/section/' + this.selectedSectionInfo.id + '/lesson/' + lessonId + "/up").then(function (response) {
+      axios.post('/api/instructor/course/' + this.courseId + '/section/' + this.sections[this.selectedSectionIndex].id + '/lesson/' + lessonId + "/up").then(function (response) {
         return console.log(response.data);
       }).then(this.$store.dispatch('loadSections', this.courseId));
     },
     lessonDown: function lessonDown(lessonId) {
-      axios.post('/api/instructor/course/' + this.courseId + '/section/' + this.selectedSectionInfo.id + '/lesson/' + lessonId + '/up').then(function (response) {
+      axios.post('/api/instructor/course/' + this.courseId + '/section/' + this.sections[this.selectedSectionIndex].id + '/lesson/' + lessonId + '/up').then(function (response) {
         return console.log(response.data);
       }).then(this.$store.dispatch('loadSections', this.courseId));
     }
@@ -9526,7 +9526,12 @@ var render = function() {
       _c("input", {
         staticClass: "uk-input",
         attrs: { type: "text", id: "lessonSettingsName", required: "" },
-        domProps: { value: _vm.selectedLessonInfo.name }
+        domProps: {
+          value:
+            _vm.sections[_vm.selectedSectionIndex].lessons[
+              _vm.selectedLessonIndex
+            ].name
+        }
       })
     ]),
     _vm._v(" "),
@@ -9563,45 +9568,58 @@ var render = function() {
       _vm._v(" "),
       _c(
         "ul",
-        _vm._l(_vm.selectedLessonInfo.sources, function(source) {
-          return _c("li", [
-            _c("div", { staticClass: "uk-flex align-items-center uk-margin" }, [
-              _c("div", { staticClass: "uk-width-5-6 uk-flex uk-flex-wrap" }, [
-                _c(
-                  "p",
-                  {
-                    staticClass: "uk-margin-remove",
-                    staticStyle: {
-                      "text-overflow": "ellipsis",
-                      overflow: "hidden"
-                    }
-                  },
-                  [_vm._v(_vm._s(source.title))]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "uk-width-1-6" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right",
-                    on: {
-                      click: function($event) {
-                        return _vm.deleteSourceFromDatabase(source.id)
-                      }
-                    }
-                  },
-                  [
-                    _c("i", {
-                      staticClass: "fas fa-trash-alt text-danger icon-small"
-                    })
-                  ]
-                )
-              ])
+        _vm._l(
+          _vm.sections[_vm.selectedSectionIndex].lessons[
+            _vm.selectedLessonIndex
+          ].sources,
+          function(source) {
+            return _c("li", [
+              _c(
+                "div",
+                { staticClass: "uk-flex align-items-center uk-margin" },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "uk-width-5-6 uk-flex uk-flex-wrap" },
+                    [
+                      _c(
+                        "p",
+                        {
+                          staticClass: "uk-margin-remove",
+                          staticStyle: {
+                            "text-overflow": "ellipsis",
+                            overflow: "hidden"
+                          }
+                        },
+                        [_vm._v(_vm._s(source.title))]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-width-1-6" }, [
+                    _c(
+                      "a",
+                      {
+                        staticClass:
+                          "uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right",
+                        on: {
+                          click: function($event) {
+                            return _vm.deleteSourceFromDatabase(source.id)
+                          }
+                        }
+                      },
+                      [
+                        _c("i", {
+                          staticClass: "fas fa-trash-alt text-danger icon-small"
+                        })
+                      ]
+                    )
+                  ])
+                ]
+              )
             ])
-          ])
-        }),
+          }
+        ),
         0
       ),
       _vm._v(" "),
@@ -9661,7 +9679,12 @@ var render = function() {
           _c("input", {
             staticClass: "uk-checkbox",
             attrs: { type: "checkbox", id: "settingsPreview" },
-            domProps: { checked: _vm.selectedLessonInfo.preview }
+            domProps: {
+              checked:
+                _vm.sections[_vm.selectedSectionIndex].lessons[
+                  _vm.selectedLessonIndex
+                ].preview
+            }
           }),
           _vm._v(" "),
           _c("span", { staticClass: "checkmark uk-text-small" }, [
@@ -26210,16 +26233,10 @@ var state = {
   myCourses: {},
   canComment: {},
   sections: {},
-  selectedLessonInfo: {},
-  selectedSectionInfo: {}
+  selectedLessonIndex: {},
+  selectedSectionIndex: {}
 };
-var getters = {
-  selectedLessonSources: function selectedLessonSources(state) {
-    if (state.selectedLessonInfo != undefined) {
-      return state.selectedLessonInfo.sources;
-    }
-  }
-};
+var getters = {};
 var mutations = {
   /*province.vue*/
   setCities: function setCities(state, index) {
@@ -26254,11 +26271,11 @@ var mutations = {
     state.sections = index.data.sections;
     console.log(index.data.sections);
   },
-  setSelectedLessonInfo: function setSelectedLessonInfo(state, lessonIndex) {
-    state.selectedLessonInfo = state.selectedSectionInfo.lessons[lessonIndex];
+  setSelectedLessonIndex: function setSelectedLessonIndex(state, lessonIndex) {
+    state.selectedLessonIndex = lessonIndex;
   },
-  setSelectedSectionInfo: function setSelectedSectionInfo(state, sectionIndex) {
-    state.selectedSectionInfo = state.sections[sectionIndex];
+  setSelectedSectionIndex: function setSelectedSectionIndex(state, sectionIndex) {
+    state.selectedSectionIndex = sectionIndex;
   }
 };
 var actions = {
@@ -26339,13 +26356,13 @@ var actions = {
       return commit('setSections', response.data);
     });
   },
-  loadSelectedLessonInfo: function loadSelectedLessonInfo(_ref14, lessonIndex) {
+  loadSelectedLessonIndex: function loadSelectedLessonIndex(_ref14, lessonIndex) {
     var commit = _ref14.commit;
-    commit('setSelectedLessonInfo', lessonIndex);
+    commit('setSelectedLessonIndex', lessonIndex);
   },
-  loadSelectedSectionInfo: function loadSelectedSectionInfo(_ref15, sectionIndex) {
+  loadSelectedSectionIndex: function loadSelectedSectionIndex(_ref15, sectionIndex) {
     var commit = _ref15.commit;
-    commit('setSelectedSectionInfo', sectionIndex);
+    commit('setSelectedSectionIndex', sectionIndex);
   }
 };
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({

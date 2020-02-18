@@ -15,16 +15,10 @@ const state={
     myCourses:{},
     canComment:{},
     sections:{},
-    selectedLessonInfo:{},
-    selectedSectionInfo:{},
+    selectedLessonIndex:{},
+    selectedSectionIndex:{},
 };
-const getters={
-    selectedLessonSources:state=>{
-        if(state.selectedLessonInfo != undefined){
-            return state.selectedLessonInfo.sources;
-        }
-    }
-};
+const getters={};
 const mutations={
     /*province.vue*/
     setCities(state, index){
@@ -57,11 +51,11 @@ const mutations={
         state.sections=index.data.sections;
         console.log(index.data.sections)
     },
-    setSelectedLessonInfo(state,lessonIndex){
-        state.selectedLessonInfo=state.selectedSectionInfo.lessons[lessonIndex];
+    setSelectedLessonIndex(state,lessonIndex){
+        state.selectedLessonIndex=lessonIndex;
     },
-    setSelectedSectionInfo(state,sectionIndex){
-        state.selectedSectionInfo=state.sections[sectionIndex];
+    setSelectedSectionIndex(state,sectionIndex){
+        state.selectedSectionIndex=sectionIndex;
     }
 };
 const actions={
@@ -116,11 +110,11 @@ const actions={
         Axios.get('/api/instructor/course/'+courseId+'/sections/'+sectionId+'/lesson')
             .then(response=>commit('setSections',response.data));
     },
-    loadSelectedLessonInfo({commit},lessonIndex){
-        commit('setSelectedLessonInfo',lessonIndex);
+    loadSelectedLessonIndex({commit},lessonIndex){
+        commit('setSelectedLessonIndex',lessonIndex);
     },
-    loadSelectedSectionInfo({commit}, sectionIndex){
-        commit('setSelectedSectionInfo',sectionIndex);
+    loadSelectedSectionIndex({commit}, sectionIndex){
+        commit('setSelectedSectionIndex',sectionIndex);
     },
 };
 

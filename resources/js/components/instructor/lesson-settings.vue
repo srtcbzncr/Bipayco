@@ -6,7 +6,7 @@
         <hr>
         <div>
             <div class="uk-form-label">{{lessonNameText}}</div>
-            <input class="uk-input" type="text" :value="selectedLessonInfo.name" id="lessonSettingsName" required>
+            <input class="uk-input" type="text" :value="sections[selectedSectionIndex].lessons[selectedLessonIndex].name" id="lessonSettingsName" required>
         </div>
         <div>
             <div class="uk-form-label">{{sourcesText}}</div>
@@ -15,7 +15,7 @@
                 <button class="uk-button uk-button-default uk-width" type="button" tabindex="-1"><span class="fas fa-upload uk-margin-small"></span> {{addSourceText}}</button>
             </div>
             <ul>
-                <li v-for="source in selectedLessonInfo.sources">
+                <li v-for="source in sections[selectedSectionIndex].lessons[selectedLessonIndex].sources">
                     <div class="uk-flex align-items-center uk-margin">
                         <div class="uk-width-5-6 uk-flex uk-flex-wrap">
                             <p class="uk-margin-remove" style="text-overflow: ellipsis; overflow:hidden;">{{source.title}}</p>
@@ -41,7 +41,7 @@
         </div>
         <div class=" uk-margin-small uk-flex justify-content-start align-items-center">
             <label>
-                <input class="uk-checkbox" type="checkbox" id="settingsPreview" :checked="selectedLessonInfo.preview">
+                <input class="uk-checkbox" type="checkbox" id="settingsPreview" :checked="sections[selectedSectionIndex].lessons[selectedLessonIndex].preview">
                 <span class="checkmark uk-text-small">{{isPreviewText}}</span>
             </label>
         </div>
@@ -103,17 +103,16 @@
         },
         computed:{
             ...mapState([
-                'selectedLessonInfo',
-                'selectedSectionInfo',
-            ]),
-            ...mapGetters([
-                'selectedLessonSources'
+                'sections',
+                'selectedLessonIndex',
+                'selectedSectionIndex',
             ]),
         },
         methods:{
             ...mapActions([
-                'loadSelectedLessonInfo',
-                'loadSelectedSectionInfo',
+                'loadSelectedLessonIndex',
+                'loadSelectedSectionIndex',
+                'loadSections'
             ]),
             getSource:function(){
                 for(var i=0;i<this.selectedLessonSources.length; i++){
@@ -126,18 +125,18 @@
                 formData.append('name', document.getElementById('lessonSettingsName').value);
                 formData.append('is_preview', isPreview);
                 var i=0;
-                for (i;i<this.selectedLessonInfo.sources.length;i++){
+                for (i;i<this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].sources.length;i++){
                     formData.append('source['+i+']', this.lessonSources[i]);
                     console.log(i);
                 }
                 for (var j=0 ;j<this.newSources.length; j++){
                     formData.append('source['+i+']', this.newSources[j]);
-                    i++
+                    i++;
                     console.log(i);
                 }
-                formData.append('sectionId', this.selectedSectionInfo.id);
+                formData.append('sectionId', this.sections[this.selectedSectionIndex].id);
                 formData.append('courseId', this.courseId);
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.selectedSectionInfo.id+'/lessons/create/'+this.selectedLessonInfo.id, formData)
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sections[this.selectedSectionIndex].id+'/lessons/create/'+this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id, formData)
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
@@ -159,12 +158,14 @@
                 this.newSources.splice(index,1);
             },
             deleteSourceFromDatabase:function(sourceId){
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.selectedSectionInfo.id+'/lessons/'+this.selectedLessonInfo.id+'/source/delete/'+sourceId)
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sections[this.selectedSectionIndex].id+'/lessons/'+this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id+'/source/delete/'+sourceId)
+                    .then(response=>console.log(response))
                     .then(this.$store.dispatch('loadSections',this.courseId));
             },
             cancel:function () {
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.selectedSectionInfo.id+'/lessons/'+this.selectedLessonInfo.id+'/source/cancel')
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sections[this.selectedSectionIndex].id+'/lessons/'+this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id+'/source/cancel')
                     .then(response=>console.log(response))
+                    .then(this.$store.dispatch('loadSections',this.courseId))
                     .catch(response=>console.log(response));
                 this.clearForm();
             },

@@ -160,7 +160,8 @@
         },
         computed:{
             ...mapState([
-                'selectedSectionInfo',
+                'sections',
+                'selectedSectionIndex',
             ]),
             notificationMessage(){
                 return this.message;
@@ -168,7 +169,8 @@
         },
         methods:{
             ...mapActions([
-                'loadSelectedSectionInfo',
+                'loadSections',
+                'loadSelectedSectionIndex',
             ]),
             changeMessage: function(message){
                 this.message=message;
@@ -195,7 +197,7 @@
                    console.log(pair[0]);
                    console.log(pair[1])
                 }
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.selectedSectionInfo.id+'/lessons/create', formData, {
+                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sections[this.selectedSectionIndex].id+'/lessons/create', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     },
