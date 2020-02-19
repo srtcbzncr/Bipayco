@@ -137,7 +137,29 @@ class LessonRepository implements IRepository{
             //$object->file_path = $data['file_path'];
             $object->name = $data['name'];
             $object->preview = $data['is_preview'];
+            # Yeni gelen source varsa onları ekle
+            if(isset($data['newSource'])){
+                foreach ($data['newSource'] as $item){
+                    $filePath = Storage::putFile('sources', $item);
+                    $newSource = new Source;
+                    $newSource->lesson_id = $id;
+                    $newSource->lesson_type = get_class($object);
+                    $newSource->title = $item->getClientOriginalName();
+                    $newSource->file_path = $filePath;
+                    $newSource->save();
+                }
+            }
             $object->save();
+
+            # Lesson üzerinde güncelleme yapıldığında o lesson'a ait olan ve aktifliği false olan source'ları sil.
+            $lesson = Lesson::find($id);
+            $sources = $lesson->sources;
+            foreach ($sources as $source){
+                if ($source->active == 0){
+                    Storage::delete($source->file_path);
+                    $source->delete();
+                }
+            }
             DB::commit();
         }
         catch(\Exception $e){

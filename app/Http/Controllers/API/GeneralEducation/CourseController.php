@@ -620,7 +620,8 @@ class CourseController extends Controller
             else{
                 return response()->json([
                     'error' => true,
-                    'message' => 'Ders güncellenirken hata oluştu.Tekrar deneyin.'
+                    'message' => 'Ders güncellenirken hata oluştu.Tekrar deneyin.',
+                    'errorMessage' => $resp->getError()
                 ],400);
             }
         }
