@@ -68,7 +68,10 @@ class SectionRepository implements IRepository{
                 $last_section = $item;
             }
             $object->course_id = $data['courseId'];
-            $object->no = $last_section->no+1;
+            if($last_section !=null)
+                $object->no = $last_section->no+1;
+            else
+                $object->no = 1;
             $object->name = $data['name'];
             $object->active = true;
             $object->save();
