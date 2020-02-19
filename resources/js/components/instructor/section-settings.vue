@@ -1,5 +1,5 @@
 <template>
-    <div class="sectionSettings" hidden>
+    <div v-if="sections.length>0" class="sectionSettings" hidden>
         <div class="uk-margin-top">
             <h4>{{editSectionText}}</h4>
         </div>

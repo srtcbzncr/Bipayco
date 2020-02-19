@@ -101,7 +101,7 @@
                             UIkit.notification({message:response.message, status: 'success'});
                         }
                     });
-                    document.getElementById('sectionInput').value="";
+                document.getElementById('sectionInput').value="";
             },
         },
         created() {

@@ -1,5 +1,5 @@
 <template>
-    <div class='addLesson' hidden>
+    <div v-if="sections.length>0" class='addLesson' hidden>
         <div class="uk-margin-top">
             <h4>{{addLessonText}}</h4>
         </div>

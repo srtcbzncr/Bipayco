@@ -4145,9 +4145,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     cancel: function cancel() {
       axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/' + this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id + '/source/cancel').then(this.$store.dispatch('loadSections', this.courseId));
       this.clearForm();
-    },
-    refreshDate: function refreshDate() {
-      this.$store.dispatch('loadSections', this.courseId);
     }
   })
 });
@@ -8296,381 +8293,386 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "addLesson", attrs: { hidden: "" } }, [
-    _c("div", { staticClass: "uk-margin-top" }, [
-      _c("h4", [_vm._v(_vm._s(_vm.addLessonText))])
-    ]),
-    _vm._v(" "),
-    _c("hr"),
-    _vm._v(" "),
-    _c("div", { staticClass: "uk-form-label" }, [
-      _vm._v(_vm._s(_vm.lessonNameText))
-    ]),
-    _vm._v(" "),
-    _c("input", {
-      staticClass: "uk-padding-small uk-margin-small-top uk-input uk-width",
-      attrs: {
-        type: "text",
-        id: "lessonNameInput",
-        placeholder: _vm.lessonNameText
-      }
-    }),
-    _vm._v(" "),
-    _c("div", { staticClass: "uk-margin-top" }, [
-      _c("div", { staticClass: "uk-form-label" }, [
-        _vm._v(_vm._s(_vm.fileTypeText))
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass:
-            "uk-width uk-flex uk-flex-row align-items-center justify-content-around"
-        },
-        [
-          _c("div", { staticClass: "uk-flex align-items-center" }, [
-            _c("input", {
-              staticClass: "uk-radio uk-margin-remove",
-              attrs: { type: "radio", name: "document", checked: "" },
-              on: {
-                click: function($event) {
-                  _vm.isVideo = 1
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "p",
-              {
-                staticClass:
-                  "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
-              },
-              [_vm._v(_vm._s(_vm.videoText))]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "uk-flex align-items-center" }, [
-            _c("input", {
-              staticClass: "uk-radio uk-margin-remove",
-              attrs: { type: "radio", name: "document" },
-              on: {
-                click: function($event) {
-                  _vm.isVideo = 0
-                }
-              }
-            }),
-            _vm._v(" "),
-            _c(
-              "p",
-              {
-                staticClass:
-                  "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
-              },
-              [_vm._v(_vm._s(_vm.pdfText))]
-            )
-          ])
-        ]
-      )
-    ]),
-    _vm._v(" "),
-    _c(
-      "form",
-      {
-        staticClass:
-          "uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove",
-        attrs: { id: "uploadForm" }
-      },
-      [
-        _vm.isVideo == 1
-          ? _c("div", [
-              _c("div", { staticClass: "uk-form-label" }, [
-                _vm._v(_vm._s(_vm.uploadVideoText))
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "uk-flex uk-flex-center",
-                  attrs: { "uk-form-custom": "target: true" }
-                },
-                [
-                  _c("input", {
-                    attrs: {
-                      id: "courseVideo",
-                      type: "file",
-                      accept: "video/*",
-                      required: ""
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass: "uk-input",
-                    attrs: {
-                      type: "text",
-                      tabindex: "-1",
-                      placeholder: _vm.uploadVideoText,
-                      disabled: ""
-                    }
-                  })
-                ]
-              )
-            ])
-          : _c("div", [
-              _c("div", { staticClass: "uk-form-label" }, [
-                _vm._v(_vm._s(_vm.uploadDocumentText))
-              ]),
-              _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass: "uk-flex uk-flex-center",
-                  attrs: { "uk-form-custom": "target: true" }
-                },
-                [
-                  _c("input", {
-                    attrs: {
-                      id: "coursePdf",
-                      type: "file",
-                      accept: "application/pdf,application/vnd.ms-excel",
-                      required: ""
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass: "uk-input",
-                    attrs: {
-                      type: "text",
-                      tabindex: "-1",
-                      placeholder: _vm.uploadDocumentText,
-                      disabled: ""
-                    }
-                  })
-                ]
-              )
-            ]),
+  return _vm.sections.length > 0
+    ? _c("div", { staticClass: "addLesson", attrs: { hidden: "" } }, [
+        _c("div", { staticClass: "uk-margin-top" }, [
+          _c("h4", [_vm._v(_vm._s(_vm.addLessonText))])
+        ]),
         _vm._v(" "),
-        _c("div", { staticClass: "uk-margin" }, [
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-form-label" }, [
+          _vm._v(_vm._s(_vm.lessonNameText))
+        ]),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "uk-padding-small uk-margin-small-top uk-input uk-width",
+          attrs: {
+            type: "text",
+            id: "lessonNameInput",
+            placeholder: _vm.lessonNameText
+          }
+        }),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-margin-top" }, [
           _c("div", { staticClass: "uk-form-label" }, [
-            _vm._v(_vm._s(_vm.addSourceText))
+            _vm._v(_vm._s(_vm.fileTypeText))
           ]),
           _vm._v(" "),
           _c(
             "div",
             {
-              staticClass: "js-upload uk-flex uk-flex-center",
-              attrs: { "uk-form-custom": "" }
+              staticClass:
+                "uk-width uk-flex uk-flex-row align-items-center justify-content-around"
             },
             [
-              _c("input", {
-                attrs: { type: "file", id: "courseSource" },
-                on: { change: _vm.addSource }
-              }),
+              _c("div", { staticClass: "uk-flex align-items-center" }, [
+                _c("input", {
+                  staticClass: "uk-radio uk-margin-remove",
+                  attrs: { type: "radio", name: "document", checked: "" },
+                  on: {
+                    click: function($event) {
+                      _vm.isVideo = 1
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass:
+                      "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
+                  },
+                  [_vm._v(_vm._s(_vm.videoText))]
+                )
+              ]),
               _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "uk-button uk-button-default uk-width",
-                  attrs: { type: "button", tabindex: "-1" }
-                },
-                [
-                  _c("span", { staticClass: "fas fa-upload uk-margin-small" }),
-                  _vm._v(" " + _vm._s(_vm.addSourceText))
-                ]
-              )
+              _c("div", { staticClass: "uk-flex align-items-center" }, [
+                _c("input", {
+                  staticClass: "uk-radio uk-margin-remove",
+                  attrs: { type: "radio", name: "document" },
+                  on: {
+                    click: function($event) {
+                      _vm.isVideo = 0
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass:
+                      "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
+                  },
+                  [_vm._v(_vm._s(_vm.pdfText))]
+                )
+              ])
             ]
           )
         ]),
         _vm._v(" "),
         _c(
-          "ul",
-          _vm._l(_vm.sources, function(source, index) {
-            return _c("li", [
-              _c(
-                "div",
-                { staticClass: "uk-flex align-items-center uk-margin" },
-                [
+          "form",
+          {
+            staticClass:
+              "uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove",
+            attrs: { id: "uploadForm" }
+          },
+          [
+            _vm.isVideo == 1
+              ? _c("div", [
+                  _c("div", { staticClass: "uk-form-label" }, [
+                    _vm._v(_vm._s(_vm.uploadVideoText))
+                  ]),
+                  _vm._v(" "),
                   _c(
                     "div",
-                    { staticClass: "uk-width-5-6 uk-flex uk-flex-wrap" },
+                    {
+                      staticClass: "uk-flex uk-flex-center",
+                      attrs: { "uk-form-custom": "target: true" }
+                    },
                     [
-                      _c(
-                        "p",
-                        {
-                          staticClass: "uk-margin-remove",
-                          staticStyle: {
-                            "text-overflow": "ellipsis",
-                            overflow: "hidden"
-                          }
-                        },
-                        [_vm._v(_vm._s(source.name))]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "uk-width-1-6" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass:
-                          "uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right",
-                        on: {
-                          click: function($event) {
-                            return _vm.deleteSource(index)
-                          }
+                      _c("input", {
+                        attrs: {
+                          id: "courseVideo",
+                          type: "file",
+                          accept: "video/*",
+                          required: ""
                         }
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "fas fa-trash-alt text-danger icon-small"
-                        })
-                      ]
-                    )
-                  ])
+                      }),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "uk-input",
+                        attrs: {
+                          type: "text",
+                          tabindex: "-1",
+                          placeholder: _vm.uploadVideoText,
+                          disabled: ""
+                        }
+                      })
+                    ]
+                  )
+                ])
+              : _c("div", [
+                  _c("div", { staticClass: "uk-form-label" }, [
+                    _vm._v(_vm._s(_vm.uploadDocumentText))
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "uk-flex uk-flex-center",
+                      attrs: { "uk-form-custom": "target: true" }
+                    },
+                    [
+                      _c("input", {
+                        attrs: {
+                          id: "coursePdf",
+                          type: "file",
+                          accept: "application/pdf,application/vnd.ms-excel",
+                          required: ""
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "uk-input",
+                        attrs: {
+                          type: "text",
+                          tabindex: "-1",
+                          placeholder: _vm.uploadDocumentText,
+                          disabled: ""
+                        }
+                      })
+                    ]
+                  )
+                ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "uk-margin" }, [
+              _c("div", { staticClass: "uk-form-label" }, [
+                _vm._v(_vm._s(_vm.addSourceText))
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass: "js-upload uk-flex uk-flex-center",
+                  attrs: { "uk-form-custom": "" }
+                },
+                [
+                  _c("input", {
+                    attrs: { type: "file", id: "courseSource" },
+                    on: { change: _vm.addSource }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "uk-button uk-button-default uk-width",
+                      attrs: { type: "button", tabindex: "-1" }
+                    },
+                    [
+                      _c("span", {
+                        staticClass: "fas fa-upload uk-margin-small"
+                      }),
+                      _vm._v(" " + _vm._s(_vm.addSourceText))
+                    ]
+                  )
                 ]
               )
-            ])
-          }),
-          0
-        )
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass:
-          "uk-margin uk-flex justify-content-start align-items-center"
-      },
-      [
-        _c("label", [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.checked,
-                expression: "checked"
-              }
-            ],
-            staticClass: "uk-checkbox",
-            attrs: { id: "lessonPreview", type: "checkbox" },
-            domProps: {
-              checked: _vm.checked,
-              checked: Array.isArray(_vm.checked)
-                ? _vm._i(_vm.checked, null) > -1
-                : _vm.checked
-            },
-            on: {
-              change: function($event) {
-                var $$a = _vm.checked,
-                  $$el = $event.target,
-                  $$c = $$el.checked ? true : false
-                if (Array.isArray($$a)) {
-                  var $$v = null,
-                    $$i = _vm._i($$a, $$v)
-                  if ($$el.checked) {
-                    $$i < 0 && (_vm.checked = $$a.concat([$$v]))
-                  } else {
-                    $$i > -1 &&
-                      (_vm.checked = $$a
-                        .slice(0, $$i)
-                        .concat($$a.slice($$i + 1)))
-                  }
-                } else {
-                  _vm.checked = $$c
-                }
-              }
-            }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "checkmark uk-text-small" }, [
-            _vm._v(_vm._s(_vm.previewText))
-          ])
-        ])
-      ]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "uk-grid" }, [
-      _c("div", { staticClass: "uk-width-1-2@m" }, [
-        _c(
-          "button",
-          {
-            staticClass:
-              "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
-            attrs: { "uk-toggle": "target: #modal-example" },
-            on: { click: _vm.addLesson }
-          },
-          [_vm._v(_vm._s(_vm.saveText))]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "uk-width-1-2@m" }, [
-        _c(
-          "button",
-          {
-            staticClass:
-              "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
-            attrs: { "uk-toggle": "target: .addLesson" },
-            on: { click: _vm.cancel }
-          },
-          [_vm._v(_vm._s(_vm.cancelText))]
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        attrs: {
-          id: "modal-example",
-          "uk-modal": "bg-close:false; esc-close:false; "
-        }
-      },
-      [
-        _c("div", { staticClass: "uk-modal-dialog uk-modal-body" }, [
-          _c(
-            "h2",
-            {
-              staticClass: "uk-modal-title toggleByAxios",
-              attrs: { hidden: "" }
-            },
-            [_vm._v(_vm._s(_vm.uploadingText))]
-          ),
-          _vm._v(" "),
-          _c("h2", { staticClass: "uk-modal-title toggleByAxios" }, [
-            _vm._v(_vm._s(_vm.notificationMessage))
-          ]),
-          _vm._v(" "),
-          _c("progress", {
-            staticClass: "uk-progress toggleByAxios",
-            attrs: { max: "100", hidden: "" },
-            domProps: { value: _vm.uploadPercentage }
-          }),
-          _vm._v(" "),
-          _c("p", { staticClass: "uk-text-right" }, [
-            _c(
-              "button",
-              {
-                staticClass: "uk-button uk-button-default toggleButton",
-                attrs: { hidden: "", disabled: "", type: "button" }
-              },
-              [_vm._v(_vm._s(_vm.continueText))]
-            ),
+            ]),
             _vm._v(" "),
+            _c(
+              "ul",
+              _vm._l(_vm.sources, function(source, index) {
+                return _c("li", [
+                  _c(
+                    "div",
+                    { staticClass: "uk-flex align-items-center uk-margin" },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "uk-width-5-6 uk-flex uk-flex-wrap" },
+                        [
+                          _c(
+                            "p",
+                            {
+                              staticClass: "uk-margin-remove",
+                              staticStyle: {
+                                "text-overflow": "ellipsis",
+                                overflow: "hidden"
+                              }
+                            },
+                            [_vm._v(_vm._s(source.name))]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "uk-width-1-6" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass:
+                              "uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right",
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteSource(index)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass:
+                                "fas fa-trash-alt text-danger icon-small"
+                            })
+                          ]
+                        )
+                      ])
+                    ]
+                  )
+                ])
+              }),
+              0
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "uk-margin uk-flex justify-content-start align-items-center"
+          },
+          [
+            _c("label", [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.checked,
+                    expression: "checked"
+                  }
+                ],
+                staticClass: "uk-checkbox",
+                attrs: { id: "lessonPreview", type: "checkbox" },
+                domProps: {
+                  checked: _vm.checked,
+                  checked: Array.isArray(_vm.checked)
+                    ? _vm._i(_vm.checked, null) > -1
+                    : _vm.checked
+                },
+                on: {
+                  change: function($event) {
+                    var $$a = _vm.checked,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? true : false
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.checked = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.checked = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
+                    } else {
+                      _vm.checked = $$c
+                    }
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "checkmark uk-text-small" }, [
+                _vm._v(_vm._s(_vm.previewText))
+              ])
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-grid" }, [
+          _c("div", { staticClass: "uk-width-1-2@m" }, [
             _c(
               "button",
               {
                 staticClass:
-                  "uk-button uk-button-default uk-modal-close toggleButton",
-                attrs: { "uk-toggle": "target: .addLesson", type: "button" }
+                  "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+                attrs: { "uk-toggle": "target: #modal-example" },
+                on: { click: _vm.addLesson }
               },
-              [_vm._v(_vm._s(_vm.continueText))]
+              [_vm._v(_vm._s(_vm.saveText))]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "uk-width-1-2@m" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+                attrs: { "uk-toggle": "target: .addLesson" },
+                on: { click: _vm.cancel }
+              },
+              [_vm._v(_vm._s(_vm.cancelText))]
             )
           ])
-        ])
-      ]
-    )
-  ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            attrs: {
+              id: "modal-example",
+              "uk-modal": "bg-close:false; esc-close:false; "
+            }
+          },
+          [
+            _c("div", { staticClass: "uk-modal-dialog uk-modal-body" }, [
+              _c(
+                "h2",
+                {
+                  staticClass: "uk-modal-title toggleByAxios",
+                  attrs: { hidden: "" }
+                },
+                [_vm._v(_vm._s(_vm.uploadingText))]
+              ),
+              _vm._v(" "),
+              _c("h2", { staticClass: "uk-modal-title toggleByAxios" }, [
+                _vm._v(_vm._s(_vm.notificationMessage))
+              ]),
+              _vm._v(" "),
+              _c("progress", {
+                staticClass: "uk-progress toggleByAxios",
+                attrs: { max: "100", hidden: "" },
+                domProps: { value: _vm.uploadPercentage }
+              }),
+              _vm._v(" "),
+              _c("p", { staticClass: "uk-text-right" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "uk-button uk-button-default toggleButton",
+                    attrs: { hidden: "", disabled: "", type: "button" }
+                  },
+                  [_vm._v(_vm._s(_vm.continueText))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "button",
+                  {
+                    staticClass:
+                      "uk-button uk-button-default uk-modal-close toggleButton",
+                    attrs: { "uk-toggle": "target: .addLesson", type: "button" }
+                  },
+                  [_vm._v(_vm._s(_vm.continueText))]
+                )
+              ])
+            ])
+          ]
+        )
+      ])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -9506,217 +9508,230 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "lessonSettings", attrs: { hidden: "" } }, [
-    _c("div", { staticClass: "uk-margin-top" }, [
-      _c("h4", [_vm._v(_vm._s(_vm.editLessonText))])
-    ]),
-    _vm._v(" "),
-    _c("hr"),
-    _vm._v(" "),
-    _c("div", [
-      _c("div", { staticClass: "uk-form-label" }, [
-        _vm._v(_vm._s(_vm.lessonNameText))
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "uk-input",
-        attrs: { type: "text", id: "lessonSettingsName", required: "" },
-        domProps: {
-          value:
-            _vm.sections[_vm.selectedSectionIndex].lessons[
-              _vm.selectedLessonIndex
-            ].name
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c("div", [
-      _c("div", { staticClass: "uk-form-label" }, [
-        _vm._v(_vm._s(_vm.sourcesText))
-      ]),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "js-upload uk-flex uk-flex-center uk-margin",
-          attrs: { "uk-form-custom": "" }
-        },
-        [
+  return _vm.sections.length > 0 &&
+    _vm.sections[_vm.selectedSectionIndex].lessons.length > 0
+    ? _c("div", { staticClass: "lessonSettings", attrs: { hidden: "" } }, [
+        _c("div", { staticClass: "uk-margin-top" }, [
+          _c("h4", [_vm._v(_vm._s(_vm.editLessonText))])
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", [
+          _c("div", { staticClass: "uk-form-label" }, [
+            _vm._v(_vm._s(_vm.lessonNameText))
+          ]),
+          _vm._v(" "),
           _c("input", {
-            attrs: { type: "file", id: "courseSourceSettings" },
-            on: { change: _vm.addSource }
-          }),
+            staticClass: "uk-input",
+            attrs: { type: "text", id: "lessonSettingsName", required: "" },
+            domProps: {
+              value:
+                _vm.sections[_vm.selectedSectionIndex].lessons[
+                  _vm.selectedLessonIndex
+                ].name
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c("div", { staticClass: "uk-form-label" }, [
+            _vm._v(_vm._s(_vm.sourcesText))
+          ]),
           _vm._v(" "),
           _c(
-            "button",
+            "div",
             {
-              staticClass: "uk-button uk-button-default uk-width",
-              attrs: { type: "button", tabindex: "-1" }
+              staticClass: "js-upload uk-flex uk-flex-center uk-margin",
+              attrs: { "uk-form-custom": "" }
             },
             [
-              _c("span", { staticClass: "fas fa-upload uk-margin-small" }),
-              _vm._v(" " + _vm._s(_vm.addSourceText))
-            ]
-          )
-        ]
-      ),
-      _vm._v(" "),
-      _c(
-        "ul",
-        _vm._l(
-          _vm.sections[_vm.selectedSectionIndex].lessons[
-            _vm.selectedLessonIndex
-          ].sources,
-          function(source) {
-            return _c("li", [
+              _c("input", {
+                attrs: { type: "file", id: "courseSourceSettings" },
+                on: { change: _vm.addSource }
+              }),
+              _vm._v(" "),
               _c(
-                "div",
-                { staticClass: "uk-flex align-items-center uk-margin" },
+                "button",
+                {
+                  staticClass: "uk-button uk-button-default uk-width",
+                  attrs: { type: "button", tabindex: "-1" }
+                },
                 [
-                  _c(
-                    "div",
-                    { staticClass: "uk-width-5-6 uk-flex uk-flex-wrap" },
-                    [
-                      _c(
-                        "p",
-                        {
-                          staticClass: "uk-margin-remove",
-                          staticStyle: {
-                            "text-overflow": "ellipsis",
-                            overflow: "hidden"
-                          }
-                        },
-                        [_vm._v(_vm._s(source.title))]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "uk-width-1-6" }, [
-                    _c(
-                      "a",
-                      {
-                        staticClass:
-                          "uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right",
-                        on: {
-                          click: function($event) {
-                            return _vm.deleteSourceFromDatabase(source.id)
-                          }
-                        }
-                      },
-                      [
-                        _c("i", {
-                          staticClass: "fas fa-trash-alt text-danger icon-small"
-                        })
-                      ]
-                    )
-                  ])
+                  _c("span", { staticClass: "fas fa-upload uk-margin-small" }),
+                  _vm._v(" " + _vm._s(_vm.addSourceText))
                 ]
               )
-            ])
-          }
-        ),
-        0
-      ),
-      _vm._v(" "),
-      _c(
-        "ul",
-        _vm._l(_vm.newSources, function(source, index) {
-          return _c("li", [
-            _c("div", { staticClass: "uk-flex align-items-center uk-margin" }, [
-              _c("div", { staticClass: "uk-width-5-6 uk-flex uk-flex-wrap" }, [
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "ul",
+            _vm._l(
+              _vm.sections[_vm.selectedSectionIndex].lessons[
+                _vm.selectedLessonIndex
+              ].sources,
+              function(source) {
+                return _c("li", [
+                  _c(
+                    "div",
+                    { staticClass: "uk-flex align-items-center uk-margin" },
+                    [
+                      _c(
+                        "div",
+                        { staticClass: "uk-width-5-6 uk-flex uk-flex-wrap" },
+                        [
+                          _c(
+                            "p",
+                            {
+                              staticClass: "uk-margin-remove",
+                              staticStyle: {
+                                "text-overflow": "ellipsis",
+                                overflow: "hidden"
+                              }
+                            },
+                            [_vm._v(_vm._s(source.title))]
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "uk-width-1-6" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass:
+                              "uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right",
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteSourceFromDatabase(source.id)
+                              }
+                            }
+                          },
+                          [
+                            _c("i", {
+                              staticClass:
+                                "fas fa-trash-alt text-danger icon-small"
+                            })
+                          ]
+                        )
+                      ])
+                    ]
+                  )
+                ])
+              }
+            ),
+            0
+          ),
+          _vm._v(" "),
+          _c(
+            "ul",
+            _vm._l(_vm.newSources, function(source, index) {
+              return _c("li", [
                 _c(
-                  "p",
-                  {
-                    staticClass: "uk-margin-remove",
-                    staticStyle: {
-                      "text-overflow": "ellipsis",
-                      overflow: "hidden"
-                    }
-                  },
-                  [_vm._v(_vm._s(source.name))]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "uk-width-1-6" }, [
-                _c(
-                  "a",
-                  {
-                    staticClass:
-                      "uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right",
-                    on: {
-                      click: function($event) {
-                        return _vm.deleteSource(index)
-                      }
-                    }
-                  },
+                  "div",
+                  { staticClass: "uk-flex align-items-center uk-margin" },
                   [
-                    _c("i", {
-                      staticClass: "fas fa-trash-alt text-danger icon-small"
-                    })
+                    _c(
+                      "div",
+                      { staticClass: "uk-width-5-6 uk-flex uk-flex-wrap" },
+                      [
+                        _c(
+                          "p",
+                          {
+                            staticClass: "uk-margin-remove",
+                            staticStyle: {
+                              "text-overflow": "ellipsis",
+                              overflow: "hidden"
+                            }
+                          },
+                          [_vm._v(_vm._s(source.name))]
+                        )
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-width-1-6" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass:
+                            "uk-button-icon uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right",
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteSource(index)
+                            }
+                          }
+                        },
+                        [
+                          _c("i", {
+                            staticClass:
+                              "fas fa-trash-alt text-danger icon-small"
+                          })
+                        ]
+                      )
+                    ])
                   ]
                 )
               ])
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              " uk-margin-small uk-flex justify-content-start align-items-center"
+          },
+          [
+            _c("label", [
+              _c("input", {
+                staticClass: "uk-checkbox",
+                attrs: { type: "checkbox", id: "settingsPreview" },
+                domProps: {
+                  checked:
+                    _vm.sections[_vm.selectedSectionIndex].lessons[
+                      _vm.selectedLessonIndex
+                    ].preview
+                }
+              }),
+              _vm._v(" "),
+              _c("span", { staticClass: "checkmark uk-text-small" }, [
+                _vm._v(_vm._s(_vm.isPreviewText))
+              ])
             ])
-          ])
-        }),
-        0
-      )
-    ]),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass:
-          " uk-margin-small uk-flex justify-content-start align-items-center"
-      },
-      [
-        _c("label", [
-          _c("input", {
-            staticClass: "uk-checkbox",
-            attrs: { type: "checkbox", id: "settingsPreview" },
-            domProps: {
-              checked:
-                _vm.sections[_vm.selectedSectionIndex].lessons[
-                  _vm.selectedLessonIndex
-                ].preview
-            }
-          }),
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-width-1-1 uk-grid" }, [
+          _c("div", { staticClass: "uk-width-1-2@m" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+                attrs: { "uk-toggle": "target: .lessonSettings" },
+                on: { click: _vm.updateLesson }
+              },
+              [_vm._v(_vm._s(_vm.saveText) + " ")]
+            )
+          ]),
           _vm._v(" "),
-          _c("span", { staticClass: "checkmark uk-text-small" }, [
-            _vm._v(_vm._s(_vm.isPreviewText))
+          _c("div", { staticClass: "uk-width-1-2@m" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+                attrs: { "uk-toggle": "target: .lessonSettings" },
+                on: { click: _vm.cancel }
+              },
+              [_vm._v(_vm._s(_vm.cancelText))]
+            )
           ])
         ])
-      ]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "uk-width-1-1 uk-grid" }, [
-      _c("div", { staticClass: "uk-width-1-2@m" }, [
-        _c(
-          "button",
-          {
-            staticClass:
-              "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
-            attrs: { "uk-toggle": "target: .lessonSettings" },
-            on: { click: _vm.updateLesson }
-          },
-          [_vm._v(_vm._s(_vm.saveText) + " ")]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "uk-width-1-2@m" }, [
-        _c(
-          "button",
-          {
-            staticClass:
-              "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
-            attrs: { "uk-toggle": "target: .lessonSettings" },
-            on: { click: _vm.cancel }
-          },
-          [_vm._v(_vm._s(_vm.cancelText))]
-        )
       ])
-    ])
-  ])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -9874,180 +9889,195 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "sectionSettings", attrs: { hidden: "" } }, [
-    _c("div", { staticClass: "uk-margin-top" }, [
-      _c("h4", [_vm._v(_vm._s(_vm.editSectionText))])
-    ]),
-    _vm._v(" "),
-    _c("hr"),
-    _vm._v(" "),
-    _c("div", { staticClass: "uk-margin-small-top" }, [
-      _c("div", { staticClass: "uk-form-label" }, [
-        _vm._v(_vm._s(_vm.sectionNameText))
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "uk-padding-small uk-margin-small-top uk-input uk-width",
-        attrs: { id: "sectionSettingsName", type: "text" },
-        domProps: { value: _vm.sections[_vm.selectedSectionIndex].name }
-      })
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "uk-margin-remove-top" }, [
-      _c("div", { staticClass: "uk-form-label" }, [
-        _vm._v(_vm._s(_vm.lessonsText))
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "tm-course-section-list" }, [
-        _vm.sections[_vm.selectedSectionIndex].lessons != null &&
-        _vm.sections[_vm.selectedSectionIndex].lessons != undefined
-          ? _c(
-              "ul",
-              _vm._l(_vm.sections[_vm.selectedSectionIndex].lessons, function(
-                lesson,
-                lessonIndex
-              ) {
-                return _c(
-                  "li",
-                  {
-                    staticClass:
-                      "uk-card uk-card-default uk-padding-small uk-flex align-items-center justify-content-between"
-                  },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "uk-grid uk-margin-remove uk-padding-remove"
-                      },
-                      [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "uk-width-5-6@m uk-width uk-padding-remove-right"
-                          },
-                          [
-                            _c(
-                              "a",
-                              {
-                                staticClass:
-                                  "uk-link-reset uk-width uk-flex align-items-center",
-                                attrs: { href: "#" }
-                              },
-                              [
-                                _c("span", { staticClass: "uk-visible@s" }, [
-                                  lesson.is_video == "1"
+  return _vm.sections.length > 0
+    ? _c("div", { staticClass: "sectionSettings", attrs: { hidden: "" } }, [
+        _c("div", { staticClass: "uk-margin-top" }, [
+          _c("h4", [_vm._v(_vm._s(_vm.editSectionText))])
+        ]),
+        _vm._v(" "),
+        _c("hr"),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-margin-small-top" }, [
+          _c("div", { staticClass: "uk-form-label" }, [
+            _vm._v(_vm._s(_vm.sectionNameText))
+          ]),
+          _vm._v(" "),
+          _c("input", {
+            staticClass:
+              "uk-padding-small uk-margin-small-top uk-input uk-width",
+            attrs: { id: "sectionSettingsName", type: "text" },
+            domProps: { value: _vm.sections[_vm.selectedSectionIndex].name }
+          })
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-margin-remove-top" }, [
+          _c("div", { staticClass: "uk-form-label" }, [
+            _vm._v(_vm._s(_vm.lessonsText))
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "tm-course-section-list" }, [
+            _vm.sections[_vm.selectedSectionIndex].lessons != null &&
+            _vm.sections[_vm.selectedSectionIndex].lessons != undefined
+              ? _c(
+                  "ul",
+                  _vm._l(
+                    _vm.sections[_vm.selectedSectionIndex].lessons,
+                    function(lesson, lessonIndex) {
+                      return _c(
+                        "li",
+                        {
+                          staticClass:
+                            "uk-card uk-card-default uk-padding-small uk-flex align-items-center justify-content-between"
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "uk-grid uk-margin-remove uk-padding-remove"
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "uk-width-5-6@m uk-width uk-padding-remove-right"
+                                },
+                                [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass:
+                                        "uk-link-reset uk-width uk-flex align-items-center",
+                                      attrs: { href: "#" }
+                                    },
+                                    [
+                                      _c(
+                                        "span",
+                                        { staticClass: "uk-visible@s" },
+                                        [
+                                          lesson.is_video == "1"
+                                            ? _c("i", {
+                                                staticClass:
+                                                  "fas fa-play-circle icon-medium",
+                                                staticStyle: {
+                                                  color: "#666666"
+                                                }
+                                              })
+                                            : _c("i", {
+                                                staticClass:
+                                                  "fas fa-file-alt icon-medium",
+                                                staticStyle: {
+                                                  color: "#666666"
+                                                }
+                                              })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "p",
+                                        {
+                                          staticClass:
+                                            "uk-text-truncate uk-margin-small-right uk-margin-remove-left uk-margin-remove-top uk-margin-remove-bottom"
+                                        },
+                                        [
+                                          _c(
+                                            "span",
+                                            {
+                                              staticClass:
+                                                "uk-visible@s uk-padding-remove uk-margin-remove"
+                                            },
+                                            [
+                                              _vm._v(
+                                                _vm._s(lessonIndex + 1) + ".  "
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" " + _vm._s(lesson.name))
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "uk-width-1-6@m uk-visible@m",
+                                  staticStyle: { color: "#666666" }
+                                },
+                                [
+                                  lesson.preview
                                     ? _c("i", {
                                         staticClass:
-                                          "fas fa-play-circle icon-medium",
-                                        staticStyle: { color: "#666666" }
+                                          "fas fa-play icon-tiny uk-text-grey uk-visible@s"
                                       })
-                                    : _c("i", {
-                                        staticClass:
-                                          "fas fa-file-alt icon-medium",
-                                        staticStyle: { color: "#666666" }
-                                      })
-                                ]),
-                                _vm._v(" "),
-                                _c(
-                                  "p",
-                                  {
-                                    staticClass:
-                                      "uk-text-truncate uk-margin-small-right uk-margin-remove-left uk-margin-remove-top uk-margin-remove-bottom"
-                                  },
-                                  [
-                                    _c(
-                                      "span",
-                                      {
-                                        staticClass:
-                                          "uk-visible@s uk-padding-remove uk-margin-remove"
-                                      },
-                                      [_vm._v(_vm._s(lessonIndex + 1) + ".  ")]
-                                    ),
-                                    _vm._v(" " + _vm._s(lesson.name))
-                                  ]
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "uk-width-1-6@m uk-visible@m",
-                            staticStyle: { color: "#666666" }
-                          },
-                          [
-                            lesson.preview
-                              ? _c("i", {
-                                  staticClass:
-                                    "fas fa-play icon-tiny uk-text-grey uk-visible@s"
-                                })
-                              : _vm._e()
-                          ]
-                        )
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "uk-margin-small-left uk-padding-remove uk-flex uk-flex-column uk-width-1-4"
-                      },
-                      [
-                        _c("a", { on: { click: _vm.lessonUp } }, [
-                          _c("i", { staticClass: "fas fa-sort-up" })
-                        ]),
-                        _vm._v(" "),
-                        _c("a", { on: { click: _vm.lessonDown } }, [
-                          _c("i", { staticClass: "fas fa-sort-down" })
-                        ])
-                      ]
-                    )
-                  ]
+                                    : _vm._e()
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "uk-margin-small-left uk-padding-remove uk-flex uk-flex-column uk-width-1-4"
+                            },
+                            [
+                              _c("a", { on: { click: _vm.lessonUp } }, [
+                                _c("i", { staticClass: "fas fa-sort-up" })
+                              ]),
+                              _vm._v(" "),
+                              _c("a", { on: { click: _vm.lessonDown } }, [
+                                _c("i", { staticClass: "fas fa-sort-down" })
+                              ])
+                            ]
+                          )
+                        ]
+                      )
+                    }
+                  ),
+                  0
                 )
-              }),
-              0
-            )
-          : _vm._e(),
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.sections[_vm.selectedSectionIndex].lessons == null ||
+            _vm.sections[_vm.selectedSectionIndex].lessons == undefined
+              ? _c("h4", [_vm._v(_vm._s(_vm.hasNoLessonText))])
+              : _vm._e()
+          ])
+        ]),
         _vm._v(" "),
-        _vm.sections[_vm.selectedSectionIndex].lessons == null ||
-        _vm.sections[_vm.selectedSectionIndex].lessons == undefined
-          ? _c("h4", [_vm._v(_vm._s(_vm.hasNoLessonText))])
-          : _vm._e()
+        _c("div", { staticClass: "uk-grid uk-margin-top" }, [
+          _c("div", { staticClass: "uk-width-1-2@m" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+                attrs: { "uk-toggle": "target: .sectionSettings" },
+                on: { click: _vm.updateSection }
+              },
+              [_vm._v(_vm._s(_vm.saveText))]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "uk-width-1-2@m" }, [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+                attrs: { "uk-toggle": "target: .sectionSettings" }
+              },
+              [_vm._v(" " + _vm._s(_vm.cancelText) + " ")]
+            )
+          ])
+        ])
       ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "uk-grid uk-margin-top" }, [
-      _c("div", { staticClass: "uk-width-1-2@m" }, [
-        _c(
-          "button",
-          {
-            staticClass:
-              "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
-            attrs: { "uk-toggle": "target: .sectionSettings" },
-            on: { click: _vm.updateSection }
-          },
-          [_vm._v(_vm._s(_vm.saveText))]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "uk-width-1-2@m" }, [
-        _c(
-          "button",
-          {
-            staticClass:
-              "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
-            attrs: { "uk-toggle": "target: .sectionSettings" }
-          },
-          [_vm._v(" " + _vm._s(_vm.cancelText) + " ")]
-        )
-      ])
-    ])
-  ])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -26347,7 +26377,8 @@ var actions = {
   loadSections: function loadSections(_ref11, courseId) {
     var commit = _ref11.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/instructor/course/' + courseId + '/sections/get').then(function (response) {
-      return commit('setSections', response.data);
+      commit('setSections', response.data);
+      console.log(response.data);
     });
   },
   loadSelectedLessonIndex: function loadSelectedLessonIndex(_ref12, lessonIndex) {

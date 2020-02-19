@@ -1,5 +1,5 @@
 <template>
-    <div class="lessonSettings" hidden>
+    <div v-if="sections.length>0&&sections[selectedSectionIndex].lessons.length>0" class="lessonSettings" hidden>
         <div class="uk-margin-top">
             <h4>{{editLessonText}}</h4>
         </div>
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-    import {mapActions, mapState, mapGetters} from "vuex";
+    import {mapActions, mapState} from "vuex";
 
     export default {
         name: "lesson-settings",
@@ -167,9 +167,6 @@
                     .then(this.$store.dispatch('loadSections',this.courseId));
                 this.clearForm();
             },
-            refreshDate:function () {
-                this.$store.dispatch('loadSections',this.courseId)
-            }
         },
     }
 </script>

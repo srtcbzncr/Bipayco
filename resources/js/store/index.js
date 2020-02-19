@@ -109,7 +109,8 @@ const actions={
     },
     loadSections({commit},courseId){
         Axios.get('/api/instructor/course/'+courseId+'/sections/get')
-            .then(response=>commit('setSections',response.data));
+            .then(response=>{commit('setSections',response.data);console.log(response.data)});
+
     },
     loadSelectedLessonIndex({commit},lessonIndex){
         commit('setSelectedLessonIndex',lessonIndex);
