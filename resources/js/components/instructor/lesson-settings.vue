@@ -63,7 +63,6 @@
         name: "lesson-settings",
         data(){
             return{
-                lessonSources: [],
                 newSources:[],
             }
         },
@@ -114,26 +113,34 @@
                 'loadSelectedSectionIndex',
                 'loadSections'
             ]),
-            getSource:function(){
-                for(var i=0;i<this.selectedLessonSources.length; i++){
-                    this.lessonSources.push(this.selectedLessonSources[i]);
-                }
-            },
             updateLesson:function () {
                 var isPreview = document.querySelector('#settingsPreview').checked ? '1' : '0';
                 var formData=new FormData();
                 formData.append('name', document.getElementById('lessonSettingsName').value);
                 formData.append('is_preview', isPreview);
-                var i=0;
-                for (i;i<this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].sources.length;i++){
-                    formData.append('source['+i+']', this.lessonSources[i]);
+                var sources=this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].sources;
+                for (var i=0;i<sources.length;i++){
+                    formData.append('source['+i+']', {
+                        id:sources[i].id,
+                        lesson_id:sources[i].lesson_id,
+                        lesson_type:sources[i].lesson_type,
+                        title:sources[i].title,
+                        file_path:sources[i].file_path,
+                        active:sources[i].active,
+                        created_at:sources[i].created_at,
+                        updated_at:sources[i].updated_at,
+                        deleted_at:sources[i].deleted_at
+                    });
                 }
                 for (var j=0 ;j<this.newSources.length; j++){
-                    formData.append('source['+i+']', this.newSources[j]);
-                    i++;
+                    formData.append('newSource['+j+']', this.newSources[j]);
                 }
                 formData.append('sectionId', this.sections[this.selectedSectionIndex].id);
                 formData.append('courseId', this.courseId);
+                for(var pair of formData){
+                    console.log(pair[0]);
+                    console.log(pair[1]);
+                }
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sections[this.selectedSectionIndex].id+'/lessons/create/'+this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id, formData)
                     .then(response=>{
                         if(!response.data.error){

@@ -4043,7 +4043,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "lesson-settings",
   data: function data() {
     return {
-      lessonSources: [],
       newSources: []
     };
   },
@@ -4083,11 +4082,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['sections', 'selectedLessonIndex', 'selectedSectionIndex'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSelectedLessonIndex', 'loadSelectedSectionIndex', 'loadSections']), {
-    getSource: function getSource() {
-      for (var i = 0; i < this.selectedLessonSources.length; i++) {
-        this.lessonSources.push(this.selectedLessonSources[i]);
-      }
-    },
     updateLesson: function updateLesson() {
       var _this = this;
 
@@ -4095,19 +4089,53 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var formData = new FormData();
       formData.append('name', document.getElementById('lessonSettingsName').value);
       formData.append('is_preview', isPreview);
-      var i = 0;
+      var sources = this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].sources;
 
-      for (i; i < this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].sources.length; i++) {
-        formData.append('source[' + i + ']', this.lessonSources[i]);
+      for (var i = 0; i < sources.length; i++) {
+        formData.append('source[' + i + ']', {
+          id: sources[i].id,
+          lesson_id: sources[i].lesson_id,
+          lesson_type: sources[i].lesson_type,
+          title: sources[i].title,
+          file_path: sources[i].file_path,
+          active: sources[i].active,
+          created_at: sources[i].created_at,
+          updated_at: sources[i].updated_at,
+          deleted_at: sources[i].deleted_at
+        });
       }
 
       for (var j = 0; j < this.newSources.length; j++) {
-        formData.append('source[' + i + ']', this.newSources[j]);
-        i++;
+        formData.append('newSource[' + j + ']', this.newSources[j]);
       }
 
       formData.append('sectionId', this.sections[this.selectedSectionIndex].id);
       formData.append('courseId', this.courseId);
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = formData[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var pair = _step.value;
+          console.log(pair[0]);
+          console.log(pair[1]);
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
       axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/create/' + this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id, formData).then(function (response) {
         if (!response.data.error) {
           UIkit.notification({
