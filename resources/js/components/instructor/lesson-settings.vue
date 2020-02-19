@@ -137,10 +137,6 @@
                 }
                 formData.append('sectionId', this.sections[this.selectedSectionIndex].id);
                 formData.append('courseId', this.courseId);
-                for(var pair of formData){
-                    console.log(pair[0]);
-                    console.log(pair[1]);
-                }
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sections[this.selectedSectionIndex].id+'/lessons/create/'+this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id, formData)
                     .then(response=>{
                         if(!response.data.error){

@@ -4111,31 +4111,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       formData.append('sectionId', this.sections[this.selectedSectionIndex].id);
       formData.append('courseId', this.courseId);
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = formData[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var pair = _step.value;
-          console.log(pair[0]);
-          console.log(pair[1]);
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-            _iterator["return"]();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-
       axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/create/' + this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id, formData).then(function (response) {
         if (!response.data.error) {
           UIkit.notification({
