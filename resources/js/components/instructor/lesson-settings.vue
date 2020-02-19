@@ -146,7 +146,6 @@
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
-                        console.log(response)
                     })
             },
             clearForm:function () {
@@ -161,14 +160,11 @@
             },
             deleteSourceFromDatabase:function(sourceId){
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sections[this.selectedSectionIndex].id+'/lessons/'+this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id+'/source/delete/'+sourceId)
-                    .then(response=>console.log(response))
                     .then(this.$store.dispatch('loadSections',this.courseId));
             },
             cancel:function () {
                 axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sections[this.selectedSectionIndex].id+'/lessons/'+this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id+'/source/cancel')
-                    .then(response=>console.log(response))
-                    .then(this.$store.dispatch('loadSections',this.courseId))
-                    .catch(response=>console.log(response));
+                    .then(this.$store.dispatch('loadSections',this.courseId));
                 this.clearForm();
             },
             refreshDate:function () {

@@ -4127,8 +4127,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             status: 'danger'
           });
         }
-
-        console.log(response);
       });
     },
     clearForm: function clearForm() {
@@ -4142,16 +4140,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.newSources.splice(index, 1);
     },
     deleteSourceFromDatabase: function deleteSourceFromDatabase(sourceId) {
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/' + this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id + '/source/delete/' + sourceId).then(function (response) {
-        return console.log(response);
-      }).then(this.$store.dispatch('loadSections', this.courseId));
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/' + this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id + '/source/delete/' + sourceId).then(this.$store.dispatch('loadSections', this.courseId));
     },
     cancel: function cancel() {
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/' + this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id + '/source/cancel').then(function (response) {
-        return console.log(response);
-      }).then(this.$store.dispatch('loadSections', this.courseId))["catch"](function (response) {
-        return console.log(response);
-      });
+      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/' + this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id + '/source/cancel').then(this.$store.dispatch('loadSections', this.courseId));
       this.clearForm();
     },
     refreshDate: function refreshDate() {
