@@ -26377,8 +26377,7 @@ var actions = {
   loadSections: function loadSections(_ref11, courseId) {
     var commit = _ref11.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/instructor/course/' + courseId + '/sections/get').then(function (response) {
-      commit('setSections', response.data);
-      console.log(response.data);
+      return commit('setSections', response.data);
     });
   },
   loadSelectedLessonIndex: function loadSelectedLessonIndex(_ref12, lessonIndex) {
