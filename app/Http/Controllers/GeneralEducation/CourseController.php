@@ -65,6 +65,8 @@ class CourseController extends Controller
         }
     }
     public function watch($id){
+        $course = Course::find($id);
+        View::share('course',$course);
         return view('general_education.watch');
     }
 }
