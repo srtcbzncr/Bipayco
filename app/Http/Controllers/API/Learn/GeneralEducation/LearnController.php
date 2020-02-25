@@ -71,7 +71,21 @@ class LearnController extends Controller
     }
 
     // Eğitmene sorulan sorular ve sorulara verilen cevapları al.
-    public function getDiscussions(){
+    public function getDiscussions($course_id,$lesson_id){
+        // initialization
+        $repo = new LearnRepository();
 
+        // Operations
+        $resp = $repo->getDiscussion($lesson_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+        return response()->json([
+           'error' => true,
+           'message' => 'Sorular ve cevaplar getirilirken hata oluştu.Tekrar Deneyin'
+        ]);
     }
 }

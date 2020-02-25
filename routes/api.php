@@ -91,9 +91,11 @@ Route::prefix('instructor')->group(function(){
 
 # Kurs İzleme Bölümü İçin Routes
 Route::prefix('learn')->group(function (){
-    Route::get('generalEducation/{course_id}','API\Learn\GeneralEducation\LearnController')->name('api_get_general_education_course');
-    Route::get('generalEducation/{course_id}/lesson/{lesson_id}','API\Learn\GeneralEducation\LearnController')->name('api_get_general_education_lesson');
-    Route::get('generalEducation/{course_id}/sources','API\Learn\GeneralEducation\LearnController')->name('api_get_general_education_sources');
+    Route::get('generalEducation/{course_id}','API\Learn\GeneralEducation\LearnController@getCourse')->name('api_get_general_education_course');
+    Route::get('generalEducation/{course_id}/lesson/{lesson_id}','API\Learn\GeneralEducation\LearnController@getLesson')->name('api_get_general_education_lesson');
+    Route::get('generalEducation/{course_id}/sources','API\Learn\GeneralEducation\LearnController@getSources')->name('api_get_general_education_sources');
+    Route::get('generalEducation/{course_id}/lesson/{lesson_id}/discussion','API\Learn\GeneralEducation\LearnController@getDiscussions')->name('api_get_general_education_discussion');
+    Route::get('generalEducation/{course_id}/lesson/{lesson_id}/discussion/ask','API\Learn\GeneralEducation\LearnController@getDiscussions')->name('api_get_general_education_discussion_ask');
 });
 
 Route::get('myCourses/{id}', 'API\Auth\AuthController@courses')->name('api_my_courses');

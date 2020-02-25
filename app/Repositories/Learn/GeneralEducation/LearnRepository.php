@@ -5,6 +5,7 @@ namespace App\Repositories\Learn\GeneralEducation;
 
 
 use App\Models\GeneralEducation\Lesson;
+use App\Models\GeneralEducation\Question;
 use App\Models\GeneralEducation\Section;
 use App\Models\GeneralEducation\Source;
 use App\Repositories\IRepository;
@@ -120,6 +121,37 @@ class LearnRepository implements IRepository
                     $sources = Source::where('lesson_id',$lesson->id)->where('active',true)->get();
                     $object['sections'][$keySection]['lesson'][$keyLesson]['sources'] = $sources->pluck('name');
                 }
+            }
+
+            DB::commit();
+        }
+        catch (\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getDiscussion($lesson_id){
+        // initialization
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+
+        try{
+            DB::beginTransaction();
+
+            $questions = Question::where('lesson_id',$lesson_id)->get();
+            $object['questions'] = $questions;
+            foreach ($questions as $key => $question){
+                $answers = $question->answers;
+                $object['questions'][$key]['answers'] = $answers;
             }
 
             DB::commit();
