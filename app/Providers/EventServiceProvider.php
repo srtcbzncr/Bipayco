@@ -48,6 +48,12 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\Auth\InstructorCallEvent' => [
             'App\Listeners\Auth\InstructorCallListener'
         ],
+        'App\Events\Instructor\CourseActiveEvent' => [
+            'App\Listeners\Instructor\CourseActiveListener'
+        ],
+        'App\Events\Instructor\SectionActiveEvent' => [
+            'App\Listeners\Instructor\SectionActiveListener'
+        ],
     ];
 
     /**
