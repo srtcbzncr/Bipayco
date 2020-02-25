@@ -4,6 +4,7 @@
 namespace App\Repositories\Learn\GeneralEducation;
 
 
+use App\Models\GeneralEducation\Answer;
 use App\Models\GeneralEducation\Lesson;
 use App\Models\GeneralEducation\Question;
 use App\Models\GeneralEducation\Section;
@@ -153,6 +154,68 @@ class LearnRepository implements IRepository
                 $answers = $question->answers;
                 $object['questions'][$key]['answers'] = $answers;
             }
+
+            DB::commit();
+        }
+        catch (\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function askQuestion($lesson_id,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+
+        try{
+            DB::beginTransaction();
+
+            $user = auth('api')->user();
+            $question = new Question();
+            $question->lesson_id = $lesson_id;
+            $question->lesson_type = 'App\Models\GeneralEducation\Course';
+            $question->user_id = $user->id;
+            $question->title = $data->title;
+            $question->content = $data->content;
+            $question->save();
+
+            DB::commit();
+        }
+        catch (\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function answerQuestion($question_id,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+
+        try{
+            DB::beginTransaction();
+
+            $user = auth('api')->user();
+            $answer = new Answer();
+            $answer->question_id = $question_id;
+            $answer->user_id = $user->id;
+            $answer->content = $data->content;
+            $answer->save();
 
             DB::commit();
         }

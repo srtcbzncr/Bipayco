@@ -88,4 +88,43 @@ class LearnController extends Controller
            'message' => 'Sorular ve cevaplar getirilirken hata oluştu.Tekrar Deneyin'
         ]);
     }
+
+    // Eğitmene soru sor
+    public function askQuestion($course_id,$lesson_id,Request $request){
+        // initialization
+        $repo = new LearnRepository();
+        $data = $request->toArray();
+
+        // Operations
+        $resp = $repo->askQuestion($lesson_id,$data);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Soru sorma işlmei başarılı'
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Soru sorma işlemi başarısız.Tekrar Deneyin'
+        ]);
+    }
+
+    public function answerQuestion($course_id,$lesson_id,$question_id,Request $request){
+        // initialization
+        $repo = new LearnRepository();
+        $data = $request->toArray();
+
+        // Operations
+        $resp = $repo->answerQuestion($question_id,$data);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Cevap verme işlmei başarılı'
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Cevap verme işlemi başarısız.Tekrar Deneyin'
+        ]);
+    }
 }
