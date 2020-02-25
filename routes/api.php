@@ -89,5 +89,12 @@ Route::prefix('instructor')->group(function(){
     Route::post('course/{id}/section/{section_id}/lesson/{lesson_id}/down','API\GeneralEducation\CourseController@lessonDown')->name('api_ge_course_lesson_down');
 });
 
+# Kurs İzleme Bölümü İçin Routes
+Route::prefix('learn')->group(function (){
+    Route::get('generalEducation/{course_id}','API\Learn\GeneralEducation\LearnController')->name('api_get_general_education_course');
+    Route::get('generalEducation/{course_id}/lesson/{lesson_id}','API\Learn\GeneralEducation\LearnController')->name('api_get_general_education_lesson');
+    Route::get('generalEducation/{course_id}/sources','API\Learn\GeneralEducation\LearnController')->name('api_get_general_education_sources');
+});
+
 Route::get('myCourses/{id}', 'API\Auth\AuthController@courses')->name('api_my_courses');
 Route::get('lastCourses/{id}', 'API\Auth\AuthController@getLastWatchedCourses')->name('api_my_last_courses');
