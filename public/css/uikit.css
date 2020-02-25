@@ -10702,6 +10702,9 @@ iframe.uk-cover {
     .uk-visible\@m {
         display: none !important;
     }
+    .uk-grid-padding-remove\@m{
+        padding-left: 30px !important;
+    }
 }
 
 /* Tablet landscape and smaller */

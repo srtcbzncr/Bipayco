@@ -9916,8 +9916,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "tm-course-section-list" }, [
-            _vm.sections[_vm.selectedSectionIndex].lessons != null &&
-            _vm.sections[_vm.selectedSectionIndex].lessons != undefined
+            _vm.sections[_vm.selectedSectionIndex].lessons > 0
               ? _c(
                   "ul",
                   _vm._l(
@@ -10043,8 +10042,7 @@ var render = function() {
                 )
               : _vm._e(),
             _vm._v(" "),
-            _vm.sections[_vm.selectedSectionIndex].lessons == null ||
-            _vm.sections[_vm.selectedSectionIndex].lessons == undefined
+            _vm.sections[_vm.selectedSectionIndex].lessons <= 0
               ? _c("h4", [_vm._v(_vm._s(_vm.hasNoLessonText))])
               : _vm._e()
           ])
