@@ -113,14 +113,15 @@ class LearnRepository implements IRepository
         try{
             DB::beginTransaction();
 
+
             $sections = Section::where('course_id',$course_id)->where('active',true)->orderBy('no','asc')->get();
-            $object['sections'] = $sections->pluck('name');
-            foreach ($sections as $keySection => $section){
+            $object['sections'] = $sections;
+            foreach ($sections as  $sectionKey => $section){
                 $lessons = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
-                $object['sections'][$keySection]['lesson'] = $lessons->pluck('name');
-                foreach ($lessons as $keyLesson => $lesson){
+                $object['sections'][$sectionKey]['lessons'] = $lessons;
+                foreach ($lessons as $lessonKey => $lesson){
                     $sources = Source::where('lesson_id',$lesson->id)->where('active',true)->get();
-                    $object['sections'][$keySection]['lesson'][$keyLesson]['sources'] = $sources->pluck('name');
+                    $object['sections'][$sectionKey]['lessons'][$lessonKey]['sources'] = $sources;
                 }
             }
 

@@ -66,7 +66,7 @@ class LearnController extends Controller
 
         return response()->json([
             'error' => true,
-            'message' => 'Kaynaklar getirilirken hata oluştu.Tekrar Deneyin.'
+            'message' => 'Kaynaklar getirilirken hata oluştu.Tekrar Deneyin.',
         ],400);
     }
 
