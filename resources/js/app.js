@@ -46,6 +46,7 @@ Vue.component('course-card-pagination', require('./components/category/course-ca
 Vue.component('course-review', require('./components/category/course-review.vue').default);
 Vue.component('review', require('./components/category/review.vue').default);
 Vue.component('category-card', require('./components/category/category-card.vue').default);
+Vue.component('watch', require('./components/watch/watch-main.vue').default);
 
 /*<option value='' disabled selected hidden>@lang('front/auth.district')</option>*/
 /**

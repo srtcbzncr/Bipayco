@@ -23,6 +23,17 @@ const state={
     }],
     selectedLessonIndex:0,
     selectedSectionIndex:0,
+    learnCourse:{
+        sections:[{
+            name:"",
+            lessons:[{
+                name:"",
+                file_path:"",
+                preview:0,
+            }]
+        }]
+    },
+    courseSources:{},
 };
 const getters={};
 const mutations={
@@ -61,6 +72,13 @@ const mutations={
     },
     setSelectedSectionIndex(state,sectionIndex){
         state.selectedSectionIndex=sectionIndex;
+    },
+    setLearnCourse(state,course){
+        state.learnCourse=course.data;
+    },
+    setCourseSources(state,sources){
+        state.courseSources=sources.data;
+        console.log(sources.data)
     }
 };
 const actions={
@@ -117,6 +135,14 @@ const actions={
     loadSelectedSectionIndex({commit}, sectionIndex){
         commit('setSelectedSectionIndex',sectionIndex);
     },
+    loadLearnCourse({commit}, courseId){
+        Axios.get('/api/learn/generalEducation/'+courseId)
+            .then(response=>commit('setLearnCourse',response.data));
+    },
+    loadCourseSources({commit}, courseId){
+        Axios.get('/api/learn/generalEducation/'+courseId+'/sources')
+            .then(response=>commit('setCourseSources',response.data))
+    }
 };
 
 const store=new Vuex.Store({

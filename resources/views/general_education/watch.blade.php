@@ -6,27 +6,25 @@
             <div class="uk-card uk-card-default uk-align-center">
                 <div class="uk-card-body uk-grid uk-padding-remove">
                     <!-- video player -->
-                    <div class="uk-width-3-4@m uk-flex align-items-center">
+                    <div class="uk-width-3-4@m uk-flex align-items-center justify-content-center">
                         <video width="400" controls>
                             <source src="#" type="video/mp4">
                             <source src="#" type="video/ogg">
                             Your browser does not support HTML5 video.
                         </video>
+                        <!--<iframe v-else :src="'/'+learnCourse.sections[0].lessons[0].file_path" class="uk-width" style="height: 550px" frameborder="0"></iframe>-->
                     </div>
                     <!-- side menu -->
                     <div class="uk-width-1-4@m uk-container uk-grid-padding-remove@m" style="padding: 0;">
                         <div class="tm-filters uk-background-default" id="filters">
                             <div class="uk-padding-remove uk-preserve-color">
                                 <!-- Sidebar menu-->
-                                <ul class="uk-child-width-expand uk-tab tm-side-course-nav uk-margin-remove uk-position-z-index" uk-switcher="animation: uk-animation-slide-right-medium, uk-animation-slide-left-small" style="    box-shadow: 3px 0px 7px 1px gainsboro;" uk-switcher>
+                                <ul class="uk-child-width-expand uk-tab tm-side-course-nav uk-margin-remove uk-position-z-index" uk-switcher="animation: uk-animation-slide-right-small">
                                     <li class="uk-active">
-                                        <a href="#" uk-tooltip="title: Course Videos ; delay: 200 ; pos: bottom-left ;animation:uk-animation-scale-up"> <i class="fas fa-video icon-medium"></i>  Videos </a>
+                                        <a href="#" uk-tooltip="title: Course Videos ; delay: 100 ; pos: bottom-center;"> <i class="fas fa-video icon-medium uk-margin-small-right"></i>@lang('front/auth.lessons')</a>
                                     </li>
                                     <li>
-                                        <a href="#" uk-tooltip="title: Course Files ; delay: 200 ; pos: bottom-center ;animation:uk-animation-scale-up"> <i class="fas fa-folder icon-medium"></i>  Files </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" uk-tooltip="title: Course Exercise ; delay: 200 ; pos: bottom-right ;animation:uk-animation-scale-up"> <i class="fas fa-file-archive icon-medium"></i> Exercise</a>
+                                        <a href="#" uk-tooltip="title: Course Exercise ; delay: 100 ; pos: bottom-center;"> <i class="fas fa-file-archive icon-medium uk-margin-small-right"></i>@lang('front/auth.sources')</a>
                                     </li>
                                 </ul>
                                 <!-- Sidebar contents -->
@@ -36,214 +34,41 @@
                                         <div class="demo1 tab-video" data-simplebar>
                                             <ul uk-accordion>
                                                 <!-- section one -->
-                                                <li class="uk-open tm-course-lesson-section uk-background-default">
-                                                    <a class="uk-accordion-title  uk-padding-small" href="#"><h6> section  one</h6> <h4 class="uk-margin-remove"> Introduction to basic HTML</h4> </a>
+                                                @foreach($course->sections as $section)
+                                                <li class="tm-course-lesson-section uk-background-default">
+                                                    <a class="uk-accordion-title  uk-padding-small" href="#"><h6> @lang('front/auth.section') {{$loop->index + 1}}</h6> <h4 class="uk-margin-remove">{{$section->name}}</h4> </a>
                                                     <div class="uk-accordion-content uk-margin-remove-top">
                                                         <div class="tm-course-section-list">
                                                             <ul>
-                                                                <a href="#" class="uk-link-reset tablinks" onclick="openTabs(event,'one')" id="defaultOpen" uk-toggle="target: #course-1-1; cls: watched">
-                                                                    <li id="course-1-1" class="watched">
-                                                                        <span class="uk-icon-button icon-play"> <i class="fas fa-play icon-small"></i> </span>
-                                                                        <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">Lesson 1 Introduction to html ...</div>
+                                                                @foreach($section->lessons as $lesson)
+                                                                <a href="#" class="uk-link-reset">
+                                                                    <li>
+                                                                        <span class="uk-icon-button icon-play"> <i class="fas @if($lesson->is_video) fa-play @else fa-file-alt @endif icon-small"></i> </span>
+                                                                        <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">{{$loop->index + 1}}. {{$lesson->name}}</div>
                                                                         <a class="uk-icon-button uk-link-reset uk-margin-small-right uk-icon uk-button-success uk-position-center-right uk-animation-scale-up" href="#" style="display:none"> <i class="fas fa-check-circle icon-small  uk-text-white"></i> </a>
-                                                                        <span class="uk-position-center-right time uk-margin-medium-right">  2 min</span>
+                                                                        @if($lesson->is_video)<span class="uk-position-center-right time uk-margin-medium-right">  {{$lesson->long}}</span>@endif
                                                                     </li>
                                                                 </a>
+                                                                @endforeach
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </li>
+                                                @endforeach
                                             </ul>
-                                        </div>
-                                    </li>
-                                    <!--  Course resource  tab  -->
-                                    <li>
-                                        <div class="demo1 uk-background-default" data-simplebar>
-                                            <img src="#" width="200" class="uk-margin-remove-bottom uk-align-center uk-width-2-3" alt="">
-                                            <p class="uk-padding-small uk-margin-remove uk-text-center uk-padding-remove-top">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod dolore .</p>
-                                            <h4 class="uk-heading-line uk-text-center uk-margin-top"><span>Requirements </span></h4>
-                                            <p class="uk-padding-small uk-margin-remove  uk-padding-remove-top uk-text-center">Etiam sit amet augue non velit aliquet consectetur molestie eros mauris  .</p>
-                                            <h5 class="uk-padding-small uk-margin-remove uk-background-muted uk-text-black">  Web browser</h5>
-                                            <div class="uk-grid-small" uk-grid>
-                                                <div class="uk-width-1-4  uk-margin-small-top">
-                                                    <img src="#" alt="Image" class="uk-align-center img-small">
-                                                </div>
-                                                <div class="uk-width-3-4 uk-padding-remove-left">
-                                                    <p class="uk-margin-remove-bottom uk-text-bold  uk-text-small uk-margin-small-top">Firefox  </p>
-                                                    <p class="uk-margin-remove-top uk-margin-small-bottom">Lorem ipsum dolor adipiscing elit, sed do eiusmod tempor ...</p>
-                                                    <a class="Course-tags uk-margin-small-right border-radius-6" href="#"> Official site </a>
-                                                    <a class="Course-tags uk-margin-small-right  border-radius-6 tags-active" href="#"> Download </a>
-                                                </div>
-                                            </div>
-                                            <hr class="uk-margin-remove-bottom">
-                                            <div class="uk-grid-small uk-margin-small-top" uk-grid>
-                                                <div class="uk-width-1-4  uk-margin-small-top">
-                                                    <img src="#" alt="Image" class="uk-align-center img-small">
-                                                </div>
-                                                <div class="uk-width-3-4 uk-padding-remove-left">
-                                                    <p class="uk-margin-remove-bottom uk-text-bold  uk-text-small uk-margin-small-top">Google Chrome  </p>
-                                                    <p class="uk-margin-remove-top uk-margin-small-bottom">Lorem ipsum dolor adipiscing elit, sed do eiusmod tempor ...</p>
-                                                    <a class="Course-tags uk-margin-small-right border-radius-6" href="#"> Official site </a>
-                                                    <a class="Course-tags uk-margin-small-right  border-radius-6 tags-active" href="#"> Download </a>
-                                                </div>
-                                            </div>
-                                            <hr class="uk-margin-remove-bottom">
-                                            <div class="uk-grid-small uk-margin-small-top" uk-grid>
-                                                <div class="uk-width-1-4  uk-margin-small-top">
-                                                    <img src="#" alt="Image" class="uk-align-center img-small">
-                                                </div>
-                                                <div class="uk-width-3-4 uk-padding-remove-left">
-                                                    <p class="uk-margin-remove-bottom uk-text-bold  uk-text-small uk-margin-small-top">UCBrwoser    </p>
-                                                    <p class="uk-margin-remove-top uk-margin-small-bottom">Lorem ipsum dolor adipiscing elit, sed do eiusmod tempor ...</p>
-                                                    <a class="Course-tags uk-margin-small-right border-radius-6" href="#"> Official site </a>
-                                                    <a class="Course-tags uk-margin-small-right  border-radius-6 tags-active" href="#"> Download </a>
-                                                </div>
-                                            </div>
-                                            <h5 class="uk-padding-small uk-margin-remove-bottom uk-background-muted uk-text-black"> Text Editor </h5>
-                                            <div class="uk-grid-small" uk-grid>
-                                                <div class="uk-width-1-4  uk-margin-small-top">
-                                                    <img src="#" alt="Image" class="uk-align-center img-small">
-                                                </div>
-                                                <div class="uk-width-3-4 uk-padding-remove-left">
-                                                    <p class="uk-margin-remove-bottom uk-text-bold  uk-text-small uk-margin-small-top">Atom  </p>
-                                                    <p class="uk-margin-remove-top uk-margin-small-bottom">Lorem ipsum dolor adipiscing elit, sed do eiusmod tempor ...</p>
-                                                    <a class="Course-tags uk-margin-small-right border-radius-6" href="#"> Official site </a>
-                                                    <a class="Course-tags uk-margin-small-right  border-radius-6 tags-active" href="#"> Download </a>
-                                                </div>
-                                            </div>
-                                            <hr class="uk-margin-remove-bottom">
-                                            <div class="uk-grid-small uk-margin-small-top" uk-grid>
-                                                <div class="uk-width-1-4  uk-margin-small-top">
-                                                    <img src="#" alt="Image" class="uk-align-center img-small">
-                                                </div>
-                                                <div class="uk-width-3-4 uk-padding-remove-left">
-                                                    <p class="uk-margin-remove-bottom uk-text-bold  uk-text-small uk-margin-small-top">Dreamweaver </p>
-                                                    <p class="uk-margin-remove-top uk-margin-small-bottom">Lorem ipsum dolor adipiscing elit, sed do eiusmod tempor ...</p>
-                                                    <a class="Course-tags uk-margin-small-right border-radius-6" href="#"> Official site </a>
-                                                    <a class="Course-tags uk-margin-small-right  border-radius-6 tags-active" href="#"> Download </a>
-                                                </div>
-                                            </div>
-                                            <hr class="uk-margin-remove-bottom">
-                                            <div class="uk-grid-small uk-margin-small-top" uk-grid>
-                                                <div class="uk-width-1-4  uk-margin-small-top">
-                                                    <img src="#" alt="Image" class="uk-align-center img-small">
-                                                </div>
-                                                <div class="uk-width-3-4 uk-padding-remove-left">
-                                                    <p class="uk-margin-remove-bottom uk-text-bold  uk-text-small uk-margin-small-top">Sublime   </p>
-                                                    <p class="uk-margin-remove-top uk-margin-small-bottom">Lorem ipsum dolor adipiscing elit, sed do eiusmod tempor ...</p>
-                                                    <a class="Course-tags uk-margin-small-right border-radius-6" href="#"> Official site </a>
-                                                    <a class="Course-tags uk-margin-small-right  border-radius-6 tags-active" href="#"> Download </a>
-                                                </div>
-                                            </div>
                                         </div>
                                     </li>
                                     <!-- Exicse  tab  -->
                                     <li>
                                         <div class="demo1 uk-background-muted" data-simplebar>
-                                            <ul class="uk-padding-small" uk-accordion>
-                                                <li class="tm-course-lesson-section  uk-background-default uk-open">
-                                                    <a class="uk-accordion-title   uk-padding-small" href="#"> <h6> section  one </h6> <h4 class="uk-margin-remove"> Introduction Course</h4></a>
-                                                    <div class="uk-accordion-content uk-margin-remove-top">
-                                                        <!-- Exerice files-->
-                                                        <ul class="uk-active uk-background-default" uk-accordion>
-                                                            <li class="uk-open tm-course-lesson-section">
-                                                                <a class="uk-accordion-title  uk-padding-small uk-background-muted uk-padding-remove-bottom" href="#"> <h6> <i class="fas fa-folder"></i>   Lesson  one</h6> </a>
-                                                                <div class="uk-accordion-content uk-margin-remove-top">
-                                                                    <div class="tm-course-section-list">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <i class="fas fa-file-alt   uk-margin-small-right icon-medium"></i>
-                                                                                File one
-                                                                                <a class="uk-icon-button uk-margin-small-right  uk-button-success uk-position-center-right" href="#" uk-tooltip="title: Download this file ; delay: 500 ; pos: left ; animation:uk-animation-scale-up"> <i class="fas fa-download icon-small"></i> </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <i class="fas fa-file-alt   uk-margin-small-right icon-medium"></i>
-                                                                                File two
-                                                                                <a class="uk-icon-button uk-margin-small-right  uk-button-success uk-position-center-right" href="#" uk-tooltip="title: Download this file ; delay: 500 ; pos: left ; animation:uk-animation-scale-up"> <i class="fas fa-download icon-small"></i> </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <i class="fas fa-file-alt   uk-margin-small-right icon-medium"></i>
-                                                                                File three
-                                                                                <a class="uk-icon-button uk-margin-small-right  uk-button-success uk-position-center-right" href="#" uk-tooltip="title: Download this file ; delay: 500 ; pos: left ; animation:uk-animation-scale-up"> <i class="fas fa-download icon-small"></i> </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="tm-course-lesson-section uk-margin-remove-top">
-                                                                <a class="uk-accordion-title  uk-padding-small uk-background-muted uk-padding-remove-bottom" href="#"> <h6> <i class="fas fa-folder"></i>  lesson  one</h6> </a>
-                                                                <div class="uk-accordion-content uk-margin-remove-top">
-                                                                    <div class="tm-course-section-list">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <i class="fas fa-file-alt   uk-margin-small-right icon-medium"></i>
-                                                                                File one
-                                                                                <a class="uk-icon-button uk-margin-small-right  uk-button-success uk-position-center-right" href="#" uk-tooltip="title: Download this file ; delay: 500 ; pos: left ; animation:uk-animation-scale-up"> <i class="fas fa-download icon-small"></i> </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <i class="fas fa-file-alt   uk-margin-small-right icon-medium"></i>
-                                                                                File two
-                                                                                <a class="uk-icon-button uk-margin-small-right  uk-button-success uk-position-center-right" href="#" uk-tooltip="title: Download this file ; delay: 500 ; pos: left ; animation:uk-animation-scale-up"> <i class="fas fa-download icon-small"></i> </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                                <li class="tm-course-lesson-section  uk-background-default">
-                                                    <a class="uk-accordion-title   uk-padding-small" href="#"> <h6> section  Two </h6> <h4 class="uk-margin-remove"> Introduction Course</h4></a>
-                                                    <div class="uk-accordion-content uk-margin-remove-top">
-                                                        <!-- Exerice files-->
-                                                        <ul class="uk-active uk-background-default" uk-accordion>
-                                                            <li class="uk-open tm-course-lesson-section">
-                                                                <a class="uk-accordion-title  uk-padding-small uk-background-muted uk-padding-remove-bottom" href="#"> <h6> <i class="fas fa-folder"></i>   Lesspm  one</h6> </a>
-                                                                <div class="uk-accordion-content uk-margin-remove-top">
-                                                                    <div class="tm-course-section-list">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <i class="fas fa-file-alt   uk-margin-small-right icon-medium"></i>
-                                                                                File one
-                                                                                <a class="uk-icon-button uk-margin-small-right  uk-button-success uk-position-center-right" href="#" uk-tooltip="title: Download this file ; delay: 500 ; pos: left ; animation:uk-animation-scale-up"> <i class="fas fa-download icon-small"></i> </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <i class="fas fa-file-alt   uk-margin-small-right icon-medium"></i>
-                                                                                File two
-                                                                                <a class="uk-icon-button uk-margin-small-right  uk-button-success uk-position-center-right" href="#" uk-tooltip="title: Download this file ; delay: 500 ; pos: left ; animation:uk-animation-scale-up"> <i class="fas fa-download icon-small"></i> </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <i class="fas fa-file-alt   uk-margin-small-right icon-medium"></i>
-                                                                                File three
-                                                                                <a class="uk-icon-button uk-margin-small-right  uk-button-success uk-position-center-right" href="#" uk-tooltip="title: Download this file ; delay: 500 ; pos: left ; animation:uk-animation-scale-up"> <i class="fas fa-download icon-small"></i> </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li class="tm-course-lesson-section uk-margin-remove-top">
-                                                                <a class="uk-accordion-title  uk-padding-small uk-background-muted uk-padding-remove-bottom" href="#"> <h6> <i class="fas fa-folder"></i>  Lesson  two</h6> </a>
-                                                                <div class="uk-accordion-content uk-margin-remove-top">
-                                                                    <div class="tm-course-section-list">
-                                                                        <ul>
-                                                                            <li>
-                                                                                <i class="fas fa-file-alt   uk-margin-small-right icon-medium"></i>
-                                                                                File one
-                                                                                <a class="uk-icon-button uk-margin-small-right  uk-button-success uk-position-center-right" href="#" uk-tooltip="title: Download this file ; delay: 200 ; pos: left ; animation:uk-animation-scale-up"> <i class="fas fa-download icon-small"></i> </a>
-                                                                            </li>
-                                                                            <li>
-                                                                                <i class="fas fa-file-alt   uk-margin-small-right icon-medium"></i>
-                                                                                File two
-                                                                                <a class="uk-icon-button uk-margin-small-right  uk-button-success uk-position-center-right" href="#" uk-tooltip="title: Download this file ; delay: 200 ; pos: left ; animation:uk-animation-scale-up"> <i class="fas fa-download icon-small"></i> </a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                            <div class="tm-course-section-list">
+                                                <ul>
+                                                    <li>
+                                                        <a class="uk-icon-button uk-margin-small-right  uk-button-success uk-position-center-right" href="#" uk-tooltip="title: Download this file ; delay: 500 ; pos: left ; animation:uk-animation-scale-up"> <i class="fas fa-download icon-small"></i> </a>
+                                                    </li>
+
+                                                </ul>
+                                            </div>
                                         </div>
                                     </li>
                                 </ul>
@@ -255,48 +80,49 @@
         </div>
         <!-- Q & A area -->
         <h3 class="uk-heading-line uk-text-center"><span>Soru Cevap</span></h3>
-        <div class="uk-margin-left uk-margin-right uk-margin-top uk-margin-bottom uk-margin-medium-bottom">
-            <div class="uk-card uk-card-default uk-align-center">
-                <div class="uk-card-body">
-                    <div class="uk-grid">
-                        <div class="uk-width-1-6@m align-items-center justify-content-center">
-                            <img class="uk-border-cir6cle user-profile-medium uk-visible@m" src="#">
-                            <h4>ad soyad</h4>
-                            <hr class="uk-hidden@m uk-margin-bottom">
+        @for($i = 0; $i < 10; $i++)
+        <div class="uk-container uk-margin-top">
+            <div class="uk-card uk-padding-small uk-card-default">
+                <div class="uk-card-body uk-padding-small uk-flex align-items-center">
+                    <div class="uk-width-1-6@m uk-visible@m justify-content-center">
+                        <img class="uk-border-circle " src="{{asset(Auth::user()->avatar)}}" style="width: 125px; height:125px;">
+                    </div>
+                    <div class="uk-grid-stack uk-width-5-6@m">
+                        <h4 class="uk-margin-remove">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</h4>
+                        <hr class="uk-margin-small-bottom uk-margin-small-top">
+                        <p class="uk-margin-remove">
+                            yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum
+                            yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum
+                            yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum
+                            yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum
+                            yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum
+                            yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum
+                            yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div uk-grid>
+                <div class="uk-width-1-6"></div>
+                <div class="uk-card uk-card-primary uk-padding-small uk-width-5-6">
+                    <div class="uk-card-body uk-padding-small uk-flex align-items-center">
+                        <div class="uk-width-1-6@m uk-visible@m justify-content-center">
+                            <img class="uk-border-circle " src="{{asset(Auth::user()->avatar)}}" style="width: 125px; height:125px;">
                         </div>
-                        <div class="uk-width-2-3@m">
-                            <h6>başlık</h6>
-                            <hr class="uk-margin-small-bottom">
+                        <div class="uk-grid-stack uk-width-5-6@m">
+                            <h4 class="uk-margin-remove">{{Auth::user()->first_name}} {{Auth::user()->last_name}}</h4>
+                            <hr class="uk-margin-small-bottom uk-margin-small-top">
                             <p class="uk-margin-remove">
                                 yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum
                                 yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum
-                                yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yoru
-                                yorum yorum yorum yo rum
+                                yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum
+                                yorum yorum yorum yorum
                             </p>
                         </div>
-                    </div>
-                    <div class="uk-grid">
-                         <div class="uk-width-1-6"></div>
-                         <div class="uk-width-5-6 uk-grid">
-                             <div class="uk-width-1-6@m align-items-center justify-content-center">
-                                 <img class="uk-border-cir6cle user-profile-medium uk-visible@m" src="#">
-                                 <h4>ad soyad</h4>
-                                 <hr class="uk-hidden@m uk-margin-bottom">
-                             </div>
-                             <div class="uk-width-5-6@m">
-                                 <h6>başlık</h6>
-                                 <hr class="uk-margin-small-bottom">
-                                 <p class="uk-margin-remove">
-                                     yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum
-                                     yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum
-                                     yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yorum yoru
-                                     yorum yorum yorum yo rum
-                                 </p>
-                             </div>
-                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        @endfor
     </div>
 @endsection
