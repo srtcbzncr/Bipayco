@@ -70,7 +70,8 @@ class LessonRepository implements IRepository{
             foreach ($my_lessons as $item){
                 $last_lesson = $item;
             }
-            $filePath = Storage::putFile('lessons', $data['document']);
+            //$filePath = Storage::putFile('lessons', $data['document']);
+            $filePath = Storage::url($data['document']->store('public/lessons'));
             $long = 0;
             if($data['is_video'] != 0){
                 $media=FFMpeg::open($filePath);
