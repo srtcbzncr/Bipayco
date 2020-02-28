@@ -104,7 +104,7 @@ class LearnRepository implements IRepository
         return $resp;
     }
 
-    public function getSources($course_id){
+    public function getSources($lesson_id){
         // Response variables
         $result = true;
         $error = null;
@@ -113,17 +113,9 @@ class LearnRepository implements IRepository
         try{
             DB::beginTransaction();
 
-
-            $sections = Section::where('course_id',$course_id)->where('active',true)->orderBy('no','asc')->get();
-            $object['sections'] = $sections;
-            foreach ($sections as  $sectionKey => $section){
-                $lessons = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
-                $object['sections'][$sectionKey]['lessons'] = $lessons;
-                foreach ($lessons as $lessonKey => $lesson){
-                    $sources = Source::where('lesson_id',$lesson->id)->where('active',true)->get();
-                    $object['sections'][$sectionKey]['lessons'][$lessonKey]['sources'] = $sources;
-                }
-            }
+            $lesson = Lesson::find($lesson_id);
+            $sources = $lesson->sources;
+            $object = $sources;
 
             DB::commit();
         }
