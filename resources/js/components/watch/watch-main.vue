@@ -1,14 +1,13 @@
 <template>
     <div class="uk-card uk-card-default uk-align-center">
         <div class="uk-card-body uk-grid uk-padding-remove">
-            <!-- video player -->
             <div class="uk-width-3-4@m uk-flex align-items-center justify-content-center">
                 <video v-if="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].is_video" width="400" controls>
-                    <source :src="'/'+learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].file_path" type="video/mp4">
-                    <source :src="'/'+learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].file_path" type="video/ogg">
+                    <source :src="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].file_path" type="video/mp4">
+                    <source :src="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].file_path" type="video/ogg">
                     Your browser does not support HTML5 video.
                 </video>
-                <iframe v-else :src="'/'+learnCourse.sections[0].lessons[0].file_path" class="uk-width" style="height: 550px" frameborder="0"></iframe>
+                <iframe v-else :src="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].file_path" class="uk-width" style="height: 550px" frameborder="0"></iframe>
             </div>
             <!-- side menu -->
             <div class="uk-width-1-4@m uk-container uk-grid-padding-remove@m" style="padding: 0;">
@@ -56,7 +55,8 @@
                                 <div class="demo1 uk-background-muted" data-simplebar>
                                     <div class="tm-course-section-list">
                                         <ul>
-                                            <li v-for="source in courseSources">
+                                            {{learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].sources}}
+                                            <li v-for="source in learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].sources">
                                                 {{source.name}}
                                                 <a class="uk-icon-button uk-margin-small-right  uk-button-success uk-position-center-right" href="#" uk-tooltip="title: Download this file ; delay: 500 ; pos: left ; animation:uk-animation-scale-up"> <i class="fas fa-download icon-small"></i> </a>
                                             </li>
@@ -109,6 +109,7 @@
             selectLesson:function ( sectionIndex, lessonIndex) {
                 this.$store.dispatch('loadSelectedSectionIndex', sectionIndex);
                 this.$store.dispatch('loadSelectedLessonIndex', lessonIndex);
+                this.$store.dispatch('loadCourseSources',this.courseId);
                 console.log('section:'+sectionIndex+' lesson:'+lessonIndex);
             }
         },

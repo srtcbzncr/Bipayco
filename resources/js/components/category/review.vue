@@ -18,8 +18,8 @@
             </div>
             <div class="uk-text-bold uk-margin-small-left uk-margin-small" :style="styleRateColor">{{ ratingFixed }}</div>
         </div>
-        <textarea class="uk-textarea uk-width uk-height-small" placeholder="Yorum Yaz..." id="comment" > </textarea>
-        <button @click="submitReview(setComment)" class="uk-button uk-button-primary uk-margin-small-top uk-float-right "> Gönder </button>
+        <textarea class="uk-textarea uk-width uk-height-small" :placeholder="commentText" id="comment" > </textarea>
+        <button @click="submitReview(setComment)" class="uk-button uk-button-primary uk-margin-small-top uk-float-right "> {{sendText}} </button>
     </div>
 </template>
 
@@ -32,6 +32,14 @@
             courseId:{
                 type:String,
                 required:true,
+            },
+            sendText:{
+                type:String,
+                default:"Gönder",
+            },
+            commentText:{
+                type:String,
+                default:"Yorum Yaz...",
             },
             userId:{
                 type:String,

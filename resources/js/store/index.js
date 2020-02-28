@@ -30,6 +30,9 @@ const state={
                 name:"",
                 file_path:"",
                 preview:0,
+                sources:[{
+                    name:""
+                }],
             }]
         }]
     },

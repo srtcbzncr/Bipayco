@@ -137,5 +137,16 @@ return [
     'uploading'=>'Yükleniyor',
     'upload_document'=>'Döküman Yükle',
     'upload_video'=>'Video Yükle',
-    'add_lesson'=>'Ders Ekle'
+    'add_lesson'=>'Ders Ekle',
+    'send'=>'Gönder',
+    'comment'=>'Yorum Yaz...',
+    'ask_a_question'=>'Bir Soru Sor',
+    'course_count'=>'Kurs Sayısı',
+    'instructor_point'=>'Eğitmen Puanı',
+    'total_student_count'=>'Toplam Öğrenci Sayısı',
+    'total_comment_count'=>'Toplam Yorum Sayısı',
+    'total_earning'=>'Toplam Kazanç',
+    'monthly'=>'Aylık',
+    'yearly'=>'Yıllık',
+    'total'=>'Toplam',
 ];

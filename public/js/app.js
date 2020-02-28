@@ -2566,6 +2566,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       required: true
     },
+    sendText: {
+      type: String,
+      "default": "Gönder"
+    },
+    commentText: {
+      type: String,
+      "default": "Yorum Yaz..."
+    },
     userId: {
       type: String,
       required: true
@@ -5168,6 +5176,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     selectLesson: function selectLesson(sectionIndex, lessonIndex) {
       this.$store.dispatch('loadSelectedSectionIndex', sectionIndex);
       this.$store.dispatch('loadSelectedLessonIndex', lessonIndex);
+      this.$store.dispatch('loadCourseSources', this.courseId);
       console.log('section:' + sectionIndex + ' lesson:' + lessonIndex);
     }
   }),
@@ -8197,7 +8206,7 @@ var render = function() {
       _vm._v(" "),
       _c("textarea", {
         staticClass: "uk-textarea uk-width uk-height-small",
-        attrs: { placeholder: "Yorum Yaz...", id: "comment" }
+        attrs: { placeholder: _vm.commentText, id: "comment" }
       }),
       _vm._v(" "),
       _c(
@@ -8211,7 +8220,7 @@ var render = function() {
             }
           }
         },
-        [_vm._v(" Gönder ")]
+        [_vm._v(" " + _vm._s(_vm.sendText) + " ")]
       )
     ]
   )
@@ -11205,7 +11214,6 @@ var render = function() {
                 _c("source", {
                   attrs: {
                     src:
-                      "/" +
                       _vm.learnCourse.sections[_vm.selectedSectionIndex]
                         .lessons[_vm.selectedLessonIndex].file_path,
                     type: "video/mp4"
@@ -11215,7 +11223,6 @@ var render = function() {
                 _c("source", {
                   attrs: {
                     src:
-                      "/" +
                       _vm.learnCourse.sections[_vm.selectedSectionIndex]
                         .lessons[_vm.selectedLessonIndex].file_path,
                     type: "video/ogg"
@@ -11229,7 +11236,10 @@ var render = function() {
                 staticClass: "uk-width",
                 staticStyle: { height: "550px" },
                 attrs: {
-                  src: "/" + _vm.learnCourse.sections[0].lessons[0].file_path,
+                  src:
+                    _vm.learnCourse.sections[_vm.selectedSectionIndex].lessons[
+                      _vm.selectedLessonIndex
+                    ].file_path,
                   frameborder: "0"
                 }
               })
@@ -11495,17 +11505,35 @@ var render = function() {
                               [
                                 _c(
                                   "ul",
-                                  _vm._l(_vm.courseSources, function(source) {
-                                    return _c("li", [
-                                      _vm._v(
-                                        "\n                                            " +
-                                          _vm._s(source.name) +
-                                          "\n                                            "
-                                      ),
-                                      _vm._m(1, true)
-                                    ])
-                                  }),
-                                  0
+                                  [
+                                    _vm._v(
+                                      "\n                                        " +
+                                        _vm._s(
+                                          _vm.learnCourse.sections[
+                                            _vm.selectedSectionIndex
+                                          ].lessons[_vm.selectedLessonIndex]
+                                            .sources
+                                        ) +
+                                        "\n                                        "
+                                    ),
+                                    _vm._l(
+                                      _vm.learnCourse.sections[
+                                        _vm.selectedSectionIndex
+                                      ].lessons[_vm.selectedLessonIndex]
+                                        .sources,
+                                      function(source) {
+                                        return _c("li", [
+                                          _vm._v(
+                                            "\n                                            " +
+                                              _vm._s(source.name) +
+                                              "\n                                            "
+                                          ),
+                                          _vm._m(1, true)
+                                        ])
+                                      }
+                                    )
+                                  ],
+                                  2
                                 )
                               ]
                             )
@@ -26860,7 +26888,10 @@ var state = {
       lessons: [{
         name: "",
         file_path: "",
-        preview: 0
+        preview: 0,
+        sources: [{
+          name: ""
+        }]
       }]
     }]
   },
