@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Learn\GeneralEducation;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\GeneralEducation\LessonRepository;
 use App\Repositories\Learn\GeneralEducation\LearnRepository;
 use Illuminate\Http\Request;
 
@@ -125,6 +126,25 @@ class LearnController extends Controller
         return response()->json([
             'error' => true,
             'message' => 'Cevap verme işlemi başarısız.Tekrar Deneyin'
+        ]);
+    }
+
+    public function completeLesson($course_id,$lesson_id,Request $request){
+        // initialization
+        $repo = new LessonRepository();
+
+        // Operations
+        $resp = $repo->completeLesson($lesson_id,$request->toArray());
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Ders tamamlama başarılı.',
+                'data' => $resp->getData()
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Ders tamamlanmadı.Tekrar Deneyin'
         ]);
     }
 }

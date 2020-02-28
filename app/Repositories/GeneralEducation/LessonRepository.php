@@ -431,5 +431,31 @@ class LessonRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+    public function completeLesson($lesson_id,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::table('ge_students_completed_lessons')->insert([
+                'student_id' => $data['student_id'],
+                'lesson_id' => $data['lesson_id'],
+                'lesson_type' => 'App\Models\GeneralEducation\Lesson',
+                'is_completed' => $data['is_completed']
+            ]);
+
+            $object = DB::table('ge_students_completed_lessons')->where('lesson_id',$lesson_id)->get();
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
 
 }
