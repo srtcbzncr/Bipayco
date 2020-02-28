@@ -51,12 +51,12 @@ class LearnController extends Controller
     }
 
     // Source'ları al.
-    public function getSources($course_id){
+    public function getSources($course_id,$lesson_id){
         // initialization
         $repo = new LearnRepository();
 
         // Operations
-        $resp = $repo->getSources($course_id);
+        $resp = $repo->getSources($lesson_id);
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
