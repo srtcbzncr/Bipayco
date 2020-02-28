@@ -3,6 +3,10 @@
 namespace App\Repositories\GeneralEducation;
 
 use App\Events\GeneralEducation\ChangeLessonStatus;
+use App\Models\Auth\Student;
+use App\Models\GeneralEducation\Course;
+use App\Models\GeneralEducation\Entry;
+use App\Models\GeneralEducation\Section;
 use App\Models\GeneralEducation\Source;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
@@ -447,6 +451,69 @@ class LessonRepository implements IRepository{
             ]);
 
             $object = DB::table('ge_students_completed_lessons')->where('lesson_id',$lesson_id)->get();
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getDefaultLesson($course_id,$user_id,$lesson_type){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+
+            $object = array();
+            $student = Student::where('user_id',$user_id)->first();
+            $student_id = $student->id;
+
+            $sections = Section::where('course_id',$course_id)->where('active',true)->orderBy('no','asc')->get();
+            $myLessons = array();
+            $i=0;
+            foreach ($sections as $key => $section){
+                $lessons = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
+                foreach ($lessons as $lesson){
+                    $myLessons[$i] = $lesson;
+                    $i++;
+                }
+            }
+
+            $completedLessons = null;
+            if($lesson_type == "App\Models\GeneralEducation\Lesson"){
+                $completedLessons = DB::table('ge_students_completed_lessons')->where('student_id',$student_id)->where('lesson_type','App\Models\GeneralEducation\Lesson')->get();
+            }
+            else if($lesson_type == "App\Models\PrepareLessons\Lesson"){
+                $completedLessons = DB::table('ge_students_completed_lessons')->where('student_id',$student_id)->where('lesson_type','App\Models\PrepareLessons\Lesson')->get();
+
+            }
+            $b = false;
+            $default_lesson = null;
+            foreach ($myLessons as $lesson){
+                foreach ($completedLessons as $completedLesson){
+                    if($lesson->id != $completedLesson->id){
+                        $default_lesson = $lesson;
+                        $b = true;
+                        break;
+                    }
+                }
+                if($b == true){
+                    break;
+                }
+            }
+            if($default_lesson == null){
+                // ilk videoyu gönder
+                $default_lesson = $myLessons[0];
+            }
+
+            $object = $default_lesson;
         }
         catch(\Exception $e){
             $error = $e->getMessage();

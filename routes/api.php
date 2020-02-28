@@ -98,6 +98,7 @@ Route::prefix('learn')->group(function (){
     Route::post('generalEducation/{course_id}/lesson/{lesson_id}/discussion/ask','API\Learn\GeneralEducation\LearnController@askQuestion')->name('api_get_general_education_discussion_ask');
     Route::post('generalEducation/{course_id}/lesson/{lesson_id}/discussion/answer/{question_id}','API\Learn\GeneralEducation\LearnController@answerQuestion')->name('api_get_general_education_discussion_answer');
     Route::post('generalEducation/{course_id}/lesson/{lesson_id}/complete','API\Learn\GeneralEducation\LearnController@completeLesson')->name('api_get_general_education_complete_lesson');
+    Route::get('generalEducation/{course_id}/user/{user_id}/defaultLesson','API\Learn\GeneralEducation\LearnController@defaultLesson')->name('api_get_general_education_default_lesson');
 
 });
 
