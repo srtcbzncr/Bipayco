@@ -61,7 +61,6 @@ class LessonRepository implements IRepository{
         $result = true;
         $error = null;
         $object = null;
-
         // Operations
         try{
             DB::beginTransaction();
@@ -70,12 +69,11 @@ class LessonRepository implements IRepository{
             foreach ($my_lessons as $item){
                 $last_lesson = $item;
             }
-            $filePath = Storage::putFile('/storage/public/lessons', $data['document']);
-            //$filePath = Storage::url($data['document']->store('public/lessons'));
-
+            $pathForFFMpeg = $data['document']->store('public/lessons');
+            $filePath = Storage::url($pathForFFMpeg);
             $long = 0;
             if($data['is_video'] != 0){
-                $media=FFMpeg::open($filePath);
+                $media=FFMpeg::open($pathForFFMpeg);
                 $long=$media->getDurationInSeconds();
             }
             $object = new Lesson;
