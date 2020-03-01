@@ -90,6 +90,44 @@ class LearnController extends Controller
         ]);
     }
 
+    public function next($course_id,$lesson_id,Request $request){
+        // initialization
+        $repo = new LearnRepository();
+        $lastLessonId = $request->toArray()['lastLessonId'];
+
+        // Operations
+        $resp = $repo->getDiscussion($lesson_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Sorular ve cevaplar getirilirken hata oluştu.Tekrar Deneyin'
+        ],400);
+    }
+
+    public function back($course_id,$lesson_id,Request $request){
+        // initialization
+        $repo = new LearnRepository();
+        $firstLessonId = $request->toArray()['firstLessonId'];
+
+        // Operations
+        $resp = $repo->getDiscussion($lesson_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Sorular ve cevaplar getirilirken hata oluştu.Tekrar Deneyin'
+        ],400);
+    }
+
     // Eğitmene soru sor
     public function askQuestion($course_id,$lesson_id,Request $request){
         // initialization

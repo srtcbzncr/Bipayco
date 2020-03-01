@@ -161,6 +161,96 @@ class LearnRepository implements IRepository
         return $resp;
     }
 
+    public function next($lesson_id,$lastLessonId){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+
+            $myQuestions = Question::where('lesson_id',$lesson_id)->get();
+            $index = 0;
+            foreach ($myQuestions as $question){
+                $index++;
+                if($question->lesson_id == $lastLessonId){
+                    break;
+                }
+            }
+            $questions = array();
+            $arrayIndex = 0;
+            for ($i=$index;$i<$index+10;$i++){
+                if(isset($myQuestions[$i]))
+                    $questions[$arrayIndex] = $myQuestions[$i];
+            }
+
+            $object['questions'] = $questions;
+            foreach ($questions as $key => $question){
+                $user = User::find($question->user_id);
+                $object['questions'][$key]['user'] = $user;
+                $answers = $question->answers;
+                $object['questions'][$key]['answers'] = $answers;
+            }
+
+            DB::commit();
+        }
+        catch (\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function back($lesson_id,$firstLessonId){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+
+            $myQuestions = Question::where('lesson_id',$lesson_id)->get();
+            $index = 0;
+            foreach ($myQuestions as $question){
+                $index++;
+                if($question->lesson_id == $firstLessonId){
+                    break;
+                }
+            }
+            $questions = array();
+            $arrayIndex = 0;
+            for ($i=$index-1;$i>=$index-10;$i--){
+                if(isset($myQuestions[$i]))
+                    $questions[$arrayIndex] = $myQuestions[$i];
+            }
+
+            $object['questions'] = $questions;
+            foreach ($questions as $key => $question){
+                $user = User::find($question->user_id);
+                $object['questions'][$key]['user'] = $user;
+                $answers = $question->answers;
+                $object['questions'][$key]['answers'] = $answers;
+            }
+
+            DB::commit();
+        }
+        catch (\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
     public function askQuestion($lesson_id,$data){
         // Response variables
         $result = true;
