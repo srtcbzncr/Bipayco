@@ -1,6 +1,7 @@
 <template>
     <div>
         <div class="uk-container">
+            <input id="questionTitle" type="text" class="uk-width uk-input uk-margin-small-bottom" :placeholder="questionTitleText">
             <textarea class="uk-textarea uk-width uk-height-small" style="resize:none;" :placeholder="askQuestionText" id="questionArea" > </textarea>
             <button  class="uk-button uk-button-primary uk-margin-small-top uk-float-right" @click="postQuestion"> {{sendText}} </button>
         </div>
@@ -61,7 +62,10 @@
                 type:String,
                 default:"Gönder"
             },
-
+            questionTitleText:{
+                type:String,
+                default: "Başlık",
+            }
         },
         computed:{
             ...mapState([
@@ -80,14 +84,17 @@
             ]),
             postQuestion: function(){
                 var formData=new FormData();
-                formData.append('studentId', this.studentId);
-                formData.append('question', document.getElementById('questionArea').value);
+                formData.append('userId', this.studentId);
+                formData.append('content', document.getElementById('questionArea').value);
+                formData.append('title', document.getElementById('questionTitle').value);
                 axios.post('/api/learn/generalEducation/'+this.courseId+'/lesson/'+this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id+'/discussion/ask', formData)
                     .then(response=>console.log(response))
                     .then(this.$store.dispatch('loadLessonDiscussion', [this.courseId, this.lessonId]))
                     .catch((error) => {
                         UIkit.notification({message:error.message, status: 'danger'});
                     });
+                document.getElementById('questionArea').value="";
+                document.getElementById('questionTitle').value="";
             },
         },
     }

@@ -5122,6 +5122,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5142,6 +5143,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     sendText: {
       type: String,
       "default": "Gönder"
+    },
+    questionTitleText: {
+      type: String,
+      "default": "Başlık"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['learnCourse', 'selectedSectionIndex', 'selectedLessonIndex', 'lessonDiscussion']), {
@@ -5152,8 +5157,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadLessonDiscussion']), {
     postQuestion: function postQuestion() {
       var formData = new FormData();
-      formData.append('studentId', this.studentId);
-      formData.append('question', document.getElementById('questionArea').value);
+      formData.append('userId', this.studentId);
+      formData.append('content', document.getElementById('questionArea').value);
+      formData.append('title', document.getElementById('questionTitle').value);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/learn/generalEducation/' + this.courseId + '/lesson/' + this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id + '/discussion/ask', formData).then(function (response) {
         return console.log(response);
       }).then(this.$store.dispatch('loadLessonDiscussion', [this.courseId, this.lessonId]))["catch"](function (error) {
@@ -5162,6 +5168,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           status: 'danger'
         });
       });
+      document.getElementById('questionArea').value = "";
+      document.getElementById('questionTitle').value = "";
     }
   })
 });
@@ -11331,6 +11339,15 @@ var render = function() {
     "div",
     [
       _c("div", { staticClass: "uk-container" }, [
+        _c("input", {
+          staticClass: "uk-width uk-input uk-margin-small-bottom",
+          attrs: {
+            id: "questionTitle",
+            type: "text",
+            placeholder: _vm.questionTitleText
+          }
+        }),
+        _vm._v(" "),
         _c("textarea", {
           staticClass: "uk-textarea uk-width uk-height-small",
           staticStyle: { resize: "none" },
