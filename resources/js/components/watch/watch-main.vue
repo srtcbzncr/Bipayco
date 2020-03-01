@@ -2,7 +2,7 @@
     <div class="uk-card uk-card-default uk-align-center">
         <div class="uk-card-body uk-grid uk-padding-remove">
             <div class="uk-width-3-4@m uk-flex align-items-center justify-content-center">
-                <video v-if="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].is_video" width="400" controls>
+                <video v-if="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].is_video" width="400" controls controlsList="nodownload">
                     <source :src="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].file_path" type="video/mp4">
                     <source :src="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].file_path" type="video/ogg">
                     Your browser does not support HTML5 video.
@@ -111,6 +111,7 @@
                 'loadCourseSources',
                 'loadSelectedSectionIndex',
                 'loadSelectedLessonIndex',
+                'loadLessonDiscussion'
             ]),
             downloadItem: function(url, label) {
                 axios.get('/'+url, { responseType: 'blob' })
@@ -127,13 +128,13 @@
             selectLesson:function ( sectionIndex, lessonIndex) {
                 this.$store.dispatch('loadSelectedSectionIndex', sectionIndex);
                 this.$store.dispatch('loadSelectedLessonIndex', lessonIndex);
-                console.log(this.lessonId);
+                this.$store.dispatch('loadLessonDiscussion', [this.courseId, this.lessonId]);
                 this.$store.dispatch('loadCourseSources',[this.courseId, this.lessonId]);
-                console.log('section:'+sectionIndex+' lesson:'+lessonIndex);
             }
         },
         created() {
             this.$store.dispatch('loadLearnCourse',this.courseId);
+            this.$store.dispatch('loadLessonDiscussion', [this.courseId, this.firstLessonId]);
             this.$store.dispatch('loadCourseSources',[this.courseId, this.firstLessonId]);
         }
     }

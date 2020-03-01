@@ -39,6 +39,7 @@ const state={
     courseSources:[{
         name:"",
     }],
+    lessonDiscussion:{},
 };
 const getters={};
 const mutations={
@@ -83,7 +84,10 @@ const mutations={
     },
     setCourseSources(state,sources){
         state.courseSources=sources.data;
-        console.log(sources)
+    },
+    setLessonDiscussion(state, messages){
+        state.lessonDiscussion=messages.data;
+        console.log(messages.data)
     }
 };
 const actions={
@@ -147,6 +151,10 @@ const actions={
     loadCourseSources({commit}, [courseId, lessonId]){
         Axios.get('/api/learn/generalEducation/'+courseId+'/lesson/'+lessonId+'/sources')
             .then(response=>commit('setCourseSources',response.data))
+    },
+    loadLessonDiscussion({commit}, [courseId, lessonId]){
+        Axios.get('/api/learn/generalEducation/'+courseId+'/lesson/'+lessonId+'/discussion')
+            .then(response=>commit('setLessonDiscussion',response.data))
     }
 };
 

@@ -5063,6 +5063,111 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/watch/question-answer-area.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/watch/question-answer-area.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "question-answer-area",
+  props: {
+    courseId: {
+      type: String,
+      required: true
+    },
+    studentId: {
+      type: String,
+      required: true
+    },
+    askQuestionText: {
+      type: String,
+      "default": "Bir Soru Sor..."
+    },
+    sendText: {
+      type: String,
+      "default": "Gönder"
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['learnCourse', 'selectedSectionIndex', 'selectedLessonIndex', 'lessonDiscussion']), {
+    lessonId: function lessonId() {
+      return this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id;
+    }
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadLessonDiscussion']), {
+    postQuestion: function postQuestion() {
+      var formData = new FormData();
+      formData.append('studentId', this.studentId);
+      formData.append('question', document.getElementById('questionArea').value);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/learn/generalEducation/' + this.courseId + '/lesson/' + this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id + '/discussion/ask', formData).then(function (response) {
+        return console.log(response);
+      }).then(this.$store.dispatch('loadLessonDiscussion', [this.courseId, this.lessonId]))["catch"](function (error) {
+        UIkit.notification({
+          message: error.message,
+          status: 'danger'
+        });
+      });
+    }
+  })
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/watch/watch-main.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/watch/watch-main.vue?vue&type=script&lang=js& ***!
@@ -5181,7 +5286,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id;
     }
   }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadLearnCourse', 'loadCourseSources', 'loadSelectedSectionIndex', 'loadSelectedLessonIndex']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadLearnCourse', 'loadCourseSources', 'loadSelectedSectionIndex', 'loadSelectedLessonIndex', 'loadLessonDiscussion']), {
     downloadItem: function downloadItem(url, label) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/' + url, {
         responseType: 'blob'
@@ -5199,13 +5304,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     selectLesson: function selectLesson(sectionIndex, lessonIndex) {
       this.$store.dispatch('loadSelectedSectionIndex', sectionIndex);
       this.$store.dispatch('loadSelectedLessonIndex', lessonIndex);
-      console.log(this.lessonId);
+      this.$store.dispatch('loadLessonDiscussion', [this.courseId, this.lessonId]);
       this.$store.dispatch('loadCourseSources', [this.courseId, this.lessonId]);
-      console.log('section:' + sectionIndex + ' lesson:' + lessonIndex);
     }
   }),
   created: function created() {
     this.$store.dispatch('loadLearnCourse', this.courseId);
+    this.$store.dispatch('loadLessonDiscussion', [this.courseId, this.firstLessonId]);
     this.$store.dispatch('loadCourseSources', [this.courseId, this.firstLessonId]);
   }
 });
@@ -11207,6 +11312,172 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/watch/question-answer-area.vue?vue&type=template&id=385589c0&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/watch/question-answer-area.vue?vue&type=template&id=385589c0&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "uk-container" }, [
+        _c("textarea", {
+          staticClass: "uk-textarea uk-width uk-height-small",
+          staticStyle: { resize: "none" },
+          attrs: { placeholder: _vm.askQuestionText, id: "questionArea" }
+        }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass:
+              "uk-button uk-button-primary uk-margin-small-top uk-float-right",
+            on: { click: _vm.postQuestion }
+          },
+          [_vm._v(" " + _vm._s(_vm.sendText) + " ")]
+        )
+      ]),
+      _vm._v(" "),
+      _vm._l(_vm.lessonDiscussion, function(question) {
+        return _c("div", { staticClass: "uk-container uk-margin-top" }, [
+          _c(
+            "div",
+            { staticClass: "uk-card uk-padding-small uk-card-default" },
+            [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-card-body uk-padding-small uk-flex align-items-center"
+                },
+                [
+                  _vm._m(0, true),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-grid-stack uk-width-5-6@m" }, [
+                    _c("h4", { staticClass: "uk-margin-remove" }, [
+                      _vm._v(
+                        _vm._s(question.user.first_name) +
+                          " " +
+                          _vm._s(question.user.last_name)
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("hr", {
+                      staticClass: "uk-margin-small-bottom uk-margin-small-top"
+                    }),
+                    _vm._v(" "),
+                    _c("p", { staticClass: "uk-margin-remove" }, [
+                      _vm._v(
+                        "\n                        " +
+                          _vm._s(question.message) +
+                          "\n                    "
+                      )
+                    ])
+                  ])
+                ]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { attrs: { "uk-grid": "" } }, [
+            _c("div", { staticClass: "uk-width-1-6" }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-card uk-card-primary uk-padding-small uk-width-5-6"
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-card-body uk-padding-small uk-flex align-items-center"
+                  },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "uk-width-1-6@m uk-visible@m justify-content-center"
+                      },
+                      [
+                        _c("img", {
+                          staticClass: "uk-border-circle ",
+                          staticStyle: { width: "125px", height: "125px" },
+                          attrs: { src: question.answer.user.avatar }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-grid-stack uk-width-5-6@m" }, [
+                      _c("h4", { staticClass: "uk-margin-remove" }, [
+                        _vm._v(
+                          _vm._s(question.answer.user.first_name) +
+                            " " +
+                            _vm._s(question.answer.user.last_name)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("hr", {
+                        staticClass:
+                          "uk-margin-small-bottom uk-margin-small-top"
+                      }),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "uk-margin-remove" }, [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(question.answer.message) +
+                            "\n                        "
+                        )
+                      ])
+                    ])
+                  ]
+                )
+              ]
+            )
+          ])
+        ])
+      })
+    ],
+    2
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "uk-width-1-6@m uk-visible@m justify-content-center" },
+      [
+        _c("img", {
+          staticClass: "uk-border-circle ",
+          staticStyle: { width: "125px", height: "125px" },
+          attrs: { src: "" }
+        })
+      ]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/watch/watch-main.vue?vue&type=template&id=1d0b87fc&scoped=true&":
 /*!*******************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/watch/watch-main.vue?vue&type=template&id=1d0b87fc&scoped=true& ***!
@@ -11234,28 +11505,38 @@ var render = function() {
           _vm.learnCourse.sections[_vm.selectedSectionIndex].lessons[
             _vm.selectedLessonIndex
           ].is_video
-            ? _c("video", { attrs: { width: "400", controls: "" } }, [
-                _c("source", {
+            ? _c(
+                "video",
+                {
                   attrs: {
-                    src:
-                      _vm.learnCourse.sections[_vm.selectedSectionIndex]
-                        .lessons[_vm.selectedLessonIndex].file_path,
-                    type: "video/mp4"
+                    width: "400",
+                    controls: "",
+                    controlsList: "nodownload"
                   }
-                }),
-                _vm._v(" "),
-                _c("source", {
-                  attrs: {
-                    src:
-                      _vm.learnCourse.sections[_vm.selectedSectionIndex]
-                        .lessons[_vm.selectedLessonIndex].file_path,
-                    type: "video/ogg"
-                  }
-                }),
-                _vm._v(
-                  "\n                Your browser does not support HTML5 video.\n            "
-                )
-              ])
+                },
+                [
+                  _c("source", {
+                    attrs: {
+                      src:
+                        _vm.learnCourse.sections[_vm.selectedSectionIndex]
+                          .lessons[_vm.selectedLessonIndex].file_path,
+                      type: "video/mp4"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("source", {
+                    attrs: {
+                      src:
+                        _vm.learnCourse.sections[_vm.selectedSectionIndex]
+                          .lessons[_vm.selectedLessonIndex].file_path,
+                      type: "video/ogg"
+                    }
+                  }),
+                  _vm._v(
+                    "\n                Your browser does not support HTML5 video.\n            "
+                  )
+                ]
+              )
             : _c("iframe", {
                 staticClass: "uk-width",
                 staticStyle: { height: "550px" },
@@ -24839,6 +25120,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('course-review', __webpack_
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('review', __webpack_require__(/*! ./components/category/review.vue */ "./resources/js/components/category/review.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('category-card', __webpack_require__(/*! ./components/category/category-card.vue */ "./resources/js/components/category/category-card.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('watch', __webpack_require__(/*! ./components/watch/watch-main.vue */ "./resources/js/components/watch/watch-main.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('question-answer-area', __webpack_require__(/*! ./components/watch/question-answer-area.vue */ "./resources/js/components/watch/question-answer-area.vue")["default"]);
 /*<option value='' disabled selected hidden>@lang('front/auth.district')</option>*/
 
 /**
@@ -26789,6 +27071,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/watch/question-answer-area.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/watch/question-answer-area.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _question_answer_area_vue_vue_type_template_id_385589c0_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./question-answer-area.vue?vue&type=template&id=385589c0&scoped=true& */ "./resources/js/components/watch/question-answer-area.vue?vue&type=template&id=385589c0&scoped=true&");
+/* harmony import */ var _question_answer_area_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./question-answer-area.vue?vue&type=script&lang=js& */ "./resources/js/components/watch/question-answer-area.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _question_answer_area_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _question_answer_area_vue_vue_type_template_id_385589c0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _question_answer_area_vue_vue_type_template_id_385589c0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "385589c0",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/watch/question-answer-area.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/watch/question-answer-area.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/watch/question-answer-area.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_question_answer_area_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./question-answer-area.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/watch/question-answer-area.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_question_answer_area_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/watch/question-answer-area.vue?vue&type=template&id=385589c0&scoped=true&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/watch/question-answer-area.vue?vue&type=template&id=385589c0&scoped=true& ***!
+  \***********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_question_answer_area_vue_vue_type_template_id_385589c0_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./question-answer-area.vue?vue&type=template&id=385589c0&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/watch/question-answer-area.vue?vue&type=template&id=385589c0&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_question_answer_area_vue_vue_type_template_id_385589c0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_question_answer_area_vue_vue_type_template_id_385589c0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/watch/watch-main.vue":
 /*!******************************************************!*\
   !*** ./resources/js/components/watch/watch-main.vue ***!
@@ -26918,7 +27269,8 @@ var state = {
   },
   courseSources: [{
     name: ""
-  }]
+  }],
+  lessonDiscussion: {}
 };
 var getters = {};
 var mutations = {
@@ -26965,7 +27317,10 @@ var mutations = {
   },
   setCourseSources: function setCourseSources(state, sources) {
     state.courseSources = sources.data;
-    console.log(sources);
+  },
+  setLessonDiscussion: function setLessonDiscussion(state, messages) {
+    state.lessonDiscussion = messages.data;
+    console.log(messages.data);
   }
 };
 var actions = {
@@ -27061,6 +27416,17 @@ var actions = {
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/learn/generalEducation/' + courseId + '/lesson/' + lessonId + '/sources').then(function (response) {
       return commit('setCourseSources', response.data);
+    });
+  },
+  loadLessonDiscussion: function loadLessonDiscussion(_ref18, _ref19) {
+    var commit = _ref18.commit;
+
+    var _ref20 = _slicedToArray(_ref19, 2),
+        courseId = _ref20[0],
+        lessonId = _ref20[1];
+
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/learn/generalEducation/' + courseId + '/lesson/' + lessonId + '/discussion').then(function (response) {
+      return commit('setLessonDiscussion', response.data);
     });
   }
 };
