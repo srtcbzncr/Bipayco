@@ -140,7 +140,7 @@ class LearnRepository implements IRepository
         try{
             DB::beginTransaction();
 
-            $questions = Question::where('lesson_id',$lesson_id)->get();
+            $questions = Question::where('lesson_id',$lesson_id)->take(10)->get();
             $object['questions'] = $questions;
             foreach ($questions as $key => $question){
                 $user = User::find($question->user_id);
