@@ -5296,7 +5296,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadLearnCourse', 'loadCourseSources', 'loadSelectedSectionIndex', 'loadSelectedLessonIndex', 'loadLessonDiscussion']), {
     downloadItem: function downloadItem(url, label) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/' + url, {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url, {
         responseType: 'blob'
       }).then(function (response) {
         var blob = new Blob([response.data], {
