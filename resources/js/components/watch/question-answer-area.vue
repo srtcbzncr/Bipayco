@@ -88,7 +88,6 @@
                 formData.append('content', document.getElementById('questionArea').value);
                 formData.append('title', document.getElementById('questionTitle').value);
                 axios.post('/api/learn/generalEducation/'+this.courseId+'/lesson/'+this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id+'/discussion/ask', formData)
-                    .then(response=>console.log(response))
                     .then(this.$store.dispatch('loadLessonDiscussion', [this.courseId, this.lessonId]))
                     .catch((error) => {
                         UIkit.notification({message:error.message, status: 'danger'});

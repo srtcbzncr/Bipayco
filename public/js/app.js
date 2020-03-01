@@ -5160,9 +5160,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('userId', this.studentId);
       formData.append('content', document.getElementById('questionArea').value);
       formData.append('title', document.getElementById('questionTitle').value);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/learn/generalEducation/' + this.courseId + '/lesson/' + this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id + '/discussion/ask', formData).then(function (response) {
-        return console.log(response);
-      }).then(this.$store.dispatch('loadLessonDiscussion', [this.courseId, this.lessonId]))["catch"](function (error) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/learn/generalEducation/' + this.courseId + '/lesson/' + this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id + '/discussion/ask', formData).then(this.$store.dispatch('loadLessonDiscussion', [this.courseId, this.lessonId]))["catch"](function (error) {
         UIkit.notification({
           message: error.message,
           status: 'danger'
@@ -27356,7 +27354,6 @@ var mutations = {
   },
   setLessonDiscussion: function setLessonDiscussion(state, messages) {
     state.lessonDiscussion = messages.data;
-    console.log(messages.data);
   }
 };
 var actions = {

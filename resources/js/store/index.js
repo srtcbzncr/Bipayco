@@ -104,7 +104,6 @@ const mutations={
     },
     setLessonDiscussion(state, messages){
         state.lessonDiscussion=messages.data;
-        console.log(messages.data)
     }
 };
 const actions={
