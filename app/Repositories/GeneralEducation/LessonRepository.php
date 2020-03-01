@@ -101,12 +101,14 @@ class LessonRepository implements IRepository{
                     $lesson = $item;
                 }
                 foreach ($data['sources'] as $source){
-                    $filePath = Storage::putFile('sources', $source);
+                    $localPath = $source->store('public/sources');
+                    $accessPath = Storage::url($localPath);
+                   // $filePath = Storage::putFile('sources', $source);
                     $newSource = new Source;
                     $newSource->lesson_id = $lesson->id;
                     $newSource->lesson_type = get_class($lesson);
                     $newSource->title = $source->getClientOriginalName();
-                    $newSource->file_path = $filePath;
+                    $newSource->file_path = $accessPath;
                     $newSource->save();
                 }
             }
