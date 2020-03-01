@@ -4,6 +4,7 @@
 namespace App\Repositories\Learn\GeneralEducation;
 
 
+use App\Models\Auth\User;
 use App\Models\GeneralEducation\Answer;
 use App\Models\GeneralEducation\Lesson;
 use App\Models\GeneralEducation\Question;
@@ -130,20 +131,20 @@ class LearnRepository implements IRepository
     }
 
     public function getDiscussion($lesson_id){
-        // initialization
         // Response variables
         $result = true;
         $error = null;
         $object = null;
 
         // Operations
-
         try{
             DB::beginTransaction();
 
             $questions = Question::where('lesson_id',$lesson_id)->get();
             $object['questions'] = $questions;
             foreach ($questions as $key => $question){
+                $user = User::find($question->user_id);
+                $object['questions'][$key]['user'] = $user;
                 $answers = $question->answers;
                 $object['questions'][$key]['answers'] = $answers;
             }
