@@ -55,12 +55,10 @@
                                 <div class="demo1 uk-background-muted" data-simplebar>
                                     <div class="tm-course-section-list">
                                         <ul>
-                                            {{learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].sources}}
-                                            <li v-for="source in learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].sources">
-                                                {{source.name}}
-                                                <a class="uk-icon-button uk-margin-small-right  uk-button-success uk-position-center-right" href="#" uk-tooltip="title: Download this file ; delay: 500 ; pos: left ; animation:uk-animation-scale-up"> <i class="fas fa-download icon-small"></i> </a>
+                                            <li v-for="source in courseSources">
+                                                {{source.title}}
+                                                <a class="uk-icon-button uk-margin-small-right  uk-button-success uk-position-center-right" href="#" @click="downloadItem(source.file_path, source.title)" uk-tooltip="title: Download this file ; delay: 500 ; pos: left ; animation:uk-animation-scale-up"> <i class="fas fa-download icon-small"></i> </a>
                                             </li>
-
                                         </ul>
                                     </div>
                                 </div>
@@ -74,11 +72,16 @@
 </template>
 
 <script>
+    import axios from 'axios';
     import {mapActions, mapState} from "vuex";
     export default {
         name: "watch-main",
         props:{
             courseId:{
+                type:String,
+                required:true,
+            },
+            firstLessonId:{
                 type:String,
                 required:true,
             },
@@ -98,6 +101,9 @@
                 'selectedLessonIndex',
                 'selectedSectionIndex',
             ]),
+            lessonId(){
+                return this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id;
+            },
         },
         methods:{
             ...mapActions([
@@ -106,16 +112,29 @@
                 'loadSelectedSectionIndex',
                 'loadSelectedLessonIndex',
             ]),
+            downloadItem: function(url, label) {
+                axios.get('/'+url, { responseType: 'blob' })
+                    .then(response => {
+                        const blob = new Blob([response.data], { type: 'application/pdf' });
+                        const link = document.createElement('a');
+                        link.href = URL.createObjectURL(blob);
+                        link.download = label;
+                        link.click();
+                        URL.revokeObjectURL(link.href);
+                    })
+                    .catch(console.error)
+            },
             selectLesson:function ( sectionIndex, lessonIndex) {
                 this.$store.dispatch('loadSelectedSectionIndex', sectionIndex);
                 this.$store.dispatch('loadSelectedLessonIndex', lessonIndex);
-                this.$store.dispatch('loadCourseSources',this.courseId);
+                console.log(this.lessonId);
+                this.$store.dispatch('loadCourseSources',[this.courseId, this.lessonId]);
                 console.log('section:'+sectionIndex+' lesson:'+lessonIndex);
             }
         },
         created() {
             this.$store.dispatch('loadLearnCourse',this.courseId);
-            this.$store.dispatch('loadCourseSources',this.courseId);
+            this.$store.dispatch('loadCourseSources',[this.courseId, this.firstLessonId]);
         }
     }
 </script>

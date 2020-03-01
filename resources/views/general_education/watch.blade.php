@@ -3,13 +3,18 @@
     <div>
         <!-- lesson view area -->
         <div class="uk-margin-left uk-margin-right uk-margin-top uk-margin-bottom uk-margin-medium-bottom">
-            <watch course-id="{{$course->id}}"/>
+            <watch
+                course-id="{{$course->id}}"
+                first-lesson-id="{{$course->sections[0]->lessons[0]->id}}"
+            > </watch>
         </div>
         <!-- Q & A area -->
         <h3 class="uk-heading-line uk-text-center"><span>Soru Cevap</span></h3>
-        <div class="uk-container">
-            <textarea class="uk-textarea uk-width uk-height-small" style="resize:none;" placeholder="@lang('front/auth.ask_a_question')" id="comment" > </textarea>
-            <button  class="uk-button uk-button-primary uk-margin-small-top uk-float-right "> @lang('front/auth.send') </button>
+        <div>
+            <div class="uk-container">
+                <textarea class="uk-textarea uk-width uk-height-small" style="resize:none;" placeholder="@lang('front/auth.ask_a_question')" id="questionArea" > </textarea>
+                <button  class="uk-button uk-button-primary uk-margin-small-top uk-float-right "> @lang('front/auth.send') </button>
+            </div>
         </div>
     @for($i = 0; $i < 10; $i++)
         <div class="uk-container uk-margin-top">

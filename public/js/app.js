@@ -5072,7 +5072,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -5152,13 +5154,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "watch-main",
   props: {
     courseId: {
+      type: String,
+      required: true
+    },
+    firstLessonId: {
       type: String,
       required: true
     },
@@ -5171,18 +5176,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Dersler"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['learnCourse', 'courseSources', 'selectedLessonIndex', 'selectedSectionIndex'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadLearnCourse', 'loadCourseSources', 'loadSelectedSectionIndex', 'loadSelectedLessonIndex']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['learnCourse', 'courseSources', 'selectedLessonIndex', 'selectedSectionIndex']), {
+    lessonId: function lessonId() {
+      return this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id;
+    }
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadLearnCourse', 'loadCourseSources', 'loadSelectedSectionIndex', 'loadSelectedLessonIndex']), {
+    downloadItem: function downloadItem(url, label) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/' + url, {
+        responseType: 'blob'
+      }).then(function (response) {
+        var blob = new Blob([response.data], {
+          type: 'application/pdf'
+        });
+        var link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = label;
+        link.click();
+        URL.revokeObjectURL(link.href);
+      })["catch"](console.error);
+    },
     selectLesson: function selectLesson(sectionIndex, lessonIndex) {
       this.$store.dispatch('loadSelectedSectionIndex', sectionIndex);
       this.$store.dispatch('loadSelectedLessonIndex', lessonIndex);
-      this.$store.dispatch('loadCourseSources', this.courseId);
+      console.log(this.lessonId);
+      this.$store.dispatch('loadCourseSources', [this.courseId, this.lessonId]);
       console.log('section:' + sectionIndex + ' lesson:' + lessonIndex);
     }
   }),
   created: function created() {
     this.$store.dispatch('loadLearnCourse', this.courseId);
-    this.$store.dispatch('loadCourseSources', this.courseId);
+    this.$store.dispatch('loadCourseSources', [this.courseId, this.firstLessonId]);
   }
 });
 
@@ -11505,35 +11529,42 @@ var render = function() {
                               [
                                 _c(
                                   "ul",
-                                  [
-                                    _vm._v(
-                                      "\n                                        " +
-                                        _vm._s(
-                                          _vm.learnCourse.sections[
-                                            _vm.selectedSectionIndex
-                                          ].lessons[_vm.selectedLessonIndex]
-                                            .sources
-                                        ) +
-                                        "\n                                        "
-                                    ),
-                                    _vm._l(
-                                      _vm.learnCourse.sections[
-                                        _vm.selectedSectionIndex
-                                      ].lessons[_vm.selectedLessonIndex]
-                                        .sources,
-                                      function(source) {
-                                        return _c("li", [
-                                          _vm._v(
-                                            "\n                                            " +
-                                              _vm._s(source.name) +
-                                              "\n                                            "
-                                          ),
-                                          _vm._m(1, true)
-                                        ])
-                                      }
-                                    )
-                                  ],
-                                  2
+                                  _vm._l(_vm.courseSources, function(source) {
+                                    return _c("li", [
+                                      _vm._v(
+                                        "\n                                            " +
+                                          _vm._s(source.title) +
+                                          "\n                                            "
+                                      ),
+                                      _c(
+                                        "a",
+                                        {
+                                          staticClass:
+                                            "uk-icon-button uk-margin-small-right  uk-button-success uk-position-center-right",
+                                          attrs: {
+                                            href: "#",
+                                            "uk-tooltip":
+                                              "title: Download this file ; delay: 500 ; pos: left ; animation:uk-animation-scale-up"
+                                          },
+                                          on: {
+                                            click: function($event) {
+                                              return _vm.downloadItem(
+                                                source.file_path,
+                                                source.title
+                                              )
+                                            }
+                                          }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "fas fa-download icon-small"
+                                          })
+                                        ]
+                                      )
+                                    ])
+                                  }),
+                                  0
                                 )
                               ]
                             )
@@ -11569,24 +11600,6 @@ var staticRenderFns = [
           staticClass: "fas fa-check-circle icon-small  uk-text-white"
         })
       ]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass:
-          "uk-icon-button uk-margin-small-right  uk-button-success uk-position-center-right",
-        attrs: {
-          href: "#",
-          "uk-tooltip":
-            "title: Download this file ; delay: 500 ; pos: left ; animation:uk-animation-scale-up"
-        }
-      },
-      [_c("i", { staticClass: "fas fa-download icon-small" })]
     )
   }
 ]
@@ -26859,6 +26872,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -26895,7 +26916,9 @@ var state = {
       }]
     }]
   },
-  courseSources: {}
+  courseSources: [{
+    name: ""
+  }]
 };
 var getters = {};
 var mutations = {
@@ -26942,7 +26965,7 @@ var mutations = {
   },
   setCourseSources: function setCourseSources(state, sources) {
     state.courseSources = sources.data;
-    console.log(sources.data);
+    console.log(sources);
   }
 };
 var actions = {
@@ -27029,9 +27052,14 @@ var actions = {
       return commit('setLearnCourse', response.data);
     });
   },
-  loadCourseSources: function loadCourseSources(_ref15, courseId) {
+  loadCourseSources: function loadCourseSources(_ref15, _ref16) {
     var commit = _ref15.commit;
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/learn/generalEducation/' + courseId + '/sources').then(function (response) {
+
+    var _ref17 = _slicedToArray(_ref16, 2),
+        courseId = _ref17[0],
+        lessonId = _ref17[1];
+
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/learn/generalEducation/' + courseId + '/lesson/' + lessonId + '/sources').then(function (response) {
       return commit('setCourseSources', response.data);
     });
   }

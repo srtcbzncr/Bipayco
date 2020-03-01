@@ -212,8 +212,6 @@
                 UIkit.notification({message:error.message, status: 'danger'});
             });
     }
-
-
 </script>
 <script>
 

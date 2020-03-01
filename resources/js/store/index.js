@@ -36,7 +36,9 @@ const state={
             }]
         }]
     },
-    courseSources:{},
+    courseSources:[{
+        name:"",
+    }],
 };
 const getters={};
 const mutations={
@@ -81,7 +83,7 @@ const mutations={
     },
     setCourseSources(state,sources){
         state.courseSources=sources.data;
-        console.log(sources.data)
+        console.log(sources)
     }
 };
 const actions={
@@ -142,8 +144,8 @@ const actions={
         Axios.get('/api/learn/generalEducation/'+courseId)
             .then(response=>commit('setLearnCourse',response.data));
     },
-    loadCourseSources({commit}, courseId){
-        Axios.get('/api/learn/generalEducation/'+courseId+'/sources')
+    loadCourseSources({commit}, [courseId, lessonId]){
+        Axios.get('/api/learn/generalEducation/'+courseId+'/lesson/'+lessonId+'/sources')
             .then(response=>commit('setCourseSources',response.data))
     }
 };
