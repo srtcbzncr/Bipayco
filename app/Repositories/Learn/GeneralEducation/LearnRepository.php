@@ -172,13 +172,12 @@ class LearnRepository implements IRepository
         try{
             DB::beginTransaction();
 
-            $user = auth('api')->user();
             $question = new Question();
             $question->lesson_id = $lesson_id;
             $question->lesson_type = 'App\Models\GeneralEducation\Course';
-            $question->user_id = $user->id;
-            $question->title = $data->title;
-            $question->content = $data->content;
+            $question->user_id = $data['userId'];
+            $question->title = $data['title'];
+            $question->content = $data['content'];
             $question->save();
 
             DB::commit();

@@ -107,7 +107,7 @@ class LearnController extends Controller
         return response()->json([
             'error' => true,
             'message' => 'Soru sorma işlemi başarısız.Tekrar Deneyin'
-        ]);
+        ],400);
     }
 
     public function answerQuestion($course_id,$lesson_id,$question_id,Request $request){
