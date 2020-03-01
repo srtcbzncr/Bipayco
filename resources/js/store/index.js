@@ -39,7 +39,24 @@ const state={
     courseSources:[{
         name:"",
     }],
-    lessonDiscussion:{},
+    lessonDiscussion:[{
+        user_id: "",
+        title: "",
+        content: "",
+        created_at:"" ,
+        user: {
+            first_name:"",
+            last_name:"",
+            avatar:"",
+        },
+        answers: {
+            user:{
+                first_name:"",
+                last_name:"",
+                avatar:"",
+            },
+        },
+    }],
 };
 const getters={};
 const mutations={
