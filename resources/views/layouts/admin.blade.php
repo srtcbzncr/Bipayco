@@ -27,6 +27,17 @@
     <link href="{{asset('css/dropzone.css')}}" rel="stylesheet">
     <link href="{{asset('css/main.css')}}" rel="stylesheet">
     <link href="{{asset('css/fontawesome.css')}}" rel="stylesheet">
+    <style>
+        .stats-card{
+            border-radius: 20px;
+            background: rgb(85,255,225);
+            background: linear-gradient(125deg, rgba(85,255,225,1) 26%, rgba(0,249,255,1) 66%, rgba(94,243,255,1) 100%);
+            color: #007575;
+        }
+        .stats-card-title{
+            color: #006060 !important;
+        }
+    </style>
 </head>
 <body>
     <!-- sidebar -->

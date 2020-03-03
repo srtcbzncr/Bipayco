@@ -143,10 +143,13 @@ return [
     'ask_a_question'=>'Bir Soru Sor',
     'course_count'=>'Kurs Sayısı',
     'instructor_point'=>'Eğitmen Puanı',
-    'total_student_count'=>'Toplam Öğrenci Sayısı',
-    'total_comment_count'=>'Toplam Yorum Sayısı',
+    'total_student_count'=>'Toplam Öğrenci',
+    'total_comment_count'=>'Toplam Yorum',
     'total_earning'=>'Toplam Kazanç',
     'monthly'=>'Aylık',
     'yearly'=>'Yıllık',
     'total'=>'Toplam',
+    'comments'=>'Yorumlar',
+    'wait_for_response'=>'Cevap Bekleyen',
+
 ];

@@ -5123,6 +5123,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5168,6 +5174,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
       document.getElementById('questionArea').value = "";
       document.getElementById('questionTitle').value = "";
+    },
+    nextButton: function nextButton() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/learn/generalEducation/' + this.courseId + "/lesson/" + this.lessonId + '/discussion/next', this.lessonDiscussion.questions[this.lessonDiscussion.length - 1]).then(function (response) {
+        return console.log(response);
+      });
+    },
+    previousButton: function previousButton() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/learn/generalEducation/' + this.courseId + "/lesson/" + this.lessonId + '/discussion/next').then(function (response) {
+        return console.log(response);
+      });
     }
   })
 });
@@ -11333,162 +11349,190 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("div", { staticClass: "uk-container" }, [
-        _c("input", {
-          staticClass: "uk-width uk-input uk-margin-small-bottom",
-          attrs: {
-            id: "questionTitle",
-            type: "text",
-            placeholder: _vm.questionTitleText
-          }
-        }),
-        _vm._v(" "),
-        _c("textarea", {
-          staticClass: "uk-textarea uk-width uk-height-small",
-          staticStyle: { resize: "none" },
-          attrs: { placeholder: _vm.askQuestionText, id: "questionArea" }
-        }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass:
-              "uk-button uk-button-primary uk-margin-small-top uk-float-right",
-            on: { click: _vm.postQuestion }
-          },
-          [_vm._v(" " + _vm._s(_vm.sendText) + " ")]
-        )
-      ]),
+  return _c("div", [
+    _c("div", { staticClass: "uk-container" }, [
+      _c("input", {
+        staticClass: "uk-width uk-input uk-margin-small-bottom",
+        attrs: {
+          id: "questionTitle",
+          type: "text",
+          placeholder: _vm.questionTitleText
+        }
+      }),
       _vm._v(" "),
-      _vm._l(_vm.lessonDiscussion.questions, function(discussion) {
-        return _c("div", { staticClass: "uk-container uk-margin-top" }, [
-          _c(
-            "div",
-            { staticClass: "uk-card uk-padding-small uk-card-default" },
-            [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "uk-card-body uk-padding-small uk-flex align-items-center"
-                },
-                [
-                  _c(
-                    "div",
-                    {
-                      staticClass:
-                        "uk-width-1-6@m uk-visible@m justify-content-center"
-                    },
-                    [
-                      _c("img", {
-                        staticClass: "uk-border-circle ",
-                        staticStyle: { width: "125px", height: "125px" },
-                        attrs: { src: discussion.user.avatar }
-                      })
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "uk-grid-stack uk-width-5-6@m" }, [
-                    _c("h4", { staticClass: "uk-margin-remove" }, [
-                      _vm._v(
-                        _vm._s(discussion.user.first_name) +
-                          " " +
-                          _vm._s(discussion.user.last_name)
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("hr", {
-                      staticClass: "uk-margin-small-bottom uk-margin-small-top"
-                    }),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "uk-margin-remove" }, [
-                      _vm._v(
-                        "\n                        " +
-                          _vm._s(discussion.content) +
-                          "\n                    "
-                      )
-                    ])
-                  ])
-                ]
-              )
-            ]
-          ),
-          _vm._v(" "),
-          discussion.answers.length > 0
-            ? _c("div", { attrs: { "uk-grid": "" } }, [
-                _c("div", { staticClass: "uk-width-1-6" }),
-                _vm._v(" "),
+      _c("textarea", {
+        staticClass: "uk-textarea uk-width uk-height-small",
+        staticStyle: { resize: "none" },
+        attrs: { placeholder: _vm.askQuestionText, id: "questionArea" }
+      }),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass:
+            "uk-button uk-button-primary uk-margin-small-top uk-float-right",
+          on: { click: _vm.postQuestion }
+        },
+        [_vm._v(" " + _vm._s(_vm.sendText) + " ")]
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "uk-container" },
+      [
+        _vm._l(_vm.lessonDiscussion.questions, function(discussion) {
+          return _c("div", { staticClass: "uk-margin-top" }, [
+            _c(
+              "div",
+              { staticClass: "uk-card uk-padding-small uk-card-default" },
+              [
                 _c(
                   "div",
                   {
                     staticClass:
-                      "uk-card uk-card-primary uk-padding-small uk-width-5-6"
+                      "uk-card-body uk-padding-small uk-flex align-items-center"
                   },
                   [
                     _c(
                       "div",
                       {
                         staticClass:
-                          "uk-card-body uk-padding-small uk-flex align-items-center"
+                          "uk-width-1-6@m uk-visible@m justify-content-center"
                       },
                       [
-                        _c(
-                          "div",
-                          {
-                            staticClass:
-                              "uk-width-1-6@m uk-visible@m justify-content-center"
-                          },
-                          [
-                            _c("img", {
-                              staticClass: "uk-border-circle ",
-                              staticStyle: { width: "125px", height: "125px" },
-                              attrs: { src: discussion.answers.user.avatar }
-                            })
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          { staticClass: "uk-grid-stack uk-width-5-6@m" },
-                          [
-                            _c("h4", { staticClass: "uk-margin-remove" }, [
-                              _vm._v(
-                                _vm._s(discussion.answers.user.first_name) +
-                                  " " +
-                                  _vm._s(discussion.answers.user.last_name)
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("hr", {
-                              staticClass:
-                                "uk-margin-small-bottom uk-margin-small-top"
-                            }),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "uk-margin-remove" }, [
-                              _vm._v(
-                                "\n                            " +
-                                  _vm._s(discussion.answers.message) +
-                                  "\n                        "
-                              )
-                            ])
-                          ]
-                        )
+                        _c("img", {
+                          staticClass: "uk-border-circle ",
+                          staticStyle: { width: "125px", height: "125px" },
+                          attrs: { src: discussion.user.avatar }
+                        })
                       ]
-                    )
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-grid-stack uk-width-5-6@m" }, [
+                      _c("h4", { staticClass: "uk-margin-remove" }, [
+                        _vm._v(
+                          _vm._s(discussion.user.first_name) +
+                            " " +
+                            _vm._s(discussion.user.last_name)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("hr", {
+                        staticClass:
+                          "uk-margin-small-bottom uk-margin-small-top"
+                      }),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "uk-margin-remove" }, [
+                        _vm._v(
+                          "\n                            " +
+                            _vm._s(discussion.content) +
+                            "\n                        "
+                        )
+                      ])
+                    ])
                   ]
                 )
-              ])
-            : _vm._e()
+              ]
+            ),
+            _vm._v(" "),
+            discussion.answers.length > 0
+              ? _c("div", { attrs: { "uk-grid": "" } }, [
+                  _c("div", { staticClass: "uk-width-1-6" }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "uk-card uk-card-primary uk-padding-small uk-width-5-6"
+                    },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "uk-card-body uk-padding-small uk-flex align-items-center"
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "uk-width-1-6@m uk-visible@m justify-content-center"
+                            },
+                            [
+                              _c("img", {
+                                staticClass: "uk-border-circle ",
+                                staticStyle: {
+                                  width: "125px",
+                                  height: "125px"
+                                },
+                                attrs: { src: discussion.answers.user.avatar }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "uk-grid-stack uk-width-5-6@m" },
+                            [
+                              _c("h4", { staticClass: "uk-margin-remove" }, [
+                                _vm._v(
+                                  _vm._s(discussion.answers.user.first_name) +
+                                    " " +
+                                    _vm._s(discussion.answers.user.last_name)
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("hr", {
+                                staticClass:
+                                  "uk-margin-small-bottom uk-margin-small-top"
+                              }),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "uk-margin-remove" }, [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(discussion.answers.message) +
+                                    "\n                            "
+                                )
+                              ])
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e()
+          ])
+        }),
+        _vm._v(" "),
+        _c("ul", { staticClass: "uk-pagination uk-flex-center" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("li", {}, [
+            _c("a", { attrs: { href: "#" }, on: { click: _vm.nextButton } }, [
+              _c("span", { attrs: { "uk-pagination-next": "" } })
+            ])
+          ])
         ])
-      })
-    ],
-    2
-  )
+      ],
+      2
+    )
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("a", { attrs: { href: "#" } }, [
+        _c("span", { attrs: { "uk-pagination-previous": "" } })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -27288,20 +27332,22 @@ var state = {
     name: ""
   }],
   lessonDiscussion: [{
-    user_id: "",
-    title: "",
-    content: "",
-    created_at: "",
-    user: {
-      first_name: "",
-      last_name: "",
-      avatar: ""
-    },
-    answers: {
+    questions: {
+      user_id: "",
+      title: "",
+      content: "",
+      created_at: "",
       user: {
         first_name: "",
         last_name: "",
         avatar: ""
+      },
+      answers: {
+        user: {
+          first_name: "",
+          last_name: "",
+          avatar: ""
+        }
       }
     }
   }]
@@ -27354,6 +27400,7 @@ var mutations = {
   },
   setLessonDiscussion: function setLessonDiscussion(state, messages) {
     state.lessonDiscussion = messages.data;
+    console.log(messages.data);
   }
 };
 var actions = {
