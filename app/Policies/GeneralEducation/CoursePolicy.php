@@ -3,6 +3,7 @@
 namespace App\Policies\GeneralEducation;
 
 use App\Models\Auth\Instructor;
+use App\Models\Auth\Student;
 use App\Models\Auth\User;
 use App\Models\GeneralEducation\Comment;
 use App\Models\GeneralEducation\Course;
@@ -93,5 +94,59 @@ class CoursePolicy
             }
         }
         return false;
+    }
+
+    public function geAnswer(User $user, Course $course){
+        $instructor = Instructor::where('user_id',$user->id)->firstOrFail();
+        $control = DB::table('ge_courses_instructors')->where('instructor_id',$instructor->id)
+            ->where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
+        if($control == null){
+            return false;
+        }
+        else if(count($control) == 0)
+            return false;
+        else{
+            return true;
+        }
+    }
+
+    public function plAnswer(User $user, \App\Models\PrepareLessons\Course $course){
+        $instructor = Instructor::where('user_id',$user->id)->firstOrFail();
+        $control = DB::table('ge_courses_instructors')->where('instructor_id',$instructor->id)
+            ->where('course_id',$course->id)->where('course_type','App\Models\PrepareLessons\Course')->get();
+        if($control == null){
+            return false;
+        }
+        else if(count($control) == 0)
+            return false;
+        else{
+            return true;
+        }
+    }
+
+    public function geAsk(User $user, Course $course){
+        $student = Student::where('user_id',$user->id)->firstOrFail();
+        $control = Entry::where('student_id',$student->id)->where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
+        if($control == null){
+            return false;
+        }
+        else if(count($control) == 0)
+            return false;
+        else{
+            return true;
+        }
+    }
+
+    public function plAsk(User $user, \App\Models\PrepareLessons\Course $course){
+        $student = Student::where('user_id',$user->id)->firstOrFail();
+        $control = Entry::where('student_id',$student->id)->where('course_id',$course->id)->where('course_type','App\Models\PrepareLessons\Course')->get();
+        if($control == null){
+            return false;
+        }
+        else if(count($control) == 0)
+            return false;
+        else{
+            return true;
+        }
     }
 }
