@@ -95,8 +95,6 @@ Route::prefix('learn')->group(function (){
     Route::get('generalEducation/{course_id}/lesson/{lesson_id}','API\Learn\GeneralEducation\LearnController@getLesson')->name('api_get_general_education_lesson');
     Route::get('generalEducation/{course_id}/lesson/{lesson_id}/sources','API\Learn\GeneralEducation\LearnController@getSources')->name('api_get_general_education_sources');
     Route::get('generalEducation/{course_id}/lesson/{lesson_id}/discussion','API\Learn\GeneralEducation\LearnController@getDiscussions')->name('api_get_general_education_discussion');
-    Route::get('generalEducation/{course_id}/lesson/{lesson_id}/discussion/next','API\Learn\GeneralEducation\LearnController@next')->name('api_get_general_education_discussion_next');
-    Route::get('generalEducation/{course_id}/lesson/{lesson_id}/discussion/back','API\Learn\GeneralEducation\LearnController@back')->name('api_get_general_education_discussion_back');
     Route::post('generalEducation/{course_id}/lesson/{lesson_id}/discussion/ask','API\Learn\GeneralEducation\LearnController@askQuestion')->name('api_get_general_education_discussion_ask');
     Route::post('generalEducation/{course_id}/lesson/{lesson_id}/discussion/answer/{question_id}','API\Learn\GeneralEducation\LearnController@answerQuestion')->name('api_get_general_education_discussion_answer');
     Route::post('generalEducation/{course_id}/lesson/{lesson_id}/complete','API\Learn\GeneralEducation\LearnController@completeLesson')->name('api_get_general_education_complete_lesson');

@@ -140,14 +140,46 @@ class LearnRepository implements IRepository
         try{
             DB::beginTransaction();
 
-            $questions = Question::where('lesson_id',$lesson_id)->take(10)->get();
+            $questions = Question::where('lesson_id',$lesson_id)->get();
             $object['questions'] = $questions;
+            // 10'ar 10'ar bölme işlemi yapmamız gerekiyor.
+            if(count($questions) > 10){
+                $myQuestions = array();
+                $counter = 0;
+                $index = 0;
+                foreach ($questions as $key => $item){
+                    $myQuestions[$index][$counter] = $item;
+                    $counter++;
+                    if($counter == 10){
+                        $counter = 0;
+                        $index++;
+                    }
+                }
+                foreach ($myQuestions as $item){
+                    foreach ($item as $key => $value){
+                        $user = User::find($value->user_id);
+                        $object['questions'][$key]['user'] = $user;
+                        $answers = $value->answers;
+                        $object['questions'][$key]['answers'] = $answers;
+                    }
+                }
+            }
+            else{
+                foreach ($questions as $key => $question){
+                    $user = User::find($question->user_id);
+                    $object['questions'][$key]['user'] = $user;
+                    $answers = $question->answers;
+                    $object['questions'][$key]['answers'] = $answers;
+                }
+            }
+            //
+            /*$object['questions'] = $questions;
             foreach ($questions as $key => $question){
                 $user = User::find($question->user_id);
                 $object['questions'][$key]['user'] = $user;
                 $answers = $question->answers;
                 $object['questions'][$key]['answers'] = $answers;
-            }
+            }*/
 
             DB::commit();
         }
