@@ -141,6 +141,7 @@ class LearnRepository implements IRepository
             DB::beginTransaction();
 
             $questions = Question::where('lesson_id',$lesson_id)->where('lesson_type','App\Models\GeneralEducation\Lesson')->get();
+            $object['questions'] = $questions;
             // 10'ar 10'ar bölme işlemi yapmamız gerekiyor.
             if(count($questions) > 10){
                 $myQuestions = array();
@@ -168,9 +169,9 @@ class LearnRepository implements IRepository
                 $object['questions'] = $questions;
                 foreach ($questions as $key => $question){
                     $user = User::find($question->user_id);
-                    $object['questions'][0][$key]['user'] = $user;
+                    $object['questions'][$key]['user'] = $user;
                     $answers = $question->answers;
-                    $object['questions'][0][$key]['answers'] = $answers;
+                    $object['questions'][$key]['answers'] = $answers;
                 }
             }
             //
