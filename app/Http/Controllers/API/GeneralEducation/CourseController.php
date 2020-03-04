@@ -370,7 +370,8 @@ class CourseController extends Controller
             else{
                 return response()->json([
                     'error' => true,
-                    'message' => $respCourse->getError()->getMeesage(),
+                    'message' => 'Kurs oluşturulurken hata oluştu.Tekrar deneyin.',
+                    'errorMessage' => $respCourse->getError()
                 ],400);
             }
         }

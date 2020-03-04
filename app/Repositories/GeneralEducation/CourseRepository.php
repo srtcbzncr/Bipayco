@@ -439,7 +439,7 @@ class CourseRepository implements IRepository{
         }
         catch(\Exception $e){
             DB::rollBack();
-            $error = $e;
+            $error = $e->getMessage();
             $result = false;
         }
 
