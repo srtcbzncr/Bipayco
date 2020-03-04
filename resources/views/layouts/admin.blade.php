@@ -30,12 +30,12 @@
     <style>
         .stats-card{
             border-radius: 20px;
-            background: rgb(85,255,225);
-            background: linear-gradient(125deg, rgba(85,255,225,1) 26%, rgba(0,249,255,1) 66%, rgba(94,243,255,1) 100%);
-            color: #007575;
+            background: rgb(128,245,210);
+            background: linear-gradient(145deg, rgba(128,245,210,1) 0%, rgba(134,230,239,1) 100%);
+            color: #156d7a;
         }
         .stats-card-title{
-            color: #006060 !important;
+            color: #156d7a !important;
         }
     </style>
 </head>
