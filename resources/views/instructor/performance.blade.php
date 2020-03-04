@@ -6,13 +6,13 @@
             <div>
                 <div class="uk-card uk-card-default uk-card-body text-center stats-card">
                     <h3 class="stats-card-title uk-card-title">@lang('front/auth.instructor_point')</h3>
-                    <p><span class="fas fa-star uk-margin-small-right"></span>{{$instructorScore}}</p>
+                    <p><span class="fas fa-star uk-margin-small-right"></span>{{$data['instructorScore']}}</p>
                 </div>
             </div>
             <div>
                 <div class="uk-card uk-card-default uk-card-body text-center stats-card">
                     <h3 class="stats-card-title uk-card-title">@lang('front/auth.total_student_count')</h3>
-                    <p><span class="fas fa-user uk-margin-small-right"></span> {{$totalStudent}}</p>
+                    <p><span class="fas fa-user uk-margin-small-right"></span> {{$data['totalStudent']}}</p>
                 </div>
             </div>
         </div>
@@ -25,37 +25,37 @@
                 <div>
                     <div class="uk-card uk-card-default uk-card-body text-center stats-card">
                         <h3 class="stats-card-title uk-card-title">@lang('front/auth.general_education')</h3>
-                        <p><span class="fas fa-chalkboard-teacher uk-margin-small-right"></span>{{$geCount}}</p>
+                        <p><span class="fas fa-chalkboard-teacher uk-margin-small-right"></span>{{$data['geCount']}}</p>
                     </div>
                 </div>
                 <div>
                     <div class="uk-card uk-card-default uk-card-body text-center stats-card">
                         <h3 class="stats-card-title uk-card-title">@lang('front/auth.prepare_for_lessons')</h3>
-                        <p><span class="fas fa-chalkboard-teacher uk-margin-small-right"></span>{{$plCount}}</p>
+                        <p><span class="fas fa-chalkboard-teacher uk-margin-small-right"></span>{{$data['plCount']}}</p>
                     </div>
                 </div>
                 <div>
                     <div class="uk-card uk-card-default uk-card-body text-center stats-card">
                         <h3 class="stats-card-title uk-card-title">@lang('front/auth.prepare_for_exams')</h3>
-                        <p><span class="fas fa-chalkboard-teacher uk-margin-small-right"></span>{{$peCount}}</p>
+                        <p><span class="fas fa-chalkboard-teacher uk-margin-small-right"></span>{{$data['peCount']}}</p>
                     </div>
                 </div>
                 <div>
                     <div class="uk-card uk-card-default uk-card-body text-center stats-card">
                         <h3 class="stats-card-title uk-card-title">@lang('front/auth.exams')</h3>
-                        <p><span class="fas fa-chalkboard-teacher uk-margin-small-right"></span>{{$praticeExamsCount}}</p>
+                        <p><span class="fas fa-chalkboard-teacher uk-margin-small-right"></span>{{$data['praticeExamsCount']}}</p>
                     </div>
                 </div>
                 <div>
                     <div class="uk-card uk-card-default uk-card-body text-center stats-card">
                         <h3 class="stats-card-title uk-card-title">@lang('front/auth.books')</h3>
-                        <p><span class="fas fa-chalkboard-teacher uk-margin-small-right"></span>{{$qbCount}}</p>
+                        <p><span class="fas fa-chalkboard-teacher uk-margin-small-right"></span>{{$data['qbCount']}}</p>
                     </div>
                 </div>
                 <div>
                     <div class="uk-card uk-card-default uk-card-body text-center stats-card">
                         <h3 class="stats-card-title uk-card-title">@lang('front/auth.homeworks')</h3>
-                        <p><span class="fas fa-chalkboard-teacher uk-margin-small-right"></span>{{$homeworkCount}}</p>
+                        <p><span class="fas fa-chalkboard-teacher uk-margin-small-right"></span>{{$data['homeworkCount']}}</p>
                     </div>
                 </div>
             </div>
@@ -69,19 +69,19 @@
                 <div>
                     <div class="uk-card uk-card-default uk-card-body text-center stats-card">
                         <h3 class="stats-card-title uk-card-title">@lang('front/auth.monthly')</h3>
-                        <p><span class="fas fa-lira-sign uk-margin-small-right"></span>{{$totalMonthPrice}}</p>
+                        <p><span class="fas fa-lira-sign uk-margin-small-right"></span>{{$data['totalMonthPrice']}}</p>
                     </div>
                 </div>
                 <div>
                     <div class="uk-card uk-card-default uk-card-body text-center stats-card">
                         <h3 class="stats-card-title uk-card-title">@lang('front/auth.yearly')</h3>
-                        <p><span class="fas fa-lira-sign uk-margin-small-right"></span>{{$totalYearPrice}}</p>
+                        <p><span class="fas fa-lira-sign uk-margin-small-right"></span>{{$data['totalYearPrice']}}</p>
                     </div>
                 </div>
                 <div>
                     <div class="uk-card uk-card-default uk-card-body text-center stats-card">
                         <h3 class="stats-card-title uk-card-title">@lang('front/auth.total')</h3>
-                        <p><span class="fas fa-lira-sign uk-margin-small-right"></span>{{$totalPrice}}</p>
+                        <p><span class="fas fa-lira-sign uk-margin-small-right"></span>{{$data['totalPrice']}}</p>
                     </div>
                 </div>
             </div>
