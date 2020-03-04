@@ -37,7 +37,7 @@ class InstructorController extends Controller
         // performans verileri çekeceğiz.
         $user = Auth::user();
         $instructor = Instructor::where('user_id',$user->id)->firstOrFail();
-        
+
         $repo = new InstructorRepository();
         $resp = $repo->performance($instructor->id);
         if($resp->getResult()){
