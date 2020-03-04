@@ -34,6 +34,8 @@ class InstructorController extends Controller
     }
 
     public function performance(){
+        // performans verileri çekeceğiz.
+
         return view('instructor.performance');
     }
 
