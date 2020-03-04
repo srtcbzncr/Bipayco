@@ -127,7 +127,7 @@ class BasketRepository implements IRepository
 
         }catch(\Exception $e){
             $error = $e->getMessage();
-            $result = false;;
+            $result = false;
         }
 
         // Response
