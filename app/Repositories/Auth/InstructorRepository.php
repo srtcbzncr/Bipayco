@@ -4,6 +4,8 @@ namespace App\Repositories\Auth;
 
 use App\Models\Auth\User;
 use App\Models\GeneralEducation\Course;
+use App\Models\GeneralEducation\Entry;
+use App\Models\GeneralEducation\Purchase;
 use App\Repositories\Base\SchoolRepository;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
@@ -378,6 +380,112 @@ class InstructorRepository implements IRepository{
         // Operations
         try{
             $object = array();
+        }
+        catch (\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function performance($instructorId){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = array();
+            // eğitmen puanı
+            $courses = DB::table('ge_courses_instructors')->where('instructor_id',$instructorId)->where('active',true)->get();
+            $toplam = 0;
+            foreach ($courses as $item){
+                $course = Course::find($item->course_id);
+                $puan = $course->point;
+                $toplam+=$puan;
+                $course = \App\Models\PrepareLessons\Course::find($item->course_id);
+                $puan = $course->point;
+                $toplam+=$puan;
+            }
+            $ort = $toplam/count($courses);
+            $object['instructorScore'] = $ort;
+
+            // toplam öğrenci
+            $totalStudent = 0;
+            foreach ($courses as $item){
+                $course = Entry::where('course_id',$item->course_id)->where('active',true)->get();
+                $totalStudent+=count($course);
+            }
+            $object['totalStudent'] = $totalStudent;
+
+            // Kurs sayıları
+            $geCount = 0;
+            $plCount = 0;
+            $peCount = 0; // prepare exams
+            $praticExamsCount = 0;
+            $qb = 0; // questions banks
+            $homeWorkCount = 0;
+            foreach ($courses as $item){
+                if($item->course_type == 'App\Models\GeneralEducation\Course'){
+                    $geCount++;
+                }
+                else if($item->course_type == 'App\Models\PrepareLessons\Course'){
+                    $plCount++;
+                }
+            }
+            $object['geCount'] = $geCount;
+            $object['plCount'] = $plCount;
+            $object['peCount'] = $peCount;
+            $object['praticExamsCount'] = $praticExamsCount;
+            $object['qbCount'] = $qb;
+            $object['homeWorkCount'] = $homeWorkCount;
+
+            // Toplam Kazanç
+            $totalPay = 0;
+            foreach ($courses as $item){
+                $purchases = Purchase::where('course_id',$item->course_id)->where('confirmation',1)->get();
+                foreach ($purchases as $purchase){
+                    $price=$purchase->price;
+                    $pay = ($price*$item->percent)/100;
+                    $totalPay+=$pay;
+                }
+            }
+            // Bu ay toplam kazanç
+            $totalMonthPay = 0;
+            foreach ($courses as $item){
+                $currentMonth = date('m');
+                $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('confirmation',1)
+                    ->whereRaw('MONTH(created_at) = ?',[$currentMonth])->get();
+                foreach ($purchases as $purchase){
+                    $price=$purchase->price;
+                    $pay = ($price*$item->percent)/100;
+                    $totalMonthPay+=$pay;
+                }
+            }
+
+            // Bu yıl Toplam kazanç
+            $totalYearPay = 0;
+            foreach ($courses as $item){
+                $currentMonth = date('y');
+                $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('confirmation',1)
+                    ->whereRaw('YEAR(created_at) = ?',[$currentMonth])->get();
+                foreach ($purchases as $purchase){
+                    $price=$purchase->price;
+                    $pay = ($price*$item->percent)/100;
+                    $totalYearPay+=$pay;
+                }
+            }
+
+            $object['totalMonthPrice'] = $totalMonthPay;
+            $object['totalYearPrice'] = $totalYearPay;
+            $object['totalPrice'] = $totalPay;
+
+            // Toplam Yorumlar
+
         }
         catch (\Exception $e){
             $error = $e;

@@ -34,7 +34,21 @@ class InstructorController extends Controller
     }
 
     public function performance(){
-        return view('instructor.performance');
+        // performans verileri çekeceğiz.
+        $user = Auth::user();
+        $instructor = Instructor::where('user_id',$user->id)->firstOrFail();
+
+        $repo = new InstructorRepository();
+        $resp = $repo->performance($instructor->id);
+        if($resp->getResult()){
+            $data = $resp->getData();
+            View::share('data',$data);
+            return view('instructor.performance');
+        }
+        else{
+            dd("hata var");
+        }
+
     }
 
     public function questions(){
