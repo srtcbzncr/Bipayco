@@ -46,7 +46,7 @@ class InstructorController extends Controller
             return view('instructor.performance');
         }
         else{
-            dd($resp->getError());
+            return redirect()->back();
         }
 
     }

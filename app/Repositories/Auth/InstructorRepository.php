@@ -423,7 +423,10 @@ class InstructorRepository implements IRepository{
                     }
                 }
             }
-            $ort = $toplam/count($courses);
+            if(count($courses) != 0)
+                $ort = $toplam/count($courses);
+            else
+                $ort = 0;
             $object['instructorScore'] = $ort;
 
             // toplam öğrenci
