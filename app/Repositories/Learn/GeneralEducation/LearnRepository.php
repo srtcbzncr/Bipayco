@@ -140,8 +140,7 @@ class LearnRepository implements IRepository
         try{
             DB::beginTransaction();
 
-            $questions = Question::where('lesson_id',$lesson_id)->get();
-            $object['questions'] = $questions;
+            $questions = Question::where('lesson_id',$lesson_id)->where('lesson_type','App\Models\GeneralEducation\Lesson')->get();
             // 10'ar 10'ar bölme işlemi yapmamız gerekiyor.
             if(count($questions) > 10){
                 $myQuestions = array();
@@ -155,21 +154,23 @@ class LearnRepository implements IRepository
                         $index++;
                     }
                 }
-                foreach ($myQuestions as $item){
-                    foreach ($item as $key => $value){
+                $object['questions'] = $myQuestions;
+                foreach ($myQuestions as $key1=> $item){
+                    foreach ($item as $key2 => $value){
                         $user = User::find($value->user_id);
-                        $object['questions'][$key]['user'] = $user;
+                        $object['questions'][$key1][$key2]['user'] = $user;
                         $answers = $value->answers;
-                        $object['questions'][$key]['answers'] = $answers;
+                        $object['questions'][$key1][$key2]['answers'] = $answers;
                     }
                 }
             }
             else{
+                $object['questions'] = $questions;
                 foreach ($questions as $key => $question){
                     $user = User::find($question->user_id);
-                    $object['questions'][$key]['user'] = $user;
+                    $object['questions'][0][$key]['user'] = $user;
                     $answers = $question->answers;
-                    $object['questions'][$key]['answers'] = $answers;
+                    $object['questions'][0][$key]['answers'] = $answers;
                 }
             }
             //
@@ -184,7 +185,7 @@ class LearnRepository implements IRepository
             DB::commit();
         }
         catch (\Exception $e){
-            $error = $e;
+            $error = $e->getMessage();
             $result = false;
         }
 

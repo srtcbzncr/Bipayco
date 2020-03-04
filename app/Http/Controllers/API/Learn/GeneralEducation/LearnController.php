@@ -86,7 +86,8 @@ class LearnController extends Controller
         }
         return response()->json([
            'error' => true,
-           'message' => 'Sorular ve cevaplar getirilirken hata oluştu.Tekrar Deneyin'
+           'message' => 'Sorular ve cevaplar getirilirken hata oluştu.Tekrar Deneyin',
+            'errorMessage' => $resp->getError()
         ]);
     }
 
