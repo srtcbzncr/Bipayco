@@ -532,7 +532,7 @@ class InstructorRepository implements IRepository{
             // Toplam Yorumlar
             $totalQuestions = 0;
             $notAnsweredQuestions = 0;
-            /*foreach ($courses as $item){
+            foreach ($courses as $item){
                 if($item->course_type == 'App\Models\GeneralEducation\Course'){
                     $sections = Section::where('course_id',$item->course_id)->get();
                     foreach ($sections as $section){
@@ -565,12 +565,12 @@ class InstructorRepository implements IRepository{
                         }
                     }
                 }
-            }*/
+            }
             $object['totalQuestions'] = $totalQuestions;
             $object['notAnsweredQuestions'] = $notAnsweredQuestions;
         }
         catch (\Exception $e){
-            $error = $e;
+            $error = $e->getMessage();
             $result = false;
         }
 
