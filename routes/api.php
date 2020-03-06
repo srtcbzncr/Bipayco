@@ -28,6 +28,11 @@ Route::prefix('category')->group(function(){
     Route::get('{id}', 'API\GeneralEducation\CategoryController@show')->name('api_category_show');
 });
 
+Route::prefix('curriculum')->group(function (){
+    Route::get('index', 'API\PrepareLessons\Curriculum@index')->name('api_category_index');
+    Route::get('{id}', 'API\GeneralEducation\Curriculum@show')->name('api_category_show');
+});
+
 Route::prefix('course')->group(function(){
     Route::get('getPopularCourses', 'API\GeneralEducation\CourseController@getPopularCourses')->name('api_course_get_popular_courses');
     Route::get('getByCategoryFilterByNewest/{category_id}', 'API\GeneralEducation\CourseController@getByCategoryFilterByNewest')->name('api_course_get_by_category_filter_by_newest');
