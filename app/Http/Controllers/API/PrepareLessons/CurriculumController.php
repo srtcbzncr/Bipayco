@@ -27,5 +27,5 @@ class CurriculumController extends Controller
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
         }
     }
-    
+
 }

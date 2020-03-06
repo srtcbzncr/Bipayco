@@ -30,7 +30,6 @@ Route::prefix('category')->group(function(){
 
 Route::prefix('curriculum')->group(function (){
     Route::get('index', 'API\PrepareLessons\Curriculum@index')->name('api_category_index');
-    Route::get('{id}', 'API\GeneralEducation\Curriculum@show')->name('api_category_show');
 });
 
 Route::prefix('course')->group(function(){
