@@ -31,12 +31,82 @@ class CourseRepository implements IRepository{
 
     public function create(array $data)
     {
-        // TODO: Implement create() method.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+
+            $imagePath = Storage::url($data['image']->store('public/images'));
+            $course = new Course();
+            $course->lesson_id = $data['lesson_id'];
+            $course->grade_id = $data['grade_id'];
+            $course->image = $imagePath;
+            $course->name = $data['name'];
+            $course->description = $data['description'];
+            $course->access_time = $data['access_time'];
+            $course->certificate = $data['certificate'];
+            $course->long = $data['long'];
+            $course->price = $data['price'];
+            $course->price_with_discount = $data['price'];
+            $course->save();
+
+            DB::commit();
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+            DB::rollBack();
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 
     public function update($id, array $data)
     {
-        // TODO: Implement update() method.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try {
+            DB::beginTransaction();
+
+            $object = Course::find($id);
+            if(array_key_exists('image', $data)){
+                $imagePath = Storage::url($data['image']->store('public/images'));
+                Storage::delete($object->image);
+                $object->image = $imagePath;
+            }
+            $object->lesson_id = $data['lesson_id'];
+            $object->grade_id = $data['grade_id'];
+            $object->image = $imagePath;
+            $object->name = $data['name'];
+            $object->description = $data['description'];
+            $object->access_time = $data['access_time'];
+            $object->certificate = $data['certificate'];
+            $object->long = $data['long'];
+            $object->price = $data['price'];
+            $object->price_with_discount = $data['price'];
+            $object->save();
+
+            DB::commit();
+
+        }catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+            DB::rollBack();
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 
     public function delete($id)
@@ -420,7 +490,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
-            $requirements = Requirement::where('course_id',$id)->get();
+            $requirements = Requirement::where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->get();
             foreach ($requirements as $item){
                 $item->delete();
             }
@@ -431,7 +501,7 @@ class CourseRepository implements IRepository{
                 $newRequirement->content = $requirement;
                 $newRequirement->save();
             }
-            $object = Requirement::where('course_id',$id)->get();
+            $object = Requirement::where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->get();
             DB::commit();
         }
         catch(\Exception $e){
@@ -462,7 +532,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
-            $achievements = Achievement::where('course_id',$id)->get();
+            $achievements = Achievement::where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->get();
             foreach ($achievements as $item){
                 $item->delete();
             }
@@ -474,11 +544,10 @@ class CourseRepository implements IRepository{
                 $newAchievement->content = $achievement;
                 $newAchievement->save();
             }
-            $object = Achievement::where('course_id',$id)->get();
+            $object = Achievement::where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->get();
             DB::commit();
         }
         catch(\Exception $e){
-            print_r($e->getMessage());
             DB::rollBack();
             $error = $e;
             $result = false;
@@ -506,7 +575,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
-            $tags = Tag::where('course_id',$id)->get();
+            $tags = Tag::where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->get();
             foreach ($tags as $item){
                 $item->delete();
             }
@@ -517,7 +586,7 @@ class CourseRepository implements IRepository{
                 $newTag->tag = $tag;
                 $newTag->save();
             }
-            $object = Tag::where('course_id',$id)->get();
+            $object = Tag::where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->get();
             DB::commit();
         }
         catch(\Exception $e){
@@ -539,7 +608,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
-            $achievements = Achievement::where('course_id',$id)->where('active',1)->get();
+            $achievements = Achievement::where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->where('active',1)->get();
             $object = $achievements;
             DB::commit();
         }
@@ -563,7 +632,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
-            $requierements = Requirement::where('course_id',$id)->where('active',1)->get();
+            $requierements = Requirement::where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->where('active',1)->get();
             $object = $requierements;
             DB::commit();
         }
@@ -587,7 +656,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
-            $tag = Tag::where('course_id',$id)->get();
+            $tag = Tag::where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->get();
             $object = $tag;
             DB::commit();
         }
