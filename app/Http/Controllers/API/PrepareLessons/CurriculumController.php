@@ -27,20 +27,5 @@ class CurriculumController extends Controller
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
         }
     }
-
-    public function show($id){
-        // Repo initialization
-        $repo = new CategoryRepository;
-
-        // Operations
-        $resp = $repo->get($id);
-
-        // Response
-        if($resp->getResult()){
-            return new GE_CategoryResource($resp->getData());
-        }
-        else{
-            return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()]);
-        }
-    }
+    
 }
