@@ -69,6 +69,7 @@ Route::prefix('district')->group(function(){
 });
 
 Route::prefix('instructor')->group(function(){
+    # General Education
     Route::post('course/create/{id?}', 'API\GeneralEducation\CourseController@createPost')->name('api_ge_course_create_post');
     Route::post('course/{id}/goals', 'API\GeneralEducation\CourseController@goalsPost')->name('api_ge_course_goals_post');
     Route::get('course/{id}/goals','API\GeneralEducation\CourseController@goalsGet')->name('api_ge_course_goals_get');
@@ -96,7 +97,17 @@ Route::prefix('instructor')->group(function(){
     Route::post('prepareLessons/course/{id}/sections/create/{section_id?}', 'API\PrepareLessons\CourseController@sectionsPost')->name('api_pl_course_sections_post');
     Route::post('prepareLessons/course/{id}/sections/delete/{section_id}', 'API\PrepareLessons\CourseController@sectionsDelete')->name('api_pl_course_sections_delete');
     Route::get('prepareLessons/course/{id}/sections/get','API\PrepareLessons\CourseController@sectionsGet')->name('api_pl_course_sections_get');
+    Route::post('prepareLessons/course/{id}/sections/{section_id}/lessons/create/{lesson_id?}','API\PrepareLessons\CourseController@lessonsPost')->name('api_pl_course_sections_lessons_post');
+    Route::post('prepareLessons/course/{id}/sections/{section_id}/lessons/delete/{lesson_id}','API\PrepareLessons\CourseController@lessonsDelete')->name('api_pl_course_sections_lessons_delete');
+    Route::post('prepareLessons/course/{id}/sections/{section_id}/lessons/{lesson_id}/source/delete/{source_id}','API\PrepareLessons\CourseController@sourceDelete')->name('api_pl_course_sections_lessons_sources_delete');
+    Route::post('prepareLessons/course/{id}/sections/{section_id}/lessons/{lesson_id}/source/cancel','API\PrepareLessons\CourseController@sourceDeleteCancel')->name('api_pl_course_sections_lessons_sources_delete_cancel');
 
+    Route::post('prepareLessons/course/{id}/instructors', 'API\PrepareLessons\CourseController@instructorsPost')->name('api_pl_course_instructors_post');
+    Route::get('prepareLessons/course/{id}/instructors','API\PrepareLessons\CourseController@instructorsGet')->name('api_pl_course_instructors_get');
+    Route::post('prepareLessons/course/{id}/section/{section_id}/up','API\PrepareLessons\CourseController@sectionUp')->name('api_pl_course_section_up');
+    Route::post('prepareLessons/course/{id}/section/{section_id}/down','API\PrepareLessons\CourseController@sectionDown')->name('api_pl_course_section_down');
+    Route::post('prepareLessons/course/{id}/section/{section_id}/lesson/{lesson_id}/up','API\PrepareLessons\CourseController@lessonUp')->name('api_gl_course_lesson_up');
+    Route::post('prepareLessons/course/{id}/section/{section_id}/lesson/{lesson_id}/down','API\PrepareLessons\CourseController@lessonDown')->name('api_pl_course_lesson_down');
 
 });
 

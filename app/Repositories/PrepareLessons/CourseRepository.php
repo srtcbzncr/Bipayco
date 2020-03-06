@@ -837,11 +837,12 @@ class CourseRepository implements IRepository{
         $result = true;
         $error = null;
         $object = null;
+        $course_type = 'App\Models\PrepareLessons\Course';
 
         // Operations
         $isManagers = array();
         foreach ($data as $key => $item){
-            $geCoursesInstructor = DB::select('select * from ge_courses_instructors where course_id = '.$course_id.' and instructor_id = '.$item['instructor_id']);
+            $geCoursesInstructor = DB::select('select * from ge_courses_instructors where course_id = '.$course_id.' and instructor_id = '.$item['instructor_id'].' and course_type = '.$course_type);
             try {
                 if($geCoursesInstructor[0]->is_manager == 1){
                     $isManagers[$key] = 1;
@@ -891,7 +892,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
-            $object =  DB::table("ge_courses_instructors")->where('course_id',$id)->where('active',true)->get();
+            $object =  DB::table("ge_courses_instructors")->where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->where('active',true)->get();
             DB::commit();
         }
         catch(\Exception $e){

@@ -437,6 +437,7 @@ class LessonRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+
     public function completeLesson($lesson_id,$data){
         // Response variables
         $result = true;

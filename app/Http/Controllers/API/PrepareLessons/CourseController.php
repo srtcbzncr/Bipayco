@@ -6,9 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\Auth\Instructor;
 use App\Models\Auth\User;
 use App\Models\PrepareLessons\Course;
+use App\Repositories\GeneralEducation\SourceRepository;
 use App\Repositories\PrepareLessons\CourseRepository;
+use App\Repositories\PrepareLessons\LessonRepository;
 use App\Repositories\PrepareLessons\SectionRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
@@ -192,5 +195,274 @@ class CourseController extends Controller
                 'error_message' => $resp->getError()
             ],400);
         }
+    }
+
+    public function lessonsPost($id,$section_id,$lesson_id = null,Request $request){
+        $sources = null;
+        if(isset($request->toArray()['source'])){
+            $sources = $request->toArray()['source'];
+        }
+
+
+        // Initializing
+        $repo = new LessonRepository();
+        $data = $request->toArray();
+        $data['section_id'] = $section_id;
+        $data['sources'] = $sources;
+
+        // Operations
+        if($lesson_id == null){
+            $resp = $repo->create($data);
+            if($resp->getResult()){
+                return response()->json([
+                    'error' => false,
+                    'message' => 'Ders başarıyla eklendi.'
+                ]);
+            }
+            else{
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Ders eklenirken hata oluştu.Tekrar deneyin.',
+                    'errorMessage' => $resp->getError()
+                ],400);
+            }
+        }
+        else{
+            $resp = $repo->update($lesson_id,$data);
+            if($resp->getResult()){
+                return response()->json([
+                    'error' => false,
+                    'message' => 'Ders başarıyla güncellendi'
+                ]);
+            }
+            else{
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Ders güncellenirken hata oluştu.Tekrar deneyin.',
+                    'errorMessage' => $resp->getError()
+                ],400);
+            }
+        }
+    }
+
+    public function lessonsDelete($id,$section_id,$lesson_id){
+        // Initializing
+        $repo = new LessonRepository();
+
+        // Operations
+        $resp = $repo->delete($lesson_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Ders başarıyla silindi'
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Ders silinirken hata oluştu.Tekrar deneyin.'
+            ],400);
+        }
+    }
+
+    public function sourceDelete($course_id,$section_id,$lesson_id,$source_id){
+        // Initializing
+        $repo = new SourceRepository();
+
+        // Operations
+        $resp =  $repo->delete($source_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Kaynak başarıyla silindi.'
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Kaynak silinirken hata oluştu.Tekrar deneyin.'
+            ],400);
+        }
+    }
+    public function sourceDeleteCancel($course_id,$section_id,$lesson_id){
+        // Initializing
+        $repo = new \App\Repositories\PrepareLessons\SourceRepository();
+
+        // Operations
+        $resp =  $repo->setActive($lesson_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Kaynak başarıyla geri getirildi.',
+                'data' => $resp->getData()
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Kaynak geri getirilirken hata oluştu.Tekrar deneyin.',
+                'errorMessage' => $resp->getError()
+            ],400);
+        }
+    }
+
+    public function instructorsPost($id,Request $request){
+        $user = null;
+        $data = $request->toArray();
+        $course_type = 'App\Models\PrepareLessons\Course';
+        foreach ($data as $key => $item){
+            $geCoursesInstructor = DB::select('select * from ge_courses_instructors where course_id = '.$id.' and instructor_id = '.$item['instructor_id'].' and course_type = '.$course_type);
+            try {
+                if($geCoursesInstructor[0]->is_manager == true){
+                    $instructor = Instructor::find($geCoursesInstructor[0]->instructor_id);
+                    $user = User::find($instructor->user_id);
+                    break;
+                }
+            } catch(\Exception $e){
+            }
+        }
+
+
+        $course = Course::find($id);
+        if($user->can('checkManager',$course)){
+            // Initializin
+            $repo = new CourseRepository();
+            $data = $request->toArray();
+
+            // Operations
+            $resp = $repo->syncInstructor($id,$data);
+            if($resp->getResult()){
+                return response()->json([
+                    'error' => false,
+                    'message' => 'Eğitimenler kursa başarıyla eklendi'
+                ]);
+            }
+            else{
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Eğitimenler kursa eklenirken hata oluştu.Tekrar deneyin.'
+                ],400);
+            }
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Bu kursun eğitimcisi değilsin veya eklenen eğitmen eğitimci değil.'
+            ],400);
+        }
+    }
+
+    public function instructorsGet($id){
+        // Initializing
+        $repoCourse  = new CourseRepository();
+
+        // Operations
+        $respCourse = $repoCourse->syncInstructorGet($id);
+        if($respCourse->getResult()){
+            $data = array();
+            $data['instructor'] = $respCourse->getData();
+            $i=0;
+            foreach ($data['instructor'] as $instructor){
+                $ins = Instructor::find($instructor->instructor_id);
+                $user = User::find($ins->user_id);
+                $data['instructor'][$i]->user = $user;
+                $i++;
+            }
+            return response()->json([
+                'error' => false,
+                'data' => $data,
+                'message' => 'Eğitimcilerin bilgisi veritabanından başarıyla çekildi.'
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Eğitimcilerin bilgisi veritabanından çekilirken hata oluştur.Tekrar deneyin.'
+            ],400);
+        }
+    }
+
+    public function sectionUp($course_id,$section_id){
+        // Initializing
+        $repo = new SectionRepository();
+
+        // Operations
+        $resp = $repo->sectionUp($course_id,$section_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Bölümler başarıyla güncellendi',
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Bölümler güncellenirken hata oluştu.Tekrar deneyin.',
+            'data' => $resp->getData()
+        ]);
+    }
+
+    public function sectionDown($course_id,$section_id){
+        // Initializing
+        $repo = new SectionRepository();
+
+        // Operations
+        $resp = $repo->sectionDown($course_id,$section_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Bölümler başarıyla güncellendi',
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Bölümler güncellenirken hata oluştu.Tekrar deneyin.',
+            'messageError' => $resp->getError()
+        ]);
+    }
+
+    public function lessonUp($course_id,$section_id,$lesson_id){
+        // Initializing
+        $repo = new LessonRepository();
+
+        // Operations
+        $resp = $repo->lessonUp($course_id,$section_id,$lesson_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Dersler başarıyla güncellendi',
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Dersler güncellenirken hata oluştu.Tekrar deneyin.',
+            'messageError' => $resp->getError()
+        ]);
+    }
+
+    public function lessonDown($course_id,$section_id,$lesson_id){
+        // Initializing
+        $repo = new LessonRepository();
+
+        // Operations
+        $resp = $repo->lessonDown($course_id,$section_id,$lesson_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Dersler başarıyla güncellendi',
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Dersler güncellenirken hata oluştu.Tekrar deneyin.',
+            'messageError' => $resp->getError()
+        ]);
     }
 }

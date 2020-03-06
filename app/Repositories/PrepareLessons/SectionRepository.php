@@ -74,7 +74,7 @@ class SectionRepository implements IRepository{
             $error = $e->getMessage();
             $result = false;
             DB::rollBack();
-            
+
         }
 
         // Response
@@ -128,5 +128,74 @@ class SectionRepository implements IRepository{
 
     public function sectionUpdate($course_id,$sectionId,$data){
 
+    }
+
+    public function sectionUp($course_id,$section_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $sections = Section::where('course_id',$course_id)->orderBy('no','asc')->get();
+            $before_section = null;
+            foreach ($sections as $section){
+                if($section->id == $section_id){
+                    $temp_no = $before_section->no;
+                    $before_section->no = $section->no;
+                    $before_section->save();
+
+                    $section->no = $temp_no;
+                    $section->save();
+                    break;
+                }
+                $before_section = $section;
+            }
+            $object = Section::where('course_id',$course_id)->where('active',true)->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function sectionDown($course_id,$section_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $sections = Section::where('course_id',$course_id)->orderBy('no','asc')->get();
+            $after_section = null;
+            foreach ($sections as $key => $section){
+                if($section->id == $section_id){
+                    $after_section = $sections[$key+1];
+
+                    $temp_no = $after_section->no;
+                    $after_section->no = $section->no;
+                    $after_section->save();
+
+                    $section->no = $temp_no;
+                    $section->save();
+                    break;
+                }
+            }
+            $object =  Section::where('course_id',$course_id)->where('active',true)->get();
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 }

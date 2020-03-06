@@ -692,8 +692,9 @@ class CourseController extends Controller
     public function instructorsPost($id,Request $request){
         $user = null;
         $data = $request->toArray();
+        $course_type = 'App\Models\GeneralEducation\Course';
         foreach ($data as $key => $item){
-            $geCoursesInstructor = DB::select('select * from ge_courses_instructors where course_id = '.$id.' and instructor_id = '.$item['instructor_id']);
+            $geCoursesInstructor = DB::select('select * from ge_courses_instructors where course_id = '.$id.' and instructor_id = '.$item['instructor_id'].' and course_type = '.$course_type);
                 try {
                 if($geCoursesInstructor[0]->is_manager == true){
                     $instructor = Instructor::find($geCoursesInstructor[0]->instructor_id);
@@ -814,7 +815,7 @@ class CourseController extends Controller
         return response()->json([
             'error' => true,
             'message' => 'Bölümler güncellenirken hata oluştu.Tekrar deneyin.',
-            'message' => $resp->getError()
+            'messageError' => $resp->getError()
         ]);
     }
 
@@ -835,7 +836,7 @@ class CourseController extends Controller
         return response()->json([
             'error' => true,
             'message' => 'Dersler güncellenirken hata oluştu.Tekrar deneyin.',
-            'message' => $resp->getError()
+            'messageError' => $resp->getError()
         ]);
     }
     public function lessonDown($course_id,$section_id,$lesson_id){
@@ -855,7 +856,7 @@ class CourseController extends Controller
         return response()->json([
             'error' => true,
             'message' => 'Dersler güncellenirken hata oluştu.Tekrar deneyin.',
-            'message' => $resp->getError()
+            'messageError' => $resp->getError()
         ]);
     }
 
