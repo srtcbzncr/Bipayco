@@ -48,6 +48,9 @@ Route::group(['prefix' => 'instructor', 'middleware' => 'auth'], function(){
    Route::group(['prefix' => 'ge', 'middleware' => 'hasInstructorProfile'], function(){
            Route::get('course/create/{id?}', 'GeneralEducation\CourseController@createGet')->name('ge_course_create_get');
    });
+    Route::group(['prefix' => 'pl', 'middleware' => 'hasInstructorProfile'], function(){
+        Route::get('course/create/{id?}', 'PrepareLesson\CourseController@createGet')->name('ge_course_create_get');
+    });
 });
 
 Route::group(['prefix' => 'ge'], function(){

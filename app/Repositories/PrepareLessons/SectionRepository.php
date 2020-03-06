@@ -2,9 +2,11 @@
 
 namespace App\Repositories\PrepareLessons;
 
+use App\Models\PrepareLessons\Lesson;
 use App\Models\PrepareLessons\Section;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
+use Illuminate\Support\Facades\DB;
 
 class SectionRepository implements IRepository{
 
@@ -38,6 +40,7 @@ class SectionRepository implements IRepository{
                 $object->no = $last_section->no+1;
             else
                 $object->no = 1;
+            $object->subject_id = $data['subjectId'];
             $object->name = $data['name'];
             $object->active = true;
             $object->save();
@@ -54,12 +57,62 @@ class SectionRepository implements IRepository{
 
     public function update($id, array $data)
     {
-        // TODO: Implement update() method.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $object = Section::find($id);
+            $object->name = $data['name'];
+            $object->save();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+            DB::rollBack();
+            
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $section = Section::find($id);
+            $lessons = Lesson::where('section_id',$id);
+            foreach ($lessons as $lesson){
+                $lesson->sources()->delete();
+                $lesson->sources()->delete();
+                $lesson->sources()->questions();
+                $lesson->sources()->completed();
+                $lesson->delete();
+            }
+            $section->delete();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+            DB::rollBack();
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 
     public function setActive($id)
@@ -70,5 +123,10 @@ class SectionRepository implements IRepository{
     public function setPassive($id)
     {
         // TODO: Implement setPassive() method.
+    }
+
+
+    public function sectionUpdate($course_id,$sectionId,$data){
+
     }
 }

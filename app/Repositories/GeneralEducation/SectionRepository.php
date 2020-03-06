@@ -96,7 +96,6 @@ class SectionRepository implements IRepository{
         // Operations
         try{
             $object = Section::find($id);
-            $object->no = 1;
             $object->name = $data['name'];
             $object->save();
         }

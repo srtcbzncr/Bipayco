@@ -148,4 +148,49 @@ class CourseController extends Controller
             ],400);
         }
     }
+
+    public function sectionsDelete($id,$section_id){
+        // Initializing
+        $repo = new SectionRepository();
+
+        // Operations
+        $resp = null;
+        $resp=$repo->delete($section_id);
+        // Response
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Bölüm başarıyla silindi.'
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Bölüm silinirken hata oluştu.Tekrar deneyin.'
+            ],400);
+        }
+    }
+
+    public function sectionsGet($id){
+        // Initializing
+        $repo = new CourseRepository();
+
+        // Operations
+        $resp = $repo->syncSectionGet($id);
+        if($resp->getResult()){
+
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData(),
+                'message' => 'Bölümler veritabanından başarıyla getirildi.'
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Bölümler veritabanından getirilirken hata oluştu.Tekrar deneyin.',
+                'error_message' => $resp->getError()
+            ],400);
+        }
+    }
 }
