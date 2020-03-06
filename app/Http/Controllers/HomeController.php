@@ -22,12 +22,14 @@ class HomeController extends Controller
         //FFMpeg::open('wwdc_2006.mp4');
         // Repo initializations
         $geCourseRepo = new CourseRepository;
+        $plCourseRepo = new \App\Repositories\PrepareLessons\CourseRepository();
 
         // Operations
         $gePopularCoursesResp = $geCourseRepo->getPopularCourses();
+        $plPopularCoursesResp = $plCourseRepo->getPopularCourses();
         $data = [
             'general_education' => $gePopularCoursesResp->getData(),
-            'prepare_for_lessons' => [],
+            'prepare_for_lessons' => $plPopularCoursesResp->getData(),
             'prepare_for_exams' => [],
             'books' => [],
             'exams' => [],
