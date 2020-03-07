@@ -298,7 +298,7 @@ class LearnRepository implements IRepository
 
             $question = new Question();
             $question->lesson_id = $lesson_id;
-            $question->lesson_type = 'App\Models\GeneralEducation\Course';
+            $question->lesson_type = 'App\Models\GeneralEducation\Lesson';
             $question->user_id = $data['userId'];
             $question->title = $data['title'];
             $question->content = $data['content'];
