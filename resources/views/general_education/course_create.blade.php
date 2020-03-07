@@ -96,7 +96,7 @@
                                 </label>
                             </div>
                             <div class="uk-margin">
-                                <input class="uk-button uk-button-grey button uk-margin uk-width-small@m" type="button" @if(isset($course)) onclick="coursePost(false)" @else onclick="coursePost(true)" @endif  value="@lang('front/auth.save')">
+                                <input class="uk-button uk-button-grey button uk-margin uk-width-small@m" type="button" @if(isset($course)) onclick="coursePost('generalEducation',false)" @else onclick="coursePost('generalEducation',true)" @endif  value="@lang('front/auth.save')">
                             </div>
                             </form>
                         </div>

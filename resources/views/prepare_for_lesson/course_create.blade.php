@@ -96,7 +96,7 @@
                                 </label>
                             </div>
                             <div class="uk-margin">
-                                <input class="uk-button uk-button-grey button uk-margin uk-width-small@m" type="button" @if(isset($course)) onclick="coursePost(false)" @else onclick="coursePost(true)" @endif  value="@lang('front/auth.save')">
+                                <input class="uk-button uk-button-grey button uk-margin uk-width-small@m" type="button" @if(isset($course)) onclick="coursePost('prepareLessons',false)" @else onclick="coursePost('prepareLessons',true)" @endif  value="@lang('front/auth.save')">
                             </div>
                             </form>
                         </div>
@@ -112,7 +112,7 @@
                                     add-default-text="@lang('front/auth.add_achievement')"
                                     field="achievements"
                                     course-id="{{$course->id}}"
-                                    module-name="prepareLesson"
+                                    module-name="prepareLessons"
                                 > </add-list>
                                 <div class="uk-margin-top">
                                     <h4>@lang('front/auth.requirements')</h4>
@@ -124,7 +124,7 @@
                                     add-default-text="@lang('front/auth.add_requirement')"
                                     field="requirements"
                                     course-id="{{$course->id}}"
-                                    module-name="prepareLesson"
+                                    module-name="prepareLessons"
                                 > </add-list>
                                 <div class="uk-margin-top">
                                     <h4>@lang('front/auth.tags')</h4>
@@ -136,7 +136,7 @@
                                     add-default-text="@lang('front/auth.add_tag')"
                                     field="tags"
                                     course-id="{{$course->id}}"
-                                    module-name="prepareLesson"
+                                    module-name="prepareLessons"
                                 > </add-list>
                                 <div class=uk-margin">
                                     <input class="uk-button uk-button-grey uk-margin uk-width-small@m" type="button" onclick="achievementsPost({{$course->id}})"  value="@lang('front/auth.save')">
@@ -159,7 +159,7 @@
                                         saved-success-text="@lang('front/auth.saved_successful')"
                                         course-id="{{$course->id}}"
                                         instructor-id="{{Auth::user()->instructor->id}}"
-                                        module-name="prepareLesson"
+                                        module-name="prepareLessons"
                                     > </add-section>
                                 </div>
                                 <add-lesson
@@ -178,7 +178,7 @@
                                     upload-document-text="@lang('front/auth.upload_document')"
                                     upload-video-text="@lang('front/auth.upload_video')"
                                     lesson-name-text="@lang('front/auth.lesson_name')"
-                                    module-name="prepareLesson"
+                                    module-name="prepareLessons"
                                 > </add-lesson>
 
                                 <lesson-settings
@@ -190,7 +190,7 @@
                                     save-text="@lang('front/auth.save')"
                                     cancel-text="@lang('front/auth.cancel')"
                                     add-source-text="@lang('front/auth.add_source')"
-                                    module-name="prepareLesson"
+                                    module-name="prepareLessons"
                                 > </lesson-settings>
                                 <section-settings
                                     preview-text="@lang('front/auth.preview')"
@@ -203,7 +203,7 @@
                                     saved-success-text="@lang('front/auth.saved_successful')"
                                     course-id="{{$course->id}}"
                                     instructor-id="{{Auth::user()->instructor->id}}"
-                                    module-name="prepareLesson"
+                                    module-name="prepareLessons"
                                 > </section-settings>
                             </div>
                             <div id="instructors" class="tabcontent  animation: uk-animation-slide-right-medium">
@@ -222,7 +222,7 @@
                                     add-text="@lang('front/auth.add')"
                                     course-id="{{$course->id}}"
                                     save-text="@lang('front/auth.save')"
-                                    module-name="prepareLesson"
+                                    module-name="prepareLessons"
                                 > </instructor-area>
                             </div>
                         @endif

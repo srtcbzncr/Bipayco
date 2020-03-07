@@ -149,7 +149,7 @@
 </body>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
-    function coursePost(bool){
+    function coursePost(moduleName, bool){
         var formData =new FormData();
         var image=document.querySelector('#newCourseImage');
         formData.append('name',document.querySelector('#name').value);
@@ -168,7 +168,7 @@
             formData.append('image', image.files[0]);
         }
         if(bool){
-            axios.post('/api/instructor/course/create',
+            axios.post('/api/instructor/'+moduleName+'/course/create',
                 formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 }).then(result=>result.data)
@@ -178,7 +178,7 @@
                 });
         }else{
             var courseId=document.querySelector('#courseCreateId').value;
-            axios.post('/api/instructor/course/create/'+courseId,
+            axios.post('/api/instructor/'+moduleName+'/course/create/'+courseId,
                 formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
@@ -200,7 +200,7 @@
         }
     }
 
-    function achievementsPost(courseId) {
+    function achievementsPost(moduleName, courseId) {
         var formData =new FormData();
         var achievementList=[],requirementList=[], tagList=[];
         var achievements= document.getElementsByName('achievement-list[]');
@@ -219,7 +219,7 @@
         formData.append('requirements', requirementList);
         formData.append('tags', tagList);
         formData.append('instructor_id', document.getElementById('instructorId').value);
-        axios.post('/api/instructor/course/'+courseId+'/goals', formData)
+        axios.post('/api/instructor/'+moduleName+'/course/'+courseId+'/goals', formData)
             .catch((error) => {
                 UIkit.notification({message:error.message, status: 'danger'});
             });

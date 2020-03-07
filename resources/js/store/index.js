@@ -39,9 +39,8 @@ const state={
     courseSources:[{
         name:"",
     }],
-    lessonDiscussion:[{
-        questions:{
-
+    lessonDiscussion:{
+        questions:[{
             user_id: "",
             title: "",
             content: "",
@@ -52,14 +51,14 @@ const state={
                 avatar:"",
             },
             answers: {
-                user:{
+                user: {
                     first_name:"",
                     last_name:"",
                     avatar:"",
                 },
             },
-        }
-    }],
+        }]
+    },
 };
 const getters={};
 const mutations={

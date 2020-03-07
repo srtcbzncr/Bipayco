@@ -6,7 +6,7 @@
             <watch
                 course-id="{{$course->id}}"
                 first-lesson-id="{{$course->sections[0]->lessons[0]->id}}"
-                module-name="prepareLesson"
+                module-name="prepareLessons"
             > </watch>
         </div>
         <!-- Q & A area -->
@@ -14,7 +14,7 @@
         <question-answer-area
             student-id="{{Auth::user()->id}}"
             course-id="{{$course->id}}"
-            module-name="prepareLesson"
+            module-name="prepareLessons"
         > </question-answer-area>
     </div>
 @endsection

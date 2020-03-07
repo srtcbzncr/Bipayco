@@ -6,7 +6,8 @@
             <button  class="uk-button uk-button-primary uk-margin-small-top uk-float-right" @click="postQuestion"> {{sendText}} </button>
         </div>
         <div class="uk-container">
-            <div v-for="discussion in lessonDiscussion.questions" class="uk-margin-top">
+            <div v-if="lessonDiscussion.questions.length>0" v-for="discussion in lessonDiscussion.questions[page]" class="uk-margin-top">
+                {{discussion}}
                 <div class="uk-card uk-padding-small uk-card-default">
                     <div class="uk-card-body uk-padding-small uk-flex align-items-center">
                         <div class="uk-width-1-6@m uk-visible@m justify-content-center">
@@ -51,6 +52,11 @@
     import {mapActions, mapState} from "vuex";
     export default {
         name: "question-answer-area",
+        data(){
+            return{
+                page:0,
+            }
+        },
         props:{
             courseId:{
                 type:String,
@@ -106,17 +112,13 @@
                 document.getElementById('questionTitle').value="";
             },
             nextButton:function () {
-                axios.get('/api/learn/generalEducation/'+this.courseId+"/lesson/"+this.lessonId+'/discussion/next', this.lessonDiscussion.questions[this.lessonDiscussion.length-1])
-                    .then(response=>console.log(response))
+                this.page++;
             },
             previousButton:function () {
-                axios.get('/api/learn/generalEducation/'+this.courseId+"/lesson/"+this.lessonId+'/discussion/next')
-                    .then(response=>console.log(response))
+                this.page--;
             }
         },
     }
 </script>
-
 <style scoped>
-
 </style>
