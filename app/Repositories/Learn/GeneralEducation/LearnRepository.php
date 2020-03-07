@@ -168,6 +168,7 @@ class LearnRepository implements IRepository
             else{
                 $object['questions'] = array();
                 foreach ($questions as $key => $question){
+                    $object['questions'][0][$key]['question'] = $question;
                     $user = User::find($question->user_id);
                     $object['questions'][0][$key]['user'] = $user;
                     $answers = $question->answers;
