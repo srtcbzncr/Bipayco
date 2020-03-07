@@ -98,6 +98,10 @@
             addSourceText:{
                 type:String,
                 default:"Kaynak Ekle"
+            },
+            moduleName:{
+                type:String,
+                required:true,
             }
         },
         computed:{
@@ -137,11 +141,11 @@
                 }
                 formData.append('sectionId', this.sections[this.selectedSectionIndex].id);
                 formData.append('courseId', this.courseId);
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sections[this.selectedSectionIndex].id+'/lessons/create/'+this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id, formData)
+                axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/sections/'+this.sections[this.selectedSectionIndex].id+'/lessons/create/'+this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id, formData)
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            this.$store.dispatch('loadSections',this.courseId);
+                            this.$store.dispatch('loadSections',[this.moduleName, this.courseId]);
                             this.clearForm();
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
@@ -159,12 +163,12 @@
                 this.newSources.splice(index,1);
             },
             deleteSourceFromDatabase:function(sourceId){
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sections[this.selectedSectionIndex].id+'/lessons/'+this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id+'/source/delete/'+sourceId)
-                    .then(this.$store.dispatch('loadSections',this.courseId));
+                axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/sections/'+this.sections[this.selectedSectionIndex].id+'/lessons/'+this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id+'/source/delete/'+sourceId)
+                    .then(this.$store.dispatch('loadSections',[this.moduleName, this.courseId]));
             },
             cancel:function () {
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sections[this.selectedSectionIndex].id+'/lessons/'+this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id+'/source/cancel')
-                    .then(this.$store.dispatch('loadSections',this.courseId));
+                axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/sections/'+this.sections[this.selectedSectionIndex].id+'/lessons/'+this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id+'/source/cancel')
+                    .then(this.$store.dispatch('loadSections',[this.moduleName, this.courseId]));
                 this.clearForm();
             },
         },

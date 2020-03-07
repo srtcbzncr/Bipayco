@@ -94,6 +94,10 @@
             sectionIndex:{
                 type:Number,
                 required:true,
+            },
+            moduleName:{
+                type:String,
+                required:true,
             }
         },
         computed:{
@@ -108,8 +112,8 @@
                 'loadSelectedSectionIndex'
             ]),
             removeLesson:function () {
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.section.id+'/lessons/delete/'+this.lesson.id)
-                    .then(this.$store.dispatch('loadSections',this.courseId))
+                axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/sections/'+this.section.id+'/lessons/delete/'+this.lesson.id)
+                    .then(this.$store.dispatch('loadSections',[this.moduleName, this.courseId]))
             },
             removeSource:function(index){
                 this.lessonSources.splice(index,1);

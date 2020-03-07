@@ -3015,6 +3015,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     notAddedLessonText: {
       type: String,
       "default": "Ders Eklenemedi"
+    },
+    moduleName: {
+      type: String,
+      required: true
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['sections', 'selectedSectionIndex']), {
@@ -3075,7 +3079,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }
 
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/create', formData, {
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },
@@ -3084,7 +3088,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }.bind(this)
       }).then(function (response) {
         if (!response.data.error) {
-          _this.$store.dispatch('loadSections', _this.courseId);
+          _this.$store.dispatch('loadSections', [_this.moduleName, _this.courseId]);
 
           _this.changeMessage(response.data.message);
 
@@ -3222,6 +3226,10 @@ __webpack_require__.r(__webpack_exports__);
     courseId: {
       type: String,
       required: true
+    },
+    moduleName: {
+      type: String,
+      required: true
     }
   },
   data: function data() {
@@ -3251,7 +3259,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios.get('/api/instructor/course/' + this.courseId + '/goals').then(function (response) {
+    axios.get('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/goals').then(function (response) {
       return response.data.data;
     }).then(function (response) {
       switch (_this.field) {
@@ -3335,6 +3343,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3386,6 +3395,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     savedSuccessText: {
       type: String,
       "default": 'Başarıyla Kaydedildi'
+    },
+    moduleName: {
+      type: String,
+      required: true
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['sections'])),
@@ -3396,7 +3409,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var formData = new FormData();
       formData.append('name', document.getElementById('sectionInput').value);
       formData.append('courseId', this.courseId);
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/create', formData).then(function (response) {
+      axios.post('/api/instructor/' + this.moduleName + 'course/' + this.courseId + '/sections/create', formData).then(function (response) {
         return response.data;
       }).then(function (response) {
         if (response.error) {
@@ -3405,7 +3418,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             status: 'danger'
           });
         } else {
-          _this.$store.dispatch('loadSections', _this.courseId);
+          _this.$store.dispatch('loadSections', [_this.moduleName, _this.courseId]);
 
           UIkit.notification({
             message: response.message,
@@ -3417,7 +3430,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   created: function created() {
-    this.$store.dispatch('loadSections', this.courseId);
+    this.$store.dispatch('loadSections', [this.moduleName, this.courseId]);
   }
 });
 
@@ -3503,114 +3516,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/course-add-instructor.vue?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/instructor/course-add-instructor.vue?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: "add-instructor",
-  props: {
-    instructorId: {
-      type: String,
-      required: true
-    },
-    instructorPhoto: {
-      type: String,
-      required: true
-    },
-    instructorName: {
-      type: String,
-      required: true
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/course-create-instructors.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/instructor/course-create-instructors.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: "course-create-instructors",
-  data: function data() {
-    return {
-      email: '',
-      hasInstructorAccount: "Eğitmenin Eposta Adresini Giriniz"
-    };
-  },
-  watch: {
-    email: function email() {
-      this.hasInstructorAccount = 'Yazmanı Bekliyorum';
-      this.debouncedGethasInstructorAccount();
-    }
-  },
-  created: function created() {
-    this.debouncedGethasInstructorAccount = _.debounce(this.getAnswer, 500);
-  },
-  methods: {
-    getAnswer: function getAnswer() {
-      if (this.email.indexOf('?') === -1) {
-        this.hasInstructorAccount = 'Questions usually contain a question mark. ;-)';
-        return;
-      }
-
-      this.hasInstructorAccount = 'Thinking...';
-      var vm = this;
-      axios.get('https://yesno.wtf/api').then(function (response) {
-        vm.hasInstructorAccount = _.capitalize(response.data.hasInstructorAccount);
-      })["catch"](function (error) {
-        vm.hasInstructorAccount = 'Error! Could not reach the API. ' + error;
-      });
-    }
-  }
-});
-
-/***/ }),
-
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/course-section.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/instructor/course-section.vue?vue&type=script&lang=js& ***!
@@ -3628,6 +3533,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -3750,6 +3656,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     savedSuccessText: {
       type: String,
       "default": 'Başarıyla Kaydedildi'
+    },
+    moduleName: {
+      type: String,
+      required: true
     }
   },
   computed: {
@@ -3759,7 +3669,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadSections', 'loadSelectedSectionIndex']), {
     removeSection: function removeSection() {
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/delete/' + this.section.id).then(this.$store.dispatch('loadSections', this.courseId));
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/delete/' + this.section.id).then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
     },
     sendInfo: function sendInfo(index) {
       this.$store.dispatch('loadSelectedSectionIndex', index);
@@ -3773,14 +3683,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).toggle();
     },
     sectionUp: function sectionUp() {
-      axios.post('/api/instructor/course/' + this.courseId + '/section/' + this.section.id + '/up').then(function (response) {
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.section.id + '/up').then(function (response) {
         return console.log(response.data);
-      }).then(this.$store.dispatch('loadSections', this.courseId));
+      }).then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
     },
     sectionDown: function sectionDown() {
-      axios.post('/api/instructor/course/' + this.courseId + '/section/' + this.section.id + '/down').then(function (response) {
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.section.id + '/down').then(function (response) {
         return console.log(response.data);
-      }).then(this.$store.dispatch('loadSections', this.courseId));
+      }).then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
     }
   })
 });
@@ -3893,6 +3803,10 @@ __webpack_require__.r(__webpack_exports__);
     saveText: {
       type: String,
       "default": "Kaydet"
+    },
+    moduleName: {
+      type: String,
+      required: true
     }
   },
   data: function data() {
@@ -3947,7 +3861,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
 
-      axios.post('/api/instructor/course/' + courseId + '/instructors', instructorsInfo).then(function (response) {
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + courseId + '/instructors', instructorsInfo).then(function (response) {
         return console.log(response);
       })["catch"](function (error) {
         UIkit.notification({
@@ -3960,7 +3874,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this2 = this;
 
-    axios.get('/api/instructor/course/' + this.courseId + '/instructors').then(function (response) {
+    axios.get('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/instructors').then(function (response) {
       return response.data.data;
     }).then(function (response) {
       for (var i = 0; i < response.instructor.length; i++) {
@@ -4086,6 +4000,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     addSourceText: {
       type: String,
       "default": "Kaynak Ekle"
+    },
+    moduleName: {
+      type: String,
+      required: true
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['sections', 'selectedLessonIndex', 'selectedSectionIndex'])),
@@ -4119,14 +4037,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       formData.append('sectionId', this.sections[this.selectedSectionIndex].id);
       formData.append('courseId', this.courseId);
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/create/' + this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id, formData).then(function (response) {
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/create/' + this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id, formData).then(function (response) {
         if (!response.data.error) {
           UIkit.notification({
             message: response.data.message,
             status: 'success'
           });
 
-          _this.$store.dispatch('loadSections', _this.courseId);
+          _this.$store.dispatch('loadSections', [_this.moduleName, _this.courseId]);
 
           _this.clearForm();
         } else {
@@ -4148,10 +4066,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.newSources.splice(index, 1);
     },
     deleteSourceFromDatabase: function deleteSourceFromDatabase(sourceId) {
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/' + this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id + '/source/delete/' + sourceId).then(this.$store.dispatch('loadSections', this.courseId));
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/' + this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id + '/source/delete/' + sourceId).then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
     },
     cancel: function cancel() {
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/' + this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id + '/source/cancel').then(this.$store.dispatch('loadSections', this.courseId));
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/' + this.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id + '/source/cancel').then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
       this.clearForm();
     }
   })
@@ -4269,6 +4187,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     sectionIndex: {
       type: Number,
       required: true
+    },
+    moduleName: {
+      type: String,
+      required: true
     }
   },
   computed: {
@@ -4278,7 +4200,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections', 'loadSelectedLessonIndex', 'loadSelectedSectionIndex']), {
     removeLesson: function removeLesson() {
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/' + this.section.id + '/lessons/delete/' + this.lesson.id).then(this.$store.dispatch('loadSections', this.courseId));
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/' + this.section.id + '/lessons/delete/' + this.lesson.id).then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
     },
     removeSource: function removeSource(index) {
       this.lessonSources.splice(index, 1);
@@ -4447,6 +4369,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     hasNoLessonText: {
       type: String,
       "default": 'Ders Bulunmuyor'
+    },
+    moduleName: {
+      type: String,
+      required: true
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['sections', 'selectedSectionIndex'])),
@@ -4457,9 +4383,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var formData = new FormData();
       formData.append('name', document.getElementById('sectionSettingsName').value);
       formData.append('courseId', this.courseId);
-      axios.post('/api/instructor/course/' + this.courseId + '/sections/create/' + this.sections[this.selectedSectionIndex].id, formData).then(function (response) {
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/create/' + this.sections[this.selectedSectionIndex].id, formData).then(function (response) {
         if (!response.data.error) {
-          _this.$store.dispatch('loadSections', _this.courseId);
+          _this.$store.dispatch('loadSections', [_this.moduleName, _this.courseId]);
 
           UIkit.notification({
             message: response.data.message,
@@ -4474,14 +4400,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     lessonUp: function lessonUp(lessonId) {
-      axios.post('/api/instructor/course/' + this.courseId + '/section/' + this.sections[this.selectedSectionIndex].id + '/lesson/' + lessonId + "/up").then(function (response) {
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.sections[this.selectedSectionIndex].id + '/lesson/' + lessonId + "/up").then(function (response) {
         return console.log(response.data);
-      }).then(this.$store.dispatch('loadSections', this.courseId));
+      }).then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
     },
     lessonDown: function lessonDown(lessonId) {
-      axios.post('/api/instructor/course/' + this.courseId + '/section/' + this.sections[this.selectedSectionIndex].id + '/lesson/' + lessonId + '/up').then(function (response) {
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.sections[this.selectedSectionIndex].id + '/lesson/' + lessonId + '/up').then(function (response) {
         return console.log(response.data);
-      }).then(this.$store.dispatch('loadSections', this.courseId));
+      }).then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
     }
   })
 });
@@ -5153,6 +5079,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     questionTitleText: {
       type: String,
       "default": "Başlık"
+    },
+    moduleName: {
+      type: String,
+      required: true
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['learnCourse', 'selectedSectionIndex', 'selectedLessonIndex', 'lessonDiscussion']), {
@@ -5166,7 +5096,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('userId', this.studentId);
       formData.append('content', document.getElementById('questionArea').value);
       formData.append('title', document.getElementById('questionTitle').value);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/learn/generalEducation/' + this.courseId + '/lesson/' + this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id + '/discussion/ask', formData).then(this.$store.dispatch('loadLessonDiscussion', [this.courseId, this.lessonId]))["catch"](function (error) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/learn/' + this.moduleName + '/' + this.courseId + '/lesson/' + this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id + '/discussion/ask', formData).then(this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.lessonId]))["catch"](function (error) {
         UIkit.notification({
           message: error.message,
           status: 'danger'
@@ -5301,6 +5231,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     lessonsText: {
       type: String,
       "default": "Dersler"
+    },
+    moduleName: {
+      type: String,
+      required: true
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['learnCourse', 'courseSources', 'selectedLessonIndex', 'selectedSectionIndex']), {
@@ -5326,14 +5260,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     selectLesson: function selectLesson(sectionIndex, lessonIndex) {
       this.$store.dispatch('loadSelectedSectionIndex', sectionIndex);
       this.$store.dispatch('loadSelectedLessonIndex', lessonIndex);
-      this.$store.dispatch('loadLessonDiscussion', [this.courseId, this.lessonId]);
-      this.$store.dispatch('loadCourseSources', [this.courseId, this.lessonId]);
+      this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.lessonId]);
+      this.$store.dispatch('loadCourseSources', [this.moduleName, this.courseId, this.lessonId]);
     }
   }),
   created: function created() {
-    this.$store.dispatch('loadLearnCourse', this.courseId);
-    this.$store.dispatch('loadLessonDiscussion', [this.courseId, this.firstLessonId]);
-    this.$store.dispatch('loadCourseSources', [this.courseId, this.firstLessonId]);
+    this.$store.dispatch('loadLearnCourse', [this.moduleName, this.courseId]);
+    this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.firstLessonId]);
+    this.$store.dispatch('loadCourseSources', [this.moduleName, this.courseId, this.firstLessonId]);
   }
 });
 
@@ -9128,7 +9062,8 @@ var render = function() {
                 "is-preview-text": _vm.isPreviewText,
                 "save-text": _vm.saveText,
                 "saved-success-text": _vm.savedSuccessText,
-                "select-file-text": _vm.selectFileText
+                "select-file-text": _vm.selectFileText,
+                "module-name": _vm.moduleName
               }
             })
           ],
@@ -9274,141 +9209,6 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/course-add-instructor.vue?vue&type=template&id=1db955d8&scoped=true&":
-/*!***********************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/instructor/course-add-instructor.vue?vue&type=template&id=1db955d8&scoped=true& ***!
-  \***********************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "uk-margin-small" }, [
-    _c("div", { staticClass: "uk-grid align-items-center" }, [
-      _c("input", {
-        attrs: { type: "text", hidden: "", disabled: "" },
-        domProps: { value: _vm.instructorId }
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "uk-width-3-5@m uk-margin-small-bottom" }, [
-        _c("div", { staticClass: "uk-form-label uk-hidden@m" }, [
-          _vm._v(" Eğitmen")
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "uk-flex align-items-center" }, [
-          _c("img", {
-            staticClass: "user-profile-tiny uk-circle",
-            attrs: { src: _vm.instructorPhoto }
-          }),
-          _vm._v(" "),
-          _c("b", { staticClass: "uk-margin-left" }, [
-            _vm._v(_vm._s(_vm.instructorName))
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
-      _vm._m(1)
-    ]),
-    _vm._v(" "),
-    _c("hr", { staticClass: "uk-hidden@m uk-margin-medium-top" })
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-width-1-5@m uk-margin-small-bottom" }, [
-      _c("div", { staticClass: "uk-form-label uk-hidden@m" }, [
-        _vm._v(" Percent")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "uk-input uk-padding-remove",
-        attrs: {
-          type: "number",
-          name: "percent",
-          id: "percent",
-          max: "100",
-          min: "1"
-        }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-width-1-5@m uk-margin-small-bottom" }, [
-      _c("a", { staticClass: "uk-button-icon", attrs: { onclick: "" } }, [
-        _c("i", { staticClass: "fas fa-trash-alt text-danger icon-small" })
-      ])
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/course-create-instructors.vue?vue&type=template&id=7926e720&scoped=true&":
-/*!***************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/instructor/course-create-instructors.vue?vue&type=template&id=7926e720&scoped=true& ***!
-  \***************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "watch-example" } }, [
-    _c("p", [
-      _vm._v("\n        Ask a yes/no question:\n        "),
-      _c("input", {
-        directives: [
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.email,
-            expression: "email"
-          }
-        ],
-        domProps: { value: _vm.email },
-        on: {
-          input: function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.email = $event.target.value
-          }
-        }
-      })
-    ]),
-    _vm._v(" "),
-    _c("p", [_vm._v(_vm._s(_vm.answer))])
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/course-section.vue?vue&type=template&id=2a3ffeac&scoped=true&":
 /*!****************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/instructor/course-section.vue?vue&type=template&id=2a3ffeac&scoped=true& ***!
@@ -9491,7 +9291,8 @@ var render = function() {
                                       "saved-success-text":
                                         _vm.savedSuccessText,
                                       "select-file-text": _vm.selectFileText,
-                                      "section-index": _vm.sectionIndex
+                                      "section-index": _vm.sectionIndex,
+                                      "module-name": _vm.moduleName
                                     }
                                   })
                                 ],
@@ -25158,8 +24959,6 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('course-card', __webpack_require__(/*! ./components/course-card.vue */ "./resources/js/components/course-card.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('stars-rating', __webpack_require__(/*! ./components/stars-rating.vue */ "./resources/js/components/stars-rating.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('category-select', __webpack_require__(/*! ./components/instructor/category-select.vue */ "./resources/js/components/instructor/category-select.vue")["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('course-create-instructors', __webpack_require__(/*! ./components/instructor/course-create-instructors.vue */ "./resources/js/components/instructor/course-create-instructors.vue")["default"]);
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('add-instructor', __webpack_require__(/*! ./components/instructor/course-add-instructor.vue */ "./resources/js/components/instructor/course-add-instructor.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('instructor-area', __webpack_require__(/*! ./components/instructor/instructors-area.vue */ "./resources/js/components/instructor/instructors-area.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('add-list', __webpack_require__(/*! ./components/instructor/add-list.vue */ "./resources/js/components/instructor/add-list.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('add-section', __webpack_require__(/*! ./components/instructor/add-section.vue */ "./resources/js/components/instructor/add-section.vue")["default"]);
@@ -26125,144 +25924,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_category_select_vue_vue_type_template_id_1a163144___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_category_select_vue_vue_type_template_id_1a163144___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/instructor/course-add-instructor.vue":
-/*!**********************************************************************!*\
-  !*** ./resources/js/components/instructor/course-add-instructor.vue ***!
-  \**********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _course_add_instructor_vue_vue_type_template_id_1db955d8_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./course-add-instructor.vue?vue&type=template&id=1db955d8&scoped=true& */ "./resources/js/components/instructor/course-add-instructor.vue?vue&type=template&id=1db955d8&scoped=true&");
-/* harmony import */ var _course_add_instructor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./course-add-instructor.vue?vue&type=script&lang=js& */ "./resources/js/components/instructor/course-add-instructor.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _course_add_instructor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _course_add_instructor_vue_vue_type_template_id_1db955d8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _course_add_instructor_vue_vue_type_template_id_1db955d8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  "1db955d8",
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/instructor/course-add-instructor.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/instructor/course-add-instructor.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************!*\
-  !*** ./resources/js/components/instructor/course-add-instructor.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_course_add_instructor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./course-add-instructor.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/course-add-instructor.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_course_add_instructor_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/instructor/course-add-instructor.vue?vue&type=template&id=1db955d8&scoped=true&":
-/*!*****************************************************************************************************************!*\
-  !*** ./resources/js/components/instructor/course-add-instructor.vue?vue&type=template&id=1db955d8&scoped=true& ***!
-  \*****************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_course_add_instructor_vue_vue_type_template_id_1db955d8_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./course-add-instructor.vue?vue&type=template&id=1db955d8&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/course-add-instructor.vue?vue&type=template&id=1db955d8&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_course_add_instructor_vue_vue_type_template_id_1db955d8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_course_add_instructor_vue_vue_type_template_id_1db955d8_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/instructor/course-create-instructors.vue":
-/*!**************************************************************************!*\
-  !*** ./resources/js/components/instructor/course-create-instructors.vue ***!
-  \**************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _course_create_instructors_vue_vue_type_template_id_7926e720_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./course-create-instructors.vue?vue&type=template&id=7926e720&scoped=true& */ "./resources/js/components/instructor/course-create-instructors.vue?vue&type=template&id=7926e720&scoped=true&");
-/* harmony import */ var _course_create_instructors_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./course-create-instructors.vue?vue&type=script&lang=js& */ "./resources/js/components/instructor/course-create-instructors.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _course_create_instructors_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _course_create_instructors_vue_vue_type_template_id_7926e720_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _course_create_instructors_vue_vue_type_template_id_7926e720_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  "7926e720",
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/instructor/course-create-instructors.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/instructor/course-create-instructors.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************************!*\
-  !*** ./resources/js/components/instructor/course-create-instructors.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_course_create_instructors_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./course-create-instructors.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/course-create-instructors.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_course_create_instructors_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/instructor/course-create-instructors.vue?vue&type=template&id=7926e720&scoped=true&":
-/*!*********************************************************************************************************************!*\
-  !*** ./resources/js/components/instructor/course-create-instructors.vue?vue&type=template&id=7926e720&scoped=true& ***!
-  \*********************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_course_create_instructors_vue_vue_type_template_id_7926e720_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./course-create-instructors.vue?vue&type=template&id=7926e720&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/course-create-instructors.vue?vue&type=template&id=7926e720&scoped=true&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_course_create_instructors_vue_vue_type_template_id_7926e720_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_course_create_instructors_vue_vue_type_template_id_7926e720_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -27467,45 +27128,57 @@ var actions = {
       return commit('setSubCategory', response.data);
     });
   },
-  loadSections: function loadSections(_ref11, courseId) {
+  loadSections: function loadSections(_ref11, _ref12) {
     var commit = _ref11.commit;
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/instructor/course/' + courseId + '/sections/get').then(function (response) {
+
+    var _ref13 = _slicedToArray(_ref12, 2),
+        moduleName = _ref13[0],
+        courseId = _ref13[1];
+
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/instructor/' + moduleName + '/course/' + courseId + '/sections/get').then(function (response) {
       return commit('setSections', response.data);
     });
   },
-  loadSelectedLessonIndex: function loadSelectedLessonIndex(_ref12, lessonIndex) {
-    var commit = _ref12.commit;
+  loadSelectedLessonIndex: function loadSelectedLessonIndex(_ref14, lessonIndex) {
+    var commit = _ref14.commit;
     commit('setSelectedLessonIndex', lessonIndex);
   },
-  loadSelectedSectionIndex: function loadSelectedSectionIndex(_ref13, sectionIndex) {
-    var commit = _ref13.commit;
+  loadSelectedSectionIndex: function loadSelectedSectionIndex(_ref15, sectionIndex) {
+    var commit = _ref15.commit;
     commit('setSelectedSectionIndex', sectionIndex);
   },
-  loadLearnCourse: function loadLearnCourse(_ref14, courseId) {
-    var commit = _ref14.commit;
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/learn/generalEducation/' + courseId).then(function (response) {
+  loadLearnCourse: function loadLearnCourse(_ref16, _ref17) {
+    var commit = _ref16.commit;
+
+    var _ref18 = _slicedToArray(_ref17, 2),
+        moduleName = _ref18[0],
+        courseId = _ref18[1];
+
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/learn/' + moduleName + '/' + courseId).then(function (response) {
       return commit('setLearnCourse', response.data);
     });
   },
-  loadCourseSources: function loadCourseSources(_ref15, _ref16) {
-    var commit = _ref15.commit;
+  loadCourseSources: function loadCourseSources(_ref19, _ref20) {
+    var commit = _ref19.commit;
 
-    var _ref17 = _slicedToArray(_ref16, 2),
-        courseId = _ref17[0],
-        lessonId = _ref17[1];
+    var _ref21 = _slicedToArray(_ref20, 3),
+        moduleName = _ref21[0],
+        courseId = _ref21[1],
+        lessonId = _ref21[2];
 
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/learn/generalEducation/' + courseId + '/lesson/' + lessonId + '/sources').then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/learn/' + moduleName + '/' + courseId + '/lesson/' + lessonId + '/sources').then(function (response) {
       return commit('setCourseSources', response.data);
     });
   },
-  loadLessonDiscussion: function loadLessonDiscussion(_ref18, _ref19) {
-    var commit = _ref18.commit;
+  loadLessonDiscussion: function loadLessonDiscussion(_ref22, _ref23) {
+    var commit = _ref22.commit;
 
-    var _ref20 = _slicedToArray(_ref19, 2),
-        courseId = _ref20[0],
-        lessonId = _ref20[1];
+    var _ref24 = _slicedToArray(_ref23, 3),
+        moduleName = _ref24[0],
+        courseId = _ref24[1],
+        lessonId = _ref24[2];
 
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/learn/generalEducation/' + courseId + '/lesson/' + lessonId + '/discussion').then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/learn/' + moduleName + '/' + courseId + '/lesson/' + lessonId + '/discussion').then(function (response) {
       return commit('setLessonDiscussion', response.data);
     });
   }

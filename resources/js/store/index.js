@@ -154,8 +154,8 @@ const actions={
         Axios.get('/api/category/'+id)
             .then(response =>commit('setSubCategory', response.data))
     },
-    loadSections({commit},courseId){
-        Axios.get('/api/instructor/course/'+courseId+'/sections/get')
+    loadSections({commit},[moduleName, courseId]){
+        Axios.get('/api/instructor/'+moduleName+'/course/'+courseId+'/sections/get')
             .then(response=>commit('setSections',response.data));
     },
     loadSelectedLessonIndex({commit},lessonIndex){
@@ -164,16 +164,16 @@ const actions={
     loadSelectedSectionIndex({commit}, sectionIndex){
         commit('setSelectedSectionIndex',sectionIndex);
     },
-    loadLearnCourse({commit}, courseId){
-        Axios.get('/api/learn/generalEducation/'+courseId)
+    loadLearnCourse({commit}, [moduleName, courseId]){
+        Axios.get('/api/learn/'+moduleName+'/'+courseId)
             .then(response=>commit('setLearnCourse',response.data));
     },
-    loadCourseSources({commit}, [courseId, lessonId]){
-        Axios.get('/api/learn/generalEducation/'+courseId+'/lesson/'+lessonId+'/sources')
+    loadCourseSources({commit}, [moduleName, courseId, lessonId]){
+        Axios.get('/api/learn/'+moduleName+'/'+courseId+'/lesson/'+lessonId+'/sources')
             .then(response=>commit('setCourseSources',response.data))
     },
-    loadLessonDiscussion({commit}, [courseId, lessonId]){
-        Axios.get('/api/learn/generalEducation/'+courseId+'/lesson/'+lessonId+'/discussion')
+    loadLessonDiscussion({commit}, [moduleName, courseId, lessonId]){
+        Axios.get('/api/learn/'+moduleName+'/'+courseId+'/lesson/'+lessonId+'/discussion')
             .then(response=>commit('setLessonDiscussion',response.data))
     }
 };

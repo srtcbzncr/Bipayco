@@ -96,6 +96,10 @@
             saveText:{
                 type:String,
                 default:"Kaydet"
+            },
+            moduleName:{
+                type:String,
+                required:true,
             }
         },
         data(){
@@ -135,14 +139,14 @@
                     console.log("id:"+id+ " percent:"+percent);
                     instructorsInfo.push({'instructor_id':id,'percent': percent});
                 }
-                axios.post('/api/instructor/course/'+courseId+'/instructors',instructorsInfo)
+                axios.post('/api/instructor/'+this.moduleName+'/course/'+courseId+'/instructors',instructorsInfo)
                     .then(response=>console.log(response)).catch((error) => {
                         UIkit.notification({message:error.message, status: 'danger'});
                     });
             }
         },
         created() {
-            axios.get('/api/instructor/course/'+this.courseId+'/instructors')
+            axios.get('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/instructors')
                 .then(response=>response.data.data)
                 .then(response=>{
                     for (var i=0; i<response.instructor.length; i++){

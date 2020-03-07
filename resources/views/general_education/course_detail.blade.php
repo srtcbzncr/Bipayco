@@ -96,7 +96,7 @@
                                     <ul>
                                         @forelse($section->lessons as $lesson)
                                         <li>
-                                            <a href="#" class="uk-link-reset">
+                                            <a href="#modal-media-video" class="uk-link-reset" uk-toggle>
                                                 <!-- Play icon  -->
                                                 <span>
                                                     @if(Auth::check()&& in_array($lesson->id, $completed) )
@@ -112,8 +112,9 @@
                                                 </a>
                                             @if($lesson->preview)
                                                <!-- preview link -->
-                                                <a style="color:#666666" class="uk-link-reset uk-margin-xlarge-right uk-position-center-right uk-padding-small uk-text-small uk-visible@s" href="#preview-video-1" uk-toggle> <i class="fas fa-play icon-small uk-text-grey"></i> @lang('front/auth.preview')  </a>
-                                                <!-- time -->
+                                                <a style="color:#666666" class="uk-link-reset uk-margin-xlarge-right uk-position-center-right uk-padding-small uk-text-small uk-visible@s"
+                                                > <i class="fas fa-play icon-small uk-text-grey"></i> @lang('front/auth.preview')  </a>
+                                               <!-- time -->
                                                 @if($lesson->is_video)
                                                    <span style="color:#666666" class="uk-visible@m uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{$lesson->long}}</span>
                                                 @endif
@@ -134,21 +135,10 @@
                     </ul>
 
                     <!-- Model  Preview videos-->
-                    <div id="preview-video-1" uk-modal>
-                        <div class="uk-modal-dialog uk-margin-auto-vertical">
+                    <div id="modal-media-video" class="uk-flex-top" uk-modal>
+                        <div class="uk-modal-dialog uk-width-auto uk-margin-auto-vertical">
                             <button class="uk-modal-close-outside" type="button" uk-close></button>
-                            <div class="video-responsive">
-                                <iframe src="#" class="uk-padding-remove" uk-video="automute: true" frameborder="0" allowfullscreen uk-responsive></iframe>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Model  Preview videos-->
-                    <div id="preview-video-2" uk-modal>
-                        <div class="uk-modal-dialog uk-margin-auto-vertical">
-                            <button class="uk-modal-close-outside" type="button" uk-close></button>
-                            <div class="video-responsive">
-                                <iframe src="#" class="uk-padding-remove" uk-video="automute: true" frameborder="0" allowfullscreen uk-responsive></iframe>
-                            </div>
+                            <video src="#" width="400" controls playsinline  controlsList="nodownload" uk-video></video>
                         </div>
                     </div>
                 </div>

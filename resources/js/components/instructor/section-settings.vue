@@ -108,6 +108,10 @@
             hasNoLessonText:{
                 type:String,
                 default:'Ders Bulunmuyor'
+            },
+            moduleName:{
+                type:String,
+                required:true,
             }
         },
         computed:{
@@ -126,10 +130,10 @@
                 var formData=new FormData();
                 formData.append('name', document.getElementById('sectionSettingsName').value);
                 formData.append('courseId', this.courseId);
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/create/'+this.sections[this.selectedSectionIndex].id, formData)
+                axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/sections/create/'+this.sections[this.selectedSectionIndex].id, formData)
                     .then(response=>{
                         if(!response.data.error){
-                            this.$store.dispatch('loadSections',this.courseId);
+                            this.$store.dispatch('loadSections',[this.moduleName, this.courseId]);
                             UIkit.notification({message:response.data.message, status: 'success'});
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
@@ -137,12 +141,12 @@
                     })
             },
             lessonUp:function (lessonId) {
-                axios.post('/api/instructor/course/'+this.courseId+'/section/'+this.sections[this.selectedSectionIndex].id+'/lesson/'+lessonId+"/up").then(response=>console.log(response.data))
-                    .then(this.$store.dispatch('loadSections',this.courseId))
+                axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/section/'+this.sections[this.selectedSectionIndex].id+'/lesson/'+lessonId+"/up").then(response=>console.log(response.data))
+                    .then(this.$store.dispatch('loadSections',[this.moduleName, this.courseId]))
             },
             lessonDown:function (lessonId) {
-                axios.post('/api/instructor/course/'+this.courseId+'/section/'+this.sections[this.selectedSectionIndex].id+'/lesson/'+lessonId+'/up').then(response=>console.log(response.data))
-                    .then(this.$store.dispatch('loadSections',this.courseId))
+                axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/section/'+this.sections[this.selectedSectionIndex].id+'/lesson/'+lessonId+'/up').then(response=>console.log(response.data))
+                    .then(this.$store.dispatch('loadSections',[this.moduleName, this.courseId]))
             }
         },
     }

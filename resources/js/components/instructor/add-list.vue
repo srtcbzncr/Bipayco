@@ -45,6 +45,10 @@
             courseId:{
                 type:String,
                 required:true,
+            },
+            moduleName:{
+                type:String,
+                required:true,
             }
         },
         data(){
@@ -72,7 +76,7 @@
             }
         },
         created() {
-            axios.get('/api/instructor/course/'+this.courseId+'/goals')
+            axios.get('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/goals')
                 .then(response=>response.data.data)
                 .then(response=>{
                     switch (this.field) {

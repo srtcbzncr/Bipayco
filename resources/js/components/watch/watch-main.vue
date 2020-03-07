@@ -92,6 +92,10 @@
             lessonsText:{
                 type:String,
                 default:"Dersler"
+            },
+            moduleName:{
+                type:String,
+                required:true,
             }
         },
         computed:{
@@ -128,14 +132,14 @@
             selectLesson:function ( sectionIndex, lessonIndex) {
                 this.$store.dispatch('loadSelectedSectionIndex', sectionIndex);
                 this.$store.dispatch('loadSelectedLessonIndex', lessonIndex);
-                this.$store.dispatch('loadLessonDiscussion', [this.courseId, this.lessonId]);
-                this.$store.dispatch('loadCourseSources',[this.courseId, this.lessonId]);
+                this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.lessonId]);
+                this.$store.dispatch('loadCourseSources',[this.moduleName, this.courseId, this.lessonId]);
             }
         },
         created() {
-            this.$store.dispatch('loadLearnCourse',this.courseId);
-            this.$store.dispatch('loadLessonDiscussion', [this.courseId, this.firstLessonId]);
-            this.$store.dispatch('loadCourseSources',[this.courseId, this.firstLessonId]);
+            this.$store.dispatch('loadLearnCourse', [this.moduleName, this.courseId]);
+            this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.firstLessonId]);
+            this.$store.dispatch('loadCourseSources',[this.moduleName, this.courseId, this.firstLessonId]);
         }
     }
 </script>

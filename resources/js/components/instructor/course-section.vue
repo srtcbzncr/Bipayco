@@ -25,6 +25,7 @@
                                             :saved-success-text="savedSuccessText"
                                             :select-file-text="selectFileText"
                                             :section-index="sectionIndex"
+                                            :module-name="moduleName"
                                         > </lesson>
                                     </li>
                                     <li>
@@ -121,6 +122,10 @@
             savedSuccessText:{
                 type:String,
                 default:'Başarıyla Kaydedildi'
+            },
+            moduleName:{
+                type:String,
+                required:true,
             }
         },
         computed:{
@@ -134,7 +139,8 @@
                 'loadSelectedSectionIndex',
             ]),
             removeSection:function () {
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/delete/'+this.section.id).then(this.$store.dispatch('loadSections',this.courseId))
+                axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/sections/delete/'+this.section.id)
+                    .then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]))
             },
             sendInfo:function (index) {
                 this.$store.dispatch('loadSelectedSectionIndex', index);
@@ -148,12 +154,14 @@
                 }).toggle();
             },
             sectionUp:function () {
-                axios.post('/api/instructor/course/'+this.courseId+'/section/'+this.section.id+'/up').then(response=>console.log(response.data))
-                    .then(this.$store.dispatch('loadSections',this.courseId))
+                axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/section/'+this.section.id+'/up')
+                    .then(response=>console.log(response.data))
+                    .then(this.$store.dispatch('loadSections',[this.moduleName, this.courseId]))
             },
             sectionDown:function(){
-                axios.post('/api/instructor/course/'+this.courseId+'/section/'+this.section.id+'/down').then(response=>console.log(response.data))
-                    .then(this.$store.dispatch('loadSections',this.courseId))
+                axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/section/'+this.section.id+'/down')
+                    .then(response=>console.log(response.data))
+                    .then(this.$store.dispatch('loadSections',[this.moduleName, this.courseId]))
             }
         }
     }

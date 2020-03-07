@@ -19,6 +19,7 @@
                     :save-text="saveText"
                     :saved-success-text="savedSuccessText"
                     :select-file-text="selectFileText"
+                    :module-name="moduleName"
                 > </course-section>
             </div>
         </div>
@@ -76,6 +77,10 @@
             savedSuccessText:{
                 type:String,
                 default:'Başarıyla Kaydedildi'
+            },
+            moduleName:{
+                type:String,
+                required:true,
             }
         },
         computed:{
@@ -91,13 +96,13 @@
                 var formData=new FormData();
                 formData.append('name', document.getElementById('sectionInput').value);
                 formData.append('courseId', this.courseId);
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/create', formData)
+                axios.post('/api/instructor/'+this.moduleName+'course/'+this.courseId+'/sections/create', formData)
                     .then(response=>response.data)
                     .then(response=>{
                         if(response.error){
                             UIkit.notification({message:response.message, status: 'danger'});
                         }else{
-                            this.$store.dispatch('loadSections',this.courseId);
+                            this.$store.dispatch('loadSections',[this.moduleName, this.courseId]);
                             UIkit.notification({message:response.message, status: 'success'});
                         }
                     });
@@ -105,7 +110,7 @@
             },
         },
         created() {
-            this.$store.dispatch('loadSections',this.courseId);
+            this.$store.dispatch('loadSections',[this.moduleName, this.courseId]);
         },
     }
 </script>

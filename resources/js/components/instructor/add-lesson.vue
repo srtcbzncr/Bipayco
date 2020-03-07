@@ -156,6 +156,10 @@
             notAddedLessonText:{
                 type:String,
                 default:"Ders Eklenemedi"
+            },
+            moduleName:{
+                type:String,
+                required:true,
             }
         },
         computed:{
@@ -197,7 +201,7 @@
                    console.log(pair[0]);
                    console.log(pair[1])
                 }
-                axios.post('/api/instructor/course/'+this.courseId+'/sections/'+this.sections[this.selectedSectionIndex].id+'/lessons/create', formData, {
+                axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/sections/'+this.sections[this.selectedSectionIndex].id+'/lessons/create', formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data'
                     },
@@ -206,7 +210,7 @@
                     }.bind(this)})
                     .then(response=>{
                         if(!response.data.error){
-                            this.$store.dispatch('loadSections',this.courseId);
+                            this.$store.dispatch('loadSections',[this.moduleName, this.courseId]);
                             this.changeMessage(response.data.message);
                             UIkit.toggle( {
                                 target:".toggleByAxios",

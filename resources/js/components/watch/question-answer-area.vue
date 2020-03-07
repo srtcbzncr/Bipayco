@@ -71,6 +71,10 @@
             questionTitleText:{
                 type:String,
                 default: "Başlık",
+            },
+            moduleName:{
+                type:String,
+                required:true,
             }
         },
         computed:{
@@ -93,8 +97,8 @@
                 formData.append('userId', this.studentId);
                 formData.append('content', document.getElementById('questionArea').value);
                 formData.append('title', document.getElementById('questionTitle').value);
-                axios.post('/api/learn/generalEducation/'+this.courseId+'/lesson/'+this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id+'/discussion/ask', formData)
-                    .then(this.$store.dispatch('loadLessonDiscussion', [this.courseId, this.lessonId]))
+                axios.post('/api/learn/'+this.moduleName+'/'+this.courseId+'/lesson/'+this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id+'/discussion/ask', formData)
+                    .then(this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.lessonId]))
                     .catch((error) => {
                         UIkit.notification({message:error.message, status: 'danger'});
                     });

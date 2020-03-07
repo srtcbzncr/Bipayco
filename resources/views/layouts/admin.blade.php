@@ -28,6 +28,7 @@
     <link href="{{asset('css/main.css')}}" rel="stylesheet">
     <link href="{{asset('css/fontawesome.css')}}" rel="stylesheet">
     <style>
+        /*color1: #80f5d2; color2: #86e6ef;*/
         .stats-card{
             border-radius: 20px;
             background: rgb(128,245,210);
