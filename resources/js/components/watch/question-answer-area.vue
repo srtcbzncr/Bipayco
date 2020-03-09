@@ -7,7 +7,6 @@
         </div>
         <div class="uk-container">
             <div v-if="lessonDiscussion.questions.length>0" v-for="discussion in lessonDiscussion.questions[page]" class="uk-margin-top">
-                {{discussion}}
                 <div class="uk-card uk-padding-small uk-card-default">
                     <div class="uk-card-body uk-padding-small uk-flex align-items-center">
                         <div class="uk-width-1-6@m uk-visible@m justify-content-center">
@@ -41,8 +40,10 @@
                 </div>
             </div>
             <ul class="uk-pagination uk-flex-center">
-                <li><a href="#"><span uk-pagination-previous></span></a></li>
-                <li class=""><a href="#" @click="nextButton"><span uk-pagination-next></span></a></li>
+                <li v-if="page>0"><a href="#" @click="page--"><span uk-pagination-previous></span></a></li>
+                <li v-else><a href="#" class="uk-disabled"><span uk-pagination-previous></span></a></li>
+                <li v-if="page<lessonDiscussion.questions.length-1"><a href="#" @click="page++"><span uk-pagination-next></span></a></li>
+                <li v-else><a href="#" class="uk-disabled"><span uk-pagination-next></span></a></li>
             </ul>
         </div>
     </div>
@@ -111,12 +112,6 @@
                 document.getElementById('questionArea').value="";
                 document.getElementById('questionTitle').value="";
             },
-            nextButton:function () {
-                this.page++;
-            },
-            previousButton:function () {
-                this.page--;
-            }
         },
     }
 </script>

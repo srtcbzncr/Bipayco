@@ -2,7 +2,7 @@
     <div class="uk-card uk-card-default uk-align-center">
         <div class="uk-card-body uk-grid uk-padding-remove">
             <div class="uk-width-3-4@m uk-flex align-items-center justify-content-center">
-                <video v-if="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].is_video" width="400" controls controlsList="nodownload">
+                <video v-if="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].is_video" id="courseLessonVideo" @timeupdate="watched" width="400" controls controlsList="nodownload">
                     <source :src="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].file_path" type="video/mp4">
                     <source :src="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].file_path" type="video/ogg">
                     Your browser does not support HTML5 video.
@@ -134,6 +134,12 @@
                 this.$store.dispatch('loadSelectedLessonIndex', lessonIndex);
                 this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.lessonId]);
                 this.$store.dispatch('loadCourseSources',[this.moduleName, this.courseId, this.lessonId]);
+            },
+            watched:function () {
+                var videoPlayer=document.getElementById('courseLessonVideo');
+                if(videoPlayer.currentTime>=videoPlayer.duration-8){
+                    console.log('izlendi');
+                }
             }
         },
         created() {

@@ -139,7 +139,7 @@
                                     module-name="generalEducation"
                                 > </add-list>
                                 <div class=uk-margin">
-                                    <input class="uk-button uk-button-grey uk-margin uk-width-small@m" type="button" onclick="achievementsPost({{$course->id}})"  value="@lang('front/auth.save')">
+                                    <input class="uk-button uk-button-grey uk-margin uk-width-small@m" type="button" onclick="achievementsPost('generalEducation',{{$course->id}})"  value="@lang('front/auth.save')">
                                 </div>
                             </div>
                             <div id="lessons" class="tabcontent  animation: uk-animation-slide-right-medium">

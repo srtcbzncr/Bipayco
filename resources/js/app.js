@@ -24,6 +24,7 @@ window.Vue = require('vue');
 Vue.component('course-card', require('./components/course-card.vue').default);
 Vue.component('stars-rating', require('./components/stars-rating.vue').default);
 Vue.component('category-select', require('./components/instructor/category-select.vue').default);
+Vue.component('lesson-type-select', require('./components/instructor/lesson-type-select.vue').default);
 Vue.component('instructor-area', require('./components/instructor/instructors-area.vue').default);
 Vue.component('add-list', require('./components/instructor/add-list.vue').default);
 Vue.component('add-section', require('./components/instructor/add-section.vue').default);

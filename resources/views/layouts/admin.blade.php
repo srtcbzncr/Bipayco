@@ -167,6 +167,7 @@
         if(image.files[0]!=undefined){
             formData.append('image', image.files[0]);
         }
+        console.log(moduleName);
         if(bool){
             axios.post('/api/instructor/'+moduleName+'/course/create',
                 formData, {
@@ -185,6 +186,7 @@
                 .then(result=>window.location.replace('/instructor/ge/course/create/'+result.data.result.id))
                 .catch((error) => {
                     UIkit.notification({message:error.message, status: 'danger'});
+                    console.log(error.message)
                 });
         }
     }

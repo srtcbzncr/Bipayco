@@ -20,6 +20,7 @@
                                 <h4>@lang('front/auth.course_detail')</h4>
                             </div>
                             <hr>
+                                <lesson-type-select></lesson-type-select>
                             @if(isset($course))
                                 <category-select category-default="@lang('front/auth.category')" sub-category-default="@lang('front/auth.sub_category')" has-selected-option
                                     selected-category="{{$course->category->name}}"
@@ -139,7 +140,7 @@
                                     module-name="prepareLessons"
                                 > </add-list>
                                 <div class=uk-margin">
-                                    <input class="uk-button uk-button-grey uk-margin uk-width-small@m" type="button" onclick="achievementsPost({{$course->id}})"  value="@lang('front/auth.save')">
+                                    <input class="uk-button uk-button-grey uk-margin uk-width-small@m" type="button" onclick="achievementsPost('prepareLessons',{{$course->id}})"  value="@lang('front/auth.save')">
                                 </div>
                             </div>
                             <div id="lessons" class="tabcontent  animation: uk-animation-slide-right-medium">

@@ -49,16 +49,18 @@ const state={
                 first_name:"",
                 last_name:"",
                 avatar:"",
+                username:"",
             },
-            answers: {
+            answers: [{
                 user: {
                     first_name:"",
                     last_name:"",
                     avatar:"",
                 },
-            },
+            }],
         }]
     },
+    plLessonType:{}
 };
 const getters={};
 const mutations={
@@ -106,7 +108,10 @@ const mutations={
     },
     setLessonDiscussion(state, messages){
         state.lessonDiscussion=messages.data;
-        console.log(messages.data);
+    },
+    setPlLessonType(state,response){
+        state.plLessonType=response.data;
+        console.log(response);
     }
 };
 const actions={
@@ -174,6 +179,10 @@ const actions={
     loadLessonDiscussion({commit}, [moduleName, courseId, lessonId]){
         Axios.get('/api/learn/'+moduleName+'/'+courseId+'/lesson/'+lessonId+'/discussion')
             .then(response=>commit('setLessonDiscussion',response.data))
+    },
+    loadPlLessonType({commit}){
+        Axios.get('/api/curriculum/index')
+            .then(response=>commit('setPlLessonType',response.data))
     }
 };
 
