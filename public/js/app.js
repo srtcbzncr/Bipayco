@@ -2338,6 +2338,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-card-pagination",
@@ -2821,6 +2823,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _stars_rating__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./stars-rating */ "./resources/js/components/stars-rating.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 //
 //
 //
@@ -2852,7 +2856,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-card",
@@ -2886,7 +2890,11 @@ __webpack_require__.r(__webpack_exports__);
       "default": false
     },
     styleFullStarColor: String,
-    styleEmptyStarColor: String
+    styleEmptyStarColor: String,
+    courseId: {
+      type: Number,
+      required: true
+    }
   },
   computed: {
     cPrice: function cPrice() {
@@ -2899,6 +2907,11 @@ __webpack_require__.r(__webpack_exports__);
       return {
         backgroundImage: "url(" + this.imgPath + ")"
       };
+    }
+  },
+  methods: {
+    addCart: function addCart() {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/basket/add', this.courseId);
     }
   }
 });
@@ -8068,7 +8081,8 @@ var render = function() {
                           rate: course.point,
                           "page-link": "/ge/course/" + course.id,
                           "style-full-star-color": "#F4C150",
-                          "style-empty-star-color": "#C1C1C1"
+                          "style-empty-star-color": "#C1C1C1",
+                          "course-id": course.id
                         }
                       })
                     : _c("course-card", {
@@ -8080,7 +8094,8 @@ var render = function() {
                           rate: course.point,
                           "page-link": "/ge/course/" + course.id,
                           "style-full-star-color": "#F4C150",
-                          "style-empty-star-color": "#C1C1C1"
+                          "style-empty-star-color": "#C1C1C1",
+                          "course-id": course.id
                         }
                       })
                 ],
@@ -8287,7 +8302,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "uk-icon-button icon-play" }, [
-      _c("i", { staticClass: "fas fa-play icon-ssmall" })
+      _c("i", { staticClass: "fas fa-play icon-small" })
     ])
   },
   function() {
@@ -8635,16 +8650,10 @@ var render = function() {
                 "uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge"
             },
             [
-              !_vm.inCart
-                ? _c("i", { staticClass: "fas fa-shopping-cart icon-medium" })
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.inCart
-                ? _c("i", {
-                    staticClass: "fas fa-shopping-cart icon-medium",
-                    staticStyle: { color: "limegreen" }
-                  })
-                : _vm._e()
+              _c("i", {
+                staticClass: "fas fa-shopping-cart icon-medium",
+                on: { click: _vm.addCart }
+              })
             ]
           )
         ]
