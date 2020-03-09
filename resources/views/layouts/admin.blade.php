@@ -157,8 +157,13 @@
         formData.append('price',document.querySelector('#price').value);
         formData.append('access_time',document.querySelector('#accessTime').value);
         formData.append('instructor_id',document.querySelector('#instructorId').value);
-        formData.append('category_id',document.querySelector('#category').value);
-        formData.append('sub_category_id',document.querySelector('#subCategory').value);
+        if(moduleName=="generalEducation"){
+            formData.append('category_id',document.querySelector('#category').value);
+            formData.append('sub_category_id',document.querySelector('#subCategory').value);
+        }else if(moduleName=="prepareLessons"){
+            formData.append('grade_id',document.querySelector('#gradeType').value);
+            formData.append('lesson_id',document.querySelector('#lessonType').value);
+        }
         if(document.querySelector('#certificate').checked){
             formData.append('certificate',1);
         }else{
@@ -167,7 +172,6 @@
         if(image.files[0]!=undefined){
             formData.append('image', image.files[0]);
         }
-        console.log(moduleName);
         if(bool){
             axios.post('/api/instructor/'+moduleName+'/course/create',
                 formData, {

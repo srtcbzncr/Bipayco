@@ -135,12 +135,7 @@
                     </ul>
 
                     <!-- Model  Preview videos-->
-                    <div id="modal-media-video" class="uk-flex-top" uk-modal>
-                        <div class="uk-modal-dialog uk-width-auto uk-margin-auto-vertical">
-                            <button class="uk-modal-close-outside" type="button" uk-close></button>
-                            <video src="#" width="400" controls playsinline  controlsList="nodownload" uk-video></video>
-                        </div>
-                    </div>
+
                 </div>
                 <!-- Reviews  -->
                 <div id="Reviews" class="tabcontent animation: uk-animation-slide-right-medium">

@@ -20,16 +20,19 @@
                                 <h4>@lang('front/auth.course_detail')</h4>
                             </div>
                             <hr>
-                                <lesson-type-select></lesson-type-select>
                             @if(isset($course))
-                                <category-select category-default="@lang('front/auth.category')" sub-category-default="@lang('front/auth.sub_category')" has-selected-option
-                                    selected-category="{{$course->category->name}}"
-                                    selected-category-id="{{$course->category->id}}"
-                                    selected-sub-category="{{$course->subCategory->name}}"
-                                    selected-sub-category-id="{{$course->subCategory->id}}"
-                                ></category-select>
+                                <lesson-type-select
+                                    selected-grade="{{$course->grade->name}}"
+                                    selected-grade-id="{{$course->grade->id}}"
+                                    selected-lesson="{{$course->lesson->name}}"
+                                    selected-lesson-id="{{$course->lesson->id}}"
+                                    has-selected-option
+                                ></lesson-type-select>
                             @else
-                                <category-select category-default="@lang('front/auth.category')" sub-category-default="@lang('front/auth.sub_category')"></category-select>
+                                <lesson-type-select
+                                    grade-default-text=""
+                                    lesson-default-text=""
+                                ></lesson-type-select>
                             @endif
                             <div class="uk-margin-remove-bottom uk-margin-remove-top">
                                 <input type="text" value="{{Auth::user()->instructor->id}}" id="instructorId" hidden disabled>

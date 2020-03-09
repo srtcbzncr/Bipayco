@@ -134,23 +134,11 @@
                     </ul>
 
                     <!-- Model  Preview videos-->
-                    <div id="preview-video-1" uk-modal>
-                        <div class="uk-modal-dialog uk-margin-auto-vertical">
-                            <button class="uk-modal-close-outside" type="button" uk-close></button>
-                            <div class="video-responsive">
-                                <iframe src="#" class="uk-padding-remove" uk-video="automute: true" frameborder="0" allowfullscreen uk-responsive></iframe>
-                            </div>
-                        </div>
-                    </div>
+                    <course-previews
+                        previews="{{$previewLessons}}"
+                    ></course-previews>
                     <!-- Model  Preview videos-->
-                    <div id="preview-video-2" uk-modal>
-                        <div class="uk-modal-dialog uk-margin-auto-vertical">
-                            <button class="uk-modal-close-outside" type="button" uk-close></button>
-                            <div class="video-responsive">
-                                <iframe src="#" class="uk-padding-remove" uk-video="automute: true" frameborder="0" allowfullscreen uk-responsive></iframe>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
                 <!-- Reviews  -->
                 <div id="Reviews" class="tabcontent animation: uk-animation-slide-right-medium">

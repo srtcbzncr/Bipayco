@@ -43,6 +43,7 @@ Vue.component('registered-profile', require('./components/admin/registered-profi
 Vue.component('comment', require('./components/admin/comment.vue').default);
 Vue.component('course-card-pagination', require('./components/category/course-card-pagination.vue').default);
 Vue.component('course-review', require('./components/category/course-review.vue').default);
+Vue.component('course-previews', require('./components/category/course-previews.vue').default);
 Vue.component('review', require('./components/category/review.vue').default);
 Vue.component('category-card', require('./components/category/category-card.vue').default);
 Vue.component('watch', require('./components/watch/watch-main.vue').default);
