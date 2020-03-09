@@ -37,7 +37,7 @@ class CoursePolicy
         $instructor = Instructor::where('user_id',$user->id)->first();
         if($instructor != null){
             $geCourseInstructor = DB::table("ge_courses_instructors")->where('course_id',$course->id)
-                ->where('instructor_id',$instructor->id)->first();
+                ->where('instructor_id',$instructor->id)->where('course_type','App\Models\PrepareLessons\Course')->first();
             if($geCourseInstructor != null){
                 if($geCourseInstructor->is_manager == 1){
                     return true;

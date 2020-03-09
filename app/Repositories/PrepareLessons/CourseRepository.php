@@ -27,7 +27,23 @@ class CourseRepository implements IRepository{
 
     public function get($id)
     {
-        // TODO: Implement get() method.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = Course::find($id);
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 
     public function create(array $data)
