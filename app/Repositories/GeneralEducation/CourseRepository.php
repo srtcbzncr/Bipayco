@@ -1000,6 +1000,7 @@ class CourseRepository implements IRepository{
             }
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }
@@ -1018,11 +1019,14 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $object = Course::find($id);
             $object->active = false;
             $object->save();
+            DB::commit();
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }
