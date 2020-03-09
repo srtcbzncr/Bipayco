@@ -49,7 +49,7 @@ class CourseRepository implements IRepository{
             $course->description = $data['description'];
             $course->access_time = $data['access_time'];
             $course->certificate = $data['certificate'];
-            $course->long = $data['long'];
+            $course->long = 0;
             $course->price = $data['price'];
             $course->price_with_discount = $data['price'];
             $course->save();
