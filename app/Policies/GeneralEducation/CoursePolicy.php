@@ -136,17 +136,4 @@ class CoursePolicy
             return true;
         }
     }
-
-    public function plAsk(User $user, \App\Models\PrepareLessons\Course $course){
-        $student = Student::where('user_id',$user->id)->firstOrFail();
-        $control = Entry::where('student_id',$student->id)->where('course_id',$course->id)->where('course_type','App\Models\PrepareLessons\Course')->get();
-        if($control == null){
-            return false;
-        }
-        else if(count($control) == 0)
-            return false;
-        else{
-            return true;
-        }
-    }
 }
