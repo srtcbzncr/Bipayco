@@ -29,7 +29,7 @@ Route::prefix('category')->group(function(){
 });
 
 Route::prefix('curriculum')->group(function (){
-    Route::get('index', 'API\PrepareLessons\Curriculum@index')->name('api_pl_curriculum_index');
+    Route::get('index', 'API\PrepareLessons\CurriculumController@index')->name('api_pl_curriculum_index');
 });
 
 Route::prefix('course')->group(function(){
