@@ -33,7 +33,7 @@ class CourseController extends Controller
             'progress' => $progress->getData(),
             'completed' => $completedLessonsResp->getData(),
             'similar_courses' => $similarCourses->getData(),
-            '$previewLessons' => $previewLessons
+            'previewLessons' => $previewLessons
         ];
 
         // Response
