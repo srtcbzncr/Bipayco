@@ -42,20 +42,19 @@ class CourseRepository implements IRepository{
             DB::beginTransaction();
 
             $imagePath = Storage::url($data['image']->store('public/images'));
-            $course = new Course();
-            $course->lesson_id = $data['lesson_id'];
-            $course->grade_id = $data['grade_id'];
-            $course->image = $imagePath;
-            $course->name = $data['name'];
-            $course->description = $data['description'];
-            $course->access_time = $data['access_time'];
-            $course->certificate = $data['certificate'];
-            $course->long = 0;
-            $course->price = $data['price'];
-            $course->price_with_discount = $data['price'];
-            $course->save();
-
-            $course->instructors()->save(Instructor::find($data['instructor_id']), ['is_manager' => true, 'percent' => 100]);
+            $object = new Course();
+            $object->lesson_id = $data['lesson_id'];
+            $object->grade_id = $data['grade_id'];
+            $object->image = $imagePath;
+            $object->name = $data['name'];
+            $object->description = $data['description'];
+            $object->access_time = $data['access_time'];
+            $object->certificate = $data['certificate'];
+            $object->long = 0;
+            $object->price = $data['price'];
+            $object->price_with_discount = $data['price'];
+            $object->save();
+            $object->instructors()->save(Instructor::find($data['instructor_id']), ['is_manager' => true, 'percent' => 100]);
             DB::commit();
         }
         catch(\Exception $e){
