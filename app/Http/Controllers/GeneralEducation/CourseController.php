@@ -25,7 +25,6 @@ class CourseController extends Controller
         $entriesResp = $repo->getStudents($id);
         $progress = $repo->calculateProgress($resp->getData()->id, Auth::id());
         $similarCourses = $repo->getSimilarCourses($id);
-        $previewLessons = $repo->getPreviewLessons($id);
         $data = [
             'course' => $resp->getData(),
             'entries' => $entriesResp->getData(),
@@ -33,7 +32,6 @@ class CourseController extends Controller
             'progress' => $progress->getData(),
             'completed' => $completedLessonsResp->getData(),
             'similar_courses' => $similarCourses->getData(),
-            'previewLessons' => $previewLessons
         ];
 
         // Response

@@ -860,4 +860,25 @@ class CourseController extends Controller
         ]);
     }
 
+    public function getPreviewLessons($id){
+        // Initializing
+        $repo = new CourseRepository();
+
+        // Operations
+        $resp = $repo->getPreviewLessons($id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Ön izlemeli dersler başarıyla getirildi.',
+                'previewLessons' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Ön izlemeli dersler getirilirken hata oluştu.Tekrar deneyin.',
+            'messageError' => $resp->getError()
+        ]);
+    }
+
 }
