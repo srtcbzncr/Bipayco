@@ -1501,7 +1501,10 @@ class CourseRepository implements IRepository{
                     }
                 }
             }
-            $object = $previewLessons;
+            return response()->json([
+                'previewLessons' => $previewLessons
+            ]);
+
         }
         catch(\Exception $e){
             $error = $e->getMessage();
