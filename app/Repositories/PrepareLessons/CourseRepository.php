@@ -2,6 +2,7 @@
 
 namespace App\Repositories\PrepareLessons;
 
+use App\Models\Auth\Instructor;
 use App\Models\Auth\Student;
 use App\Models\GeneralEducation\Achievement;
 use App\Models\GeneralEducation\Comment;
@@ -54,6 +55,7 @@ class CourseRepository implements IRepository{
             $course->price_with_discount = $data['price'];
             $course->save();
 
+            $course->instructors()->save(Instructor::find($data['instructor_id']), ['is_manager' => true, 'percent' => 100]);
             DB::commit();
         }
         catch(\Exception $e){

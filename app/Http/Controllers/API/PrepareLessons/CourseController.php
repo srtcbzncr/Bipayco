@@ -26,6 +26,7 @@ class CourseController extends Controller
             if($resp->getResult()){
                 return response()->json([
                     'error' => false,
+                    'result' => $resp->getData(),
                     'message' => 'Kurs başarıyla oluşturuldu'
                 ]);
             }
