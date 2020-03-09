@@ -80,7 +80,7 @@
             @foreach($data['pl'] as $course)
                 <li>
                     <div class="uk-card-default uk-card-hover uk-card-small uk-width Course-card uk-inline-clip uk-transition-toggle" tabindex="0">
-                        <a href="{{route('ge_course', $course->id)}}" class="uk-link-reset">
+                        <a href="{{route('pl_course', $course->id)}}" class="uk-link-reset">
                             <div class="course-img uk-background-center-center uk-background-cover uk-height-medium" style="background-image: url({{$course->image}})"></div>
                             <div class="uk-card-body">
                                 <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{$course->name}}</h4>
@@ -92,7 +92,7 @@
                                         <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-calendar-alt uk-margin-small-right"></i>{{date("d/m/Y", strtotime($course->created_at))}}</p>
                                     </div>
                                     <div class="uk-flex justify-content-between align-items-center ">
-                                        <a class="uk-button-text uk-button" href="#"><i class="fas fa-cog"></i></a>
+                                        <a class="uk-button-text uk-button" href="{{route('pl_course_create_get',$course->id)}}"><i class="fas fa-cog"></i></a>
                                         @if($course->active)
                                             <a class="uk-button-text uk-button" href="#"><i class="fas fa-times-circle"></i></a>
                                         @else
