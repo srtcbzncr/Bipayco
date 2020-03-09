@@ -125,8 +125,7 @@ class CoursePolicy
     }
 
     public function geAsk(User $user, Course $course){
-        return true;
-       /* $student = Student::where('user_id',$user->id)->firstOrFail();
+        $student = Student::where('user_id',$user->id)->firstOrFail();
         $control = Entry::where('student_id',$student->id)->where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
         if($control == null){
             return false;
@@ -135,12 +134,11 @@ class CoursePolicy
             return false;
         else{
             return true;
-        }*/
+        }
     }
 
     public function plAsk(User $user, \App\Models\PrepareLessons\Course $course){
-        return true;
-       /* $student = Student::where('user_id',$user->id)->firstOrFail();
+        $student = Student::where('user_id',$user->id)->firstOrFail();
         $control = Entry::where('student_id',$student->id)->where('course_id',$course->id)->where('course_type','App\Models\PrepareLessons\Course')->get();
         if($control == null){
             return false;
@@ -149,6 +147,6 @@ class CoursePolicy
             return false;
         else{
             return true;
-        }*/
+        }
     }
 }
