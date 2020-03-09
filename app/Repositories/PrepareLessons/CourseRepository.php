@@ -1309,4 +1309,36 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+
+    public function getPreviewLessons($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $previewLessons = array();
+            $course = Course::find($id);
+            $sections = $course->sections;
+            foreach ($sections as $section){
+                $lessons = $section->lessons;
+                foreach ($lessons as $lesson){
+                    if($lesson->preview == 1){
+                        array_push($previewLessons,$lesson);
+                    }
+                }
+            }
+            $object = $previewLessons;
+
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
 }

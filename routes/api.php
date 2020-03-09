@@ -51,7 +51,9 @@ Route::prefix('course')->group(function(){
     Route::get('{id}/comments', 'API\GeneralEducation\CourseController@getComments')->name('api_course_get_comments');
     Route::get('{id}/canEntry/{user_id}', 'API\GeneralEducation\CourseController@canEntry')->name('api_course_can_entry');
     Route::get('{id}/canComment/{user_id}', 'API\GeneralEducation\CourseController@canComment')->name('api_course_can_comment');
-    Route::get('{id}/previewLessons','API\GeneralEducation\CourseController@getPreviewLessons')->name('api_preview_lessons');
+    Route::get('{id}/generalEducation/previewLessons','API\GeneralEducation\CourseController@getPreviewLessons')->name('api_ge_preview_lessons');
+    Route::get('{id}/prepareLesson/previewLessons','API\PrepareLessons\CourseController@getPreviewLessons')->name('api_pl_preview_lessons');
+
 });
 
 Route::prefix('comment')->group(function(){
