@@ -43,6 +43,7 @@
                                     page-link="{{route('ge_course', $general_educations->id)}}"
                                     style-full-star-color="#F4C150"
                                     style-empty-star-color="#C1C1C1"
+                                    :course-id="{{$general_educations->id}}"
                                 ></course-card>
                             </div>
                         @endforeach
@@ -76,6 +77,7 @@
                                     @endif
                                     :rate="{{$prepare_for_exam->point}}"
                                     page-link="{{route('ge_course',$prepare_for_exam->id)}}"
+                                    :course-id="{{$prepare_for_exam->id}}"
                                 ></course-card>
                             </div>
                         @endforeach
@@ -109,6 +111,7 @@
                                     @endif
                                     :rate="{{$prepare_for_lesson->point}}"
                                     page-link="{{route('ge_course',$prepare_for_lesson->id)}}"
+                                    :course-id="{{$prepare_for_lesson->id}}"
                                 ></course-card>
                             </div>
                         @endforeach
@@ -142,6 +145,7 @@
                                     @endif
                                     :rate="{{$exam->point}}"
                                     page-link="{{route('ge_course',$exam->id)}}"
+                                    :course-id="{{$exam->id}}"
                                 ></course-card>
                             </div>
                         @endforeach
@@ -175,6 +179,7 @@
                                     @endif
                                     :rate="{{$book->point}}"
                                     page-link="{{route('ge_course',$book->id)}}"
+                                    :course-id="{{$book->id}}"
                                 ></course-card>
                             </div>
                         @endforeach

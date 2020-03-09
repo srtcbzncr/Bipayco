@@ -43,6 +43,7 @@
                         :page-link="'/ge/course/'+course.id"
                         style-full-star-color="#F4C150"
                         style-empty-star-color="#C1C1C1"
+                        :course-id="course.id"
                     > </course-card>
                     <course-card
                         v-else
@@ -54,6 +55,7 @@
                         :page-link="'/ge/course/'+course.id"
                         style-full-star-color="#F4C150"
                         style-empty-star-color="#C1C1C1"
+                        :course-id="course.id"
                     > </course-card>
                 </div>
             </div>

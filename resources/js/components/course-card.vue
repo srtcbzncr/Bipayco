@@ -6,12 +6,11 @@
                 <i v-if="!fav" class="fas fa-heart icon-medium"> </i>
             </a>
             <a class="uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge">
-                <i v-if="!inCart" class="fas fa-shopping-cart icon-medium"> </i>
-                <i v-if="inCart" class="fas fa-shopping-cart icon-medium" style="color: limegreen"> </i>
+                <i class="fas fa-shopping-cart icon-medium" @click="addCart"> </i>
             </a>
         </div>
         <a :href="pageLink" class="uk-link-reset">
-            <img :src=imgPath class="course-img uk-background-center-center uk-background-cover uk-height" :style="image">
+            <img :src="imgPath" class="course-img uk-background-center-center uk-background-cover uk-height" :style="image">
             <div class="uk-card-body">
                 <h4>{{title}}</h4>
                 <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small"> {{description}} </p>
@@ -32,6 +31,7 @@
 
 <script>
 import StarsRating from "./stars-rating";
+import Axios from 'axios';
 export default {
     name: "course-card",
     components: {StarsRating},
@@ -63,6 +63,10 @@ export default {
         },
         styleFullStarColor:String,
         styleEmptyStarColor:String,
+        courseId:{
+            type:Number,
+            required:true,
+        }
     },
     computed:{
         cPrice:function(){
@@ -73,6 +77,11 @@ export default {
         },
         image(){
             return {backgroundImage: "url("+this.imgPath+")"};
+        }
+    },
+    methods:{
+        addCart:function () {
+            Axios.post('/api/basket/add', this.courseId)
         }
     }
 }

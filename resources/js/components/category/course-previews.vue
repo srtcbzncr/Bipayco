@@ -11,7 +11,7 @@
                 <ul>
                     <a v-if="lesson in previewLessons" href="#" class="uk-link-reset">
                         <li>
-                            <span class="uk-icon-button icon-play"> <i class="fas fa-play icon-ssmall"></i> </span>
+                            <span class="uk-icon-button icon-play"> <i class="fas fa-play icon-small"></i> </span>
                             <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">{{lesson.name}}</div>
                             <a class="uk-icon-button uk-link-reset uk-margin-small-right uk-icon uk-button-success uk-position-center-right uk-animation-scale-up" href="#" style="display:none"> <i class="fas fa-check-circle icon-small  uk-text-white"></i> </a>
                             <span  class="uk-position-center-right time uk-margin-medium-right">{{lesson.long}}</span>
@@ -24,7 +24,7 @@
 </template>
 
 <script>
-    import {mapState,mapActions} from 'vuex'
+    import {mapState,mapActions} from 'vuex';
     export default {
         name: "course-previews",
         data(){
