@@ -135,7 +135,9 @@
                     </ul>
 
                     <!-- Model  Preview videos-->
-
+                    <course-previews
+                        course-id="{{$course->id}}"
+                    > </course-previews>
                 </div>
                 <!-- Reviews  -->
                 <div id="Reviews" class="tabcontent animation: uk-animation-slide-right-medium">

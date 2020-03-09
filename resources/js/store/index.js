@@ -60,7 +60,8 @@ const state={
             }],
         }]
     },
-    plLessonType:{}
+    plLessonType:{},
+    previewLessons:{}
 };
 const getters={};
 const mutations={
@@ -111,6 +112,10 @@ const mutations={
     },
     setPlLessonType(state,response){
         state.plLessonType=response.data;
+        console.log(response);
+    },
+    setPreviewLessons(state,response){
+        state.previewLessons=response.data;
         console.log(response);
     }
 };
@@ -183,6 +188,10 @@ const actions={
     loadPlLessonType({commit}){
         Axios.get('/api/curriculum/index')
             .then(response=>commit('setPlLessonType',response.data))
+    },
+    loadPreviewLessons({commit}, courseId){
+        Axios.get('/api/course/'+courseId+'/previewLessons')
+            .then(response=>commit('setPreviewLessons',response.data))
     }
 };
 

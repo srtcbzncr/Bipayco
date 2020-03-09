@@ -2435,6 +2435,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2460,16 +2467,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-previews",
   data: function data() {
     return {};
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['previewLessons'])),
   props: {
-    previews: {
-      type: Object,
+    courseId: {
+      type: String,
       required: true
     }
+  },
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadPreviewLessons'])),
+  created: function created() {
+    this.$store.dispatch('loadPreviewLessons', this.coureId);
   }
 });
 
@@ -8212,7 +8225,7 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "tm-course-section-list uk-margin-top" }, [
         _c("ul", [
-          _vm.preivew in _vm.previews
+          _vm.lesson in _vm.previewLessons
             ? _c("a", { staticClass: "uk-link-reset", attrs: { href: "#" } }, [
                 _c("li", [
                   _vm._m(1),
@@ -8223,7 +8236,7 @@ var render = function() {
                       staticClass:
                         "uk-panel uk-panel-box uk-text-truncate uk-margin-large-right"
                     },
-                    [_vm._v(_vm._s(_vm.preview.name))]
+                    [_vm._v(_vm._s(_vm.lesson.name))]
                   ),
                   _vm._v(" "),
                   _vm._m(2),
@@ -8234,7 +8247,7 @@ var render = function() {
                       staticClass:
                         "uk-position-center-right time uk-margin-medium-right"
                     },
-                    [_vm._v(_vm._s(_vm.preview.long))]
+                    [_vm._v(_vm._s(_vm.lesson.long))]
                   )
                 ])
               ])
@@ -27547,7 +27560,8 @@ var state = {
       }]
     }]
   },
-  plLessonType: {}
+  plLessonType: {},
+  previewLessons: {}
 };
 var getters = {};
 var mutations = {
@@ -27600,6 +27614,10 @@ var mutations = {
   },
   setPlLessonType: function setPlLessonType(state, response) {
     state.plLessonType = response.data;
+    console.log(response);
+  },
+  setPreviewLessons: function setPreviewLessons(state, response) {
+    state.previewLessons = response.data;
     console.log(response);
   }
 };
@@ -27725,6 +27743,12 @@ var actions = {
     var commit = _ref25.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/curriculum/index').then(function (response) {
       return commit('setPlLessonType', response.data);
+    });
+  },
+  loadPreviewLessons: function loadPreviewLessons(_ref26, courseId) {
+    var commit = _ref26.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/course/' + courseId + '/previewLessons').then(function (response) {
+      return commit('setPreviewLessons', response.data);
     });
   }
 };

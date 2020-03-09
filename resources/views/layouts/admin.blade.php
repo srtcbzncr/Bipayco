@@ -150,6 +150,7 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
     function coursePost(moduleName, bool){
+        var url;
         var formData =new FormData();
         var image=document.querySelector('#newCourseImage');
         formData.append('name',document.querySelector('#name').value);
@@ -160,9 +161,11 @@
         if(moduleName=="generalEducation"){
             formData.append('category_id',document.querySelector('#category').value);
             formData.append('sub_category_id',document.querySelector('#subCategory').value);
+            url="ge";
         }else if(moduleName=="prepareLessons"){
             formData.append('grade_id',document.querySelector('#gradeType').value);
             formData.append('lesson_id',document.querySelector('#lessonType').value);
+            url="pl";
         }
         if(document.querySelector('#certificate').checked){
             formData.append('certificate',1);
@@ -177,9 +180,10 @@
                 formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 }).then(result=>result.data)
-                .then(result=>window.location.replace('/instructor/ge/course/create/'+result.result.id))
+                .then(result=>window.location.replace('/instructor/'+url+'/course/create/'+result.result.id))
                 .catch((error) => {
                     UIkit.notification({message:error.message, status: 'danger'});
+                    console.log(error)
                 });
         }else{
             var courseId=document.querySelector('#courseCreateId').value;
@@ -187,7 +191,7 @@
                 formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
-                .then(result=>window.location.replace('/instructor/ge/course/create/'+result.data.result.id))
+                .then(result=>window.location.replace('/instructor/'+url+'/course/create/'+result.data.result.id))
                 .catch((error) => {
                     UIkit.notification({message:error.message, status: 'danger'});
                     console.log(error.message)

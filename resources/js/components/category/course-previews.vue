@@ -9,12 +9,12 @@
             </video>
             <div class="tm-course-section-list uk-margin-top">
                 <ul>
-                    <a v-if="preivew in previews" href="#" class="uk-link-reset">
+                    <a v-if="lesson in previewLessons" href="#" class="uk-link-reset">
                         <li>
                             <span class="uk-icon-button icon-play"> <i class="fas fa-play icon-ssmall"></i> </span>
-                            <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">{{preview.name}}</div>
+                            <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">{{lesson.name}}</div>
                             <a class="uk-icon-button uk-link-reset uk-margin-small-right uk-icon uk-button-success uk-position-center-right uk-animation-scale-up" href="#" style="display:none"> <i class="fas fa-check-circle icon-small  uk-text-white"></i> </a>
-                            <span  class="uk-position-center-right time uk-margin-medium-right">{{preview.long}}</span>
+                            <span  class="uk-position-center-right time uk-margin-medium-right">{{lesson.long}}</span>
                         </li>
                     </a>
                 </ul>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+    import {mapState,mapActions} from 'vuex'
     export default {
         name: "course-previews",
         data(){
@@ -31,11 +32,24 @@
 
             }
         },
+        computed:{
+            ...mapState([
+                'previewLessons'
+            ]),
+        },
         props:{
-            previews:{
-                type:Object,
+            courseId:{
+                type:String,
                 required:true,
             }
+        },
+        methods:{
+            ...mapActions([
+               'loadPreviewLessons'
+            ]),
+        },
+        created() {
+            this.$store.dispatch('loadPreviewLessons', this.coureId)
         }
     }
 </script>
