@@ -247,12 +247,15 @@ class LessonRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $object = Lesson::find($id);
             $object->active = true;
             $object->save();
             event(new ChangeLessonStatus($object));
+            DB::commit();
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }
@@ -271,12 +274,15 @@ class LessonRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $object = Lesson::find($id);
             $object->active = false;
             $object->save();
             event(new ChangeLessonStatus($object));
+            DB::commit();
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }
@@ -378,6 +384,7 @@ class LessonRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $lessons = Lesson::where('section_id',$section_id)->orderBy('no','asc')->get();
             $before_lesson = null;
             foreach ($lessons as $key=> $lesson){
@@ -393,8 +400,10 @@ class LessonRepository implements IRepository{
                 $before_lesson = $lesson;
             }
             $object = Lesson::where('section_id',$section_id)->orderBy('no','asc')->get();
+            DB::commit();
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }
@@ -411,6 +420,7 @@ class LessonRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $lessons = Lesson::where('section_id',$section_id)->orderBy('no','asc')->get();
             $after_lesson = null;
             foreach ($lessons as $key=> $lesson){
@@ -427,8 +437,10 @@ class LessonRepository implements IRepository{
                 }
             }
             $object = Lesson::where('section_id',$section_id)->orderBy('no','asc')->get();
+            DB::commit();
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }

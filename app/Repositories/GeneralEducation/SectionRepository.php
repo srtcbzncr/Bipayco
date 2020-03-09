@@ -7,6 +7,7 @@ use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use App\Repositories\GeneralEducation\LessonRepository;
 use App\Models\GeneralEducation\Section;
+use Illuminate\Support\Facades\DB;
 
 class SectionRepository implements IRepository{
 
@@ -61,6 +62,7 @@ class SectionRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $object = new Section;
             $sections = Section::where('course_id',$data['courseId'])->orderBy('no','asc')->get();
             $last_section = null;
@@ -75,10 +77,12 @@ class SectionRepository implements IRepository{
             $object->name = $data['name'];
             $object->active = true;
             $object->save();
+            DB::commit();
         }
         catch(\Exception $e){
             $error = $e;
             $result = false;
+            DB::rollBack();
         }
 
         // Response
@@ -95,11 +99,14 @@ class SectionRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $object = Section::find($id);
             $object->name = $data['name'];
             $object->save();
+            DB::commit();
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }
@@ -118,6 +125,7 @@ class SectionRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $section = Section::find($id);
             $lessons = Lesson::where('section_id',$id);
             foreach ($lessons as $lesson){
@@ -128,8 +136,10 @@ class SectionRepository implements IRepository{
                 $lesson->delete();
             }
             $section->delete();
+            DB::commit();
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }
@@ -148,6 +158,7 @@ class SectionRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $object = Section::find($id);
             if($object->lessons->where('active', true) != null){
                 $object->active = true;
@@ -156,8 +167,10 @@ class SectionRepository implements IRepository{
             else{
                 throw new \Exception(__('general_education.section_has_not_active_lesson'));
             }
+            DB::commit();
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }
@@ -176,11 +189,14 @@ class SectionRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $object = Section::find($id);
             $object->active = false;
             $object->save();
+            DB::commit();
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }
@@ -240,6 +256,7 @@ class SectionRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $sections = Section::where('course_id',$course_id)->orderBy('no','asc')->get();
             $before_section = null;
             foreach ($sections as $section){
@@ -255,8 +272,10 @@ class SectionRepository implements IRepository{
                 $before_section = $section;
             }
             $object = Section::where('course_id',$course_id)->where('active',true)->get();
+            DB::commit();
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }
@@ -273,6 +292,7 @@ class SectionRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $sections = Section::where('course_id',$course_id)->orderBy('no','asc')->get();
             $after_section = null;
             foreach ($sections as $key => $section){
@@ -289,8 +309,10 @@ class SectionRepository implements IRepository{
                 }
             }
             $object =  Section::where('course_id',$course_id)->where('active',true)->get();
+            DB::commit();
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }
