@@ -5463,11 +5463,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       var videoPlayer = document.getElementById('courseLessonVideo');
 
-      if (!this.posted && videoPlayer.currentTime == videoPlayer.duration - 8) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/' + this.moduleName + '/' + this.courseId + '/lesson/' + this.lessonId + '/complete', {
+      if (!this.posted && videoPlayer.currentTime >= videoPlayer.duration - 7) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/learn/' + this.moduleName + '/' + this.courseId + '/lesson/' + this.lessonId + '/complete', {
           user_id: this.userId
         }).then(function (response) {
           if (response.error == false) {
+            _this.triggerPosted();
+
+            console.log(response);
+          } else {
+            console.log(response);
+
             _this.triggerPosted();
           }
         });

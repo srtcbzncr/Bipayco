@@ -149,10 +149,14 @@
             },
             watched:function () {
                 var videoPlayer=document.getElementById('courseLessonVideo');
-                if(!(this.posted)&&videoPlayer.currentTime==videoPlayer.duration-8){
-                    Axios.post('/api/'+this.moduleName+'/'+this.courseId+'/lesson/'+this.lessonId+'/complete', {user_id: this.userId})
+                if(!(this.posted) && videoPlayer.currentTime>=videoPlayer.duration-7){
+                    Axios.post('/api/learn/'+this.moduleName+'/'+this.courseId+'/lesson/'+this.lessonId+'/complete', {user_id: this.userId})
                         .then(response=>{
                             if(response.error==false){
+                                this.triggerPosted();
+                                console.log(response)
+                            }else{
+                                console.log(response);
                                 this.triggerPosted();
                             }
                         });
