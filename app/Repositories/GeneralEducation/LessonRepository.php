@@ -478,6 +478,7 @@ class LessonRepository implements IRepository{
         return $resp;
     }
 
+
     public function getDefaultLesson($course_id,$user_id,$lesson_type){
         // Response variables
         $result = true;
