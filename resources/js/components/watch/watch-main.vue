@@ -7,7 +7,10 @@
                     <source :src="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].file_path" type="video/ogg">
                     Your browser does not support HTML5 video.
                 </video>
-                <iframe v-else :src="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].file_path" class="uk-width" style="height: 550px" frameborder="0"></iframe>
+                <div v-else class="uk-width uk-margin-remove-bottom uk-padding-remove">
+                    <iframe :src="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].file_path" class="uk-width" style="height: 550px" frameborder="0"></iframe>
+                    <a :href="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].file_path" class="uk-button uk-button-primary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right">tam sayfa</a>
+                </div>
             </div>
             <!-- side menu -->
             <div class="uk-width-1-4@m uk-container uk-grid-padding-remove@m" style="padding: 0;">
@@ -72,10 +75,15 @@
 </template>
 
 <script>
-    import axios from 'axios';
+    import Axios from 'axios';
     import {mapActions, mapState} from "vuex";
     export default {
         name: "watch-main",
+        data(){
+            return{
+                posted:false,
+            }
+        },
         props:{
             courseId:{
                 type:String,
@@ -94,6 +102,10 @@
                 default:"Dersler"
             },
             moduleName:{
+                type:String,
+                required:true,
+            },
+            userId:{
                 type:String,
                 required:true,
             }
@@ -118,7 +130,7 @@
                 'loadLessonDiscussion'
             ]),
             downloadItem: function(url, label) {
-                axios.get(url, { responseType: 'blob' })
+                Axios.get(url, { responseType: 'blob' })
                     .then(response => {
                         const blob = new Blob([response.data], { type: 'application/pdf' });
                         const link = document.createElement('a');
@@ -137,9 +149,17 @@
             },
             watched:function () {
                 var videoPlayer=document.getElementById('courseLessonVideo');
-                if(videoPlayer.currentTime>=videoPlayer.duration-8){
-                    console.log('izlendi');
+                if(!(this.posted)&&videoPlayer.currentTime==videoPlayer.duration-8){
+                    Axios.post('/api/'+this.moduleName+'/'+this.courseId+'/lesson/'+this.lessonId+'/complete', {user_id: this.userId})
+                        .then(response=>{
+                            if(response.error==false){
+                                this.triggerPosted();
+                            }
+                        });
                 }
+            },
+            triggerPosted(){
+                this.posted=true;
             }
         },
         created() {

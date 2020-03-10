@@ -137,6 +137,7 @@
                     <!-- Model  Preview videos-->
                     <course-previews
                         course-id="{{$course->id}}"
+                        module-name="generalEducation"
                     > </course-previews>
                 </div>
                 <!-- Reviews  -->
@@ -198,6 +199,7 @@
                             page-link="{{route('ge_course',$similar_course->id)}}"
                             style-full-star-color="#F4C150"
                             style-empty-star-color="#C1C1C1"
+                            :course-id="{{$similar_course->id}}"
                         ></course-card>
                     </div>
                 @endforeach

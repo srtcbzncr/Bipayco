@@ -9,7 +9,7 @@
             </video>
             <div class="tm-course-section-list uk-margin-top">
                 <ul>
-                    <a v-if="lesson in previewLessons" href="#" class="uk-link-reset">
+                    <a v-for="lesson in previewLessons" href="" class="uk-link-reset">
                         <li>
                             <span class="uk-icon-button icon-play"> <i class="fas fa-play icon-small"></i> </span>
                             <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">{{lesson.name}}</div>
@@ -41,6 +41,10 @@
             courseId:{
                 type:String,
                 required:true,
+            },
+            moduleName:{
+                type:String,
+                required:true,
             }
         },
         methods:{
@@ -49,7 +53,7 @@
             ]),
         },
         created() {
-            this.$store.dispatch('loadPreviewLessons', this.coureId)
+            this.$store.dispatch('loadPreviewLessons', [this.moduleName,this.courseId])
         }
     }
 </script>

@@ -87,24 +87,7 @@
                             <a href="#"><i style="color: #424242" class="fas fa-shopping-cart icon-medium" uk-tooltip="title: Sepetim ; delay: 500 ; pos: bottom ;animation:	uk-animation-scale-up"></i></a>
                             <div uk-dropdown="pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small" class="uk-dropdown uk-dropdown-top-right  tm-dropdown-medium border-radius-6 uk-padding-remove uk-box-shadow-large angle-top-right">
                                 <h5 class="uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"> Sepetim </h5>
-                                <a href="#" class="uk-position-top-right uk-link-reset"> <i class="fas fa-trash uk-align-right   uk-text-small uk-padding-small"> Hepsini Temizle</i> </a>
-                                <hr class=" uk-margin-remove">
-                                <div class="uk-text-left uk-height-medium">
-                                    <div uk-scrollspy="target: > div; cls:uk-animation-slide-bottom-small; delay: 100"  style="overflow-y:auto" data-simplebar>
-                                        <messages-small-card> </messages-small-card>
-                                        <hr class=" uk-margin-remove">
-                                        <messages-small-card> </messages-small-card>
-                                        <hr class=" uk-margin-remove">
-                                        <messages-small-card> </messages-small-card>
-                                        <hr class=" uk-margin-remove">
-                                        <messages-small-card> </messages-small-card>
-                                        <hr class=" uk-margin-remove">
-                                        <messages-small-card> </messages-small-card>
-                                        <hr class=" uk-margin-remove">
-                                        <messages-small-card> </messages-small-card>
-                                        <hr class="uk-margin-remove">
-                                    </div>
-                                </div>
+                                <messages-small-card> </messages-small-card>
                                 <hr class=" uk-margin-remove">
                                 <h5 class="uk-padding-small uk-margin-remove uk-text-bold uk-text-center"><a class="uk-link-heading" href=""> Satın Al </a> </h5>
                             </div>

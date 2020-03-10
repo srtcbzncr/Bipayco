@@ -2480,11 +2480,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     courseId: {
       type: String,
       required: true
+    },
+    moduleName: {
+      type: String,
+      required: true
     }
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadPreviewLessons'])),
   created: function created() {
-    this.$store.dispatch('loadPreviewLessons', this.coureId);
+    this.$store.dispatch('loadPreviewLessons', [this.moduleName, this.courseId]);
   }
 });
 
@@ -4953,8 +4957,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "messages-small-card"
+  name: "messages-small-card",
+  props: {
+    userId: {
+      type: String
+    }
+  },
+  mounted: function mounted() {}
 });
 
 /***/ }),
@@ -5361,10 +5394,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "watch-main",
+  data: function data() {
+    return {
+      posted: false
+    };
+  },
   props: {
     courseId: {
       type: String,
@@ -5383,6 +5424,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Dersler"
     },
     moduleName: {
+      type: String,
+      required: true
+    },
+    userId: {
       type: String,
       required: true
     }
@@ -5414,11 +5459,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch('loadCourseSources', [this.moduleName, this.courseId, this.lessonId]);
     },
     watched: function watched() {
+      var _this = this;
+
       var videoPlayer = document.getElementById('courseLessonVideo');
 
-      if (videoPlayer.currentTime >= videoPlayer.duration - 8) {
-        console.log('izlendi');
+      if (!this.posted && videoPlayer.currentTime == videoPlayer.duration - 8) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/' + this.moduleName + '/' + this.courseId + '/lesson/' + this.lessonId + '/complete', {
+          user_id: this.userId
+        }).then(function (response) {
+          if (response.error == false) {
+            _this.triggerPosted();
+          }
+        });
       }
+    },
+    triggerPosted: function triggerPosted() {
+      this.posted = true;
     }
   }),
   created: function created() {
@@ -8239,11 +8295,15 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "tm-course-section-list uk-margin-top" }, [
-        _c("ul", [
-          _vm.lesson in _vm.previewLessons
-            ? _c("a", { staticClass: "uk-link-reset", attrs: { href: "#" } }, [
+        _c(
+          "ul",
+          _vm._l(_vm.previewLessons, function(lesson) {
+            return _c(
+              "a",
+              { staticClass: "uk-link-reset", attrs: { href: "" } },
+              [
                 _c("li", [
-                  _vm._m(1),
+                  _vm._m(1, true),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -8251,10 +8311,10 @@ var render = function() {
                       staticClass:
                         "uk-panel uk-panel-box uk-text-truncate uk-margin-large-right"
                     },
-                    [_vm._v(_vm._s(_vm.lesson.name))]
+                    [_vm._v(_vm._s(lesson.name))]
                   ),
                   _vm._v(" "),
-                  _vm._m(2),
+                  _vm._m(2, true),
                   _vm._v(" "),
                   _c(
                     "span",
@@ -8262,12 +8322,14 @@ var render = function() {
                       staticClass:
                         "uk-position-center-right time uk-margin-medium-right"
                     },
-                    [_vm._v(_vm._s(_vm.lesson.long))]
+                    [_vm._v(_vm._s(lesson.long))]
                   )
                 ])
-              ])
-            : _vm._e()
-        ])
+              ]
+            )
+          }),
+          0
+        )
       ])
     ])
   ])
@@ -10958,82 +11020,70 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass:
-          " uk-padding-small  uk-background-light uk-inline-clip uk-transition-toggle",
-        attrs: { tabindex: "0" }
-      },
-      [
+    return _c("div", [
+      _c(
+        "a",
+        {
+          staticClass: "uk-position-top-right uk-link-reset",
+          attrs: { href: "#" }
+        },
+        [
+          _c(
+            "i",
+            {
+              staticClass: "fas uk-align-right   uk-text-small uk-padding-small"
+            },
+            [_vm._v(" Hepsini Temizle")]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("hr", { staticClass: " uk-margin-remove" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "uk-text-left uk-height-medium" }, [
         _c(
           "div",
           {
-            staticClass:
-              "uk-transition-slide-right-small uk-position-top-right uk-position-z-index uk-margin-small-right"
+            staticStyle: { "overflow-y": "auto" },
+            attrs: {
+              "uk-scrollspy":
+                "target: > div; cls:uk-animation-slide-bottom-small; delay: 100",
+              "data-simplebar": ""
+            }
           },
           [
-            _c("a", {
-              staticClass: "uk-button uk-padding-remove",
-              attrs: { "uk-icon": "icon: trash", href: "#" }
-            })
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "uk-transition-slide-right-medium uk-position-top-right uk-margin-medium-right"
-          },
-          [
-            _c("a", {
-              staticClass: "uk-button uk-padding-remove",
-              attrs: { "uk-icon": "icon: reply", href: "#" }
-            })
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass: "uk-flex-middle uk-grid-small uk-grid",
-            attrs: { "uk-grid": "" }
-          },
-          [
-            _c("div", { staticClass: "uk-width-3-4" }, [
-              _c("p", { staticClass: "uk-margin-remove-bottom uk-text-bold" }, [
-                _vm._v("John keni  ")
-              ]),
-              _vm._v(" "),
-              _c("p", { staticClass: "uk-margin-remove" }, [
-                _vm._v("Lorem ipsum dolor sit ame ..")
-              ]),
-              _vm._v(" "),
-              _c(
-                "p",
-                {
-                  staticClass:
-                    "uk-margin-remove-top uk-text-small uk-text-muted"
-                },
-                [_vm._v("25 min")]
-              )
-            ]),
-            _vm._v(" "),
             _c(
               "div",
-              { staticClass: "uk-width-1-4 uk-flex-first uk-first-column" },
+              {
+                staticClass:
+                  "uk-card uk-card-default uk-grid-divider uk-child-width-1-4@s uk-margin",
+                attrs: { "uk-grid": "" }
+              },
               [
-                _c("img", {
-                  staticClass: "uk-border-circle",
-                  attrs: { src: "#", alt: "Image" }
-                })
+                _c(
+                  "div",
+                  { staticClass: "uk-card-media-left uk-cover-container" },
+                  [
+                    _c("img", {
+                      staticClass: "img-small",
+                      attrs: { src: "", alt: "", "uk-cover": "" }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", [
+                  _c("div", { staticClass: "uk-card-body" }, [
+                    _c("h5", { staticClass: "uk-card-title" }, [
+                      _vm._v("Media Left")
+                    ])
+                  ])
+                ])
               ]
             )
           ]
         )
-      ]
-    )
+      ])
+    ])
   }
 ]
 render._withStripped = true
@@ -11815,17 +11865,39 @@ var render = function() {
                   )
                 ]
               )
-            : _c("iframe", {
-                staticClass: "uk-width",
-                staticStyle: { height: "550px" },
-                attrs: {
-                  src:
-                    _vm.learnCourse.sections[_vm.selectedSectionIndex].lessons[
-                      _vm.selectedLessonIndex
-                    ].file_path,
-                  frameborder: "0"
-                }
-              })
+            : _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-width uk-margin-remove-bottom uk-padding-remove"
+                },
+                [
+                  _c("iframe", {
+                    staticClass: "uk-width",
+                    staticStyle: { height: "550px" },
+                    attrs: {
+                      src:
+                        _vm.learnCourse.sections[_vm.selectedSectionIndex]
+                          .lessons[_vm.selectedLessonIndex].file_path,
+                      frameborder: "0"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "uk-button uk-button-primary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right",
+                      attrs: {
+                        href:
+                          _vm.learnCourse.sections[_vm.selectedSectionIndex]
+                            .lessons[_vm.selectedLessonIndex].file_path
+                      }
+                    },
+                    [_vm._v("tam sayfa")]
+                  )
+                ]
+              )
         ]
       ),
       _vm._v(" "),
@@ -27570,7 +27642,9 @@ var state = {
     }]
   },
   plLessonType: {},
-  previewLessons: {}
+  previewLessons: {
+    prepareLessons: {}
+  }
 };
 var getters = {};
 var mutations = {
@@ -27626,8 +27700,8 @@ var mutations = {
     console.log(response);
   },
   setPreviewLessons: function setPreviewLessons(state, response) {
-    state.previewLessons = response.data;
-    console.log(response);
+    state.previewLessons = response.previewLessons;
+    console.log(response.previewLessons);
   }
 };
 var actions = {
@@ -27754,9 +27828,14 @@ var actions = {
       return commit('setPlLessonType', response.data);
     });
   },
-  loadPreviewLessons: function loadPreviewLessons(_ref26, courseId) {
+  loadPreviewLessons: function loadPreviewLessons(_ref26, _ref27) {
     var commit = _ref26.commit;
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/course/' + courseId + '/previewLessons').then(function (response) {
+
+    var _ref28 = _slicedToArray(_ref27, 2),
+        moduleName = _ref28[0],
+        courseId = _ref28[1];
+
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/course/' + courseId + '/' + moduleName + '/previewLessons').then(function (response) {
       return commit('setPreviewLessons', response.data);
     });
   }
