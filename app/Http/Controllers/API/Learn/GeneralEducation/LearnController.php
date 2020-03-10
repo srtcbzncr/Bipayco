@@ -10,12 +10,12 @@ use Illuminate\Http\Request;
 class LearnController extends Controller
 {
     // Sections ve Lessons verileri al.
-    public function getCourse($id){
+    public function getCourse($id,$user_id){
         // initialization
         $repo = new LearnRepository();
 
         // Operations
-        $resp = $repo->getCourse($id);
+        $resp = $repo->getCourse($id,$user_id);
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
@@ -25,7 +25,8 @@ class LearnController extends Controller
 
         return response()->json([
             'error' => true,
-            'message' => 'Kurs getirilirken hata oluştur.Tekrar deneyin.'
+            'message' => 'Kurs getirilirken hata oluştur.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
         ],400);
     }
 

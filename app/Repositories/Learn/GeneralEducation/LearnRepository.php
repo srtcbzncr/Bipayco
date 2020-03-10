@@ -4,6 +4,7 @@
 namespace App\Repositories\Learn\GeneralEducation;
 
 
+use App\Models\Auth\Student;
 use App\Models\Auth\User;
 use App\Models\GeneralEducation\Answer;
 use App\Models\GeneralEducation\Lesson;
@@ -52,7 +53,7 @@ class LearnRepository implements IRepository
         // TODO: Implement setPassive() method.
     }
 
-    public function getCourse($id){
+    public function getCourse($id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -61,18 +62,29 @@ class LearnRepository implements IRepository
         try{
             DB::beginTransaction();
 
+            $student = Student::where('user_id',$user_id)->first();
             $object = array();
             $sections = Section::where('course_id',$id)->where('active',true)->orderBy('no','asc')->get();
             $object['sections'] = $sections;
             foreach ($sections as $key => $section){
                 $lessons = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
+                foreach ($lessons as $keyLesson => $lesson){
+                    $control = DB::table("ge_students_completed_lessons")->where('student_id',$student->id)->where('lesson_id',$lesson->id)
+                        ->where('lesson_type','App\Models\GeneralEducation\Lesson')->first();
+                    if($control == null){
+                        $lessons[$keyLesson]['is_completed'] = false;
+                    }
+                    else{
+                        $lessons[$keyLesson]['is_completed'] = true;
+                    }
+                }
                 $object['sections'][$key]['lessons'] = $lessons;
             }
 
             DB::commit();
         }
         catch(\Exception $e){
-            $error = $e;
+            $error = $e->getMessage();
             $result = false;
         }
 
