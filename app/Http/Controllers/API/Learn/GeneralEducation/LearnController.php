@@ -131,6 +131,7 @@ class LearnController extends Controller
     }
 
     public function completeLesson($course_id,$lesson_id,Request $request){
+        return $request->all();
         // initialization
         $repo = new LessonRepository();
 

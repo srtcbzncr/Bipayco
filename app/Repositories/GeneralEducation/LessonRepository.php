@@ -461,9 +461,9 @@ class LessonRepository implements IRepository{
             $student = Student::where('user_id',$data['user_id'])->first();
             DB::table('ge_students_completed_lessons')->insert([
                 'student_id' => $student->id,
-                'lesson_id' => $data['lesson_id'],
+                'lesson_id' => $lesson_id,
                 'lesson_type' => 'App\Models\GeneralEducation\Lesson',
-                'is_completed' => $data['is_completed']
+                'is_completed' => true
             ]);
 
             $object = DB::table('ge_students_completed_lessons')->where('lesson_id',$lesson_id)->get();
