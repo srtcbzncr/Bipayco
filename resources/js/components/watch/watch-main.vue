@@ -42,7 +42,7 @@
                                                                 <span v-if="lesson.is_video" class="uk-icon-button icon-play"> <i class="fas fa-play icon-small"></i> </span>
                                                                 <span v-else class="uk-icon-button icon-play"> <i class="fas fa-file-alt icon-small"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">{{lessonIndex+1}}. {{lesson.name}}</div>
-                                                                <a class="uk-icon-button uk-link-reset uk-margin-small-right uk-icon uk-button-success uk-position-center-right uk-animation-scale-up" href="#" style="display:none"> <i class="fas fa-check-circle icon-small  uk-text-white"></i> </a>
+                                                                <a v-if="lesson.is_completed" class="uk-icon-button uk-link-reset uk-margin-small-right uk-icon uk-button-success uk-position-center-right uk-animation-scale-up "><i class="fas fa-check-circle icon-small uk-text-white"></i></a>
                                                                 <span v-if="lesson.is_video" class="uk-position-center-right time uk-margin-medium-right">  {{lesson.long}}</span>
                                                             </li>
                                                         </a>
@@ -146,28 +146,33 @@
                 this.$store.dispatch('loadSelectedLessonIndex', lessonIndex);
                 this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.lessonId]);
                 this.$store.dispatch('loadCourseSources',[this.moduleName, this.courseId, this.lessonId]);
+                this.triggerFalsePosted();
             },
             watched:function () {
                 var videoPlayer=document.getElementById('courseLessonVideo');
-                if(!(this.posted) && videoPlayer.currentTime>=videoPlayer.duration-7){
+                if(!(this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].is_completed) && !(this.posted) && videoPlayer.currentTime>=videoPlayer.duration-7){
+                    this.triggerTruePosted();
                     Axios.post('/api/learn/'+this.moduleName+'/'+this.courseId+'/lesson/'+this.lessonId+'/complete', {user_id: this.userId})
                         .then(response=>{
-                            if(response.error==false){
-                                this.triggerPosted();
-                                console.log(response)
-                            }else{
-                                console.log(response);
-                                this.triggerPosted();
-                            }
+                            this.$store.dispatch('loadLearnCourse', [this.moduleName, this.courseId, this.userId]);
                         });
                 }
             },
-            triggerPosted(){
+            triggerTruePosted(){
                 this.posted=true;
+            },
+            triggerFalsePosted(){
+                this.posted=false;
+            },
+            changeVideo:function (videoUrl) {
+                var videoPlayer=document.getElementById('courseLessonVideo');
+                videoPlayer.src=videoUrl;
+                videoPlayer.load();
+                videoPlayer.play();
             }
         },
         created() {
-            this.$store.dispatch('loadLearnCourse', [this.moduleName, this.courseId]);
+            this.$store.dispatch('loadLearnCourse', [this.moduleName, this.courseId, this.userId]);
             this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.firstLessonId]);
             this.$store.dispatch('loadCourseSources',[this.moduleName, this.courseId, this.firstLessonId]);
         }

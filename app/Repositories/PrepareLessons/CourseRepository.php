@@ -909,12 +909,9 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            DB::beginTransaction();
             $object =  DB::table("ge_courses_instructors")->where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->where('active',true)->get();
-            DB::commit();
         }
         catch(\Exception $e){
-            DB::rollBack();
             $error = $e;
             $result = false;
         }

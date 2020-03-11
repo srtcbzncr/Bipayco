@@ -64,13 +64,13 @@ class CourseController extends Controller
     public function goalsPost($id,Request $request){
         $course = Course::find($id);
         $user = User::find(Instructor::find($request->toArray()['instructor_id'])->user->id);
-        if($user->can('checkManager',$course)){
+        $control=$this->checkManager($user,$course);
+        if($control){
             // Initializing
             $achievementData = explode(',',$request->toArray()['achievements']);
             $requirementData = explode(',',$request->toArray()['requirements']);
             $tagsData = explode(',',$request->toArray()['tags']);
             $repoCourse = new CourseRepository();
-
             // Operations
             $respAchievement = $repoCourse->syncAchievements($id,$achievementData);
             $respRequirement = $repoCourse->syncRequirements($id,$requirementData);
@@ -96,6 +96,28 @@ class CourseController extends Controller
             ],400);
         }
 
+    }
+
+    public function checkManager(User $user, Course $course){
+        $instructor = Instructor::where('user_id',$user->id)->first();
+        if($instructor != null){
+            $geCourseInstructor = DB::table("ge_courses_instructors")->where('course_id',$course->id)
+                ->where('instructor_id',$instructor->id)->where('course_type','App\Models\PrepareLessons\Course')->first();
+            if($geCourseInstructor != null){
+                if($geCourseInstructor->is_manager == 1){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
     }
 
     public function goalsGet($id){
@@ -151,7 +173,6 @@ class CourseController extends Controller
     public function sectionsPost($id,$section_id = null,Request $request){
         // Initializing
         $repo = new SectionRepository();
-
         // Operations
         $resp = null;
         if($section_id == null){

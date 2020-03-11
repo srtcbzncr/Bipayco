@@ -2340,6 +2340,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-card-pagination",
@@ -2377,6 +2379,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     paginateCourse: {
       type: Number,
       require: true
+    },
+    moduleName: {
+      type: String,
+      required: true
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categoryCourses']), {
@@ -2469,13 +2475,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-previews",
   data: function data() {
-    return {};
+    return {
+      selected: 0
+    };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['previewLessons'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['previewLessons']), {
+    selectedLesson: function selectedLesson() {
+      console.log(this.selected);
+      return this.selected;
+    }
+  }),
   props: {
     courseId: {
       type: String,
@@ -2486,7 +2501,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       required: true
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadPreviewLessons'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadPreviewLessons']), {
+    changeSelected: function changeSelected(index) {
+      this.selected = index;
+    }
+  }),
   created: function created() {
     this.$store.dispatch('loadPreviewLessons', [this.moduleName, this.courseId]);
   }
@@ -2898,6 +2917,10 @@ __webpack_require__.r(__webpack_exports__);
     courseId: {
       type: Number,
       required: true
+    },
+    moduleName: {
+      type: String,
+      required: true
     }
   },
   computed: {
@@ -2915,7 +2938,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addCart: function addCart() {
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/basket/add', this.courseId);
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/basket/add', {
+        course_id: this.courseId,
+        module_name: this.module_name
+      });
     }
   }
 });
@@ -3488,7 +3514,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var formData = new FormData();
       formData.append('name', document.getElementById('sectionInput').value);
       formData.append('courseId', this.courseId);
-      axios.post('/api/instructor/' + this.moduleName + 'course/' + this.courseId + '/sections/create', formData).then(function (response) {
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/create', formData).then(function (response) {
         return response.data;
       }).then(function (response) {
         if (response.error) {
@@ -4209,11 +4235,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       "default": null
     },
-    selectedGradeName: {
+    selectedGrade: {
       type: String,
       "default": null
     },
-    selectedLessonName: {
+    selectedLesson: {
       type: String,
       "default": null
     },
@@ -5457,34 +5483,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch('loadSelectedLessonIndex', lessonIndex);
       this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.lessonId]);
       this.$store.dispatch('loadCourseSources', [this.moduleName, this.courseId, this.lessonId]);
+      this.triggerFalsePosted();
     },
     watched: function watched() {
       var _this = this;
 
       var videoPlayer = document.getElementById('courseLessonVideo');
 
-      if (!this.posted && videoPlayer.currentTime >= videoPlayer.duration - 7) {
+      if (!this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].is_completed && !this.posted && videoPlayer.currentTime >= videoPlayer.duration - 7) {
+        this.triggerTruePosted();
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/learn/' + this.moduleName + '/' + this.courseId + '/lesson/' + this.lessonId + '/complete', {
           user_id: this.userId
         }).then(function (response) {
-          if (response.error == false) {
-            _this.triggerPosted();
-
-            console.log(response);
-          } else {
-            console.log(response);
-
-            _this.triggerPosted();
-          }
+          _this.$store.dispatch('loadLearnCourse', [_this.moduleName, _this.courseId, _this.userId]);
         });
       }
     },
-    triggerPosted: function triggerPosted() {
+    triggerTruePosted: function triggerTruePosted() {
       this.posted = true;
+    },
+    triggerFalsePosted: function triggerFalsePosted() {
+      this.posted = false;
+    },
+    changeVideo: function changeVideo(videoUrl) {
+      var videoPlayer = document.getElementById('courseLessonVideo');
+      videoPlayer.src = videoUrl;
+      videoPlayer.load();
+      videoPlayer.play();
     }
   }),
   created: function created() {
-    this.$store.dispatch('loadLearnCourse', [this.moduleName, this.courseId]);
+    this.$store.dispatch('loadLearnCourse', [this.moduleName, this.courseId, this.userId]);
     this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.firstLessonId]);
     this.$store.dispatch('loadCourseSources', [this.moduleName, this.courseId, this.firstLessonId]);
   }
@@ -8144,7 +8173,8 @@ var render = function() {
                           "page-link": "/ge/course/" + course.id,
                           "style-full-star-color": "#F4C150",
                           "style-empty-star-color": "#C1C1C1",
-                          "course-id": course.id
+                          "course-id": course.id,
+                          "module-name": _vm.moduleName
                         }
                       })
                     : _c("course-card", {
@@ -8157,7 +8187,8 @@ var render = function() {
                           "page-link": "/ge/course/" + course.id,
                           "style-full-star-color": "#F4C150",
                           "style-empty-star-color": "#C1C1C1",
-                          "course-id": course.id
+                          "course-id": course.id,
+                          "module-name": _vm.moduleName
                         }
                       })
                 ],
@@ -8298,18 +8329,57 @@ var render = function() {
         attrs: { type: "button", "uk-close": "" }
       }),
       _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
+      _c(
+        "video",
+        {
+          attrs: {
+            id: "courseLessonVideo",
+            width: "400",
+            controls: "",
+            controlsList: "nodownload"
+          }
+        },
+        [
+          _c("source", {
+            attrs: {
+              src: _vm.previewLessons[_vm.selectedLesson].file_path,
+              type: "video/mp4"
+            }
+          }),
+          _vm._v(" "),
+          _c("source", {
+            attrs: {
+              src: _vm.previewLessons[_vm.selectedLesson].file_path,
+              type: "video/ogg"
+            }
+          }),
+          _vm._v(
+            "\n            Your browser does not support HTML5 video.\n        "
+          )
+        ]
+      ),
+      _vm._v(
+        "\n        " +
+          _vm._s(_vm.previewLessons[_vm.selectedLesson]) +
+          "\n        "
+      ),
       _c("div", { staticClass: "tm-course-section-list uk-margin-top" }, [
         _c(
           "ul",
-          _vm._l(_vm.previewLessons, function(lesson) {
+          _vm._l(_vm.previewLessons, function(lesson, index) {
             return _c(
               "a",
-              { staticClass: "uk-link-reset", attrs: { href: "" } },
+              {
+                staticClass: "uk-link-reset",
+                on: {
+                  click: function($event) {
+                    return _vm.changeSelected(index)
+                  }
+                }
+              },
               [
                 _c("li", [
-                  _vm._m(1, true),
+                  _vm._m(0, true),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -8320,7 +8390,7 @@ var render = function() {
                     [_vm._v(_vm._s(lesson.name))]
                   ),
                   _vm._v(" "),
-                  _vm._m(2, true),
+                  _vm._m(1, true),
                   _vm._v(" "),
                   _c(
                     "span",
@@ -8341,30 +8411,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "video",
-      {
-        attrs: {
-          id: "courseLessonVideo",
-          width: "400",
-          controls: "",
-          controlsList: "nodownload"
-        }
-      },
-      [
-        _c("source", { attrs: { src: "", type: "video/mp4" } }),
-        _vm._v(" "),
-        _c("source", { attrs: { src: "", type: "video/ogg" } }),
-        _vm._v(
-          "\n            Your browser does not support HTML5 video.\n        "
-        )
-      ]
-    )
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -12114,7 +12160,21 @@ var render = function() {
                                                         ]
                                                       ),
                                                       _vm._v(" "),
-                                                      _vm._m(0, true),
+                                                      lesson.is_completed
+                                                        ? _c(
+                                                            "a",
+                                                            {
+                                                              staticClass:
+                                                                "uk-icon-button uk-link-reset uk-margin-small-right uk-icon uk-button-success uk-position-center-right uk-animation-scale-up "
+                                                            },
+                                                            [
+                                                              _c("i", {
+                                                                staticClass:
+                                                                  "fas fa-check-circle icon-small uk-text-white"
+                                                              })
+                                                            ]
+                                                          )
+                                                        : _vm._e(),
                                                       _vm._v(" "),
                                                       lesson.is_video
                                                         ? _c(
@@ -12219,27 +12279,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass:
-          "uk-icon-button uk-link-reset uk-margin-small-right uk-icon uk-button-success uk-position-center-right uk-animation-scale-up",
-        staticStyle: { display: "none" },
-        attrs: { href: "#" }
-      },
-      [
-        _c("i", {
-          staticClass: "fas fa-check-circle icon-small  uk-text-white"
-        })
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -27796,11 +27836,12 @@ var actions = {
   loadLearnCourse: function loadLearnCourse(_ref16, _ref17) {
     var commit = _ref16.commit;
 
-    var _ref18 = _slicedToArray(_ref17, 2),
+    var _ref18 = _slicedToArray(_ref17, 3),
         moduleName = _ref18[0],
-        courseId = _ref18[1];
+        courseId = _ref18[1],
+        userId = _ref18[2];
 
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/learn/' + moduleName + '/' + courseId).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/learn/' + moduleName + '/' + courseId + '/user/' + userId).then(function (response) {
       return commit('setLearnCourse', response.data);
     });
   },

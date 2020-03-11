@@ -1,15 +1,17 @@
 <template>
     <div id="modal-media-video" uk-modal>
+
         <div class="uk-modal-dialog uk-margin-auto-vertical">
             <button class="uk-modal-close-outside" type="button" uk-close></button>
             <video id="courseLessonVideo" width="400" controls controlsList="nodownload">
-                <source src="" type="video/mp4">
-                <source src="" type="video/ogg">
+                <source :src="previewLessons[selectedLesson].file_path" type="video/mp4">
+                <source :src="previewLessons[selectedLesson].file_path" type="video/ogg">
                 Your browser does not support HTML5 video.
             </video>
+            {{previewLessons[selectedLesson]}}
             <div class="tm-course-section-list uk-margin-top">
                 <ul>
-                    <a v-for="lesson in previewLessons" href="" class="uk-link-reset">
+                    <a v-for="(lesson,index) in previewLessons" @click="changeSelected(index)" class="uk-link-reset">
                         <li>
                             <span class="uk-icon-button icon-play"> <i class="fas fa-play icon-small"></i> </span>
                             <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">{{lesson.name}}</div>
@@ -29,13 +31,17 @@
         name: "course-previews",
         data(){
             return{
-
+                selected:0,
             }
         },
         computed:{
             ...mapState([
                 'previewLessons'
             ]),
+            selectedLesson(){
+                console.log(this.selected);
+                return this.selected;
+            }
         },
         props:{
             courseId:{
@@ -51,6 +57,9 @@
             ...mapActions([
                'loadPreviewLessons'
             ]),
+            changeSelected:function (index) {
+                this.selected=index;
+            }
         },
         created() {
             this.$store.dispatch('loadPreviewLessons', [this.moduleName,this.courseId])

@@ -44,6 +44,7 @@
                         style-full-star-color="#F4C150"
                         style-empty-star-color="#C1C1C1"
                         :course-id="course.id"
+                        :module-name="moduleName"
                     > </course-card>
                     <course-card
                         v-else
@@ -56,6 +57,7 @@
                         style-full-star-color="#F4C150"
                         style-empty-star-color="#C1C1C1"
                         :course-id="course.id"
+                        :module-name="moduleName"
                     > </course-card>
                 </div>
             </div>
@@ -118,6 +120,10 @@
                 type: Number,
                 require:true,
             },
+            moduleName:{
+                type:String,
+                required:true,
+            }
         },
         computed:{
             ...mapState([

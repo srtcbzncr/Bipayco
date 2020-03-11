@@ -201,6 +201,7 @@
                             style-full-star-color="#F4C150"
                             style-empty-star-color="#C1C1C1"
                             :course-id="{{$similar_course->id}}"
+                            module-name="prepareLessons"
                         ></course-card>
                     </div>
                 @endforeach

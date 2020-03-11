@@ -66,7 +66,12 @@ export default {
         courseId:{
             type:Number,
             required:true,
-        }
+        },
+        moduleName:{
+            type:String,
+            required:true,
+        },
+
     },
     computed:{
         cPrice:function(){
@@ -81,7 +86,10 @@ export default {
     },
     methods:{
         addCart:function () {
-            Axios.post('/api/basket/add', this.courseId)
+            Axios.post('/api/basket/add', {
+                course_id:this.courseId,
+                module_name:this.module_name,
+            })
         }
     }
 }

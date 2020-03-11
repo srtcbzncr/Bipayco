@@ -96,7 +96,7 @@
                 var formData=new FormData();
                 formData.append('name', document.getElementById('sectionInput').value);
                 formData.append('courseId', this.courseId);
-                axios.post('/api/instructor/'+this.moduleName+'course/'+this.courseId+'/sections/create', formData)
+                axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/sections/create', formData)
                     .then(response=>response.data)
                     .then(response=>{
                         if(response.error){

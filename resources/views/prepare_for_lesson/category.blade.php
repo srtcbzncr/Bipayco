@@ -72,6 +72,7 @@
             :paginate-course = "9"
             style-full-star-color="#F4C150"
             style-empty-star-color="#C1C1C1"
+            module-name="prepareLessons"
         ></course-card-pagination>
     </div>
 @endsection

@@ -33,5 +33,6 @@
         :paginate-course = "9"
         sub-category
         has-no-content="@lang('front/auth.not_found_content')"
+        module-name="generalEducation"
     ></course-card-pagination>
 @endsection

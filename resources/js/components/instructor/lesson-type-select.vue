@@ -37,11 +37,11 @@
                 type:String,
                 default:null,
             },
-            selectedGradeName:{
+            selectedGrade:{
                 type:String,
                 default:null,
             },
-            selectedLessonName:{
+            selectedLesson:{
                 type:String,
                 default:null,
             },

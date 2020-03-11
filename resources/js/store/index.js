@@ -175,8 +175,8 @@ const actions={
     loadSelectedSectionIndex({commit}, sectionIndex){
         commit('setSelectedSectionIndex',sectionIndex);
     },
-    loadLearnCourse({commit}, [moduleName, courseId]){
-        Axios.get('/api/learn/'+moduleName+'/'+courseId)
+    loadLearnCourse({commit}, [moduleName, courseId, userId]){
+        Axios.get('/api/learn/'+moduleName+'/'+courseId+'/user/'+userId)
             .then(response=>commit('setLearnCourse',response.data));
     },
     loadCourseSources({commit}, [moduleName, courseId, lessonId]){

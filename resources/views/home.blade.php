@@ -12,8 +12,8 @@
     <div class="uk-container">
         <ul uk-tab class="uk-margin-top uk-flex-center">
             <li><a href="#">@lang('front/auth.general_education')</a></li>
-            <li><a href="#">@lang('front/auth.prepare_for_exams')</a></li>
             <li><a href="#">@lang('front/auth.prepare_for_lessons')</a></li>
+            <li><a href="#">@lang('front/auth.prepare_for_exams')</a></li>
             <li><a href="#">@lang('front/auth.exams')</a></li>
             <li><a href="#">@lang('front/auth.books')</a></li>
         </ul>
@@ -44,6 +44,7 @@
                                     style-full-star-color="#F4C150"
                                     style-empty-star-color="#C1C1C1"
                                     :course-id="{{$general_educations->id}}"
+                                    module-name="generalEducation"
                                 ></course-card>
                             </div>
                         @endforeach
@@ -51,6 +52,43 @@
                     <div class="uk-grid">
                         <span class="uk-width-1-4"></span>
                         <a href="{{route('ge_index')}}" class="uk-button uk-button-grey uk-width-1-2">@lang('front/auth.see_more')</a>
+                        <span class="uk-width-1-4"></span>
+                    </div>
+                @endif
+            </li>
+            <li>
+                @if($prepare_for_lessons === null || count($prepare_for_lessons) === 0)
+                    <div class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
+                        <h4 class="uk-text-bold uk-margin-remove-top">@lang('front/auth.not_found_content')</h4>
+                    </div>
+                @else
+                    <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-margin" uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div ; delay: 200" uk-grid>
+                        @foreach ($prepare_for_lessons as $prepare_for_lesson)
+                            <div>
+                                <course-card
+                                    title="{{$prepare_for_lesson->name}}"
+                                    description="{{$prepare_for_lesson->description}}"
+                                    img-path="{{asset($prepare_for_lesson->image)}}"
+                                    @if($prepare_for_lesson->price!=$prepare_for_lesson->price_with_discount)
+                                    discount
+                                    :current-price="{{$prepare_for_lesson->price_with_discount}}"
+                                    :prev-price="{{$prepare_for_lesson->price}}"
+                                    @else
+                                    :current-price="{{$prepare_for_lesson->price}}"
+                                    @endif
+                                    :rate="{{$prepare_for_lesson->point}}"
+                                    page-link="{{route('pl_course',$prepare_for_lesson->id)}}"
+                                    style-full-star-color="#F4C150"
+                                    style-empty-star-color="#C1C1C1"
+                                    :course-id="{{$prepare_for_lesson->id}}"
+                                    module-name="prepareLessons"
+                                ></course-card>
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="uk-grid">
+                        <span class="uk-width-1-4"></span>
+                        <a href="{{route('pl_index')}}" class="uk-button uk-button-grey uk-width-1-2">@lang('front/auth.see_more')</a>
                         <span class="uk-width-1-4"></span>
                     </div>
                 @endif
@@ -78,6 +116,7 @@
                                     :rate="{{$prepare_for_exam->point}}"
                                     page-link="{{route('ge_course',$prepare_for_exam->id)}}"
                                     :course-id="{{$prepare_for_exam->id}}"
+                                    module-name="prepareExams"
                                 ></course-card>
                             </div>
                         @endforeach
@@ -85,40 +124,6 @@
                     <div class="uk-grid">
                         <span class="uk-width-1-4"></span>
                         <a href="#" class="uk-button uk-button-grey uk-width-1-2">@lang('front/auth.see_more')</a>
-                        <span class="uk-width-1-4"></span>
-                    </div>
-                @endif
-            </li>
-            <li>
-                @if($prepare_for_lessons === null || count($prepare_for_lessons) === 0)
-                    <div class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
-                        <h4 class="uk-text-bold uk-margin-remove-top">@lang('front/auth.not_found_content')</h4>
-                    </div>
-                @else
-                    <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-margin" uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div ; delay: 200" uk-grid>
-                        @foreach ($prepare_for_lessons as $prepare_for_lesson)
-                            <div>
-                                <course-card
-                                    title="{{$prepare_for_lesson->name}}"
-                                    description="{{$prepare_for_lesson->description}}"
-                                    img-path="{{asset($prepare_for_lesson->image)}}"
-                                    @if($prepare_for_lesson->price!=$prepare_for_lesson->price_with_discount)
-                                    discount
-                                    :current-price="{{$prepare_for_lesson->price_with_discount}}"
-                                    :prev-price="{{$prepare_for_lesson->price}}"
-                                    @else
-                                    :current-price="{{$prepare_for_lesson->price}}"
-                                    @endif
-                                    :rate="{{$prepare_for_lesson->point}}"
-                                    page-link="{{route('ge_course',$prepare_for_lesson->id)}}"
-                                    :course-id="{{$prepare_for_lesson->id}}"
-                                ></course-card>
-                            </div>
-                        @endforeach
-                    </div>
-                    <div class="uk-grid">
-                        <span class="uk-width-1-4"></span>
-                        <a href="{{route('ge_index')}}" class="uk-button uk-button-grey uk-width-1-2">@lang('front/auth.see_more')</a>
                         <span class="uk-width-1-4"></span>
                     </div>
                 @endif
@@ -146,6 +151,7 @@
                                     :rate="{{$exam->point}}"
                                     page-link="{{route('ge_course',$exam->id)}}"
                                     :course-id="{{$exam->id}}"
+                                    module-name="exams"
                                 ></course-card>
                             </div>
                         @endforeach
@@ -180,6 +186,7 @@
                                     :rate="{{$book->point}}"
                                     page-link="{{route('ge_course',$book->id)}}"
                                     :course-id="{{$book->id}}"
+                                    model-name="books"
                                 ></course-card>
                             </div>
                         @endforeach
