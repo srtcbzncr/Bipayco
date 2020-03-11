@@ -101,6 +101,7 @@ Route::prefix('instructor')->group(function(){
     Route::post('prepareLessons/course/create/{id?}', 'API\PrepareLessons\CourseController@createPost')->name('api_pl_course_create_post');
     Route::post('prepareLessons/course/{id}/goals', 'API\PrepareLessons\CourseController@goalsPost')->name('api_pl_course_goals_post');
     Route::get('prepareLessons/course/{id}/goals','API\PrepareLessons\CourseController@goalsGet')->name('api_pl_course_goals_get');
+    Route::get('prepareLessons/course/{id}/subjects','API\PrepareLessons\CourseController@getSubjects')->name('api_pl_course_subjects');
     Route::post('prepareLessons/course/{id}/sections/create/{section_id?}', 'API\PrepareLessons\CourseController@sectionsPost')->name('api_pl_course_sections_post');
     Route::post('prepareLessons/course/{id}/sections/delete/{section_id}', 'API\PrepareLessons\CourseController@sectionsDelete')->name('api_pl_course_sections_delete');
     Route::get('prepareLessons/course/{id}/sections/get','API\PrepareLessons\CourseController@sectionsGet')->name('api_pl_course_sections_get');

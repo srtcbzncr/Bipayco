@@ -125,6 +125,29 @@ class CourseController extends Controller
         }
     }
 
+    public function getSubjects($id){
+        // Initializing
+        $repo = new CourseRepository();
+
+        // Operations
+        $resp =  $repo->getSubjects($id);
+
+        // Response
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Konular başarıyla getirildi.',
+                'data' => $resp->getData()
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Konular getirilirken hata oluştu.Tekrar deneyin.'
+            ],400);
+        }
+    }
+
     public function sectionsPost($id,$section_id = null,Request $request){
         // Initializing
         $repo = new SectionRepository();

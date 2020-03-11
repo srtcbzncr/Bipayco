@@ -4,6 +4,7 @@ namespace App\Repositories\PrepareLessons;
 
 use App\Models\Auth\Instructor;
 use App\Models\Auth\Student;
+use App\Models\Curriculum\Subject;
 use App\Models\GeneralEducation\Achievement;
 use App\Models\GeneralEducation\Comment;
 use App\Models\GeneralEducation\Entry;
@@ -1331,6 +1332,28 @@ class CourseRepository implements IRepository{
             }
             $object = $previewLessons;
 
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getSubjects($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $plCourse = Course::find($id);
+            $subjects = Subject::where('lesson_id',$plCourse->lesson_id)->get();
+            $object = $subjects;
         }
         catch(\Exception $e){
             $error = $e->getMessage();
