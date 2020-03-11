@@ -63,6 +63,10 @@ const state={
     plLessonType:{},
     previewLessons:{
         prepareLessons:{}
+    },
+    courseSubjects:{
+        id:"",
+        name:"",
     }
 };
 const getters={};
@@ -119,6 +123,9 @@ const mutations={
     setPreviewLessons(state,response){
         state.previewLessons=response.previewLessons;
         console.log(response.previewLessons);
+    },
+    setCourseSubjects(state,subject){
+        state.courseSubjects=subject.data;
     }
 };
 const actions={
@@ -194,6 +201,10 @@ const actions={
     loadPreviewLessons({commit}, [moduleName, courseId]){
         Axios.get('/api/course/'+courseId+'/'+moduleName+'/previewLessons')
             .then(response=>commit('setPreviewLessons',response.data))
+    },
+    loadCourseSubjects({commit}, [moduleName, courseId]){
+        Axios.get('/api/instructor/'+moduleName+'/course/'+courseId+'/subjects')
+            .then(response=>commit('setCourseSubjects',response.data))
     }
 };
 

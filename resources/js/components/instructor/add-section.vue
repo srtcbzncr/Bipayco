@@ -1,6 +1,10 @@
 <template>
     <div>
         <div class="">
+            <select v-if="moduleName=='prepareLessons'" id="courseSubject" class="uk-width uk-select">
+                <option disabled hidden selected> {{subjectNameText}} </option>
+                <option v-for="subject in courseSubjects" :value="subject.id" > {{subject.name}}</option>
+            </select>
             <input class="uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m" type="text" id="sectionInput" :placeholder="addDefaultSectionText">
             <button class="uk-button uk-button-success uk-margin-small-top uk-width-1-6@m" @click="addSection"><i class="fas fa-plus"></i> <span class="uk-hidden@m">{{addText}}</span></button>
         </div>
@@ -81,21 +85,31 @@
             moduleName:{
                 type:String,
                 required:true,
+            },
+            subjectNameText:{
+                type:String,
+                default:"Konu"
             }
         },
         computed:{
             ...mapState([
                 'sections',
+                'courseSubjects'
             ]),
         },
         methods:{
             ...mapActions([
                 'loadSections',
+                'loadCourseSubjects'
             ]),
             addSection:function () {
                 var formData=new FormData();
                 formData.append('name', document.getElementById('sectionInput').value);
                 formData.append('courseId', this.courseId);
+                if(this.moduleName=='prepareLessons'){
+                    formData.append('subject_id', document.getElementById('courseSubject').value);
+                    console.log(document.getElementById('courseSubject').value)
+                }
                 axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/sections/create', formData)
                     .then(response=>response.data)
                     .then(response=>{
@@ -111,6 +125,9 @@
         },
         created() {
             this.$store.dispatch('loadSections',[this.moduleName, this.courseId]);
+            if(this.moduleName=='prepareLessons'){
+                this.$store.dispatch('loadCourseSubjects', [this.moduleName, this.courseId]);
+            }
         },
     }
 </script>

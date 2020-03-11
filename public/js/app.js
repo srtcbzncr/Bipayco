@@ -3449,6 +3449,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3504,16 +3508,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     moduleName: {
       type: String,
       required: true
+    },
+    subjectNameText: {
+      type: String,
+      "default": "Konu"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['sections'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['sections', 'courseSubjects'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections', 'loadCourseSubjects']), {
     addSection: function addSection() {
       var _this = this;
 
       var formData = new FormData();
       formData.append('name', document.getElementById('sectionInput').value);
       formData.append('courseId', this.courseId);
+
+      if (this.moduleName == 'prepareLessons') {
+        formData.append('subject_id', document.getElementById('courseSubject').value);
+        console.log(document.getElementById('courseSubject').value);
+      }
+
       axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/create', formData).then(function (response) {
         return response.data;
       }).then(function (response) {
@@ -3536,6 +3550,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   created: function created() {
     this.$store.dispatch('loadSections', [this.moduleName, this.courseId]);
+
+    if (this.moduleName == 'prepareLessons') {
+      this.$store.dispatch('loadCourseSubjects', [this.moduleName, this.courseId]);
+    }
   }
 });
 
@@ -9399,6 +9417,30 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", {}, [
+      _vm.moduleName == "prepareLessons"
+        ? _c(
+            "select",
+            {
+              staticClass: "uk-width uk-select",
+              attrs: { id: "courseSubject" }
+            },
+            [
+              _c(
+                "option",
+                { attrs: { disabled: "", hidden: "", selected: "" } },
+                [_vm._v(" " + _vm._s(_vm.subjectNameText) + " ")]
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.courseSubjects, function(subject) {
+                return _c("option", { domProps: { value: subject.id } }, [
+                  _vm._v(" " + _vm._s(subject.name))
+                ])
+              })
+            ],
+            2
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _c("input", {
         staticClass:
           "uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m",
@@ -27690,6 +27732,10 @@ var state = {
   plLessonType: {},
   previewLessons: {
     prepareLessons: {}
+  },
+  courseSubjects: {
+    id: "",
+    name: ""
   }
 };
 var getters = {};
@@ -27748,6 +27794,9 @@ var mutations = {
   setPreviewLessons: function setPreviewLessons(state, response) {
     state.previewLessons = response.previewLessons;
     console.log(response.previewLessons);
+  },
+  setCourseSubjects: function setCourseSubjects(state, subject) {
+    state.courseSubjects = subject.data;
   }
 };
 var actions = {
@@ -27884,6 +27933,17 @@ var actions = {
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/course/' + courseId + '/' + moduleName + '/previewLessons').then(function (response) {
       return commit('setPreviewLessons', response.data);
+    });
+  },
+  loadCourseSubjects: function loadCourseSubjects(_ref29, _ref30) {
+    var commit = _ref29.commit;
+
+    var _ref31 = _slicedToArray(_ref30, 2),
+        moduleName = _ref31[0],
+        courseId = _ref31[1];
+
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/instructor/' + moduleName + '/course/' + courseId + '/subjects').then(function (response) {
+      return commit('setCourseSubjects', response.data);
     });
   }
 };
