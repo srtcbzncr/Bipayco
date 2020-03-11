@@ -137,6 +137,12 @@ Route::prefix('basket')->group(function (){
     Route::post('/delete','API\Basket\BasketController@remove')->name('remove_basket');
     Route::get('/show/{user_id}','API\Basket\BasketController@show')->name('show_basket');
 });
+Route::prefix('favorite')->group(function (){
+    Route::post('/add','API\Basket\BasketController@add')->name('add_basket');
+    Route::post('/delete','API\Basket\BasketController@remove')->name('remove_basket');
+    Route::get('/show/{user_id}','API\Basket\BasketController@show')->name('show_basket');
+});
+
 
 Route::get('myCourses/{id}', 'API\Auth\AuthController@courses')->name('api_my_courses');
 Route::get('lastCourses/{id}', 'API\Auth\AuthController@getLastWatchedCourses')->name('api_my_last_courses');
