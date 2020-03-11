@@ -4,6 +4,13 @@
             <h4>{{editSectionText}}</h4>
         </div>
         <hr>
+        <div class="uk-margin-small-top" v-if="moduleName=='prepareLessons'">
+            <div class="uk-form-label">{{subjectNameText}}</div>
+            <select id="courseSubject" class="uk-width uk-select">
+                <option disabled hidden selected :value="sections[selectedSectionIndex].subject_id"> {{sections[selectedSectionIndex].subject_name}} </option>
+                <option v-for="subject in courseSubjects" :value="subject.id" > {{subject.name}}</option>
+            </select>
+        </div>
         <div class="uk-margin-small-top">
             <div class="uk-form-label">{{sectionNameText}}</div>
             <input class="uk-padding-small uk-margin-small-top uk-input uk-width" id="sectionSettingsName" type="text" :value="sections[selectedSectionIndex].name">
@@ -112,12 +119,17 @@
             moduleName:{
                 type:String,
                 required:true,
+            },
+            subjectNameText:{
+                type:String,
+                default:"Konu"
             }
         },
         computed:{
             ...mapState([
                 'sections',
                 'selectedSectionIndex',
+                'courseSubjects'
             ]),
 
         },
@@ -125,11 +137,15 @@
             ...mapActions([
                 'loadSections',
                 'loadSelectedSectionIndex',
+                'loadCourseSubjects'
             ]),
             updateSection:function(){
                 var formData=new FormData();
                 formData.append('name', document.getElementById('sectionSettingsName').value);
                 formData.append('courseId', this.courseId);
+                if(this.moduleName=='prepareLessons'){
+                    formData.append('subjectId', document.getElementById('courseSubject').value);
+                }
                 axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/sections/create/'+this.sections[this.selectedSectionIndex].id, formData)
                     .then(response=>{
                         if(!response.data.error){
@@ -149,6 +165,9 @@
                     .then(this.$store.dispatch('loadSections',[this.moduleName, this.courseId]))
             }
         },
+        mounted() {
+            this.$store.dispatch('loadCourseSubjects', [this.moduleName, this.courseId]);
+        }
     }
 </script>
 <style scoped>

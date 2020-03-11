@@ -107,8 +107,7 @@
                 formData.append('name', document.getElementById('sectionInput').value);
                 formData.append('courseId', this.courseId);
                 if(this.moduleName=='prepareLessons'){
-                    formData.append('subject_id', document.getElementById('courseSubject').value);
-                    console.log(document.getElementById('courseSubject').value)
+                    formData.append('subjectId', document.getElementById('courseSubject').value);
                 }
                 axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/sections/create', formData)
                     .then(response=>response.data)

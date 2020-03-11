@@ -3524,8 +3524,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('courseId', this.courseId);
 
       if (this.moduleName == 'prepareLessons') {
-        formData.append('subject_id', document.getElementById('courseSubject').value);
-        console.log(document.getElementById('courseSubject').value);
+        formData.append('subjectId', document.getElementById('courseSubject').value);
       }
 
       axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/create', formData).then(function (response) {
@@ -4511,6 +4510,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4574,16 +4580,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     moduleName: {
       type: String,
       required: true
+    },
+    subjectNameText: {
+      type: String,
+      "default": "Konu"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['sections', 'selectedSectionIndex'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadSections', 'loadSelectedSectionIndex']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['sections', 'selectedSectionIndex', 'courseSubjects'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadSections', 'loadSelectedSectionIndex', 'loadCourseSubjects']), {
     updateSection: function updateSection() {
       var _this = this;
 
       var formData = new FormData();
       formData.append('name', document.getElementById('sectionSettingsName').value);
       formData.append('courseId', this.courseId);
+
+      if (this.moduleName == 'prepareLessons') {
+        formData.append('subjectId', document.getElementById('courseSubject').value);
+      }
+
       axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/create/' + this.sections[this.selectedSectionIndex].id, formData).then(function (response) {
         if (!response.data.error) {
           _this.$store.dispatch('loadSections', [_this.moduleName, _this.courseId]);
@@ -4610,7 +4625,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return console.log(response.data);
       }).then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
     }
-  })
+  }),
+  mounted: function mounted() {
+    this.$store.dispatch('loadCourseSubjects', [this.moduleName, this.courseId]);
+  }
 });
 
 /***/ }),
@@ -10503,6 +10521,49 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("hr"),
+        _vm._v(" "),
+        _vm.moduleName == "prepareLessons"
+          ? _c("div", { staticClass: "uk-margin-small-top" }, [
+              _c("div", { staticClass: "uk-form-label" }, [
+                _vm._v(_vm._s(_vm.subjectNameText))
+              ]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  staticClass: "uk-width uk-select",
+                  attrs: { id: "courseSubject" }
+                },
+                [
+                  _c(
+                    "option",
+                    {
+                      attrs: { disabled: "", hidden: "", selected: "" },
+                      domProps: {
+                        value: _vm.sections[_vm.selectedSectionIndex].subject_id
+                      }
+                    },
+                    [
+                      _vm._v(
+                        " " +
+                          _vm._s(
+                            _vm.sections[_vm.selectedSectionIndex].subject_name
+                          ) +
+                          " "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._l(_vm.courseSubjects, function(subject) {
+                    return _c("option", { domProps: { value: subject.id } }, [
+                      _vm._v(" " + _vm._s(subject.name))
+                    ])
+                  })
+                ],
+                2
+              )
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "uk-margin-small-top" }, [
           _c("div", { staticClass: "uk-form-label" }, [
@@ -27770,7 +27831,7 @@ var mutations = {
     state.subCategories = index.data.sub_categories;
   },
   setSections: function setSections(state, index) {
-    state.sections = index.data.sections;
+    state.sections = index.sections;
   },
   setSelectedLessonIndex: function setSelectedLessonIndex(state, lessonIndex) {
     state.selectedLessonIndex = lessonIndex;
