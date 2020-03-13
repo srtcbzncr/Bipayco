@@ -46,4 +46,61 @@ class QuestionSourceController extends Controller
             'message' => 'Soru silinirken hata meydana geldi.Tekrar deneyin',
         ],400);
     }
+
+    public function getQuestions($id){
+        // Initializing
+        $repo = new QuestionSourceRepository();
+
+        // Operations
+        $resp = $repo->get($id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Sorular başarıyla getirildi.',
+                'data' => $resp->getData()
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Sorular getirilirken hata meydana geldi.Tekrar deneyin',
+        ],400);
+    }
+
+    public function getQuestion($id){
+        // Initializing
+        $repo = new QuestionSourceRepository();
+
+        // Operations
+        $resp = $repo->getQuestion($id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Soru başarıyla silindi.',
+                'data' => $resp->getData()
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Soru silinirken hata meydana geldi.Tekrar deneyin',
+        ],400);
+    }
+
+    public function update($id){
+        // Initializing
+        $repo = new QuestionSourceRepository();
+
+        // Operations
+        $resp = $repo->getQuestion($id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Soru başarıyla silindi.',
+                'data' => $resp->getData()
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Soru silinirken hata meydana geldi.Tekrar deneyin',
+        ],400);
+    }
 }

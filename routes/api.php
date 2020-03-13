@@ -146,6 +146,9 @@ Route::prefix('favorite')->group(function (){
 Route::prefix('questionSource')->group(function (){
    Route::post('/create','API\QuestionSource\QuestionSourceController@create')->name('api_question_source_create');
    Route::post('/delete/{id}','API\QuestionSource\QuestionSourceController@delete')->name('api_question_source_delete');
+   Route::get('/getQuestions/{user_id}','API\QuestionSource\QuestionSourceController@getQuestions')->name('api_question_source_get_questions');
+   Route::get('/getQuestion/{id}','API\QuestionSource\QuestionSourceController@getQuestion')->name('api_question_source_get_question');
+   Route::post('/update/{id}','API\QuestionSource\QuestionSourceController@update')->name('api_question_source_update_question');
 });
 
 
