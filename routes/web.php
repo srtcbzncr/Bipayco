@@ -83,7 +83,7 @@ Route::group(['prefix' => 'pl'],function (){
 
 Route::group(['prefix' => 'questionSource'],function (){
     Route::get('/','QuestionSource\QuestionSourceController@show')->name('questionSource_show');
-    Route::get('/create','QuestionSource\QuestionSourceController@show')->name('questionSource_create');
+    Route::get('/create','QuestionSource\QuestionSourceController@createGet')->name('questionSource_create');
 });
 
 
