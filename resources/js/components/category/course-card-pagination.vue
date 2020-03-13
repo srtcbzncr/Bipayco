@@ -45,6 +45,8 @@
                         style-empty-star-color="#C1C1C1"
                         :course-id="course.id"
                         :module-name="moduleName"
+                        is-login
+                        :user-id="userId"
                     > </course-card>
                     <course-card
                         v-else
@@ -58,6 +60,8 @@
                         style-empty-star-color="#C1C1C1"
                         :course-id="course.id"
                         :module-name="moduleName"
+                        is-login
+                        :user-id="userId"
                     > </course-card>
                 </div>
             </div>
@@ -123,6 +127,14 @@
             moduleName:{
                 type:String,
                 required:true,
+            },
+            isLogin:{
+                type:Boolean,
+                default:false,
+            },
+            userId:{
+                type:String,
+                default:""
             }
         },
         computed:{

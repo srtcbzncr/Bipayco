@@ -45,6 +45,10 @@
                                     style-empty-star-color="#C1C1C1"
                                     :course-id="{{$general_educations->id}}"
                                     module-name="generalEducation"
+                                    @if(Auth::check())
+                                        is-login
+                                        user-id="{{Auth::user()->id}}"
+                                    @endif
                                 ></course-card>
                             </div>
                         @endforeach
@@ -82,6 +86,10 @@
                                     style-empty-star-color="#C1C1C1"
                                     :course-id="{{$prepare_for_lesson->id}}"
                                     module-name="prepareLessons"
+                                    @if(Auth::check())
+                                    is-login
+                                    user-id="{{Auth::user()->id}}"
+                                    @endif
                                 ></course-card>
                             </div>
                         @endforeach
@@ -117,6 +125,10 @@
                                     page-link="{{route('ge_course',$prepare_for_exam->id)}}"
                                     :course-id="{{$prepare_for_exam->id}}"
                                     module-name="prepareExams"
+                                    @if(Auth::check())
+                                    is-login
+                                    user-id="{{Auth::user()->id}}"
+                                    @endif
                                 ></course-card>
                             </div>
                         @endforeach
@@ -152,6 +164,10 @@
                                     page-link="{{route('ge_course',$exam->id)}}"
                                     :course-id="{{$exam->id}}"
                                     module-name="exams"
+                                    @if(Auth::check())
+                                    is-login
+                                    user-id="{{Auth::user()->id}}"
+                                    @endif
                                 ></course-card>
                             </div>
                         @endforeach
@@ -187,6 +203,10 @@
                                     page-link="{{route('ge_course',$book->id)}}"
                                     :course-id="{{$book->id}}"
                                     model-name="books"
+                                    @if(Auth::check())
+                                    is-login
+                                    user-id="{{Auth::user()->id}}"
+                                    @endif
                                 ></course-card>
                             </div>
                         @endforeach

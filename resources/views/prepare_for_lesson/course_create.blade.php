@@ -55,7 +55,7 @@
                                     @enderror
                                 </div>
                                 <div>
-                                    <div class="uk-form-label"> @lang('front/auth.course_name')  </div>
+                                    <div class="uk-form-label"> @lang('front/auth.course_name')</div>
                                     <input class="uk-input form-control @error('name') is-invalid @enderror" type="text" id="name"  @if(isset($course)) value="{{$course->name}}" @endif required>
                                     @error('name')
                                     <span class="invalid-feedback" role="alert">

@@ -2342,6 +2342,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-card-pagination",
@@ -2383,6 +2387,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     moduleName: {
       type: String,
       required: true
+    },
+    isLogin: {
+      type: Boolean,
+      "default": false
+    },
+    userId: {
+      type: String,
+      "default": ""
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categoryCourses']), {
@@ -2904,14 +2916,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     discount: Boolean,
     pageLink: String,
-    fav: {
-      type: Boolean,
-      "default": false
-    },
-    inCart: {
-      type: Boolean,
-      "default": false
-    },
     styleFullStarColor: String,
     styleEmptyStarColor: String,
     courseId: {
@@ -2921,6 +2925,14 @@ __webpack_require__.r(__webpack_exports__);
     moduleName: {
       type: String,
       required: true
+    },
+    isLogin: {
+      type: Boolean,
+      "default": false
+    },
+    userId: {
+      type: String,
+      "default": ""
     }
   },
   computed: {
@@ -2940,7 +2952,19 @@ __webpack_require__.r(__webpack_exports__);
     addCart: function addCart() {
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/basket/add', {
         course_id: this.courseId,
-        module_name: this.module_name
+        module_name: this.moduleName,
+        user_id: this.userId
+      }).then(function (response) {
+        return console.log(response);
+      });
+    },
+    addFav: function addFav() {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/favorite/add', {
+        course_id: this.courseId,
+        module_name: this.moduleName,
+        user_id: this.userId
+      }).then(function (response) {
+        return console.log(response);
       });
     }
   }
@@ -8210,7 +8234,9 @@ var render = function() {
                           "style-full-star-color": "#F4C150",
                           "style-empty-star-color": "#C1C1C1",
                           "course-id": course.id,
-                          "module-name": _vm.moduleName
+                          "module-name": _vm.moduleName,
+                          "is-login": "",
+                          "user-id": _vm.userId
                         }
                       })
                     : _c("course-card", {
@@ -8224,7 +8250,9 @@ var render = function() {
                           "style-full-star-color": "#F4C150",
                           "style-empty-star-color": "#C1C1C1",
                           "course-id": course.id,
-                          "module-name": _vm.moduleName
+                          "module-name": _vm.moduleName,
+                          "is-login": "",
+                          "user-id": _vm.userId
                         }
                       })
                 ],
@@ -8766,48 +8794,46 @@ var render = function() {
       attrs: { tabindex: "0" }
     },
     [
-      _c(
-        "div",
-        {
-          staticClass:
-            "uk-transition-slide-right-small uk-position-top-right uk-padding-small uk-position-z-index"
-        },
-        [
-          _c(
-            "a",
+      _vm.isLogin
+        ? _c(
+            "div",
             {
               staticClass:
-                "uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge"
+                "uk-transition-slide-right-small uk-position-top-right uk-padding-small uk-position-z-index"
             },
             [
-              _vm.fav
-                ? _c("i", {
-                    staticClass: "fas fa-heart icon-medium",
-                    staticStyle: { color: "red" }
-                  })
-                : _vm._e(),
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge"
+                },
+                [
+                  false
+                    ? undefined
+                    : _c("i", {
+                        staticClass: "fas fa-heart icon-medium",
+                        on: { click: _vm.addFav }
+                      })
+                ]
+              ),
               _vm._v(" "),
-              !_vm.fav
-                ? _c("i", { staticClass: "fas fa-heart icon-medium" })
-                : _vm._e()
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "a",
-            {
-              staticClass:
-                "uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge"
-            },
-            [
-              _c("i", {
-                staticClass: "fas fa-shopping-cart icon-medium",
-                on: { click: _vm.addCart }
-              })
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge"
+                },
+                [
+                  _c("i", {
+                    staticClass: "fas fa-shopping-cart icon-medium",
+                    on: { click: _vm.addCart }
+                  })
+                ]
+              )
             ]
           )
-        ]
-      ),
+        : _vm._e(),
       _vm._v(" "),
       _c("a", { staticClass: "uk-link-reset", attrs: { href: _vm.pageLink } }, [
         _c("img", {
@@ -12049,7 +12075,13 @@ var render = function() {
                             .lessons[_vm.selectedLessonIndex].file_path
                       }
                     },
-                    [_vm._v("tam sayfa")]
+                    [
+                      _c("i", {
+                        staticClass:
+                          "fas fa-expand-arrows-alt uk-margin-small-left"
+                      }),
+                      _vm._v("  tam sayfa")
+                    ]
                   )
                 ]
               )

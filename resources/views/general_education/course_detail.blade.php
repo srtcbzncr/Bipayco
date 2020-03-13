@@ -189,11 +189,11 @@
                             description="{{$similar_course->description}}"
                             img-path="{{$similar_course->image}}"
                             @if($similar_course->price!=$similar_course->price_with_discount)
-                            discount
-                            :current-price="{{$similar_course->price_with_discount}}"
-                            :prev-price="{{$similar_course->price}}"
+                                discount
+                                :current-price="{{$similar_course->price_with_discount}}"
+                                :prev-price="{{$similar_course->price}}"
                             @else
-                            :current-price="{{$similar_course->price}}"
+                                :current-price="{{$similar_course->price}}"
                             @endif
                             :rate="{{$similar_course->point}}"
                             page-link="{{route('ge_course',$similar_course->id)}}"
@@ -201,6 +201,10 @@
                             style-empty-star-color="#C1C1C1"
                             :course-id="{{$similar_course->id}}"
                             module-name="generalEducation"
+                            @if(Auth::check())
+                                is-login
+                                user-id="{{Auth::user()->id}}"
+                            @endif
                         ></course-card>
                     </div>
                 @endforeach

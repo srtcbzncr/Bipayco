@@ -34,5 +34,9 @@
         sub-category
         has-no-content="@lang('front/auth.not_found_content')"
         module-name="prepareLessons"
+        @if(Auth::check())
+        is-login
+        user-id="{{Auth::user()->id}}"
+        @endif
     ></course-card-pagination>
 @endsection

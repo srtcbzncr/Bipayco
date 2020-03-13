@@ -202,6 +202,10 @@
                             style-empty-star-color="#C1C1C1"
                             :course-id="{{$similar_course->id}}"
                             module-name="prepareLessons"
+                            @if(Auth::check())
+                            is-login
+                            user-id="{{Auth::user()->id}}"
+                            @endif
                         ></course-card>
                     </div>
                 @endforeach

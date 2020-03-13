@@ -1,9 +1,9 @@
 <template>
     <div class="uk-card-default uk-card-hover uk-card-small uk-width Course-card uk-inline-clip uk-transition-toggle" tabindex="0">
-        <div class="uk-transition-slide-right-small uk-position-top-right uk-padding-small uk-position-z-index">
+        <div v-if="isLogin" class="uk-transition-slide-right-small uk-position-top-right uk-padding-small uk-position-z-index">
             <a class="uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge">
-                <i v-if="fav" class="fas fa-heart icon-medium" style="color: red"> </i>
-                <i v-if="!fav" class="fas fa-heart icon-medium"> </i>
+                <i v-if="false" class="fas fa-heart icon-medium" style="color: red"> </i>
+                <i v-else  @click="addFav" class="fas fa-heart icon-medium"> </i>
             </a>
             <a class="uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge">
                 <i class="fas fa-shopping-cart icon-medium" @click="addCart"> </i>
@@ -53,14 +53,6 @@ export default {
         },
         discount: Boolean,
         pageLink: String,
-        fav:{
-            type:Boolean,
-            default: false,
-        },
-        inCart:{
-            type:Boolean,
-            default: false,
-        },
         styleFullStarColor:String,
         styleEmptyStarColor:String,
         courseId:{
@@ -71,7 +63,14 @@ export default {
             type:String,
             required:true,
         },
-
+        isLogin:{
+            type:Boolean,
+            default:false
+        },
+        userId:{
+            type:String,
+            default:"",
+        }
     },
     computed:{
         cPrice:function(){
@@ -88,8 +87,18 @@ export default {
         addCart:function () {
             Axios.post('/api/basket/add', {
                 course_id:this.courseId,
-                module_name:this.module_name,
+                module_name:this.moduleName,
+                user_id:this.userId,
             })
+            .then(response=>console.log(response))
+        },
+        addFav:function () {
+            Axios.post('/api/favorite/add', {
+                course_id:this.courseId,
+                module_name:this.moduleName,
+                user_id:this.userId,
+            })
+                .then(response=>console.log(response))
         }
     }
 }

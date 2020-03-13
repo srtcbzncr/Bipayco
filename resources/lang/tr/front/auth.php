@@ -151,5 +151,10 @@ return [
     'total'=>'Toplam',
     'comments'=>'Yorumlar',
     'wait_for_response'=>'Cevap Bekleyen',
-
+    'create_new_question'=>'Yeni Soru Oluştur',
+    'back'=>'Geri',
+    'question_type'=>'Soru Tipi',
+    'fill_in_the_blank'=>'Boşluk Doldurma',
+    'single_choice'=>'Çoktan Seçmeli',
+    'multi_choice'=>'Çoklu Seçmeli'
 ];
