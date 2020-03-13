@@ -81,6 +81,11 @@ Route::group(['prefix' => 'pl'],function (){
     Route::get('index', 'HomeController@pl_index')->name('pl_index');
 });
 
+Route::group(['prefix' => 'questionSource'],function (){
+    Route::get('/','QuestionSource\QuestionSourceController@show')->name('questionSource_show');
+    Route::get('/create','QuestionSource\QuestionSourceController@show')->name('questionSource_create');
+});
+
 
 
 
