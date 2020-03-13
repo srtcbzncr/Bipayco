@@ -8,8 +8,9 @@ class MultiChoice extends Model
 {
     protected $fillable = [
         'questionId',
-        'answer',
+        'content',
         'isTrue',
+        'type'
     ];
 
     public $timestamps = true;

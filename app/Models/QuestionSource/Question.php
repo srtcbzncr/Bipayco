@@ -6,20 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
+    // type: soru tipini belirtir.
     protected $fillable = [
-        'title',
-        'content',
+        'text',
+        'img_url',
         'level',
+        'type',
+        'crLesson',
+        'crSubject',
         'instructorId',
-        'question_type',
         'isConfirm',
     ];
     public $timestamps = true;
     protected $table = "question_source_question";
-
-    public function questiontable(){
-        return $this->morphTo();
-    }
 
     public function singleChoiceAnswers(){
         return $this->hasMany('App\Models\QuestionSource\SingleChoice','questionId','id');
@@ -34,14 +33,14 @@ class Question extends Model
     }
 
     public function matchAnswers(){
-
+        return $this->hasMany('App\Models\QuestionSource\Match','questionId','id');
     }
 
     public function trueFalseAnswers(){
-        return $this->hasOne('App\Models\QuestionSource\TrueFalse','questionId','id');
+        return $this->hasMany('App\Models\QuestionSource\TrueFalse','questionId','id');
     }
 
     public function sortAnswers(){
-        return $this->hasMany('App\Models\QuestionSource\Sort','questionId','id');
+        return $this->hasMany('App\Models\QuestionSource\Order','questionId','id');
     }
 }

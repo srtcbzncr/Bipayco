@@ -9,7 +9,7 @@ class TrueFalse extends Model
     // ansewer-> 1: doğru , 0: yanlış
     protected $fillable = [
         'questionId',
-        'answer',
+        'content',
     ];
 
     public $timestamps = true;

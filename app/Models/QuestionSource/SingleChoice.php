@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class SingleChoice extends Model
 {
+    // type: cevap tipi image ise içinde img url olacak. değilse text bir soru olacak.
     protected $fillable = [
         'questionId',
-        'answer',
+        'content',
         'isTrue',
+        'type'
     ];
 
     public $timestamps = true;

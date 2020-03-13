@@ -8,7 +8,9 @@ class GapFilling extends Model
 {
     protected $fillable = [
         'questionId',
-        'answer',
+        'content',
+        'no',
+        'type'
     ];
 
     public $timestamps = true;

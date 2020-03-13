@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Match extends Model
 {
-    // TODO: burası kesin değil henüz
     protected $fillable = [
         'questionId',
-        'answer',
+        'content',
+        'type',
+        'answerId'
     ];
 
     public $timestamps = true;

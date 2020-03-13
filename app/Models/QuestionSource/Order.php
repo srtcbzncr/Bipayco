@@ -4,12 +4,12 @@ namespace App\Models\QuestionSource;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Sort extends Model
+class Order extends Model
 {
     protected $fillable = [
         'questionId',
-        'answer',
-        'order',
+        'content',
+        'no',
     ];
 
     public $timestamps = true;
