@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
-    // type: soru tipini belirtir.
+    // type: soru tipini belirtir.Single mi multimi vb.
     protected $fillable = [
         'text',
-        'img_url',
+        'imgUrl',
         'level',
         'type',
-        'crLesson',
-        'crSubject',
+        'crLessonId',
+        'crSubjectId',
         'instructorId',
         'isConfirm',
     ];
