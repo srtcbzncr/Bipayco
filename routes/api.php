@@ -143,6 +143,11 @@ Route::prefix('favorite')->group(function (){
     Route::get('/show/{user_id}','API\Basket\BasketController@show')->name('show_basket');
 });
 
+Route::prefix('questionSource')->group(function (){
+   Route::post('/create','API\QuestionSource\QuestionSourceController@create')->name('api_question_source_create');
+   Route::post('/delete/{id}','API\QuestionSource\QuestionSourceController@delete')->name('api_question_source_delete');
+});
+
 
 Route::get('myCourses/{id}', 'API\Auth\AuthController@courses')->name('api_my_courses');
 Route::get('lastCourses/{id}', 'API\Auth\AuthController@getLastWatchedCourses')->name('api_my_last_courses');
