@@ -138,9 +138,9 @@ Route::prefix('basket')->group(function (){
     Route::get('/show/{user_id}','API\Basket\BasketController@show')->name('show_basket');
 });
 Route::prefix('favorite')->group(function (){
-    Route::post('/add','API\Basket\BasketController@add')->name('add_basket');
-    Route::post('/delete','API\Basket\BasketController@remove')->name('remove_basket');
-    Route::get('/show/{user_id}','API\Basket\BasketController@show')->name('show_basket');
+    Route::post('/add','API\Favorite\FavoriteController@add')->name('add_basket');
+    Route::post('/delete','API\Favorite\FavoriteController@remove')->name('remove_basket');
+    Route::get('/show/{user_id}','API\Favorite\FavoriteController@show')->name('show_basket');
 });
 
 Route::prefix('questionSource')->group(function (){
