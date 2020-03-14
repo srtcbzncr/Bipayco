@@ -156,5 +156,7 @@ return [
     'question_type'=>'Soru Tipi',
     'fill_in_the_blank'=>'Boşluk Doldurma',
     'single_choice'=>'Çoktan Seçmeli',
-    'multi_choice'=>'Çoklu Seçmeli'
+    'multi_choice'=>'Çoklu Seçmeli',
+    'question_source'=>'Soru Havuzu',
+    'choose_question_type'=>'Soru Tipi Seçiniz'
 ];

@@ -71,6 +71,9 @@
                 <a href="{{route('student_profile', Auth::user()->id)}}"> <i class="fas fa-user"></i>@lang('front/auth.student_mode')</a>
             </li>
             <li>
+                <a href="{{route('questionSource_show')}}"> <i class="fas fa-bookmark"></i>@lang('front/auth.question_source')</a>
+            </li>
+            <li>
                 <a href="{{route('settings')}}"> <i class="fas fa-cog"></i>@lang('front/auth.settings')</a>
             </li>
             <li>

@@ -7,15 +7,14 @@
                 <h4 class="uk-margin-medium-top">@lang('front/auth.create_new_question')</h4>
             </div>
             <div class="uk-card-body uk-padding-medium">
-                <div class="">
-                    <div class="uk-form-label"> @lang('front/auth.question_type')</div>
-                    <select class="uk-width uk-select">
-                        <option selected disabled hidden>@lang('front/auth.question_type')</option>
-                        <option>@lang('front/auth.single_choice')</option>
-                        <option>@lang('front/auth.multi_choice')</option>
-                        <option>@lang('front/auth.fill_in_the_blank')</option>
-                    </select>
-                </div>
+                <add-question
+                    save-text="@lang('front/auth.save')"
+                    question-type-text="@lang('front/auth.question_type')"
+                    choose-question-type-text="@lang('front/auth.choose_question_type')"
+                    single-choice-text="@lang('front/auth.single_choice')"
+                    multi-choice-text="@lang('front/auth.multi_choice')"
+                    fill-blank-text="@lang('front/auth.fill_in_the_blank')"
+                > </add-question>
             </div>
         </div>
     </div>
