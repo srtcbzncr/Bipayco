@@ -59,19 +59,19 @@ class FavoriteRepository implements IRepository
             $favorite = new Favorite();
             $favorite->user_id = $data['user_id'];
             $favorite->course_id = $data['course_id'];
-            if($data['course_type'] == 'ge'){
+            if($data['module_name'] == 'generalEducation'){
                 $favorite->course_type = 'App\Models\GeneralEducation\Course';
             }
-            else if($data['course_type'] == 'pl'){
+            else if($data['module_name'] == 'prepareLessons'){
                 $favorite->course_type = 'App\Models\PrepareLessons\Course';
             }
-            else if($data['course_type'] == 'pe'){
+            else if($data['module_name'] == 'pe'){
             }
-            else if($data['course_type'] == 'pre'){
+            else if($data['module_name'] == 'pre'){
             }
-            else if($data['course_type'] == 'qb'){
+            else if($data['module_name'] == 'qb'){
             }
-            else if($data['course_type'] == 'hw'){
+            else if($data['module_name'] == 'hw'){
             }
             $favorite->save();
 

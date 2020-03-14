@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 class BasketController extends Controller
 {
     public function add(Request $request){
-        return $request->all();
         // Initializing
         $data = $request->toArray();
         $repo = new BasketRepository();
