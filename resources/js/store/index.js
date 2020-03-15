@@ -64,10 +64,10 @@ const state={
     previewLessons:{
         prepareLessons:{}
     },
-    courseSubjects:{
+    courseSubjects:[{
         id:"",
         name:"",
-    }
+    }],
 };
 const getters={};
 const mutations={
@@ -204,6 +204,10 @@ const actions={
     },
     loadCourseSubjects({commit}, [moduleName, courseId]){
         Axios.get('/api/instructor/'+moduleName+'/course/'+courseId+'/subjects')
+            .then(response=>commit('setCourseSubjects',response.data))
+    },
+    loadLessonSubjects({commit}, lessonId){
+        Axios.get('/api/instructor/subjects/lesson/'+lessonId)
             .then(response=>commit('setCourseSubjects',response.data))
     }
 };
