@@ -13,6 +13,8 @@ use App\Models\GeneralEducation\Tag;
 use App\Models\PrepareLessons\Course;
 use App\Models\PrepareLessons\Lesson;
 use App\Models\PrepareLessons\Section;
+use App\Models\UsersOperations\Basket;
+use App\Models\UsersOperations\Favorite;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\DB;
@@ -156,6 +158,21 @@ class CourseRepository implements IRepository{
                 ->orderBy('point', 'desc')
                 ->take(12)
                 ->get();
+
+            // bu kursların favori veya sepete eklenip eklenmediği bilgisini getir.
+            foreach ($object as $key=> $course){
+                $controlBasket = Basket::where('course_id',$course->id)->where('course_type','App\Models\PrepareLessons\Course')->first();
+                if($controlBasket != null)
+                    $object[$key]['inBasket'] = true;
+                else
+                    $object[$key]['inBasket'] = false;
+
+                $controlFavorite = Favorite::where('course_id',$course->id)->where('course_type','App\Models\PrepareLessons\Course')->first();
+                if($controlFavorite != null)
+                    $object[$key]['inFavorite'] = true;
+                else
+                    $object[$key]['inFavorite'] = false;
+            }
         }
         catch(\Exception $e){
             $error = $e;
