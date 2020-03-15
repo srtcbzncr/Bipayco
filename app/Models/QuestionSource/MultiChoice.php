@@ -12,6 +12,6 @@ class MultiChoice extends Model
         'isTrue',
         'type'
     ];
-
+    protected $table = "qs_multi_choice";
     public $timestamps = true;
 }

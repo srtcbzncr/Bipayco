@@ -10,8 +10,9 @@ class Match extends Model
         'questionId',
         'content',
         'type',
-        'answerId'
+        'answer'
     ];
 
+    protected $table = "qs_match";
     public $timestamps = true;
 }

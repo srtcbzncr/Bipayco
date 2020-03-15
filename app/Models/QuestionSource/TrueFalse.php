@@ -12,5 +12,7 @@ class TrueFalse extends Model
         'content',
     ];
 
+    protected $table = "qs_true_false";
+
     public $timestamps = true;
 }

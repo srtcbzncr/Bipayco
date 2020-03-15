@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SingleChoice extends Model
 {
-    // type: cevap tipi image ise içinde img url olacak. değilse text bir soru olacak.
+    // type: cevap tipi image ise content içinde img url olacak. değilse text bir soru olacak.
     protected $fillable = [
         'questionId',
         'content',
@@ -16,7 +16,5 @@ class SingleChoice extends Model
 
     public $timestamps = true;
 
-    public function question(){
-        return $this->morphMany('App\Models\QuestionSource\Question', 'questiontable');
-    }
+    protected $table = "qs_single_choice";
 }

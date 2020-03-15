@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuestionSourceQuestionTable extends Migration
+class CreateQsSingleChoiceTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class CreateQuestionSourceQuestionTable extends Migration
      */
     public function up()
     {
-        Schema::create('question_source_question', function (Blueprint $table) {
+        Schema::create('qs_single_choice', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('questionId');
+            $table->string('content');
+            $table->boolean('isTrue');
+            $table->string('type');
             $table->timestamps();
         });
     }
@@ -26,6 +30,6 @@ class CreateQuestionSourceQuestionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('question_source_question');
+        Schema::dropIfExists('qs_single_choice');
     }
 }

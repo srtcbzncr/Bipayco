@@ -12,5 +12,7 @@ class Order extends Model
         'no',
     ];
 
+    protected $table = "qs_order";
+
     public $timestamps = true;
 }

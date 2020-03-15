@@ -18,7 +18,7 @@ class Question extends Model
         'isConfirm',
     ];
     public $timestamps = true;
-    protected $table = "question_source_question";
+    protected $table = "qs_question";
 
     public function singleChoiceAnswers(){
         return $this->hasMany('App\Models\QuestionSource\SingleChoice','questionId','id');

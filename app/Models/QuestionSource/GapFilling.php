@@ -13,5 +13,7 @@ class GapFilling extends Model
         'type'
     ];
 
+    protected $table = "qs_gap_filling";
+
     public $timestamps = true;
 }
