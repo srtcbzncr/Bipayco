@@ -3774,52 +3774,157 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     addSingleChoiceTextQuestion: function addSingleChoiceTextQuestion() {
-      this.singleAnswerType.push({
+      this.singleAnswers.push({
         content: document.getElementById('singleCorrectAnswer').value,
         isCorrect: true,
-        type: text
+        type: 'text'
       });
       var formData = new FormData();
+      var image = document.querySelector('#singleQuestionImg');
+
+      if (image.files != undefined) {
+        formData.append('imgUrl', image.files[0]);
+      }
+
       formData.append('level', this.questionLevel);
       formData.append('text', document.getElementById('singleQuestion').value);
-      formData.append('imgUrl', document.getElementById('singleQuestionImg').files[0]);
       formData.append('crLessonId', this.selectedLessonId);
       formData.append('crSubjectId', this.selectedSubjectId);
       formData.append('instructorId', this.instructorId);
       formData.append('answers', this.singleAnswers);
       formData.append('type', 'singleChoice');
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData).then(function (response) {
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = formData[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var pair = _step.value;
+          console.log(pair[0]);
+          console.log(pair[1]);
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      console.log(this.singleAnswers);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
         return console.log(response);
       });
     },
     addSingleChoiceImgQuestion: function addSingleChoiceImgQuestion() {},
     addMultiChoiceTextQuestion: function addMultiChoiceTextQuestion() {
       var formData = new FormData();
+      var image = document.querySelector('#multiQuestionImg');
+
+      if (image.files != undefined) {
+        formData.append('imgUrl', image.files[0]);
+      }
+
       formData.append('level', this.questionLevel);
       formData.append('text', document.getElementById('multiQuestion').value);
-      formData.append('imgUrl', document.getElementById('multiQuestionImg').files[0]);
       formData.append('crLessonId', this.selectedLessonId);
       formData.append('crSubjectId', this.selectedSubjectId);
       formData.append('instructorId', this.instructorId);
       formData.append('answers', this.multiAnswers);
       formData.append('type', 'multiChoice');
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData).then(function (response) {
+      var _iteratorNormalCompletion2 = true;
+      var _didIteratorError2 = false;
+      var _iteratorError2 = undefined;
+
+      try {
+        for (var _iterator2 = formData[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
+          var pair = _step2.value;
+          console.log(pair[0]);
+          console.log(pair[1]);
+        }
+      } catch (err) {
+        _didIteratorError2 = true;
+        _iteratorError2 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
+            _iterator2["return"]();
+          }
+        } finally {
+          if (_didIteratorError2) {
+            throw _iteratorError2;
+          }
+        }
+      }
+
+      console.log(this.multiAnswers);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
         return console.log(response);
       });
     },
     addMultiChoiceImgQuestion: function addMultiChoiceImgQuestion() {},
     addFillBlankQuestion: function addFillBlankQuestion() {
+      var image = document.querySelector('#blankQuestionImg');
       var formData = new FormData();
       formData.append('level', this.questionLevel);
       formData.append('text', document.getElementById('blankQuestion').value);
-      formData.append('imgUrl', document.getElementById('blankQuestionImg').files[0]);
+
+      if (image.files[0] != undefined) {
+        formData.append('imgUrl', image.files[0]);
+      }
+
       formData.append('crLessonId', this.selectedLessonId);
       formData.append('crSubjectId', this.selectedSubjectId);
       formData.append('instructorId', this.instructorId);
       formData.append('beginningOfSentence', document.getElementById('beginningOfSentence').value);
       formData.append('answers', this.blanks);
       formData.append('type', 'fillBlank');
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData).then(function (response) {
+      var _iteratorNormalCompletion3 = true;
+      var _didIteratorError3 = false;
+      var _iteratorError3 = undefined;
+
+      try {
+        for (var _iterator3 = formData[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
+          var pair = _step3.value;
+          console.log(pair[0]);
+          console.log(pair[1]);
+        }
+      } catch (err) {
+        _didIteratorError3 = true;
+        _iteratorError3 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
+            _iterator3["return"]();
+          }
+        } finally {
+          if (_didIteratorError3) {
+            throw _iteratorError3;
+          }
+        }
+      }
+
+      console.log(this.blanks);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
         return console.log(response);
       });
     },
@@ -9932,7 +10037,7 @@ var render = function() {
                 expression: "selectedLessonId"
               }
             ],
-            staticClass: "uk-select uk-margin-right uk-margin-small-bottom",
+            staticClass: "uk-select uk-margin-right",
             attrs: { required: "" },
             on: {
               change: [
@@ -10297,7 +10402,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("input", {
                         staticClass: "uk-input uk-width",
-                        attrs: { type: "text" }
+                        attrs: { type: "text", id: "singleCorrectAnswer" }
                       })
                     ]),
                     _vm._v(" "),
@@ -10372,7 +10477,7 @@ var render = function() {
                           click: function($event) {
                             return _vm.singleAnswers.push({
                               answer: "",
-                              answerType: "text",
+                              type: "text",
                               isCorrect: "false"
                             })
                           }

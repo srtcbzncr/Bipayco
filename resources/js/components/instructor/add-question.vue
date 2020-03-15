@@ -3,7 +3,7 @@
         <div class="uk-grid uk-child-width-1-3@m">
             <div>
                 <div class="uk-form-label"> {{lessonText}} </div>
-                <select class='uk-select uk-margin-right uk-margin-small-bottom' v-model="selectedLessonId" @change="loadSubjects" required>
+                <select class='uk-select uk-margin-right' v-model="selectedLessonId" @change="loadSubjects" required>
                     <option disabled hidden value="">{{chooseLessonText}}</option>
                     <option v-for='lesson in plLessonType.lesson' :value='lesson.id'>{{lesson.name}}</option>
                 </select>
@@ -68,7 +68,7 @@
                 <div v-if="singleAnswerType=='withText'">
                     <div class="uk-margin">
                         <div class="uk-form-label"> {{correctAnswerText}} </div>
-                        <input type="text" class="uk-input uk-width">
+                        <input type="text" class="uk-input uk-width" id="singleCorrectAnswer">
                     </div>
                     <div v-if="singleAnswers.length>0" class="uk-form-label"> {{wrongAnswersText}} </div>
                     <div v-for="(singleAnswer,singleIndex) in singleAnswers" class="uk-flex align-items-center uk-margin">
@@ -79,7 +79,7 @@
                             <input class="uk-input uk-width" v-model="singleAnswer.answer" type="text" required>
                         </div>
                     </div>
-                    <button class="uk-width uk-button-success uk-button" @click="singleAnswers.push({answer:'', answerType:'text', isCorrect:'false'})"> <i class="fas fa-plus"></i> {{addWrongAnswerText}}</button>
+                    <button class="uk-width uk-button-success uk-button" @click="singleAnswers.push({answer:'', type:'text', isCorrect:'false'})"> <i class="fas fa-plus"></i> {{addWrongAnswerText}}</button>
                     <button class="uk-button uk-button-grey uk-margin-top uk-width" @click="addSingleChoiceTextQuestion"> {{saveText}} </button>
                 </div>
             </div>
@@ -334,17 +334,27 @@
                 }
             },
             addSingleChoiceTextQuestion:function () {
-                this.singleAnswerType.push({content:document.getElementById('singleCorrectAnswer').value, isCorrect:true, type:text});
+                this.singleAnswers.push({content:document.getElementById('singleCorrectAnswer').value, isCorrect:true, type:'text'});
                 var formData=new FormData();
+                var image=document.querySelector('#singleQuestionImg');
+                if(image.files!=undefined){
+                    formData.append('imgUrl', image.files[0]);
+                }
                 formData.append('level', this.questionLevel);
                 formData.append('text', document.getElementById('singleQuestion').value);
-                formData.append('imgUrl', document.getElementById('singleQuestionImg').files[0]);
                 formData.append('crLessonId', this.selectedLessonId);
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
                 formData.append('answers', this.singleAnswers);
                 formData.append('type', 'singleChoice');
-                Axios.post('/api/questionSource/create', formData)
+                for(var pair of formData){
+                    console.log(pair[0]);
+                    console.log(pair[1]);
+                }
+                console.log(this.singleAnswers);
+                Axios.post('/api/questionSource/create', formData, {
+                    headers: {'Content-Type': 'multipart/form-data'}
+                })
                     .then(response=>console.log(response));
             },
             addSingleChoiceImgQuestion:function () {
@@ -352,32 +362,52 @@
             },
             addMultiChoiceTextQuestion:function () {
                 var formData=new FormData();
+                var image=document.querySelector('#multiQuestionImg');
+                if(image.files!=undefined){
+                    formData.append('imgUrl', image.files[0]);
+                }
                 formData.append('level', this.questionLevel);
                 formData.append('text', document.getElementById('multiQuestion').value);
-                formData.append('imgUrl', document.getElementById('multiQuestionImg').files[0]);
                 formData.append('crLessonId', this.selectedLessonId);
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
                 formData.append('answers', this.multiAnswers);
                 formData.append('type', 'multiChoice');
-                Axios.post('/api/questionSource/create', formData)
+                for(var pair of formData){
+                    console.log(pair[0]);
+                    console.log(pair[1]);
+                }
+                console.log(this.multiAnswers);
+                Axios.post('/api/questionSource/create', formData, {
+                    headers: {'Content-Type': 'multipart/form-data'}
+                })
                     .then(response=>console.log(response));
             },
             addMultiChoiceImgQuestion:function () {
 
             },
             addFillBlankQuestion:function () {
+                var image=document.querySelector('#blankQuestionImg');
                 var formData=new FormData();
                 formData.append('level', this.questionLevel);
                 formData.append('text', document.getElementById('blankQuestion').value);
-                formData.append('imgUrl', document.getElementById('blankQuestionImg').files[0]);
+                if(image.files[0]!=undefined){
+                    formData.append('imgUrl', image.files[0]);
+                }
                 formData.append('crLessonId', this.selectedLessonId);
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
                 formData.append('beginningOfSentence', document.getElementById('beginningOfSentence').value);
                 formData.append('answers', this.blanks);
                 formData.append('type', 'fillBlank');
-                Axios.post('/api/questionSource/create', formData)
+                for(var pair of formData){
+                    console.log(pair[0]);
+                    console.log(pair[1]);
+                }
+                console.log(this.blanks);
+                Axios.post('/api/questionSource/create', formData, {
+                    headers: {'Content-Type': 'multipart/form-data'}
+                })
                     .then(response=>console.log(response));
             },
             loadSubjects:function () {
