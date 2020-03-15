@@ -76,10 +76,10 @@
                             <i class="fas fa-trash-alt text-danger" @click="singleAnswers.splice(singleIndex,1)"></i>
                         </div>
                         <div class=" uk-width">
-                            <input class="uk-input uk-width" v-model="singleAnswer.answer" type="text" required>
+                            <input class="uk-input uk-width" v-model="singleAnswer.content" type="text" required>
                         </div>
                     </div>
-                    <button class="uk-width uk-button-success uk-button" @click="singleAnswers.push({answer:'', type:'text', isCorrect:'false'})"> <i class="fas fa-plus"></i> {{addWrongAnswerText}}</button>
+                    <button class="uk-width uk-button-success uk-button" @click="singleAnswers.push({content:'', type:'text', isCorrect:'false'})"> <i class="fas fa-plus"></i> {{addWrongAnswerText}}</button>
                     <button class="uk-button uk-button-grey uk-margin-top uk-width" @click="addSingleChoiceTextQuestion"> {{saveText}} </button>
                 </div>
             </div>
@@ -94,7 +94,7 @@
                 <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
             </div>
             <div class="uk-form-label"> {{questionText}} </div>
-            <textarea class="uk-height-small uk-textarea uk-overflow-auto" required></textarea>
+            <textarea class="uk-height-small uk-textarea uk-overflow-auto" id="multiQuestion" required></textarea>
             <div>
                 <div class="uk-form-label"> {{answerTypeText}} </div>
                 <select v-model="multiAnswerType"  class="uk-width uk-select">
@@ -124,7 +124,7 @@
                             <i class="fas fa-trash-alt text-danger" @click="multiAnswers.splice(multiIndex,1)"></i>
                         </div>
                         <div class=" uk-width">
-                            <input class="uk-input uk-width" v-model="multiAnswer.answer" type="text" required>
+                            <input class="uk-input uk-width" v-model="multiAnswer.content" type="text" required>
                         </div>
                         <div class="uk-margin-right uk-margin-left">
                             <input type="checkbox" class="uk-checkbox" v-model="multiAnswer.isCorrect">
@@ -147,7 +147,7 @@
             </div>
             <div class="uk-margin-bottom">
                 <div class="uk-form-label"> {{questionText}} </div>
-                <textarea class="uk-height-small uk-textarea uk-overflow-auto" required></textarea>
+                <textarea class="uk-height-small uk-textarea uk-overflow-auto" id="blankQuestion" required></textarea>
             </div>
             <div>
                 <div v-for="(blank,blankIndex) in blanks" class="uk-flex align-items-center uk-margin">
@@ -387,17 +387,16 @@
 
             },
             addFillBlankQuestion:function () {
-                var image=document.querySelector('#blankQuestionImg');
+                var image=document.querySelector('#blankImg');
                 var formData=new FormData();
                 formData.append('level', this.questionLevel);
-                formData.append('text', document.getElementById('blankQuestion').value);
+                formData.append('beginningOfSentence', document.getElementById('blankQuestion').value);
                 if(image.files[0]!=undefined){
                     formData.append('imgUrl', image.files[0]);
                 }
                 formData.append('crLessonId', this.selectedLessonId);
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
-                formData.append('beginningOfSentence', document.getElementById('beginningOfSentence').value);
                 formData.append('answers', this.blanks);
                 formData.append('type', 'fillBlank');
                 for(var pair of formData){

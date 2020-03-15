@@ -3879,10 +3879,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     addMultiChoiceImgQuestion: function addMultiChoiceImgQuestion() {},
     addFillBlankQuestion: function addFillBlankQuestion() {
-      var image = document.querySelector('#blankQuestionImg');
+      var image = document.querySelector('#blankImg');
       var formData = new FormData();
       formData.append('level', this.questionLevel);
-      formData.append('text', document.getElementById('blankQuestion').value);
+      formData.append('beginningOfSentence', document.getElementById('blankQuestion').value);
 
       if (image.files[0] != undefined) {
         formData.append('imgUrl', image.files[0]);
@@ -3891,7 +3891,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('crLessonId', this.selectedLessonId);
       formData.append('crSubjectId', this.selectedSubjectId);
       formData.append('instructorId', this.instructorId);
-      formData.append('beginningOfSentence', document.getElementById('beginningOfSentence').value);
       formData.append('answers', this.blanks);
       formData.append('type', 'fillBlank');
       var _iteratorNormalCompletion3 = true;
@@ -10444,13 +10443,13 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: singleAnswer.answer,
-                                  expression: "singleAnswer.answer"
+                                  value: singleAnswer.content,
+                                  expression: "singleAnswer.content"
                                 }
                               ],
                               staticClass: "uk-input uk-width",
                               attrs: { type: "text", required: "" },
-                              domProps: { value: singleAnswer.answer },
+                              domProps: { value: singleAnswer.content },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
@@ -10458,7 +10457,7 @@ var render = function() {
                                   }
                                   _vm.$set(
                                     singleAnswer,
-                                    "answer",
+                                    "content",
                                     $event.target.value
                                   )
                                 }
@@ -10476,7 +10475,7 @@ var render = function() {
                         on: {
                           click: function($event) {
                             return _vm.singleAnswers.push({
-                              answer: "",
+                              content: "",
                               type: "text",
                               isCorrect: "false"
                             })
@@ -10553,7 +10552,7 @@ var render = function() {
           _vm._v(" "),
           _c("textarea", {
             staticClass: "uk-height-small uk-textarea uk-overflow-auto",
-            attrs: { required: "" }
+            attrs: { id: "multiQuestion", required: "" }
           }),
           _vm._v(" "),
           _c("div", [
@@ -10705,13 +10704,13 @@ var render = function() {
                                 {
                                   name: "model",
                                   rawName: "v-model",
-                                  value: multiAnswer.answer,
-                                  expression: "multiAnswer.answer"
+                                  value: multiAnswer.content,
+                                  expression: "multiAnswer.content"
                                 }
                               ],
                               staticClass: "uk-input uk-width",
                               attrs: { type: "text", required: "" },
-                              domProps: { value: multiAnswer.answer },
+                              domProps: { value: multiAnswer.content },
                               on: {
                                 input: function($event) {
                                   if ($event.target.composing) {
@@ -10719,7 +10718,7 @@ var render = function() {
                                   }
                                   _vm.$set(
                                     multiAnswer,
-                                    "answer",
+                                    "content",
                                     $event.target.value
                                   )
                                 }
@@ -10869,7 +10868,7 @@ var render = function() {
             _vm._v(" "),
             _c("textarea", {
               staticClass: "uk-height-small uk-textarea uk-overflow-auto",
-              attrs: { required: "" }
+              attrs: { id: "blankQuestion", required: "" }
             })
           ]),
           _vm._v(" "),
