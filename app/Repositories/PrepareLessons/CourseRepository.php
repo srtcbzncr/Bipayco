@@ -1383,4 +1383,25 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+
+    public function getSubjectsForLesson($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $subjects = Subject::where('lesson_id',$id)->get();
+            $object = $subjects;
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
 }

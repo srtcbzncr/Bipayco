@@ -532,4 +532,27 @@ class CourseController extends Controller
             'messageError' => $resp->getError()
         ]);
     }
+
+    public function getSubjectsForLesson($id){
+        // Initializing
+        $repo = new CourseRepository();
+
+        // Operations
+        $resp =  $repo->getSubjects($id);
+
+        // Response
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Konular başarıyla getirildi.',
+                'data' => $resp->getData()
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Konular getirilirken hata oluştu.Tekrar deneyin.'
+            ],400);
+        }
+    }
 }

@@ -117,6 +117,9 @@ Route::prefix('instructor')->group(function(){
     Route::post('prepareLessons/course/{id}/section/{section_id}/lesson/{lesson_id}/up','API\PrepareLessons\CourseController@lessonUp')->name('api_gl_course_lesson_up');
     Route::post('prepareLessons/course/{id}/section/{section_id}/lesson/{lesson_id}/down','API\PrepareLessons\CourseController@lessonDown')->name('api_pl_course_lesson_down');
 
+    # getSubjects
+    Route::get('subjects/lesson/{id}','API\PrepareLessons\CourseController@getSubjectsForLesson')->name('api_pl_course_subjects_get');
+
 });
 
 # Kurs İzleme Bölümü İçin Routes
