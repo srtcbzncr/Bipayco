@@ -52,7 +52,15 @@
                 </select>
                 <div v-if="singleAnswerType=='withImage'" class="uk-margin-top">
                     <div class="uk-margin">
-                        <div v-if="singleAnswersImg.legth>0" class="uk-form-label"> {{answerImageText}} </div>
+                        <div class="uk-form-label"> {{correctAnswerText}} </div>
+                        <div>
+                            <div class="uk-background-center-center uk-background-cover uk-height" id="singleCorrectAnswerImgPreview"></div>
+                        </div>
+                        <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
+                            <input name="image" type="file" accept="image/*" id="singleCorrectAnswerImg" @change="previewImage('singleCorrectAnswerImg', 'singleCorrectAnswerImgPreview')" >
+                            <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
+                        </div>
+                        <div v-if="singleAnswersImg.length>0" class="uk-form-label"> {{wrongAnswerImageText}} </div>
                         <div v-for="(singleAnswer, singleIndex) in singleAnswersImg" class="uk-flex align-items-center uk-margin">
                             <div class="uk-margin-right uk-margin-left">
                                 <i class="fas fa-trash-alt text-danger" @click="singleAnswersImg.splice(singleIndex,1)"></i>
@@ -69,8 +77,7 @@
                             </div>
                         </div>
                     </div>
-                    {{multiAnswersImg}}
-                    <button class="uk-width uk-button-success uk-button" @click="singleAnswers.push({content:'', type:'text', isCorrect:'false'})"> <i class="fas fa-plus"></i> {{addWrongAnswerText}}</button>
+                    <button class="uk-width uk-button-success uk-button" @click="singleAnswersImg.push({content:'', type:'image', isCorrect:'false'})"> <i class="fas fa-plus"></i> {{addWrongAnswerText}}</button>
                     <button class="uk-button uk-button-grey uk-margin-top uk-width" @click="addSingleChoiceImgQuestion"> {{saveText}} </button>
                 </div>
                 <div v-if="singleAnswerType=='withText'" class="uk-margin-top">
@@ -131,7 +138,6 @@
                             </div>
                         </div>
                     </div>
-                    {{multiAnswersImg}}
                     <button class="uk-width uk-button-success uk-button" @click="multiAnswersImg.push({content:'', isCorrect:false, type:'image'})"> <i class="fas fa-plus"></i> {{addAnswerText}}</button>
                     <button class="uk-button uk-button-grey uk-margin-top uk-width" @click="addMultiChoiceImgQuestion"> {{saveText}} </button>
                 </div>
@@ -199,7 +205,7 @@
                 singleAnswerType:"",
                 multiAnswerType:"",
                 singleAnswers:[],
-                singleAnswerImg:[],
+                singleAnswersImg:[],
                 multiAnswers:[],
                 multiAnswersImg:[],
                 blanks:[],
@@ -337,6 +343,10 @@
             correctAnswerImageText:{
                 type:String,
                 default:"Doğru Cevap Resmi"
+            },
+            wrongAnswerImageText:{
+                type:String,
+                default:"Yanlış Cevap Resmi"
             }
         },
         computed:{
@@ -388,10 +398,9 @@
                     .then(response=>console.log(response));
             },
             addSingleChoiceImgQuestion:function () {
-                this.singleAnswers.push({content:document.getElementById('singleCorrectAnswer').value, isCorrect:true, type:'image'});
-
+                this.singleAnswersImg.push({content:document.querySelector('#singleCorrectAnswerImg').files[0], isCorrect:true, type:'image'});
                 var formData=new FormData();
-                var image=document.querySelector('#multiQuestionImg');
+                var image=document.querySelector('#singleQuestionImg');
                 if(image.files!=undefined){
                     formData.append('imgUrl', image.files[0]);
                 }
@@ -408,7 +417,7 @@
                     console.log(pair[0]);
                     console.log(pair[1]);
                 }
-                console.log(this.multiAnswersImg);
+                console.log(this.singleAnswersImg);
                 Axios.post('/api/questionSource/create', formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
@@ -499,7 +508,7 @@
                     console.log(this.multiAnswersImg[index].content);
                 }else if(answerType=='singleQuestion'){
                     this.singleAnswersImg[index].content=image.files[0];
-                    console.log(this.multiAnswersImg[index].content);
+                    console.log(this.singleAnswersImg[index].content);
                 }
                 this.previewImage(inputId,previewId);
             },

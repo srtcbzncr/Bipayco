@@ -3633,6 +3633,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3646,7 +3652,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       singleAnswerType: "",
       multiAnswerType: "",
       singleAnswers: [],
-      singleAnswerImg: [],
+      singleAnswersImg: [],
       multiAnswers: [],
       multiAnswersImg: [],
       blanks: []
@@ -3784,6 +3790,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     correctAnswerImageText: {
       type: String,
       "default": "Doğru Cevap Resmi"
+    },
+    wrongAnswerImageText: {
+      type: String,
+      "default": "Yanlış Cevap Resmi"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['courseSubjects', 'plLessonType'])),
@@ -3860,13 +3870,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     addSingleChoiceImgQuestion: function addSingleChoiceImgQuestion() {
-      this.singleAnswers.push({
-        content: document.getElementById('singleCorrectAnswer').value,
+      this.singleAnswersImg.push({
+        content: document.querySelector('#singleCorrectAnswerImg').files[0],
         isCorrect: true,
         type: 'image'
       });
       var formData = new FormData();
-      var image = document.querySelector('#multiQuestionImg');
+      var image = document.querySelector('#singleQuestionImg');
 
       if (image.files != undefined) {
         formData.append('imgUrl', image.files[0]);
@@ -3908,7 +3918,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }
 
-      console.log(this.multiAnswersImg);
+      console.log(this.singleAnswersImg);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -4087,7 +4097,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         console.log(this.multiAnswersImg[index].content);
       } else if (answerType == 'singleQuestion') {
         this.singleAnswersImg[index].content = image.files[0];
-        console.log(this.multiAnswersImg[index].content);
+        console.log(this.singleAnswersImg[index].content);
       }
 
       this.previewImage(inputId, previewId);
@@ -10502,9 +10512,51 @@ var render = function() {
                     "div",
                     { staticClass: "uk-margin" },
                     [
-                      _vm.singleAnswersImg.legth > 0
+                      _c("div", { staticClass: "uk-form-label" }, [
+                        _vm._v(" " + _vm._s(_vm.correctAnswerText) + " ")
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "uk-flex uk-flex-center uk-margin",
+                          attrs: { "uk-form-custom": "target: true" }
+                        },
+                        [
+                          _c("input", {
+                            attrs: {
+                              name: "image",
+                              type: "file",
+                              accept: "image/*",
+                              id: "singleCorrectAnswerImg"
+                            },
+                            on: {
+                              change: function($event) {
+                                return _vm.previewImage(
+                                  "singleCorrectAnswerImg",
+                                  "singleCorrectAnswerImgPreview"
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("input", {
+                            staticClass: "uk-input",
+                            attrs: {
+                              type: "text",
+                              tabindex: "-1",
+                              disabled: "",
+                              placeholder: _vm.selectFileText
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _vm.singleAnswersImg.length > 0
                         ? _c("div", { staticClass: "uk-form-label" }, [
-                            _vm._v(" " + _vm._s(_vm.answerImageText) + " ")
+                            _vm._v(" " + _vm._s(_vm.wrongAnswerImageText) + " ")
                           ])
                         : _vm._e(),
                       _vm._v(" "),
@@ -10600,20 +10652,16 @@ var render = function() {
                     ],
                     2
                   ),
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.multiAnswersImg) +
-                      "\n                "
-                  ),
+                  _vm._v(" "),
                   _c(
                     "button",
                     {
                       staticClass: "uk-width uk-button-success uk-button",
                       on: {
                         click: function($event) {
-                          return _vm.singleAnswers.push({
+                          return _vm.singleAnswersImg.push({
                             content: "",
-                            type: "text",
+                            type: "image",
                             isCorrect: "false"
                           })
                         }
@@ -10759,7 +10807,7 @@ var render = function() {
             _vm._v(" " + _vm._s(_vm.questionImageText) + " ")
           ]),
           _vm._v(" "),
-          _vm._m(1),
+          _vm._m(2),
           _vm._v(" "),
           _c(
             "div",
@@ -11009,11 +11057,7 @@ var render = function() {
                     ],
                     2
                   ),
-                  _vm._v(
-                    "\n                " +
-                      _vm._s(_vm.multiAnswersImg) +
-                      "\n                "
-                  ),
+                  _vm._v(" "),
                   _c(
                     "button",
                     {
@@ -11208,7 +11252,7 @@ var render = function() {
             _vm._v(" " + _vm._s(_vm.questionImageText) + " ")
           ]),
           _vm._v(" "),
-          _vm._m(2),
+          _vm._m(3),
           _vm._v(" "),
           _c(
             "div",
@@ -11386,6 +11430,18 @@ var staticRenderFns = [
         staticClass:
           "uk-background-center-center uk-background-cover uk-height",
         attrs: { id: "singleQuestionImgPreview" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", {
+        staticClass:
+          "uk-background-center-center uk-background-cover uk-height",
+        attrs: { id: "singleCorrectAnswerImgPreview" }
       })
     ])
   },
