@@ -38,34 +38,42 @@
                 <div class="uk-background-center-center uk-background-cover uk-height" id="singleQuestionImgPreview"></div>
             </div>
             <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
-                <input name="image" type="file" accept="image/*" id="singleQuestionImg" @change="previewImage('singleQuestionImgPreview')" >
+                <input name="image" type="file" accept="image/*" id="singleQuestionImg" @change="previewImage('singleQuestionImg', 'singleQuestionImgPreview')" >
                 <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
             </div>
             <div class="uk-form-label"> {{questionText}} </div>
             <textarea class="uk-height-small uk-textarea uk-overflow-auto" id="singleQuestion" required></textarea>
-            <div>
+            <div >
                 <div class="uk-form-label"> {{answerTypeText}} </div>
                 <select v-model="singleAnswerType"  class="uk-width uk-select">
                     <option value="" hidden disabled selected>{{chooseAnswerTypeText}}</option>
                     <option value="withImage">{{withImage}}</option>
                     <option value="withText">{{withText}}</option>
                 </select>
-                <div v-if="singleAnswerType=='withImage'">
+                <div v-if="singleAnswerType=='withImage'" class="uk-margin-top">
                     <div class="uk-margin">
-                        <div class="uk-form-label"> {{questionImageText}} </div>
-                        <div>
-                            <input type="text" value=""  hidden disabled>
-                            <div class="uk-background-center-center uk-background-cover uk-height"></div>
-                        </div>
-                        <div uk-form-custom="target: true" class="uk-flex uk-flex-center">
-                            <input name="image" type="file" accept="image/*" @change="previewImage" >
-                            <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
+                        <div v-if="singleAnswersImg.legth>0" class="uk-form-label"> {{answerImageText}} </div>
+                        <div v-for="(singleAnswer, singleIndex) in singleAnswersImg" class="uk-flex align-items-center uk-margin">
+                            <div class="uk-margin-right uk-margin-left">
+                                <i class="fas fa-trash-alt text-danger" @click="singleAnswersImg.splice(singleIndex,1)"></i>
+                            </div>
+                            <div class="uk-width">
+                                <div>
+                                    <input type="text" value=""  hidden disabled>
+                                    <div class="uk-background-center-center uk-background-cover uk-height" :id="'singleAnswerImgPreview'+singleIndex"></div>
+                                </div>
+                                <div uk-form-custom="target: true" class="uk-flex uk-flex-center">
+                                    <input name="image" type="file" accept="image/*" :id="'singleAnswerImg'+singleIndex" @change="pushImage('singleQuestion', singleIndex,'singleAnswerImg'+singleIndex,'singleAnswerImgPreview'+singleIndex)">
+                                    <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <button class="uk-width uk-button-success uk-button"> <i class="fas fa-plus"></i> {{addWrongAnswerText}}</button>
+                    {{multiAnswersImg}}
+                    <button class="uk-width uk-button-success uk-button" @click="singleAnswers.push({content:'', type:'text', isCorrect:'false'})"> <i class="fas fa-plus"></i> {{addWrongAnswerText}}</button>
                     <button class="uk-button uk-button-grey uk-margin-top uk-width" @click="addSingleChoiceImgQuestion"> {{saveText}} </button>
                 </div>
-                <div v-if="singleAnswerType=='withText'">
+                <div v-if="singleAnswerType=='withText'" class="uk-margin-top">
                     <div class="uk-margin">
                         <div class="uk-form-label"> {{correctAnswerText}} </div>
                         <input type="text" class="uk-input uk-width" id="singleCorrectAnswer">
@@ -90,7 +98,7 @@
                 <div class="uk-background-center-center uk-background-cover uk-height" id="multiQuestionImgPreview"></div>
             </div>
             <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
-                <input name="image" type="file" accept="image/*" id="multiQuestionImg" @change="previewImage('multiQuestionImgPreview')" >
+                <input name="image" type="file" accept="image/*" id="multiQuestionImg" @change="previewImage('multiQuestionImg', 'multiQuestionImgPreview')" >
                 <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
             </div>
             <div class="uk-form-label"> {{questionText}} </div>
@@ -102,22 +110,32 @@
                     <option value="withImage">{{withImage}}</option>
                     <option value="withText">{{withText}}</option>
                 </select>
-                <div v-if="multiAnswerType=='withImage'">
+                <div v-if="multiAnswerType=='withImage'" class="uk-margin-top">
                     <div class="uk-margin">
-                        <div class="uk-form-label"> {{answerImageText}} </div>
-                        <div>
-                            <input type="text" value=""  hidden disabled>
-                            <div class="uk-background-center-center uk-background-cover uk-height"></div>
-                        </div>
-                        <div uk-form-custom="target: true" class="uk-flex uk-flex-center">
-                            <input name="image" type="file" accept="image/*" @change="previewImage" >
-                            <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
+                        <div v-if="multiAnswersImg.legth>0" class="uk-form-label"> {{answerImageText}} </div>
+                        <div v-for="(multiAnswer, multiIndex) in multiAnswersImg" class="uk-flex align-items-center uk-margin">
+                            <div class="uk-margin-right uk-margin-left">
+                                <i class="fas fa-trash-alt text-danger" @click="multiAnswersImg.splice(multiIndex,1)"></i>
+                            </div>
+                            <div class="uk-width">
+                                <div>
+                                    <div class="uk-background-center-center uk-background-cover uk-height" :id="'multiAnswerImgPreview'+multiIndex"></div>
+                                </div>
+                                <div uk-form-custom="target: true" class="uk-flex uk-flex-center">
+                                    <input name="image" type="file" accept="image/*" :id="'multiAnswerImg'+multiIndex" @change="pushImage('multiQuestion', multiIndex,'multiAnswerImg'+multiIndex,'multiAnswerImgPreview'+multiIndex)">
+                                    <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
+                                </div>
+                            </div>
+                            <div class="uk-margin-right uk-margin-left">
+                                <input type="checkbox" class="uk-checkbox" v-model="multiAnswer.isCorrect">
+                            </div>
                         </div>
                     </div>
-                    <button class="uk-width uk-button-success uk-button"> <i class="fas fa-plus"></i> {{addAnswer}}</button>
-                    <button class="uk-button uk-button-grey uk-margin-top uk-width"> {{saveText}} </button>
+                    {{multiAnswersImg}}
+                    <button class="uk-width uk-button-success uk-button" @click="multiAnswersImg.push({content:'', isCorrect:false, type:'image'})"> <i class="fas fa-plus"></i> {{addAnswerText}}</button>
+                    <button class="uk-button uk-button-grey uk-margin-top uk-width" @click="addMultiChoiceImgQuestion"> {{saveText}} </button>
                 </div>
-                <div v-if="multiAnswerType=='withText'">
+                <div v-if="multiAnswerType=='withText'" class="uk-margin-top">
                     <div v-if="multiAnswers.length>0" class="uk-form-label"> {{answersText}} </div>
                     <div v-for="(multiAnswer, multiIndex) in multiAnswers" class="uk-flex align-items-center uk-margin">
                         <div class="uk-margin-right uk-margin-left">
@@ -142,8 +160,8 @@
                 <div class="uk-background-center-center uk-background-cover uk-height" id="blankImgPreview"></div>
             </div>
             <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
-                <input name="image" type="file" accept="image/*" id="blankImg" @change="previewImage('blankImgPreview')" >
-                <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
+                <input name="image" type="file" accept="image/*" id="blankImg" @change="previewImage('blankImg', 'blankImgPreview')" >
+                <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">g
             </div>
             <div class="uk-margin-bottom">
                 <div class="uk-form-label"> {{questionText}} </div>
@@ -181,7 +199,9 @@
                 singleAnswerType:"",
                 multiAnswerType:"",
                 singleAnswers:[],
+                singleAnswerImg:[],
                 multiAnswers:[],
+                multiAnswersImg:[],
                 blanks:[],
             }
         },
@@ -309,6 +329,14 @@
             easyText:{
                 type:String,
                 default:"Kolay"
+            },
+            answerImageText:{
+                type:String,
+                default:"Cevap Resmi"
+            },
+            correctAnswerImageText:{
+                type:String,
+                default:"Doğru Cevap Resmi"
             }
         },
         computed:{
@@ -322,8 +350,8 @@
                 'loadLessonSubjects',
                 'loadPlLessonType'
             ]),
-            previewImage: function(previewId){
-                var input = document.getElementById('questionImage');
+            previewImage: function(inputId, previewId){
+                var input = document.getElementById(inputId);
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
 
@@ -345,7 +373,9 @@
                 formData.append('crLessonId', this.selectedLessonId);
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
-                formData.append('answers', this.singleAnswers);
+                for(var i=0; i<this.singleAnswers.length; i++){
+                    formData.append('answers['+i+']', this.singleAnswers[i]);
+                }
                 formData.append('type', 'singleChoice');
                 for(var pair of formData){
                     console.log(pair[0]);
@@ -358,7 +388,31 @@
                     .then(response=>console.log(response));
             },
             addSingleChoiceImgQuestion:function () {
+                this.singleAnswers.push({content:document.getElementById('singleCorrectAnswer').value, isCorrect:true, type:'image'});
 
+                var formData=new FormData();
+                var image=document.querySelector('#multiQuestionImg');
+                if(image.files!=undefined){
+                    formData.append('imgUrl', image.files[0]);
+                }
+                formData.append('level', this.questionLevel);
+                formData.append('text', document.getElementById('singleQuestion').value);
+                formData.append('crLessonId', this.selectedLessonId);
+                formData.append('crSubjectId', this.selectedSubjectId);
+                formData.append('instructorId', this.instructorId);
+                for(var i=0; i<this.singleAnswersImg.length; i++){
+                    formData.append('answers['+i+']', this.singleAnswersImg[i]);
+                }
+                formData.append('type', 'singleChoice');
+                for(var pair of formData){
+                    console.log(pair[0]);
+                    console.log(pair[1]);
+                }
+                console.log(this.multiAnswersImg);
+                Axios.post('/api/questionSource/create', formData, {
+                    headers: {'Content-Type': 'multipart/form-data'}
+                })
+                    .then(response=>console.log(response));
             },
             addMultiChoiceTextQuestion:function () {
                 var formData=new FormData();
@@ -371,7 +425,9 @@
                 formData.append('crLessonId', this.selectedLessonId);
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
-                formData.append('answers', this.multiAnswers);
+                for(var i=0; i<this.multiAnswers.length; i++){
+                    formData.append('answers['+i+']', this.multiAnswers[i]);
+                }
                 formData.append('type', 'multiChoice');
                 for(var pair of formData){
                     console.log(pair[0]);
@@ -384,7 +440,29 @@
                     .then(response=>console.log(response));
             },
             addMultiChoiceImgQuestion:function () {
-
+                var formData=new FormData();
+                var image=document.querySelector('#multiQuestionImg');
+                if(image.files!=undefined){
+                    formData.append('imgUrl', image.files[0]);
+                }
+                formData.append('level', this.questionLevel);
+                formData.append('text', document.getElementById('multiQuestion').value);
+                formData.append('crLessonId', this.selectedLessonId);
+                formData.append('crSubjectId', this.selectedSubjectId);
+                formData.append('instructorId', this.instructorId);
+                for(var i=0; i<this.multiAnswersImg.length; i++) {
+                    formData.append('answers['+i+']', this.multiAnswersImg[i]);
+                }
+                formData.append('type', 'multiChoice');
+                for(var pair of formData){
+                    console.log(pair[0]);
+                    console.log(pair[1]);
+                }
+                console.log(this.multiAnswersImg);
+                Axios.post('/api/questionSource/create', formData, {
+                    headers: {'Content-Type': 'multipart/form-data'}
+                })
+                    .then(response=>console.log(response));
             },
             addFillBlankQuestion:function () {
                 var image=document.querySelector('#blankImg');
@@ -397,7 +475,9 @@
                 formData.append('crLessonId', this.selectedLessonId);
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
-                formData.append('answers', this.blanks);
+                for(var i=0; i<this.blanks.length; i++) {
+                    formData.append('answers['+i+']', this.blanks[i]);
+                }
                 formData.append('type', 'fillBlank');
                 for(var pair of formData){
                     console.log(pair[0]);
@@ -411,7 +491,18 @@
             },
             loadSubjects:function () {
                 this.$store.dispatch('loadLessonSubjects', this.selectedLessonId);
-            }
+            },
+            pushImage:function (answerType, index, inputId, previewId) {
+                var image=document.querySelector('#'+inputId);
+                if(answerType=='multiQuestion'){
+                    this.multiAnswersImg[index].content=image.files[0];
+                    console.log(this.multiAnswersImg[index].content);
+                }else if(answerType=='singleQuestion'){
+                    this.singleAnswersImg[index].content=image.files[0];
+                    console.log(this.multiAnswersImg[index].content);
+                }
+                this.previewImage(inputId,previewId);
+            },
         },
         created() {
             this.$store.dispatch('loadPlLessonType');

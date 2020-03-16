@@ -3615,6 +3615,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3628,7 +3646,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       singleAnswerType: "",
       multiAnswerType: "",
       singleAnswers: [],
+      singleAnswerImg: [],
       multiAnswers: [],
+      multiAnswersImg: [],
       blanks: []
     };
   },
@@ -3756,12 +3776,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     easyText: {
       type: String,
       "default": "Kolay"
+    },
+    answerImageText: {
+      type: String,
+      "default": "Cevap Resmi"
+    },
+    correctAnswerImageText: {
+      type: String,
+      "default": "Doğru Cevap Resmi"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['courseSubjects', 'plLessonType'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadLessonSubjects', 'loadPlLessonType']), {
-    previewImage: function previewImage(previewId) {
-      var input = document.getElementById('questionImage');
+    previewImage: function previewImage(inputId, previewId) {
+      var input = document.getElementById(inputId);
 
       if (input.files && input.files[0]) {
         var reader = new FileReader();
@@ -3791,7 +3819,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('crLessonId', this.selectedLessonId);
       formData.append('crSubjectId', this.selectedSubjectId);
       formData.append('instructorId', this.instructorId);
-      formData.append('answers', this.singleAnswers);
+
+      for (var i = 0; i < this.singleAnswers.length; i++) {
+        formData.append('answers[' + i + ']', this.singleAnswers[i]);
+      }
+
       formData.append('type', 'singleChoice');
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
@@ -3827,8 +3859,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return console.log(response);
       });
     },
-    addSingleChoiceImgQuestion: function addSingleChoiceImgQuestion() {},
-    addMultiChoiceTextQuestion: function addMultiChoiceTextQuestion() {
+    addSingleChoiceImgQuestion: function addSingleChoiceImgQuestion() {
+      this.singleAnswers.push({
+        content: document.getElementById('singleCorrectAnswer').value,
+        isCorrect: true,
+        type: 'image'
+      });
       var formData = new FormData();
       var image = document.querySelector('#multiQuestionImg');
 
@@ -3837,12 +3873,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       formData.append('level', this.questionLevel);
-      formData.append('text', document.getElementById('multiQuestion').value);
+      formData.append('text', document.getElementById('singleQuestion').value);
       formData.append('crLessonId', this.selectedLessonId);
       formData.append('crSubjectId', this.selectedSubjectId);
       formData.append('instructorId', this.instructorId);
-      formData.append('answers', this.multiAnswers);
-      formData.append('type', 'multiChoice');
+
+      for (var i = 0; i < this.singleAnswersImg.length; i++) {
+        formData.append('answers[' + i + ']', this.singleAnswersImg[i]);
+      }
+
+      formData.append('type', 'singleChoice');
       var _iteratorNormalCompletion2 = true;
       var _didIteratorError2 = false;
       var _iteratorError2 = undefined;
@@ -3868,7 +3908,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }
 
-      console.log(this.multiAnswers);
+      console.log(this.multiAnswersImg);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -3877,22 +3917,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return console.log(response);
       });
     },
-    addMultiChoiceImgQuestion: function addMultiChoiceImgQuestion() {},
-    addFillBlankQuestion: function addFillBlankQuestion() {
-      var image = document.querySelector('#blankImg');
+    addMultiChoiceTextQuestion: function addMultiChoiceTextQuestion() {
       var formData = new FormData();
-      formData.append('level', this.questionLevel);
-      formData.append('beginningOfSentence', document.getElementById('blankQuestion').value);
+      var image = document.querySelector('#multiQuestionImg');
 
-      if (image.files[0] != undefined) {
+      if (image.files != undefined) {
         formData.append('imgUrl', image.files[0]);
       }
 
+      formData.append('level', this.questionLevel);
+      formData.append('text', document.getElementById('multiQuestion').value);
       formData.append('crLessonId', this.selectedLessonId);
       formData.append('crSubjectId', this.selectedSubjectId);
       formData.append('instructorId', this.instructorId);
-      formData.append('answers', this.blanks);
-      formData.append('type', 'fillBlank');
+
+      for (var i = 0; i < this.multiAnswers.length; i++) {
+        formData.append('answers[' + i + ']', this.multiAnswers[i]);
+      }
+
+      formData.append('type', 'multiChoice');
       var _iteratorNormalCompletion3 = true;
       var _didIteratorError3 = false;
       var _iteratorError3 = undefined;
@@ -3918,6 +3961,112 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }
 
+      console.log(this.multiAnswers);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        return console.log(response);
+      });
+    },
+    addMultiChoiceImgQuestion: function addMultiChoiceImgQuestion() {
+      var formData = new FormData();
+      var image = document.querySelector('#multiQuestionImg');
+
+      if (image.files != undefined) {
+        formData.append('imgUrl', image.files[0]);
+      }
+
+      formData.append('level', this.questionLevel);
+      formData.append('text', document.getElementById('multiQuestion').value);
+      formData.append('crLessonId', this.selectedLessonId);
+      formData.append('crSubjectId', this.selectedSubjectId);
+      formData.append('instructorId', this.instructorId);
+
+      for (var i = 0; i < this.multiAnswersImg.length; i++) {
+        formData.append('answers[' + i + ']', this.multiAnswersImg[i]);
+      }
+
+      formData.append('type', 'multiChoice');
+      var _iteratorNormalCompletion4 = true;
+      var _didIteratorError4 = false;
+      var _iteratorError4 = undefined;
+
+      try {
+        for (var _iterator4 = formData[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
+          var pair = _step4.value;
+          console.log(pair[0]);
+          console.log(pair[1]);
+        }
+      } catch (err) {
+        _didIteratorError4 = true;
+        _iteratorError4 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
+            _iterator4["return"]();
+          }
+        } finally {
+          if (_didIteratorError4) {
+            throw _iteratorError4;
+          }
+        }
+      }
+
+      console.log(this.multiAnswersImg);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        return console.log(response);
+      });
+    },
+    addFillBlankQuestion: function addFillBlankQuestion() {
+      var image = document.querySelector('#blankImg');
+      var formData = new FormData();
+      formData.append('level', this.questionLevel);
+      formData.append('beginningOfSentence', document.getElementById('blankQuestion').value);
+
+      if (image.files[0] != undefined) {
+        formData.append('imgUrl', image.files[0]);
+      }
+
+      formData.append('crLessonId', this.selectedLessonId);
+      formData.append('crSubjectId', this.selectedSubjectId);
+      formData.append('instructorId', this.instructorId);
+
+      for (var i = 0; i < this.blanks.length; i++) {
+        formData.append('answers[' + i + ']', this.blanks[i]);
+      }
+
+      formData.append('type', 'fillBlank');
+      var _iteratorNormalCompletion5 = true;
+      var _didIteratorError5 = false;
+      var _iteratorError5 = undefined;
+
+      try {
+        for (var _iterator5 = formData[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
+          var pair = _step5.value;
+          console.log(pair[0]);
+          console.log(pair[1]);
+        }
+      } catch (err) {
+        _didIteratorError5 = true;
+        _iteratorError5 = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion5 && _iterator5["return"] != null) {
+            _iterator5["return"]();
+          }
+        } finally {
+          if (_didIteratorError5) {
+            throw _iteratorError5;
+          }
+        }
+      }
+
       console.log(this.blanks);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
         headers: {
@@ -3929,6 +4078,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     loadSubjects: function loadSubjects() {
       this.$store.dispatch('loadLessonSubjects', this.selectedLessonId);
+    },
+    pushImage: function pushImage(answerType, index, inputId, previewId) {
+      var image = document.querySelector('#' + inputId);
+
+      if (answerType == 'multiQuestion') {
+        this.multiAnswersImg[index].content = image.files[0];
+        console.log(this.multiAnswersImg[index].content);
+      } else if (answerType == 'singleQuestion') {
+        this.singleAnswersImg[index].content = image.files[0];
+        console.log(this.multiAnswersImg[index].content);
+      }
+
+      this.previewImage(inputId, previewId);
     }
   }),
   created: function created() {
@@ -10253,7 +10415,10 @@ var render = function() {
                 },
                 on: {
                   change: function($event) {
-                    return _vm.previewImage("singleQuestionImgPreview")
+                    return _vm.previewImage(
+                      "singleQuestionImg",
+                      "singleQuestionImgPreview"
+                    )
                   }
                 }
               }),
@@ -10332,46 +10497,128 @@ var render = function() {
             ),
             _vm._v(" "),
             _vm.singleAnswerType == "withImage"
-              ? _c("div", [
-                  _c("div", { staticClass: "uk-margin" }, [
-                    _c("div", { staticClass: "uk-form-label" }, [
-                      _vm._v(" " + _vm._s(_vm.questionImageText) + " ")
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "uk-flex uk-flex-center",
-                        attrs: { "uk-form-custom": "target: true" }
-                      },
-                      [
-                        _c("input", {
-                          attrs: {
-                            name: "image",
-                            type: "file",
-                            accept: "image/*"
+              ? _c("div", { staticClass: "uk-margin-top" }, [
+                  _c(
+                    "div",
+                    { staticClass: "uk-margin" },
+                    [
+                      _vm.singleAnswersImg.legth > 0
+                        ? _c("div", { staticClass: "uk-form-label" }, [
+                            _vm._v(" " + _vm._s(_vm.answerImageText) + " ")
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm._l(_vm.singleAnswersImg, function(
+                        singleAnswer,
+                        singleIndex
+                      ) {
+                        return _c(
+                          "div",
+                          {
+                            staticClass: "uk-flex align-items-center uk-margin"
                           },
-                          on: { change: _vm.previewImage }
-                        }),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "uk-input",
-                          attrs: {
-                            type: "text",
-                            tabindex: "-1",
-                            disabled: "",
-                            placeholder: _vm.selectFileText
-                          }
-                        })
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
+                          [
+                            _c(
+                              "div",
+                              { staticClass: "uk-margin-right uk-margin-left" },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-trash-alt text-danger",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.singleAnswersImg.splice(
+                                        singleIndex,
+                                        1
+                                      )
+                                    }
+                                  }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "uk-width" }, [
+                              _c("div", [
+                                _c("input", {
+                                  attrs: {
+                                    type: "text",
+                                    value: "",
+                                    hidden: "",
+                                    disabled: ""
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("div", {
+                                  staticClass:
+                                    "uk-background-center-center uk-background-cover uk-height",
+                                  attrs: {
+                                    id: "singleAnswerImgPreview" + singleIndex
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "uk-flex uk-flex-center",
+                                  attrs: { "uk-form-custom": "target: true" }
+                                },
+                                [
+                                  _c("input", {
+                                    attrs: {
+                                      name: "image",
+                                      type: "file",
+                                      accept: "image/*",
+                                      id: "singleAnswerImg" + singleIndex
+                                    },
+                                    on: {
+                                      change: function($event) {
+                                        return _vm.pushImage(
+                                          "singleQuestion",
+                                          singleIndex,
+                                          "singleAnswerImg" + singleIndex,
+                                          "singleAnswerImgPreview" + singleIndex
+                                        )
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    staticClass: "uk-input",
+                                    attrs: {
+                                      type: "text",
+                                      tabindex: "-1",
+                                      disabled: "",
+                                      placeholder: _vm.selectFileText
+                                    }
+                                  })
+                                ]
+                              )
+                            ])
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.multiAnswersImg) +
+                      "\n                "
+                  ),
                   _c(
                     "button",
-                    { staticClass: "uk-width uk-button-success uk-button" },
+                    {
+                      staticClass: "uk-width uk-button-success uk-button",
+                      on: {
+                        click: function($event) {
+                          return _vm.singleAnswers.push({
+                            content: "",
+                            type: "text",
+                            isCorrect: "false"
+                          })
+                        }
+                      }
+                    },
                     [
                       _c("i", { staticClass: "fas fa-plus" }),
                       _vm._v(" " + _vm._s(_vm.addWrongAnswerText))
@@ -10393,6 +10640,7 @@ var render = function() {
             _vm.singleAnswerType == "withText"
               ? _c(
                   "div",
+                  { staticClass: "uk-margin-top" },
                   [
                     _c("div", { staticClass: "uk-margin" }, [
                       _c("div", { staticClass: "uk-form-label" }, [
@@ -10511,7 +10759,7 @@ var render = function() {
             _vm._v(" " + _vm._s(_vm.questionImageText) + " ")
           ]),
           _vm._v(" "),
-          _vm._m(2),
+          _vm._m(1),
           _vm._v(" "),
           _c(
             "div",
@@ -10529,7 +10777,10 @@ var render = function() {
                 },
                 on: {
                   change: function($event) {
-                    return _vm.previewImage("multiQuestionImgPreview")
+                    return _vm.previewImage(
+                      "multiQuestionImg",
+                      "multiQuestionImgPreview"
+                    )
                   }
                 }
               }),
@@ -10608,49 +10859,178 @@ var render = function() {
             ),
             _vm._v(" "),
             _vm.multiAnswerType == "withImage"
-              ? _c("div", [
-                  _c("div", { staticClass: "uk-margin" }, [
-                    _c("div", { staticClass: "uk-form-label" }, [
-                      _vm._v(" " + _vm._s(_vm.answerImageText) + " ")
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass: "uk-flex uk-flex-center",
-                        attrs: { "uk-form-custom": "target: true" }
-                      },
-                      [
-                        _c("input", {
-                          attrs: {
-                            name: "image",
-                            type: "file",
-                            accept: "image/*"
+              ? _c("div", { staticClass: "uk-margin-top" }, [
+                  _c(
+                    "div",
+                    { staticClass: "uk-margin" },
+                    [
+                      _vm.multiAnswersImg.legth > 0
+                        ? _c("div", { staticClass: "uk-form-label" }, [
+                            _vm._v(" " + _vm._s(_vm.answerImageText) + " ")
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm._l(_vm.multiAnswersImg, function(
+                        multiAnswer,
+                        multiIndex
+                      ) {
+                        return _c(
+                          "div",
+                          {
+                            staticClass: "uk-flex align-items-center uk-margin"
                           },
-                          on: { change: _vm.previewImage }
-                        }),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "uk-input",
-                          attrs: {
-                            type: "text",
-                            tabindex: "-1",
-                            disabled: "",
-                            placeholder: _vm.selectFileText
-                          }
-                        })
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
+                          [
+                            _c(
+                              "div",
+                              { staticClass: "uk-margin-right uk-margin-left" },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-trash-alt text-danger",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.multiAnswersImg.splice(
+                                        multiIndex,
+                                        1
+                                      )
+                                    }
+                                  }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "uk-width" }, [
+                              _c("div", [
+                                _c("div", {
+                                  staticClass:
+                                    "uk-background-center-center uk-background-cover uk-height",
+                                  attrs: {
+                                    id: "multiAnswerImgPreview" + multiIndex
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "uk-flex uk-flex-center",
+                                  attrs: { "uk-form-custom": "target: true" }
+                                },
+                                [
+                                  _c("input", {
+                                    attrs: {
+                                      name: "image",
+                                      type: "file",
+                                      accept: "image/*",
+                                      id: "multiAnswerImg" + multiIndex
+                                    },
+                                    on: {
+                                      change: function($event) {
+                                        return _vm.pushImage(
+                                          "multiQuestion",
+                                          multiIndex,
+                                          "multiAnswerImg" + multiIndex,
+                                          "multiAnswerImgPreview" + multiIndex
+                                        )
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    staticClass: "uk-input",
+                                    attrs: {
+                                      type: "text",
+                                      tabindex: "-1",
+                                      disabled: "",
+                                      placeholder: _vm.selectFileText
+                                    }
+                                  })
+                                ]
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "uk-margin-right uk-margin-left" },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: multiAnswer.isCorrect,
+                                      expression: "multiAnswer.isCorrect"
+                                    }
+                                  ],
+                                  staticClass: "uk-checkbox",
+                                  attrs: { type: "checkbox" },
+                                  domProps: {
+                                    checked: Array.isArray(
+                                      multiAnswer.isCorrect
+                                    )
+                                      ? _vm._i(multiAnswer.isCorrect, null) > -1
+                                      : multiAnswer.isCorrect
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$a = multiAnswer.isCorrect,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = null,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              multiAnswer,
+                                              "isCorrect",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              multiAnswer,
+                                              "isCorrect",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
+                                      } else {
+                                        _vm.$set(multiAnswer, "isCorrect", $$c)
+                                      }
+                                    }
+                                  }
+                                })
+                              ]
+                            )
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.multiAnswersImg) +
+                      "\n                "
+                  ),
                   _c(
                     "button",
-                    { staticClass: "uk-width uk-button-success uk-button" },
+                    {
+                      staticClass: "uk-width uk-button-success uk-button",
+                      on: {
+                        click: function($event) {
+                          return _vm.multiAnswersImg.push({
+                            content: "",
+                            isCorrect: false,
+                            type: "image"
+                          })
+                        }
+                      }
+                    },
                     [
                       _c("i", { staticClass: "fas fa-plus" }),
-                      _vm._v(" " + _vm._s(_vm.addAnswer))
+                      _vm._v(" " + _vm._s(_vm.addAnswerText))
                     ]
                   ),
                   _vm._v(" "),
@@ -10658,7 +11038,8 @@ var render = function() {
                     "button",
                     {
                       staticClass:
-                        "uk-button uk-button-grey uk-margin-top uk-width"
+                        "uk-button uk-button-grey uk-margin-top uk-width",
+                      on: { click: _vm.addMultiChoiceImgQuestion }
                     },
                     [_vm._v(" " + _vm._s(_vm.saveText) + " ")]
                   )
@@ -10668,6 +11049,7 @@ var render = function() {
             _vm.multiAnswerType == "withText"
               ? _c(
                   "div",
+                  { staticClass: "uk-margin-top" },
                   [
                     _vm.multiAnswers.length > 0
                       ? _c("div", { staticClass: "uk-form-label" }, [
@@ -10826,7 +11208,7 @@ var render = function() {
             _vm._v(" " + _vm._s(_vm.questionImageText) + " ")
           ]),
           _vm._v(" "),
-          _vm._m(4),
+          _vm._m(2),
           _vm._v(" "),
           _c(
             "div",
@@ -10844,7 +11226,7 @@ var render = function() {
                 },
                 on: {
                   change: function($event) {
-                    return _vm.previewImage("blankImgPreview")
+                    return _vm.previewImage("blankImg", "blankImgPreview")
                   }
                 }
               }),
@@ -10857,7 +11239,8 @@ var render = function() {
                   disabled: "",
                   placeholder: _vm.selectFileText
                 }
-              })
+              }),
+              _vm._v("g\n        ")
             ]
           ),
           _vm._v(" "),
@@ -11011,38 +11394,10 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", [
-      _c("input", {
-        attrs: { type: "text", value: "", hidden: "", disabled: "" }
-      }),
-      _vm._v(" "),
-      _c("div", {
-        staticClass: "uk-background-center-center uk-background-cover uk-height"
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
       _c("div", {
         staticClass:
           "uk-background-center-center uk-background-cover uk-height",
         attrs: { id: "multiQuestionImgPreview" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("input", {
-        attrs: { type: "text", value: "", hidden: "", disabled: "" }
-      }),
-      _vm._v(" "),
-      _c("div", {
-        staticClass: "uk-background-center-center uk-background-cover uk-height"
       })
     ])
   },
