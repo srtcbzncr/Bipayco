@@ -38,6 +38,7 @@
                                                 <div class="tm-course-section-list">
                                                     <ul>
                                                         <a v-for="(lesson, lessonIndex) in section.lessons" href="#" @click="selectLesson(sectionIndex, lessonIndex)" class="uk-link-reset">
+                                                            {{lesson.is_completed}}
                                                             <li>
                                                                 <span v-if="lesson.is_video" class="uk-icon-button icon-play"> <i class="fas fa-play icon-small"></i> </span>
                                                                 <span v-else class="uk-icon-button icon-play"> <i class="fas fa-file-alt icon-small"></i> </span>
@@ -155,6 +156,7 @@
                     Axios.post('/api/learn/'+this.moduleName+'/'+this.courseId+'/lesson/'+this.lessonId+'/complete', {user_id: this.userId})
                         .then(response=>{
                             this.$store.dispatch('loadLearnCourse', [this.moduleName, this.courseId, this.userId]);
+                            console.log(response)
                         });
                 }
             },

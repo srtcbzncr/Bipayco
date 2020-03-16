@@ -439,7 +439,9 @@
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
                 for(var i=0; i<this.multiAnswers.length; i++){
-                    formData.append('answers['+i+']', this.multiAnswers[i]);
+                    formData.append('answers['+i+'].content', this.multiAnswers[i].content);
+                    formData.append('answers['+i+'].isCorrect', this.multiAnswers[i].isCorrect);
+                    formData.append('answers['+i+'].type', this.multiAnswers[i].type);
                 }
                 formData.append('type', 'multiChoice');
                 for(var pair of formData){
@@ -464,7 +466,9 @@
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
                 for(var i=0; i<this.multiAnswersImg.length; i++) {
-                    formData.append('answers['+i+']', this.multiAnswersImg[i]);
+                    formData.append('answers['+i+'].content', this.multiAnswersImg[i].content);
+                    formData.append('answers['+i+'].type', this.multiAnswersImg[i].type);
+                    formData.append('answers['+i+'].isCorrect', this.multiAnswersImg[i].isCorrect);
                 }
                 formData.append('type', 'multiChoice');
                 for(var pair of formData){
@@ -489,7 +493,8 @@
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
                 for(var i=0; i<this.blanks.length; i++) {
-                    formData.append('answers['+i+']', this.blanks[i]);
+                    formData.append('answers['+i+'].answer', this.blanks[i].answer );
+                    formData.append('answers['+i+'].after', this.blanks[i].after);
                 }
                 formData.append('type', 'fillBlank');
                 for(var pair of formData){
