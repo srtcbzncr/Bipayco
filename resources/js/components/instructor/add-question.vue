@@ -384,7 +384,9 @@
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
                 for(var i=0; i<this.singleAnswers.length; i++){
-                    formData.append('answers['+i+']', this.singleAnswers[i]);
+                    formData.append('answers['+i+'].isCorrect', this.singleAnswers[i].isCorrect);
+                    formData.append('answers['+i+'].type', this.singleAnswers[i].type);
+                    formData.append('answers['+i+'].content', this.singleAnswers[i].content);
                 }
                 formData.append('type', 'singleChoice');
                 for(var pair of formData){
@@ -410,7 +412,9 @@
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
                 for(var i=0; i<this.singleAnswersImg.length; i++){
-                    formData.append('answers['+i+']', this.singleAnswersImg[i]);
+                    formData.append('answers['+i+'].isCorrect', this.singleAnswersImg[i].isCorrect);
+                    formData.append('answers['+i+'].type', this.singleAnswersImg[i].type);
+                    formData.append('answers['+i+'].content', this.singleAnswersImg[i].content);
                 }
                 formData.append('type', 'singleChoice');
                 for(var pair of formData){
