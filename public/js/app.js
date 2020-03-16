@@ -3831,9 +3831,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('instructorId', this.instructorId);
 
       for (var i = 0; i < this.singleAnswers.length; i++) {
-        formData.append('answers[' + i + '].isCorrect', this.singleAnswers[i].isCorrect);
-        formData.append('answers[' + i + '].type', this.singleAnswers[i].type);
-        formData.append('answers[' + i + '].content', this.singleAnswers[i].content);
+        formData.append('answers[' + i + ']', JSON.stringify(this.singleAnswers[i]));
       }
 
       formData.append('type', 'singleChoice');
@@ -3891,9 +3889,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('instructorId', this.instructorId);
 
       for (var i = 0; i < this.singleAnswersImg.length; i++) {
-        formData.append('answers[' + i + '].isCorrect', this.singleAnswersImg[i].isCorrect);
-        formData.append('answers[' + i + '].type', this.singleAnswersImg[i].type);
-        formData.append('answers[' + i + '].content', this.singleAnswersImg[i].content);
+        formData.append('answers[' + i + ']', JSON.stringify(this.singleAnswersImg[i]));
       }
 
       formData.append('type', 'singleChoice');
@@ -3946,9 +3942,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('instructorId', this.instructorId);
 
       for (var i = 0; i < this.multiAnswers.length; i++) {
-        formData.append('answers[' + i + '].content', this.multiAnswers[i].content);
-        formData.append('answers[' + i + '].isCorrect', this.multiAnswers[i].isCorrect);
-        formData.append('answers[' + i + '].type', this.multiAnswers[i].type);
+        formData.append('answers[' + i + '].content', JSON.stringify(this.multiAnswers[i]));
       }
 
       formData.append('type', 'multiChoice');
@@ -4001,9 +3995,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('instructorId', this.instructorId);
 
       for (var i = 0; i < this.multiAnswersImg.length; i++) {
-        formData.append('answers[' + i + '].content', this.multiAnswersImg[i].content);
-        formData.append('answers[' + i + '].type', this.multiAnswersImg[i].type);
-        formData.append('answers[' + i + '].isCorrect', this.multiAnswersImg[i].isCorrect);
+        formData.append('answers[' + i + '].content', JSON.stringify(this.multiAnswersImg[i]));
       }
 
       formData.append('type', 'multiChoice');
@@ -4056,8 +4048,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('instructorId', this.instructorId);
 
       for (var i = 0; i < this.blanks.length; i++) {
-        formData.append('answers[' + i + '].answer', this.blanks[i].answer);
-        formData.append('answers[' + i + '].after', this.blanks[i].after);
+        formData.append('answers[' + i + '].answer', JSON.stringify(this.blanks[i]));
       }
 
       formData.append('type', 'fillBlank');
