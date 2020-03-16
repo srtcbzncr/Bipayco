@@ -384,9 +384,7 @@
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
                 for(var i=0; i<this.singleAnswers.length; i++){
-                    formData.append('answers['+i+'].isCorrect', this.singleAnswers[i].isCorrect);
-                    formData.append('answers['+i+'].type', this.singleAnswers[i].type);
-                    formData.append('answers['+i+'].content', this.singleAnswers[i].content);
+                    formData.append('answers['+i+']', JSON.stringify(this.singleAnswers[i]));
                 }
                 formData.append('type', 'singleChoice');
                 for(var pair of formData){
