@@ -1159,8 +1159,17 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $courses = Course::all();
-            $object = $courses->random(2);
+            $course = Course::find($id);
+            $courses = Course::where('category_id',$course->category_id)->where('sub_category_id',$course->sub_category_id)->get();
+            if(count($courses)>2){
+                $object = $courses->random(2);
+            }
+            else if(count($courses)==2){
+                $object = $courses;
+            }
+            else{
+                $object = array();
+            }
         }
         catch(\Exception $e){
             $error = $e;
