@@ -180,6 +180,7 @@
                     @endforeach
                 </div>
             </div>
+
             <!-- side contant -->
             <div class="uk-width-1-3@m uk-visible@m">
                 <h3 class="uk-text-bold">@lang('front/auth.related_courses') </h3>
@@ -205,6 +206,8 @@
                             @if(Auth::check())
                             is-login
                             user-id="{{Auth::user()->id}}"
+                            is-fav="{{$similar_course->isFavorite}}"
+                            in-basket="{{$similar_course->isBasket}}"
                             @endif
                         ></course-card>
                     </div>

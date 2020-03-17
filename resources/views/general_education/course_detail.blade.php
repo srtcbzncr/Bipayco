@@ -204,6 +204,8 @@
                             @if(Auth::check())
                                 is-login
                                 user-id="{{Auth::user()->id}}"
+                            is-fav="{{$similar_course->isFavorite}}"
+                            in-basket="{{$similar_course->isBasket}}"
                             @endif
                         ></course-card>
                     </div>

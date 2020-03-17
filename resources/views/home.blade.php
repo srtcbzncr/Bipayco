@@ -48,6 +48,8 @@
                                     @if(Auth::check())
                                         is-login
                                         user-id="{{Auth::user()->id}}"
+                                        in-cart="{{$general_educations->inBasket}}"
+                                        is-fav="{{$general_educations->inFavorite}}"
                                     @endif
                                 ></course-card>
                             </div>
@@ -89,6 +91,8 @@
                                     @if(Auth::check())
                                     is-login
                                     user-id="{{Auth::user()->id}}"
+                                    in-cart="{{$prepare_for_lesson->isBasket}}"
+                                    is-fav="{{$prepare_for_lesson->isFavorite}}"
                                     @endif
                                 ></course-card>
                             </div>
@@ -128,6 +132,8 @@
                                     @if(Auth::check())
                                     is-login
                                     user-id="{{Auth::user()->id}}"
+                                    in-cart="{{$prepare_for_exam->isBasket}}"
+                                    is-fav="{{$prepare_for_exam->isFavorite}}"
                                     @endif
                                 ></course-card>
                             </div>
@@ -167,6 +173,8 @@
                                     @if(Auth::check())
                                     is-login
                                     user-id="{{Auth::user()->id}}"
+                                    is-fav="{{$exam->isFavorite}}"
+                                    in-cart="{{$exam->isBasket}}"
                                     @endif
                                 ></course-card>
                             </div>
@@ -206,6 +214,8 @@
                                     @if(Auth::check())
                                     is-login
                                     user-id="{{Auth::user()->id}}"
+                                    is-fav="{{$book->isFavorite}}"
+                                    in-cart="{{$book->isBasket}}"
                                     @endif
                                 ></course-card>
                             </div>

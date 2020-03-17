@@ -47,6 +47,8 @@
                         :module-name="moduleName"
                         is-login
                         :user-id="userId"
+                        :is-fav="course.isFavorite"
+                        :in-cart="course.isBasket"
                     > </course-card>
                     <course-card
                         v-else
@@ -62,6 +64,8 @@
                         :module-name="moduleName"
                         is-login
                         :user-id="userId"
+                        :is-fav="course.isFavorite"
+                        :in-cart="course.isBasket"
                     > </course-card>
                 </div>
             </div>
