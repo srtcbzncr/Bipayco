@@ -18,7 +18,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-
         //FFMpeg::open('wwdc_2006.mp4');
         // Repo initializations
         $geCourseRepo = new CourseRepository;
@@ -27,7 +26,7 @@ class HomeController extends Controller
         // Operations
         $gePopularCoursesResp = $geCourseRepo->getPopularCourses();
         $plPopularCoursesResp = $plCourseRepo->getPopularCourses();
-        
+
         $data = [
             'general_education' => $gePopularCoursesResp->getData(),
             'prepare_for_lessons' => $plPopularCoursesResp->getData(),

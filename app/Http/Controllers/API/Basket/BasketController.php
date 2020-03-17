@@ -25,7 +25,8 @@ class BasketController extends Controller
         else{
             return response()->json([
                 'error' => true,
-                'message' => 'Kurs eklenirken hata oluştu. Tekrar deneyin.'
+                'message' => 'Kurs eklenirken hata oluştu. Tekrar deneyin.',
+                'errorMessage' => $resp->getError()
             ]);
         }
     }
