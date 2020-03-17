@@ -2,9 +2,12 @@
 
 namespace App\Repositories\GeneralEducation;
 
+use App\Models\UsersOperations\Basket;
+use App\Models\UsersOperations\Favorite;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use App\Models\GeneralEducation\SubCategory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -242,6 +245,24 @@ class SubCategoryRepository implements IRepository{
         try{
             $subCategory = SubCategory::find($id);
             $object = $subCategory->courses;
+            $user = Auth::user();
+            foreach ($object as $key => $course){
+                $controlBasket = Basket::where('user_id',$user->id)->where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
+                if($controlBasket != null and count($controlBasket)>0){
+                    $object[$key]['inBasket'] = true;
+                }
+                else{
+                    $object[$key]['inBasket'] = false;
+                }
+
+                $controlFav = Favorite::where('user_id',$user->id)->where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
+                if($controlFav != null and count($controlFav)>0){
+                    $object[$key]['inFavorite'] = true;
+                }
+                else{
+                    $object[$key]['inFavorite'] = false;
+                }
+            }
         }
         catch(\Exception $e){
             $error = $e;

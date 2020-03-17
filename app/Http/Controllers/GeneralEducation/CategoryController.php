@@ -15,6 +15,7 @@ class CategoryController extends Controller
         // Operations
         $categoryResp = $repo->get($id);
         $coursesResp = $repo->getCourses($id);
+        dd($coursesResp->getData());
         $subCategoriesResp = $repo->getSubCategories($id);
         $courseCount = count($coursesResp->getData());
         $subCategoriesCount = count($subCategoriesResp->getData());
