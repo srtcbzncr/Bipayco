@@ -79,78 +79,142 @@ class QuestionSourceRepository implements IRepository
         try{
             DB::beginTransaction();
             $object = new Question();
-            if(isset($data['text']))
-                $object->text = $data['text'];
-            if(isset($data['img_url'])){
-                $path = $data['questionImage']->store('public\questionSource');
-                $accessPath=Storage::url($path);
-                $object->imgUrl = $accessPath;
-            }
-            $object->level = $data['level'];
-            if($data['type'] == 'singleChoice')
-                $object->type = 'App\Models\QuestionSource\SingleChoice';
-            else if($data['type'] == 'multiChoice')
-                $object->type = 'App\Models\QuestionSource\MultiChoice';
-            else if($data['type'] == 'fillBlank'){
-                $totalQuestion = null;
-                foreach ($data['answers'] as $key => $answer){
-                    $totalQuestion+="_"+explode(':',explode(',',$answer)[0])[1];
+            if($data['type'] == 'singleChoice' or $data['type'] == 'multiChoice'){
+                if(isset($data['text']) or $data['text'] != null)
+                    $object->text = $data['text'];
+                if(isset($data['imgUrl']) and $data['imgUrl'] != "undefined"){
+                    $path = $data['imgUrl']->store('public/questionSource');
+                    $accessPath=Storage::url($path);
+                    $object->imgUrl = $accessPath;
+                }
+                else{
+                    $object->imgUrl = null;
                 }
 
-            }
-            $object->crLessonId = $data['crLessonId'];
-            $object->crSubjectId = $data['crSubjectId'];
-            $object->instructorId = $data['instructorId'];
-            $object->isConfirm = false;
-            $object->save();
+                $object->level = $data['level'];
+                if($data['type'] == 'singleChoice')
+                    $object->type = 'App\Models\QuestionSource\SingleChoice';
+                else if($data['type'] == 'multiChoice')
+                    $object->type = 'App\Models\QuestionSource\MultiChoice';
+                $object->crLessonId = $data['crLessonId'];
+                $object->crSubjectId = $data['crSubjectId'];
+                $object->instructorId = $data['instructorId'];
+                $object->isConfirm = false;
+                $object->save();
 
-            // answer'ları tabloya ekle.
-            $objectAnswer = null;
-            if($data['type'] == 'singleChoice'){
-                $type = null;
-                foreach ($data['answers'] as $key=> $answer){
-                    if($key == count($data['answers'])-1){
-                        $objectAnswer = new SingleChoice();
-                        $objectAnswer->questionId = $object->id;
-                        $objectAnswer->content = explode(':',explode(',',$answer)[0])[1];
-                        $objectAnswer->isTrue = true;
-                        $objectAnswer->type = $type;
-                        $objectAnswer->save();
+                $objectAnswer = null;
+                if($data['type'] == 'singleChoice'){
+                    $type = null;
+                    if(explode(':',explode(',',$data['answers'][0])[1])[1]=="\"text\""){
+                        foreach ($data['answers'] as $key=> $answer){
+                            if($key == count($data['answers'])-1){
+                                $objectAnswer = new SingleChoice();
+                                $objectAnswer->questionId = $object->id;
+                                $objectAnswer->content = explode(':',explode(',',$answer)[0])[1];
+                                $objectAnswer->isTrue = true;
+                                $objectAnswer->type = $type;
+                                $objectAnswer->save();
+                            }
+                            else{
+                                $type = explode(':',explode(',',$answer)[1])[1];
+                                $objectAnswer = new SingleChoice();
+                                $objectAnswer->questionId = $object->id;
+                                $objectAnswer->content = explode(':',explode(',',$answer)[0])[1];
+                                $objectAnswer->isTrue = explode(':',explode(',',$answer)[2])[1];
+                                $objectAnswer->type = explode(':',explode(',',$answer)[1])[1];
+                                $objectAnswer->save();
+                            }
+                        }
                     }
                     else{
-                        $type = explode(':',explode(',',$answer)[1])[1];
-                        $objectAnswer = new SingleChoice();
-                        $objectAnswer->questionId = $object->id;
-                        $objectAnswer->content = explode(':',explode(',',$answer)[0])[1];
-                        $objectAnswer->isTrue = explode(':',explode(',',$answer)[2])[1];
-                        $objectAnswer->type = explode(':',explode(',',$answer)[1])[1];
-                        $objectAnswer->save();
+                        $i=0;
+                        foreach ($data['answersContent'] as $key=> $answer){
+                            if($key == count($data['answersContent'])-1){
+                                $objectAnswer = new SingleChoice();
+                                $objectAnswer->questionId = $object->id;
+                                $path = $answer->store('public/questionSource');
+                                $accessPath=Storage::url($path);
+                                $objectAnswer->content = $accessPath;
+                                $objectAnswer->isTrue = true;
+                                $objectAnswer->type = explode('}',explode(':',explode(',',$data['answers'][$i])[2])[1])[0];
+                                $objectAnswer->save();
+                            }
+                            else{
+                                $objectAnswer = new SingleChoice();
+                                $objectAnswer->questionId = $object->id;
+                                $path = $answer->store('public/questionSource');
+                                $accessPath=Storage::url($path);
+                                $objectAnswer->content = $accessPath;
+                                $objectAnswer->isTrue = false;
+                                $objectAnswer->type = explode(':',explode(',',$data['answers'][$i])[1])[1];
+                                $objectAnswer->save();
+                            }
+                            $i++;
+                        }
+                    }
+                }
+                else if($data['type'] == 'multiChoice'){
+                    if(explode('}',explode(':',explode(',',$data['answers'][0])[2])[1])[0]=="\"text\""){
+                        foreach ($data['answers'] as $answer){
+                            $objectAnswer = new MultiChoice();
+                            $objectAnswer->questionId = $object->id;
+                            $objectAnswer->content = explode(':',explode(',',$answer)[0])[1];
+                            if(explode(':',explode(',',$answer)[1])[1] == "true")
+                                $objectAnswer->isTrue = true;
+                            else
+                                $objectAnswer->isTrue = false;
+                            $objectAnswer->type = explode('}',explode(':',explode(',',$answer)[2])[1])[0];
+                            $objectAnswer->save();
+                        }
+                    }
+                    else{
+                        $i=0;
+                        foreach ($data['answersContent'] as $answer){
+                            $objectAnswer = new MultiChoice();
+                            $objectAnswer->questionId = $object->id;
+                            $path = $answer->store('public/questionSource');
+                            $accessPath=Storage::url($path);
+                            $objectAnswer->content = $accessPath;
+                            if(explode(':',explode(',',$data['answers'][$i])[1])[1] == "true")
+                                $objectAnswer->isTrue = true;
+                            else
+                                $objectAnswer->isTrue = false;
+                            $objectAnswer->type =  explode('}',explode(':',explode(',',$data['answers'][$i])[2])[1])[0];
+                            $objectAnswer->save();
+                            $i++;
+                        }
                     }
                 }
             }
-            else if($data['type'] == 'multiChoice'){
-                foreach ($data['answers'] as $answer){
-                    $objectAnswer = new MultiChoice();
-                    $objectAnswer->questionId = $object->id;
-                    $objectAnswer->content = explode(':',explode(',',$answer)[0])[1];
-                    if(explode(':',explode(',',$answer)[1])[1] == "true")
-                        $objectAnswer->isTrue = true;
-                    else
-                        $objectAnswer->isTrue = false;
-                    $objectAnswer->type = explode('}',explode(':',explode(',',$answer)[2])[1])[0];
-                    $objectAnswer->save();
-                }
-            }
             else if($data['type'] == 'fillBlank'){
-                $totalQuestion = null;
-                foreach ($data['answers'] as $key => $answer){
-                    $objectAnswer = new GapFilling();
-                    $objectAnswer->questionId = $object->id;
-                    $objectAnswer->no = $key;
-                    $objectAnswer->content = explode(':',explode(',',$answer)[0])[0];
-                    $totalQuestion+="_"+explode(':',explode(',',$answer)[0])[1];
-                    $objectAnswer->type = "text";
-                    $objectAnswer->save();
+                if(isset($data['imgUrl'])){
+                    $path = $data['imgUrl']->store('public/questionSource');
+                    $accessPath=Storage::url($path);
+                    $object->imgUrl = $accessPath;
+                }
+                if(isset($data['beginningOfSentence'])){
+                    $object->text = $data['beginningOfSentence'];
+                }
+
+                $object->level = $data['level'];
+                $object->crLessonId = $data['crLessonId'];
+                $object->crSubjectId = $data['crSubjectId'];
+                $object->instructorId = $data['instructorId'];
+                $object->type = 'App\Models\QuestionSource\GapFilling';
+                $object->isConfirm = false;
+                $object->save();
+
+                // answer'ları tabloya ekle.
+                if($data['type'] == 'fillBlank'){
+                    $totalQuestion = null;
+                    foreach ($data['answers'] as $key => $answer){
+                        $objectAnswer = new GapFilling();
+                        $objectAnswer->questionId = $object->id;
+                        $objectAnswer->no = $key;
+                        $objectAnswer->content = $answer;
+                        $objectAnswer->type = "\"text\"";
+                        $objectAnswer->save();
+                    }
                 }
             }
 
@@ -181,7 +245,7 @@ class QuestionSourceRepository implements IRepository
             if(isset($data['text']))
                 $object->text = $data['text'];
             if(isset($data['img_url'])){
-                $path = $data['questionImage']->store('public\questionSource');
+                $path = $data['questionImage']->store('public/questionSource');
                 $accessPath=Storage::url($path);
                 $object->imgUrl = $accessPath;
             }

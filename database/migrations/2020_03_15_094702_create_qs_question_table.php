@@ -15,8 +15,8 @@ class CreateQsQuestionTable extends Migration
     {
         Schema::create('qs_question', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('text');
-            $table->string('imgUrl');
+            $table->string('text')->nullable(true);
+            $table->string('imgUrl')->nullable(true);
             $table->tinyInteger('level');
             $table->string('type');
             $table->integer('crLessonId');

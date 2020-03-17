@@ -5,11 +5,13 @@ namespace App\Http\Controllers\API\QuestionSource;
 use App\Http\Controllers\Controller;
 use App\Repositories\QuestionSource\QuestionSourceRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class QuestionSourceController extends Controller
 {
     public function create(Request $request){
-        return $request->toArray();
+
         // Initializing
         $repo = new QuestionSourceRepository();
         $data = $request->toArray();
@@ -26,6 +28,7 @@ class QuestionSourceController extends Controller
         return response()->json([
             'error' => true,
             'message' => 'Soru oluşturulurken hata meydana geldi.Tekrar deneyin',
+            'errorMessage' => $resp->getError()
         ],400);
     }
 
