@@ -2,11 +2,12 @@
     <div class="uk-card-default uk-card-hover uk-card-small uk-width Course-card uk-inline-clip uk-transition-toggle" tabindex="0">
         <div v-if="isLogin" class="uk-transition-slide-right-small uk-position-top-right uk-padding-small uk-position-z-index">
             <a class="uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge">
-                <i v-if="false" class="fas fa-heart icon-medium" style="color: red"> </i>
+                <i v-if="isFav||fav" class="fas fa-heart icon-medium" style="color: red"> </i>
                 <i v-else  @click="addFav" class="fas fa-heart icon-medium"> </i>
             </a>
             <a class="uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge">
-                <i class="fas fa-shopping-cart icon-medium" @click="addCart"> </i>
+                <i v-if="inCart||cart" class="fas fa-shopping-cart icon-medium" style="color: limegreen"> </i>
+                <i v-else class="fas fa-shopping-cart icon-medium" @click="addCart"> </i>
             </a>
         </div>
         <a :href="pageLink" class="uk-link-reset">
@@ -34,6 +35,12 @@ import StarsRating from "./stars-rating";
 import Axios from 'axios';
 export default {
     name: "course-card",
+    data(){
+      return{
+          fav:false,
+          cart:false,
+      }
+    },
     components: {StarsRating},
     props:{
         title: String,
@@ -70,6 +77,14 @@ export default {
         userId:{
             type:String,
             default:"",
+        },
+        isFav:{
+            type:Boolean,
+            default:false,
+        },
+        inCart:{
+            type:Boolean,
+            default:false,
         }
     },
     computed:{
@@ -90,7 +105,10 @@ export default {
                 module_name:this.moduleName,
                 user_id:this.userId,
             })
-            .then(response=>console.log(response))
+            .then(response=>{
+                this.cart=true;
+                console.log(response)
+            })
         },
         addFav:function () {
             Axios.post('/api/favorite/add', {
@@ -98,7 +116,10 @@ export default {
                 module_name:this.moduleName,
                 user_id:this.userId,
             })
-                .then(response=>console.log(response))
+                .then(response=>{
+                    this.fav=true;
+                    console.log(response)
+                })
         }
     }
 }

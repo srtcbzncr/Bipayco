@@ -2891,10 +2891,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-card",
+  data: function data() {
+    return {
+      fav: false,
+      cart: false
+    };
+  },
   components: {
     StarsRating: _stars_rating__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
@@ -2933,6 +2940,14 @@ __webpack_require__.r(__webpack_exports__);
     userId: {
       type: String,
       "default": ""
+    },
+    isFav: {
+      type: Boolean,
+      "default": false
+    },
+    inCart: {
+      type: Boolean,
+      "default": false
     }
   },
   computed: {
@@ -2950,21 +2965,27 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     addCart: function addCart() {
+      var _this = this;
+
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/basket/add', {
         course_id: this.courseId,
         module_name: this.moduleName,
         user_id: this.userId
       }).then(function (response) {
-        return console.log(response);
+        _this.cart = true;
+        console.log(response);
       });
     },
     addFav: function addFav() {
+      var _this2 = this;
+
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/favorite/add', {
         course_id: this.courseId,
         module_name: this.moduleName,
         user_id: this.userId
       }).then(function (response) {
-        return console.log(response);
+        _this2.fav = true;
+        console.log(response);
       });
     }
   }
@@ -9543,8 +9564,11 @@ var render = function() {
                     "uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge"
                 },
                 [
-                  false
-                    ? undefined
+                  _vm.isFav || _vm.fav
+                    ? _c("i", {
+                        staticClass: "fas fa-heart icon-medium",
+                        staticStyle: { color: "red" }
+                      })
                     : _c("i", {
                         staticClass: "fas fa-heart icon-medium",
                         on: { click: _vm.addFav }
@@ -9559,10 +9583,15 @@ var render = function() {
                     "uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge"
                 },
                 [
-                  _c("i", {
-                    staticClass: "fas fa-shopping-cart icon-medium",
-                    on: { click: _vm.addCart }
-                  })
+                  _vm.inCart || _vm.cart
+                    ? _c("i", {
+                        staticClass: "fas fa-shopping-cart icon-medium",
+                        staticStyle: { color: "limegreen" }
+                      })
+                    : _c("i", {
+                        staticClass: "fas fa-shopping-cart icon-medium",
+                        on: { click: _vm.addCart }
+                      })
                 ]
               )
             ]
