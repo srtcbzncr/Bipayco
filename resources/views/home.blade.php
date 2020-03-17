@@ -48,8 +48,12 @@
                                     @if(Auth::check())
                                         is-login
                                         user-id="{{Auth::user()->id}}"
-                                        in-cart="{{$general_educations->inBasket}}"
-                                        is-fav="{{$general_educations->inFavorite}}"
+                                        @if($general_educations->inBasket)
+                                            in-cart
+                                        @endif
+                                        @if($general_educations->inFavorite)
+                                            is-fav
+                                        @endif
                                     @endif
                                 ></course-card>
                             </div>
@@ -91,8 +95,12 @@
                                     @if(Auth::check())
                                     is-login
                                     user-id="{{Auth::user()->id}}"
-                                    in-cart="{{$prepare_for_lesson->isBasket}}"
-                                    is-fav="{{$prepare_for_lesson->isFavorite}}"
+                                    @if($prepare_for_lesson->inBasket)
+                                        in-cart
+                                    @endif
+                                    @if($prepare_for_lesson->inFavorite)
+                                        is-fav
+                                    @endif
                                     @endif
                                 ></course-card>
                             </div>
@@ -132,8 +140,12 @@
                                     @if(Auth::check())
                                     is-login
                                     user-id="{{Auth::user()->id}}"
-                                    in-cart="{{$prepare_for_exam->isBasket}}"
-                                    is-fav="{{$prepare_for_exam->isFavorite}}"
+                                        @if($prepare_for_exam->inBasket)
+                                            in-cart
+                                        @endif
+                                        @if($prepare_for_exam->inFavorite)
+                                            is-fav
+                                        @endif
                                     @endif
                                 ></course-card>
                             </div>
@@ -173,8 +185,12 @@
                                     @if(Auth::check())
                                     is-login
                                     user-id="{{Auth::user()->id}}"
-                                    is-fav="{{$exam->isFavorite}}"
-                                    in-cart="{{$exam->isBasket}}"
+                                        @if($exam->inBasket)
+                                            in-cart
+                                        @endif
+                                        @if($exam->inFavorite)
+                                            is-fav
+                                        @endif
                                     @endif
                                 ></course-card>
                             </div>
@@ -214,8 +230,12 @@
                                     @if(Auth::check())
                                     is-login
                                     user-id="{{Auth::user()->id}}"
-                                    is-fav="{{$book->isFavorite}}"
-                                    in-cart="{{$book->isBasket}}"
+                                        @if($book->inBasket)
+                                            in-cart
+                                        @endif
+                                        @if($book->inFavorite)
+                                            is-fav
+                                        @endif
                                     @endif
                                 ></course-card>
                             </div>

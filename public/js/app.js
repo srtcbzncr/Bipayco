@@ -9000,10 +9000,10 @@ var render = function() {
                           "style-empty-star-color": "#C1C1C1",
                           "course-id": course.id,
                           "module-name": _vm.moduleName,
-                          "is-login": "",
+                          "is-login": _vm.isLogin,
                           "user-id": _vm.userId,
-                          "is-fav": course.isFavorite,
-                          "in-cart": course.isBasket
+                          "is-fav": course.inFavorite,
+                          "in-cart": course.inBasket
                         }
                       })
                     : _c("course-card", {
@@ -9018,10 +9018,10 @@ var render = function() {
                           "style-empty-star-color": "#C1C1C1",
                           "course-id": course.id,
                           "module-name": _vm.moduleName,
-                          "is-login": "",
+                          "is-login": _vm.isLogin,
                           "user-id": _vm.userId,
-                          "is-fav": course.isFavorite,
-                          "in-cart": course.isBasket
+                          "is-fav": course.inFavorite,
+                          "in-cart": course.inBasket
                         }
                       })
                 ],

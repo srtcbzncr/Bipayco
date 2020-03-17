@@ -204,8 +204,12 @@
                             @if(Auth::check())
                                 is-login
                                 user-id="{{Auth::user()->id}}"
-                            is-fav="{{$similar_course->isFavorite}}"
-                            in-basket="{{$similar_course->isBasket}}"
+                                @if($similar_course->inBasket)
+                                    in-cart
+                                @endif
+                                @if($similar_course->inFavorite)
+                                    is-fav
+                                @endif
                             @endif
                         ></course-card>
                     </div>

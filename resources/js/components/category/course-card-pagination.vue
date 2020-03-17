@@ -45,10 +45,10 @@
                         style-empty-star-color="#C1C1C1"
                         :course-id="course.id"
                         :module-name="moduleName"
-                        is-login
+                        :is-login="isLogin"
                         :user-id="userId"
-                        :is-fav="course.isFavorite"
-                        :in-cart="course.isBasket"
+                        :is-fav="course.inFavorite"
+                        :in-cart="course.inBasket"
                     > </course-card>
                     <course-card
                         v-else
@@ -62,10 +62,10 @@
                         style-empty-star-color="#C1C1C1"
                         :course-id="course.id"
                         :module-name="moduleName"
-                        is-login
+                        :is-login="isLogin"
                         :user-id="userId"
-                        :is-fav="course.isFavorite"
-                        :in-cart="course.isBasket"
+                        :is-fav="course.inFavorite"
+                        :in-cart="course.inBasket"
                     > </course-card>
                 </div>
             </div>
