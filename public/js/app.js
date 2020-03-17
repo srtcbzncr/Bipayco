@@ -2972,7 +2972,10 @@ __webpack_require__.r(__webpack_exports__);
         module_name: this.moduleName,
         user_id: this.userId
       }).then(function (response) {
-        _this.cart = true;
+        if (!response.data.error) {
+          _this.cart = true;
+        }
+
         console.log(response);
       });
     },
@@ -2984,7 +2987,10 @@ __webpack_require__.r(__webpack_exports__);
         module_name: this.moduleName,
         user_id: this.userId
       }).then(function (response) {
-        _this2.fav = true;
+        if (!response.data.error) {
+          _this2.fav = true;
+        }
+
         console.log(response);
       });
     }

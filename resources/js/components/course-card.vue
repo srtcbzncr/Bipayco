@@ -106,7 +106,9 @@ export default {
                 user_id:this.userId,
             })
             .then(response=>{
-                this.cart=true;
+                if(!response.data.error) {
+                    this.cart = true;
+                }
                 console.log(response)
             })
         },
@@ -117,7 +119,9 @@ export default {
                 user_id:this.userId,
             })
                 .then(response=>{
-                    this.fav=true;
+                    if(!response.data.error){
+                        this.fav=true;
+                    }
                     console.log(response)
                 })
         }
