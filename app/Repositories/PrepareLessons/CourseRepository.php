@@ -13,6 +13,7 @@ use App\Models\GeneralEducation\Tag;
 use App\Models\PrepareLessons\Course;
 use App\Models\PrepareLessons\Lesson;
 use App\Models\PrepareLessons\Section;
+use App\Models\QuestionSource\Question;
 use App\Models\UsersOperations\Basket;
 use App\Models\UsersOperations\Favorite;
 use App\Repositories\IRepository;
@@ -1394,6 +1395,42 @@ class CourseRepository implements IRepository{
         try{
             $subjects = Subject::where('lesson_id',$id)->get();
             $object = $subjects;
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getRandomQuestions($data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = array();
+
+        // Operations
+        try{
+            $i = 0;
+            $object['questions'] = array();
+            $questions1 = Question::where('level',1)->where('crLessonId',$data['crLessonId'])->where('crSubjectId',$data['crSubjectId'])->take(3)->get();
+            foreach ($questions1 as $question){
+                $object['questions'][$i] = $question;
+                $i++;
+            }
+            $questions2 = Question::where('level',2)->where('crLessonId',$data['crLessonId'])->where('crSubjectId',$data['crSubjectId'])->take(3)->get();
+            foreach ($questions2 as $question){
+                $object['questions'][$i] = $question;
+                $i++;
+            }
+            $questions3 = Question::where('level',3)->where('crLessonId',$data['crLessonId'])->where('crSubjectId',$data['crSubjectId'])->take(4)->get();
+            foreach ($questions3 as $question){
+                $object['questions'][$i] = $question;
+                $i++;
+            }
         }
         catch(\Exception $e){
             $error = $e->getMessage();

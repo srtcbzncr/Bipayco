@@ -555,4 +555,28 @@ class CourseController extends Controller
             ],400);
         }
     }
+
+    public function getRandomQuestions(Request $request){
+        // Initializing
+        $repo = new CourseRepository();
+        $data = $request->toArray();
+
+        // Operations
+        $resp =  $repo->getRandomQuestions($data);
+
+        // Response
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Sorular başarıyla getirildi.',
+                'data' => $resp->getData()
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Sorular getirilirken hata oluştu.Tekrar deneyin.'
+            ],400);
+        }
+    }
 }
