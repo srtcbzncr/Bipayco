@@ -6,7 +6,10 @@ namespace App\Repositories\QuestionSource;
 
 use App\Models\Auth\Instructor;
 use App\Models\Auth\User;
+use App\Models\QuestionSource\GapFilling;
+use App\Models\QuestionSource\MultiChoice;
 use App\Models\QuestionSource\Question;
+use App\Models\QuestionSource\SingleChoice;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\DB;
@@ -86,10 +89,71 @@ class QuestionSourceRepository implements IRepository
             $object->level = $data['level'];
             if($data['type'] == 'singleChoice')
                 $object->type = 'App\Models\QuestionSource\SingleChoice';
+            else if($data['type'] == 'multiChoice')
+                $object->type = 'App\Models\QuestionSource\MultiChoice';
+            else if($data['type'] == 'fillBlank'){
+                $totalQuestion = null;
+                foreach ($data['answers'] as $key => $answer){
+                    $totalQuestion+="_"+explode(':',explode(',',$answer)[0])[1];
+                }
+
+            }
             $object->crLessonId = $data['crLessonId'];
             $object->crSubjectId = $data['crSubjectId'];
             $object->instructorId = $data['instructorId'];
             $object->isConfirm = false;
+            $object->save();
+
+            // answer'ları tabloya ekle.
+            $objectAnswer = null;
+            if($data['type'] == 'singleChoice'){
+                $type = null;
+                foreach ($data['answers'] as $key=> $answer){
+                    if($key == count($data['answers'])-1){
+                        $objectAnswer = new SingleChoice();
+                        $objectAnswer->questionId = $object->id;
+                        $objectAnswer->content = explode(':',explode(',',$answer)[0])[1];
+                        $objectAnswer->isTrue = true;
+                        $objectAnswer->type = $type;
+                        $objectAnswer->save();
+                    }
+                    else{
+                        $type = explode(':',explode(',',$answer)[1])[1];
+                        $objectAnswer = new SingleChoice();
+                        $objectAnswer->questionId = $object->id;
+                        $objectAnswer->content = explode(':',explode(',',$answer)[0])[1];
+                        $objectAnswer->isTrue = explode(':',explode(',',$answer)[2])[1];
+                        $objectAnswer->type = explode(':',explode(',',$answer)[1])[1];
+                        $objectAnswer->save();
+                    }
+                }
+            }
+            else if($data['type'] == 'multiChoice'){
+                foreach ($data['answers'] as $answer){
+                    $objectAnswer = new MultiChoice();
+                    $objectAnswer->questionId = $object->id;
+                    $objectAnswer->content = explode(':',explode(',',$answer)[0])[1];
+                    if(explode(':',explode(',',$answer)[1])[1] == "true")
+                        $objectAnswer->isTrue = true;
+                    else
+                        $objectAnswer->isTrue = false;
+                    $objectAnswer->type = explode('}',explode(':',explode(',',$answer)[2])[1])[0];
+                    $objectAnswer->save();
+                }
+            }
+            else if($data['type'] == 'fillBlank'){
+                $totalQuestion = null;
+                foreach ($data['answers'] as $key => $answer){
+                    $objectAnswer = new GapFilling();
+                    $objectAnswer->questionId = $object->id;
+                    $objectAnswer->no = $key;
+                    $objectAnswer->content = explode(':',explode(',',$answer)[0])[0];
+                    $totalQuestion+="_"+explode(':',explode(',',$answer)[0])[1];
+                    $objectAnswer->type = "text";
+                    $objectAnswer->save();
+                }
+            }
+
             DB::commit();
         }
         catch(\Exception $e){

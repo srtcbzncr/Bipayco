@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class QuestionSourceController extends Controller
 {
     public function create(Request $request){
+        return $request->toArray();
         // Initializing
         $repo = new QuestionSourceRepository();
         $data = $request->toArray();

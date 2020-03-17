@@ -27,6 +27,7 @@ class HomeController extends Controller
         // Operations
         $gePopularCoursesResp = $geCourseRepo->getPopularCourses();
         $plPopularCoursesResp = $plCourseRepo->getPopularCourses();
+        
         $data = [
             'general_education' => $gePopularCoursesResp->getData(),
             'prepare_for_lessons' => $plPopularCoursesResp->getData(),
