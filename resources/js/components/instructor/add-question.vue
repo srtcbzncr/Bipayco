@@ -410,6 +410,7 @@
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
                 for(var i=0; i<this.singleAnswersImg.length; i++){
+                    formData.append('answersContent['+i+']', this.singleAnswersImg[i].content);
                     formData.append('answers['+i+']', JSON.stringify(this.singleAnswersImg[i]));
                 }
                 formData.append('type', 'singleChoice');
@@ -435,7 +436,7 @@
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
                 for(var i=0; i<this.multiAnswers.length; i++){
-                    formData.append('answers['+i+'].content', JSON.stringify(this.multiAnswers[i]));
+                    formData.append('answers['+i+']', JSON.stringify(this.multiAnswers[i]));
                 }
                 formData.append('type', 'multiChoice');
                 for(var pair of formData){
@@ -460,7 +461,8 @@
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
                 for(var i=0; i<this.multiAnswersImg.length; i++) {
-                    formData.append('answers['+i+'].content', JSON.stringify(this.multiAnswersImg[i]));
+                    formData.append('answersContent['+i+']', this.multiAnswersImg[i].content);
+                    formData.append('answers['+i+']', JSON.stringify(this.multiAnswersImg[i]));
                 }
                 formData.append('type', 'multiChoice');
                 for(var pair of formData){
@@ -485,7 +487,7 @@
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
                 for(var i=0; i<this.blanks.length; i++) {
-                    formData.append('answers['+i+'].answer', JSON.stringify(this.blanks[i]));
+                    formData.append('answers['+i+']', JSON.stringify(this.blanks[i]));
                 }
                 formData.append('type', 'fillBlank');
                 for(var pair of formData){

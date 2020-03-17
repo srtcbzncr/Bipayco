@@ -3920,6 +3920,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('instructorId', this.instructorId);
 
       for (var i = 0; i < this.singleAnswersImg.length; i++) {
+        formData.append('answersContent[' + i + ']', this.singleAnswersImg[i].content);
         formData.append('answers[' + i + ']', JSON.stringify(this.singleAnswersImg[i]));
       }
 
@@ -3973,7 +3974,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('instructorId', this.instructorId);
 
       for (var i = 0; i < this.multiAnswers.length; i++) {
-        formData.append('answers[' + i + '].content', JSON.stringify(this.multiAnswers[i]));
+        formData.append('answers[' + i + ']', JSON.stringify(this.multiAnswers[i]));
       }
 
       formData.append('type', 'multiChoice');
@@ -4026,7 +4027,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('instructorId', this.instructorId);
 
       for (var i = 0; i < this.multiAnswersImg.length; i++) {
-        formData.append('answers[' + i + '].content', JSON.stringify(this.multiAnswersImg[i]));
+        formData.append('answersContent[' + i + ']', this.multiAnswersImg[i].content);
+        formData.append('answers[' + i + ']', JSON.stringify(this.multiAnswersImg[i]));
       }
 
       formData.append('type', 'multiChoice');
@@ -4079,7 +4081,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('instructorId', this.instructorId);
 
       for (var i = 0; i < this.blanks.length; i++) {
-        formData.append('answers[' + i + '].answer', JSON.stringify(this.blanks[i]));
+        formData.append('answers[' + i + ']', JSON.stringify(this.blanks[i]));
       }
 
       formData.append('type', 'fillBlank');
