@@ -894,12 +894,12 @@ class CourseRepository implements IRepository{
         $result = true;
         $error = null;
         $object = null;
-        $course_type = 'App\Models\PrepareLessons\Course';
 
         // Operations
         $isManagers = array();
         foreach ($data as $key => $item){
-            $geCoursesInstructor = DB::select('select * from ge_courses_instructors where course_id = '.$course_id.' and instructor_id = '.$item['instructor_id'].' and course_type = '.$course_type);
+            $geCoursesInstructor = DB::table('ge_courses_instructors')->where('course_id',$course_id)->where('instructor_id',$item['instructor_id'])
+                ->where('course_type','App\Models\PrepareLessons\Course')->get();
             try {
                 if($geCoursesInstructor[0]->is_manager == 1){
                     $isManagers[$key] = 1;
@@ -915,7 +915,8 @@ class CourseRepository implements IRepository{
         try{
             DB::beginTransaction();
             $course = Course::find($course_id);
-            DB::table("ge_courses_instructors")->where('course_id',$course_id)->delete();
+            DB::table("ge_courses_instructors")->where('course_id',$course_id)
+                ->where('course_type','App\Models\PrepareLessons\Course')->delete();
             foreach ($data as $key => $item){
                 DB::table("ge_courses_instructors")->insert(array(
                     'course_id' => $course_id,
@@ -923,14 +924,12 @@ class CourseRepository implements IRepository{
                     'instructor_id' => $item['instructor_id'],
                     'is_manager' => $isManagers[$key],
                     'percent' => $item['percent'],
-                    'user'=>"0"
                 ));
             }
             $object = $course->instructors;
             DB::commit();
         }
         catch(\Exception $e){
-            print_r($e->getMessage());
             DB::rollBack();
             $error = $e;
             $result = false;
@@ -948,7 +947,26 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object =  DB::table("ge_courses_instructors")->where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->where('active',true)->get();
+            $geCourseInstructor =  DB::table("ge_courses_instructors")->where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->where('active',true)->get();
+            foreach ($geCourseInstructor as $key => $item){
+                if($item->is_manager == true){
+                    $temp = $geCourseInstructor[0];
+                    $geCourseInstructor[0] = $item;
+                    $geCourseInstructor[$key] = $temp;
+                    break;
+                }
+            }
+            $object = array();
+            foreach ($geCourseInstructor as $key => $item){
+                if($item->is_manager == true){
+                    $object[$key] = Instructor::find($item->instructor_id);
+                    $object[$key]['is_manager'] = true;
+                }
+                else{
+                    $object[$key] = Instructor::find($item->instructor_id);
+                    $object[$key]['is_manager'] = false;
+                }
+            }
         }
         catch(\Exception $e){
             $error = $e;
