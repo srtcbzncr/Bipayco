@@ -123,7 +123,6 @@ class CourseRepository implements IRepository{
             }
             $object->lesson_id = $data['lesson_id'];
             $object->grade_id = $data['grade_id'];
-            $object->image = $imagePath;
             $object->name = $data['name'];
             $object->description = $data['description'];
             $object->access_time = $data['access_time'];
