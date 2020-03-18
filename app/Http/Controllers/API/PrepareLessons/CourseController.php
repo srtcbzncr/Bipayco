@@ -352,11 +352,15 @@ class CourseController extends Controller
     }
 
     public function instructorsPost($id,Request $request){
+        return $request->toArray();
         $user = null;
         $data = $request->toArray();
-        $course_type = 'App\Models\PrepareLessons\Course';
+       // $course_type = 'App\Models\PrepareLessons\Course';
+        $geCoursesInstructor = null;
         foreach ($data as $key => $item){
-            $geCoursesInstructor = DB::select('select * from ge_courses_instructors where course_id = '.$id.' and instructor_id = '.$item['instructor_id'].' and course_type = '.$course_type);
+            $geCoursesInstructor = DB::table('ge_courses_instructors')->where('course_id',$id)->where('instructor_id',$item['instructor_id'])
+                ->where('course_type','App\Models\PrepareLessons\Course')->get();
+            //$geCoursesInstructor = DB::select('select * from ge_courses_instructors where course_id = '.$id.' and instructor_id = '.$item['instructor_id'].' and course_type = '.$course_type);
             try {
                 if($geCoursesInstructor[0]->is_manager == true){
                     $instructor = Instructor::find($geCoursesInstructor[0]->instructor_id);
@@ -366,10 +370,10 @@ class CourseController extends Controller
             } catch(\Exception $e){
             }
         }
-
+        return $geCoursesInstructor;
 
         $course = Course::find($id);
-        if($user->can('checkManager',$course)){
+        if($this->checkManagerPolicy($user,$course)){
             // Initializin
             $repo = new CourseRepository();
             $data = $request->toArray();
@@ -394,6 +398,27 @@ class CourseController extends Controller
                 'error' => true,
                 'message' => 'Bu kursun eğitimcisi değilsin veya eklenen eğitmen eğitimci değil.'
             ],400);
+        }
+    }
+    private function checkManagerPolicy($user,$course){
+        $instructor = Instructor::where('user_id',$user->id)->first();
+        if($instructor != null){
+            $geCourseInstructor = DB::table("ge_courses_instructors")->where('course_id',$course->id)
+                ->where('instructor_id',$instructor->id)->where('course_type','App\Models\PrepareLessons\Course')->first();
+            if($geCourseInstructor != null){
+                if($geCourseInstructor->is_manager == 1){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
         }
     }
 
