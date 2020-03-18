@@ -690,11 +690,18 @@ class CourseController extends Controller
     }
 
     public function instructorsPost($id,Request $request){
+        return $request->toArray();
         $user = null;
         $data = $request->toArray();
-        $course_type = 'App\Models\GeneralEducation\Course';
-        foreach ($data as $key => $item){
-            $geCoursesInstructor = DB::select('select * from ge_courses_instructors where course_id = '.$id.' and instructor_id = '.$item['instructor_id'].' and course_type = '.$course_type);
+        $geCoursesInstructor =  DB::table('ge_courses_instructors')->where('id',$data[0]['instructor_id'])->get();
+        if($geCoursesInstructor[0]->is_manager == true){
+            $instructor = Instructor::find($geCoursesInstructor[0]->instructor_id);
+            $user = User::find($instructor->user_id);
+        }
+        /*foreach ($data as $key => $item){
+            $geCoursesInstructor = DB::table('ge_courses_instructors')->where('course_id',$id)->where('instructor_id',$item['instructor_id'])
+                ->where('course_type','App\Models\GeneralEducation\Course')->get();
+            //$geCoursesInstructor = DB::select('select * from ge_courses_instructors where course_id = '.$id.' and instructor_id = '.$item['instructor_id'].' and course_type = '.$course_type);
                 try {
                 if($geCoursesInstructor[0]->is_manager == true){
                     $instructor = Instructor::find($geCoursesInstructor[0]->instructor_id);
@@ -703,8 +710,19 @@ class CourseController extends Controller
                 }
             } catch(\Exception $e){
             }
-        }
+        }*/
 
+        $readyData = array();
+        foreach ($data as $key => $item){
+            if($key == 0){
+                $readyData[$key]['instructor_id'] = $geCoursesInstructor[0]->instructor_id;
+                $readyData[$key]['percent'] = $item['percent'];
+            }
+            else{
+                $readyData[$key]['instructor_id'] = $item['instructor_id'];
+                $readyData[$key]['percent'] = $item['percent'];
+            }
+        }
 
         $course = Course::find($id);
         if($user->can('checkManager',$course)){
@@ -713,7 +731,7 @@ class CourseController extends Controller
             $data = $request->toArray();
 
             // Operations
-            $resp = $repo->syncInstructor($id,$data);
+            $resp = $repo->syncInstructor($id,$readyData,$data[0]['instructor_id']);
             if($resp->getResult()){
                 return response()->json([
                     'error' => false,

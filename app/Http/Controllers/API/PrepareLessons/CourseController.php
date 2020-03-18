@@ -355,20 +355,10 @@ class CourseController extends Controller
         return $request->toArray();
         $user = null;
         $data = $request->toArray();
-       // $course_type = 'App\Models\PrepareLessons\Course';
-        $geCoursesInstructor = null;
-        foreach ($data as $key => $item){
-            $geCoursesInstructor = DB::table('ge_courses_instructors')->where('course_id',$id)->where('instructor_id',$item['instructor_id'])
-                ->where('course_type','App\Models\PrepareLessons\Course')->get();
-            //$geCoursesInstructor = DB::select('select * from ge_courses_instructors where course_id = '.$id.' and instructor_id = '.$item['instructor_id'].' and course_type = '.$course_type);
-            try {
-                if($geCoursesInstructor[0]->is_manager == true){
-                    $instructor = Instructor::find($geCoursesInstructor[0]->instructor_id);
-                    $user = User::find($instructor->user_id);
-                    break;
-                }
-            } catch(\Exception $e){
-            }
+        $geCoursesInstructor =  DB::table('ge_courses_instructors')->where('id',$data[0]['instructor_id'])->get();
+        if($geCoursesInstructor[0]->is_manager == true){
+            $instructor = Instructor::find($geCoursesInstructor[0]->instructor_id);
+            $user = User::find($instructor->user_id);
         }
         return $geCoursesInstructor;
 
