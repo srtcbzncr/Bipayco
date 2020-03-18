@@ -225,7 +225,6 @@ class CourseController extends Controller
 
         // Operations
         $resp = $repo->syncSectionGet($id);
-        return $resp->getData();
         if($resp->getResult()){
 
             return response()->json([
