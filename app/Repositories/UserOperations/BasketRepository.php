@@ -97,9 +97,15 @@ class BasketRepository implements IRepository
         try {
             DB::beginTransaction();
 
+            $type = "";
+            if($data['module_name'] == 'generalEducation')
+                $type = "App\Models\GeneralEducation\Course";
+            else if($data['module_name'] == 'prepareLessons')
+                $type = "App\Models\PrepareLessons\Course";
+
             DB::table('basket')->where('user_id',$data['user_id'])
                 ->where('course_id',$data['course_id'])
-                ->where('course_type',$data['course_type'])->delete();
+                ->where('course_type',$type)->delete();
 
             DB::commit();
         }catch(\Exception $e){
