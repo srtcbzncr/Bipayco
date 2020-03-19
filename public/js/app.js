@@ -4712,13 +4712,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      instructorsInfo: [],
+      instructors: [],
       hasInstructor: true
     };
   },
   methods: {
     addInstructor: function addInstructor(instructor) {
-      this.instructorsInfo.push(instructor);
+      this.instructors.push(instructor);
     },
     searchInstructor: function searchInstructor() {
       var _this = this;
@@ -4738,10 +4738,7 @@ __webpack_require__.r(__webpack_exports__);
             status: 'success'
           });
 
-          _this.addInstructor({
-            instructor: response.data,
-            percent: 1
-          });
+          _this.addInstructor(response.data);
 
           console.log(_this.instructors);
         }
@@ -4752,19 +4749,20 @@ __webpack_require__.r(__webpack_exports__);
       this.instructors.splice(index, 1);
     },
     instructorPost: function instructorPost(courseId) {
-      var instructors = [];
+      var instructorsInfo = [];
+      var percents = document.getElementsByName('percent[]');
 
-      for (var i = 0; i < this.instructorsInfo.length; i++) {
-        var id = this.instructorsInfo[i].instructor.id;
-        var percent = instructorsInfo[i].percent;
+      for (var i = 0; i < this.instructors.length; i++) {
+        var id = this.instructors[i].id;
+        var percent = percents[i].value;
         console.log("id:" + id + " percent:" + percent);
-        instructors.push({
+        instructorsInfo.push({
           'instructor_id': id,
           'percent': percent
         });
       }
 
-      axios.post('/api/instructor/' + this.moduleName + '/course/' + courseId + '/instructors', instructors).then(function (response) {
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + courseId + '/instructors', instructorsInfo).then(function (response) {
         return console.log(response);
       })["catch"](function (error) {
         UIkit.notification({
@@ -4772,10 +4770,6 @@ __webpack_require__.r(__webpack_exports__);
           status: 'danger'
         });
       });
-      this.clearForm();
-    },
-    clearForm: function clearForm() {
-      document.getElementById('instructorEmail').value = "";
     }
   },
   created: function created() {
@@ -4785,10 +4779,7 @@ __webpack_require__.r(__webpack_exports__);
       return response.data.data;
     }).then(function (response) {
       for (var i = 0; i < response.instructor.length; i++) {
-        _this2.addInstructor({
-          instructor: response.instructor[i],
-          percent: 1
-        });
+        _this2.addInstructor(response.instructor[i]);
       }
     });
   }
@@ -12073,7 +12064,7 @@ var render = function() {
         _c(
           "div",
           { staticClass: "uk-margin-small", attrs: { id: "instructorsArea" } },
-          _vm._l(_vm.instructorsInfo, function(info, index) {
+          _vm._l(_vm.instructors, function(instructor, index) {
             return _c("div", { staticClass: "uk-margin-small" }, [
               _c("div", { staticClass: "uk-grid align-items-center" }, [
                 _c("input", {
@@ -12083,7 +12074,7 @@ var render = function() {
                     disabled: "",
                     name: "instructorsId[]"
                   },
-                  domProps: { value: info.instructor.id }
+                  domProps: { value: instructor.id }
                 }),
                 _vm._v(" "),
                 _c(
@@ -12097,7 +12088,7 @@ var render = function() {
                     _c("div", { staticClass: "uk-flex align-items-center" }, [
                       _c("img", {
                         staticClass: "user-profile-tiny uk-circle",
-                        attrs: { src: info.instructor.user.avatar }
+                        attrs: { src: instructor.user.avatar }
                       }),
                       _vm._v(" "),
                       _c(
@@ -12109,13 +12100,13 @@ var render = function() {
                         [
                           _c("b", [
                             _vm._v(
-                              _vm._s(info.instructor.user.first_name) +
+                              _vm._s(instructor.user.first_name) +
                                 " " +
-                                _vm._s(info.instructor.user.last_name)
+                                _vm._s(instructor.user.last_name)
                             )
                           ]),
                           _vm._v(" "),
-                          _vm.instructor.is_manager
+                          instructor.is_manager
                             ? _c("span", [
                                 _vm._v("(" + _vm._s(_vm.managerText) + ")")
                               ])
@@ -12135,35 +12126,19 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: info.percent,
-                          expression: "info.percent"
-                        }
-                      ],
                       staticClass: "uk-input uk-padding-remove",
                       attrs: {
                         type: "number",
+                        name: "percent[]",
                         max: "100",
                         min: "1",
                         required: ""
-                      },
-                      domProps: { value: info.percent },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(info, "percent", $event.target.value)
-                        }
                       }
                     })
                   ]
                 ),
                 _vm._v(" "),
-                !info.instructor.is_manager
+                !instructor.is_manager
                   ? _c(
                       "div",
                       { staticClass: "uk-width-1-5@m uk-margin-small-bottom" },
