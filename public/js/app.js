@@ -2902,8 +2902,8 @@ __webpack_require__.r(__webpack_exports__);
   name: "course-card",
   data: function data() {
     return {
-      fav: false,
-      cart: false
+      fav: this.isFav,
+      cart: this.inCart
     };
   },
   components: {
@@ -2983,8 +2983,23 @@ __webpack_require__.r(__webpack_exports__);
         console.log(response);
       });
     },
-    addFav: function addFav() {
+    removeCart: function removeCart() {
       var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/basket/delete', {
+        course_id: this.courseId,
+        module_name: this.moduleName,
+        user_id: this.userId
+      }).then(function (response) {
+        if (!response.data.error) {
+          _this2.cart = false;
+        }
+
+        console.log(response);
+      });
+    },
+    addFav: function addFav() {
+      var _this3 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/favorite/add', {
         course_id: this.courseId,
@@ -2992,7 +3007,22 @@ __webpack_require__.r(__webpack_exports__);
         user_id: this.userId
       }).then(function (response) {
         if (!response.data.error) {
-          _this2.fav = true;
+          _this3.fav = true;
+        }
+
+        console.log(response);
+      });
+    },
+    removeFav: function removeFav() {
+      var _this4 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/favorite/delete', {
+        course_id: this.courseId,
+        module_name: this.moduleName,
+        user_id: this.userId
+      }).then(function (response) {
+        if (!response.data.error) {
+          _this4.fav = false;
         }
 
         console.log(response);
@@ -4154,6 +4184,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _course_section_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./course-section.vue */ "./resources/js/components/instructor/course-section.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -4192,6 +4224,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4266,7 +4299,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         formData.append('subjectId', document.getElementById('courseSubject').value);
       }
 
-      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/create', formData).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/create', formData).then(function (response) {
         return response.data;
       }).then(function (response) {
         if (response.error) {
@@ -4283,7 +4316,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
         }
       });
+      this.clearForm();
+    },
+    clearForm: function clearForm() {
       document.getElementById('sectionInput').value = "";
+
+      if (this.moduleName = 'prepareLessons') {
+        document.getElementById('courseSubject').value = "";
+      }
     }
   }),
   created: function created() {
@@ -4672,13 +4712,13 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      instructors: [],
+      instructorsInfo: [],
       hasInstructor: true
     };
   },
   methods: {
     addInstructor: function addInstructor(instructor) {
-      this.instructors.push(instructor);
+      this.instructorsInfo.push(instructor);
     },
     searchInstructor: function searchInstructor() {
       var _this = this;
@@ -4698,7 +4738,10 @@ __webpack_require__.r(__webpack_exports__);
             status: 'success'
           });
 
-          _this.addInstructor(response.data);
+          _this.addInstructor({
+            instructor: response.data,
+            percent: 1
+          });
 
           console.log(_this.instructors);
         }
@@ -4709,20 +4752,19 @@ __webpack_require__.r(__webpack_exports__);
       this.instructors.splice(index, 1);
     },
     instructorPost: function instructorPost(courseId) {
-      var instructorsInfo = [];
-      var percents = document.getElementsByName('percent[]');
+      var instructors = [];
 
-      for (var i = 0; i < this.instructors.length; i++) {
-        var id = this.instructors[i].id;
-        var percent = percents[i].value;
+      for (var i = 0; i < this.instructorsInfo.length; i++) {
+        var id = this.instructorsInfo[i].instructor.id;
+        var percent = instructorsInfo[i].percent;
         console.log("id:" + id + " percent:" + percent);
-        instructorsInfo.push({
+        instructors.push({
           'instructor_id': id,
           'percent': percent
         });
       }
 
-      axios.post('/api/instructor/' + this.moduleName + '/course/' + courseId + '/instructors', instructorsInfo).then(function (response) {
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + courseId + '/instructors', instructors).then(function (response) {
         return console.log(response);
       })["catch"](function (error) {
         UIkit.notification({
@@ -4730,6 +4772,10 @@ __webpack_require__.r(__webpack_exports__);
           status: 'danger'
         });
       });
+      this.clearForm();
+    },
+    clearForm: function clearForm() {
+      document.getElementById('instructorEmail').value = "";
     }
   },
   created: function created() {
@@ -4739,7 +4785,10 @@ __webpack_require__.r(__webpack_exports__);
       return response.data.data;
     }).then(function (response) {
       for (var i = 0; i < response.instructor.length; i++) {
-        _this2.addInstructor(response.instructor[i]);
+        _this2.addInstructor({
+          instructor: response.instructor[i],
+          percent: 1
+        });
       }
     });
   }
@@ -5366,7 +5415,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   mounted: function mounted() {
-    this.$store.dispatch('loadCourseSubjects', [this.moduleName, this.courseId]);
+    if (this.moduleName == 'prepareLessons') {
+      this.$store.dispatch('loadCourseSubjects', [this.moduleName, this.courseId]);
+    }
   }
 });
 
@@ -5951,6 +6002,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "top-bar",
@@ -5959,9 +6013,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       required: true
     },
-    noContent: {
+    noContentText: {
       type: String,
       "default": 'Hiç Kursa Sahip Değilsin'
+    },
+    seeAllText: {
+      type: String,
+      "default": "Tümünü Gör"
+    },
+    profileRoute: {
+      type: String,
+      required: true
+    },
+    myCoursesText: {
+      type: String,
+      "default": "Kurslarım"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['myCourses'])),
@@ -9580,10 +9646,11 @@ var render = function() {
                     "uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge"
                 },
                 [
-                  _vm.isFav || _vm.fav
+                  _vm.fav
                     ? _c("i", {
                         staticClass: "fas fa-heart icon-medium",
-                        staticStyle: { color: "red" }
+                        staticStyle: { color: "red" },
+                        on: { click: _vm.removeFav }
                       })
                     : _c("i", {
                         staticClass: "fas fa-heart icon-medium",
@@ -9599,10 +9666,11 @@ var render = function() {
                     "uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge"
                 },
                 [
-                  _vm.inCart || _vm.cart
+                  _vm.cart
                     ? _c("i", {
                         staticClass: "fas fa-shopping-cart icon-medium",
-                        staticStyle: { color: "limegreen" }
+                        staticStyle: { color: "limegreen" },
+                        on: { click: _vm.removeCart }
                       })
                     : _c("i", {
                         staticClass: "fas fa-shopping-cart icon-medium",
@@ -11555,7 +11623,9 @@ var render = function() {
             [
               _c(
                 "option",
-                { attrs: { disabled: "", hidden: "", selected: "" } },
+                {
+                  attrs: { disabled: "", hidden: "", selected: "", value: "" }
+                },
                 [_vm._v(" " + _vm._s(_vm.subjectNameText) + " ")]
               ),
               _vm._v(" "),
@@ -12003,7 +12073,7 @@ var render = function() {
         _c(
           "div",
           { staticClass: "uk-margin-small", attrs: { id: "instructorsArea" } },
-          _vm._l(_vm.instructors, function(instructor, index) {
+          _vm._l(_vm.instructorsInfo, function(info, index) {
             return _c("div", { staticClass: "uk-margin-small" }, [
               _c("div", { staticClass: "uk-grid align-items-center" }, [
                 _c("input", {
@@ -12013,7 +12083,7 @@ var render = function() {
                     disabled: "",
                     name: "instructorsId[]"
                   },
-                  domProps: { value: instructor.id }
+                  domProps: { value: info.instructor.id }
                 }),
                 _vm._v(" "),
                 _c(
@@ -12027,7 +12097,7 @@ var render = function() {
                     _c("div", { staticClass: "uk-flex align-items-center" }, [
                       _c("img", {
                         staticClass: "user-profile-tiny uk-circle",
-                        attrs: { src: instructor.user.avatar }
+                        attrs: { src: info.instructor.user.avatar }
                       }),
                       _vm._v(" "),
                       _c(
@@ -12039,13 +12109,13 @@ var render = function() {
                         [
                           _c("b", [
                             _vm._v(
-                              _vm._s(instructor.user.first_name) +
+                              _vm._s(info.instructor.user.first_name) +
                                 " " +
-                                _vm._s(instructor.user.last_name)
+                                _vm._s(info.instructor.user.last_name)
                             )
                           ]),
                           _vm._v(" "),
-                          instructor.is_manager
+                          _vm.instructor.is_manager
                             ? _c("span", [
                                 _vm._v("(" + _vm._s(_vm.managerText) + ")")
                               ])
@@ -12065,19 +12135,35 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: info.percent,
+                          expression: "info.percent"
+                        }
+                      ],
                       staticClass: "uk-input uk-padding-remove",
                       attrs: {
                         type: "number",
-                        name: "percent[]",
                         max: "100",
                         min: "1",
                         required: ""
+                      },
+                      domProps: { value: info.percent },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(info, "percent", $event.target.value)
+                        }
                       }
                     })
                   ]
                 ),
                 _vm._v(" "),
-                !instructor.is_manager
+                !info.instructor.is_manager
                   ? _c(
                       "div",
                       { staticClass: "uk-width-1-5@m uk-margin-small-bottom" },
@@ -13625,15 +13711,26 @@ var render = function() {
       }
     },
     [
-      _vm._m(0),
+      _c("div", { staticClass: "uk-clearfix" }, [
+        _c("div", { staticClass: "uk-float-left" }, [
+          _c(
+            "h5",
+            {
+              staticClass:
+                "uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"
+            },
+            [_vm._v("  " + _vm._s(_vm.myCoursesText) + " ")]
+          )
+        ])
+      ]),
       _vm._v(" "),
       _c("hr", { staticClass: " uk-margin-remove" }),
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "uk-padding-smaluk-text-left uk-height-medium" },
+        { staticClass: "uk-padding-small uk-text-left uk-height-medium" },
         [
-          _vm.myCourses.courses != null
+          _vm.myCourses.courses != null && _vm.myCourses.courses.ge.length > 0
             ? _c(
                 "div",
                 {
@@ -13642,141 +13739,131 @@ var render = function() {
                   attrs: { "data-simplebar": "" }
                 },
                 [
-                  _vm.myCourses.courses.ge.length > 0
-                    ? _c(
-                        "div",
-                        {
-                          staticClass:
-                            "uk-child-width-1-2@s  uk-grid-small uk-padding-small",
-                          attrs: {
-                            "uk-scrollspy":
-                              "target: > div; cls:uk-animation-slide-bottom-small; delay: 100 ;repeat: true",
-                            "uk-grid": ""
-                          }
-                        },
-                        _vm._l(_vm.myCourses.courses.ge, function(myCourse) {
-                          return _c("div", [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "uk-child-width-1-2@s  uk-grid-small uk-padding-small",
+                      attrs: {
+                        "uk-scrollspy":
+                          "target: > div; cls:uk-animation-slide-bottom-small; delay: 100 ;repeat: true",
+                        "uk-grid": ""
+                      }
+                    },
+                    _vm._l(_vm.myCourses.courses.ge, function(myCourse) {
+                      return _c("div", [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "uk-link-reset",
+                            attrs: { href: "/ge/course/" + myCourse.course.id }
+                          },
+                          [
                             _c(
-                              "a",
+                              "div",
                               {
-                                staticClass: "uk-link-reset",
-                                attrs: {
-                                  href: "/ge/course/" + myCourse.course.id
-                                }
+                                staticClass: "uk-padding-small uk-card-default"
                               },
                               [
+                                _c("progress", {
+                                  staticClass:
+                                    "uk-progress progress-green uk-margin-small-bottom",
+                                  staticStyle: { height: "7px" },
+                                  attrs: { id: "js-progressbar", max: "100" },
+                                  domProps: { value: myCourse.progress }
+                                }),
+                                _vm._v(" "),
+                                _c("img", {
+                                  staticClass:
+                                    "uk-align-left  uk-margin-small-right uk-margin-small-bottom  uk-width-1-3  uk-visible@s",
+                                  attrs: { src: myCourse.course.image, alt: "" }
+                                }),
+                                _vm._v(" "),
                                 _c(
-                                  "div",
+                                  "p",
                                   {
                                     staticClass:
-                                      "uk-padding-small uk-card-default"
+                                      "uk-text-bold uk-margin-remove",
+                                    staticStyle: {
+                                      overflow: "hidden",
+                                      "text-overflow": "ellipsis",
+                                      display: "-webkit-box",
+                                      "line-height": "16px",
+                                      "max-height": "16px",
+                                      "-webkit-line-clamp": "1",
+                                      "-webkit-box-orient": "vertical"
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(myCourse.course.name) + " ")]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  {
+                                    staticClass:
+                                      "uk-text-small uk-margin-remove",
+                                    staticStyle: {
+                                      overflow: "hidden",
+                                      "text-overflow": "ellipsis",
+                                      display: "-webkit-box",
+                                      "line-height": "16px",
+                                      "max-height": "32px",
+                                      "-webkit-line-clamp": "2",
+                                      "-webkit-box-orient": "vertical"
+                                    }
                                   },
                                   [
-                                    _c("progress", {
-                                      staticClass:
-                                        "uk-progress progress-green uk-margin-small-bottom",
-                                      staticStyle: { height: "7px" },
-                                      attrs: {
-                                        id: "js-progressbar",
-                                        max: "100"
-                                      },
-                                      domProps: { value: myCourse.progress }
-                                    }),
-                                    _vm._v(" "),
-                                    _c("img", {
-                                      staticClass:
-                                        "uk-align-left  uk-margin-small-right uk-margin-small-bottom  uk-width-1-3  uk-visible@s",
-                                      attrs: {
-                                        src: myCourse.course.image,
-                                        alt: ""
-                                      }
-                                    }),
-                                    _vm._v(" "),
-                                    _c(
-                                      "p",
-                                      {
-                                        staticClass:
-                                          "uk-text-bold uk-margin-remove",
-                                        staticStyle: {
-                                          overflow: "hidden",
-                                          "text-overflow": "ellipsis",
-                                          display: "-webkit-box",
-                                          "line-height": "16px",
-                                          "max-height": "16px",
-                                          "-webkit-line-clamp": "1",
-                                          "-webkit-box-orient": "vertical"
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          _vm._s(myCourse.course.name) + " "
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "p",
-                                      {
-                                        staticClass:
-                                          "uk-text-small uk-margin-remove",
-                                        staticStyle: {
-                                          overflow: "hidden",
-                                          "text-overflow": "ellipsis",
-                                          display: "-webkit-box",
-                                          "line-height": "16px",
-                                          "max-height": "32px",
-                                          "-webkit-line-clamp": "2",
-                                          "-webkit-box-orient": "vertical"
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          " " +
-                                            _vm._s(myCourse.course.description)
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _vm._m(1, true)
+                                    _vm._v(
+                                      " " + _vm._s(myCourse.course.description)
+                                    )
                                   ]
-                                )
+                                ),
+                                _vm._v(" "),
+                                _vm._m(0, true)
                               ]
                             )
-                          ])
-                        }),
-                        0
-                      )
-                    : _vm._e()
+                          ]
+                        )
+                      ])
+                    }),
+                    0
+                  )
                 ]
               )
-            : _vm._e()
+            : _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-flex align-items-center justify-content-center uk-wrap uk-width uk-height"
+                },
+                [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText))])]
+              )
         ]
       ),
       _vm._v(" "),
       _c("hr", { staticClass: " uk-margin-remove" }),
       _vm._v(" "),
-      _vm._m(2)
+      _c(
+        "h5",
+        {
+          staticClass:
+            "uk-padding-small uk-margin-remove uk-text-bold uk-text-center"
+        },
+        [
+          _c(
+            "a",
+            {
+              staticClass: "uk-link-heading",
+              attrs: { href: _vm.profileRoute }
+            },
+            [_vm._v(" " + _vm._s(_vm.seeAllText) + " ")]
+          )
+        ]
+      )
     ]
   )
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-clearfix" }, [
-      _c("div", { staticClass: "uk-float-left" }, [
-        _c(
-          "h5",
-          {
-            staticClass:
-              "uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"
-          },
-          [_vm._v("  Kurslarım ")]
-        )
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -13791,23 +13878,6 @@ var staticRenderFns = [
         [_c("i", { staticClass: "fas fa-play" }), _vm._v(" Devam Et")]
       )
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "h5",
-      {
-        staticClass:
-          "uk-padding-small uk-margin-remove uk-text-bold uk-text-center"
-      },
-      [
-        _c("a", { staticClass: "uk-link-heading", attrs: { href: "#" } }, [
-          _vm._v(" Tümünü Gör ")
-        ])
-      ]
-    )
   }
 ]
 render._withStripped = true
@@ -30042,7 +30112,8 @@ var mutations = {
     state.subCategories = index.data.sub_categories;
   },
   setSections: function setSections(state, index) {
-    state.sections = index.sections;
+    console.log(index);
+    state.sections = index.data.sections;
   },
   setSelectedLessonIndex: function setSelectedLessonIndex(state, lessonIndex) {
     state.selectedLessonIndex = lessonIndex;

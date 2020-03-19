@@ -80,6 +80,10 @@
                             <a href="#"> <i style="color: #424242" class="fas fa-play icon-medium" uk-tooltip="title: Kurslarım ; delay: 500 ; pos: bottom ;animation:	uk-animation-scale-up"></i></a>
                             <your-courses
                                 user-id="{{Auth::user()->id}}"
+                                profile-route="{{route('student_profile', Auth::user()->id)}}"
+                                no-content-text="@lang('front/auth.have_no_course')"
+                                see-all-text="@lang('front/auth.see_all')"
+                                my-courses-text="@lang('front/auth.my_courses')"
                             > </your-courses>
                         </li>
                         <li>

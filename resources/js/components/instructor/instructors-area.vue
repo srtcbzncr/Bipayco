@@ -16,21 +16,21 @@
             </div>
             <form id="instructorForm">
                 <div class="uk-margin-small" id="instructorsArea">
-                    <div v-for="(instructor,index) in instructors" class="uk-margin-small">
+                    <div v-for="(info,index) in instructorsInfo" class="uk-margin-small">
                         <div class="uk-grid align-items-center">
-                            <input type="text" hidden disabled name='instructorsId[]' :value="instructor.id">
+                            <input type="text" hidden disabled name='instructorsId[]' :value="info.instructor.id">
                             <div class="uk-width-3-5@m uk-margin-small-bottom">
                                 <div class="uk-form-label uk-hidden@m"> {{instructorText}}</div>
                                 <div class="uk-flex align-items-center">
-                                    <img class="user-profile-tiny uk-circle" :src="instructor.user.avatar">
-                                    <p class="uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right"><b>{{instructor.user.first_name}} {{instructor.user.last_name}}</b> <span v-if="instructor.is_manager">({{managerText}})</span></p>
+                                    <img class="user-profile-tiny uk-circle" :src="info.instructor.user.avatar">
+                                    <p class="uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right"><b>{{info.instructor.user.first_name}} {{info.instructor.user.last_name}}</b> <span v-if="instructor.is_manager">({{managerText}})</span></p>
                                 </div>
                             </div>
                             <div class="uk-width-1-5@m uk-margin-small-bottom">
                                 <div class="uk-form-label uk-hidden@m">{{percentText}}</div>
-                                <input type="number" name="percent[]" class="uk-input uk-padding-remove" max="100" min="1" required>
+                                <input type="number" v-model="info.percent" class="uk-input uk-padding-remove" max="100" min="1" required>
                             </div>
-                            <div v-if="!instructor.is_manager" class="uk-width-1-5@m uk-margin-small-bottom">
+                            <div v-if="!info.instructor.is_manager" class="uk-width-1-5@m uk-margin-small-bottom">
                                 <a class="uk-button-icon" @click="removeInstructor(index)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
                             </div>
                         </div>
@@ -104,13 +104,13 @@
         },
         data(){
             return{
-                instructors:[],
+                instructorsInfo:[],
                 hasInstructor:true,
             }
         },
         methods:{
             addInstructor:function(instructor) {
-                this.instructors.push(instructor);
+                this.instructorsInfo.push(instructor);
             },
             searchInstructor:function(){
                 var email=document.getElementById('instructorEmail').value;
@@ -121,7 +121,7 @@
                             UIkit.notification({message:response.message , status: 'danger'});
                         }else{
                             UIkit.notification({message:this.instructorAddedText, status: 'success'});
-                            this.addInstructor(response.data);
+                            this.addInstructor({instructor:response.data, percent:1});
                             console.log(this.instructors)
                         }
                     });
@@ -131,18 +131,21 @@
                 this.instructors.splice(index,1);
             },
             instructorPost:function(courseId) {
-                var instructorsInfo=[];
-                var percents=document.getElementsByName('percent[]');
-                for(var i=0;i<this.instructors.length; i++) {
-                    var id=this.instructors[i].id;
-                    var percent=percents[i].value;
+                var instructors=[];
+                for(var i=0;i<this.instructorsInfo.length; i++) {
+                    var id=this.instructorsInfo[i].instructor.id;
+                    var percent=instructorsInfo[i].percent;
                     console.log("id:"+id+ " percent:"+percent);
-                    instructorsInfo.push({'instructor_id':id,'percent': percent});
+                    instructors.push({'instructor_id':id,'percent': percent});
                 }
-                axios.post('/api/instructor/'+this.moduleName+'/course/'+courseId+'/instructors',instructorsInfo)
+                axios.post('/api/instructor/'+this.moduleName+'/course/'+courseId+'/instructors',instructors)
                     .then(response=>console.log(response)).catch((error) => {
                         UIkit.notification({message:error.message, status: 'danger'});
                     });
+                this.clearForm();
+            },
+            clearForm:function () {
+                document.getElementById('instructorEmail').value="";
             }
         },
         created() {
@@ -150,7 +153,7 @@
                 .then(response=>response.data.data)
                 .then(response=>{
                     for (var i=0; i<response.instructor.length; i++){
-                        this.addInstructor(response.instructor[i]);
+                        this.addInstructor({instructor:response.instructor[i], percent:1} );
                     }
                 });
         }

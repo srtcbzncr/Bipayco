@@ -2,11 +2,11 @@
     <div class="uk-card-default uk-card-hover uk-card-small uk-width Course-card uk-inline-clip uk-transition-toggle" tabindex="0">
         <div v-if="isLogin" class="uk-transition-slide-right-small uk-position-top-right uk-padding-small uk-position-z-index">
             <a class="uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge">
-                <i v-if="isFav||fav" class="fas fa-heart icon-medium" style="color: red"> </i>
+                <i v-if="fav" @click="removeFav" class="fas fa-heart icon-medium" style="color: red"> </i>
                 <i v-else  @click="addFav" class="fas fa-heart icon-medium"> </i>
             </a>
             <a class="uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge">
-                <i v-if="inCart||cart" class="fas fa-shopping-cart icon-medium" style="color: limegreen"> </i>
+                <i v-if="cart" class="fas fa-shopping-cart icon-medium" @click="removeCart" style="color: limegreen"> </i>
                 <i v-else class="fas fa-shopping-cart icon-medium" @click="addCart"> </i>
             </a>
         </div>
@@ -37,8 +37,8 @@ export default {
     name: "course-card",
     data(){
       return{
-          fav:false,
-          cart:false,
+          fav:this.isFav,
+          cart:this.inCart,
       }
     },
     components: {StarsRating},
@@ -112,6 +112,19 @@ export default {
                 console.log(response)
             })
         },
+        removeCart:function () {
+            Axios.post('/api/basket/delete', {
+                course_id:this.courseId,
+                module_name:this.moduleName,
+                user_id:this.userId,
+            })
+            .then(response=>{
+                if(!response.data.error) {
+                    this.cart = false;
+                }
+                console.log(response)
+            })
+        },
         addFav:function () {
             Axios.post('/api/favorite/add', {
                 course_id:this.courseId,
@@ -121,6 +134,19 @@ export default {
                 .then(response=>{
                     if(!response.data.error){
                         this.fav=true;
+                    }
+                    console.log(response)
+                })
+        },
+        removeFav:function () {
+            Axios.post('/api/favorite/delete', {
+                course_id:this.courseId,
+                module_name:this.moduleName,
+                user_id:this.userId,
+            })
+                .then(response=>{
+                    if(!response.data.error){
+                        this.fav=false;
                     }
                     console.log(response)
                 })

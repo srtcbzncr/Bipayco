@@ -2,7 +2,7 @@
     <div>
         <div class="">
             <select v-if="moduleName=='prepareLessons'" id="courseSubject" class="uk-width uk-select">
-                <option disabled hidden selected> {{subjectNameText}} </option>
+                <option disabled hidden selected value=""> {{subjectNameText}} </option>
                 <option v-for="subject in courseSubjects" :value="subject.id" > {{subject.name}}</option>
             </select>
             <input class="uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m" type="text" id="sectionInput" :placeholder="addDefaultSectionText">
@@ -33,6 +33,7 @@
 <script>
     import {mapState, mapActions} from "vuex";
     import courseSection from "./course-section.vue";
+    import axios from'axios'
 
     export default {
         name: "add-section",
@@ -119,8 +120,14 @@
                             UIkit.notification({message:response.message, status: 'success'});
                         }
                     });
-                document.getElementById('sectionInput').value="";
+                this.clearForm();
             },
+            clearForm:function () {
+                document.getElementById('sectionInput').value="";
+                if(this.moduleName='prepareLessons'){
+                    document.getElementById('courseSubject').value="";
+                }
+            }
         },
         created() {
             this.$store.dispatch('loadSections',[this.moduleName, this.courseId]);

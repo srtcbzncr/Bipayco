@@ -30,8 +30,8 @@
                                 ></lesson-type-select>
                             @else
                                 <lesson-type-select
-                                    grade-default-text=""
-                                    lesson-default-text=""
+                                    grade-default-text="@lang('front/auth.grade')"
+                                    lesson-default-text="@lang('front/auth.lesson')"
                                 ></lesson-type-select>
                             @endif
                             <div class="uk-margin-remove-bottom uk-margin-remove-top">

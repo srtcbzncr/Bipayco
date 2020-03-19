@@ -158,5 +158,8 @@ return [
     'single_choice'=>'Çoktan Seçmeli',
     'multi_choice'=>'Çoklu Seçmeli',
     'question_source'=>'Soru Havuzu',
-    'choose_question_type'=>'Soru Tipi Seçiniz'
+    'choose_question_type'=>'Soru Tipi Seçiniz',
+    'add_cart'=>'Sepete Ekle',
+    'see_all'=>'Tümünü Gör',
+    'have_no_course'=>'Kurs Bulunmamaktadır'
 ];

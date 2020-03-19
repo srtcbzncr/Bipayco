@@ -2,13 +2,13 @@
     <div uk-dropdown="pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small" class="uk-dropdown border-radius-6  uk-dropdown-top-right tm-dropdown-large uk-padding-remove">
         <div class="uk-clearfix">
             <div class="uk-float-left">
-                <h5  class="uk-padding-small uk-margin-remove uk-text-bold  uk-text-left">  Kurslarım </h5>
+                <h5  class="uk-padding-small uk-margin-remove uk-text-bold  uk-text-left">  {{myCoursesText}} </h5>
             </div>
         </div>
         <hr class=" uk-margin-remove">
-        <div class="uk-padding-smaluk-text-left uk-height-medium">
-            <div v-if="myCourses.courses != null" class="demo1" data-simplebar style="overflow-y:auto">
-                <div v-if="myCourses.courses.ge.length>0" class="uk-child-width-1-2@s  uk-grid-small uk-padding-small"  uk-scrollspy="target: > div; cls:uk-animation-slide-bottom-small; delay: 100 ;repeat: true" uk-grid>
+        <div class="uk-padding-small uk-text-left uk-height-medium">
+            <div v-if="myCourses.courses != null && myCourses.courses.ge.length>0" class="demo1" data-simplebar style="overflow-y:auto">
+                <div class="uk-child-width-1-2@s  uk-grid-small uk-padding-small"  uk-scrollspy="target: > div; cls:uk-animation-slide-bottom-small; delay: 100 ;repeat: true" uk-grid>
                     <div  v-for="myCourse in myCourses.courses.ge">
                         <a :href="'/ge/course/'+myCourse.course.id" class="uk-link-reset">
                             <div class="uk-padding-small uk-card-default">
@@ -24,9 +24,12 @@
                     </div>
                 </div>
             </div>
+            <div v-else class="uk-flex align-items-center justify-content-center uk-wrap uk-width uk-height">
+                <h4> {{noContentText}}</h4>
+            </div>
         </div>
         <hr class=" uk-margin-remove">
-        <h5 class="uk-padding-small uk-margin-remove uk-text-bold uk-text-center"><a class="uk-link-heading" href="#"> Tümünü Gör </a> </h5>
+        <h5 class="uk-padding-small uk-margin-remove uk-text-bold uk-text-center"><a class="uk-link-heading" :href="profileRoute"> {{seeAllText}} </a> </h5>
     </div>
 </template>
 
@@ -40,9 +43,21 @@ export default {
             type:String,
             required:true,
         },
-        noContent:{
+        noContentText:{
             type:String,
             default:'Hiç Kursa Sahip Değilsin'
+        },
+        seeAllText:{
+            type:String,
+            default:"Tümünü Gör"
+        },
+        profileRoute:{
+            type:String,
+            required:true,
+        },
+        myCoursesText:{
+            type:String,
+            default:"Kurslarım"
         }
     },
     computed:{

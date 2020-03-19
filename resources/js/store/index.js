@@ -99,7 +99,8 @@ const mutations={
         state.subCategories=index.data.sub_categories;
     },
     setSections(state,index){
-        state.sections=index.sections;
+        console.log(index);
+        state.sections=index.data.sections;
     },
     setSelectedLessonIndex(state,lessonIndex){
         state.selectedLessonIndex=lessonIndex;

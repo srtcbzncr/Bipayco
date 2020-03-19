@@ -166,7 +166,9 @@
             }
         },
         mounted() {
-            this.$store.dispatch('loadCourseSubjects', [this.moduleName, this.courseId]);
+            if(this.moduleName=='prepareLessons'){
+                this.$store.dispatch('loadCourseSubjects', [this.moduleName, this.courseId]);
+            }
         }
     }
 </script>
