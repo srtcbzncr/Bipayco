@@ -352,15 +352,27 @@ class CourseController extends Controller
     }
 
     public function instructorsPost($id,Request $request){
-        return $request->toArray();
         $user = null;
         $data = $request->toArray();
-        $geCoursesInstructor =  DB::table('ge_courses_instructors')->where('id',$data[0]['instructor_id'])->get();
-        if($geCoursesInstructor[0]->is_manager == true){
-            $instructor = Instructor::find($geCoursesInstructor[0]->instructor_id);
-            $user = User::find($instructor->user_id);
+        $geCoursesInstructor =  DB::table('ge_courses_instructors')->where('course_type','App\Models\PrepareLessons\Course')
+            ->where('course_id',$id)->get();
+        foreach ($geCoursesInstructor as $item){
+            if($item->is_manager == true){
+                $instructor = Instructor::find($item->instructor_id);
+                $user = User::find($instructor->user_id);
+                break;
+            }
         }
-        return $geCoursesInstructor;
+
+        // percent control
+        foreach ($data as $item){
+            if(!isset($item['percent']) and $item['percent'] ==null){
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Eğitimenler kursa eklenirken hata oluştu.Tekrar deneyin.'
+                ],400);
+            }
+        }
 
         $course = Course::find($id);
         if($this->checkManagerPolicy($user,$course)){
@@ -423,8 +435,7 @@ class CourseController extends Controller
             $data['instructor'] = $respCourse->getData();
             $i=0;
             foreach ($data['instructor'] as $instructor){
-                $ins = Instructor::find($instructor->instructor_id);
-                $user = User::find($ins->user_id);
+                $user = User::find($instructor->user_id);
                 $data['instructor'][$i]->user = $user;
                 $i++;
             }

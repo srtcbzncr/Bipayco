@@ -690,10 +690,10 @@ class CourseController extends Controller
     }
 
     public function instructorsPost($id,Request $request){
-        return $request->toArray();
         $user = null;
         $data = $request->toArray();
-        $geCoursesInstructor =  DB::table('ge_courses_instructors')->where('id',$data[0]['instructor_id'])->get();
+        $geCoursesInstructor =  DB::table('ge_courses_instructors')->where('course_type','App\Models\GeneralEducation\Course')
+            ->where('instructor_id',$data[0]['instructor_id'])->where('course_id',$id)->get();
         if($geCoursesInstructor[0]->is_manager == true){
             $instructor = Instructor::find($geCoursesInstructor[0]->instructor_id);
             $user = User::find($instructor->user_id);
@@ -712,15 +712,13 @@ class CourseController extends Controller
             }
         }*/
 
-        $readyData = array();
-        foreach ($data as $key => $item){
-            if($key == 0){
-                $readyData[$key]['instructor_id'] = $geCoursesInstructor[0]->instructor_id;
-                $readyData[$key]['percent'] = $item['percent'];
-            }
-            else{
-                $readyData[$key]['instructor_id'] = $item['instructor_id'];
-                $readyData[$key]['percent'] = $item['percent'];
+        // percent control
+        foreach ($data as $item){
+            if(!isset($item['percent']) and $item['percent'] ==null){
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Eğitimenler kursa eklenirken hata oluştu.Tekrar deneyin.'
+                ],400);
             }
         }
 
@@ -731,7 +729,7 @@ class CourseController extends Controller
             $data = $request->toArray();
 
             // Operations
-            $resp = $repo->syncInstructor($id,$readyData,$data[0]['instructor_id']);
+            $resp = $repo->syncInstructor($id,$data);
             if($resp->getResult()){
                 return response()->json([
                     'error' => false,
@@ -764,8 +762,7 @@ class CourseController extends Controller
             $data['instructor'] = $respCourse->getData();
             $i=0;
             foreach ($data['instructor'] as $instructor){
-                $ins = Instructor::find($instructor->instructor_id);
-                $user = User::find($ins->user_id);
+                $user = User::find($instructor->user_id);
                 $data['instructor'][$i]->user = $user;
                 $i++;
             }

@@ -886,7 +886,7 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
-    public function syncInstructor($course_id,$data,$table_id){
+    public function syncInstructor($course_id,$data){
         // Response variables
         $result = true;
         $error = null;
@@ -915,28 +915,15 @@ class CourseRepository implements IRepository{
             DB::beginTransaction();
             $course = Course::find($course_id);
             DB::table("ge_courses_instructors")->where('course_id',$course_id)
-                ->where('course_type','App\Models\GeneralEducation\Course')
-                ->where('is_manager',false)->delete();
+                ->where('course_type','App\Models\GeneralEducation\Course')->delete();
             foreach ($data as $key => $item){
-                if($key == 0){
-                    DB::table('ge_courses_instructors')->where('id',$table_id)
-                        ->update(array(
-                        'course_id' => $course_id,
-                        'course_type' => 'App\Models\GeneralEducation\Course',
-                        'instructor_id' => $item['instructor_id'],
-                        'is_manager' => $isManagers[$key],
-                        'percent' => $item['percent'],
-                    ));
-                }
-                else{
-                    DB::table("ge_courses_instructors")->insert(array(
-                        'course_id' => $course_id,
-                        'course_type' => 'App\Models\GeneralEducation\Course',
-                        'instructor_id' => $item['instructor_id'],
-                        'is_manager' => $isManagers[$key],
-                        'percent' => $item['percent'],
-                    ));
-                }
+                DB::table("ge_courses_instructors")->insert(array(
+                    'course_id' => $course_id,
+                    'course_type' => 'App\Models\GeneralEducation\Course',
+                    'instructor_id' => $item['instructor_id'],
+                    'is_manager' => $isManagers[$key],
+                    'percent' => $item['percent'],
+                ));
             }
             $object = $course->instructors;
             DB::commit();
@@ -960,12 +947,28 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            DB::beginTransaction();
-            $object =  DB::table("ge_courses_instructors")->where('course_id',$id)->where('course_type','App\Models\GeneralEducation\Course')->where('active',true)->get();
-            DB::commit();
+            $geCourseInstructor =  DB::table("ge_courses_instructors")->where('course_id',$id)->where('course_type','App\Models\GeneralEducation\Course')->where('active',true)->get();
+            foreach ($geCourseInstructor as $key => $item){
+                if($item->is_manager == true){
+                    $temp = $geCourseInstructor[0];
+                    $geCourseInstructor[0] = $item;
+                    $geCourseInstructor[$key] = $temp;
+                    break;
+                }
+            }
+            $object = array();
+            foreach ($geCourseInstructor as $key => $item){
+                if($item->is_manager == true){
+                    $object[$key] = Instructor::find($item->instructor_id);
+                    $object[$key]['is_manager'] = true;
+                }
+                else{
+                    $object[$key] = Instructor::find($item->instructor_id);
+                    $object[$key]['is_manager'] = false;
+                }
+            }
         }
         catch(\Exception $e){
-            DB::rollBack();
             $error = $e;
             $result = false;
         }
