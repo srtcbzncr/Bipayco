@@ -803,7 +803,7 @@ class CourseController extends Controller
             return response()->json([
                 'error' => false,
                 'message' => 'Bölümler başarıyla güncellendi',
-                'data' => $resp->getData()
+               // 'data' => $resp->getData()
             ]);
         }
 
@@ -823,7 +823,7 @@ class CourseController extends Controller
             return response()->json([
                 'error' => false,
                 'message' => 'Bölümler başarıyla güncellendi',
-                'data' => $resp->getData()
+                //'data' => $resp->getData()
             ]);
         }
 
@@ -844,7 +844,7 @@ class CourseController extends Controller
             return response()->json([
                 'error' => false,
                 'message' => 'Dersler başarıyla güncellendi',
-                'data' => $resp->getData()
+               // 'data' => $resp->getData()
             ]);
         }
 
@@ -864,7 +864,7 @@ class CourseController extends Controller
             return response()->json([
                 'error' => false,
                 'message' => 'Dersler başarıyla güncellendi',
-                'data' => $resp->getData()
+                //'data' => $resp->getData()
             ]);
         }
 

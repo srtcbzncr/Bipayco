@@ -201,7 +201,7 @@ class LessonRepository implements IRepository{
                 }
                 $before_lesson = $lesson;
             }
-            $object = Lesson::where('section_id',$section_id)->orderBy('no','asc')->get();
+           // $object = Lesson::where('section_id',$section_id)->orderBy('no','asc')->get();
         }
         catch(\Exception $e){
             $error = $e;
@@ -236,7 +236,7 @@ class LessonRepository implements IRepository{
                     break;
                 }
             }
-            $object = Lesson::where('section_id',$section_id)->orderBy('no','asc')->get();
+            //$object = Lesson::where('section_id',$section_id)->orderBy('no','asc')->get();
         }
         catch(\Exception $e){
             $error = $e;

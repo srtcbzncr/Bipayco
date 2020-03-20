@@ -153,7 +153,7 @@ class SectionRepository implements IRepository{
                 }
                 $before_section = $section;
             }
-            $object = Section::where('course_id',$course_id)->where('active',true)->get();
+            //$object = Section::where('course_id',$course_id)->where('active',true)->get();
         }
         catch(\Exception $e){
             $error = $e;
@@ -188,7 +188,7 @@ class SectionRepository implements IRepository{
                     break;
                 }
             }
-            $object =  Section::where('course_id',$course_id)->where('active',true)->get();
+            //$object =  Section::where('course_id',$course_id)->where('active',true)->get();
         }
         catch(\Exception $e){
             $error = $e;
