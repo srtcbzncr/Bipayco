@@ -5459,7 +5459,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
     },
     lessonDown: function lessonDown(lessonId) {
-      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.sections[this.selectedSectionIndex].id + '/lesson/' + lessonId + '/up').then(function (response) {
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.sections[this.selectedSectionIndex].id + '/lesson/' + lessonId + '/down').then(function (response) {
         return console.log(response.data);
       }).then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
     }
@@ -6086,8 +6086,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     if (this.userId != null) {
       this.$store.dispatch('loadMyCourses', this.userId);
     }
-  },
-  components: {}
+  }
 });
 
 /***/ }),

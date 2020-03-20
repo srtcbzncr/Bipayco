@@ -72,11 +72,9 @@ export default {
     },
     created () {
         if(this.userId != null){
-            this.$store.dispatch('loadMyCourses',this.userId);
+            this.$store.dispatch('loadMyCourses', this.userId);
         }
     },
-    components: {
-    }
 }
 </script>
 
