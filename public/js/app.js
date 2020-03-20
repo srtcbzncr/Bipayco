@@ -12983,13 +12983,29 @@ var render = function() {
                                 "uk-margin-small-left uk-padding-remove uk-flex uk-flex-column uk-width-1-4"
                             },
                             [
-                              _c("a", { on: { click: _vm.lessonUp } }, [
-                                _c("i", { staticClass: "fas fa-sort-up" })
-                              ]),
+                              _c(
+                                "a",
+                                {
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.lessonUp(lesson.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-sort-up" })]
+                              ),
                               _vm._v(" "),
-                              _c("a", { on: { click: _vm.lessonDown } }, [
-                                _c("i", { staticClass: "fas fa-sort-down" })
-                              ])
+                              _c(
+                                "a",
+                                {
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.lessonDown(lesson.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-sort-down" })]
+                              )
                             ]
                           )
                         ]
