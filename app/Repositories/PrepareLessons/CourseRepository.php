@@ -861,7 +861,7 @@ class CourseRepository implements IRepository{
 
             $object = array();
             $course = Course::find($id);
-            $sections = $course->sections->where('active', true);
+            $sections = Section::where('course_id',$id)->where('active',true)->orderBy('no','asc')->get();
             foreach ($sections as $keySection=>$section){
                 $subject = Subject::find($section->subject_id);
                 $sections[$keySection]['subject_name'] = $subject->name;
@@ -869,7 +869,7 @@ class CourseRepository implements IRepository{
 
             $object['sections'] = $sections;
             foreach ($sections as $key => $section){
-                $lessons = $section->lessons;
+                $lessons = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
                 $object['sections'][$key]['lessons'] = $lessons;
                 foreach ($lessons as $keyLesson => $lesson){
                     $sources = $lesson->sources;
