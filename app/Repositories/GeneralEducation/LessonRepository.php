@@ -385,6 +385,7 @@ class LessonRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
+            print_r($lesson_id);
             $lessons = Lesson::where('section_id',$section_id)->orderBy('no','asc')->get();
             $before_lesson = null;
             foreach ($lessons as $key=> $lesson){
