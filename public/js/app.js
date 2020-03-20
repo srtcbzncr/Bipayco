@@ -5239,6 +5239,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -5264,6 +5266,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "question-source-list",
@@ -5271,10 +5298,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     userId: {
       type: String,
       required: true
+    },
+    questionText: {
+      type: String,
+      "default": "Soru"
+    },
+    lessonText: {
+      type: String,
+      "default": "Ders"
+    },
+    difficultyText: {
+      type: String,
+      "default": "Zorluk Seviyesi"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['questionSource'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadQuestionSource'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadQuestionSource']), {
+    deleteQuestion: function deleteQuestion(questionId) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/questionSource/delete/' + questionId).then(this.$store.dispatch('loadQuestionSource', this.userId));
+    },
+    editPageRoute: function editPageRoute(questionId) {
+      window.location.replace('/questionSource/' + questionId);
+    }
+  }),
   created: function created() {
     this.$store.dispatch('loadQuestionSource', this.userId);
   }
@@ -12745,41 +12791,116 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    _vm._l(_vm.questionSource, function(question, index) {
-      return _c(
-        "div",
-        {
-          staticClass:
-            "uk-grid align-items-center justify-content-center uk-margin-top"
-        },
-        [
-          _c("div", { staticClass: "uk-width-1-6" }, [
-            _c("div", { staticClass: "uk-form-label" }, [
-              _vm._v(" " + _vm._s(index + 1) + " ")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "uk-width-1-2" }, [
-            _c("div", { staticClass: "uk-form-label" }, [
-              _vm._v(" " + _vm._s(question.text) + " ")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "uk-width-1-6" }, [
-            _c("div", { staticClass: "uk-form-label" }, [
-              _vm._v(" " + _vm._s(question.lesson) + " ")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "uk-width-1-6" }, [
-            _c("div", { staticClass: "uk-form-label" }, [
-              _vm._v(" " + _vm._s(question.level) + " ")
-            ])
-          ])
-        ]
-      )
-    }),
-    0
+    {
+      staticClass:
+        "uk-card uk-card-default uk-margin-medium-top border-radius-6 uk-height"
+    },
+    [
+      _c("div", { staticClass: "uk-card-body uk-padding-small" }, [
+        _vm.questionSource.length > 0
+          ? _c(
+              "div",
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-grid align-items-center justify-content-center"
+                  },
+                  [
+                    _c("div", { staticClass: "uk-width-1-6" }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-width-1-2" }, [
+                      _c("h4", { staticClass: "uk-form-label" }, [
+                        _vm._v(" " + _vm._s(_vm.questionText) + " ")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-width-1-6" }, [
+                      _c("h4", { staticClass: "uk-form-label" }, [
+                        _vm._v(" " + _vm._s(_vm.lessonText) + " ")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-width-1-6 text-center" }, [
+                      _c("h4", { staticClass: "uk-form-label" }, [
+                        _vm._v(" " + _vm._s(_vm.difficultyText) + " ")
+                      ])
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("hr", { staticClass: "uk-margin-small-top" }),
+                _vm._v(" "),
+                _vm._l(_vm.questionSource, function(question) {
+                  return _c("div", { staticClass: "uk-margin-bottom" }, [
+                    _c("div", { staticClass: "uk-grid align-items-center" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "uk-width-1-6 uk-flex uk-child-width-1-4@m text-center"
+                        },
+                        [
+                          _c("i", {
+                            staticClass: "fas fa-trash-alt text-danger",
+                            on: {
+                              click: function($event) {
+                                return _vm.deleteQuestion(question.id)
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _c("i", {
+                            staticClass: "fas fa-cog",
+                            on: {
+                              click: function($event) {
+                                return _vm.editPageRoute(question.id)
+                              }
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "uk-width-1-2" }, [
+                        _c("h6", [_vm._v(" " + _vm._s(question.text) + " ")])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "uk-width-1-6" }, [
+                        _c("h6", [
+                          _vm._v(" " + _vm._s(question.lesson.name) + " ")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "uk-width-1-6 text-center" }, [
+                        _c("h6", [_vm._v(" " + _vm._s(question.level) + " ")])
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("hr")
+                  ])
+                })
+              ],
+              2
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.questionSource.length <= 0
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "uk-width uk-flex align-item-center justify-content-center uk-padding"
+              },
+              [
+                _c("h4", { staticClass: "uk-margin-remove" }, [
+                  _vm._v("Soru Bulunmamaktadır")
+                ])
+              ]
+            )
+          : _vm._e()
+      ])
+    ]
   )
 }
 var staticRenderFns = []
@@ -30323,7 +30444,7 @@ var mutations = {
     state.courseSubjects = subject.data;
   },
   setQuestionSource: function setQuestionSource(state, question) {
-    console.log(question);
+    console.log(question.data);
     state.questionSource = question.data;
   }
 };

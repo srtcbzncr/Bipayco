@@ -161,5 +161,8 @@ return [
     'choose_question_type'=>'Soru Tipi Seçiniz',
     'add_cart'=>'Sepete Ekle',
     'see_all'=>'Tümünü Gör',
-    'have_no_course'=>'Kurs Bulunmamaktadır'
+    'have_no_course'=>'Kurs Bulunmamaktadır',
+    'question'=>'Soru',
+    'difficulty'=>'Zorluk Seviyesi',
+    'lesson'=>'Ders'
 ];

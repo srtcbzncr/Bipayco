@@ -130,7 +130,7 @@ const mutations={
         state.courseSubjects=subject.data;
     },
     setQuestionSource(state,question){
-        console.log(question);
+        console.log(question.data);
         state.questionSource=question.data;
     }
 };
