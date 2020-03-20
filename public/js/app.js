@@ -4326,7 +4326,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     clearForm: function clearForm() {
       document.getElementById('sectionInput').value = "";
 
-      if (this.moduleName = 'prepareLessons') {
+      if (this.moduleName == 'prepareLessons') {
         document.getElementById('courseSubject').value = "";
       }
     }

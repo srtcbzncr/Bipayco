@@ -124,7 +124,7 @@
             },
             clearForm:function () {
                 document.getElementById('sectionInput').value="";
-                if(this.moduleName='prepareLessons'){
+                if(this.moduleName=='prepareLessons'){
                     document.getElementById('courseSubject').value="";
                 }
             }
