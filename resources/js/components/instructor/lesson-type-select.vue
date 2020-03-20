@@ -4,14 +4,14 @@
             <div class="uk-width-1-2@l">
                 <select class='uk-select uk-margin-small-bottom' id="gradeType" required>
                     <option v-if="hasSelectedOption" hidden selected :value="selectedGradeId">{{selectedGrade}} </option>
-                    <option disabled hidden selected value="">{{gradeDefaultText}}</option>
+                    <option v-else disabled hidden selected value="">{{gradeDefaultText}}</option>
                     <option v-for='grade in plLessonType.grade' :value='grade.id'>{{grade.name}}</option>
                 </select>
             </div>
             <div class="uk-width-1-2@l">
                 <select class="uk-select" id="lessonType" required>
                     <option v-if="hasSelectedOption" hidden selected :value="selectedLessonId">{{selectedLesson}} </option>
-                    <option disabled hidden selected value="">{{lessonDefaultText}}</option>
+                    <option v-else disabled hidden selected value="">{{lessonDefaultText}}</option>
                     <option v-for='lesson in plLessonType.lesson' :value='lesson.id'>{{lesson.name}}</option>
                 </select>
             </div>
@@ -51,6 +51,7 @@
             },
             hasSelectedOption:{
                 type:Boolean,
+                default:false,
             }
         },
         computed:{

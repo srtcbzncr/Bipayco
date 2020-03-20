@@ -99,7 +99,7 @@
             },
             moduleName:{
                 type:String,
-                required:true,
+                required:true
             }
         },
         data(){

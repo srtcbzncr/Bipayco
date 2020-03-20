@@ -15,6 +15,7 @@
                     single-choice-text="@lang('front/auth.single_choice')"
                     multi-choice-text="@lang('front/auth.multi_choice')"
                     fill-blank-text="@lang('front/auth.fill_in_the_blank')"
+                    question-source-route="{{route('questionSource_show')}}"
                 > </add-question>
             </div>
         </div>

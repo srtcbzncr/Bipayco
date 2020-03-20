@@ -18,7 +18,7 @@
         <div class="uk-margin-remove-top">
             <div class="uk-form-label">{{lessonsText}}</div>
             <div class="tm-course-section-list">
-                <ul v-if="sections[selectedSectionIndex].lessons>0">
+                <ul v-if="sections[selectedSectionIndex].lessons.length>0">
                     <li v-for="(lesson,lessonIndex) in sections[selectedSectionIndex].lessons" class="uk-card uk-card-default uk-padding-small uk-flex align-items-center justify-content-between">
                         <div class="uk-grid uk-margin-remove uk-padding-remove">
                             <div class="uk-width-5-6@m uk-width uk-padding-remove-right">

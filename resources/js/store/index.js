@@ -68,6 +68,7 @@ const state={
         id:"",
         name:"",
     }],
+    questionSource:{},
 };
 const getters={};
 const mutations={
@@ -127,6 +128,10 @@ const mutations={
     },
     setCourseSubjects(state,subject){
         state.courseSubjects=subject.data;
+    },
+    setQuestionSource(state,question){
+        console.log(question);
+        state.questionSource=question.data;
     }
 };
 const actions={
@@ -210,6 +215,10 @@ const actions={
     loadLessonSubjects({commit}, lessonId){
         Axios.get('/api/instructor/subjects/lesson/'+lessonId)
             .then(response=>commit('setCourseSubjects',response.data))
+    },
+    loadQuestionSource({commit},userId){
+        Axios.get('/api/questionSource/getQuestions/'+userId)
+            .then(response=>commit('setQuestionSource', response.data))
     }
 };
 
