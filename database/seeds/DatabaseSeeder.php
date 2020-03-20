@@ -96,7 +96,7 @@ class DatabaseSeeder extends Seeder
         factory(Comment::class, 1000)->create();
         factory(Discount::class, 100)->create();
         factory(Entry::class, 200)->create();
-        factory(Favorite::class, 200)->create();
+       // factory(Favorite::class, 200)->create();
         factory(Notice::class, 300)->create();
         factory(Purchase::class, 200)->create();
         factory(Question::class, 200)->create();

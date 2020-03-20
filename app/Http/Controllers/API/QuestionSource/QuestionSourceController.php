@@ -11,7 +11,6 @@ use Illuminate\Support\Str;
 class QuestionSourceController extends Controller
 {
     public function create(Request $request){
-
         // Initializing
         $repo = new QuestionSourceRepository();
         $data = $request->toArray();
@@ -67,6 +66,7 @@ class QuestionSourceController extends Controller
         return response()->json([
             'error' => true,
             'message' => 'Sorular getirilirken hata meydana geldi.Tekrar deneyin',
+            'errorMessage' => $resp->getError()
         ],400);
     }
 

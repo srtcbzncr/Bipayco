@@ -6,6 +6,8 @@ namespace App\Repositories\QuestionSource;
 
 use App\Models\Auth\Instructor;
 use App\Models\Auth\User;
+use App\Models\Curriculum\Lesson;
+use App\Models\Curriculum\Subject;
 use App\Models\QuestionSource\GapFilling;
 use App\Models\QuestionSource\MultiChoice;
 use App\Models\QuestionSource\Question;
@@ -35,6 +37,15 @@ class QuestionSourceRepository implements IRepository
             $user = User::find($id);
             $instructor = Instructor::where('user_id',$user->id)->first();
             $questions = Question::where('instructorId',$instructor->id)->get();
+
+            // subject ve lesson bilgisinide getir
+            foreach ($questions as $key=> $question){
+                $subject = Subject::find($question->crSubjectId);
+                $lesson = Lesson::find($question->crLessonId);
+                $questions[$key]['lesson'] = $lesson;
+                $questions[$key]['subject'] = $subject;
+            }
+
             $object = $questions;
         }
         catch(\Exception $e){
