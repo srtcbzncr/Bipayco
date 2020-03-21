@@ -243,24 +243,31 @@ class SubCategoryRepository implements IRepository{
 
         // Operations
         try{
-            $subCategory = SubCategory::find($id);
-            $object = $subCategory->courses;
             $user = Auth::user();
-            foreach ($object as $key => $course){
-                $controlBasket = Basket::where('user_id',$user->id)->where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
-                if($controlBasket != null and count($controlBasket)>0){
-                    $object[$key]['inBasket'] = true;
-                }
-                else{
-                    $object[$key]['inBasket'] = false;
-                }
+            if($user == null){
+                $subCategory = SubCategory::find($id);
+                $object = $subCategory->courses;
+            }
+            else{
+                $subCategory = SubCategory::find($id);
+                $object = $subCategory->courses;
 
-                $controlFav = Favorite::where('user_id',$user->id)->where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
-                if($controlFav != null and count($controlFav)>0){
-                    $object[$key]['inFavorite'] = true;
-                }
-                else{
-                    $object[$key]['inFavorite'] = false;
+                foreach ($object as $key => $course){
+                    $controlBasket = Basket::where('user_id',$user->id)->where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
+                    if($controlBasket != null and count($controlBasket)>0){
+                        $object[$key]['inBasket'] = true;
+                    }
+                    else{
+                        $object[$key]['inBasket'] = false;
+                    }
+
+                    $controlFav = Favorite::where('user_id',$user->id)->where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
+                    if($controlFav != null and count($controlFav)>0){
+                        $object[$key]['inFavorite'] = true;
+                    }
+                    else{
+                        $object[$key]['inFavorite'] = false;
+                    }
                 }
             }
         }

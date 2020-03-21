@@ -95,20 +95,25 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $user = Auth::user();
-            $object = Course::find($id);
-            $controlBasket = Basket::where('user_id',$user->id)->where('course_id',$id)->where('course_type','App\Models\GeneralEducation\Course')->get();
-            if($controlBasket != null and count($controlBasket) > 0){
-                $object['inBasket'] = true;
+            if($user == null){
+                $object = Course::find($id);
             }
             else{
-                $object['inBasket'] = false;
-            }
-            $controlFav = Favorite::where('user_id',$user->id)->where('course_id',$id)->where('course_type','App\Models\GeneralEducation\Course')->get();
-            if($controlFav != null and count($controlFav) > 0){
-                $object['inFavorite'] = true;
-            }
-            else{
-                $object['inFavorite'] = false;
+                $object = Course::find($id);
+                $controlBasket = Basket::where('user_id',$user->id)->where('course_id',$id)->where('course_type','App\Models\GeneralEducation\Course')->get();
+                if($controlBasket != null and count($controlBasket) > 0){
+                    $object['inBasket'] = true;
+                }
+                else{
+                    $object['inBasket'] = false;
+                }
+                $controlFav = Favorite::where('user_id',$user->id)->where('course_id',$id)->where('course_type','App\Models\GeneralEducation\Course')->get();
+                if($controlFav != null and count($controlFav) > 0){
+                    $object['inFavorite'] = true;
+                }
+                else{
+                    $object['inFavorite'] = false;
+                }
             }
         }
         catch(\Exception $e){
