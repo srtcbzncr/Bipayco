@@ -194,7 +194,7 @@
                 formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
-                .then(result=>window.location.replace('/instructor/'+url+'/course/create/'+result.data.result.id))
+                .then(result=>window.location.replace('/instructor/'+url+'/course/create/'+courseId))
                 .catch((error) => {
                     UIkit.notification({message:error.message, status: 'danger'});
                     console.log(error.message)
