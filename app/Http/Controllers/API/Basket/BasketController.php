@@ -62,7 +62,8 @@ class BasketController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'message' => 'Sepet başarıyla getirildi'
+                'message' => 'Sepet başarıyla getirildi',
+                'data' => $resp->getData()
             ]);
         }
         else{
