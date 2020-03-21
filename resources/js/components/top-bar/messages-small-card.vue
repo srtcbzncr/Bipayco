@@ -4,38 +4,17 @@
         <hr class=" uk-margin-remove">
         <div class="uk-text-left uk-height-medium">
             <div uk-scrollspy="target: > div; cls:uk-animation-slide-bottom-small; delay: 100"  style="overflow-y:auto" data-simplebar>
-
-                <!--<div v-for="course in coursesInCart" class=" uk-padding-small  uk-background-light uk-inline-clip uk-transition-toggle" tabindex="0">
-                    <div class="uk-transition-slide-right-small uk-position-top-right uk-position-z-index uk-margin-small-right">
-                        <a class="uk-button uk-padding-remove" uk-icon="icon: trash" href="#"></a>
-                    </div>
-                    <div class="uk-transition-slide-right-medium uk-position-top-right uk-margin-medium-right">
-                        <a class="uk-button uk-padding-remove" uk-icon="icon: reply" href="#"></a>
-                    </div>
-                    <div class="uk-flex-middle uk-grid-small uk-grid" uk-grid="">
-                        <div class="uk-width-3-4">
-                            <p class="uk-margin-remove-bottom uk-text-bold">{{course.name}}  </p>
-                            <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right" style="float:right; font-weight: bold; font-size: 16px;">{{currentPrice.toFixed(2)}}$</p>
-                            <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right" style="float:right; text-decoration: line-through; opacity: 0.75; font-size: 13px" v-if="discount">{{prevPrice.toFixed(2)}}$</p>
-                            <p class="uk-margin-remove-top uk-text-small uk-text-muted"></p>
+                <div v-for="item in shoppingCart">
+                    <div class="uk-grid align-items-center shoppingItem">
+                        <div class="uk-flex uk-width-5-6 align-item-center justify-content-center">
+                            <p class="uk-width-3-4 align-items-center uk-margin-remove">{{item.course.name}}</p>
+                            <p class="uk-width-1-4 text-center">{{item.course.price_with_discount}}  <i class="fas fa-lira-sign icon-tiny"></i></p>
                         </div>
-                        <div class="uk-width-1-4 uk-flex-first uk-first-column">
-                            <img src="#" alt="Image" class="uk-border-circle">
+                        <div class="uk-width-1-6 text-left">
+                            <i class="fas fa-trash-alt text-danger" @click="removeCourse(item.course_id, item.course_type)"></i>
                         </div>
                     </div>
-                </div>-->
-                <div class="">
-
-                </div>
-                <div class="uk-card uk-card-default uk-grid-divider uk-child-width-1-4@s uk-margin uk-height-small" uk-grid>
-                    <div class="uk-card-media-left uk-cover-container">
-                        <img src="" alt="" class="img-small" uk-cover>
-                    </div>
-                    <div>
-                        <div class="uk-card-body">
-                            <h5 class="uk-card-title">Media Left</h5>
-                        </div>
-                    </div>
+                    <hr>
                 </div>
             </div>
         </div>
@@ -44,6 +23,7 @@
 
 <script>
     import {mapState,mapActions} from 'vuex'
+    import Axios from 'axios'
     export default {
         name: "messages-small-card",
         props:{
@@ -67,18 +47,33 @@
                'loadShoppingCart'
             ]),
             removeAll:function () {
-
+                for(var course in this.shoppingCart){
+                    this.removeCourse(course.course_id, course.course_type);
+                }
             },
-            removeCourse:function (courseId) {
-
+            removeCourse:function (courseId, moduleName) {
+                Axios.post('/api/basket/delete',{
+                    course_id:courseId,
+                    module_name:moduleName,
+                    user_id:this.userId,
+                })
+                .then(response=>{
+                    console.log(response);
+                    this.$store.dispatch('loadShoppingCart', this.userId)
+                })
             },
         },
-        mounted() {
+        created() {
             this.$store.dispatch('loadShoppingCart',this.userId);
         }
     }
 </script>
 
 <style scoped>
+    .shoppingItem{
+        height: 75px;
+    }
+    .shoppingImg{
 
+    }
 </style>

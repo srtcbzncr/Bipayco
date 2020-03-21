@@ -32,6 +32,7 @@
 
 <script>
 import StarsRating from "./stars-rating";
+import {mapActions} from 'vuex'
 import Axios from 'axios';
 export default {
     name: "course-card",
@@ -99,6 +100,9 @@ export default {
         }
     },
     methods:{
+        ...mapActions([
+           'loadShoppingCart'
+        ]),
         addCart:function () {
             Axios.post('/api/basket/add', {
                 course_id:this.courseId,
@@ -109,6 +113,7 @@ export default {
                 if(!response.data.error) {
                     this.cart = true;
                 }
+                this.$store.dispatch('loadShoppingCart',this.userId);
                 console.log(response)
             })
         },
