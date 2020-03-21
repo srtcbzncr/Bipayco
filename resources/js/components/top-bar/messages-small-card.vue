@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a href="#" class="uk-position-top-right uk-link-reset"> <i class="fas uk-align-right   uk-text-small uk-padding-small"> Hepsini Temizle</i> </a>
+        <a href="#" class="uk-position-top-right uk-link-reset"> <i class="fas uk-align-right uk-text-small uk-padding-small" @click="removeAll"> {{removeAllText}}</i> </a>
         <hr class=" uk-margin-remove">
         <div class="uk-text-left uk-height-medium">
             <div uk-scrollspy="target: > div; cls:uk-animation-slide-bottom-small; delay: 100"  style="overflow-y:auto" data-simplebar>
@@ -24,35 +24,57 @@
                         </div>
                     </div>
                 </div>-->
+                <div class="">
 
-                <div class="uk-card uk-card-default uk-grid-divider uk-child-width-1-4@s uk-margin" uk-grid>
+                </div>
+                <div class="uk-card uk-card-default uk-grid-divider uk-child-width-1-4@s uk-margin uk-height-small" uk-grid>
                     <div class="uk-card-media-left uk-cover-container">
                         <img src="" alt="" class="img-small" uk-cover>
                     </div>
                     <div>
                         <div class="uk-card-body">
                             <h5 class="uk-card-title">Media Left</h5>
-
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
 </template>
 
 <script>
+    import {mapState,mapActions} from 'vuex'
     export default {
         name: "messages-small-card",
         props:{
             userId:{
                 type:String,
+                required:true,
+            },
+            removeAllText:{
+                type:String,
+                default:"Hepsini Temizle"
+            },
 
-            }
+        },
+        computed:{
+            ...mapState([
+                'shoppingCart'
+            ])
+        },
+        methods:{
+            ...mapActions([
+               'loadShoppingCart'
+            ]),
+            removeAll:function () {
+
+            },
+            removeCourse:function (courseId) {
+
+            },
         },
         mounted() {
-
+            this.$store.dispatch('loadShoppingCart',this.userId);
         }
     }
 </script>

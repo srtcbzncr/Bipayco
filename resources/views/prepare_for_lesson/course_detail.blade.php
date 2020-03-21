@@ -26,10 +26,10 @@
                     @endforeach
                     <span class="uk-text-bold uk-light"> {{$student_count}} @lang('front/auth.enrolled_student')</span>
                 </div>
-                @if(Auth::check() && Auth::user()->can('entry',$course))
+                @if(Auth::check() && Auth::user()->can('entry', $course))
                     <div class="uk-grid-small" uk-grid>
                         <div class="uk-width-auto">
-                            <a class="uk-button uk-button-white uk-float-left" href="Course-lesson.html" uk-tooltip="title: Star This course now  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"> @lang('front/auth.continue')</a>
+                            <a class="uk-button uk-button-white uk-float-left" href="{{route('pl_watch', $course->id)}}" uk-tooltip="title: Star This course now  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"> @lang('front/auth.continue')</a>
                         </div>
                         <div class="uk-width-expand">
                             <span class="uk-light uk-text-small uk-text-bold"> @lang('front/auth.my_progress') </span>
@@ -96,7 +96,7 @@
                                     <ul>
                                         @forelse($section->lessons as $lesson)
                                         <li>
-                                            <a href="#" class="uk-link-reset">
+                                            <a class="uk-link-reset" @if($lesson->preview) uk-toggle="target: #modal-media-video" @endif>
                                                 <!-- Play icon  -->
                                                 <span>
                                                     @if(Auth::check()&& in_array($lesson->id, $completed) )
@@ -139,7 +139,6 @@
                         module-name="prepareLessons"
                     ></course-previews>
                     <!-- Model  Preview videos-->
-
                 </div>
                 <!-- Reviews  -->
                 <div id="Reviews" class="tabcontent animation: uk-animation-slide-right-medium">

@@ -69,6 +69,7 @@ const state={
         name:"",
     }],
     questionSource:{},
+    shoppingCart:{}
 };
 const getters={};
 const mutations={
@@ -130,9 +131,12 @@ const mutations={
         state.courseSubjects=subject.data;
     },
     setQuestionSource(state,question){
-        console.log(question.data);
         state.questionSource=question.data;
-    }
+    },
+    setShoppingCart(state,item){
+        console.log(item);
+        state.shoppingCart=item.data;
+    },
 };
 const actions={
     /*province.vue*/
@@ -219,6 +223,10 @@ const actions={
     loadQuestionSource({commit},userId){
         Axios.get('/api/questionSource/getQuestions/'+userId)
             .then(response=>commit('setQuestionSource', response.data))
+    },
+    loadShoppingCart({commit},userId){
+        Axios.get('/api/basket/show/'+userId)
+            .then(response=>commit('setShoppingCart',response.data))
     }
 };
 
