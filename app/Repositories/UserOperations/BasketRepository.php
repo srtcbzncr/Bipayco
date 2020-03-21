@@ -4,6 +4,7 @@
 namespace App\Repositories\UserOperations;
 
 
+use App\Models\GeneralEducation\Course;
 use App\Models\UsersOperations\Basket;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
@@ -129,6 +130,16 @@ class BasketRepository implements IRepository
         try {
 
             $courses = Basket::where('user_id',$user_id)->get();
+            foreach ($courses as $key => $item){
+                if($item->course_type == "App\Models\GeneralEducation\Course"){
+                    $course = Course::find($item->course_id);
+                    $courses[$key]['course'] = $course;
+                }
+                else if($item->course_type == "App\Models\PrepareLessons\Course"){
+                    $course = \App\Models\PrepareLessons\Course::find($item->course_id);
+                    $courses[$key]['course'] = $course;
+                }
+            }
             $object = $courses;
 
         }catch(\Exception $e){
