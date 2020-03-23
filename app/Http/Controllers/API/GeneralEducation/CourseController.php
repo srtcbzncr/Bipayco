@@ -692,6 +692,27 @@ class CourseController extends Controller
     public function instructorsPost($id,Request $request){
         $user = null;
         $data = $request->toArray();
+        
+        // percent control
+        $totalPercent = 0;
+        foreach ($data as $item){
+            if ($item->percent == null or $item->percent <= 0 or $item->percent > 100){
+                return response()->json([
+                   'error' => true,
+                   'message' => 'Hatalı bilgi girdiniz. Tekrar deneyin.'
+                ]);
+            }
+            if($item->percent != null)
+                $totalPercent += $item->percent;
+        }
+        if($totalPercent != 100){
+            return response()->json([
+                'error' => true,
+                'message' => 'Hatalı bilgi girdiniz. Tekrar deneyin.'
+            ]);
+        }
+
+
         $geCoursesInstructor =  DB::table('ge_courses_instructors')->where('course_type','App\Models\GeneralEducation\Course')
             ->where('instructor_id',$data[0]['instructor_id'])->where('course_id',$id)->get();
         if($geCoursesInstructor[0]->is_manager == true){
