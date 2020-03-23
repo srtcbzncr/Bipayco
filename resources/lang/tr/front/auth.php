@@ -164,5 +164,6 @@ return [
     'have_no_course'=>'Kurs Bulunmamaktadır',
     'question'=>'Soru',
     'difficulty'=>'Zorluk Seviyesi',
-    'lesson'=>'Ders'
+    'lesson'=>'Ders',
+    'remove_cart'=>'Sepetten Çıkar'
 ];

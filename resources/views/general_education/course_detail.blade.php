@@ -37,11 +37,20 @@
                         </div>
                     </div>
                 @else
-                    <div class="uk-grid-small" uk-grid>
-                        <div class="uk-width-auto">
-                            <a class="uk-button uk-button-white uk-float-left"> @lang('front/auth.add_cart')</a>
-                        </div>
-                    </div>
+                    <add-cart-button
+                        module-name="generalEducation"
+                        @if(Auth::check())
+                            user-id="{{Auth::user()->id}}"
+                            is-login
+                        @endif
+                        @if($course->inBasket)
+                            in-cart
+                        @endif
+                        login-route="{{route('loginGet')}}"
+                        add-cart-text="@lang('front/auth.add_cart')"
+                        remove-cart-text="@lang('front/auth.remove_cart')"
+                        course-id="{{$course->id}}"
+                    > </add-cart-button>
                 @endif
             </div>
         </div>
