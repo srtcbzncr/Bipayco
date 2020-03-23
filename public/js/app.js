@@ -6346,6 +6346,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6379,6 +6382,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     moduleName: {
       type: String,
       required: true
+    },
+    minuteBeforeText: {
+      type: String,
+      "default": "dakika önce"
+    },
+    hourBeforeText: {
+      type: String,
+      "default": "saat önce"
+    },
+    dayBeforeText: {
+      type: String,
+      "default": "gün önce"
+    },
+    monthBeforeText: {
+      type: String,
+      "default": "ay önce"
+    },
+    yearBeforeText: {
+      type: String,
+      "default": "yıl önce"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['learnCourse', 'selectedSectionIndex', 'selectedLessonIndex', 'lessonDiscussion']), {
@@ -6400,6 +6423,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
       document.getElementById('questionArea').value = "";
       document.getElementById('questionTitle').value = "";
+    },
+    dateFormat: function dateFormat(date) {
+      var created = new Date(date);
+      var today = new Date();
+
+      if (today.getFullYear() - created.getFullYear() > 1) {
+        return today.getFullYear() - created.getFullYear() + " " + this.yearBeforeText;
+      } else if (today.getMonth() - created.getMonth() > 1) {
+        return today.getMonth() - created.getMonth() + " " + this.monthBeforeText;
+      } else if (today.getDate() - created.getDate() > 1) {
+        return today.getDate() - created.getDate() + " " + this.dayBeforeText;
+      } else if (today.getHours() - created.getHours() > 1) {
+        return today.getHours() - created.getHours() + " " + this.hourBeforeText;
+      } else {
+        return today.getMinutes() - created.getMinutes() + " " + this.minuteBeforeText;
+      }
     }
   }),
   created: function created() {
@@ -14461,13 +14500,32 @@ var render = function() {
                           "div",
                           { staticClass: "uk-grid-stack uk-width-5-6@m" },
                           [
-                            _c("h4", { staticClass: "uk-margin-remove" }, [
-                              _vm._v(
-                                _vm._s(discussion.user.first_name) +
-                                  " " +
-                                  _vm._s(discussion.user.last_name)
-                              )
-                            ]),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "uk-margin-remove uk-flex justify-content-between uk-flex-wrap"
+                              },
+                              [
+                                _c("h4", { staticClass: "uk-margin-remove" }, [
+                                  _vm._v(
+                                    _vm._s(discussion.user.first_name) +
+                                      " " +
+                                      _vm._s(discussion.user.last_name)
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("p", { staticClass: "uk-margin-remove" }, [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.dateFormat(
+                                        discussion.question.created_at
+                                      )
+                                    )
+                                  )
+                                ])
+                              ]
+                            ),
                             _vm._v(" "),
                             _c("hr", {
                               staticClass:

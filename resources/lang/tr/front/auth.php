@@ -165,5 +165,11 @@ return [
     'question'=>'Soru',
     'difficulty'=>'Zorluk Seviyesi',
     'lesson'=>'Ders',
-    'remove_cart'=>'Sepetten Çıkar'
+    'remove_cart'=>'Sepetten Çıkar',
+    'hour(s)'=>'saat',
+    'minute(s)'=>'dakika',
+    'day(s)'=>'gün',
+    'month(s)'=>'ay',
+    'year(s)'=>'yıl',
+    'before'=>'önce'
 ];

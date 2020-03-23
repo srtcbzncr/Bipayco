@@ -16,6 +16,11 @@
             student-id="{{Auth::user()->id}}"
             course-id="{{$course->id}}"
             module-name="generalEducation"
+            day-before-text="@lang('front/auth.day(s)') @lang('front/auth.before')"
+            month-before-text="@lang('front/auth.month(s)') @lang('front/auth.before')"
+            year-before-text="@lang('front/auth.year(s)') @lang('front/auth.before')"
+            minute-before-text="@lang('front/auth.minute(s)') @lang('front/auth.before')"
+            hour-before-text="@lang('front/auth.hour(s)') @lang('front/auth.before')"
         > </question-answer-area>
     </div>
 @endsection

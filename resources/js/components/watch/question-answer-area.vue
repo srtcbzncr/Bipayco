@@ -13,7 +13,10 @@
                             <img class="uk-border-circle " :src="discussion.user.avatar" style="width: 125px; height:125px;">
                         </div>
                         <div class="uk-grid-stack uk-width-5-6@m">
-                            <h4 class="uk-margin-remove">{{discussion.user.first_name}} {{discussion.user.last_name}}</h4>
+                            <div class="uk-margin-remove uk-flex justify-content-between uk-flex-wrap">
+                                <h4 class="uk-margin-remove">{{discussion.user.first_name}} {{discussion.user.last_name}}</h4>
+                                <p class="uk-margin-remove">{{dateFormat(discussion.question.created_at)}}</p>
+                            </div>
                             <hr class="uk-margin-small-bottom uk-margin-small-top">
                             <p class="uk-margin-remove">
                                 {{discussion.question.content}}
@@ -82,6 +85,26 @@
             moduleName:{
                 type:String,
                 required:true,
+            },
+            minuteBeforeText:{
+                type:String,
+                default:"dakika önce"
+            },
+            hourBeforeText:{
+                type:String,
+                default:"saat önce"
+            },
+            dayBeforeText:{
+                type:String,
+                default:"gün önce"
+            },
+            monthBeforeText:{
+                type:String,
+                default:"ay önce"
+            },
+            yearBeforeText:{
+                type:String,
+                default:"yıl önce"
             }
         },
         computed:{
@@ -111,6 +134,21 @@
                     });
                 document.getElementById('questionArea').value="";
                 document.getElementById('questionTitle').value="";
+            },
+            dateFormat:function (date) {
+                let created=new Date(date);
+                let today=new Date();
+                if(today.getFullYear()-created.getFullYear()>1){
+                    return (today.getFullYear()-created.getFullYear())+" "+this.yearBeforeText;
+                }else if(today.getMonth()-created.getMonth()>1){
+                    return (today.getMonth()-created.getMonth())+" "+this.monthBeforeText;
+                }else if(today.getDate()-created.getDate()>1) {
+                    return (today.getDate() - created.getDate()) + " " + this.dayBeforeText;
+                }else if(today.getHours()-created.getHours()>1) {
+                    return (today.getHours() - created.getHours()) + " " + this.hourBeforeText;
+                }else{
+                    return (today.getMinutes() - created.getMinutes()) + " " + this.minuteBeforeText;
+                }
             },
         },
         created() {
