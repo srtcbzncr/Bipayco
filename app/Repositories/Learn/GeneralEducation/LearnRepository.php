@@ -7,6 +7,7 @@ namespace App\Repositories\Learn\GeneralEducation;
 use App\Models\Auth\Student;
 use App\Models\Auth\User;
 use App\Models\GeneralEducation\Answer;
+use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\Lesson;
 use App\Models\GeneralEducation\Question;
 use App\Models\GeneralEducation\Section;
@@ -62,9 +63,11 @@ class LearnRepository implements IRepository
         try{
             DB::beginTransaction();
 
+            $course = Course::find($id);
             $student = Student::where('user_id',$user_id)->first();
             $object = array();
             $sections = Section::where('course_id',$id)->where('active',true)->orderBy('no','asc')->get();
+            $object = $course;
             $object['sections'] = $sections;
             foreach ($sections as $key => $section){
                 $lessons = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
@@ -103,7 +106,7 @@ class LearnRepository implements IRepository
         return $resp;
     }
 
-    public function getLesson($lesson_id){
+    public function getLesson($course_id,$lesson_id){
         // Response variables
         $result = true;
         $error = null;
@@ -112,8 +115,10 @@ class LearnRepository implements IRepository
         try{
             DB::beginTransaction();
 
+            $course = Course::find($course_id);
             $lesson = Lesson::find($lesson_id);
-            $object = $lesson;
+            $object['course'] = $course;
+            $object['course']['lesson'] = $lesson;
 
             DB::commit();
         }
