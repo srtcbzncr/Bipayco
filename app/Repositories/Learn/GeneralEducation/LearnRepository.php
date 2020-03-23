@@ -14,6 +14,7 @@ use App\Models\GeneralEducation\Section;
 use App\Models\GeneralEducation\Source;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class LearnRepository implements IRepository
@@ -65,7 +66,6 @@ class LearnRepository implements IRepository
 
             $course = Course::find($id);
             $student = Student::where('user_id',$user_id)->first();
-            $object = array();
             $sections = Section::where('course_id',$id)->where('active',true)->orderBy('no','asc')->get();
             $object = $course;
             $object['sections'] = $sections;
@@ -89,7 +89,7 @@ class LearnRepository implements IRepository
             foreach ($sectionsTemp as $key => $section){
                 $lessonsTemp = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
                 foreach ($lessonsTemp as $lesson){
-                    $object['defaultLesson'] = $lesson;
+                    $object['selectedLesson'] = $lesson;
                     break;
                 }
             }
@@ -113,17 +113,36 @@ class LearnRepository implements IRepository
         $object = null;
 
         try{
-            DB::beginTransaction();
 
+            $user_id = Auth::user()->id;
             $course = Course::find($course_id);
-            $lesson = Lesson::find($lesson_id);
-            $object['course'] = $course;
-            $object['course']['lesson'] = $lesson;
 
-            DB::commit();
+            $student = Student::where('user_id',$user_id)->first();
+            $sections = Section::where('course_id',$course_id)->where('active',true)->orderBy('no','asc')->get();
+            $object = $course;
+            $object['sections'] = $sections;
+            foreach ($sections as $key => $section){
+                $lessons = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
+                $object['sections'][$key]['lessons'] = $lessons;
+                foreach ($lessons as $keyLesson => $lesson){
+                    $sources = $lesson->sources;
+                    $object['sections'][$key]['lessons'][$keyLesson]['sources'] = $sources;
+                    $control = DB::table("ge_students_completed_lessons")->where('student_id',$student->id)->where('lesson_id',$lesson->id)
+                        ->where('lesson_type','App\Models\GeneralEducation\Lesson')->first();
+                    if($control == null){
+                        $object['sections'][$key]['lessons'][$keyLesson]['is_completed'] = false;
+                    }
+                    else{
+                        $object['sections'][$key]['lessons'][$keyLesson]['is_completed'] = true;
+                    }
+                }
+            }
+
+            $selectedLesson = Lesson::find($lesson_id);
+            $object['selectedLesson'] = $selectedLesson;
         }
         catch (\Exception $e){
-            $error = $e;
+            $error = $e->getMessage();
             $result = false;
         }
 
