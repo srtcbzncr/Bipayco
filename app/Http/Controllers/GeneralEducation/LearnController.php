@@ -24,4 +24,19 @@ class LearnController extends Controller
 
         return redirect()->back();
     }
+
+    // Video veya pdf verisini al.
+    public function getLesson($course_id,$lesson_id){
+        // initialization
+        $repo = new LearnRepository();
+
+        // Operations
+        $resp = $repo->getLesson($lesson_id);
+        if($resp->getResult()){
+            $data = $resp->getData();
+            return view('general_education.watch')->with('lesson',$data);
+        }
+
+        return redirect()->back();
+    }
 }

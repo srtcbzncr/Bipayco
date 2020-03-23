@@ -82,6 +82,14 @@ class LearnRepository implements IRepository
                     }
                 }
             }
+            $sectionsTemp = Section::where('course_id',$id)->where('active',true)->orderBy('no','asc')->get();
+            foreach ($sectionsTemp as $key => $section){
+                $lessonsTemp = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
+                foreach ($lessonsTemp as $lesson){
+                    $object['defaultLesson'] = $lesson;
+                    break;
+                }
+            }
 
             DB::commit();
         }

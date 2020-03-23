@@ -88,7 +88,8 @@ Route::group(['prefix' => 'questionSource'],function (){
 
 Route::group(['prefix' => 'learn'],function (){
    Route::group(['prefix' => 'ge'],function (){
-      Route::get('/course/{course_id}','GeneralEducation\LearnController@getCourse')->name('learn_ge_course_get');
+       Route::get('/course/{course_id}','GeneralEducation\LearnController@getCourse')->name('learn_ge_course_get');
+       Route::get('/course/{course_id}/lesson/{lesson_id}','GeneralEducation\LearnController@getLesson')->name('learn_ge_lesson_get');
    });
 });
 
