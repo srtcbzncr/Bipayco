@@ -37,13 +37,22 @@
                                             <div class="uk-accordion-content uk-margin-remove-top">
                                                 <div class="tm-course-section-list">
                                                     <ul>
-                                                        <a v-for="(lesson, lessonIndex) in section.lessons" href="#" @click="selectLesson(sectionIndex, lessonIndex)" class="uk-link-reset">
-                                                            {{lesson.is_completed}}
-                                                            <li>
-                                                                <span v-if="lesson.is_video" class="uk-icon-button icon-play"> <i class="fas fa-play icon-small"></i> </span>
-                                                                <span v-else class="uk-icon-button icon-play"> <i class="fas fa-file-alt icon-small"></i> </span>
+                                                        <a v-for="(lesson, lessonIndex) in section.lessons" @click="selectLesson(sectionIndex, lessonIndex)" class="uk-link-reset">
+                                                            <li v-if="lessonIndex==selectedLessonIndex && selectedSectionIndex==sectionIndex" class="uk-background-primary align-items-center">
+                                                                <span v-if="lesson.is_video" class="uk-icon-button icon-play uk-button-primary"> <i class="fas fa-play icon-small"></i> </span>
+                                                                <span v-else class="uk-icon-button icon-play uk-button-primary"> <i class="fas fa-file-alt icon-small uk-margin-remove"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">{{lessonIndex+1}}. {{lesson.name}}</div>
-                                                                <a v-if="lesson.is_completed" class="uk-icon-button uk-link-reset uk-margin-small-right uk-icon uk-button-success uk-position-center-right uk-animation-scale-up "><i class="fas fa-check-circle icon-small uk-text-white"></i></a>
+                                                                <span v-if="lesson.is_video" class="uk-position-center-right uk-margin-medium-right">  {{lesson.long}}</span>
+                                                            </li>
+                                                            <li v-else-if="lesson.is_completed" class="uk-background-success">
+                                                                <span class="uk-icon-button icon-play uk-button-success"><i class="fas fa-check-circle icon-medium uk-margin-remove"></i></span>
+                                                                <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">{{lessonIndex+1}}. {{lesson.name}}</div>
+                                                                <span v-if="lesson.is_video" class="uk-position-center-right time uk-margin-medium-right">  {{lesson.long}}</span>
+                                                            </li>
+                                                            <li v-else class="uk-background-default">
+                                                                <span v-if="lesson.is_video" class="uk-icon-button icon-play"> <i class="fas fa-play icon-small"></i> </span>
+                                                                <span v-else class="uk-icon-button icon-play"> <i class="fas fa-file-alt icon-small uk-margin-remove"></i> </span>
+                                                                <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">{{lessonIndex+1}}. {{lesson.name}}</div>
                                                                 <span v-if="lesson.is_video" class="uk-position-center-right time uk-margin-medium-right">  {{lesson.long}}</span>
                                                             </li>
                                                         </a>

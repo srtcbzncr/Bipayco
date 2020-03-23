@@ -6288,7 +6288,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       document.getElementById('questionArea').value = "";
       document.getElementById('questionTitle').value = "";
     }
-  })
+  }),
+  created: function created() {
+    console.log(this.lessonDiscussion);
+  }
 });
 
 /***/ }),
@@ -6311,6 +6314,15 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -13673,23 +13685,16 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "a",
-      {
-        staticClass: "uk-position-top-right uk-link-reset",
-        attrs: { href: "#" }
-      },
-      [
-        _c(
-          "i",
-          {
-            staticClass: "fas uk-align-right uk-text-small uk-padding-small",
-            on: { click: _vm.removeAll }
-          },
-          [_vm._v(" " + _vm._s(_vm.removeAllText))]
-        )
-      ]
-    ),
+    _c("a", { staticClass: "uk-position-top-right uk-link-reset" }, [
+      _c(
+        "i",
+        {
+          staticClass: "fas uk-align-right uk-text-small uk-padding-small",
+          on: { click: _vm.removeAll }
+        },
+        [_vm._v(" " + _vm._s(_vm.removeAllText))]
+      )
+    ]),
     _vm._v(" "),
     _c("hr", { staticClass: " uk-margin-remove" }),
     _vm._v(" "),
@@ -14303,7 +14308,7 @@ var render = function() {
                             _c("p", { staticClass: "uk-margin-remove" }, [
                               _vm._v(
                                 "\n                            " +
-                                  _vm._s(discussion.content) +
+                                  _vm._s(discussion.question.content) +
                                   "\n                        "
                               )
                             ])
@@ -14711,7 +14716,6 @@ var render = function() {
                                                   {
                                                     staticClass:
                                                       "uk-link-reset",
-                                                    attrs: { href: "#" },
                                                     on: {
                                                       click: function($event) {
                                                         return _vm.selectLesson(
@@ -14722,95 +14726,207 @@ var render = function() {
                                                     }
                                                   },
                                                   [
-                                                    _vm._v(
-                                                      "\n                                                        " +
-                                                        _vm._s(
-                                                          lesson.is_completed
-                                                        ) +
-                                                        "\n                                                        "
-                                                    ),
-                                                    _c("li", [
-                                                      lesson.is_video
-                                                        ? _c(
-                                                            "span",
-                                                            {
-                                                              staticClass:
-                                                                "uk-icon-button icon-play"
-                                                            },
-                                                            [
-                                                              _c("i", {
+                                                    lessonIndex ==
+                                                      _vm.selectedLessonIndex &&
+                                                    _vm.selectedSectionIndex ==
+                                                      sectionIndex
+                                                      ? _c(
+                                                          "li",
+                                                          {
+                                                            staticClass:
+                                                              "uk-background-primary align-items-center"
+                                                          },
+                                                          [
+                                                            lesson.is_video
+                                                              ? _c(
+                                                                  "span",
+                                                                  {
+                                                                    staticClass:
+                                                                      "uk-icon-button icon-play uk-button-primary"
+                                                                  },
+                                                                  [
+                                                                    _c("i", {
+                                                                      staticClass:
+                                                                        "fas fa-play icon-small"
+                                                                    })
+                                                                  ]
+                                                                )
+                                                              : _c(
+                                                                  "span",
+                                                                  {
+                                                                    staticClass:
+                                                                      "uk-icon-button icon-play uk-button-primary"
+                                                                  },
+                                                                  [
+                                                                    _c("i", {
+                                                                      staticClass:
+                                                                        "fas fa-file-alt icon-small uk-margin-remove"
+                                                                    })
+                                                                  ]
+                                                                ),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "div",
+                                                              {
                                                                 staticClass:
-                                                                  "fas fa-play icon-small"
-                                                              })
-                                                            ]
-                                                          )
-                                                        : _c(
-                                                            "span",
-                                                            {
-                                                              staticClass:
-                                                                "uk-icon-button icon-play"
-                                                            },
-                                                            [
-                                                              _c("i", {
-                                                                staticClass:
-                                                                  "fas fa-file-alt icon-small"
-                                                              })
-                                                            ]
-                                                          ),
-                                                      _vm._v(" "),
-                                                      _c(
-                                                        "div",
-                                                        {
-                                                          staticClass:
-                                                            "uk-panel uk-panel-box uk-text-truncate uk-margin-large-right"
-                                                        },
-                                                        [
-                                                          _vm._v(
-                                                            _vm._s(
-                                                              lessonIndex + 1
-                                                            ) +
-                                                              ". " +
-                                                              _vm._s(
-                                                                lesson.name
-                                                              )
-                                                          )
-                                                        ]
-                                                      ),
-                                                      _vm._v(" "),
-                                                      lesson.is_completed
-                                                        ? _c(
-                                                            "a",
-                                                            {
-                                                              staticClass:
-                                                                "uk-icon-button uk-link-reset uk-margin-small-right uk-icon uk-button-success uk-position-center-right uk-animation-scale-up "
-                                                            },
-                                                            [
-                                                              _c("i", {
-                                                                staticClass:
-                                                                  "fas fa-check-circle icon-small uk-text-white"
-                                                              })
-                                                            ]
-                                                          )
-                                                        : _vm._e(),
-                                                      _vm._v(" "),
-                                                      lesson.is_video
-                                                        ? _c(
-                                                            "span",
-                                                            {
-                                                              staticClass:
-                                                                "uk-position-center-right time uk-margin-medium-right"
-                                                            },
-                                                            [
-                                                              _vm._v(
-                                                                "  " +
+                                                                  "uk-panel uk-panel-box uk-text-truncate uk-margin-large-right"
+                                                              },
+                                                              [
+                                                                _vm._v(
                                                                   _vm._s(
-                                                                    lesson.long
-                                                                  )
-                                                              )
-                                                            ]
-                                                          )
-                                                        : _vm._e()
-                                                    ])
+                                                                    lessonIndex +
+                                                                      1
+                                                                  ) +
+                                                                    ". " +
+                                                                    _vm._s(
+                                                                      lesson.name
+                                                                    )
+                                                                )
+                                                              ]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            lesson.is_video
+                                                              ? _c(
+                                                                  "span",
+                                                                  {
+                                                                    staticClass:
+                                                                      "uk-position-center-right uk-margin-medium-right"
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      "  " +
+                                                                        _vm._s(
+                                                                          lesson.long
+                                                                        )
+                                                                    )
+                                                                  ]
+                                                                )
+                                                              : _vm._e()
+                                                          ]
+                                                        )
+                                                      : lesson.is_completed
+                                                      ? _c(
+                                                          "li",
+                                                          {
+                                                            staticClass:
+                                                              "uk-background-success"
+                                                          },
+                                                          [
+                                                            _vm._m(0, true),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "div",
+                                                              {
+                                                                staticClass:
+                                                                  "uk-panel uk-panel-box uk-text-truncate uk-margin-large-right"
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  _vm._s(
+                                                                    lessonIndex +
+                                                                      1
+                                                                  ) +
+                                                                    ". " +
+                                                                    _vm._s(
+                                                                      lesson.name
+                                                                    )
+                                                                )
+                                                              ]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            lesson.is_video
+                                                              ? _c(
+                                                                  "span",
+                                                                  {
+                                                                    staticClass:
+                                                                      "uk-position-center-right time uk-margin-medium-right"
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      "  " +
+                                                                        _vm._s(
+                                                                          lesson.long
+                                                                        )
+                                                                    )
+                                                                  ]
+                                                                )
+                                                              : _vm._e()
+                                                          ]
+                                                        )
+                                                      : _c(
+                                                          "li",
+                                                          {
+                                                            staticClass:
+                                                              "uk-background-default"
+                                                          },
+                                                          [
+                                                            lesson.is_video
+                                                              ? _c(
+                                                                  "span",
+                                                                  {
+                                                                    staticClass:
+                                                                      "uk-icon-button icon-play"
+                                                                  },
+                                                                  [
+                                                                    _c("i", {
+                                                                      staticClass:
+                                                                        "fas fa-play icon-small"
+                                                                    })
+                                                                  ]
+                                                                )
+                                                              : _c(
+                                                                  "span",
+                                                                  {
+                                                                    staticClass:
+                                                                      "uk-icon-button icon-play"
+                                                                  },
+                                                                  [
+                                                                    _c("i", {
+                                                                      staticClass:
+                                                                        "fas fa-file-alt icon-small uk-margin-remove"
+                                                                    })
+                                                                  ]
+                                                                ),
+                                                            _vm._v(" "),
+                                                            _c(
+                                                              "div",
+                                                              {
+                                                                staticClass:
+                                                                  "uk-panel uk-panel-box uk-text-truncate uk-margin-large-right"
+                                                              },
+                                                              [
+                                                                _vm._v(
+                                                                  _vm._s(
+                                                                    lessonIndex +
+                                                                      1
+                                                                  ) +
+                                                                    ". " +
+                                                                    _vm._s(
+                                                                      lesson.name
+                                                                    )
+                                                                )
+                                                              ]
+                                                            ),
+                                                            _vm._v(" "),
+                                                            lesson.is_video
+                                                              ? _c(
+                                                                  "span",
+                                                                  {
+                                                                    staticClass:
+                                                                      "uk-position-center-right time uk-margin-medium-right"
+                                                                  },
+                                                                  [
+                                                                    _vm._v(
+                                                                      "  " +
+                                                                        _vm._s(
+                                                                          lesson.long
+                                                                        )
+                                                                    )
+                                                                  ]
+                                                                )
+                                                              : _vm._e()
+                                                          ]
+                                                        )
                                                   ]
                                                 )
                                               }),
@@ -14896,7 +15012,22 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "span",
+      { staticClass: "uk-icon-button icon-play uk-button-success" },
+      [
+        _c("i", {
+          staticClass: "fas fa-check-circle icon-medium uk-margin-remove"
+        })
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -30460,25 +30591,20 @@ var state = {
     name: ""
   }],
   lessonDiscussion: {
-    questions: [{
-      user_id: "",
-      title: "",
-      content: "",
-      created_at: "",
+    questions: [[{
+      question: {
+        title: "",
+        content: "",
+        created_at: ""
+      },
       user: {
         first_name: "",
         last_name: "",
         avatar: "",
         username: ""
       },
-      answers: [{
-        user: {
-          first_name: "",
-          last_name: "",
-          avatar: ""
-        }
-      }]
-    }]
+      answers: []
+    }]]
   },
   plLessonType: {},
   previewLessons: {
@@ -30523,7 +30649,6 @@ var mutations = {
     state.subCategories = index.data.sub_categories;
   },
   setSections: function setSections(state, index) {
-    console.log(index);
     state.sections = index.data.sections;
   },
   setSelectedLessonIndex: function setSelectedLessonIndex(state, lessonIndex) {
@@ -30543,7 +30668,6 @@ var mutations = {
   },
   setPlLessonType: function setPlLessonType(state, response) {
     state.plLessonType = response.data;
-    console.log(response);
   },
   setPreviewLessons: function setPreviewLessons(state, response) {
     state.previewLessons = response.previewLessons;

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a href="#" class="uk-position-top-right uk-link-reset"> <i class="fas uk-align-right uk-text-small uk-padding-small" @click="removeAll"> {{removeAllText}}</i> </a>
+        <a class="uk-position-top-right uk-link-reset"> <i class="fas uk-align-right uk-text-small uk-padding-small" @click="removeAll"> {{removeAllText}}</i> </a>
         <hr class=" uk-margin-remove">
         <div class="uk-text-left uk-height-medium">
             <div uk-scrollspy="target: > div; cls:uk-animation-slide-bottom-small; delay: 100"  style="overflow-y:auto" data-simplebar>
@@ -35,7 +35,6 @@
                 type:String,
                 default:"Hepsini Temizle"
             },
-
         },
         computed:{
             ...mapState([

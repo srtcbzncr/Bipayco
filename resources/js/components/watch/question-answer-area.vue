@@ -16,7 +16,7 @@
                             <h4 class="uk-margin-remove">{{discussion.user.first_name}} {{discussion.user.last_name}}</h4>
                             <hr class="uk-margin-small-bottom uk-margin-small-top">
                             <p class="uk-margin-remove">
-                                {{discussion.content}}
+                                {{discussion.question.content}}
                             </p>
                         </div>
                     </div>
@@ -113,6 +113,9 @@
                 document.getElementById('questionTitle').value="";
             },
         },
+        created() {
+            console.log(this.lessonDiscussion)
+        }
     }
 </script>
 <style scoped>

@@ -40,25 +40,20 @@ const state={
         name:"",
     }],
     lessonDiscussion:{
-        questions:[{
-            user_id: "",
-            title: "",
-            content: "",
-            created_at:"" ,
+        questions:[[{
+            question:{
+                title: "",
+                content: "",
+                created_at:"" ,
+            },
             user: {
                 first_name:"",
                 last_name:"",
                 avatar:"",
                 username:"",
             },
-            answers: [{
-                user: {
-                    first_name:"",
-                    last_name:"",
-                    avatar:"",
-                },
-            }],
-        }]
+            answers: [],
+        }]]
     },
     plLessonType:{},
     previewLessons:{
@@ -101,7 +96,6 @@ const mutations={
         state.subCategories=index.data.sub_categories;
     },
     setSections(state,index){
-        console.log(index);
         state.sections=index.data.sections;
     },
     setSelectedLessonIndex(state,lessonIndex){
@@ -121,7 +115,6 @@ const mutations={
     },
     setPlLessonType(state,response){
         state.plLessonType=response.data;
-        console.log(response);
     },
     setPreviewLessons(state,response){
         state.previewLessons=response.previewLessons;
