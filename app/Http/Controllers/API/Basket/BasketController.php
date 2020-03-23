@@ -32,6 +32,7 @@ class BasketController extends Controller
     }
 
     public function remove(Request $request){
+
         // Initializing
         $data = $request->toArray();
         $repo = new BasketRepository();
@@ -49,6 +50,27 @@ class BasketController extends Controller
                 'error' => true,
                 'message' => 'Kurs kaldırılırken hata. Tekrar deneyin.',
                 'errorMessage' => $resp->getError()
+            ]);
+        }
+    }
+
+    public function removeAll($user_id){
+        // Initializing
+        $repo = new BasketRepository();
+
+        // Operations
+        $resp=$repo->removeAll($user_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Sepet başarıyla silindi',
+                'data' => $resp->getData()
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Sepet silinirken hata oluştu.Tekrar deneyin.'
             ]);
         }
     }

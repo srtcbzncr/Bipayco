@@ -139,6 +139,7 @@ Route::prefix('learn')->group(function (){
 Route::prefix('basket')->group(function (){
     Route::post('/add','API\Basket\BasketController@add')->name('add_basket');
     Route::post('/delete','API\Basket\BasketController@remove')->name('remove_basket');
+    Route::post('/deleteAll/{user_id}','API\Basket\BasketController@removeAll')->name('remove_basket_all');
     Route::get('/show/{user_id}','API\Basket\BasketController@show')->name('show_basket');
 });
 Route::prefix('favorite')->group(function (){

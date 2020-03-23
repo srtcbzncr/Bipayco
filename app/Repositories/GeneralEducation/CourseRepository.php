@@ -928,6 +928,7 @@ class CourseRepository implements IRepository{
                     'instructor_id' => $item['instructor_id'],
                     'is_manager' => $isManagers[$key],
                     'percent' => $item['percent'],
+                    'active' => true
                 ));
             }
             $object = $course->instructors;

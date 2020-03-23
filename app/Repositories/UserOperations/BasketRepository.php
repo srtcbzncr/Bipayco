@@ -99,9 +99,9 @@ class BasketRepository implements IRepository
             DB::beginTransaction();
 
             $type = "";
-            if($data['module_name'] == 'generalEducation')
+            if($data['module_name'] == 'App\\Models\\GeneralEducation\\Course')
                 $type = "App\Models\GeneralEducation\Course";
-            else if($data['module_name'] == 'prepareLessons')
+            else if($data['module_name'] == 'App\\Models\\PrepareLessons\\Course')
                 $type = "App\Models\PrepareLessons\Course";
 
             DB::table('basket')->where('user_id',$data['user_id'])
@@ -113,6 +113,27 @@ class BasketRepository implements IRepository
             $error = $e->getMessage();
             $result = false;
             DB::rollBack();
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function removeAll($user_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try {
+
+            DB::table('basket')->where('user_id',$user_id)->delete();
+
+        }catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
         }
 
         // Response

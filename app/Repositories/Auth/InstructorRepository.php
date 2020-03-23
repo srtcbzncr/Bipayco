@@ -539,13 +539,13 @@ class InstructorRepository implements IRepository{
                 if($item->course_type == 'App\Models\GeneralEducation\Course'){
                     $sections = Section::where('course_id',$item->course_id)->get();
                     foreach ($sections as $section){
-                        $lessons = Lesson::where('section_id',$section->id);
+                        $lessons = Lesson::where('section_id',$section->id)->get();
                         foreach ($lessons as $lesson){
                             $questions = Question::where('lesson_id',$lesson->id)->where('lesson_type','App\Models\GeneralEducation\Lesson')->get();
                             $totalQuestions+=count($questions);
                             foreach ($questions as $question){
-                                $answers = Answer::where('question_id',$question->id);
-                                if($answers==null){
+                                $answers = Answer::where('question_id',$question->id)->get();
+                                if($answers==null or count($answers) == 0){
                                     $notAnsweredQuestions++;
                                 }
                             }
@@ -555,13 +555,13 @@ class InstructorRepository implements IRepository{
                 else if($item->course_type == 'App\Models\PrepareLessons\Course'){
                     $sections = Section::where('course_id',$item->course_id)->get();
                     foreach ($sections as $section){
-                        $lessons = Lesson::where('section_id',$section->id);
+                        $lessons = Lesson::where('section_id',$section->id)->get();
                         foreach ($lessons as $lesson){
                             $questions = Question::where('lesson_id',$lesson->id)->where('lesson_type','App\Models\PrepareLessons\Lesson')->get();
                             $totalQuestions+=count($questions);
                             foreach ($questions as $question){
-                                $answers = Answer::where('question_id',$question->id);
-                                if($answers==null){
+                                $answers = Answer::where('question_id',$question->id)->get();
+                                if($answers==null or count($answers) == 0){
                                     $notAnsweredQuestions++;
                                 }
                             }
