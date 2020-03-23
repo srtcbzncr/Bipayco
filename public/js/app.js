@@ -3005,6 +3005,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this2.cart = false;
         }
 
+        _this2.$store.dispatch('loadShoppingCart', _this2.userId);
+
         console.log(response);
       });
     },

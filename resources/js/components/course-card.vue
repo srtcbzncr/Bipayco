@@ -127,6 +127,7 @@ export default {
                 if(!response.data.error) {
                     this.cart = false;
                 }
+                this.$store.dispatch('loadShoppingCart',this.userId);
                 console.log(response)
             })
         },
