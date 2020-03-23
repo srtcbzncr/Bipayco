@@ -692,7 +692,7 @@ class CourseController extends Controller
     public function instructorsPost($id,Request $request){
         $user = null;
         $data = $request->toArray();
-        
+
         // percent control
         $totalPercent = 0;
         foreach ($data as $item){

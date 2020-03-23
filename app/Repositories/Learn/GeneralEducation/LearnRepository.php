@@ -68,17 +68,19 @@ class LearnRepository implements IRepository
             $object['sections'] = $sections;
             foreach ($sections as $key => $section){
                 $lessons = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
+                $object['sections'][$key]['lessons'] = $lessons;
                 foreach ($lessons as $keyLesson => $lesson){
+                    $sources = $lesson->sources;
+                    $object['sections'][$key]['lessons'][$keyLesson]['sources'] = $sources;
                     $control = DB::table("ge_students_completed_lessons")->where('student_id',$student->id)->where('lesson_id',$lesson->id)
                         ->where('lesson_type','App\Models\GeneralEducation\Lesson')->first();
                     if($control == null){
-                        $lessons[$keyLesson]['is_completed'] = false;
+                        $object['sections'][$key]['lessons'][$keyLesson]['is_completed'] = false;
                     }
                     else{
-                        $lessons[$keyLesson]['is_completed'] = true;
+                        $object['sections'][$key]['lessons'][$keyLesson]['is_completed'] = true;
                     }
                 }
-                $object['sections'][$key]['lessons'] = $lessons;
             }
 
             DB::commit();

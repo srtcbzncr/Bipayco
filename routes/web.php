@@ -86,6 +86,12 @@ Route::group(['prefix' => 'questionSource'],function (){
     Route::get('/create','QuestionSource\QuestionSourceController@createGet')->name('questionSource_create');
 });
 
+Route::group(['prefix' => 'learn'],function (){
+   Route::group(['prefix' => 'ge'],function (){
+      Route::get('/course/{course_id}','GeneralEducation\LearnController@getCourse')->name('learn_ge_course_get');
+   });
+});
+
 
 
 
