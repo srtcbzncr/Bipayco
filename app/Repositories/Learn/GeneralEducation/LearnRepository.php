@@ -90,6 +90,16 @@ class LearnRepository implements IRepository
                 $lessonsTemp = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
                 foreach ($lessonsTemp as $lesson){
                     $object['selectedLesson'] = $lesson;
+                    $control = DB::table("ge_students_completed_lessons")->where('student_id',$student->id)->where('lesson_id',$lesson->id)
+                        ->where('lesson_type','App\Models\GeneralEducation\Lesson')->first();
+                    if($control == null){
+                        $object['selectedLesson']['is_completed'] = false;
+                    }
+                    else{
+                        $object['selectedLesson']['is_completed'] = true;
+                    }
+                    $sources = $lesson->sources;
+                    $object['selectedLesson']['sources'] = $sources;
                     break;
                 }
             }
@@ -140,6 +150,16 @@ class LearnRepository implements IRepository
 
             $selectedLesson = Lesson::find($lesson_id);
             $object['selectedLesson'] = $selectedLesson;
+            $control = DB::table("ge_students_completed_lessons")->where('student_id',$student->id)->where('lesson_id',$selectedLesson->id)
+                ->where('lesson_type','App\Models\GeneralEducation\Lesson')->first();
+            if($control == null){
+                $object['selectedLesson']['is_completed'] = false;
+            }
+            else{
+                $object['selectedLesson']['is_completed'] = true;
+            }
+            $sources = $lesson->sources;
+            $object['selectedLesson']['sources'] = $sources;
         }
         catch (\Exception $e){
             $error = $e->getMessage();
