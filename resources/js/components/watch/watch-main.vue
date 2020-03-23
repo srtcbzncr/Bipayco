@@ -9,7 +9,7 @@
                 </video>
                 <div v-else class="uk-width uk-margin-remove-bottom uk-padding-remove">
                     <iframe :src="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].file_path" class="uk-width" style="height: 550px" frameborder="0"></iframe>
-                    <a :href="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].file_path" class="uk-button uk-button-primary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right"><i class="fas fa-expand-arrows-alt uk-margin-small-left"></i>  tam sayfa</a>
+                    <button @click="openNewTab" class="uk-button uk-button-primary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right"><i class="fas fa-expand-arrows-alt uk-margin-small-left"></i>  tam sayfa</button>
                 </div>
             </div>
             <!-- side menu -->
@@ -180,6 +180,9 @@
                 videoPlayer.src=videoUrl;
                 videoPlayer.load();
                 videoPlayer.play();
+            },
+            openNewTab:function () {
+                window.open(this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].file_path);
             }
         },
         created() {

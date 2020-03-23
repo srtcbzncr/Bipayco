@@ -6489,6 +6489,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       videoPlayer.src = videoUrl;
       videoPlayer.load();
       videoPlayer.play();
+    },
+    openNewTab: function openNewTab() {
+      window.open(this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].file_path);
     }
   }),
   created: function created() {
@@ -14545,15 +14548,11 @@ var render = function() {
                   }),
                   _vm._v(" "),
                   _c(
-                    "a",
+                    "button",
                     {
                       staticClass:
                         "uk-button uk-button-primary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right",
-                      attrs: {
-                        href:
-                          _vm.learnCourse.sections[_vm.selectedSectionIndex]
-                            .lessons[_vm.selectedLessonIndex].file_path
-                      }
+                      on: { click: _vm.openNewTab }
                     },
                     [
                       _c("i", {
