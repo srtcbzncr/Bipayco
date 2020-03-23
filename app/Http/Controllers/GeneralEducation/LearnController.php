@@ -19,7 +19,7 @@ class LearnController extends Controller
         $resp = $repo->getCourse($id,$user_id);
         if($resp->getResult()){
             $data = $resp->getData();
-            return view('general_education.watch')->with('data',$data);
+            return view('general_education.watch')->with('course',$data);
         }
 
         return redirect()->back();
