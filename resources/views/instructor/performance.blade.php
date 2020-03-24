@@ -90,18 +90,18 @@
     <!--total earnings-->
     <div class="uk-container uk-margin-top">
         <div class="uk-card">
-            <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.comments') </span></h3>
+            <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.q&a') </span></h3>
             <div class="uk-child-width-1-2@m uk-card-body uk-grid-small uk-grid-divider uk-grid-match" uk-grid>
                 <div>
                     <div class="uk-card uk-card-default uk-card-body text-center stats-card">
                         <h3 class="stats-card-title uk-card-title">@lang('front/auth.total')</h3>
-                        <p><span class="fas fa-comment uk-margin-small-right"></span>20000</p>
+                        <p><span class="fas fa-comment uk-margin-small-right"></span>{{$data['totalQuestions']}}</p>
                     </div>
                 </div>
                 <div>
                     <div class="uk-card uk-card-default uk-card-body text-center stats-card">
                         <h3 class="stats-card-title uk-card-title">@lang('front/auth.wait_for_response')</h3>
-                        <p><span class="fas fa-comment-dots uk-margin-small-right"></span>20000</p>
+                        <p><span class="fas fa-comment-dots uk-margin-small-right"></span>{{$data['notAnsweredQuestions']}}</p>
                     </div>
                 </div>
             </div>

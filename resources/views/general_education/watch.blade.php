@@ -16,6 +16,7 @@
                 sources-text="@lang('front/auth.sources')"
             > </watch>
         </div>
+
         <!-- Q & A area -->
         <h3 class="uk-heading-line uk-text-center"><span>Soru Cevap</span></h3>
         <question-answer-area
