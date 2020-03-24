@@ -2,14 +2,15 @@
     <div class="uk-card uk-card-default uk-align-center">
         <div class="uk-card-body uk-grid uk-padding-remove">
             <div class="uk-width-3-4@m uk-flex align-items-center justify-content-center">
-                <video v-if="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].is_video" id="courseLessonVideo" @timeupdate="watched" width="400" controls controlsList="nodownload">
-                    <source :src="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].file_path" type="video/mp4">
-                    <source :src="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].file_path" type="video/ogg">
+                <video v-if="selectedLesson.is_video" id="courseLessonVideo" @timeupdate="watched" width="400" controls controlsList="nodownload">
+                    <source :src="selectedLesson.file_path" type="video/mp4">
+                    <source :src="selectedLesson.file_path" type="video/ogg">
                     Your browser does not support HTML5 video.
                 </video>
                 <div v-else class="uk-width uk-margin-remove-bottom uk-padding-remove">
-                    <iframe :src="learnCourse.sections[selectedSectionIndex].lessons[selectedLessonIndex].file_path" class="uk-width" style="height: 550px" frameborder="0"></iframe>
-                    <button @click="openNewTab" class="uk-button uk-button-primary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right"><i class="fas fa-expand-arrows-alt uk-margin-small-left"></i>  tam sayfa</button>
+                    <iframe :src="selectedLesson.file_path" @load="completed" class="uk-width" style="height: 550px" frameborder="0"></iframe>
+                    <button v-if="nextLessonId!=null" @click="selectLesson(nextLessonId)" class="uk-button uk-button-primary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right">{{nextLessonText}} <i class="fas fa-arrow-right uk-margin-small-left"></i></button>
+                    <button @click="openNewTab" class="uk-button uk-button-secondary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right"><i class="fas fa-expand-arrows-alt uk-margin-small-right"></i> {{fullScreenText}}</button>
                 </div>
             </div>
             <!-- side menu -->
@@ -19,10 +20,10 @@
                         <!-- Sidebar menu-->
                         <ul class="uk-child-width-expand uk-tab tm-side-course-nav uk-margin-remove uk-position-z-index" uk-switcher="animation: uk-animation-slide-right-small">
                             <li class="uk-active">
-                                <a href="#" uk-tooltip="title: Course Videos ; delay: 100 ; pos: bottom-center;"> <i class="fas fa-video icon-medium uk-margin-small-right"></i>{{lessonsText}}</a>
+                                <a> <i class="fas fa-video icon-medium uk-margin-small-right"></i>{{lessonsText}}</a>
                             </li>
                             <li>
-                                <a href="#" uk-tooltip="title: Course Exercise ; delay: 100 ; pos: bottom-center;"> <i class="fas fa-file-archive icon-medium uk-margin-small-right"></i>{{sourcesText}}</a>
+                                <a> <i class="fas fa-file-archive icon-medium uk-margin-small-right"></i>{{sourcesText}}</a>
                             </li>
                         </ul>
                         <!-- Sidebar contents -->
@@ -32,20 +33,20 @@
                                 <div class="demo1 tab-video" data-simplebar>
                                     <ul uk-accordion>
                                         <!-- section one -->
-                                        <li v-for="(section, sectionIndex) in learnCourse.sections" class="tm-course-lesson-section uk-background-default">
-                                            <a class="uk-accordion-title  uk-padding-small" href="#"><h6> section {{sectionIndex+1}}</h6> <h4 class="uk-margin-remove">{{section.name}}</h4> </a>
+                                        <li v-for="(section, sectionIndex) in course.sections" class="tm-course-lesson-section uk-background-default">
+                                            <a class="uk-accordion-title  uk-padding-small" href="#"><h6> {{sectionText}} {{sectionIndex+1}}</h6> <h4 class="uk-margin-remove">{{section.name}}</h4> </a>
                                             <div class="uk-accordion-content uk-margin-remove-top">
                                                 <div class="tm-course-section-list">
                                                     <ul>
-                                                        <a v-for="(lesson, lessonIndex) in section.lessons" @click="selectLesson(sectionIndex, lessonIndex)" class="uk-link-reset">
-                                                            <li v-if="lessonIndex==selectedLessonIndex && selectedSectionIndex==sectionIndex" class="uk-background-primary align-items-center">
-                                                                <span v-if="lesson.is_video" class="uk-icon-button icon-play uk-button-primary"> <i class="fas fa-play icon-small"></i> </span>
-                                                                <span v-else class="uk-icon-button icon-play uk-button-primary"> <i class="fas fa-file-alt icon-small uk-margin-remove"></i> </span>
+                                                        <a v-for="(lesson, lessonIndex) in section.lessons" @click="selectLesson(lesson.id)" class="uk-link-reset">
+                                                            <li v-if="lesson.id==selectedLesson.id" class="currentLesson uk-background-primary align-items-center">
+                                                                <span v-if="lesson.is_video" class="uk-icon-button icon-play currentLesson uk-button-primary"> <i class="fas fa-play icon-small"></i> </span>
+                                                                <span v-else class="uk-icon-button icon-play currentLesson uk-button-primary"> <i class="fas fa-file-alt icon-small uk-margin-remove"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">{{lessonIndex+1}}. {{lesson.name}}</div>
                                                                 <span v-if="lesson.is_video" class="uk-position-center-right uk-margin-medium-right">  {{lesson.long}}</span>
                                                             </li>
-                                                            <li v-else-if="lesson.is_completed" class="uk-background-success">
-                                                                <span class="uk-icon-button icon-play uk-button-success"><i class="fas fa-check-circle icon-medium uk-margin-remove"></i></span>
+                                                            <li v-else-if="lesson.is_completed" class="completedLesson uk-background-success">
+                                                                <span class="uk-icon-button icon-play completedLesson uk-button-success"><i class="fas fa-check-circle icon-medium uk-margin-remove"></i></span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">{{lessonIndex+1}}. {{lesson.name}}</div>
                                                                 <span v-if="lesson.is_video" class="uk-position-center-right time uk-margin-medium-right">  {{lesson.long}}</span>
                                                             </li>
@@ -68,7 +69,7 @@
                                 <div class="demo1 uk-background-muted" data-simplebar>
                                     <div class="tm-course-section-list">
                                         <ul>
-                                            <li v-for="source in courseSources">
+                                            <li v-for="source in selectedLesson.sources">
                                                 {{source.title}}
                                                 <a class="uk-icon-button uk-margin-small-right  uk-button-success uk-position-center-right" href="#" @click="downloadItem(source.file_path, source.title)" uk-tooltip="title: Download this file ; delay: 500 ; pos: left ; animation:uk-animation-scale-up"> <i class="fas fa-download icon-small"></i> </a>
                                             </li>
@@ -99,17 +100,13 @@
                 type:String,
                 required:true,
             },
-            firstLessonId:{
+            nextLessonId:{
                 type:String,
                 required:true,
             },
-            sourcesText:{
-                type:String,
-                default:"Kaynaklar"
-            },
-            lessonsText:{
-                type:String,
-                default:"Dersler"
+            course:{
+                type:Object,
+                required:true,
             },
             moduleName:{
                 type:String,
@@ -118,31 +115,44 @@
             userId:{
                 type:String,
                 required:true,
-            }
-        },
-        computed:{
-            ...mapState([
-                'learnCourse',
-                'courseSources',
-                'selectedLessonIndex',
-                'selectedSectionIndex',
-            ]),
-            lessonId(){
-                return this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id;
             },
+            firstLessonId:{
+                type:String,
+                required:true,
+            },
+            selectedLesson:{
+                type:Object,
+                required:true,
+            },
+            lessonsText:{
+                type:String,
+                default:"Dersler"
+            },
+            sourcesText:{
+                type:String,
+                default:"Kaynaklar"
+            },
+            sectionText:{
+                type:String,
+                default:"Bölüm"
+            },
+            fullScreenText:{
+                type:String,
+                default:"Tam Ekran"
+            },
+            nextLessonText:{
+                type:String,
+                default:"Sonraki Ders"
+            }
         },
         methods:{
             ...mapActions([
-                'loadLearnCourse',
-                'loadCourseSources',
-                'loadSelectedSectionIndex',
-                'loadSelectedLessonIndex',
                 'loadLessonDiscussion'
             ]),
             downloadItem: function(url, label) {
                 Axios.get(url, { responseType: 'blob' })
                     .then(response => {
-                        const blob = new Blob([response.data], { type: 'application/pdf' });
+                        const blob = new Blob([response.data], );
                         const link = document.createElement('a');
                         link.href = URL.createObjectURL(blob);
                         link.download = label;
@@ -151,48 +161,40 @@
                     })
                     .catch(console.error)
             },
-            selectLesson:function ( sectionIndex, lessonIndex) {
-                this.$store.dispatch('loadSelectedSectionIndex', sectionIndex);
-                this.$store.dispatch('loadSelectedLessonIndex', lessonIndex);
-                this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.lessonId]);
-                this.$store.dispatch('loadCourseSources',[this.moduleName, this.courseId, this.lessonId]);
-                this.triggerFalsePosted();
+            selectLesson:function (lessonId) {
+                window.location.replace('/learn/ge/course/'+this.courseId+'/lesson/'+lessonId);
             },
             watched:function () {
                 var videoPlayer=document.getElementById('courseLessonVideo');
-                if(!(this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].is_completed) && !(this.posted) && videoPlayer.currentTime>=videoPlayer.duration-7){
+                if(!(this.selectedLesson.is_completed) && !(this.posted) && videoPlayer.currentTime>=videoPlayer.duration-7){
                     this.triggerTruePosted();
-                    Axios.post('/api/learn/'+this.moduleName+'/'+this.courseId+'/lesson/'+this.lessonId+'/complete', {user_id: this.userId})
-                        .then(response=>{
-                            this.$store.dispatch('loadLearnCourse', [this.moduleName, this.courseId, this.userId]);
-                            console.log(response)
-                        });
+                    this.completed();
+                }else if( videoPlayer.currentTime==videoPlayer.duration && this.nextLessonId!=null){
+                    setTimeout(()=>{window.location.replace('/learn/ge/course/'+this.courseId+'/lesson/'+this.nextLessonId);},3000);
                 }
             },
             triggerTruePosted(){
                 this.posted=true;
             },
-            triggerFalsePosted(){
-                this.posted=false;
-            },
-            changeVideo:function (videoUrl) {
-                var videoPlayer=document.getElementById('courseLessonVideo');
-                videoPlayer.src=videoUrl;
-                videoPlayer.load();
-                videoPlayer.play();
+            completed:function(){
+                Axios.post('/api/learn/'+this.moduleName+'/'+this.courseId+'/lesson/'+this.selectedLesson.id+'/complete', {user_id: this.userId});
             },
             openNewTab:function () {
-                window.open(this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].file_path);
-            }
+                window.open(this.selectedLesson.file_path);
+            },
         },
         created() {
-            this.$store.dispatch('loadLearnCourse', [this.moduleName, this.courseId, this.userId]);
-            this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.firstLessonId]);
-            this.$store.dispatch('loadCourseSources',[this.moduleName, this.courseId, this.firstLessonId]);
+            this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.selectedLesson.id]);
         }
     }
 </script>
 
 <style scoped>
+    .currentLesson{
+        background-color: #1e87f0;
+    }
 
+    .completedLesson{
+        background-color: #4cd964;
+    }
 </style>

@@ -171,5 +171,7 @@ return [
     'day(s)'=>'gün',
     'month(s)'=>'ay',
     'year(s)'=>'yıl',
-    'before'=>'önce'
+    'before'=>'önce',
+    'full_screen'=>'Tam Ekran',
+
 ];
