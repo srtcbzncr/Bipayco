@@ -183,9 +183,6 @@
                 window.open(this.selectedLesson.file_path);
             },
         },
-        created() {
-            this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.selectedLesson.id]);
-        }
     }
 </script>
 

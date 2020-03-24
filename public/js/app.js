@@ -6367,6 +6367,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       required: true
     },
+    selectedLessonId: {
+      type: String,
+      required: true
+    },
     askQuestionText: {
       type: String,
       "default": "Bir Soru Sor..."
@@ -6404,18 +6408,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "yıl önce"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['learnCourse', 'selectedSectionIndex', 'selectedLessonIndex', 'lessonDiscussion']), {
-    lessonId: function lessonId() {
-      return this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id;
-    }
-  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['lessonDiscussion'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadLessonDiscussion']), {
     postQuestion: function postQuestion() {
       var formData = new FormData();
       formData.append('userId', this.studentId);
       formData.append('content', document.getElementById('questionArea').value);
       formData.append('title', document.getElementById('questionTitle').value);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/learn/' + this.moduleName + '/' + this.courseId + '/lesson/' + this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id + '/discussion/ask', formData).then(this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.lessonId]))["catch"](function (error) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/learn/' + this.moduleName + '/' + this.courseId + '/lesson/' + this.selectedLessonId + '/discussion/ask', formData).then(this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.selectedLessonId]))["catch"](function (error) {
         UIkit.notification({
           message: error.message,
           status: 'danger'
@@ -6442,7 +6442,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   created: function created() {
-    console.log(this.lessonDiscussion);
+    this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.selectedLessonId]);
   }
 });
 
@@ -6653,10 +6653,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     openNewTab: function openNewTab() {
       window.open(this.selectedLesson.file_path);
     }
-  }),
-  created: function created() {
-    this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.selectedLesson.id]);
-  }
+  })
 });
 
 /***/ }),
@@ -31029,6 +31026,7 @@ var mutations = {
     state.courseSources = sources.data;
   },
   setLessonDiscussion: function setLessonDiscussion(state, messages) {
+    console.log(messages);
     state.lessonDiscussion = messages.data;
   },
   setPlLessonType: function setPlLessonType(state, response) {
@@ -31166,7 +31164,7 @@ var actions = {
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/learn/' + moduleName + '/' + courseId + '/lesson/' + lessonId + '/discussion').then(function (response) {
       return commit('setLessonDiscussion', response.data);
-    });
+    }).then(console.log(lessonId));
   },
   loadPlLessonType: function loadPlLessonType(_ref25) {
     var commit = _ref25.commit;

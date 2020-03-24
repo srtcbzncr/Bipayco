@@ -70,6 +70,10 @@
                 type:String,
                 required:true,
             },
+            selectedLessonId:{
+                type:String,
+                required:true,
+            },
             askQuestionText:{
                 type:String,
                 default:"Bir Soru Sor..."
@@ -109,14 +113,8 @@
         },
         computed:{
             ...mapState([
-                'learnCourse',
-                'selectedSectionIndex',
-                'selectedLessonIndex',
                 'lessonDiscussion'
             ]),
-            lessonId(){
-                return this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id;
-            },
         },
         methods:{
             ...mapActions([
@@ -127,8 +125,8 @@
                 formData.append('userId', this.studentId);
                 formData.append('content', document.getElementById('questionArea').value);
                 formData.append('title', document.getElementById('questionTitle').value);
-                axios.post('/api/learn/'+this.moduleName+'/'+this.courseId+'/lesson/'+this.learnCourse.sections[this.selectedSectionIndex].lessons[this.selectedLessonIndex].id+'/discussion/ask', formData)
-                    .then(this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.lessonId]))
+                axios.post('/api/learn/'+this.moduleName+'/'+this.courseId+'/lesson/'+this.selectedLessonId+'/discussion/ask', formData)
+                    .then(this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.selectedLessonId]))
                     .catch((error) => {
                         UIkit.notification({message:error.message, status: 'danger'});
                     });
@@ -151,8 +149,8 @@
                 }
             },
         },
-        created() {
-            console.log(this.lessonDiscussion)
+        created(){
+            this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.selectedLessonId]);
         }
     }
 </script>

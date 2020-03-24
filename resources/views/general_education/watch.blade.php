@@ -23,6 +23,7 @@
         <question-answer-area
             student-id="{{Auth::user()->id}}"
             course-id="{{$course->id}}"
+            selected-lesson-id="{{$course->selectedLesson->id}}"
             module-name="generalEducation"
             day-before-text="@lang('front/auth.day(s)') @lang('front/auth.before')"
             month-before-text="@lang('front/auth.month(s)') @lang('front/auth.before')"
