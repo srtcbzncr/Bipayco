@@ -200,9 +200,11 @@ class LearnRepository implements IRepository
                 }
             }
 
+
             // selected ve bir sonraki lesson dersleri
             $selectedLesson = Lesson::find($lesson_id);
             $object['selectedLesson'] = $selectedLesson;
+            $object['nextLessonId'] = null;
             $control = DB::table("ge_students_completed_lessons")->where('student_id',$student->id)->where('lesson_id',$selectedLesson->id)
                 ->where('lesson_type','App\Models\GeneralEducation\Lesson')->get();
             if($control == null or count($control) == 0){
@@ -211,6 +213,7 @@ class LearnRepository implements IRepository
             else{
                 $object['selectedLesson']['is_completed'] = true;
             }
+
             $sources = $lesson->sources;
             $object['selectedLesson']['sources'] = $sources;
 
