@@ -78,8 +78,8 @@ class LearnRepository implements IRepository
                     $sources = $lesson->sources;
                     $object['sections'][$key]['lessons'][$keyLesson]['sources'] = $sources;
                     $control = DB::table("ge_students_completed_lessons")->where('student_id',$student->id)->where('lesson_id',$lesson->id)
-                        ->where('lesson_type','App\Models\GeneralEducation\Lesson')->first();
-                    if($control == null){
+                        ->where('lesson_type','App\Models\GeneralEducation\Lesson')->get();
+                    if($control == null or count($control) == 0){
                         $object['sections'][$key]['lessons'][$keyLesson]['is_completed'] = false;
                     }
                     else{
@@ -204,8 +204,8 @@ class LearnRepository implements IRepository
             $selectedLesson = Lesson::find($lesson_id);
             $object['selectedLesson'] = $selectedLesson;
             $control = DB::table("ge_students_completed_lessons")->where('student_id',$student->id)->where('lesson_id',$selectedLesson->id)
-                ->where('lesson_type','App\Models\GeneralEducation\Lesson')->first();
-            if($control == null){
+                ->where('lesson_type','App\Models\GeneralEducation\Lesson')->get();
+            if($control == null or count($control) == 0){
                 $object['selectedLesson']['is_completed'] = false;
             }
             else{
