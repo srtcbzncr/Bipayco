@@ -268,7 +268,7 @@ class LearnRepository implements IRepository
             DB::commit();
         }
         catch (\Exception $e){
-            $error = $e;
+            $error = $e->getMessage();
             $result = false;
         }
 
