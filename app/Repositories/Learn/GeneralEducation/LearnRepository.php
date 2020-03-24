@@ -88,6 +88,7 @@ class LearnRepository implements IRepository
                 }
             }
 
+
             // tamamlanmamış ilk dersi al.Bir sonraki dersi getir.
             # 1. derslerin hepsinin tamamlanıp tamamlanmadığını kontrol et.
             # 2. Eğer hepsi tamamlanmışsa ilk dersi selected olarak göster
@@ -106,8 +107,9 @@ class LearnRepository implements IRepository
                     if($control == null or count($control)==0){
                         $flag = true;
                         $notCompletedLesson = $lesson;
-                        if($keyLesson+1 <= count($lessons)-1)
+                        if($keyLesson+1 <= count($lessons)-1){
                             $nextLesson = $lessons[$keyLesson+1];
+                        }
                         else if($keySection+1 <= count($sections)-1){
                             if(isset($sections[$keySection+1]['lessons'][0])){
                                 $nextLesson = $sections[$keySection+1]['lessons'][0];
@@ -124,7 +126,10 @@ class LearnRepository implements IRepository
                 }
                 if($flag == true){
                     $object['selectedLesson'] = $notCompletedLesson;
-                    $object['nextLessonId'] = $nextLesson->id;
+                    if($nextLesson!=null)
+                        $object['nextLessonId'] = $nextLesson->id;
+                    else
+                        $object['nextLessonId'] = null;
                     $object['selectedLesson']['is_completed'] = false;
                     $sources = null;
                     $sources = Source::where('lesson_id',$object['selectedLesson']->id)->where('lesson_type','App\Models\GeneralEducation\Lesson')->where('active',true)->get();
@@ -149,7 +154,6 @@ class LearnRepository implements IRepository
                     }
                 }
             }
-
 
             DB::commit();
         }
@@ -233,7 +237,10 @@ class LearnRepository implements IRepository
                     break;
                 }
             }
-            $object['nextLessonId'] = $nextLesson->id;
+            if($nextLesson != null)
+                $object['nextLessonId'] = $nextLesson->id;
+            else
+                $object['nextLessonId'] = null;
         }
         catch (\Exception $e){
             $error = $e->getMessage();

@@ -19,7 +19,6 @@ class LearnController extends Controller
         $resp = $repo->getCourse($id,$user_id);
         if($resp->getResult()){
             $data = $resp->getData();
-            dd($data);
             return view('general_education.watch')->with('course',$data);
         }
 
@@ -35,7 +34,6 @@ class LearnController extends Controller
         $resp = $repo->getLesson($course_id,$lesson_id);
         if($resp->getResult()){
             $data = $resp->getData();
-            dd($data);
             return view('general_education.watch')->with('course',$data);
         }
 
