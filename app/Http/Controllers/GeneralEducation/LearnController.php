@@ -36,7 +36,6 @@ class LearnController extends Controller
             $data = $resp->getData();
             return view('general_education.watch')->with('course',$data);
         }
-
-        dd($resp->getError());
+        
     }
 }
