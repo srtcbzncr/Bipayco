@@ -6460,13 +6460,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
 //
 //
 //
@@ -6567,10 +6560,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       required: true
     },
-    nextLessonId: {
-      type: String,
-      required: true
-    },
     course: {
       type: Object,
       required: true
@@ -6612,7 +6601,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Sonraki Ders"
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadLessonDiscussion']), {
+  methods: {
     downloadItem: function downloadItem(url, label) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(url, {
         responseType: 'blob'
@@ -6636,9 +6625,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (!this.selectedLesson.is_completed && !this.posted && videoPlayer.currentTime >= videoPlayer.duration - 7) {
         this.triggerTruePosted();
         this.completed();
-      } else if (videoPlayer.currentTime == videoPlayer.duration && this.nextLessonId != null) {
+      } else if (videoPlayer.currentTime == videoPlayer.duration && this.course.nextLessonId != null) {
         setTimeout(function () {
-          window.location.replace('/learn/ge/course/' + _this.courseId + '/lesson/' + _this.nextLessonId);
+          window.location.replace('/learn/ge/course/' + _this.courseId + '/lesson/' + _this.course.nextLessonId);
         }, 3000);
       }
     },
@@ -6653,7 +6642,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     openNewTab: function openNewTab() {
       window.open(this.selectedLesson.file_path);
     }
-  })
+  }
 });
 
 /***/ }),
@@ -14816,7 +14805,7 @@ var render = function() {
                     on: { load: _vm.completed }
                   }),
                   _vm._v(" "),
-                  _vm.nextLessonId != null
+                  _vm.course.nextLessonId != null
                     ? _c(
                         "button",
                         {
@@ -14824,7 +14813,7 @@ var render = function() {
                             "uk-button uk-button-primary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right",
                           on: {
                             click: function($event) {
-                              return _vm.selectLesson(_vm.nextLessonId)
+                              return _vm.selectLesson(_vm.course.nextLessonId)
                             }
                           }
                         },

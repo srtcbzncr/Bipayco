@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
     <div>
-        {{$course}}
         <!-- lesson view area -->
         <div class="uk-margin-left uk-margin-right uk-margin-top uk-margin-bottom uk-margin-medium-bottom">
             <watch
@@ -10,7 +9,6 @@
                 user-id="{{Auth::user()->id}}"
                 course-id="{{$course->id}}"
                 first-lesson-id="{{$course->sections[0]->lessons[0]->id}}"
-                next-lesson-id="{{$course->nextLessonId}}"
                 module-name="generalEducation"
                 section-text="@lang('front/auth.section')"
                 full-screen-text="@lang('front/auth.full_screen')"

@@ -9,7 +9,7 @@
                 </video>
                 <div v-else class="uk-width uk-margin-remove-bottom uk-padding-remove">
                     <iframe :src="selectedLesson.file_path" @load="completed" class="uk-width" style="height: 550px" frameborder="0"></iframe>
-                    <button v-if="nextLessonId!=null" @click="selectLesson(nextLessonId)" class="uk-button uk-button-primary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right">{{nextLessonText}} <i class="fas fa-arrow-right uk-margin-small-left"></i></button>
+                    <button v-if="course.nextLessonId!=null" @click="selectLesson(course.nextLessonId)" class="uk-button uk-button-primary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right">{{nextLessonText}} <i class="fas fa-arrow-right uk-margin-small-left"></i></button>
                     <button @click="openNewTab" class="uk-button uk-button-secondary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right"><i class="fas fa-expand-arrows-alt uk-margin-small-right"></i> {{fullScreenText}}</button>
                 </div>
             </div>
@@ -28,7 +28,6 @@
                         </ul>
                         <!-- Sidebar contents -->
                         <ul class="uk-switcher uk-height-max-large uk-overflow-auto">
-                            <!-- Course Video tab  -->
                             <li>
                                 <div class="demo1 tab-video" data-simplebar>
                                     <ul uk-accordion>
@@ -100,10 +99,6 @@
                 type:String,
                 required:true,
             },
-            nextLessonId:{
-                type:String,
-                required:true,
-            },
             course:{
                 type:Object,
                 required:true,
@@ -146,9 +141,6 @@
             }
         },
         methods:{
-            ...mapActions([
-                'loadLessonDiscussion'
-            ]),
             downloadItem: function(url, label) {
                 Axios.get(url, { responseType: 'blob' })
                     .then(response => {
@@ -169,8 +161,8 @@
                 if(!(this.selectedLesson.is_completed) && !(this.posted) && videoPlayer.currentTime>=videoPlayer.duration-7){
                     this.triggerTruePosted();
                     this.completed();
-                }else if( videoPlayer.currentTime==videoPlayer.duration && this.nextLessonId!=null){
-                    setTimeout(()=>{window.location.replace('/learn/ge/course/'+this.courseId+'/lesson/'+this.nextLessonId);},3000);
+                }else if( videoPlayer.currentTime==videoPlayer.duration && this.course.nextLessonId!=null){
+                    setTimeout(()=>{window.location.replace('/learn/ge/course/'+this.courseId+'/lesson/'+this.course.nextLessonId);},3000);
                 }
             },
             triggerTruePosted(){
