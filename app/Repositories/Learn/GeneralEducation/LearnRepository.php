@@ -67,6 +67,8 @@ class LearnRepository implements IRepository
             $course = Course::find($id);
             $student = Student::where('user_id',$user_id)->first();
             $sections = Section::where('course_id',$id)->where('active',true)->orderBy('no','asc')->get();
+
+            // sections,lessons ve source verileri
             $object = $course;
             $object['sections'] = $sections;
             foreach ($sections as $key => $section){
@@ -85,24 +87,69 @@ class LearnRepository implements IRepository
                     }
                 }
             }
-            $sectionsTemp = Section::where('course_id',$id)->where('active',true)->orderBy('no','asc')->get();
-            foreach ($sectionsTemp as $key => $section){
-                $lessonsTemp = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
-                foreach ($lessonsTemp as $lesson){
-                    $object['selectedLesson'] = $lesson;
-                    $control = DB::table("ge_students_completed_lessons")->where('student_id',$student->id)->where('lesson_id',$lesson->id)
-                        ->where('lesson_type','App\Models\GeneralEducation\Lesson')->first();
-                    if($control == null){
-                        $object['selectedLesson']['is_completed'] = false;
+
+            // tamamlanmamış ilk dersi al.Bir sonraki dersi getir.
+            # 1. derslerin hepsinin tamamlanıp tamamlanmadığını kontrol et.
+            # 2. Eğer hepsi tamamlanmışsa ilk dersi selected olarak göster
+            # 3. Eğer tamamlanmayan varsa o tamamlanmayan ilk dersi selected olarak göster.
+            foreach ($sections as $keySection=>$section){
+                $lessons = null;
+                $lessons = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
+                $flag = false;
+                $notCompletedLesson = null;
+                $nextLesson = null;
+                foreach ($lessons as $keyLesson=>$lesson){
+                    $control = DB::table('ge_students_completed_lessons')
+                        ->where('student_id',$student->id)
+                        ->where('lesson_id',$lesson->id)
+                        ->where('lesson_type','App\Models\GeneralEducation\Lesson')->get();
+                    if($control == null or count($control)==0){
+                        $flag = true;
+                        $notCompletedLesson = $lesson;
+                        if($keyLesson+1 <= count($lessons)-1)
+                            $nextLesson = $lessons[$keyLesson+1];
+                        else if($keySection+1 <= count($sections)-1){
+                            if(isset($sections[$keySection+1]['lessons'][0])){
+                                $nextLesson = $sections[$keySection+1]['lessons'][0];
+                            }
+                            else{
+                                $nextLesson = null;
+                            }
+                        }
+                        else{
+                            $nextLesson = null;
+                        }
+                        break;
                     }
-                    else{
-                        $object['selectedLesson']['is_completed'] = true;
-                    }
-                    $sources = $lesson->sources;
+                }
+                if($flag == true){
+                    $object['selectedLesson'] = $notCompletedLesson;
+                    $object['nextLessonId'] = $nextLesson->id;
+                    $object['selectedLesson']['is_completed'] = false;
+                    $sources = null;
+                    $sources = Source::where('lesson_id',$object['selectedLesson']->id)->where('lesson_type','App\Models\GeneralEducation\Lesson')->where('active',true)->get();
                     $object['selectedLesson']['sources'] = $sources;
                     break;
                 }
+                else if($keySection == count($sections)-1){
+                    $object['selectedLesson'] = $sections[0]['lessons'][0];
+                    $object['selectedLesson']['is_completed'] = true;
+                    $sources = null;
+                    $sources = Source::where('lesson_id',$object['selectedLesson']->id)->where('lesson_type','App\Models\GeneralEducation\Lesson')->where('active',true)->get();
+                    $object['selectedLesson']['sources'] = $sources;
+                    if(isset($sections[0]['lessons'][1])){
+                        $object['nextLessonId'] = $sections[0]['lessons'][1]->id;
+                    }
+                    else{
+                        if(isset($sections[1]['lessons'][0])){
+                            $object['nextLessonId'] = $sections[1]['lessons'][0]->id;
+                        }
+                        else
+                            $object['nextLessonId'] = null;
+                    }
+                }
             }
+
 
             DB::commit();
         }
@@ -126,9 +173,10 @@ class LearnRepository implements IRepository
 
             $user_id = Auth::user()->id;
             $course = Course::find($course_id);
-
             $student = Student::where('user_id',$user_id)->first();
             $sections = Section::where('course_id',$course_id)->where('active',true)->orderBy('no','asc')->get();
+
+            // course,sections,lesson ve source verileri
             $object = $course;
             $object['sections'] = $sections;
             foreach ($sections as $key => $section){
@@ -148,6 +196,7 @@ class LearnRepository implements IRepository
                 }
             }
 
+            // selected ve bir sonraki lesson dersleri
             $selectedLesson = Lesson::find($lesson_id);
             $object['selectedLesson'] = $selectedLesson;
             $control = DB::table("ge_students_completed_lessons")->where('student_id',$student->id)->where('lesson_id',$selectedLesson->id)
@@ -160,6 +209,31 @@ class LearnRepository implements IRepository
             }
             $sources = $lesson->sources;
             $object['selectedLesson']['sources'] = $sources;
+
+            $nextLesson = null;
+            $flag = false;
+            foreach ($sections as $keySection => $section){
+                $lessons = null;
+                $lessons = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
+                foreach ($lessons as $keyLesson=> $lesson){
+                    if($lesson->id == $selectedLesson->id){
+                        if($keyLesson+1 <= count($lessons)-1){
+                            $nextLesson = $lessons[$keyLesson+1];
+                            $flag = true;
+                            break;
+                        }
+                        else if($keySection+1 <= count($sections)-1){
+                            $nextLesson = $sections[$keySection+1]['lessons'][0];
+                            $flag = true;
+                            break;
+                        }
+                    }
+                }
+                if($flag == true){
+                    break;
+                }
+            }
+            $object['nextLessonId'] = $nextLesson->id;
         }
         catch (\Exception $e){
             $error = $e->getMessage();
