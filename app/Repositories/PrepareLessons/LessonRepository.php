@@ -5,6 +5,7 @@ namespace App\Repositories\PrepareLessons;
 use App\Events\Instructor\CourseActiveEvent;
 use App\Events\Instructor\SectionActiveEvent;
 use App\Models\GeneralEducation\Source;
+use App\Models\PrepareLessons\Course;
 use App\Models\PrepareLessons\Lesson;
 use App\Models\PrepareLessons\Section;
 use App\Repositories\IRepository;
@@ -168,8 +169,48 @@ class LessonRepository implements IRepository{
         try{
             DB::beginTransaction();
             $lesson = Lesson::find($id);
+            $section_id = $lesson->section_id;
             Storage::delete($lesson->file_path);
             $lesson->delete();
+
+            // bu sectiona ait başka lesson olup olamdığını kontrol et.
+            $section = Section::find($section_id);
+            $course_id = $section->course_id;
+            $lessons = $section->lessons;
+            if($lessons == null or count($lessons) == 0){
+                $section->active = false;
+                $section->save();
+            }
+
+            // bu kursa ait aktif section olup olmadığını kontrol et.
+            $sections = Section::where('course_id',$course_id)->get();
+            $flag = false;
+            $counter = 0;
+            if($sections == null or count($sections) == 0){
+                $course = Course::find($course_id);
+                $course->active = false;
+                $course->save();
+            }
+            else{
+                foreach ($sections as $section){
+                    if($section->active == true){
+                        $flag == false;
+                        break;
+                    }
+                    else{
+                        $counter++;
+                    }
+
+                    if($counter == count($sections))
+                        $flag = true;
+                }
+            }
+            if($flag == true){
+                $course = Course::find($course_id);
+                $course->active = false;
+                $course->save();
+            }
+
             DB::commit();
         }
         catch(\Exception $e){
