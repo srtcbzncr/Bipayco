@@ -42,7 +42,7 @@ class SectionRepository implements IRepository{
                 $object->no = 1;
             $object->subject_id = $data['subjectId'];
             $object->name = $data['name'];
-            $object->active = true;
+            $object->active = false;
             $object->save();
         }
         catch(\Exception $e){

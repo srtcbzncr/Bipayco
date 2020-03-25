@@ -2,8 +2,11 @@
 
 namespace App\Repositories\PrepareLessons;
 
+use App\Events\Instructor\CourseActiveEvent;
+use App\Events\Instructor\SectionActiveEvent;
 use App\Models\GeneralEducation\Source;
 use App\Models\PrepareLessons\Lesson;
+use App\Models\PrepareLessons\Section;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\DB;
@@ -31,6 +34,8 @@ class LessonRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
+            $tempSection = Section::find($data['section_id']);
+            $course_id = $tempSection->course_id;
             $my_lessons = Lesson::where('section_id',$data['section_id'])->get();
             $last_lesson = null;
             foreach ($my_lessons as $item){
@@ -76,6 +81,15 @@ class LessonRepository implements IRepository{
                 }
             }
 
+
+            $sectionEventData = array();
+            $sectionEventData['section_id'] = $data['section_id'];
+            $sectionEventData['education'] = 2;
+            event(new SectionActiveEvent($sectionEventData));
+            $lessonEventData = array();
+            $lessonEventData['course_id'] = $course_id;
+            $lessonEventData['education'] = 2;
+            event(new CourseActiveEvent($lessonEventData));
 
             DB::commit();
         }

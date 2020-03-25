@@ -75,7 +75,7 @@ class SectionRepository implements IRepository{
             else
                 $object->no = 1;
             $object->name = $data['name'];
-            $object->active = true;
+            $object->active = false;
             $object->save();
             DB::commit();
         }

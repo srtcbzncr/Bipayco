@@ -3,6 +3,8 @@
 namespace App\Repositories\GeneralEducation;
 
 use App\Events\GeneralEducation\ChangeLessonStatus;
+use App\Events\Instructor\CourseActiveEvent;
+use App\Events\Instructor\SectionActiveEvent;
 use App\Models\Auth\Student;
 use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\Entry;
@@ -12,6 +14,7 @@ use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use App\Models\GeneralEducation\Lesson;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Storage;
 use Pbmedia\LaravelFFMpeg\FFMpegFacade as FFMpeg;
 
@@ -68,6 +71,8 @@ class LessonRepository implements IRepository{
         // Operations
         try{
             DB::beginTransaction();
+            $tempSection = Section::find($data['section_id']);
+            $course_id = $tempSection->course_id;
             $my_lessons = Lesson::where('section_id',$data['section_id'])->get();
             $last_lesson = null;
             foreach ($my_lessons as $item){
@@ -113,6 +118,14 @@ class LessonRepository implements IRepository{
                 }
             }
 
+            $sectionEventData = array();
+            $sectionEventData['section_id'] = $data['section_id'];
+            $sectionEventData['education'] = 1;
+            event(new SectionActiveEvent($sectionEventData));
+            $lessonEventData = array();
+            $lessonEventData['course_id'] = $course_id;
+            $lessonEventData['education'] = 1;
+            event(new CourseActiveEvent($lessonEventData));
 
             DB::commit();
         }

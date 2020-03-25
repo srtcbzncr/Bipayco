@@ -866,7 +866,7 @@ class CourseRepository implements IRepository{
 
             $object = array();
             $course = Course::find($id);
-            $sections = Section::where('course_id',$id)->where('active',true)->orderBy('no','asc')->get();
+            $sections = Section::where('course_id',$id)->orderBy('no','asc')->get();
             foreach ($sections as $keySection=>$section){
                 $subject = Subject::find($section->subject_id);
                 $sections[$keySection]['subject_name'] = $subject->name;
