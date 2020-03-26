@@ -6637,6 +6637,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     openNewTab: function openNewTab() {
       window.open(this.selectedLesson.file_path);
+    },
+    isOpen: function isOpen(sectionId) {
+      return sectionId == this.selectedLesson.section_id;
     }
   }
 });
@@ -14920,15 +14923,15 @@ var render = function() {
                                   "li",
                                   {
                                     staticClass:
-                                      "tm-course-lesson-section uk-background-default"
+                                      "tm-course-lesson-section uk-background-default",
+                                    class: { "uk-open": _vm.isOpen(section.id) }
                                   },
                                   [
                                     _c(
                                       "a",
                                       {
                                         staticClass:
-                                          "uk-accordion-title  uk-padding-small",
-                                        attrs: { href: "#" }
+                                          "uk-accordion-title  uk-padding-small"
                                       },
                                       [
                                         _c("h6", [

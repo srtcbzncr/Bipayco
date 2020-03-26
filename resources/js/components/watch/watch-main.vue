@@ -32,8 +32,8 @@
                                 <div class="demo1 tab-video" data-simplebar>
                                     <ul uk-accordion>
                                         <!-- section one -->
-                                        <li v-for="(section, sectionIndex) in course.sections" class="tm-course-lesson-section uk-background-default">
-                                            <a class="uk-accordion-title  uk-padding-small" href="#"><h6> {{sectionText}} {{sectionIndex+1}}</h6> <h4 class="uk-margin-remove">{{section.name}}</h4> </a>
+                                        <li v-for="(section, sectionIndex) in course.sections" class="tm-course-lesson-section uk-background-default" :class="{'uk-open':isOpen(section.id)}">
+                                            <a class="uk-accordion-title  uk-padding-small"><h6> {{sectionText}} {{sectionIndex+1}}</h6> <h4 class="uk-margin-remove">{{section.name}}</h4> </a>
                                             <div class="uk-accordion-content uk-margin-remove-top">
                                                 <div class="tm-course-section-list">
                                                     <ul>
@@ -170,6 +170,9 @@
             openNewTab:function () {
                 window.open(this.selectedLesson.file_path);
             },
+            isOpen:function (sectionId) {
+                return sectionId==this.selectedLesson.section_id;
+            }
         },
     }
 </script>
