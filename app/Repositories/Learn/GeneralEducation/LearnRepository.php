@@ -214,7 +214,7 @@ class LearnRepository implements IRepository
                 $object['selectedLesson']['is_completed'] = true;
             }
 
-            $sources = $lesson->sources;
+            $sources = $selectedLesson->sources;
             $object['selectedLesson']['sources'] = $sources;
 
             $nextLesson = null;
