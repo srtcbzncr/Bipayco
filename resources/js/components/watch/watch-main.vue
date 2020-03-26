@@ -111,10 +111,6 @@
                 type:String,
                 required:true,
             },
-            firstLessonId:{
-                type:String,
-                required:true,
-            },
             selectedLesson:{
                 type:Object,
                 required:true,

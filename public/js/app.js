@@ -6572,10 +6572,6 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       required: true
     },
-    firstLessonId: {
-      type: String,
-      required: true
-    },
     selectedLesson: {
       type: Object,
       required: true
