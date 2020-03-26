@@ -77,9 +77,9 @@ class CoursePolicy
     }
 
     public function entry(User $user, Course $course){
-        $now = date('Y-m-d HH:MM:SS', time());
+        $now = date('Y-m-d', time());
         $entry = Entry::where('student_id', $user->student->id)->where('course_id', $course->id)->where('active', true)->first();
-        if($entry != null and $entry->access_start<=$now and $entry->access_finish>=$now){
+        if($entry != null and date('Y-m-d',strtotime($entry->access_start))<=$now and date('Y-m-d',strtotime($entry->access_finish))>=$now){
             return true;
         }
         else{
