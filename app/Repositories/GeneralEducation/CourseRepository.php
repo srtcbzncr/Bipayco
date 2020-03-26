@@ -114,6 +114,8 @@ class CourseRepository implements IRepository{
                 else{
                     $object['inFavorite'] = false;
                 }
+
+                // proggress verisi gönder.
             }
         }
         catch(\Exception $e){
