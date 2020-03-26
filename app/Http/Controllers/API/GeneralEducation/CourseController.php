@@ -696,14 +696,14 @@ class CourseController extends Controller
         // percent control
         $totalPercent = 0;
         foreach ($data as $item){
-            if ($item->percent == null or $item->percent <= 0 or $item->percent > 100){
+            if ($item['percent'] == null or (int)$item['percent'] <= 0 or (int)$item['percent'] > 100){
                 return response()->json([
                    'error' => true,
                    'message' => 'Hatalı bilgi girdiniz. Tekrar deneyin.'
                 ]);
             }
-            if($item->percent != null)
-                $totalPercent += $item->percent;
+            if($item['percent'] != null)
+                $totalPercent += (int)$item['percent'];
         }
         if($totalPercent != 100){
             return response()->json([
