@@ -708,7 +708,7 @@ class CourseController extends Controller
         if($totalPercent != 100){
             return response()->json([
                 'error' => true,
-                'message' => 'Hatalı bilgi girdiniz. Tekrar deneyin.'
+                'message' => 'Yüzdelerin Toplamı 100 olmalıdır.'
             ]);
         }
 
