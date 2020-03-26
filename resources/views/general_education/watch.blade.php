@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
     <div>
-        {{$course->selectedLesson}}
         <!-- lesson view area -->
         <div class="uk-margin-left uk-margin-right uk-margin-top uk-margin-bottom uk-margin-medium-bottom">
             <watch

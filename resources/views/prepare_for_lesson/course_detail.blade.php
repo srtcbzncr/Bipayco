@@ -33,7 +33,7 @@
                         </div>
                         <div class="uk-width-expand">
                             <span class="uk-light uk-text-small uk-text-bold"> @lang('front/auth.my_progress') </span>
-                            <progress id="js-progressbar" class="uk-progress progress-green uk-margin-small-bottom uk-margin-small-top" value="{{$progress}}" max="100" style="height: 8px;"> </progress>
+                            <progress id="js-progressbar" class="uk-progress progress-green uk-margin-small-bottom uk-margin-small-top" value="{{$course->progress}}" max="100" style="height: 8px;"> </progress>
                         </div>
                     </div>
                 @else
