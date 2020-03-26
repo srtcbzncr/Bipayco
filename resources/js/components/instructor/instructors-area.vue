@@ -28,7 +28,7 @@
                             </div>
                             <div class="uk-width-1-5@m uk-margin-small-bottom">
                                 <div class="uk-form-label uk-hidden@m">{{percentText}}</div>
-                                <input type="number" name="percent[]" class="uk-input uk-padding-remove" max="100" min="1" required>
+                                <input type="number" name="percent[]" :value="instructor.percent" class="uk-input uk-padding-remove" max="100" min="1" required>
                             </div>
                             <div v-if="!instructor.is_manager" class="uk-width-1-5@m uk-margin-small-bottom">
                                 <a class="uk-button-icon" @click="removeInstructor(index)"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>

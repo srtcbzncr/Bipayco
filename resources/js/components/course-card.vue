@@ -13,9 +13,9 @@
         <a :href="pageLink" class="uk-link-reset">
             <img :src="imgPath" class="course-img uk-background-center-center uk-background-cover uk-height" :style="image">
             <div class="uk-card-body">
-                <h4>{{title}}</h4>
+                <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small">{{title}}</h4>
                 <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small"> {{description}} </p>
-                <div>
+                <div class="uk-width">
                     <stars-rating :rating="Number(rate)" :style-full-star-color="styleFullStarColor" :style-empty-star-color="styleEmptyStarColor" > </stars-rating>
                 </div>
                 <hr class="uk-margin-remove-top">

@@ -10123,7 +10123,22 @@ var render = function() {
         }),
         _vm._v(" "),
         _c("div", { staticClass: "uk-card-body" }, [
-          _c("h4", [_vm._v(_vm._s(_vm.title))]),
+          _c(
+            "h4",
+            {
+              staticClass: "uk-height-small",
+              staticStyle: {
+                overflow: "hidden",
+                "text-overflow": "ellipsis",
+                display: "-webkit-box",
+                "line-height": "16px",
+                "max-height": "32px",
+                "-webkit-line-clamp": "2",
+                "-webkit-box-orient": "vertical"
+              }
+            },
+            [_vm._v(_vm._s(_vm.title))]
+          ),
           _vm._v(" "),
           _c(
             "p",
@@ -10144,6 +10159,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
+            { staticClass: "uk-width" },
             [
               _c("stars-rating", {
                 attrs: {
@@ -12574,7 +12590,8 @@ var render = function() {
                         max: "100",
                         min: "1",
                         required: ""
-                      }
+                      },
+                      domProps: { value: instructor.percent }
                     })
                   ]
                 ),
