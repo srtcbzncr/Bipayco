@@ -173,5 +173,6 @@ return [
     'year(s)'=>'yıl',
     'before'=>'önce',
     'full_screen'=>'Tam Ekran',
-    'grade'=>'Sınıf'
+    'grade'=>'Sınıf',
+    'question_answer'=>'Soru Cevap'
 ];

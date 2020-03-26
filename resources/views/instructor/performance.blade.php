@@ -90,7 +90,7 @@
     <!--total earnings-->
     <div class="uk-container uk-margin-top">
         <div class="uk-card">
-            <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.q&a') </span></h3>
+            <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.question_answer') </span></h3>
             <div class="uk-child-width-1-2@m uk-card-body uk-grid-small uk-grid-divider uk-grid-match" uk-grid>
                 <div>
                     <div class="uk-card uk-card-default uk-card-body text-center stats-card">

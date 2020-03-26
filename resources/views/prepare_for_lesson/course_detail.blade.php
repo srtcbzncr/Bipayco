@@ -29,7 +29,7 @@
                 @if(Auth::check() && Auth::user()->can('entry', $course))
                     <div class="uk-grid-small" uk-grid>
                         <div class="uk-width-auto">
-                            <a class="uk-button uk-button-white uk-float-left" href="{{route('pl_watch', $course->id)}}" uk-tooltip="title: Star This course now  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"> @lang('front/auth.continue')</a>
+                            <a class="uk-button uk-button-white uk-float-left" href="" uk-tooltip="title: Star This course now  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"> @lang('front/auth.continue')</a>
                         </div>
                         <div class="uk-width-expand">
                             <span class="uk-light uk-text-small uk-text-bold"> @lang('front/auth.my_progress') </span>
