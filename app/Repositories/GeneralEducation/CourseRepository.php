@@ -472,7 +472,7 @@ class CourseRepository implements IRepository{
             $object->price = $data['price'];
             $object->price_with_discount = $data['price'];
             $object->save();
-            $object->instructors()->save(Instructor::find($data['instructor_id']), ['is_manager' => true, 'percent' => 100]);
+            $object->instructors()->save(Instructor::find($data['instructor_id']), ['is_manager' => true, 'percent' => 100, 'active' => true]);
             DB::commit();
         }
         catch(\Exception $e){
@@ -865,7 +865,7 @@ class CourseRepository implements IRepository{
 
             $object = array();
             $course = Course::find($id);
-            $sections = Section::where('course_id',$id)->where('active',true)->orderBy('no','asc')->get();
+            $sections = Section::where('course_id',$id)->orderBy('no','asc')->get();
            // $sections = $course->sections->getQuery()->where('active', true)->sortBy('no');
             $object['sections'] = $sections;
             foreach ($sections as $key => $section){

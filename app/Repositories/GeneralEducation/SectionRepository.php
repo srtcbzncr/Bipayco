@@ -2,6 +2,7 @@
 
 namespace App\Repositories\GeneralEducation;
 
+use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\Lesson;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
@@ -75,7 +76,7 @@ class SectionRepository implements IRepository{
             else
                 $object->no = 1;
             $object->name = $data['name'];
-            $object->active = true;
+            $object->active = false;
             $object->save();
             DB::commit();
         }
@@ -127,6 +128,7 @@ class SectionRepository implements IRepository{
         try{
             DB::beginTransaction();
             $section = Section::find($id);
+            $course_id = $section->course_id;
             $lessons = Lesson::where('section_id',$id);
             foreach ($lessons as $lesson){
                 $lesson->sources()->delete();
@@ -136,6 +138,37 @@ class SectionRepository implements IRepository{
                 $lesson->delete();
             }
             $section->delete();
+
+            // bu kursa ait aktif kurs olup olmadığını kontrol et.
+            $flag = false;
+            $counter = 0;
+            $sections = Section::where('course_id',$course_id)->get();
+            if($sections == null or count($sections) == 0){
+                $course = Course::find($course_id);
+                $course->active = false;
+                $course->save();
+            }
+            else{
+                foreach ($sections as $section){
+                    if($section->active==true){
+                        $flag = false;
+                        break;
+                    }
+                    else{
+                        $counter++;
+                    }
+                    if($counter == count($sections)){
+                        $flag = true;
+                        break;
+                    }
+                }
+            }
+            if($flag == true){
+                $course = Course::find($course_id);
+                $course->active = false;
+                $course->save();
+            }
+
             DB::commit();
         }
         catch(\Exception $e){
