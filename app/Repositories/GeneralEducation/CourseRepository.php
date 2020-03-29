@@ -134,8 +134,13 @@ class CourseRepository implements IRepository{
                         }
                     }
                 }
-                $progress = ($counter/$totalLesson)/100;
-                $object['progress'] = $progress;
+                if($totalLesson == 0){
+                    $object['progress'] = 0;
+                }
+                else{
+                    $progress = ($counter/$totalLesson)*100;
+                    $object['progress'] = $progress;
+                }
             }
         }
         catch(\Exception $e){
