@@ -9,42 +9,81 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index(){
+    public function indexGe(){
         $geCourseRepo = new CourseRepository;
-        $plCourseRepo = new \App\Repositories\PrepareLessons\CourseRepository();
 
         // Operations
         $gePopularCoursesResp = $geCourseRepo->getPopularCourses();
-        $plPopularCoursesResp = $plCourseRepo->getPopularCourses();
-
         $data = [
             'general_education' => $gePopularCoursesResp->getData(),
-            'prepare_for_lessons' => $plPopularCoursesResp->getData(),
-            'prepare_for_exams' => [],
-            'books' => [],
-            'exams' => [],
         ];
 
-        if($gePopularCoursesResp->getResult() and $plPopularCoursesResp->getResult()){
+        if($gePopularCoursesResp->getResult()){
             return response()->json([
                'error' => false,
                'data' => $data,
             ]);
         }
 
-        if(!$gePopularCoursesResp->getResult()){
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $gePopularCoursesResp->getError()
+        ],400);
+
+    }
+
+    public function indexPl(){
+        $plCourseRepo = new \App\Repositories\PrepareLessons\CourseRepository();
+
+        // Operations
+        $plPopularCoursesResp = $plCourseRepo->getPopularCourses();
+
+        $data = [
+            'prepare_for_lessons' => $plPopularCoursesResp->getData(),
+        ];
+
+        if( $plPopularCoursesResp->getResult()){
             return response()->json([
-                'error' => true,
-                'errorMessage' => $gePopularCoursesResp->getError()
-            ],400);
-        }
-        else if(!$plPopularCoursesResp->getResult()){
-            return response()->json([
-                'error' => true,
-                'errorMessage' => $plPopularCoursesResp->getError()
-            ],400);
+                'error' => false,
+                'data' => $data,
+            ]);
         }
 
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $plPopularCoursesResp->getError()
+        ],400);
+
+    }
+
+    public function indexPe(){
+        $data = [
+           'prepare_for_exams' => []
+        ];
+        return response()->json([
+           'error' => false,
+           'data' => $data
+        ]);
+    }
+
+    public function indexBooks(){
+        $data = [
+            'books' => []
+        ];
+        return response()->json([
+            'error' => false,
+            'data' => $data
+        ]);
+    }
+
+    public function indexExams(){
+        $data = [
+            'exams' => []
+        ];
+        return response()->json([
+            'error' => false,
+            'data' => $data
+        ]);
     }
 
     public function ge_index(){
