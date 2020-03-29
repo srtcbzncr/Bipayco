@@ -39,6 +39,7 @@
                         :module-name="moduleName"
                         :is-login="isLogin"
                         :user-id="userId"
+                        :module="module"
                     > </course-card>
                 </div>
             </div>

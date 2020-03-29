@@ -2434,6 +2434,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-card-pagination",
@@ -9676,7 +9677,8 @@ var render = function() {
                       "course-id": course.id,
                       "module-name": _vm.moduleName,
                       "is-login": _vm.isLogin,
-                      "user-id": _vm.userId
+                      "user-id": _vm.userId,
+                      module: _vm.module
                     }
                   })
                 ],
