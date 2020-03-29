@@ -11,25 +11,31 @@
             </a>
         </div>
         <a :href="pageLink" class="uk-link-reset">
-            <img :src="imgPath" class="course-img uk-background-center-center uk-background-cover uk-height" :style="image">
+            <img :src="course.image" class="course-img uk-background-center-center uk-background-cover uk-height" :style="image">
             <div class="uk-card-body">
-                <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small">{{title}}</h4>
-                <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small"> {{description}} </p>
+                <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small">{{course.name}}</h4>
+                <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small"> {{course.description}} </p>
                 <div class="uk-width">
-                    <stars-rating :rating="Number(rate)" :style-full-star-color="styleFullStarColor" :style-empty-star-color="styleEmptyStarColor" > </stars-rating>
+                    <stars-rating :rating="Number(course.point)" :style-full-star-color="styleFullStarColor" :style-empty-star-color="styleEmptyStarColor" > </stars-rating>
                 </div>
                 <hr class="uk-margin-remove-top">
-                <div>
-                    <a class="uk-button uk-button-text uk-button-small" style="margin-right: 20px" href="#"> Satın Al</a>
-                    <a class="uk-button uk-button-text uk-button-small" :href=pageLink> İncele </a>
-                    <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right" style="float:right; font-weight: bold; font-size: 16px;">{{currentPrice.toFixed(2)}}$</p>
-                    <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right" style="float:right; text-decoration: line-through; opacity: 0.75; font-size: 13px" v-if="discount">{{prevPrice.toFixed(2)}}$</p>
+                <div class="uk-grid uk-child-width-1-2">
+                    <div>
+                        <a class="uk-button uk-button-text uk-button-small" style="margin-right: 20px" href="#"> Satın Al</a>
+                        <a class="uk-button uk-button-text uk-button-small" :href=pageLink> İncele </a>
+                    </div>
+                    <div v-if="course.price_with_discount!==course.price" class=" uk-margin-remove uk-padding-remove">
+                        <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right" style="float:right; font-weight: bold; font-size: 16px;">{{course.price_with_discount.toFixed(2)}} <i class="fas fa-lira-sign icon-tiny"></i></p>
+                        <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right" style="float:right; text-decoration: line-through; opacity: 0.75; font-size: 13px">{{course.price.toFixed(2)}} <i class="fas fa-lira-sign icon-tiny"></i></p>
+                    </div>
+                    <div v-else class=" uk-margin-remove uk-padding-remove">
+                        <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right" style="float:right; font-weight: bold; font-size: 16px;">{{course.price.toFixed(2)}} <i class="fas fa-lira-sign icon-tiny"></i></p>
+                    </div>
                 </div>
             </div>
         </a>
     </div>
 </template>
-
 <script>
 import StarsRating from "./stars-rating";
 import {mapActions} from 'vuex'
@@ -37,35 +43,32 @@ import Axios from 'axios';
 export default {
     name: "course-card",
     data(){
-      return{
-          fav:this.isFav,
-          cart:this.inCart,
-      }
+        return{
+            fav:this.inFav,
+            cart:this.inCart,
+        }
     },
     components: {StarsRating},
     props:{
-        title: String,
-        description: String,
-        imgPath: String,
-        rate:{
-            type: Number,
-            default:0,
+        course:{
+            type:Object,
+            required:true,
         },
-        prevPrice:{
-            type: Number,
-            default:0,
+        pageLink:{
+            type:String,
+            required:true,
         },
-        currentPrice:{
-            type: Number,
-            default:0,
-        },
-        discount: Boolean,
-        pageLink: String,
         styleFullStarColor:String,
         styleEmptyStarColor:String,
         courseId:{
             type:Number,
             required:true,
+        },
+        inCart:{
+            default:false,
+        },
+        inFav:{
+            default:false,
         },
         moduleName:{
             type:String,
@@ -79,24 +82,16 @@ export default {
             type:String,
             default:"",
         },
-        isFav:{
-            type:Boolean,
-            default:false,
-        },
-        inCart:{
-            type:Boolean,
-            default:false,
-        }
     },
     computed:{
-        cPrice:function(){
-            return this.currentPrice.toFixed(2);
-        },
-        pPrice:function () {
-            return this.prevPrice.toFixed(2);
-        },
         image(){
             return {backgroundImage: "url("+this.imgPath+")"};
+        },
+        inFav(){
+            return this.course.inFavorite;
+        },
+        inCart(){
+            return this.course.inBasket;
         }
     },
     methods:{
@@ -157,7 +152,7 @@ export default {
                     console.log(response)
                 })
         }
-    }
+    },
 }
 </script>
 

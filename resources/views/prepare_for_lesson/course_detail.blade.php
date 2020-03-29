@@ -37,18 +37,27 @@
                         </div>
                     </div>
                 @else
-                    <div class="uk-grid-small" uk-grid>
-                        <div class="uk-width-auto">
-                            <a class="uk-button uk-button-white uk-float-left" href="#" uk-tooltip="title: Star This course now  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"> @lang('front/auth.add_cart')</a>
-                        </div>
-                    </div>
+                    <add-cart-button
+                        module-name="prepareLessons"
+                        @if(Auth::check())
+                        user-id="{{Auth::user()->id}}"
+                        is-login
+                        @endif
+                        @if($course->inBasket)
+                        in-cart
+                        @endif
+                        login-route="{{route('loginGet')}}"
+                        add-cart-text="@lang('front/auth.add_cart')"
+                        remove-cart-text="@lang('front/auth.remove_cart')"
+                        course-id="{{$course->id}}"
+                    > </add-cart-button>
                 @endif
             </div>
         </div>
     </div>
     <ul class="uk-child-width-expand course-dhashboard-subnav" uk-tab>
         <li class="uk-active">
-            <a href="#" class="tablinks" onclick="openTabs(event, 'Description')"> @lang('front/auth.description')  </a>
+            <a class="tablinks" onclick="openTabs(event, 'Description')"> @lang('front/auth.description')  </a>
         </li>
         <li>
             <a href="#" class="tablinks" onclick="openTabs(event, 'Course-Videos')"> <!--<span class="uk-visible@m"> Kurs </span>-->  @lang('front/auth.videos_course') </a>
