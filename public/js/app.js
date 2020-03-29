@@ -3211,10 +3211,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     authCheck: {
       type: Boolean,
-      required: true
+      "default": false
     },
     userId: {
-      type: String
+      type: String,
+      "default": ""
     },
     generalEducationText: {
       type: String,

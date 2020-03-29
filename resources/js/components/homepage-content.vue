@@ -81,10 +81,11 @@
             },
             authCheck:{
                 type:Boolean,
-                required:true,
+                default:false,
             },
             userId:{
                 type:String,
+                default:"",
             },
             generalEducationText:{
                 type:String,
