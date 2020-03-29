@@ -4919,6 +4919,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "instructors-area",
+  data: function data() {
+    return {
+      instructorsInfo: [],
+      instructorEmail: "",
+      hasInstructor: true
+    };
+  },
   props: {
     instructorText: {
       type: String,
@@ -4973,21 +4980,14 @@ __webpack_require__.r(__webpack_exports__);
       required: true
     }
   },
-  data: function data() {
-    return {
-      instructors: [],
-      hasInstructor: true
-    };
-  },
   methods: {
-    addInstructor: function addInstructor(instructor) {
-      this.instructors.push(instructor);
+    addInstructor: function addInstructor(info) {
+      this.instructorsInfo.push(info);
     },
     searchInstructor: function searchInstructor() {
       var _this = this;
 
-      var email = document.getElementById('instructorEmail').value;
-      axios.get('/api/instructor/search?email=' + email).then(function (response) {
+      axios.get('/api/instructor/search?email=' + this.instructorEmail).then(function (response) {
         return response.data;
       }).then(function (response) {
         if (response.error) {
@@ -5001,37 +5001,43 @@ __webpack_require__.r(__webpack_exports__);
             status: 'success'
           });
 
-          _this.addInstructor(response.data);
-
-          console.log(_this.instructors);
+          _this.addInstructor({
+            instructor: response.data,
+            percent: 1
+          });
         }
       });
-      document.getElementById('instructorEmail').value = "";
+      this.instructorEmail = "";
     },
     removeInstructor: function removeInstructor(index) {
-      this.instructors.splice(index, 1);
+      this.instructorsInfo.splice(index, 1);
     },
     instructorPost: function instructorPost(courseId) {
-      var instructorsInfo = [];
-      var percents = document.getElementsByName('percent[]');
+      var instructors = [];
 
-      for (var i = 0; i < this.instructors.length; i++) {
-        var id = this.instructors[i].id;
-        var percent = percents[i].value;
-        console.log("id:" + id + " percent:" + percent);
-        instructorsInfo.push({
+      for (var i = 0; i < this.instructorsInfo.length; i++) {
+        var id = this.instructorsInfo[i].instructor.id;
+        var percent = this.instructorsInfo[i].percent;
+        instructors.push({
           'instructor_id': id,
           'percent': percent
         });
       }
 
-      axios.post('/api/instructor/' + this.moduleName + '/course/' + courseId + '/instructors', instructorsInfo).then(function (response) {
-        return console.log(response);
-      })["catch"](function (error) {
-        UIkit.notification({
-          message: error.message,
-          status: 'danger'
-        });
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + courseId + '/instructors', instructors).then(function (response) {
+        console.log(response);
+
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+        }
       });
     }
   },
@@ -5041,8 +5047,13 @@ __webpack_require__.r(__webpack_exports__);
     axios.get('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/instructors').then(function (response) {
       return response.data.data;
     }).then(function (response) {
+      console.log(response.instructor);
+
       for (var i = 0; i < response.instructor.length; i++) {
-        _this2.addInstructor(response.instructor[i]);
+        _this2.addInstructor({
+          instructor: response.instructor[i],
+          percent: response.instructor[i].percent
+        });
       }
     });
   }
@@ -12850,12 +12861,25 @@ var render = function() {
   return _c("div", [
     _c("div", {}, [
       _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.instructorEmail,
+            expression: "instructorEmail"
+          }
+        ],
         staticClass:
           "uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m",
-        attrs: {
-          type: "text",
-          id: "instructorEmail",
-          placeholder: _vm.addInstructorText
+        attrs: { type: "text", placeholder: _vm.addInstructorText },
+        domProps: { value: _vm.instructorEmail },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.instructorEmail = $event.target.value
+          }
         }
       }),
       _vm._v(" "),
@@ -12895,7 +12919,7 @@ var render = function() {
         _c(
           "div",
           { staticClass: "uk-margin-small", attrs: { id: "instructorsArea" } },
-          _vm._l(_vm.instructors, function(instructor, index) {
+          _vm._l(_vm.instructorsInfo, function(info, index) {
             return _c("div", { staticClass: "uk-margin-small" }, [
               _c("div", { staticClass: "uk-grid align-items-center" }, [
                 _c("input", {
@@ -12905,7 +12929,7 @@ var render = function() {
                     disabled: "",
                     name: "instructorsId[]"
                   },
-                  domProps: { value: instructor.id }
+                  domProps: { value: info.instructor.id }
                 }),
                 _vm._v(" "),
                 _c(
@@ -12919,7 +12943,7 @@ var render = function() {
                     _c("div", { staticClass: "uk-flex align-items-center" }, [
                       _c("img", {
                         staticClass: "user-profile-tiny uk-circle",
-                        attrs: { src: instructor.user.avatar }
+                        attrs: { src: info.instructor.user.avatar }
                       }),
                       _vm._v(" "),
                       _c(
@@ -12931,13 +12955,13 @@ var render = function() {
                         [
                           _c("b", [
                             _vm._v(
-                              _vm._s(instructor.user.first_name) +
+                              _vm._s(info.instructor.user.first_name) +
                                 " " +
-                                _vm._s(instructor.user.last_name)
+                                _vm._s(info.instructor.user.last_name)
                             )
                           ]),
                           _vm._v(" "),
-                          instructor.is_manager
+                          info.instructor.is_manager
                             ? _c("span", [
                                 _vm._v("(" + _vm._s(_vm.managerText) + ")")
                               ])
@@ -12957,6 +12981,14 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: info.percent,
+                          expression: "info.percent"
+                        }
+                      ],
                       staticClass: "uk-input uk-padding-remove",
                       attrs: {
                         type: "number",
@@ -12965,12 +12997,20 @@ var render = function() {
                         min: "1",
                         required: ""
                       },
-                      domProps: { value: instructor.percent }
+                      domProps: { value: info.percent },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(info, "percent", $event.target.value)
+                        }
+                      }
                     })
                   ]
                 ),
                 _vm._v(" "),
-                !instructor.is_manager
+                !info.instructor.is_manager
                   ? _c(
                       "div",
                       { staticClass: "uk-width-1-5@m uk-margin-small-bottom" },
