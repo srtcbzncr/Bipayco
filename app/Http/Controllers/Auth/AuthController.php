@@ -45,8 +45,32 @@ class AuthController extends Controller
 
         // Initializations
         $repo = new UserRepository;
+        $object = new User();
+        $object->district_id = $validatedData['district_id'];
+        $object->first_name = $validatedData['first_name'];
+        $object->last_name = $validatedData['last_name'];
+        $object->username = $validatedData['username'];
+        $object->email = $validatedData['email'];
+        $object->phone_number = $validatedData['phone_number'];
+        $object->password = Hash::make($validatedData['password']);
+        $object->save();
+        $studentRepository = new StudentRepository;
+        $studentResp = $studentRepository->create(['user_id' => $object->id]);
+        if(!$studentResp->getResult() or $studentResp->isDataNull()){
+           /* $result = false;
+            $error = new \Exception(__('auth.create_profile_failed'));*/
+            return redirect()->back()->with('error', __('auth.register_failed'));
+        }
+        else{
+            if(Auth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password']], false)){
+                return redirect()->route('home');
+            }
 
-        // Operations
+            //Event::fire(new RegisterEvent($data));
+            return redirect()->route('loginGet');
+        }
+
+        /* Operations
         $resp = $repo->create($validatedData);
         if($resp->getResult()){
             if(Auth::attempt(['email' => $validatedData['email'], 'password' => $validatedData['password']], false)){
@@ -58,7 +82,7 @@ class AuthController extends Controller
         }
         else {
             return redirect()->back()->with('error', __('auth.register_failed'));
-        }
+        }*/
     }
 
     public function loginGet(){
