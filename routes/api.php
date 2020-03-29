@@ -17,6 +17,41 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+Route::prefix('/home')->group(function(){
+    Route::get('/', 'API\HomeController@index')->name('home');
+
+    Route::group(['prefix' => 'ge'], function(){
+        Route::group(['prefix' => 'category'], function(){
+            Route::get('{id}', 'API\GeneralEducation\CategoryController@show2')->name('ge_category_courses');
+        });
+        Route::group(['prefix' => 'subCategory'], function(){
+            Route::get('{id}', 'API\GeneralEducation\SubCategoryController@show')->name('ge_sub_category_courses');
+        });
+        Route::group(['prefix' => 'course'], function(){
+            Route::get('{id}', 'API\GeneralEducation\CourseController@show')->name('ge_course');
+        });
+        Route::get('index', 'API\HomeController@ge_index')->name('ge_index');
+    });
+
+    Route::group(['prefix' => 'pl'],function (){
+        Route::group(['prefix' => 'category'],function (){
+            # pl de burası yok.
+            Route::get('{id}','API\PrepareLessons\CategoryController@show')->name('pl_category_courses');
+        });
+        Route::group(['prefix' => 'subCategory'], function(){
+            # pl de burası yok.
+            Route::get('{id}', 'API\PrepareLessons\SubCategoryController@show')->name('pl_sub_category_courses');
+        });
+        Route::group(['prefix' => 'course'], function(){
+            Route::get('{id}', 'API\PrepareLessons\CourseController@show')->name('pl_course');
+        });
+
+        # pl de burası yok.
+        Route::get('index', 'API\HomeController@pl_index')->name('pl_index');
+    });
+});
+
 Route::prefix('country')->group(function(){
     Route::get('index', 'API\Base\CountryController@index')->name('api_country_index');
     Route::get('{id}', 'API\Base\CountryController@show')->name('api_country_show');

@@ -11,10 +11,48 @@ use App\Repositories\PrepareLessons\CourseRepository;
 use App\Repositories\PrepareLessons\LessonRepository;
 use App\Repositories\PrepareLessons\SectionRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CourseController extends Controller
 {
+    public function show($id, Request $request){
+        // Repo initialization
+        $repo = new CourseRepository;
+        $user_id = null;
+        if(isset($request->toArray()['user_id'])){
+            $user_id = $request->toArray()['user_id'];
+        }
+
+        // Operations
+        $resp = $repo->get_api($id,$user_id);
+        $completedLessonsResp = $repo->getCompletedLessons($id, Auth::id());
+        $entriesResp = $repo->getStudents($id);
+        $progress = $repo->calculateProgress($resp->getData()->id, Auth::id());
+        $similarCourses = $repo->getSimilarCourses($id);
+        $data = [
+            'course' => $resp->getData(),
+            'entries' => $entriesResp->getData(),
+            'student_count' => count($resp->getData()->entries),
+            'progress' => $progress->getData(),
+            'completed' => $completedLessonsResp->getData(),
+            'similar_courses' => $similarCourses->getData(),
+        ];
+
+        // Response
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $data
+            ]);
+        }
+
+        return response()->json([
+            'error' => false,
+            'mesage' => 'Kurs verileri getirilirken hata oluştu.Tekrar deneyin.'
+        ]);
+    }
+
     public function createPost($id = null,Request $request){
         if($id == null){
             // Initializing

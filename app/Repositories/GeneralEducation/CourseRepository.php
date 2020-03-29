@@ -4,6 +4,7 @@ namespace App\Repositories\GeneralEducation;
 
 use App\Models\Auth\Instructor;
 use App\Models\Auth\Student;
+use App\Models\Auth\User;
 use App\Models\GeneralEducation\Achievement;
 use App\Models\GeneralEducation\Comment;
 use App\Models\GeneralEducation\Entry;
@@ -76,7 +77,7 @@ class CourseRepository implements IRepository{
             }
         }
         catch(\Exception $e){
-            $error = $e;
+            $error = $e->getMessage();
             $result = false;
         }
 
@@ -96,6 +97,78 @@ class CourseRepository implements IRepository{
         try{
             $user = Auth::user();
             $student = Student::where('user_id',$user->id)->first();
+            if($user == null){
+                $object = Course::find($id);
+            }
+            else{
+                $object = Course::find($id);
+                $course = Course::find($id);
+                $controlBasket = Basket::where('user_id',$user->id)->where('course_id',$id)->where('course_type','App\Models\GeneralEducation\Course')->get();
+                if($controlBasket != null and count($controlBasket) > 0){
+                    $object['inBasket'] = true;
+                }
+                else{
+                    $object['inBasket'] = false;
+                }
+                $controlFav = Favorite::where('user_id',$user->id)->where('course_id',$id)->where('course_type','App\Models\GeneralEducation\Course')->get();
+                if($controlFav != null and count($controlFav) > 0){
+                    $object['inFavorite'] = true;
+                }
+                else{
+                    $object['inFavorite'] = false;
+                }
+
+                // proggress verisi gönder.
+                $sections = $course->sections;
+                $counter = 0;
+                $totalLesson = 0;
+                foreach ($sections as $section){
+                    $lessons = $section->lessons;
+                    $totalLesson+=count($lessons);
+                    foreach ($lessons as $lesson){
+                        $controlComplete = DB::table('ge_students_completed_lessons')
+                            ->where('student_id',$student->id)
+                            ->where('lesson_id',$lesson->id)
+                            ->where('lesson_type','App\Models\GeneralEducation\Lesson')->get();
+                        if($controlComplete != null or count($controlComplete) > 0){
+                            $counter++;
+                        }
+                    }
+                }
+                if($totalLesson == 0){
+                    $object['progress'] = 0;
+                }
+                else{
+                    $progress = ($counter/$totalLesson)*100;
+                    $object['progress'] = $progress;
+                }
+            }
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function get_api($id,$user_id)
+    {
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $user = null;
+            if($user_id != null){
+                $user = User::find($user_id);
+                $student = Student::where('user_id',$user->id)->first();
+            }
+
             if($user == null){
                 $object = Course::find($id);
             }

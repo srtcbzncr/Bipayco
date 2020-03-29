@@ -1,24 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API;
 
+use App\Http\Controllers\Controller;
 use App\Repositories\GeneralEducation\CategoryRepository;
 use App\Repositories\GeneralEducation\CourseRepository;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Pbmedia\LaravelFFMpeg\FFMpegFacade as FFMpeg;
 
 class HomeController extends Controller
 {
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
-    {
-        // Repo initializations
+    public function index(){
         $geCourseRepo = new CourseRepository;
         $plCourseRepo = new \App\Repositories\PrepareLessons\CourseRepository();
 
@@ -34,8 +25,26 @@ class HomeController extends Controller
             'exams' => [],
         ];
 
-        // Response
-        return view('home', $data);
+        if($gePopularCoursesResp->getResult() and $plPopularCoursesResp->getResult()){
+            return response()->json([
+               'error' => false,
+               'data' => $data,
+            ]);
+        }
+
+        if(!$gePopularCoursesResp->getResult()){
+            return response()->json([
+                'error' => true,
+                'errorMessage' => $gePopularCoursesResp->getError()
+            ],400);
+        }
+        else if(!$plPopularCoursesResp->getResult()){
+            return response()->json([
+                'error' => true,
+                'errorMessage' => $plPopularCoursesResp->getError()
+            ],400);
+        }
+
     }
 
     public function ge_index(){
@@ -50,14 +59,15 @@ class HomeController extends Controller
 
         // Response
         if($resp->getResult()){
-            return view('general_education.index', $data);
+            return response()->json([
+                'error' => false,
+                'data' => $data
+            ]);
         }
-        else{
-            return view('error');
-        }
-    }
 
-    public function error(){
-        return view('error');
+        return response()->json([
+            'error' => true,
+            'message' => 'Bir hata oluştu.'
+        ]);
     }
 }
