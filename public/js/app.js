@@ -3027,8 +3027,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "course-card",
   data: function data() {
     return {
-      fav: this.inFav,
-      cart: this.inCart
+      fav: this.course.inFavorite,
+      cart: this.course.inBasket
     };
   },
   components: {
@@ -3048,12 +3048,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     courseId: {
       type: Number,
       required: true
-    },
-    inCart: {
-      "default": false
-    },
-    inFav: {
-      "default": false
     },
     moduleName: {
       type: String,

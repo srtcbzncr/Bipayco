@@ -44,8 +44,8 @@ export default {
     name: "course-card",
     data(){
         return{
-            fav:this.inFav,
-            cart:this.inCart,
+            fav:this.course.inFavorite,
+            cart:this.course.inBasket,
         }
     },
     components: {StarsRating},
@@ -63,12 +63,6 @@ export default {
         courseId:{
             type:Number,
             required:true,
-        },
-        inCart:{
-            default:false,
-        },
-        inFav:{
-            default:false,
         },
         moduleName:{
             type:String,
