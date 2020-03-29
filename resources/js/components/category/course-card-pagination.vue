@@ -32,40 +32,13 @@
             <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-margin" uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div ; delay: 200" uk-grid>
                 <div v-for="course in categoryCourses.data">
                     <course-card
-                        v-if="course.price!=course.price_with_discount"
-                        :title="course.name"
-                        :description="course.description"
-                        :img-path="course.image"
-                        discount
-                        :current-price="course.price_with_discount"
-                        :prev-price="course.price"
-                        :rate="course.point"
-                        :page-link="'/ge/course/'+course.id"
+                        :course="course"
                         style-full-star-color="#F4C150"
                         style-empty-star-color="#C1C1C1"
                         :course-id="course.id"
                         :module-name="moduleName"
                         :is-login="isLogin"
                         :user-id="userId"
-                        :is-fav="course.inFavorite"
-                        :in-cart="course.inBasket"
-                    > </course-card>
-                    <course-card
-                        v-else
-                        :title="course.name"
-                        :description="course.description"
-                        :img-path="course.image"
-                        :current-price="course.price"
-                        :rate="course.point"
-                        :page-link="'/ge/course/'+course.id"
-                        style-full-star-color="#F4C150"
-                        style-empty-star-color="#C1C1C1"
-                        :course-id="course.id"
-                        :module-name="moduleName"
-                        :is-login="isLogin"
-                        :user-id="userId"
-                        :is-fav="course.inFavorite"
-                        :in-cart="course.inBasket"
                     > </course-card>
                 </div>
             </div>
@@ -129,6 +102,10 @@
                 require:true,
             },
             moduleName:{
+                type:String,
+                required:true,
+            },
+            module:{
                 type:String,
                 required:true,
             },

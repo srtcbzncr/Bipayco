@@ -194,18 +194,7 @@
                 @foreach($similar_courses as $similar_course)
                     <div class="uk-margin-medium-bottom">
                         <course-card
-                            title="{{$similar_course->name}}"
-                            description="{{$similar_course->description}}"
-                            img-path="{{$similar_course->image}}"
-                            @if($similar_course->price!=$similar_course->price_with_discount)
-                                discount
-                                :current-price="{{$similar_course->price_with_discount}}"
-                                :prev-price="{{$similar_course->price}}"
-                            @else
-                                :current-price="{{$similar_course->price}}"
-                            @endif
-                            :rate="{{$similar_course->point}}"
-                            page-link="{{route('ge_course',$similar_course->id)}}"
+                            :course="{{$similar_course}}"
                             style-full-star-color="#F4C150"
                             style-empty-star-color="#C1C1C1"
                             :course-id="{{$similar_course->id}}"
@@ -213,13 +202,8 @@
                             @if(Auth::check())
                                 is-login
                                 user-id="{{Auth::user()->id}}"
-                                @if($similar_course->inBasket)
-                                    in-cart
-                                @endif
-                                @if($similar_course->inFavorite)
-                                    is-fav
-                                @endif
                             @endif
+                            module="ge"
                         ></course-card>
                     </div>
                 @endforeach

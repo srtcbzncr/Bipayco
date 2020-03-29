@@ -34,6 +34,7 @@
         sub-category
         has-no-content="@lang('front/auth.not_found_content')"
         module-name="prepareLessons"
+        module="pl"
         @if(Auth::check())
             is-login
             user-id="{{Auth::user()->id}}"

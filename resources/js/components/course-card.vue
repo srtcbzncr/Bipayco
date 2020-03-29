@@ -54,10 +54,6 @@ export default {
             type:Object,
             required:true,
         },
-        pageLink:{
-            type:String,
-            required:true,
-        },
         styleFullStarColor:String,
         styleEmptyStarColor:String,
         courseId:{
@@ -76,16 +72,17 @@ export default {
             type:String,
             default:"",
         },
+        module:{
+            type:String,
+            required:true,
+        }
     },
     computed:{
         image(){
             return {backgroundImage: "url("+this.imgPath+")"};
         },
-        inFav(){
-            return this.course.inFavorite;
-        },
-        inCart(){
-            return this.course.inBasket;
+        pageLink(){
+            return '/'+this.module+'/course/'+this.course.id;
         }
     },
     methods:{

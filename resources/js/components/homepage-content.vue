@@ -18,22 +18,22 @@
                             <course-card
                                 v-if="authCheck"
                                 :course="course"
-                                :page-link="'/'+module+'/course/'+course.id"
                                 style-full-star-color="#F4C150"
                                 style-empty-star-color="#C1C1C1"
                                 :course-id="course.id"
                                 :module-name="moduleName"
                                 is-login
                                 :user-id="userId"
+                                :module="module"
                             ></course-card>
                             <course-card
                                 v-else
                                 :course="course"
-                                :page-link="'/'+module+'/course/'+course.id"
                                 style-full-star-color="#F4C150"
                                 style-empty-star-color="#C1C1C1"
                                 :course-id="course.id"
                                 :module-name="moduleName"
+                                :module="module"
                             ></course-card>
                         </div>
                     </div>
@@ -55,7 +55,7 @@
             return{
                 courses:this.generalEducation,
                 moduleName:'generalEducation',
-                module:'ge'
+                module:'ge',
             }
         },
         props:{

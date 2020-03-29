@@ -73,6 +73,7 @@
             style-full-star-color="#F4C150"
             style-empty-star-color="#C1C1C1"
             module-name="prepareLessons"
+            module="pl"
             @if(Auth::check())
             is-login
             user-id="{{Auth::user()->id}}"

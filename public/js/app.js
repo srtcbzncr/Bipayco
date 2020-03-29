@@ -2434,33 +2434,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-card-pagination",
@@ -2500,6 +2473,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       require: true
     },
     moduleName: {
+      type: String,
+      required: true
+    },
+    module: {
       type: String,
       required: true
     },
@@ -3039,10 +3016,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: Object,
       required: true
     },
-    pageLink: {
-      type: String,
-      required: true
-    },
     styleFullStarColor: String,
     styleEmptyStarColor: String,
     courseId: {
@@ -3060,6 +3033,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     userId: {
       type: String,
       "default": ""
+    },
+    module: {
+      type: String,
+      required: true
     }
   },
   computed: {
@@ -3068,11 +3045,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         backgroundImage: "url(" + this.imgPath + ")"
       };
     },
-    inFav: function inFav() {
-      return this.course.inFavorite;
-    },
-    inCart: function inCart() {
-      return this.course.inBasket;
+    pageLink: function pageLink() {
+      return '/' + this.module + '/course/' + this.course.id;
     }
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadShoppingCart']), {
@@ -9694,45 +9668,17 @@ var render = function() {
               return _c(
                 "div",
                 [
-                  course.price != course.price_with_discount
-                    ? _c("course-card", {
-                        attrs: {
-                          title: course.name,
-                          description: course.description,
-                          "img-path": course.image,
-                          discount: "",
-                          "current-price": course.price_with_discount,
-                          "prev-price": course.price,
-                          rate: course.point,
-                          "page-link": "/ge/course/" + course.id,
-                          "style-full-star-color": "#F4C150",
-                          "style-empty-star-color": "#C1C1C1",
-                          "course-id": course.id,
-                          "module-name": _vm.moduleName,
-                          "is-login": _vm.isLogin,
-                          "user-id": _vm.userId,
-                          "is-fav": course.inFavorite,
-                          "in-cart": course.inBasket
-                        }
-                      })
-                    : _c("course-card", {
-                        attrs: {
-                          title: course.name,
-                          description: course.description,
-                          "img-path": course.image,
-                          "current-price": course.price,
-                          rate: course.point,
-                          "page-link": "/ge/course/" + course.id,
-                          "style-full-star-color": "#F4C150",
-                          "style-empty-star-color": "#C1C1C1",
-                          "course-id": course.id,
-                          "module-name": _vm.moduleName,
-                          "is-login": _vm.isLogin,
-                          "user-id": _vm.userId,
-                          "is-fav": course.inFavorite,
-                          "in-cart": course.inBasket
-                        }
-                      })
+                  _c("course-card", {
+                    attrs: {
+                      course: course,
+                      "style-full-star-color": "#F4C150",
+                      "style-empty-star-color": "#C1C1C1",
+                      "course-id": course.id,
+                      "module-name": _vm.moduleName,
+                      "is-login": _vm.isLogin,
+                      "user-id": _vm.userId
+                    }
+                  })
                 ],
                 1
               )
@@ -10611,25 +10557,23 @@ var render = function() {
                         ? _c("course-card", {
                             attrs: {
                               course: course,
-                              "page-link":
-                                "/" + _vm.module + "/course/" + course.id,
                               "style-full-star-color": "#F4C150",
                               "style-empty-star-color": "#C1C1C1",
                               "course-id": course.id,
                               "module-name": _vm.moduleName,
                               "is-login": "",
-                              "user-id": _vm.userId
+                              "user-id": _vm.userId,
+                              module: _vm.module
                             }
                           })
                         : _c("course-card", {
                             attrs: {
                               course: course,
-                              "page-link":
-                                "/" + _vm.module + "/course/" + course.id,
                               "style-full-star-color": "#F4C150",
                               "style-empty-star-color": "#C1C1C1",
                               "course-id": course.id,
-                              "module-name": _vm.moduleName
+                              "module-name": _vm.moduleName,
+                              module: _vm.module
                             }
                           })
                     ],
