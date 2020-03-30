@@ -403,11 +403,29 @@ class CourseController extends Controller
         }
 
         // percent control
+        $b = false;
+        $total = 0;
         foreach ($data as $item){
             if(!isset($item['percent']) and $item['percent'] ==null){
+                $b = true;
+                break;
+            }
+            else{
+                $total+=$item['percent'];
+            }
+        }
+
+        if($b == true){
+            return response()->json([
+                'error' => true,
+                'message' => 'Eğitimenler kursa eklenirken hata oluştu.Tekrar deneyin.'
+            ],400);
+        }
+        else{
+            if($total!=100){
                 return response()->json([
                     'error' => true,
-                    'message' => 'Eğitimenler kursa eklenirken hata oluştu.Tekrar deneyin.'
+                    'message' => 'Eğitimenlerin payları toplam 100 olmalıdır.Tekrar deneyin.'
                 ],400);
             }
         }

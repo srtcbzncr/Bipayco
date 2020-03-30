@@ -1042,10 +1042,12 @@ class CourseRepository implements IRepository{
                 if($item->is_manager == true){
                     $object[$key] = Instructor::find($item->instructor_id);
                     $object[$key]['is_manager'] = true;
+                    $object[$key]['percent'] = $item->percent;
                 }
                 else{
                     $object[$key] = Instructor::find($item->instructor_id);
                     $object[$key]['is_manager'] = false;
+                    $object[$key]['percent'] = $item->percent;
                 }
             }
         }
