@@ -5,6 +5,7 @@ namespace App\Http\Controllers\GeneralEducation;
 use App\Http\Controllers\Controller;
 use App\Models\Auth\User;
 use App\Models\GeneralEducation\Course;
+use App\Models\GeneralEducation\Entry;
 use App\Repositories\Learn\GeneralEducation\LearnRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -37,7 +38,7 @@ class LearnController extends Controller
         // Operations
         $user = Auth::user();
         $course = Course::find($course_id);
-        if($this->entry($user,$course)){
+        if($user->can('entry',$course)){
             $resp = $repo->getLesson($course_id,$lesson_id);
             $data = $resp->getData();
             return view('general_education.watch')->with('course',$data);
@@ -53,14 +54,14 @@ class LearnController extends Controller
 
     }
 
-    private function entry($user,$course){
-        $now = date('Y-m-d', time());
-        $entry = Entry::where('student_id', $user->student->id)->where('course_type','App\Models\PrepareLessons\Course')->where('course_id', $course->id)->where('active', true)->first();
-        if($entry != null and date('Y-m-d',strtotime($entry->access_start))<=$now and date('Y-m-d',strtotime($entry->access_finish))>=$now){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
+//    private function entry($user,$course){
+//        $now = date('Y-m-d', time());
+//        $entry = Entry::where('student_id', $user->student->id)->where('course_type','App\Models\PrepareLessons\Course')->where('course_id', $course->id)->where('active', true)->first();
+//        if($entry != null and date('Y-m-d',strtotime($entry->access_start))<=$now and date('Y-m-d',strtotime($entry->access_finish))>=$now){
+//            return true;
+//        }
+//        else{
+//            return false;
+//        }
+//    }
 }
