@@ -1703,4 +1703,27 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+
+    public function inBasket($user_id,$course_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        $control = DB::table('basket')->where('user_id',$user_id)
+            ->where('course_id',$course_id)
+            ->where('course_type','App\Models\GeneralEducation\Course')->get();
+        if($control!=null and count($control)>0){
+            $object = true;
+        }
+        else{
+            $object = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
 }

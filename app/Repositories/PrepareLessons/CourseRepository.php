@@ -1149,7 +1149,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getSimilarCourses($id){
+    public function getSimilarCourses($id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -1157,8 +1157,37 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $courses = Course::all();
-            $object = $courses->random(2);
+            $course = Course::find($id);
+            $courses = Course::where('lesson_id',$course->lesson_id)->where('grade_id',$course->grade_id)->get();
+            if(count($courses)>2){
+                $object = $courses->random(2);
+            }
+            else if(count($courses)==2){
+                $object = $courses;
+            }
+            else{
+                $object = array();
+            }
+
+            if(count($object) > 0 and $user_id != null){
+                foreach ($object as $key => $item){
+                    $contorlBasket = DB::table('basket')->where('user_id',$user_id)->where('course_id',$item->id)->where('course_type','App\Models\PrepareLessons\Course')->get();
+                    if($contorlBasket !=  null and count($contorlBasket) > 0){
+                        $object[$key]['inBasket'] = true;
+                    }
+                    else{
+                        $object[$key]['inBasket'] = false;
+                    }
+
+                    $contorlFav = DB::table('favorite')->where('user_id',$user_id)->where('course_id',$item->id)->where('course_type','App\Models\PrepareLessons\Course')->get();
+                    if($contorlFav !=  null and count($contorlFav) > 0){
+                        $object[$key]['inFavorite'] = true;
+                    }
+                    else{
+                        $object[$key]['inFavorite'] = false;
+                    }
+                }
+            }
         }
         catch(\Exception $e){
             $error = $e;
@@ -1552,6 +1581,28 @@ class CourseRepository implements IRepository{
         catch(\Exception $e){
             $error = $e->getMessage();
             $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function inBasket($user_id,$course_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        $control = DB::table('basket')->where('user_id',$user_id)
+            ->where('course_id',$course_id)
+            ->where('course_type','App\Models\PrepareLessons\Course')->get();
+        if($control!=null and count($control)>0){
+            $object = true;
+        }
+        else{
+            $object = false;
         }
 
         // Response

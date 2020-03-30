@@ -953,4 +953,42 @@ class CourseController extends Controller
         ]);
     }
 
+    public function inBasket($user_id,$course_id){
+        // Initializing
+        $repo = new CourseRepository();
+
+        // Operations
+        $resp = $repo->inBasket($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+               'error' => false,
+               'inBasket' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Bir hata oluştu.Tekrar deneyin.'
+        ]);
+    }
+
+    public function simularCourses($user_id=null,$course_id){
+        // Initializing
+        $repo = new CourseRepository();
+
+        // Operations
+        $resp = $repo->getSimilarCourses($course_id,$user_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Bir hata oluştu.Tekrar deneyin.'
+        ]);
+    }
+
 }

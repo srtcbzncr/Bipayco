@@ -18,12 +18,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
+# Home'daki ge,pl vb. kurslar.
 Route::get('/home/ge/{user_id?}', 'API\HomeController@indexGe')->name('home_ge');
 Route::get('/home/pl/{user_id?}', 'API\HomeController@indexPl')->name('home_pl');
 Route::get('/home/pe/{user_id?}', 'API\HomeController@indexPe')->name('home_pe');
 Route::get('/home/books/{user_id?}', 'API\HomeController@indexBooks')->name('home_books');
 Route::get('/home/exams/{user_id?}', 'API\HomeController@indexExams')->name('home_exams');
 
+#Kurs detay sayfası,kategoriler ve alt kategoriler ve
+# iki api yazılacak. 1. sepette varmı yokmu, 2. benzer kurslar.
 Route::group(['prefix' => 'ge'], function(){
     Route::group(['prefix' => 'category'], function(){
         Route::get('{id}', 'API\GeneralEducation\CategoryController@show2')->name('ge_category_courses');
@@ -35,6 +38,9 @@ Route::group(['prefix' => 'ge'], function(){
         Route::get('{id}', 'API\GeneralEducation\CourseController@show')->name('ge_course');
     });
     Route::get('index', 'API\HomeController@ge_index')->name('ge_index');
+
+    Route::get('/inBasket/{user_id}/{course_id}','API\GeneralEducation\CourseController@inBasket')->name('ge_in_basket');
+    Route::get('/simularCourses/{user_id?}/{course_id}','API\GeneralEducation\CourseController@simularCourses')->name('ge_simularCourses');
 });
 
 Route::group(['prefix' => 'pl'],function (){
@@ -52,7 +58,11 @@ Route::group(['prefix' => 'pl'],function (){
 
     # pl de burası yok.
     Route::get('index', 'API\HomeController@pl_index')->name('pl_index');
+
+    Route::get('/inBasket/{user_id}/{course_id}','API\PrepareLessons\CourseController@inBasket')->name('pl_in_basket');
+    Route::get('/simularCourses/{user_id?}/{course_id}','API\PrepareLessons\CourseController@simularCourses')->name('pl_simularCourses');
 });
+
 
 Route::prefix('country')->group(function(){
     Route::get('index', 'API\Base\CountryController@index')->name('api_country_index');
