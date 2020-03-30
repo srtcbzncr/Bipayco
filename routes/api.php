@@ -18,11 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-Route::get('/home/ge', 'API\HomeController@indexGe')->name('home_ge');
-Route::get('/home/pl', 'API\HomeController@indexPl')->name('home_pl');
-Route::get('/home/pe', 'API\HomeController@indexPe')->name('home_pe');
-Route::get('/home/books', 'API\HomeController@indexBooks')->name('home_books');
-Route::get('/home/exams', 'API\HomeController@indexExams')->name('home_exams');
+Route::get('/home/ge/{user_id?}', 'API\HomeController@indexGe')->name('home_ge');
+Route::get('/home/pl/{user_id?}', 'API\HomeController@indexPl')->name('home_pl');
+Route::get('/home/pe/{user_id?}', 'API\HomeController@indexPe')->name('home_pe');
+Route::get('/home/books/{user_id?}', 'API\HomeController@indexBooks')->name('home_books');
+Route::get('/home/exams/{user_id?}', 'API\HomeController@indexExams')->name('home_exams');
 
 Route::group(['prefix' => 'ge'], function(){
     Route::group(['prefix' => 'category'], function(){
