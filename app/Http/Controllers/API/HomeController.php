@@ -9,11 +9,15 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function indexGe(){
+    public function indexGe(Request $request){
         $geCourseRepo = new CourseRepository;
+        $user_id = null;
+        if(isset($request->toArray()['user_id'])){
+            $user_id = $request->toArray()['user_id'];
+        }
 
         // Operations
-        $gePopularCoursesResp = $geCourseRepo->getPopularCourses();
+        $gePopularCoursesResp = $geCourseRepo->getPopularCourses($user_id);
         $data = $gePopularCoursesResp->getData();
 
         if($gePopularCoursesResp->getResult()){
@@ -30,11 +34,15 @@ class HomeController extends Controller
 
     }
 
-    public function indexPl(){
+    public function indexPl(Request $request){
         $plCourseRepo = new \App\Repositories\PrepareLessons\CourseRepository();
+        $user_id = null;
+        if(isset($request->toArray()['user_id'])){
+            $user_id = $request->toArray()['user_id'];
+        }
 
         // Operations
-        $plPopularCoursesResp = $plCourseRepo->getPopularCourses();
+        $plPopularCoursesResp = $plCourseRepo->getPopularCourses($user_id);
 
         $data =  $plPopularCoursesResp->getData();
 
@@ -52,7 +60,7 @@ class HomeController extends Controller
 
     }
 
-    public function indexPe(){
+    public function indexPe(Request $request){
         $data = [];
         return response()->json([
            'error' => false,
@@ -60,7 +68,7 @@ class HomeController extends Controller
         ]);
     }
 
-    public function indexBooks(){
+    public function indexBooks(Request $request){
         $data = [];
         return response()->json([
             'error' => false,
@@ -68,7 +76,7 @@ class HomeController extends Controller
         ]);
     }
 
-    public function indexExams(){
+    public function indexExams(Request $request){
         $data = [];
         return response()->json([
             'error' => false,

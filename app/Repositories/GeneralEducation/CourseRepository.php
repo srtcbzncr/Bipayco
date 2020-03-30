@@ -46,7 +46,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getPopularCourses(){
+    public function getPopularCourses($user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -61,20 +61,23 @@ class CourseRepository implements IRepository{
                 ->take(12)
                 ->get();
 
-            // bu kursların favori veya sepete eklenip eklenmediği bilgisini getir.
-            foreach ($object as $key=> $course){
-                $controlBasket = Basket::where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->first();
-                if($controlBasket != null)
-                    $object[$key]['inBasket'] = true;
-                else
-                    $object[$key]['inBasket'] = false;
+            if($user_id != null){
+                // bu kursların favori veya sepete eklenip eklenmediği bilgisini getir.
+                foreach ($object as $key=> $course){
+                    $controlBasket = Basket::where('course_id',$course->id)->where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')->first();
+                    if($controlBasket != null)
+                        $object[$key]['inBasket'] = true;
+                    else
+                        $object[$key]['inBasket'] = false;
 
-                $controlFavorite = Favorite::where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->first();
-                if($controlFavorite != null)
-                    $object[$key]['inFavorite'] = true;
-                else
-                    $object[$key]['inFavorite'] = false;
+                    $controlFavorite = Favorite::where('course_id',$course->id)->where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')->first();
+                    if($controlFavorite != null)
+                        $object[$key]['inFavorite'] = true;
+                    else
+                        $object[$key]['inFavorite'] = false;
+                }
             }
+
         }
         catch(\Exception $e){
             $error = $e->getMessage();
