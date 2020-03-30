@@ -43,7 +43,7 @@ class LearnController extends Controller
             return view('general_education.watch')->with('course',$data);
         }
         else{
-            return redirect()->route('ge_course');
+            return redirect()->route('ge_course',$course_id);
         }
 
       /*  if($resp->getResult()){
