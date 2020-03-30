@@ -14,9 +14,7 @@ class HomeController extends Controller
 
         // Operations
         $gePopularCoursesResp = $geCourseRepo->getPopularCourses();
-        $data = [
-            'general_education' => $gePopularCoursesResp->getData(),
-        ];
+        $data = $gePopularCoursesResp->getData();
 
         if($gePopularCoursesResp->getResult()){
             return response()->json([
@@ -38,9 +36,7 @@ class HomeController extends Controller
         // Operations
         $plPopularCoursesResp = $plCourseRepo->getPopularCourses();
 
-        $data = [
-            'prepare_for_lessons' => $plPopularCoursesResp->getData(),
-        ];
+        $data =  $plPopularCoursesResp->getData();
 
         if( $plPopularCoursesResp->getResult()){
             return response()->json([
@@ -57,9 +53,7 @@ class HomeController extends Controller
     }
 
     public function indexPe(){
-        $data = [
-           'prepare_for_exams' => []
-        ];
+        $data = [];
         return response()->json([
            'error' => false,
            'data' => $data
@@ -67,9 +61,7 @@ class HomeController extends Controller
     }
 
     public function indexBooks(){
-        $data = [
-            'books' => []
-        ];
+        $data = [];
         return response()->json([
             'error' => false,
             'data' => $data
@@ -77,9 +69,7 @@ class HomeController extends Controller
     }
 
     public function indexExams(){
-        $data = [
-            'exams' => []
-        ];
+        $data = [];
         return response()->json([
             'error' => false,
             'data' => $data

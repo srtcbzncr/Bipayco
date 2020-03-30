@@ -40,7 +40,7 @@ class CourseController extends Controller
         $completedLessonsResp = $repo->getCompletedLessons($id, $user_id);
         $entriesResp = $repo->getStudents($id);
         $progress = $repo->calculateProgress($resp->getData()->id, $user_id);
-        $similarCourses = $repo->getSimilarCourses($id);
+        $similarCourses = $repo->getSimilarCourses($id,$user_id);
         $data = [
             'course' => $resp->getData(),
             'entries' => $entriesResp->getData(),

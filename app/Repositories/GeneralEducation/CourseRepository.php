@@ -1276,7 +1276,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getSimilarCourses($id){
+    public function getSimilarCourses($id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -1294,6 +1294,26 @@ class CourseRepository implements IRepository{
             }
             else{
                 $object = array();
+            }
+
+            if(count($object) > 0 and $user_id != null){
+                foreach ($object as $key => $item){
+                    $contorlBasket = DB::table('basket')->where('user_id',$user_id)->where('course_id',$item->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
+                    if($contorlBasket !=  null and count($contorlBasket) > 0){
+                        $object[$key]['inBasket'] = true;
+                    }
+                    else{
+                        $object[$key]['inBasket'] = false;
+                    }
+
+                    $contorlFav = DB::table('favorite')->where('user_id',$user_id)->where('course_id',$item->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
+                    if($contorlFav !=  null and count($contorlFav) > 0){
+                        $object[$key]['inFavorite'] = true;
+                    }
+                    else{
+                        $object[$key]['inFavorite'] = false;
+                    }
+                }
             }
         }
         catch(\Exception $e){

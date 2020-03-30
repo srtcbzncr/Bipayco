@@ -21,6 +21,7 @@ class SubCategoryController extends Controller
         if($subCategoryResp->getResult() and $coursesResp->getResult()){
             $data = array();
             $data['sub_category'] = $subCategoryResp->getData();
+            $data['courses'] = $coursesResp->getData();
             $data['course_count'] = $courseCount;
 
             return response()->json([

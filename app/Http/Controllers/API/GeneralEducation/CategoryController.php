@@ -58,6 +58,7 @@ class CategoryController extends Controller
             $data = array();
             $data['category'] = $categoryResp->getData();
             $data['course_count'] = $courseCount;
+            $data['courses'] = $coursesResp->getData();
             $data['sub_categories_count'] = $subCategoriesCount;
             $data['sub_categories'] = $subCategoriesResp->getData();
 
