@@ -40,7 +40,7 @@ Route::group(['prefix' => 'ge'], function(){
     Route::get('index', 'API\HomeController@ge_index')->name('ge_index');
 
     Route::get('/inBasket/{user_id}/{course_id}','API\GeneralEducation\CourseController@inBasket')->name('ge_in_basket');
-    Route::get('/simularCourses/{user_id?}/{course_id}','API\GeneralEducation\CourseController@simularCourses')->name('ge_simularCourses');
+    Route::get('/similarCourses/{course_id}/{user_id?}','API\GeneralEducation\CourseController@simularCourses')->name('ge_simularCourses');
 });
 
 Route::group(['prefix' => 'pl'],function (){
@@ -60,7 +60,7 @@ Route::group(['prefix' => 'pl'],function (){
     Route::get('index', 'API\HomeController@pl_index')->name('pl_index');
 
     Route::get('/inBasket/{user_id}/{course_id}','API\PrepareLessons\CourseController@inBasket')->name('pl_in_basket');
-    Route::get('/simularCourses/{user_id?}/{course_id}','API\PrepareLessons\CourseController@simularCourses')->name('pl_simularCourses');
+    Route::get('/similarCourses/{course_id}/{user_id?}','API\PrepareLessons\CourseController@simularCourses')->name('pl_simularCourses');
 });
 
 

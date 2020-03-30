@@ -972,7 +972,7 @@ class CourseController extends Controller
         ]);
     }
 
-    public function simularCourses($user_id=null,$course_id){
+    public function simularCourses($course_id,$user_id=null){
         // Initializing
         $repo = new CourseRepository();
 
