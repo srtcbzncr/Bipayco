@@ -2,23 +2,18 @@
     <div class="uk-grid-small" uk-grid>
         <div class="uk-width-auto">
             <a v-if="!isLogin" :href="loginRoute" class="uk-button uk-button-white uk-float-left"> {{addCartText}}</a>
-            <button v-else-if="cart" @click="removeCart" class="uk-button uk-button-white uk-float-left"> {{removeCartText}}</button>
+            <button v-else-if="isInCart" @click="removeCart" class="uk-button uk-button-white uk-float-left"> {{removeCartText}}</button>
             <button v-else @click="addCart" class="uk-button uk-button-white uk-float-left"> {{addCartText}}</button>
         </div>
     </div>
 </template>
 
 <script>
-    import {mapActions} from "vuex";
+    import {mapState,mapActions} from "vuex";
     import Axios from "axios";
 
     export default {
         name: "add-cart-button",
-        data(){
-            return{
-                cart:this.inCart,
-            }
-        },
         props:{
             loginRoute:{
                 type:String,
@@ -27,6 +22,10 @@
             moduleName:{
                 type:String,
                 required:true,
+            },
+            module:{
+                type:String,
+                required:true
             },
             userId:{
                 type:String,
@@ -48,14 +47,16 @@
                 type:String,
                 default:"Sepetten Çıkar"
             },
-            inCart:{
-                type:Boolean,
-                default:false,
-            }
+        },
+        computed:{
+            ...mapState([
+                'isInCart'
+            ])
         },
         methods: {
             ...mapActions([
-                'loadShoppingCart'
+                'loadShoppingCart',
+                'loadIsInCart'
             ]),
             addCart: function () {
                 Axios.post('/api/basket/add', {
@@ -64,10 +65,8 @@
                     user_id: this.userId,
                 })
                     .then(response => {
-                        if (!response.data.error) {
-                            this.cart = true;
-                        }
                         this.$store.dispatch('loadShoppingCart', this.userId);
+                        this.$store.dispatch('loadIsInCart', [this.module, this.userId, this.courseId]);
                         console.log(response)
                     })
             },
@@ -78,13 +77,14 @@
                     user_id: this.userId,
                 })
                     .then(response => {
-                        if (!response.data.error) {
-                            this.cart = false;
-                        }
                         this.$store.dispatch('loadShoppingCart', this.userId);
+                        this.$store.dispatch('loadIsInCart', [this.module, this.userId, this.courseId]);
                         console.log(response)
                     })
             },
+        },
+        created() {
+            this.$store.dispatch('loadIsInCart', [this.module, this.userId, this.courseId])
         }
     }
 </script>

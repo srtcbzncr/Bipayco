@@ -43,14 +43,43 @@
         },
         methods:{
             ...mapActions([
-               'loadShoppingCart'
+                'loadShoppingCart',
+                'loadCourseCard',
+                'loadIsInCart'
             ]),
             removeAll:function () {
-                for(var course in this.shoppingCart){
-                    this.removeCourse(course.course_id, course.course_type);
-                }
+                Axios.post('/api/basket/deleteAll/'+this.userId)
+                    .then(response=>{
+                        console.log(response);
+                        this.$store.dispatch('loadIsInCart', this.shoppingCart[0].id);
+                        this.$store.dispatch('loadShoppingCart', this.userId);
+                        this.$store.dispatch('loadCourseCard');
+                    })
             },
             removeCourse:function (courseId, moduleName) {
+                var module;
+                switch (moduleName) {
+                    case "prepareLessons":{
+                        module="pl";
+                        break;
+                    }
+                    case "prepareExams":{
+                        module="pe";
+                        break;
+                    }
+                    case "exams":{
+                        module="exams";
+                        break;
+                    }
+                    case "books":{
+                        module="books";
+                        break;
+                    }
+                    default:{
+                        module="ge";
+                        break;
+                    }
+                }
                 Axios.post('/api/basket/delete',{
                     course_id:courseId,
                     module_name:moduleName,
@@ -58,7 +87,9 @@
                 })
                 .then(response=>{
                     console.log(response);
-                    this.$store.dispatch('loadShoppingCart', this.userId)
+                    this.$store.dispatch('loadIsInCart', [module, this.userId, courseId]);
+                    this.$store.dispatch('loadShoppingCart', this.userId);
+                    this.$store.dispatch('loadCourseCard');
                 })
             },
         },

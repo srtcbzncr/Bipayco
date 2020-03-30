@@ -9,12 +9,12 @@
         </ul>
         <ul class="uk-margin uk-margin-medium-top">
             <li>
-                <div v-if="courses==null || courses.length<1" class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
+                <div v-if="courseCard==null || courseCard.length<1" class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
                     <h4 class="uk-text-bold uk-margin-remove-top">{{noContentText}}</h4>
                 </div>
                 <div v-else>
                     <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-margin" uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div ; delay: 200" uk-grid>
-                        <div v-for="course in courses">
+                        <div v-for="course in courseCard">
                             <course-card
                                 v-if="authCheck"
                                 :course="course"
@@ -49,36 +49,16 @@
 </template>
 
 <script>
+    import {mapState,mapActions} from 'vuex'
     export default {
         name: "homepage-content",
         data(){
             return{
-                courses:this.generalEducation,
                 moduleName:'generalEducation',
                 module:'ge',
             }
         },
         props:{
-            generalEducation:{
-                type:Array,
-                required:true,
-            },
-            prepareLessons:{
-                type:Array,
-                required:true,
-            },
-            prepareExams:{
-                type:Array,
-                required:true,
-            },
-            exams:{
-                type:Array,
-                required:true,
-            },
-            books:{
-                type:Array,
-                required:true,
-            },
             authCheck:{
                 type:Boolean,
                 default:false,
@@ -116,37 +96,50 @@
                 default:"Daha Fazlasını Gör"
             }
         },
+        computed:{
+            ...mapState([
+               'courseCard',
+                'urlForCourseCard',
+            ]),
+            url(){
+                return '/api/home/'+this.module+'/'+this.userId;
+            }
+        },
         methods:{
+            ...mapActions([
+                'loadCourseCard',
+                'loadUrlForCourseCard'
+            ]),
             changeModule:function(moduleName){
                 this.moduleName=moduleName;
                 switch (moduleName) {
                     case 'prepareLessons':{
-                        this.courses=this.prepareLessons;
                         this.module='pl';
                         break;
                     }
                     case 'prepareExams':{
-                        this.courses=this.prepareExams;
                         this.module='pe';
                         break;
                     }
                     case 'exams':{
-                        this.courses=this.exams;
                         this.module='exams';
                         break;
                     }
                     case 'books':{
-                        this.courses=this.books;
                         this.module='books';
                         break;
                     }
                     default:{
-                        this.courses=this.generalEducation;
                         this.module='ge';
                         break;
                     }
                 }
+                this.$store.dispatch('loadUrlForCourseCard', this.url);
             }
+        },
+        created() {
+            this.$store.dispatch('loadUrlForCourseCard', this.url);
+
         }
     }
 </script>

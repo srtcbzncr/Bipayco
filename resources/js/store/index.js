@@ -64,7 +64,10 @@ const state={
         name:"",
     }],
     questionSource:{},
-    shoppingCart:{}
+    shoppingCart:{},
+    courseCard:{},
+    urlForCourseCard:"",
+    isInCart:"",
 };
 const getters={};
 const mutations={
@@ -131,6 +134,17 @@ const mutations={
         console.log(item);
         state.shoppingCart=item.data;
     },
+    setCourseCard(state,course){
+        console.log(course);
+        state.courseCard=course.data;
+    },
+    setUrlForCourseCard(state, url){
+        state.urlForCourseCard=url;
+    },
+    setIsInCart(state, bool){
+        console.log(bool);
+        state.isInCart=bool.inBasket;
+    }
 };
 const actions={
     /*province.vue*/
@@ -220,8 +234,20 @@ const actions={
     },
     loadShoppingCart({commit},userId){
         Axios.get('/api/basket/show/'+userId)
-            .then(response=>commit('setShoppingCart',response.data))
-    }
+            .then(response=>commit('setShoppingCart', response.data))
+    },
+    loadCourseCard({commit}){
+        Axios.get(state.urlForCourseCard)
+            .then(response=>commit('setCourseCard', response.data));
+    },
+    loadUrlForCourseCard({commit}, url){
+        commit('setUrlForCourseCard', url);
+        this.dispatch('loadCourseCard');
+    },
+    loadIsInCart({commit}, [module, userId, courseId]){
+        Axios.get('/api/'+module+'/inBasket/'+userId+'/'+courseId)
+            .then(response=>commit('setIsInCart', response.data));
+    },
 };
 
 const store=new Vuex.Store({

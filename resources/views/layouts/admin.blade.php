@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title> Bipayco </title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -183,7 +183,10 @@
                 formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 }).then(result=>result.data)
-                .then(result=>window.location.replace('/instructor/'+url+'/course/create/'+result.result.id))
+                .then(result=>{
+                    UIkit.notification({message:result.message, status: 'success'});
+                    setTimeout(()=>{window.location.replace('/instructor/'+url+'/course/create/'+result.result.id)},1000);
+                })
                 .catch((error) => {
                     UIkit.notification({message:error.message, status: 'danger'});
                     console.log(error)
@@ -194,7 +197,10 @@
                 formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
-                .then(result=>window.location.replace('/instructor/'+url+'/course/create/'+courseId))
+                .then(result=>{
+                    UIkit.notification({message:result.message, status: 'success'});
+                    setTimeout(()=>{window.location.replace('/instructor/'+url+'/course/create/'+courseId)},1000);
+                })
                 .catch((error) => {
                     UIkit.notification({message:error.message, status: 'danger'});
                     console.log(error.message)
@@ -233,6 +239,9 @@
         formData.append('tags', tagList);
         formData.append('instructor_id', document.getElementById('instructorId').value);
         axios.post('/api/instructor/'+moduleName+'/course/'+courseId+'/goals', formData)
+            .then(response=>{console.log(response);
+                UIkit.notification({message:response.data.result, status: 'success'});
+            })
             .catch((error) => {
                 UIkit.notification({message:error.message, status: 'danger'});
             });
