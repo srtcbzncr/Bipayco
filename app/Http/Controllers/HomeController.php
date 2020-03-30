@@ -18,11 +18,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // Repo initializations
+       /* // Repo initializations
         $geCourseRepo = new CourseRepository;
         $plCourseRepo = new \App\Repositories\PrepareLessons\CourseRepository();
 
         // Operations
+
         $gePopularCoursesResp = $geCourseRepo->getPopularCourses();
         $plPopularCoursesResp = $plCourseRepo->getPopularCourses();
 
@@ -32,10 +33,10 @@ class HomeController extends Controller
             'prepare_for_exams' => [],
             'books' => [],
             'exams' => [],
-        ];
+        ];*/
 
         // Response
-        return view('home', $data);
+        return view('home');
     }
 
     public function ge_index(){
