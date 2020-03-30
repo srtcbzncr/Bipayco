@@ -99,9 +99,9 @@ class BasketRepository implements IRepository
             DB::beginTransaction();
 
             $type = "";
-            if($data['module_name'] == 'App\\Models\\GeneralEducation\\Course')
+            if($data['module_name'] == 'generalEducation')
                 $type = "App\Models\GeneralEducation\Course";
-            else if($data['module_name'] == 'App\\Models\\PrepareLessons\\Course')
+            else if($data['module_name'] == 'prepareLessons')
                 $type = "App\Models\PrepareLessons\Course";
 
             DB::table('basket')->where('user_id',$data['user_id'])
@@ -153,10 +153,12 @@ class BasketRepository implements IRepository
             $courses = Basket::where('user_id',$user_id)->get();
             foreach ($courses as $key => $item){
                 if($item->course_type == "App\Models\GeneralEducation\Course"){
+                    $courses[$key]['course_type'] = "generalEducation";
                     $course = Course::find($item->course_id);
                     $courses[$key]['course'] = $course;
                 }
                 else if($item->course_type == "App\Models\PrepareLessons\Course"){
+                    $courses[$key]['course_type'] = "prepareLessons";
                     $course = \App\Models\PrepareLessons\Course::find($item->course_id);
                     $courses[$key]['course'] = $course;
                 }
