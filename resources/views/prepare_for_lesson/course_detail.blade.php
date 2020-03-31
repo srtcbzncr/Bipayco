@@ -39,6 +39,7 @@
                 @else
                     <add-cart-button
                         module-name="prepareLessons"
+                        module="pl"
                         @if(Auth::check())
                         user-id="{{Auth::user()->id}}"
                         is-login
@@ -190,25 +191,16 @@
             </div>
 
             <!-- side contant -->
-            <div class="uk-width-1-3@m uk-visible@m">
-                <h3 class="uk-text-bold">@lang('front/auth.related_courses') </h3>
-                @foreach($similar_courses as $similar_course)
-                    <div class="uk-margin-medium-bottom">
-                        <course-card
-                            :course="{{$similar_course}}"
-                            style-full-star-color="#F4C150"
-                            style-empty-star-color="#C1C1C1"
-                            :course-id="{{$similar_course->id}}"
-                            module-name="prepareLessons"
-                            @if(Auth::check())
-                            is-login
-                            user-id="{{Auth::user()->id}}"
-                            @endif
-                            module="pl"
-                        ></course-card>
-                    </div>
-                @endforeach
-            </div>
+            <similar-course-card
+                @if(Auth::check())
+                auth-check
+                user-id="{{Auth::user()->id}}"
+                @endif
+                course-id="{{$course->id}}"
+                module-name="prepareLessons"
+                module="pl"
+                related-courses-text="@lang('front/auth.related_courses')"
+            > </similar-course-card>
         </div>
     </div>
 @endsection

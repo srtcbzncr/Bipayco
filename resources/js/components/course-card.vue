@@ -1,13 +1,17 @@
 <template>
     <div class="uk-card-default uk-card-hover uk-card-small uk-width Course-card uk-inline-clip uk-transition-toggle" tabindex="0">
         <div v-if="isLogin" class="uk-transition-slide-right-small uk-position-top-right uk-padding-small uk-position-z-index">
-            <a class="uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge">
-                <i v-if="course.inFavorite" @click="removeFav" class="fas fa-heart icon-medium" style="color: red"> </i>
-                <i v-else  @click="addFav" class="fas fa-heart icon-medium"> </i>
+            <a v-if="course.inFavorite" @click="removeFav" class="uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge">
+                <i class="fas fa-heart icon-medium" style="color: red"> </i>
             </a>
-            <a class="uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge">
-                <i v-if="course.inBasket" class="fas fa-shopping-cart icon-medium" @click="removeCart" style="color: limegreen"> </i>
-                <i v-else class="fas fa-shopping-cart icon-medium" @click="addCart"> </i>
+            <a v-else @click="addFav" class="uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge">
+                <i class="fas fa-heart icon-medium"> </i>
+            </a>
+            <a v-if="course.inBasket" @click="removeCart" class="uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge">
+                <i class="fas fa-shopping-cart icon-medium" style="color: limegreen"> </i>
+            </a>
+            <a v-else @click="addCart" class="uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge">
+                <i class="fas fa-shopping-cart icon-medium" > </i>
             </a>
         </div>
         <a :href="pageLink" class="uk-link-reset">
@@ -86,7 +90,8 @@ export default {
     methods:{
         ...mapActions([
             'loadShoppingCart',
-            'loadCourseCard'
+            'loadCourseCard',
+            'loadIsInCart'
         ]),
         addCart:function () {
             Axios.post('/api/basket/add', {
@@ -97,7 +102,7 @@ export default {
             .then(response=>{
                 this.$store.dispatch('loadShoppingCart',this.userId);
                 this.$store.dispatch('loadCourseCard');
-                this.$store.dispatch('loadIsInBasket', this.courseId);
+                this.$store.dispatch('loadIsInCart', [this.module, this.userId, this.courseId]);
                 console.log(response)
             })
         },
@@ -110,7 +115,7 @@ export default {
             .then(response=>{
                 this.$store.dispatch('loadShoppingCart',this.userId);
                 this.$store.dispatch('loadCourseCard');
-                this.$store.dispatch('loadIsInBasket', this.courseId);
+                this.$store.dispatch('loadIsInCart', [this.module, this.userId, this.courseId]);
                 console.log(response)
             })
         },

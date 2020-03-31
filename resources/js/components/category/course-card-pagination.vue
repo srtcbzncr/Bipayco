@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-margin" uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div ; delay: 200" uk-grid>
-                <div v-for="course in categoryCourses.data">
+                <div v-for="course in courseCard">
                     <course-card
                         :course="course"
                         style-full-star-color="#F4C150"
@@ -67,9 +67,18 @@
 
     export default {
         name: "course-card-pagination",
-        mounted() {
+        created() {
             if (this.courseCount>0) {
-                this.$store.dispatch('loadCategoryCourses', this.categoryId);
+                var sort;
+                if(!this.subCategory){
+                    sort='getByCategoryFilterByTrending'
+                }
+                else{
+                    sort='getBySubCategoryFilterByTrending'
+                }
+                var url='/api/course/'+sort+'/'+this.categoryId+'/'+this.userId;
+                this.$store.dispatch('loadUrlForCourseCard', url);
+                this.$store.dispatch('loadCategoryCourses',[sort, this.categoryId, this.userId]);
             }
         },
         data(){
@@ -93,7 +102,10 @@
                 type: String,
                 required: true,
             },
-            subCategory:Boolean,
+            subCategory:{
+                type:Boolean,
+                default:false,
+            },
             courseCount:{
               type: Number,
               required: true,
@@ -122,6 +134,7 @@
         computed:{
             ...mapState([
                 'categoryCourses',
+                'courseCard'
             ]),
             pageNumber(){
                 var pages=['1'];
@@ -158,12 +171,17 @@
         methods:{
             ...mapActions([
                 'loadCategoryCourses',
+                'loadUrlForCourseCard',
+                'loadNewPageCourses'
             ]),
             loadCourseList: function(){
-                this.$store.dispatch('loadCategoryCourses',this.categoryId);
+                var sort=document.getElementById('sortBy').value;
+                this.$store.dispatch('loadCategoryCourses',[sort, this.categoryId, this.userId]);
+                this.$store.dispatch('loadUrlForCourseCard', '/api/course/'+sort+'/'+this.categoryId+'/'+this.userId);
             },
             loadNewPage: function(name,newPageNumber){
                 this.$store.dispatch('loadNewPageCourses',name);
+                this.$store.dispatch('loadUrlForCourseCard', name);
                 this.currentPage=newPageNumber;
             }
         },

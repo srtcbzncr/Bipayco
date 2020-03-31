@@ -39,7 +39,7 @@
         computed:{
             ...mapState([
                 'shoppingCart'
-            ])
+            ]),
         },
         methods:{
             ...mapActions([
@@ -48,10 +48,33 @@
                 'loadIsInCart'
             ]),
             removeAll:function () {
+                var module;
+                switch (this.shoppingCart[0].course_type) {
+                    case "prepareLessons":{
+                        module="pl";
+                        break;
+                    }
+                    case "prepareExams":{
+                        module="pe";
+                        break;
+                    }
+                    case "exams":{
+                        module="exams";
+                        break;
+                    }
+                    case "books":{
+                        module="books";
+                        break;
+                    }
+                    default:{
+                        module="ge";
+                        break;
+                    }
+                }
                 Axios.post('/api/basket/deleteAll/'+this.userId)
                     .then(response=>{
                         console.log(response);
-                        this.$store.dispatch('loadIsInCart', this.shoppingCart[0].id);
+                        this.$store.dispatch('loadIsInCart', [module, this.userId, this.shoppingCart[0].id]);
                         this.$store.dispatch('loadShoppingCart', this.userId);
                         this.$store.dispatch('loadCourseCard');
                     })

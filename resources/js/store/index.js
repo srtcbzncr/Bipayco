@@ -161,9 +161,8 @@ const actions={
         Axios.get('/api/category/index')
             .then(response =>commit('setCategories',response.data))
     },
-    loadCategoryCourses({commit}, id){
-        var sort = document.getElementById("sortBy").value;
-        Axios.get('/api/course/'+sort+'/'+id)
+    loadCategoryCourses({commit}, [sort, categoryId, userId]){
+        Axios.get('/api/course/'+sort+'/'+categoryId+'/'+userId)
             .then(response =>commit('setCategoryCourses',response))
     },
     loadNewPageCourses({commit}, id){

@@ -2433,9 +2433,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-card-pagination",
-  mounted: function mounted() {
+  created: function created() {
     if (this.courseCount > 0) {
-      this.$store.dispatch('loadCategoryCourses', this.categoryId);
+      var sort;
+
+      if (!this.subCategory) {
+        sort = 'getByCategoryFilterByTrending';
+      } else {
+        sort = 'getBySubCategoryFilterByTrending';
+      }
+
+      var url = '/api/course/' + sort + '/' + this.categoryId + '/' + this.userId;
+      this.$store.dispatch('loadUrlForCourseCard', url);
+      this.$store.dispatch('loadCategoryCourses', [sort, this.categoryId, this.userId]);
     }
   },
   data: function data() {
@@ -2459,7 +2469,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       required: true
     },
-    subCategory: Boolean,
+    subCategory: {
+      type: Boolean,
+      "default": false
+    },
     courseCount: {
       type: Number,
       required: true
@@ -2485,7 +2498,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": ""
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categoryCourses']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categoryCourses', 'courseCard']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
@@ -2521,12 +2534,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return document.getElementById("sortBy").value;
     }
   }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCategoryCourses']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCategoryCourses', 'loadUrlForCourseCard', 'loadNewPageCourses']), {
     loadCourseList: function loadCourseList() {
-      this.$store.dispatch('loadCategoryCourses', this.categoryId);
+      var sort = document.getElementById('sortBy').value;
+      this.$store.dispatch('loadCategoryCourses', [sort, this.categoryId, this.userId]);
+      this.$store.dispatch('loadUrlForCourseCard', '/api/course/' + sort + '/' + this.categoryId + '/' + this.userId);
     },
     loadNewPage: function loadNewPage(name, newPageNumber) {
       this.$store.dispatch('loadNewPageCourses', name);
+      this.$store.dispatch('loadUrlForCourseCard', name);
       this.currentPage = newPageNumber;
     }
   })
@@ -3079,6 +3095,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -3128,7 +3148,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return '/' + this.module + '/course/' + this.course.id;
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadShoppingCart', 'loadCourseCard']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadShoppingCart', 'loadCourseCard', 'loadIsInCart']), {
     addCart: function addCart() {
       var _this = this;
 
@@ -3141,7 +3161,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         _this.$store.dispatch('loadCourseCard');
 
-        _this.$store.dispatch('loadIsInBasket', _this.courseId);
+        _this.$store.dispatch('loadIsInCart', [_this.module, _this.userId, _this.courseId]);
 
         console.log(response);
       });
@@ -3158,7 +3178,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         _this2.$store.dispatch('loadCourseCard');
 
-        _this2.$store.dispatch('loadIsInBasket', _this2.courseId);
+        _this2.$store.dispatch('loadIsInCart', [_this2.module, _this2.userId, _this2.courseId]);
 
         console.log(response);
       });
@@ -6271,10 +6291,44 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     removeAll: function removeAll() {
       var _this = this;
 
+      var module;
+
+      switch (this.shoppingCart[0].course_type) {
+        case "prepareLessons":
+          {
+            module = "pl";
+            break;
+          }
+
+        case "prepareExams":
+          {
+            module = "pe";
+            break;
+          }
+
+        case "exams":
+          {
+            module = "exams";
+            break;
+          }
+
+        case "books":
+          {
+            module = "books";
+            break;
+          }
+
+        default:
+          {
+            module = "ge";
+            break;
+          }
+      }
+
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/basket/deleteAll/' + this.userId).then(function (response) {
         console.log(response);
 
-        _this.$store.dispatch('loadIsInCart', _this.shoppingCart[0].id);
+        _this.$store.dispatch('loadIsInCart', [module, _this.userId, _this.shoppingCart[0].id]);
 
         _this.$store.dispatch('loadShoppingCart', _this.userId);
 
@@ -9789,7 +9843,7 @@ var render = function() {
                 "uk-grid": ""
               }
             },
-            _vm._l(_vm.categoryCourses.data, function(course) {
+            _vm._l(_vm.courseCard, function(course) {
               return _c(
                 "div",
                 [
@@ -10418,45 +10472,59 @@ var render = function() {
                 "uk-transition-slide-right-small uk-position-top-right uk-padding-small uk-position-z-index"
             },
             [
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge"
-                },
-                [
-                  _vm.course.inFavorite
-                    ? _c("i", {
+              _vm.course.inFavorite
+                ? _c(
+                    "a",
+                    {
+                      staticClass:
+                        "uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge",
+                      on: { click: _vm.removeFav }
+                    },
+                    [
+                      _c("i", {
                         staticClass: "fas fa-heart icon-medium",
-                        staticStyle: { color: "red" },
-                        on: { click: _vm.removeFav }
+                        staticStyle: { color: "red" }
                       })
-                    : _c("i", {
-                        staticClass: "fas fa-heart icon-medium",
-                        on: { click: _vm.addFav }
-                      })
-                ]
-              ),
+                    ]
+                  )
+                : _c(
+                    "a",
+                    {
+                      staticClass:
+                        "uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge",
+                      on: { click: _vm.addFav }
+                    },
+                    [_c("i", { staticClass: "fas fa-heart icon-medium" })]
+                  ),
               _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass:
-                    "uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge"
-                },
-                [
-                  _vm.course.inBasket
-                    ? _c("i", {
+              _vm.course.inBasket
+                ? _c(
+                    "a",
+                    {
+                      staticClass:
+                        "uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge",
+                      on: { click: _vm.removeCart }
+                    },
+                    [
+                      _c("i", {
                         staticClass: "fas fa-shopping-cart icon-medium",
-                        staticStyle: { color: "limegreen" },
-                        on: { click: _vm.removeCart }
+                        staticStyle: { color: "limegreen" }
                       })
-                    : _c("i", {
-                        staticClass: "fas fa-shopping-cart icon-medium",
-                        on: { click: _vm.addCart }
+                    ]
+                  )
+                : _c(
+                    "a",
+                    {
+                      staticClass:
+                        "uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge",
+                      on: { click: _vm.addCart }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fas fa-shopping-cart icon-medium"
                       })
-                ]
-              )
+                    ]
+                  )
             ]
           )
         : _vm._e(),
@@ -31838,168 +31906,173 @@ var actions = {
       return commit('setCategories', response.data);
     });
   },
-  loadCategoryCourses: function loadCategoryCourses(_ref4, id) {
+  loadCategoryCourses: function loadCategoryCourses(_ref4, _ref5) {
     var commit = _ref4.commit;
-    var sort = document.getElementById("sortBy").value;
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/course/' + sort + '/' + id).then(function (response) {
+
+    var _ref6 = _slicedToArray(_ref5, 3),
+        sort = _ref6[0],
+        categoryId = _ref6[1],
+        userId = _ref6[2];
+
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/course/' + sort + '/' + categoryId + '/' + userId).then(function (response) {
       return commit('setCategoryCourses', response);
     });
   },
-  loadNewPageCourses: function loadNewPageCourses(_ref5, id) {
-    var commit = _ref5.commit;
+  loadNewPageCourses: function loadNewPageCourses(_ref7, id) {
+    var commit = _ref7.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(id).then(function (response) {
       return commit('setCategoryCourses', response);
     });
   },
-  loadCourseReviews: function loadCourseReviews(_ref6, id) {
-    var commit = _ref6.commit;
+  loadCourseReviews: function loadCourseReviews(_ref8, id) {
+    var commit = _ref8.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/course/' + id + "/comments").then(function (response) {
       return commit('setCourseReviews', response);
     });
   },
-  loadNewPageReviews: function loadNewPageReviews(_ref7, id) {
-    var commit = _ref7.commit;
+  loadNewPageReviews: function loadNewPageReviews(_ref9, id) {
+    var commit = _ref9.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(id).then(function (response) {
       return commit('setCourseReviews', response);
     });
   },
-  loadMyCourses: function loadMyCourses(_ref8, userId) {
-    var commit = _ref8.commit;
+  loadMyCourses: function loadMyCourses(_ref10, userId) {
+    var commit = _ref10.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/myCourses/' + userId).then(function (response) {
       return commit('setMyCourses', response);
     });
   },
-  loadCanComment: function loadCanComment(_ref9, userId, courseId) {
-    var commit = _ref9.commit;
+  loadCanComment: function loadCanComment(_ref11, userId, courseId) {
+    var commit = _ref11.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/course/' + courseId + '/canComment/' + userId).then(function (response) {
       return commit('setCanComment', response);
     });
   },
-  loadSubCategories: function loadSubCategories(_ref10, id) {
-    var commit = _ref10.commit;
+  loadSubCategories: function loadSubCategories(_ref12, id) {
+    var commit = _ref12.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/category/' + id).then(function (response) {
       return commit('setSubCategory', response.data);
     });
   },
-  loadSections: function loadSections(_ref11, _ref12) {
-    var commit = _ref11.commit;
+  loadSections: function loadSections(_ref13, _ref14) {
+    var commit = _ref13.commit;
 
-    var _ref13 = _slicedToArray(_ref12, 2),
-        moduleName = _ref13[0],
-        courseId = _ref13[1];
+    var _ref15 = _slicedToArray(_ref14, 2),
+        moduleName = _ref15[0],
+        courseId = _ref15[1];
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/instructor/' + moduleName + '/course/' + courseId + '/sections/get').then(function (response) {
       return commit('setSections', response.data);
     });
   },
-  loadSelectedLessonIndex: function loadSelectedLessonIndex(_ref14, lessonIndex) {
-    var commit = _ref14.commit;
+  loadSelectedLessonIndex: function loadSelectedLessonIndex(_ref16, lessonIndex) {
+    var commit = _ref16.commit;
     commit('setSelectedLessonIndex', lessonIndex);
   },
-  loadSelectedSectionIndex: function loadSelectedSectionIndex(_ref15, sectionIndex) {
-    var commit = _ref15.commit;
+  loadSelectedSectionIndex: function loadSelectedSectionIndex(_ref17, sectionIndex) {
+    var commit = _ref17.commit;
     commit('setSelectedSectionIndex', sectionIndex);
   },
-  loadLearnCourse: function loadLearnCourse(_ref16, _ref17) {
-    var commit = _ref16.commit;
+  loadLearnCourse: function loadLearnCourse(_ref18, _ref19) {
+    var commit = _ref18.commit;
 
-    var _ref18 = _slicedToArray(_ref17, 3),
-        moduleName = _ref18[0],
-        courseId = _ref18[1],
-        userId = _ref18[2];
+    var _ref20 = _slicedToArray(_ref19, 3),
+        moduleName = _ref20[0],
+        courseId = _ref20[1],
+        userId = _ref20[2];
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/learn/' + moduleName + '/' + courseId + '/user/' + userId).then(function (response) {
       return commit('setLearnCourse', response.data);
     });
   },
-  loadCourseSources: function loadCourseSources(_ref19, _ref20) {
-    var commit = _ref19.commit;
+  loadCourseSources: function loadCourseSources(_ref21, _ref22) {
+    var commit = _ref21.commit;
 
-    var _ref21 = _slicedToArray(_ref20, 3),
-        moduleName = _ref21[0],
-        courseId = _ref21[1],
-        lessonId = _ref21[2];
+    var _ref23 = _slicedToArray(_ref22, 3),
+        moduleName = _ref23[0],
+        courseId = _ref23[1],
+        lessonId = _ref23[2];
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/learn/' + moduleName + '/' + courseId + '/lesson/' + lessonId + '/sources').then(function (response) {
       return commit('setCourseSources', response.data);
     });
   },
-  loadLessonDiscussion: function loadLessonDiscussion(_ref22, _ref23) {
-    var commit = _ref22.commit;
+  loadLessonDiscussion: function loadLessonDiscussion(_ref24, _ref25) {
+    var commit = _ref24.commit;
 
-    var _ref24 = _slicedToArray(_ref23, 3),
-        moduleName = _ref24[0],
-        courseId = _ref24[1],
-        lessonId = _ref24[2];
+    var _ref26 = _slicedToArray(_ref25, 3),
+        moduleName = _ref26[0],
+        courseId = _ref26[1],
+        lessonId = _ref26[2];
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/learn/' + moduleName + '/' + courseId + '/lesson/' + lessonId + '/discussion').then(function (response) {
       return commit('setLessonDiscussion', response.data);
     }).then(console.log(lessonId));
   },
-  loadPlLessonType: function loadPlLessonType(_ref25) {
-    var commit = _ref25.commit;
+  loadPlLessonType: function loadPlLessonType(_ref27) {
+    var commit = _ref27.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/curriculum/index').then(function (response) {
       return commit('setPlLessonType', response.data);
     });
   },
-  loadPreviewLessons: function loadPreviewLessons(_ref26, _ref27) {
-    var commit = _ref26.commit;
+  loadPreviewLessons: function loadPreviewLessons(_ref28, _ref29) {
+    var commit = _ref28.commit;
 
-    var _ref28 = _slicedToArray(_ref27, 2),
-        moduleName = _ref28[0],
-        courseId = _ref28[1];
+    var _ref30 = _slicedToArray(_ref29, 2),
+        moduleName = _ref30[0],
+        courseId = _ref30[1];
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/course/' + courseId + '/' + moduleName + '/previewLessons').then(function (response) {
       return commit('setPreviewLessons', response.data);
     });
   },
-  loadCourseSubjects: function loadCourseSubjects(_ref29, _ref30) {
-    var commit = _ref29.commit;
+  loadCourseSubjects: function loadCourseSubjects(_ref31, _ref32) {
+    var commit = _ref31.commit;
 
-    var _ref31 = _slicedToArray(_ref30, 2),
-        moduleName = _ref31[0],
-        courseId = _ref31[1];
+    var _ref33 = _slicedToArray(_ref32, 2),
+        moduleName = _ref33[0],
+        courseId = _ref33[1];
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/instructor/' + moduleName + '/course/' + courseId + '/subjects').then(function (response) {
       return commit('setCourseSubjects', response.data);
     });
   },
-  loadLessonSubjects: function loadLessonSubjects(_ref32, lessonId) {
-    var commit = _ref32.commit;
+  loadLessonSubjects: function loadLessonSubjects(_ref34, lessonId) {
+    var commit = _ref34.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/instructor/subjects/lesson/' + lessonId).then(function (response) {
       return commit('setCourseSubjects', response.data);
     });
   },
-  loadQuestionSource: function loadQuestionSource(_ref33, userId) {
-    var commit = _ref33.commit;
+  loadQuestionSource: function loadQuestionSource(_ref35, userId) {
+    var commit = _ref35.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/questionSource/getQuestions/' + userId).then(function (response) {
       return commit('setQuestionSource', response.data);
     });
   },
-  loadShoppingCart: function loadShoppingCart(_ref34, userId) {
-    var commit = _ref34.commit;
+  loadShoppingCart: function loadShoppingCart(_ref36, userId) {
+    var commit = _ref36.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/basket/show/' + userId).then(function (response) {
       return commit('setShoppingCart', response.data);
     });
   },
-  loadCourseCard: function loadCourseCard(_ref35) {
-    var commit = _ref35.commit;
+  loadCourseCard: function loadCourseCard(_ref37) {
+    var commit = _ref37.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(state.urlForCourseCard).then(function (response) {
       return commit('setCourseCard', response.data);
     });
   },
-  loadUrlForCourseCard: function loadUrlForCourseCard(_ref36, url) {
-    var commit = _ref36.commit;
+  loadUrlForCourseCard: function loadUrlForCourseCard(_ref38, url) {
+    var commit = _ref38.commit;
     commit('setUrlForCourseCard', url);
     this.dispatch('loadCourseCard');
   },
-  loadIsInCart: function loadIsInCart(_ref37, _ref38) {
-    var commit = _ref37.commit;
+  loadIsInCart: function loadIsInCart(_ref39, _ref40) {
+    var commit = _ref39.commit;
 
-    var _ref39 = _slicedToArray(_ref38, 3),
-        module = _ref39[0],
-        userId = _ref39[1],
-        courseId = _ref39[2];
+    var _ref41 = _slicedToArray(_ref40, 3),
+        module = _ref41[0],
+        userId = _ref41[1],
+        courseId = _ref41[2];
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/' + module + '/inBasket/' + userId + '/' + courseId).then(function (response) {
       return commit('setIsInCart', response.data);
