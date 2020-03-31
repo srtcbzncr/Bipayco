@@ -217,7 +217,7 @@ class CourseRepository implements IRepository{
                             ->where('student_id',$student->id)
                             ->where('lesson_id',$lesson->id)
                             ->where('lesson_type','App\Models\GeneralEducation\Lesson')->get();
-                        if($controlComplete != null or count($controlComplete) > 0){
+                        if($controlComplete != null and count($controlComplete) > 0){
                             $counter++;
                         }
                     }
