@@ -34,6 +34,8 @@ class GE_CourseResource extends JsonResource
             'discounts' => GE_DiscountResource::collection($this->discounts),
             'category' => new GE_CategoryWithoutSubCategoriesResource($this->category),
             'sub_category' => new GE_SubCategoryResource($this->subCategory),
+            'inBasket' => $this->inBasket,
+            'inFavorite' => $this->inFavorite
         ];
     }
 }

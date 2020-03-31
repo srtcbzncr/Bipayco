@@ -73,11 +73,11 @@ class CourseController extends Controller
 
         // Response
         if($resp->getResult()){
-            return response()->json([
+          /*  return response()->json([
                'error' => false,
                'data' => $resp->getData()
-            ]);
-            //return GE_CourseResource::collection($resp->getData());
+            ]);*/
+            return GE_CourseResource::collection($resp->getData());
         }
         else{
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
@@ -93,11 +93,7 @@ class CourseController extends Controller
 
         // Response
         if($resp->getResult()){
-            return response()->json([
-                'error' => false,
-                'data' => $resp->getData()
-            ]);
-            //return GE_CourseResource::collection($resp->getData());
+            return GE_CourseResource::collection($resp->getData());
         }
         else{
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
@@ -113,11 +109,7 @@ class CourseController extends Controller
 
         // Response
         if($resp->getResult()){
-            return response()->json([
-                'error' => false,
-                'data' => $resp->getData()
-            ]);
-            //return GE_CourseResource::collection($resp->getData());
+            return GE_CourseResource::collection($resp->getData());
         }
         else{
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
@@ -133,11 +125,7 @@ class CourseController extends Controller
 
         // Response
         if($resp->getResult()){
-            return response()->json([
-                'error' => false,
-                'data' => $resp->getData()
-            ]);
-            // return GE_CourseResource::collection($resp->getData());
+            return GE_CourseResource::collection($resp->getData());
         }
         else{
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
@@ -154,11 +142,7 @@ class CourseController extends Controller
 
         // Response
         if($resp->getResult()){
-            return response()->json([
-                'error' => false,
-                'data' => $resp->getData()
-            ]);
-            //return GE_CourseResource::collection($resp->getData());
+            return GE_CourseResource::collection($resp->getData());
         }
         else{
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
@@ -174,11 +158,7 @@ class CourseController extends Controller
 
         // Response
         if($resp->getResult()){
-            return response()->json([
-                'error' => false,
-                'data' => $resp->getData()
-            ]);
-            //return GE_CourseResource::collection($resp->getData());
+            return GE_CourseResource::collection($resp->getData());
         }
         else{
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
@@ -194,11 +174,7 @@ class CourseController extends Controller
 
         // Response
         if($resp->getResult()){
-            return response()->json([
-                'error' => false,
-                'data' => $resp->getData()
-            ]);
-            //return GE_CourseResource::collection($resp->getData());
+           return GE_CourseResource::collection($resp->getData());
         }
         else{
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
@@ -214,11 +190,7 @@ class CourseController extends Controller
 
         // Response
         if($resp->getResult()){
-            return response()->json([
-                'error' => false,
-                'data' => $resp->getData()
-            ]);
-            //return GE_CourseResource::collection($resp->getData());
+           return GE_CourseResource::collection($resp->getData());
         }
         else{
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
@@ -234,11 +206,7 @@ class CourseController extends Controller
 
         // Response
         if($resp->getResult()){
-            return response()->json([
-                'error' => false,
-                'data' => $resp->getData()
-            ]);
-            //return GE_CourseResource::collection($resp->getData());
+            return GE_CourseResource::collection($resp->getData());
         }
         else{
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
@@ -254,11 +222,7 @@ class CourseController extends Controller
 
         // Response
         if($resp->getResult()){
-            return response()->json([
-                'error' => false,
-                'data' => $resp->getData()
-            ]);
-            // return GE_CourseResource::collection($resp->getData());
+             return GE_CourseResource::collection($resp->getData());
         }
         else{
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
@@ -274,11 +238,7 @@ class CourseController extends Controller
 
         // Response
         if($resp->getResult()){
-            return response()->json([
-                'error' => false,
-                'data' => $resp->getData()
-            ]);
-            //return GE_CourseResource::collection($resp->getData());
+           return GE_CourseResource::collection($resp->getData());
         }
         else{
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
@@ -294,11 +254,7 @@ class CourseController extends Controller
 
         // Response
         if($resp->getResult()){
-            return response()->json([
-                'error' => false,
-                'data' => $resp->getData()
-            ]);
-            //return GE_CourseResource::collection($resp->getData());
+           return GE_CourseResource::collection($resp->getData());
         }
         else{
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
@@ -314,11 +270,7 @@ class CourseController extends Controller
 
         // Response
         if($resp->getResult()){
-            return response()->json([
-                'error' => false,
-                'data' => $resp->getData()
-            ]);
-            // return GE_CourseResource::collection($resp->getData());
+             return GE_CourseResource::collection($resp->getData());
         }
         else{
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
@@ -334,11 +286,7 @@ class CourseController extends Controller
 
         // Response
         if($resp->getResult()){
-            return response()->json([
-                'error' => false,
-                'data' => $resp->getData()
-            ]);
-            //return GE_CourseResource::collection($resp->getData());
+            return GE_CourseResource::collection($resp->getData());
         }
         else{
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
@@ -354,11 +302,7 @@ class CourseController extends Controller
 
         // Response
         if($resp->getResult()){
-            return response()->json([
-                'error' => false,
-                'data' => $resp->getData()
-            ]);
-            // return GE_CourseResource::collection($resp->getData());
+             return GE_CourseResource::collection($resp->getData());
         }
         else{
             return response()->json(['error' => true, 'message' => $resp->getError()->getMessage()],400);
