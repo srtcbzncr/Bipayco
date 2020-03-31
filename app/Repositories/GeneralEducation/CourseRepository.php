@@ -61,20 +61,32 @@ class CourseRepository implements IRepository{
                 ->take(12)
                 ->get();
 
+            # inBasket ve inFavorite bilgileri
             if($user_id != null){
-                // bu kursların favori veya sepete eklenip eklenmediği bilgisini getir.
-                foreach ($object as $key=> $course){
-                    $controlBasket = Basket::where('course_id',$course->id)->where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')->first();
-                    if($controlBasket != null)
+                foreach ($object as $key=> $item){
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlBasket != null and count($controlBasket) > 0){
                         $object[$key]['inBasket'] = true;
-                    else
+                    }
+                    else{
                         $object[$key]['inBasket'] = false;
+                    }
 
-                    $controlFavorite = Favorite::where('course_id',$course->id)->where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')->first();
-                    if($controlFavorite != null)
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlFavorite != null and count($controlFavorite) > 0){
                         $object[$key]['inFavorite'] = true;
-                    else
+                    }
+                    else{
                         $object[$key]['inFavorite'] = false;
+                    }
+                }
+            }
+            else{
+                foreach ($object as $key => $item){
+                    $object[$key]['inBasket'] = null;
+                    $object[$key]['inFavorite'] = null;
                 }
             }
 
@@ -229,7 +241,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getByCategoryFilterByNewest($category_id){
+    public function getByCategoryFilterByNewest($category_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -241,6 +253,36 @@ class CourseRepository implements IRepository{
                 ->where('active', true)
                 ->latest()
                 ->paginate(9);
+
+             # inBasket ve inFavorite bilgileri
+            if($user_id != null){
+                foreach ($object as $key=> $item){
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                    ->where('course_id',$item->id)->get();
+                    if($controlBasket != null and count($controlBasket) > 0){
+                        $object[$key]['inBasket'] = true;
+                    }
+                    else{
+                        $object[$key]['inBasket'] = false;
+                    }
+
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlFavorite != null and count($controlFavorite) > 0){
+                        $object[$key]['inFavorite'] = true;
+                    }
+                    else{
+                        $object[$key]['inFavorite'] = false;
+                    }
+                }
+            }
+            else{
+                foreach ($object as $key => $item){
+                    $object[$key]['inBasket'] = null;
+                    $object[$key]['inFavorite'] = null;
+                }
+            }
+
         }
         catch(\Exception $e){
             $error = $e;
@@ -252,7 +294,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getByCategoryFilterByOldest($category_id){
+    public function getByCategoryFilterByOldest($category_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -264,6 +306,35 @@ class CourseRepository implements IRepository{
                 ->where('active', true)
                 ->oldest()
                 ->paginate(9);
+
+            # inBasket ve inFavorite bilgileri
+            if($user_id != null){
+                foreach ($object as $key=> $item){
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlBasket != null and count($controlBasket) > 0){
+                        $object[$key]['inBasket'] = true;
+                    }
+                    else{
+                        $object[$key]['inBasket'] = false;
+                    }
+
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlFavorite != null and count($controlFavorite) > 0){
+                        $object[$key]['inFavorite'] = true;
+                    }
+                    else{
+                        $object[$key]['inFavorite'] = false;
+                    }
+                }
+            }
+            else{
+                foreach ($object as $key => $item){
+                    $object[$key]['inBasket'] = null;
+                    $object[$key]['inFavorite'] = null;
+                }
+            }
         }
         catch(\Exception $e){
             $error = $e;
@@ -275,7 +346,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getByCategoryFilterByPriceASC($category_id){
+    public function getByCategoryFilterByPriceASC($category_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -287,6 +358,35 @@ class CourseRepository implements IRepository{
                 ->where('active', true)
                 ->orderBy('price_with_discount', 'asc')
                 ->paginate(9);
+
+            # inBasket ve inFavorite bilgileri
+            if($user_id != null){
+                foreach ($object as $key=> $item){
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlBasket != null and count($controlBasket) > 0){
+                        $object[$key]['inBasket'] = true;
+                    }
+                    else{
+                        $object[$key]['inBasket'] = false;
+                    }
+
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlFavorite != null and count($controlFavorite) > 0){
+                        $object[$key]['inFavorite'] = true;
+                    }
+                    else{
+                        $object[$key]['inFavorite'] = false;
+                    }
+                }
+            }
+            else{
+                foreach ($object as $key => $item){
+                    $object[$key]['inBasket'] = null;
+                    $object[$key]['inFavorite'] = null;
+                }
+            }
         }
         catch(\Exception $e){
             $error = $e;
@@ -298,7 +398,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getByCategoryFilterByPriceDESC($category_id){
+    public function getByCategoryFilterByPriceDESC($category_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -310,6 +410,35 @@ class CourseRepository implements IRepository{
                 ->where('active', true)
                 ->orderBy('price_with_discount', 'desc')
                 ->paginate(9);
+
+            # inBasket ve inFavorite bilgileri
+            if($user_id != null){
+                foreach ($object as $key=> $item){
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlBasket != null and count($controlBasket) > 0){
+                        $object[$key]['inBasket'] = true;
+                    }
+                    else{
+                        $object[$key]['inBasket'] = false;
+                    }
+
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlFavorite != null and count($controlFavorite) > 0){
+                        $object[$key]['inFavorite'] = true;
+                    }
+                    else{
+                        $object[$key]['inFavorite'] = false;
+                    }
+                }
+            }
+            else{
+                foreach ($object as $key => $item){
+                    $object[$key]['inBasket'] = null;
+                    $object[$key]['inFavorite'] = null;
+                }
+            }
         }
         catch(\Exception $e){
             $error = $e;
@@ -321,7 +450,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getByCategoryFilterByPoint($category_id){
+    public function getByCategoryFilterByPoint($category_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -333,6 +462,35 @@ class CourseRepository implements IRepository{
                 ->where('active', true)
                 ->orderBy('point', 'desc')
                 ->paginate(9);
+
+            # inBasket ve inFavorite bilgileri
+            if($user_id != null){
+                foreach ($object as $key=> $item){
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlBasket != null and count($controlBasket) > 0){
+                        $object[$key]['inBasket'] = true;
+                    }
+                    else{
+                        $object[$key]['inBasket'] = false;
+                    }
+
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlFavorite != null and count($controlFavorite) > 0){
+                        $object[$key]['inFavorite'] = true;
+                    }
+                    else{
+                        $object[$key]['inFavorite'] = false;
+                    }
+                }
+            }
+            else{
+                foreach ($object as $key => $item){
+                    $object[$key]['inBasket'] = null;
+                    $object[$key]['inFavorite'] = null;
+                }
+            }
         }
         catch(\Exception $e){
             $error = $e;
@@ -344,7 +502,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getByCategoryFilterByPurchases($category_id){
+    public function getByCategoryFilterByPurchases($category_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -356,6 +514,35 @@ class CourseRepository implements IRepository{
                 ->where('active', true)
                 ->orderBy('purchase_count', 'desc')
                 ->paginate(9);
+
+            # inBasket ve inFavorite bilgileri
+            if($user_id != null){
+                foreach ($object as $key=> $item){
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlBasket != null and count($controlBasket) > 0){
+                        $object[$key]['inBasket'] = true;
+                    }
+                    else{
+                        $object[$key]['inBasket'] = false;
+                    }
+
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlFavorite != null and count($controlFavorite) > 0){
+                        $object[$key]['inFavorite'] = true;
+                    }
+                    else{
+                        $object[$key]['inFavorite'] = false;
+                    }
+                }
+            }
+            else{
+                foreach ($object as $key => $item){
+                    $object[$key]['inBasket'] = null;
+                    $object[$key]['inFavorite'] = null;
+                }
+            }
         }
         catch(\Exception $e){
             $error = $e;
@@ -367,7 +554,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getByCategoryFilterByTrending($category_id){
+    public function getByCategoryFilterByTrending($category_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -380,6 +567,35 @@ class CourseRepository implements IRepository{
                 ->orderBy('purchase_count', 'desc')
                 ->orderBy('point','desc')
                 ->paginate(9);
+
+            # inBasket ve inFavorite bilgileri
+            if($user_id != null){
+                foreach ($object as $key=> $item){
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlBasket != null and count($controlBasket) > 0){
+                        $object[$key]['inBasket'] = true;
+                    }
+                    else{
+                        $object[$key]['inBasket'] = false;
+                    }
+
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlFavorite != null and count($controlFavorite) > 0){
+                        $object[$key]['inFavorite'] = true;
+                    }
+                    else{
+                        $object[$key]['inFavorite'] = false;
+                    }
+                }
+            }
+            else{
+                foreach ($object as $key => $item){
+                    $object[$key]['inBasket'] = null;
+                    $object[$key]['inFavorite'] = null;
+                }
+            }
         }
         catch(\Exception $e){
             $error = $e;
@@ -391,7 +607,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getBySubCategoryFilterByNewest($sub_category_id){
+    public function getBySubCategoryFilterByNewest($sub_category_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -403,6 +619,36 @@ class CourseRepository implements IRepository{
                 ->where('active', true)
                 ->latest()
                 ->paginate(9);
+
+            # inBasket ve inFavorite bilgileri
+            if($user_id != null){
+                foreach ($object as $key=> $item){
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlBasket != null and count($controlBasket) > 0){
+                        $object[$key]['inBasket'] = true;
+                    }
+                    else{
+                        $object[$key]['inBasket'] = false;
+                    }
+
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlFavorite != null and count($controlFavorite) > 0){
+                        $object[$key]['inFavorite'] = true;
+                    }
+                    else{
+                        $object[$key]['inFavorite'] = false;
+                    }
+                }
+            }
+            else{
+                foreach ($object as $key => $item){
+                    $object[$key]['inBasket'] = null;
+                    $object[$key]['inFavorite'] = null;
+                }
+            }
+
         }
         catch(\Exception $e){
             $error = $e;
@@ -414,7 +660,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getBySubCategoryFilterByOldest($sub_category_id){
+    public function getBySubCategoryFilterByOldest($sub_category_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -426,6 +672,35 @@ class CourseRepository implements IRepository{
                 ->where('active', true)
                 ->oldest()
                 ->paginate(9);
+
+            # inBasket ve inFavorite bilgileri
+            if($user_id != null){
+                foreach ($object as $key=> $item){
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlBasket != null and count($controlBasket) > 0){
+                        $object[$key]['inBasket'] = true;
+                    }
+                    else{
+                        $object[$key]['inBasket'] = false;
+                    }
+
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlFavorite != null and count($controlFavorite) > 0){
+                        $object[$key]['inFavorite'] = true;
+                    }
+                    else{
+                        $object[$key]['inFavorite'] = false;
+                    }
+                }
+            }
+            else{
+                foreach ($object as $key => $item){
+                    $object[$key]['inBasket'] = null;
+                    $object[$key]['inFavorite'] = null;
+                }
+            }
         }
         catch(\Exception $e){
             $error = $e;
@@ -437,7 +712,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getBySubCategoryFilterByPriceASC($sub_category_id){
+    public function getBySubCategoryFilterByPriceASC($sub_category_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -449,6 +724,35 @@ class CourseRepository implements IRepository{
                 ->where('active', true)
                 ->orderBy('price_with_discount', 'asc')
                 ->paginate(9);
+
+            # inBasket ve inFavorite bilgileri
+            if($user_id != null){
+                foreach ($object as $key=> $item){
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlBasket != null and count($controlBasket) > 0){
+                        $object[$key]['inBasket'] = true;
+                    }
+                    else{
+                        $object[$key]['inBasket'] = false;
+                    }
+
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlFavorite != null and count($controlFavorite) > 0){
+                        $object[$key]['inFavorite'] = true;
+                    }
+                    else{
+                        $object[$key]['inFavorite'] = false;
+                    }
+                }
+            }
+            else{
+                foreach ($object as $key => $item){
+                    $object[$key]['inBasket'] = null;
+                    $object[$key]['inFavorite'] = null;
+                }
+            }
         }
         catch(\Exception $e){
             $error = $e;
@@ -460,7 +764,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getBySubCategoryFilterByPriceDESC($sub_category_id){
+    public function getBySubCategoryFilterByPriceDESC($sub_category_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -472,6 +776,35 @@ class CourseRepository implements IRepository{
                 ->where('active', true)
                 ->orderBy('price_with_discount', 'desc')
                 ->paginate(9);
+
+            # inBasket ve inFavorite bilgileri
+            if($user_id != null){
+                foreach ($object as $key=> $item){
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlBasket != null and count($controlBasket) > 0){
+                        $object[$key]['inBasket'] = true;
+                    }
+                    else{
+                        $object[$key]['inBasket'] = false;
+                    }
+
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlFavorite != null and count($controlFavorite) > 0){
+                        $object[$key]['inFavorite'] = true;
+                    }
+                    else{
+                        $object[$key]['inFavorite'] = false;
+                    }
+                }
+            }
+            else{
+                foreach ($object as $key => $item){
+                    $object[$key]['inBasket'] = null;
+                    $object[$key]['inFavorite'] = null;
+                }
+            }
         }
         catch(\Exception $e){
             $error = $e;
@@ -483,7 +816,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getBySubCategoryFilterByPoint($sub_category_id){
+    public function getBySubCategoryFilterByPoint($sub_category_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -495,6 +828,35 @@ class CourseRepository implements IRepository{
                 ->where('active', true)
                 ->orderBy('point', 'desc')
                 ->paginate(9);
+
+            # inBasket ve inFavorite bilgileri
+            if($user_id != null){
+                foreach ($object as $key=> $item){
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlBasket != null and count($controlBasket) > 0){
+                        $object[$key]['inBasket'] = true;
+                    }
+                    else{
+                        $object[$key]['inBasket'] = false;
+                    }
+
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlFavorite != null and count($controlFavorite) > 0){
+                        $object[$key]['inFavorite'] = true;
+                    }
+                    else{
+                        $object[$key]['inFavorite'] = false;
+                    }
+                }
+            }
+            else{
+                foreach ($object as $key => $item){
+                    $object[$key]['inBasket'] = null;
+                    $object[$key]['inFavorite'] = null;
+                }
+            }
         }
         catch(\Exception $e){
             $error = $e;
@@ -506,7 +868,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getBySubCategoryFilterByPurchases($sub_category_id){
+    public function getBySubCategoryFilterByPurchases($sub_category_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -518,6 +880,35 @@ class CourseRepository implements IRepository{
                 ->where('active', true)
                 ->orderBy('purchase_count', 'desc')
                 ->paginate(9);
+
+            # inBasket ve inFavorite bilgileri
+            if($user_id != null){
+                foreach ($object as $key=> $item){
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlBasket != null and count($controlBasket) > 0){
+                        $object[$key]['inBasket'] = true;
+                    }
+                    else{
+                        $object[$key]['inBasket'] = false;
+                    }
+
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlFavorite != null and count($controlFavorite) > 0){
+                        $object[$key]['inFavorite'] = true;
+                    }
+                    else{
+                        $object[$key]['inFavorite'] = false;
+                    }
+                }
+            }
+            else{
+                foreach ($object as $key => $item){
+                    $object[$key]['inBasket'] = null;
+                    $object[$key]['inFavorite'] = null;
+                }
+            }
         }
         catch(\Exception $e){
             $error = $e;
@@ -529,7 +920,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getBySubCategoryFilterByTrending($sub_category_id){
+    public function getBySubCategoryFilterByTrending($sub_category_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -542,6 +933,35 @@ class CourseRepository implements IRepository{
                 ->orderBy('purchase_count', 'desc')
                 ->orderBy('point','desc')
                 ->paginate(9);
+
+            # inBasket ve inFavorite bilgileri
+            if($user_id != null){
+                foreach ($object as $key=> $item){
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlBasket != null and count($controlBasket) > 0){
+                        $object[$key]['inBasket'] = true;
+                    }
+                    else{
+                        $object[$key]['inBasket'] = false;
+                    }
+
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->get();
+                    if($controlFavorite != null and count($controlFavorite) > 0){
+                        $object[$key]['inFavorite'] = true;
+                    }
+                    else{
+                        $object[$key]['inFavorite'] = false;
+                    }
+                }
+            }
+            else{
+                foreach ($object as $key => $item){
+                    $object[$key]['inBasket'] = null;
+                    $object[$key]['inFavorite'] = null;
+                }
+            }
         }
         catch(\Exception $e){
             $error = $e;

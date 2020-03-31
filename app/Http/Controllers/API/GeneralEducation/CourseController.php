@@ -64,12 +64,12 @@ class CourseController extends Controller
         ]);
     }
 
-    public function getPopularCourses(){
+    public function getPopularCourses($user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getPopularCourses();
+        $resp = $repo->getPopularCourses($user_id);
 
         // Response
         if($resp->getResult()){
@@ -80,12 +80,12 @@ class CourseController extends Controller
         }
     }
 
-    public function getByCategoryFilterByNewest($category_id){
+    public function getByCategoryFilterByNewest($category_id,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getByCategoryFilterByNewest($category_id);
+        $resp = $repo->getByCategoryFilterByNewest($category_id,$user_id);
 
         // Response
         if($resp->getResult()){
@@ -96,12 +96,12 @@ class CourseController extends Controller
         }
     }
 
-    public function getByCategoryFilterByOldest($category_id){
+    public function getByCategoryFilterByOldest($category_id,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getByCategoryFilterByOldest($category_id);
+        $resp = $repo->getByCategoryFilterByOldest($category_id,$user_id);
 
         // Response
         if($resp->getResult()){
@@ -112,12 +112,12 @@ class CourseController extends Controller
         }
     }
 
-    public function getByCategoryFilterByPriceASC($category_id){
+    public function getByCategoryFilterByPriceASC($category_id,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getByCategoryFilterByPriceASC($category_id);
+        $resp = $repo->getByCategoryFilterByPriceASC($category_id,$user_id);
 
         // Response
         if($resp->getResult()){
@@ -128,12 +128,12 @@ class CourseController extends Controller
         }
     }
 
-    public function getByCategoryFilterByPriceDESC($category_id){
+    public function getByCategoryFilterByPriceDESC($category_id,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getByCategoryFilterByPriceDESC($category_id);
+        $resp = $repo->getByCategoryFilterByPriceDESC($category_id,$user_id);
         //dd($resp);
 
         // Response
@@ -145,12 +145,12 @@ class CourseController extends Controller
         }
     }
 
-    public function getByCategoryFilterByPoint($category_id){
+    public function getByCategoryFilterByPoint($category_id,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getByCategoryFilterByPoint($category_id);
+        $resp = $repo->getByCategoryFilterByPoint($category_id,$user_id);
 
         // Response
         if($resp->getResult()){
@@ -161,12 +161,12 @@ class CourseController extends Controller
         }
     }
 
-    public function getByCategoryFilterByPurchases($category_id){
+    public function getByCategoryFilterByPurchases($category_id,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getByCategoryFilterByPurchases($category_id);
+        $resp = $repo->getByCategoryFilterByPurchases($category_id,$user_id);
 
         // Response
         if($resp->getResult()){
@@ -177,12 +177,12 @@ class CourseController extends Controller
         }
     }
 
-    public function getByCategoryFilterByTrending($category_id){
+    public function getByCategoryFilterByTrending($category_id,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getByCategoryFilterByTrending($category_id);
+        $resp = $repo->getByCategoryFilterByTrending($category_id,$user_id);
 
         // Response
         if($resp->getResult()){
@@ -193,12 +193,12 @@ class CourseController extends Controller
         }
     }
 
-    public function getBySubCategoryFilterByNewest($sub_category_id){
+    public function getBySubCategoryFilterByNewest($sub_category_id,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getBySubCategoryFilterByNewest($sub_category_id);
+        $resp = $repo->getBySubCategoryFilterByNewest($sub_category_id,$user_id);
 
         // Response
         if($resp->getResult()){
@@ -209,12 +209,12 @@ class CourseController extends Controller
         }
     }
 
-    public function getBySubCategoryFilterByOldest($sub_category_id){
+    public function getBySubCategoryFilterByOldest($sub_category_id,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getBySubCategoryFilterByOldest($sub_category_id);
+        $resp = $repo->getBySubCategoryFilterByOldest($sub_category_id,$user_id);
 
         // Response
         if($resp->getResult()){
@@ -225,12 +225,12 @@ class CourseController extends Controller
         }
     }
 
-    public function getBySubCategoryFilterByPriceASC($sub_category_id){
+    public function getBySubCategoryFilterByPriceASC($sub_category_id,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getBySubCategoryFilterByPriceASC($sub_category_id);
+        $resp = $repo->getBySubCategoryFilterByPriceASC($sub_category_id,$user_id);
 
         // Response
         if($resp->getResult()){
@@ -241,12 +241,12 @@ class CourseController extends Controller
         }
     }
 
-    public function getBySubCategoryFilterByPriceDESC($sub_category_id){
+    public function getBySubCategoryFilterByPriceDESC($sub_category_id,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getBySubCategoryFilterByPriceDESC($sub_category_id);
+        $resp = $repo->getBySubCategoryFilterByPriceDESC($sub_category_id,$user_id);
 
         // Response
         if($resp->getResult()){
@@ -257,12 +257,12 @@ class CourseController extends Controller
         }
     }
 
-    public function getBySubCategoryFilterByPoint($sub_category_id){
+    public function getBySubCategoryFilterByPoint($sub_category_id,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getBySubCategoryFilterByPoint($sub_category_id);
+        $resp = $repo->getBySubCategoryFilterByPoint($sub_category_id,$user_id);
 
         // Response
         if($resp->getResult()){
@@ -273,12 +273,12 @@ class CourseController extends Controller
         }
     }
 
-    public function getBySubCategoryFilterByPurchases($sub_category_id){
+    public function getBySubCategoryFilterByPurchases($sub_category_id,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getBySubCategoryFilterByPurchases($sub_category_id);
+        $resp = $repo->getBySubCategoryFilterByPurchases($sub_category_id,$user_id);
 
         // Response
         if($resp->getResult()){
@@ -289,12 +289,12 @@ class CourseController extends Controller
         }
     }
 
-    public function getBySubCategoryFilterByTrending($sub_category_id){
+    public function getBySubCategoryFilterByTrending($sub_category_id,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getBySubCategoryFilterByTrending($sub_category_id);
+        $resp = $repo->getBySubCategoryFilterByTrending($sub_category_id,$user_id);
 
         // Response
         if($resp->getResult()){
