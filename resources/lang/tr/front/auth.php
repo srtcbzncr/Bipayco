@@ -174,5 +174,16 @@ return [
     'before'=>'önce',
     'full_screen'=>'Tam Ekran',
     'grade'=>'Sınıf',
-    'question_answer'=>'Soru Cevap'
+    'grades'=>'Sınıflar',
+    'question_answer'=>'Soru Cevap',
+    'admin_mode'=>'Yönetici Modu',
+    'categories'=>'Kategoriler',
+    'cities'=>'Şehirler',
+    'dashboard'=>'Yönetim Paneli',
+    'add_city'=>'İl Ekle',
+    'add_district'=>'İlçe Ekle',
+    'add_grade'=>'Sınıf Ekle',
+    'add_subject'=>'Konu Ekle',
+    'add_category'=>'Kategori Ekle',
+    'add_sub_category'=>'Alt Kategori Ekle',
 ];

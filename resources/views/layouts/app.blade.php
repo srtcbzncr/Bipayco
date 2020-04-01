@@ -65,6 +65,9 @@
                     @else
                         <a href="{{route('instructor_courses')}}" class="uk-navbar-item uk-button-text back-to-dashboard uk-margin-small-top">@lang('front/auth.instructor_mode')</a>
                     @endif
+                    @if(isSet(Auth::user()->admin))
+                            <a href="{{route('adminDashboard')}}" class="uk-navbar-item uk-button-text back-to-dashboard uk-margin-small-top"> @lang('front/auth.admin_mode') </a>
+                    @endif
                 @endif
                 </div>
                 <div class="uk-navbar-right tm-show-on-mobile uk-flex-right" id="tm-show-on-mobile" >

@@ -1,39 +1,66 @@
 <template>
-    <table id="example" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0" >
-        <thead>
-        <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Office</th>
-            <th>Age</th>
-
-        </tr>
+    <table id="example" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0">
+        <thead v-if="true">
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>    </th>
+            </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>a</td>
-            <td>Tiger Nixon</td>
-            <td>System Architect</td>
-            <td>Edinburgh</td>
-            <td>61</td>
-        </tr>
-        <tr>
-            <td>s</td>
-            <td>Tiger Nixon</td>
-            <td>System Architect</td>
-            <td>Edinburgh</td>
-            <td>61</td>
-        </tr>
+        <tbody v-if="true">
+            <tr>
+                <td><p>a</p></td>
+                <td><p>Tiger Nixon</p></td>
+                <td><p>System Architect</p></td>
+                <td><p>Edinburgh</p></td>
+                <td class="uk-flex flex-wrap align-items-center justify-content-between">
+                    <a @click="openSettings()"><i class="fas fa-cog" uk-toolkit=""></i></a>
+                    <a @click="deactivateItem()"><i class="fas fa-check-circle"></i></a>
+                    <a @click="deleteItem()"><i class="fas fa-trash text-danger"></i></a>
+                </td>
+            </tr>
+            <tr>
+                <td><p>s</p></td>
+                <td><p>Tiger Nixon</p></td>
+                <td><p>System Architect</p></td>
+                <td><p>Edinburgh</p></td>
+                <td class="uk-flex flex-wrap align-items-center justify-content-between">
+                    <a @click="openSettings()"><i class="fas fa-cog"></i></a>
+                    <a @click="activateItem()"><i class="fas fa-times-circle"></i></a>
+                    <a @click="deleteItem()"><i class="fas fa-trash text-danger"></i></a>
+                </td>
+            </tr>
         </tbody>
+        <div v-else class=" uk-width uk-height-small uk-flex align-items-center justify-content-center">
+            <h4> {{noContentText}}</h4>
+        </div>
     </table>
 </template>
 
 <script>
     export default {
         name: "data-table",
+        props:{
+            noContentText:{
+                type:String,
+                default:"İçerik Bulunmamaktadır"
+            }
+        },
         methods:{
+            deactivateItem:function () {
 
+            },
+            activateItem:function () {
+
+            },
+            deleteItem:function () {
+
+            },
+            openSettings:function () {
+
+            }
         }
     }
 </script>
@@ -184,5 +211,13 @@
     table.dataTable.uk-table-condensed .sorting_desc:after {
         top: 6px;
         right: 6px;
+    }
+    p{
+        display:flex;
+        align-items: center;
+    }
+    i{
+        margin-top:5px;
+        margin-bottom:5px;
     }
 </style>

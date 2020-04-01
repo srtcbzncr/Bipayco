@@ -1896,9 +1896,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "data-table",
-  methods: {}
+  props: {
+    noContentText: {
+      type: String,
+      "default": "İçerik Bulunmamaktadır"
+    }
+  },
+  methods: {
+    deactivateItem: function deactivateItem() {},
+    activateItem: function activateItem() {},
+    deleteItem: function deleteItem() {},
+    openSettings: function openSettings() {}
+  }
 });
 
 /***/ }),
@@ -7075,7 +7096,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\ntable.dataTable[data-v-7fc05f76] {\n    clear: both;\n    margin-top: 6px !important;\n    margin-bottom: 6px !important;\n    max-width: none !important;\n}\ntable.dataTable td[data-v-7fc05f76],\ntable.dataTable th[data-v-7fc05f76] {\n    box-sizing: content-box;\n}\ntable.dataTable td.dataTables_empty[data-v-7fc05f76],\ntable.dataTable th.dataTables_empty[data-v-7fc05f76] {\n    text-align: center;\n}\ntable.dataTable.nowrap th[data-v-7fc05f76],\ntable.dataTable.nowrap td[data-v-7fc05f76] {\n    white-space: nowrap;\n}\ndiv.dataTables_wrapper div.row.uk-grid.dt-merge-grid[data-v-7fc05f76] {\n    margin-top: 5px;\n}\ndiv.dataTables_wrapper div.dataTables_length label[data-v-7fc05f76] {\n    font-weight: normal;\n    text-align: left;\n    white-space: nowrap;\n}\ndiv.dataTables_wrapper div.dataTables_length select[data-v-7fc05f76] {\n    width: 75px;\n    display: inline-block;\n}\ndiv.dataTables_wrapper div.dataTables_filter[data-v-7fc05f76] {\n    text-align: right;\n}\ndiv.dataTables_wrapper div.dataTables_filter label[data-v-7fc05f76] {\n    font-weight: normal;\n    white-space: nowrap;\n    text-align: left;\n}\ndiv.dataTables_wrapper div.dataTables_filter input[data-v-7fc05f76] {\n    margin-left: 0.5em;\n    display: inline-block;\n    width: auto;\n}\ndiv.dataTables_wrapper div.dataTables_info[data-v-7fc05f76] {\n    padding-top: 8px;\n    white-space: nowrap;\n}\ndiv.dataTables_wrapper div.dataTables_paginate[data-v-7fc05f76] {\n    margin: 0;\n    white-space: nowrap;\n    text-align: right;\n}\ndiv.dataTables_wrapper div.dataTables_paginate ul.pagination[data-v-7fc05f76] {\n    margin: 2px 0;\n    white-space: nowrap;\n}\ndiv.dataTables_wrapper div.dataTables_processing[data-v-7fc05f76] {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    width: 200px;\n    margin-left: -100px;\n    margin-top: -26px;\n    text-align: center;\n    padding: 1em 0;\n}\ntable.dataTable thead > tr > th[data-v-7fc05f76],\ntable.dataTable thead > tr > td[data-v-7fc05f76] {\n    position: relative;\n}\ntable.dataTable thead > tr > th.sorting_asc[data-v-7fc05f76], table.dataTable thead > tr > th.sorting_desc[data-v-7fc05f76], table.dataTable thead > tr > th.sorting[data-v-7fc05f76],\ntable.dataTable thead > tr > td.sorting_asc[data-v-7fc05f76],\ntable.dataTable thead > tr > td.sorting_desc[data-v-7fc05f76],\ntable.dataTable thead > tr > td.sorting[data-v-7fc05f76] {\n    padding-right: 30px;\n}\ntable.dataTable thead > tr > th.sorting[data-v-7fc05f76]:after, table.dataTable thead > tr > th.sorting_asc[data-v-7fc05f76]:after, table.dataTable thead > tr > th.sorting_desc[data-v-7fc05f76]:after,\ntable.dataTable thead > tr > td.sorting[data-v-7fc05f76]:after,\ntable.dataTable thead > tr > td.sorting_asc[data-v-7fc05f76]:after,\ntable.dataTable thead > tr > td.sorting_desc[data-v-7fc05f76]:after {\n    position: absolute;\n    top: 7px;\n    right: 8px;\n    display: block;\n    font-family: 'FontAwesome';\n}\ntable.dataTable thead > tr > th.sorting[data-v-7fc05f76]:after,\ntable.dataTable thead > tr > td.sorting[data-v-7fc05f76]:after {\n    content: \"\\F0DC\";\n    color: #ddd;\n    font-size: 0.8em;\n    padding-top: 0.12em;\n}\ntable.dataTable thead > tr > th.sorting_asc[data-v-7fc05f76]:after,\ntable.dataTable thead > tr > td.sorting_asc[data-v-7fc05f76]:after {\n    content: \"\\F0DE\";\n}\ntable.dataTable thead > tr > th.sorting_desc[data-v-7fc05f76]:after,\ntable.dataTable thead > tr > td.sorting_desc[data-v-7fc05f76]:after {\n    content: \"\\F0DD\";\n}\ndiv.dataTables_scrollHead table.dataTable[data-v-7fc05f76] {\n    margin-bottom: 0 !important;\n}\ndiv.dataTables_scrollBody table[data-v-7fc05f76] {\n    border-top: none;\n    margin-top: 0 !important;\n    margin-bottom: 0 !important;\n}\ndiv.dataTables_scrollBody table thead .sorting[data-v-7fc05f76]:after,\ndiv.dataTables_scrollBody table thead .sorting_asc[data-v-7fc05f76]:after,\ndiv.dataTables_scrollBody table thead .sorting_desc[data-v-7fc05f76]:after {\n    display: none;\n}\ndiv.dataTables_scrollBody table tbody tr:first-child th[data-v-7fc05f76],\ndiv.dataTables_scrollBody table tbody tr:first-child td[data-v-7fc05f76] {\n    border-top: none;\n}\ndiv.dataTables_scrollFoot table[data-v-7fc05f76] {\n    margin-top: 0 !important;\n    border-top: none;\n}\n@media screen and (max-width: 767px) {\ndiv.dataTables_wrapper div.dataTables_length[data-v-7fc05f76],\n    div.dataTables_wrapper div.dataTables_filter[data-v-7fc05f76],\n    div.dataTables_wrapper div.dataTables_info[data-v-7fc05f76],\n    div.dataTables_wrapper div.dataTables_paginate[data-v-7fc05f76] {\n        text-align: center;\n}\n}\ntable.dataTable.uk-table-condensed > thead > tr > th[data-v-7fc05f76] {\n    padding-right: 20px;\n}\ntable.dataTable.uk-table-condensed .sorting[data-v-7fc05f76]:after,\ntable.dataTable.uk-table-condensed .sorting_asc[data-v-7fc05f76]:after,\ntable.dataTable.uk-table-condensed .sorting_desc[data-v-7fc05f76]:after {\n    top: 6px;\n    right: 6px;\n}\n", ""]);
+exports.push([module.i, "\ntable.dataTable[data-v-7fc05f76] {\n    clear: both;\n    margin-top: 6px !important;\n    margin-bottom: 6px !important;\n    max-width: none !important;\n}\ntable.dataTable td[data-v-7fc05f76],\ntable.dataTable th[data-v-7fc05f76] {\n    box-sizing: content-box;\n}\ntable.dataTable td.dataTables_empty[data-v-7fc05f76],\ntable.dataTable th.dataTables_empty[data-v-7fc05f76] {\n    text-align: center;\n}\ntable.dataTable.nowrap th[data-v-7fc05f76],\ntable.dataTable.nowrap td[data-v-7fc05f76] {\n    white-space: nowrap;\n}\ndiv.dataTables_wrapper div.row.uk-grid.dt-merge-grid[data-v-7fc05f76] {\n    margin-top: 5px;\n}\ndiv.dataTables_wrapper div.dataTables_length label[data-v-7fc05f76] {\n    font-weight: normal;\n    text-align: left;\n    white-space: nowrap;\n}\ndiv.dataTables_wrapper div.dataTables_length select[data-v-7fc05f76] {\n    width: 75px;\n    display: inline-block;\n}\ndiv.dataTables_wrapper div.dataTables_filter[data-v-7fc05f76] {\n    text-align: right;\n}\ndiv.dataTables_wrapper div.dataTables_filter label[data-v-7fc05f76] {\n    font-weight: normal;\n    white-space: nowrap;\n    text-align: left;\n}\ndiv.dataTables_wrapper div.dataTables_filter input[data-v-7fc05f76] {\n    margin-left: 0.5em;\n    display: inline-block;\n    width: auto;\n}\ndiv.dataTables_wrapper div.dataTables_info[data-v-7fc05f76] {\n    padding-top: 8px;\n    white-space: nowrap;\n}\ndiv.dataTables_wrapper div.dataTables_paginate[data-v-7fc05f76] {\n    margin: 0;\n    white-space: nowrap;\n    text-align: right;\n}\ndiv.dataTables_wrapper div.dataTables_paginate ul.pagination[data-v-7fc05f76] {\n    margin: 2px 0;\n    white-space: nowrap;\n}\ndiv.dataTables_wrapper div.dataTables_processing[data-v-7fc05f76] {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    width: 200px;\n    margin-left: -100px;\n    margin-top: -26px;\n    text-align: center;\n    padding: 1em 0;\n}\ntable.dataTable thead > tr > th[data-v-7fc05f76],\ntable.dataTable thead > tr > td[data-v-7fc05f76] {\n    position: relative;\n}\ntable.dataTable thead > tr > th.sorting_asc[data-v-7fc05f76], table.dataTable thead > tr > th.sorting_desc[data-v-7fc05f76], table.dataTable thead > tr > th.sorting[data-v-7fc05f76],\ntable.dataTable thead > tr > td.sorting_asc[data-v-7fc05f76],\ntable.dataTable thead > tr > td.sorting_desc[data-v-7fc05f76],\ntable.dataTable thead > tr > td.sorting[data-v-7fc05f76] {\n    padding-right: 30px;\n}\ntable.dataTable thead > tr > th.sorting[data-v-7fc05f76]:after, table.dataTable thead > tr > th.sorting_asc[data-v-7fc05f76]:after, table.dataTable thead > tr > th.sorting_desc[data-v-7fc05f76]:after,\ntable.dataTable thead > tr > td.sorting[data-v-7fc05f76]:after,\ntable.dataTable thead > tr > td.sorting_asc[data-v-7fc05f76]:after,\ntable.dataTable thead > tr > td.sorting_desc[data-v-7fc05f76]:after {\n    position: absolute;\n    top: 7px;\n    right: 8px;\n    display: block;\n    font-family: 'FontAwesome';\n}\ntable.dataTable thead > tr > th.sorting[data-v-7fc05f76]:after,\ntable.dataTable thead > tr > td.sorting[data-v-7fc05f76]:after {\n    content: \"\\F0DC\";\n    color: #ddd;\n    font-size: 0.8em;\n    padding-top: 0.12em;\n}\ntable.dataTable thead > tr > th.sorting_asc[data-v-7fc05f76]:after,\ntable.dataTable thead > tr > td.sorting_asc[data-v-7fc05f76]:after {\n    content: \"\\F0DE\";\n}\ntable.dataTable thead > tr > th.sorting_desc[data-v-7fc05f76]:after,\ntable.dataTable thead > tr > td.sorting_desc[data-v-7fc05f76]:after {\n    content: \"\\F0DD\";\n}\ndiv.dataTables_scrollHead table.dataTable[data-v-7fc05f76] {\n    margin-bottom: 0 !important;\n}\ndiv.dataTables_scrollBody table[data-v-7fc05f76] {\n    border-top: none;\n    margin-top: 0 !important;\n    margin-bottom: 0 !important;\n}\ndiv.dataTables_scrollBody table thead .sorting[data-v-7fc05f76]:after,\ndiv.dataTables_scrollBody table thead .sorting_asc[data-v-7fc05f76]:after,\ndiv.dataTables_scrollBody table thead .sorting_desc[data-v-7fc05f76]:after {\n    display: none;\n}\ndiv.dataTables_scrollBody table tbody tr:first-child th[data-v-7fc05f76],\ndiv.dataTables_scrollBody table tbody tr:first-child td[data-v-7fc05f76] {\n    border-top: none;\n}\ndiv.dataTables_scrollFoot table[data-v-7fc05f76] {\n    margin-top: 0 !important;\n    border-top: none;\n}\n@media screen and (max-width: 767px) {\ndiv.dataTables_wrapper div.dataTables_length[data-v-7fc05f76],\n    div.dataTables_wrapper div.dataTables_filter[data-v-7fc05f76],\n    div.dataTables_wrapper div.dataTables_info[data-v-7fc05f76],\n    div.dataTables_wrapper div.dataTables_paginate[data-v-7fc05f76] {\n        text-align: center;\n}\n}\ntable.dataTable.uk-table-condensed > thead > tr > th[data-v-7fc05f76] {\n    padding-right: 20px;\n}\ntable.dataTable.uk-table-condensed .sorting[data-v-7fc05f76]:after,\ntable.dataTable.uk-table-condensed .sorting_asc[data-v-7fc05f76]:after,\ntable.dataTable.uk-table-condensed .sorting_desc[data-v-7fc05f76]:after {\n    top: 6px;\n    right: 6px;\n}\np[data-v-7fc05f76]{\n    display:-webkit-box;\n    display:flex;\n    -webkit-box-align: center;\n            align-items: center;\n}\ni[data-v-7fc05f76]{\n    margin-top:5px;\n    margin-bottom:5px;\n}\n", ""]);
 
 // exports
 
@@ -8584,62 +8605,201 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "table",
+    {
+      staticClass:
+        "uk-table uk-table-hover uk-table-striped uk-width uk-height",
+      attrs: { id: "example", cellspacing: "0" }
+    },
+    [
+      true ? _c("thead", [_vm._m(0)]) : undefined,
+      _vm._v(" "),
+      true
+        ? _c("tbody", [
+            _c("tr", [
+              _vm._m(1),
+              _vm._v(" "),
+              _vm._m(2),
+              _vm._v(" "),
+              _vm._m(3),
+              _vm._v(" "),
+              _vm._m(4),
+              _vm._v(" "),
+              _c(
+                "td",
+                {
+                  staticClass:
+                    "uk-flex flex-wrap align-items-center justify-content-between"
+                },
+                [
+                  _c(
+                    "a",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.openSettings()
+                        }
+                      }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fas fa-cog",
+                        attrs: { "uk-toolkit": "" }
+                      })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.deactivateItem()
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fas fa-check-circle" })]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteItem()
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fas fa-trash text-danger" })]
+                  )
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c("tr", [
+              _vm._m(5),
+              _vm._v(" "),
+              _vm._m(6),
+              _vm._v(" "),
+              _vm._m(7),
+              _vm._v(" "),
+              _vm._m(8),
+              _vm._v(" "),
+              _c(
+                "td",
+                {
+                  staticClass:
+                    "uk-flex flex-wrap align-items-center justify-content-between"
+                },
+                [
+                  _c(
+                    "a",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.openSettings()
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fas fa-cog" })]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.activateItem()
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fas fa-times-circle" })]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.deleteItem()
+                        }
+                      }
+                    },
+                    [_c("i", { staticClass: "fas fa-trash text-danger" })]
+                  )
+                ]
+              )
+            ])
+          ])
+        : undefined
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "table",
-      {
-        staticClass:
-          "uk-table uk-table-hover uk-table-striped uk-width uk-height",
-        attrs: { id: "example", cellspacing: "0" }
-      },
-      [
-        _c("thead", [
-          _c("tr", [
-            _c("th"),
-            _vm._v(" "),
-            _c("th", [_vm._v("Name")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Position")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Office")]),
-            _vm._v(" "),
-            _c("th", [_vm._v("Age")])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("tbody", [
-          _c("tr", [
-            _c("td", [_vm._v("a")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Tiger Nixon")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("System Architect")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Edinburgh")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("61")])
-          ]),
-          _vm._v(" "),
-          _c("tr", [
-            _c("td", [_vm._v("s")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Tiger Nixon")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("System Architect")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("Edinburgh")]),
-            _vm._v(" "),
-            _c("td", [_vm._v("61")])
-          ])
-        ])
-      ]
-    )
+    return _c("tr", [
+      _c("th", [_vm._v("Name")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Position")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Office")]),
+      _vm._v(" "),
+      _c("th", [_vm._v("Age")]),
+      _vm._v(" "),
+      _c("th")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("p", [_vm._v("a")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("p", [_vm._v("Tiger Nixon")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("p", [_vm._v("System Architect")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("p", [_vm._v("Edinburgh")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("p", [_vm._v("s")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("p", [_vm._v("Tiger Nixon")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("p", [_vm._v("System Architect")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("td", [_c("p", [_vm._v("Edinburgh")])])
   }
 ]
 render._withStripped = true
