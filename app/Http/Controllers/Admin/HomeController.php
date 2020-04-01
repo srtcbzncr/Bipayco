@@ -15,6 +15,10 @@ class HomeController extends Controller
         return view('admin.categories');
     }
 
+    public function subCategories(){
+        return view('admin.sub_categories');
+    }
+
     public function cities(){
         return view('admin.cities');
     }
