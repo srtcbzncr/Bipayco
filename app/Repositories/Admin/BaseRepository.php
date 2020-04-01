@@ -57,7 +57,25 @@ class BaseRepository implements IRepository
 
     public function get($id)
     {
-        // TODO: Implement get() method.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = City::find($id);
+            $districts = $object->districts;
+            $object['districts'] = $districts;
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 
     public function create(array $data)

@@ -49,6 +49,26 @@ class BaseController extends Controller
         ],400);
     }
 
+    public function showCity($city_id){
+        // initializing
+        $repo = new BaseRepository();
+
+        // Operations
+        $resp = $repo->get($city_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Şehir başarıyla getirildi.',
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Şehir getirilirken hata meydana geldi.Tekrar deneyin',
+            'errorMessage' =>  $resp->getError()
+        ],400);
+    }
+
     public function deleteCity($cityId){
         // initializing
         $repo = new BaseRepository();
