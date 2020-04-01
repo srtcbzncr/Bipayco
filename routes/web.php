@@ -20,7 +20,13 @@ Route::get('logout', 'Auth\AuthController@logout')->name('logout');
 Route::get('error', 'HomeController@error')->name('error');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
-   Route::get('/', 'Admin\HomeController@dashboard')->name('adminDashboard');
+    Route::get('/', 'Admin\HomeController@dashboard')->name('adminDashboard');
+    Route::get('/categories','Admin\HomeController@categories')->name('adminCategories');
+    Route::get('/cities','Admin\HomeController@cities')->name('adminCities');
+    Route::get('/districts','Admin\HomeController@districts')->name('admindistricts');
+    Route::get('/grade','Admin\HomeController@grade')->name('adminGrade');
+    Route::get('/lesson','Admin\HomeController@lesson')->name('adminLesson');
+    Route::get('/subjects','Admin\HomeController@subjects')->name('adminSubjects');
 });
 
 Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function(){
