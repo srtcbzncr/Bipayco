@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="admin-content uk-container uk-margin-xlarge-top">
+    <!--<div class="admin-content uk-container uk-margin-xlarge-top">
         <div class="admin-content-inner">
             <div class="uk-child-width-1-3@m uk-child-width-1-2 uk-grid-match " uk-grid>
                 <div>
@@ -65,6 +65,14 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>-->
+    <div class="uk-container uk-margin-large-top  uk-padding-remove">
+        <div class="float-right">
+            <button class="uk-button uk-button-success">şehir Ekle</button>
+        </div>
+        <div class="uk-card uk-card-default uk-margin-medium-top border-radius-6">
+            <data-table></data-table>
         </div>
     </div>
 @endsection

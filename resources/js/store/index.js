@@ -239,9 +239,9 @@ const actions={
         Axios.get(state.urlForCourseCard)
             .then(response=>commit('setCourseCard', response.data));
     },
-    loadUrlForCourseCard({commit}, url){
+    loadUrlForCourseCard({commit, dispatch}, url){
         commit('setUrlForCourseCard', url);
-        this.dispatch('loadCourseCard');
+        dispatch('loadCourseCard');
     },
     loadIsInCart({commit}, [module, userId, courseId]){
         Axios.get('/api/'+module+'/inBasket/'+userId+'/'+courseId)
