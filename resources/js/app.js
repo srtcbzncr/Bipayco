@@ -44,7 +44,13 @@ Vue.component('user-profile-dropdown-nav', require('./components/top-bar/user-pr
 Vue.component('side-bar', require('./components/side-bar/side-bar.vue').default);
 Vue.component('registered-profile', require('./components/admin/registered-profile.vue').default);
 Vue.component('comment', require('./components/admin/comment.vue').default);
-Vue.component('data-table', require('./components/admin/data-table.vue').default);
+Vue.component('categories-page', require('./components/admin/categories-page.vue').default);
+Vue.component('sub-categories-page', require('./components/admin/sub-categories-page.vue').default);
+Vue.component('cities-page', require('./components/admin/cities-page.vue').default);
+Vue.component('districts-page', require('./components/admin/districts-page.vue').default);
+Vue.component('lesson-page', require('./components/admin/lessons-page.vue').default);
+Vue.component('grade-page', require('./components/admin/grades-page.vue').default);
+Vue.component('subject-page', require('./components/admin/subjects-page.vue').default);
 Vue.component('course-card-pagination', require('./components/category/course-card-pagination.vue').default);
 Vue.component('course-review', require('./components/category/course-review.vue').default);
 Vue.component('course-previews', require('./components/category/course-previews.vue').default);
