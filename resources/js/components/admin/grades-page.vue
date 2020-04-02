@@ -1,7 +1,7 @@
 <template>
     <div class="uk-margin-large-top">
         <div class="text-right">
-            <button class="uk-button uk-button-success"><i class="fas fa-plus"></i> {{addCategoryText}} </button>
+            <button class="uk-button uk-button-success" @click="openForm"><i class="fas fa-plus"></i> {{addGradeText}} </button>
         </div>
         <div class="uk-background-default uk-padding-remove uk-margin-small-top border-radius-6">
             <table id="categoryTable" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0">
@@ -21,7 +21,7 @@
                     <td><p>System Architect</p></td>
                     <td><p>Edinburgh</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-between">
-                        <a @click="openSettings()" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
+                        <a @click="openSettings(2)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
                         <a @click="deactivateItem()" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
                         <a @click="deleteItem()" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                     </td>
@@ -32,7 +32,7 @@
                     <td><p>System Architect</p></td>
                     <td><p>Edinburgh</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-between">
-                        <a @click="openSettings()" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
+                        <a @click="openSettings(1)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
                         <a @click="activateItem()" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
                         <a @click="deleteItem()" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                     </td>
@@ -43,16 +43,49 @@
                 </div>
             </table>
         </div>
+        <div id="addGradeArea" uk-modal>
+            <div class="uk-modal-dialog">
+                <div class="uk-modal-header">
+                    <h2 v-if="!hasItem" class="uk-modal-title">{{addGradeText}}</h2>
+                    <h2 v-else class="uk-modal-title">{{editGradeText}}</h2>
+                </div>
+
+                <div class="uk-modal-body" uk-overflow-auto>
+                    <div class="uk-margin-bottom">
+                        <div class="uk-form-label">{{iconText}}</div>
+                        <select v-model="icon" class="uk-width uk-select">
+                            <option value="" hidden disabled selected>{{selectIconText}}</option>
+                            <option value="fa-user"><i class="fas fa-user icon-tiny"></i> user </option>
+                            <option value="fa-chalkboard-teacher"><i class="fas fa-chalkboard-teacher icon-tiny"></i>  chalkboard teacher</option>
+                        </select>
+                        <div class="uk-form-label">{{gradeNameText}}</div>
+                        <input v-model="name" class="uk-width uk-input" :placeholder="gradeNameText">
+                    </div>
+                </div>
+
+                <div class="uk-modal-footer uk-text-right">
+                    <button class="uk-button uk-button-default uk-modal-close" @click="clearForm" type="button">{{cancelText}}</button>
+                    <button class="uk-button uk-button-primary" type="button" @click="saveItem">{{saveText}}</button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
         name: "grades-page",
+        data(){
+            return{
+                name:"",
+                icon:"",
+                hasItem:false,
+            }
+        },
         props:{
-            addCategoryText:{
+            addGradeText:{
                 type:String,
-                default:"Kategori Ekle"
+                default:"Sınıf Ekle"
             },
             noContentText:{
                 type:String,
@@ -73,6 +106,30 @@
             editText:{
                 type:String,
                 default:"Düzenle"
+            },
+            saveText:{
+                type:String,
+                default:"Kaydet"
+            },
+            cancelText:{
+                type:String,
+                default:"Vazgeç"
+            },
+            selectIconText:{
+                type:String,
+                default:"İkon Seçiniz"
+            },
+            iconText:{
+                type:String,
+                default:"İkon"
+            },
+            gradeNameText:{
+                type:String,
+                default:"Sınıf Adı"
+            },
+            editGradeText:{
+                type:String,
+                default:"Sınıf Düzenle"
             }
         },
         methods:{
@@ -85,10 +142,31 @@
             deleteItem:function () {
 
             },
-            openSettings:function () {
+            openSettings:function (id) {
+                this.hasItem=true;
+                this.icon="fa-user";
+                this.name=id+". adı";
+                UIkit.modal('#addGradeArea', {
+                    escClose:false,
+                    bgClose:false,
+                }).show();
+            },
+            openForm:function () {
+                UIkit.modal('#addGradeArea', {
+                    escClose:false,
+                    bgClose:false,
+                }).show();
+            },
+            clearForm:function () {
+                this.icon="";
+                this.name="";
+                this.hasItem=false;
+            },
+            saveItem:function () {
+                this.clearForm();
 
+                UIkit.modal('#addGradeArea').hide();
             }
-
         }
     }
 </script>

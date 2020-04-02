@@ -8,7 +8,7 @@
                 </a>
             </div>
             <div class="text-right">
-                <button class="uk-button uk-button-success"><i class="fas fa-plus"></i> {{addSubCategoryText}} </button>
+                <button class="uk-button uk-button-success" @click="openForm"><i class="fas fa-plus"></i> {{addSubjectText}} </button>
             </div>
         </div>
         <div class="uk-background-default uk-padding-remove uk-margin-small-top border-radius-6">
@@ -29,7 +29,7 @@
                     <td><p>System Architect</p></td>
                     <td><p>Edinburgh</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-between">
-                        <a @click="openSettings()" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
+                        <a @click="openSettings(2)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
                         <a @click="deactivateItem()" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
                         <a @click="deleteItem()" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                     </td>
@@ -40,7 +40,7 @@
                     <td><p>System Architect</p></td>
                     <td><p>Edinburgh</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-between">
-                        <a @click="openSettings()" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
+                        <a @click="openSettings(1)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
                         <a @click="activateItem()" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
                         <a @click="deleteItem()" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                     </td>
@@ -51,20 +51,53 @@
                 </div>
             </table>
         </div>
+        <div id="addSubjectArea" uk-modal>
+            <div class="uk-modal-dialog">
+                <div class="uk-modal-header">
+                    <h2 v-if="!hasItem" class="uk-modal-title">{{addSubjectText}}</h2>
+                    <h2 v-else class="uk-modal-title">{{editSubjectText}}</h2>
+                </div>
+
+                <div class="uk-modal-body" uk-overflow-auto>
+                    <div class="uk-margin-bottom">
+                        <div class="uk-form-label">{{lessonText}}</div>
+                        <select class="uk-width uk-select" v-model="lessonId">
+                            <option value="" selected hidden disabled>{{selectLessonText}}</option>
+                            <option value="1">ders1</option>
+                            <option value="2">ders2</option>
+                        </select>
+                        <div class="uk-form-label">{{subjectNameText}}</div>
+                        <input class="uk-width uk-input" v-model="name" :placeholder="subjectNameText">
+                    </div>
+                </div>
+
+                <div class="uk-modal-footer uk-text-right">
+                    <button class="uk-button uk-button-default uk-modal-close" @click="clearForm" type="button">{{cancelText}}</button>
+                    <button class="uk-button uk-button-primary" type="button" @click="saveItem">{{saveText}}</button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
         name: "subjects-page",
+        data(){
+            return{
+                name:"",
+                lessonId:"",
+                hasItem:false,
+            }
+        },
         props:{
             lessonsRoute:{
                 type:String,
                 required:true,
             },
-            addSubCategoryText:{
+            addSubjectText:{
                 type:String,
-                default:"Alt Kategori Ekle"
+                default:"Konu Ekle"
             },
             noContentText:{
                 type:String,
@@ -89,7 +122,32 @@
             backText:{
                 type:String,
                 default:"Geri"
-            }
+            },
+            saveText:{
+                type:String,
+                default:"Kaydet"
+            },
+            cancelText:{
+                type:String,
+                default:"Vazgeç"
+            },
+            lessonText:{
+                type:String,
+                default:"Ders"
+            },
+            selectLessonText:{
+                type:String,
+                default:"Ders Seçiniz"
+            },
+            editSubjectText:{
+                type:String,
+                default:"Konu Düzenle"
+            },
+            subjectNameText:{
+                type:String,
+                default:"Konu Adı"
+            },
+
         },
         methods:{
             routeLessons:function () {
@@ -104,10 +162,31 @@
             deleteItem:function () {
 
             },
-            openSettings:function () {
+            openSettings:function (id) {
+                this.hasItem=true;
+                this.name=id+". konu";
+                this.lessonId=id;
+                UIkit.modal('#addSubjectArea', {
+                    escClose:false,
+                    bgClose:false,
+                }).show();
+            },
+            openForm:function () {
+                UIkit.modal('#addSubjectArea', {
+                    escClose:false,
+                    bgClose:false,
+                }).show();
+            },
+            clearForm:function () {
+                this.name="";
+                this.lessonId="";
+                this.hasItem=false;
+            },
+            saveItem:function () {
+                this.clearForm();
 
+                UIkit.modal('#addSubjectArea').hide();
             }
-
         }
     }
 </script>

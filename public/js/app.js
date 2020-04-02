@@ -1886,8 +1886,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "categories-page",
+  data: function data() {
+    return {
+      hasItem: false
+    };
+  },
   props: {
     subCategoriesRoute: {
       type: String,
@@ -1916,6 +1940,18 @@ __webpack_require__.r(__webpack_exports__);
     editText: {
       type: String,
       "default": "Düzenle"
+    },
+    saveText: {
+      type: String,
+      "default": "Kaydet"
+    },
+    cancelText: {
+      type: String,
+      "default": "Vazgeç"
+    },
+    editCategoryText: {
+      type: String,
+      "default": "Kategori Düzenle"
     }
   },
   methods: {
@@ -1925,7 +1961,26 @@ __webpack_require__.r(__webpack_exports__);
     deactivateItem: function deactivateItem() {},
     activateItem: function activateItem() {},
     deleteItem: function deleteItem() {},
-    openSettings: function openSettings() {}
+    openSettings: function openSettings(id) {
+      this.hasItem = true;
+      UIkit.modal('#addCategoryArea', {
+        escClose: false,
+        bgClose: false
+      }).show();
+    },
+    openModel: function openModel() {
+      UIkit.modal('#addCategoryArea', {
+        escClose: false,
+        bgClose: false
+      }).show();
+    },
+    clearForm: function clearForm() {
+      this.hasItem = false;
+    },
+    saveItem: function saveItem() {
+      this.clearForm();
+      UIkit.modal('#addCategoryArea').hide();
+    }
   }
 });
 
@@ -1988,16 +2043,48 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "cities-page",
+  data: function data() {
+    return {
+      name: "",
+      code: "",
+      hasItem: false
+    };
+  },
   props: {
     districtsRoute: {
       type: String,
       required: true
     },
-    addCategoryText: {
+    addCityText: {
       type: String,
-      "default": "Kategori Ekle"
+      "default": "Şehir Ekle"
     },
     noContentText: {
       type: String,
@@ -2018,6 +2105,26 @@ __webpack_require__.r(__webpack_exports__);
     editText: {
       type: String,
       "default": "Düzenle"
+    },
+    cityName: {
+      type: String,
+      "default": "Şehir Adı"
+    },
+    cityCode: {
+      type: String,
+      "default": "Şehir Kodu"
+    },
+    saveText: {
+      type: String,
+      "default": "Kaydet"
+    },
+    cancelText: {
+      type: String,
+      "default": "Vazgeç"
+    },
+    editCityText: {
+      type: String,
+      "default": "Şehir Düzenle"
     }
   },
   methods: {
@@ -2027,7 +2134,30 @@ __webpack_require__.r(__webpack_exports__);
     deactivateItem: function deactivateItem() {},
     activateItem: function activateItem() {},
     deleteItem: function deleteItem() {},
-    openSettings: function openSettings() {}
+    openSettings: function openSettings(id) {
+      this.hasItem = true;
+      this.code = id + ". şehirin Kodu var burda";
+      this.name = id + ". şehrin adı var burda";
+      UIkit.modal('#addCityArea', {
+        escClose: false,
+        bgClose: false
+      }).show();
+    },
+    openForm: function openForm() {
+      this.hasItem = false;
+      UIkit.modal('#addCityArea', {
+        escClose: false,
+        bgClose: false
+      }).show();
+    },
+    clearForm: function clearForm() {
+      this.name = "";
+      this.code = "";
+    },
+    saveItem: function saveItem() {
+      this.clearForm();
+      UIkit.modal('#addCityArea').hide();
+    }
   }
 });
 
@@ -2125,16 +2255,54 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "districts-page",
+  data: function data() {
+    return {
+      name: "",
+      code: "",
+      cityId: "",
+      hasItem: false
+    };
+  },
   props: {
     citiesRoute: {
       type: String,
       required: true
     },
-    addSubCategoryText: {
+    addDistrictText: {
       type: String,
-      "default": "Alt Kategori Ekle"
+      "default": "İlçe Ekle"
     },
     noContentText: {
       type: String,
@@ -2159,6 +2327,30 @@ __webpack_require__.r(__webpack_exports__);
     backText: {
       type: String,
       "default": "Geri"
+    },
+    selectCityText: {
+      type: String,
+      "default": "İl Seçiniz"
+    },
+    cityText: {
+      type: String,
+      "default": "İl"
+    },
+    districtNameText: {
+      type: String,
+      "default": "İlçe Adı"
+    },
+    districtCodeText: {
+      type: String,
+      "default": "İlçe Kodu"
+    },
+    saveText: {
+      type: String,
+      "default": "Kaydet"
+    },
+    cancelText: {
+      type: String,
+      "default": "Vazgeç"
     }
   },
   methods: {
@@ -2168,7 +2360,32 @@ __webpack_require__.r(__webpack_exports__);
     deactivateItem: function deactivateItem() {},
     activateItem: function activateItem() {},
     deleteItem: function deleteItem() {},
-    openSettings: function openSettings() {}
+    openSettings: function openSettings(id) {
+      this.hasItem = true;
+      this.cityId = 1;
+      this.code = id + ". şehirin Kodu var burda";
+      this.name = id + ". şehrin adı var burda";
+      UIkit.modal('#addDistrictArea', {
+        escClose: false,
+        bgClose: false
+      }).show();
+    },
+    openForm: function openForm() {
+      UIkit.modal('#addDistrictArea', {
+        escClose: false,
+        bgClose: false
+      }).show();
+    },
+    clearForm: function clearForm() {
+      this.name = "";
+      this.code = "";
+      this.cityId = "";
+      this.hasItem = false;
+    },
+    saveItem: function saveItem() {
+      this.clearForm();
+      UIkit.modal('#addDistrictArea').hide();
+    }
   }
 });
 
@@ -2231,12 +2448,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "grades-page",
+  data: function data() {
+    return {
+      name: "",
+      icon: "",
+      hasItem: false
+    };
+  },
   props: {
-    addCategoryText: {
+    addGradeText: {
       type: String,
-      "default": "Kategori Ekle"
+      "default": "Sınıf Ekle"
     },
     noContentText: {
       type: String,
@@ -2257,13 +2507,60 @@ __webpack_require__.r(__webpack_exports__);
     editText: {
       type: String,
       "default": "Düzenle"
+    },
+    saveText: {
+      type: String,
+      "default": "Kaydet"
+    },
+    cancelText: {
+      type: String,
+      "default": "Vazgeç"
+    },
+    selectIconText: {
+      type: String,
+      "default": "İkon Seçiniz"
+    },
+    iconText: {
+      type: String,
+      "default": "İkon"
+    },
+    gradeNameText: {
+      type: String,
+      "default": "Sınıf Adı"
+    },
+    editGradeText: {
+      type: String,
+      "default": "Sınıf Düzenle"
     }
   },
   methods: {
     deactivateItem: function deactivateItem() {},
     activateItem: function activateItem() {},
     deleteItem: function deleteItem() {},
-    openSettings: function openSettings() {}
+    openSettings: function openSettings(id) {
+      this.hasItem = true;
+      this.icon = "fa-user";
+      this.name = id + ". adı";
+      UIkit.modal('#addGradeArea', {
+        escClose: false,
+        bgClose: false
+      }).show();
+    },
+    openForm: function openForm() {
+      UIkit.modal('#addGradeArea', {
+        escClose: false,
+        bgClose: false
+      }).show();
+    },
+    clearForm: function clearForm() {
+      this.icon = "";
+      this.name = "";
+      this.hasItem = false;
+    },
+    saveItem: function saveItem() {
+      this.clearForm();
+      UIkit.modal('#addGradeArea').hide();
+    }
   }
 });
 
@@ -2326,16 +2623,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "lessons-page",
+  data: function data() {
+    return {
+      name: "",
+      icon: "",
+      hasItem: false
+    };
+  },
   props: {
     subjectsRoute: {
       type: String,
       required: true
     },
-    addCategoryText: {
+    addLessonText: {
       type: String,
-      "default": "Kategori Ekle"
+      "default": "Ders Ekle"
     },
     noContentText: {
       type: String,
@@ -2356,6 +2686,30 @@ __webpack_require__.r(__webpack_exports__);
     editText: {
       type: String,
       "default": "Düzenle"
+    },
+    saveText: {
+      type: String,
+      "default": "Kaydet"
+    },
+    cancelText: {
+      type: String,
+      "default": "Vazgeç"
+    },
+    editLessonText: {
+      type: String,
+      "default": "Ders Düzenle"
+    },
+    lessonNameText: {
+      type: String,
+      "default": "Ders Adı"
+    },
+    iconText: {
+      type: String,
+      "default": "İkon"
+    },
+    selectIconText: {
+      type: String,
+      "default": "İkon Seçiniz"
     }
   },
   methods: {
@@ -2365,7 +2719,30 @@ __webpack_require__.r(__webpack_exports__);
     deactivateItem: function deactivateItem() {},
     activateItem: function activateItem() {},
     deleteItem: function deleteItem() {},
-    openSettings: function openSettings() {}
+    openSettings: function openSettings(id) {
+      this.hasItem = true;
+      this.icon = "fa-chalkboard-teacher";
+      this.name = id + ". ders";
+      UIkit.modal('#addLessonArea', {
+        escClose: false,
+        bgClose: false
+      }).show();
+    },
+    openForm: function openForm() {
+      UIkit.modal('#addLessonArea', {
+        escClose: false,
+        bgClose: false
+      }).show();
+    },
+    clearForm: function clearForm() {
+      this.icon = "";
+      this.name = "";
+      this.hasItem = false;
+    },
+    saveItem: function saveItem() {
+      this.clearForm();
+      UIkit.modal('#addLessonArea').hide();
+    }
   }
 });
 
@@ -2467,6 +2844,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "categories-page",
   props: {
@@ -2510,7 +2905,18 @@ __webpack_require__.r(__webpack_exports__);
     deactivateItem: function deactivateItem() {},
     activateItem: function activateItem() {},
     deleteItem: function deleteItem() {},
-    openSettings: function openSettings() {}
+    openSettings: function openSettings() {},
+    openModel: function openModel() {
+      UIkit.modal('#addSubCategoryArea', {
+        escClose: false,
+        bgClose: false
+      }).show();
+    },
+    clearForm: function clearForm() {},
+    saveItem: function saveItem() {
+      this.clearForm();
+      UIkit.modal('#addSubCategoryArea').hide();
+    }
   }
 });
 
@@ -2581,16 +2987,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "subjects-page",
+  data: function data() {
+    return {
+      name: "",
+      lessonId: "",
+      hasItem: false
+    };
+  },
   props: {
     lessonsRoute: {
       type: String,
       required: true
     },
-    addSubCategoryText: {
+    addSubjectText: {
       type: String,
-      "default": "Alt Kategori Ekle"
+      "default": "Konu Ekle"
     },
     noContentText: {
       type: String,
@@ -2615,6 +3054,30 @@ __webpack_require__.r(__webpack_exports__);
     backText: {
       type: String,
       "default": "Geri"
+    },
+    saveText: {
+      type: String,
+      "default": "Kaydet"
+    },
+    cancelText: {
+      type: String,
+      "default": "Vazgeç"
+    },
+    lessonText: {
+      type: String,
+      "default": "Ders"
+    },
+    selectLessonText: {
+      type: String,
+      "default": "Ders Seçiniz"
+    },
+    editSubjectText: {
+      type: String,
+      "default": "Konu Düzenle"
+    },
+    subjectNameText: {
+      type: String,
+      "default": "Konu Adı"
     }
   },
   methods: {
@@ -2624,7 +3087,30 @@ __webpack_require__.r(__webpack_exports__);
     deactivateItem: function deactivateItem() {},
     activateItem: function activateItem() {},
     deleteItem: function deleteItem() {},
-    openSettings: function openSettings() {}
+    openSettings: function openSettings(id) {
+      this.hasItem = true;
+      this.name = id + ". konu";
+      this.lessonId = id;
+      UIkit.modal('#addSubjectArea', {
+        escClose: false,
+        bgClose: false
+      }).show();
+    },
+    openForm: function openForm() {
+      UIkit.modal('#addSubjectArea', {
+        escClose: false,
+        bgClose: false
+      }).show();
+    },
+    clearForm: function clearForm() {
+      this.name = "";
+      this.lessonId = "";
+      this.hasItem = false;
+    },
+    saveItem: function saveItem() {
+      this.clearForm();
+      UIkit.modal('#addSubjectArea').hide();
+    }
   }
 });
 
@@ -9344,10 +9830,17 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "uk-margin-large-top" }, [
     _c("div", { staticClass: "text-right" }, [
-      _c("button", { staticClass: "uk-button uk-button-success" }, [
-        _c("i", { staticClass: "fas fa-plus" }),
-        _vm._v(" " + _vm._s(_vm.addCategoryText) + " ")
-      ])
+      _c(
+        "button",
+        {
+          staticClass: "uk-button uk-button-success",
+          on: { click: _vm.openModel }
+        },
+        [
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v(" " + _vm._s(_vm.addCategoryText) + " ")
+        ]
+      )
     ]),
     _vm._v(" "),
     _c(
@@ -9369,14 +9862,22 @@ var render = function() {
             _vm._v(" "),
             true
               ? _c("tbody", [
-                  _c("tr", { on: { click: _vm.routeSubCategories } }, [
-                    _vm._m(1),
+                  _c("tr", [
+                    _c("td", { on: { click: _vm.routeSubCategories } }, [
+                      _c("p", [_vm._v("a")])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(2),
+                    _c("td", { on: { click: _vm.routeSubCategories } }, [
+                      _c("p", [_vm._v("Tiger Nixon")])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(3),
+                    _c("td", { on: { click: _vm.routeSubCategories } }, [
+                      _c("p", [_vm._v("System Architect")])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(4),
+                    _c("td", { on: { click: _vm.routeSubCategories } }, [
+                      _c("p", [_vm._v("Edinburgh")])
+                    ]),
                     _vm._v(" "),
                     _c(
                       "td",
@@ -9391,7 +9892,7 @@ var render = function() {
                             attrs: { "uk-tooltip": _vm.editText },
                             on: {
                               click: function($event) {
-                                return _vm.openSettings()
+                                return _vm.openSettings(2)
                               }
                             }
                           },
@@ -9428,13 +9929,13 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("tr", [
-                    _vm._m(5),
+                    _vm._m(1),
                     _vm._v(" "),
-                    _vm._m(6),
+                    _vm._m(2),
                     _vm._v(" "),
-                    _vm._m(7),
+                    _vm._m(3),
                     _vm._v(" "),
-                    _vm._m(8),
+                    _vm._m(4),
                     _vm._v(" "),
                     _c(
                       "td",
@@ -9449,7 +9950,7 @@ var render = function() {
                             attrs: { "uk-tooltip": _vm.editText },
                             on: {
                               click: function($event) {
-                                return _vm.openSettings()
+                                return _vm.openSettings(1)
                               }
                             }
                           },
@@ -9489,7 +9990,45 @@ var render = function() {
           ]
         )
       ]
-    )
+    ),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "addCategoryArea", "uk-modal": "" } }, [
+      _c("div", { staticClass: "uk-modal-dialog" }, [
+        _c("div", { staticClass: "uk-modal-header" }, [
+          !_vm.hasItem
+            ? _c("h2", { staticClass: "uk-modal-title" }, [
+                _vm._v(_vm._s(_vm.addCategoryText))
+              ])
+            : _c("h2", { staticClass: "uk-modal-title" }, [
+                _vm._v(_vm._s(_vm.editCategoryText))
+              ])
+        ]),
+        _vm._v(" "),
+        _vm._m(5),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-modal-footer uk-text-right" }, [
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-default uk-modal-close",
+              attrs: { type: "button" },
+              on: { click: _vm.clearForm }
+            },
+            [_vm._v(_vm._s(_vm.cancelText))]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-primary",
+              attrs: { type: "button" },
+              on: { click: _vm.saveItem }
+            },
+            [_vm._v(_vm._s(_vm.saveText))]
+          )
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -9508,30 +10047,6 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th")
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("a")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Tiger Nixon")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("System Architect")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Edinburgh")])])
   },
   function() {
     var _vm = this
@@ -9556,6 +10071,16 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", [_c("p", [_vm._v("Edinburgh")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
+      [_c("input"), _vm._v(" "), _c("input"), _vm._v(" "), _c("input")]
+    )
   }
 ]
 render._withStripped = true
@@ -9581,10 +10106,17 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "uk-margin-large-top" }, [
     _c("div", { staticClass: "text-right" }, [
-      _c("button", { staticClass: "uk-button uk-button-success" }, [
-        _c("i", { staticClass: "fas fa-plus" }),
-        _vm._v(" " + _vm._s(_vm.addCategoryText) + " ")
-      ])
+      _c(
+        "button",
+        {
+          staticClass: "uk-button uk-button-success",
+          on: { click: _vm.openForm }
+        },
+        [
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v(" " + _vm._s(_vm.addCityText) + " ")
+        ]
+      )
     ]),
     _vm._v(" "),
     _c(
@@ -9606,14 +10138,22 @@ var render = function() {
             _vm._v(" "),
             true
               ? _c("tbody", [
-                  _c("tr", { on: { click: _vm.routeDistricts } }, [
-                    _vm._m(1),
+                  _c("tr", [
+                    _c("td", { on: { click: _vm.routeDistricts } }, [
+                      _c("p", [_vm._v("a")])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(2),
+                    _c("td", { on: { click: _vm.routeDistricts } }, [
+                      _c("p", [_vm._v("Tiger Nixon")])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(3),
+                    _c("td", { on: { click: _vm.routeDistricts } }, [
+                      _c("p", [_vm._v("System Architect")])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(4),
+                    _c("td", { on: { click: _vm.routeDistricts } }, [
+                      _c("p", [_vm._v("Edinburgh")])
+                    ]),
                     _vm._v(" "),
                     _c(
                       "td",
@@ -9628,7 +10168,7 @@ var render = function() {
                             attrs: { "uk-tooltip": _vm.editText },
                             on: {
                               click: function($event) {
-                                return _vm.openSettings()
+                                return _vm.openSettings(1)
                               }
                             }
                           },
@@ -9665,13 +10205,13 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("tr", [
-                    _vm._m(5),
+                    _vm._m(1),
                     _vm._v(" "),
-                    _vm._m(6),
+                    _vm._m(2),
                     _vm._v(" "),
-                    _vm._m(7),
+                    _vm._m(3),
                     _vm._v(" "),
-                    _vm._m(8),
+                    _vm._m(4),
                     _vm._v(" "),
                     _c(
                       "td",
@@ -9686,7 +10226,7 @@ var render = function() {
                             attrs: { "uk-tooltip": _vm.editText },
                             on: {
                               click: function($event) {
-                                return _vm.openSettings()
+                                return _vm.openSettings(1)
                               }
                             }
                           },
@@ -9726,7 +10266,114 @@ var render = function() {
           ]
         )
       ]
-    )
+    ),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "addCityArea", "uk-modal": "" } }, [
+      _c("div", { staticClass: "uk-modal-dialog" }, [
+        _c("div", { staticClass: "uk-modal-header" }, [
+          !_vm.hasItem
+            ? _c("h2", { staticClass: "uk-modal-title" }, [
+                _vm._v(_vm._s(_vm.addCityText))
+              ])
+            : _c("h2", { staticClass: "uk-modal-title" }, [
+                _vm._v(_vm._s(_vm.editCityText))
+              ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
+          [
+            _c("div", { staticClass: "uk-margin-bottom" }, [
+              _c("div", { staticClass: "uk-margin-bottom" }, [
+                _c("input", {
+                  attrs: {
+                    hidden: "",
+                    disabled: "",
+                    value: "1",
+                    id: "countryId"
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-form-label" }, [
+                  _vm._v(_vm._s(_vm.cityName))
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.name,
+                      expression: "name"
+                    }
+                  ],
+                  staticClass: "uk-input uk-width",
+                  attrs: { placeholder: _vm.cityName },
+                  domProps: { value: _vm.name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.name = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-form-label" }, [
+                  _vm._v(_vm._s(_vm.cityCode))
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.code,
+                      expression: "code"
+                    }
+                  ],
+                  staticClass: "uk-input uk-width",
+                  attrs: { placeholder: _vm.cityCode },
+                  domProps: { value: _vm.code },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.code = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-modal-footer uk-text-right" }, [
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-default uk-modal-close",
+              attrs: { type: "button" },
+              on: { click: _vm.clearForm }
+            },
+            [_vm._v(_vm._s(_vm.cancelText))]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-primary",
+              attrs: { type: "button" },
+              on: { click: _vm.saveItem }
+            },
+            [_vm._v(_vm._s(_vm.saveText))]
+          )
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -9745,30 +10392,6 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th")
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("a")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Tiger Nixon")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("System Architect")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Edinburgh")])])
   },
   function() {
     var _vm = this
@@ -9878,10 +10501,17 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "text-right" }, [
-          _c("button", { staticClass: "uk-button uk-button-success" }, [
-            _c("i", { staticClass: "fas fa-plus" }),
-            _vm._v(" " + _vm._s(_vm.addSubCategoryText) + " ")
-          ])
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-success",
+              on: { click: _vm.openForm }
+            },
+            [
+              _c("i", { staticClass: "fas fa-plus" }),
+              _vm._v(" " + _vm._s(_vm.addDistrictText) + " ")
+            ]
+          )
         ])
       ]
     ),
@@ -9927,7 +10557,7 @@ var render = function() {
                             attrs: { "uk-tooltip": _vm.editText },
                             on: {
                               click: function($event) {
-                                return _vm.openSettings()
+                                return _vm.openSettings(2)
                               }
                             }
                           },
@@ -9985,7 +10615,7 @@ var render = function() {
                             attrs: { "uk-tooltip": _vm.editText },
                             on: {
                               click: function($event) {
-                                return _vm.openSettings()
+                                return _vm.openSettings(1)
                               }
                             }
                           },
@@ -10025,7 +10655,157 @@ var render = function() {
           ]
         )
       ]
-    )
+    ),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "addDistrictArea", "uk-modal": "" } }, [
+      _c("div", { staticClass: "uk-modal-dialog" }, [
+        _c("div", { staticClass: "uk-modal-header" }, [
+          !_vm.hasItem
+            ? _c("h2", { staticClass: "uk-modal-title" }, [
+                _vm._v(_vm._s(_vm.addDistrictText))
+              ])
+            : _c("h2", { staticClass: "uk-modal-title" }, [
+                _vm._v(_vm._s(_vm.addDistrictText))
+              ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
+          [
+            _c("div", { staticClass: "uk-margin-bottom" }, [
+              _c("div", { staticClass: "uk-margin-bottom" }, [
+                _c("div", { staticClass: "uk-form-label" }, [
+                  _vm._v(_vm._s(_vm.cityText))
+                ]),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.cityId,
+                        expression: "cityId"
+                      }
+                    ],
+                    staticClass: "uk-width uk-select",
+                    on: {
+                      change: function($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function(o) {
+                            return o.selected
+                          })
+                          .map(function(o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.cityId = $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      }
+                    }
+                  },
+                  [
+                    _c(
+                      "option",
+                      {
+                        attrs: {
+                          value: "",
+                          selected: "",
+                          disabled: "",
+                          hidden: ""
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.selectCityText))]
+                    ),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "1" } }, [_vm._v("şehir1")]),
+                    _vm._v(" "),
+                    _c("option", { attrs: { value: "2" } }, [_vm._v("şehir2")])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-form-label" }, [
+                  _vm._v(_vm._s(_vm.districtNameText))
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.name,
+                      expression: "name"
+                    }
+                  ],
+                  staticClass: "uk-width uk-input",
+                  attrs: { placeholder: _vm.districtNameText },
+                  domProps: { value: _vm.name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.name = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-form-label" }, [
+                  _vm._v(_vm._s(_vm.districtCodeText))
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.code,
+                      expression: "code"
+                    }
+                  ],
+                  staticClass: "uk-width uk-input",
+                  attrs: { placeholder: _vm.districtCodeText },
+                  domProps: { value: _vm.code },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.code = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-modal-footer uk-text-right" }, [
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-default uk-modal-close",
+              attrs: { type: "button" },
+              on: { click: _vm.clearForm }
+            },
+            [_vm._v(_vm._s(_vm.cancelText))]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-primary",
+              attrs: { type: "button" },
+              on: { click: _vm.saveItem }
+            },
+            [_vm._v(_vm._s(_vm.saveText))]
+          )
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -10117,10 +10897,17 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "uk-margin-large-top" }, [
     _c("div", { staticClass: "text-right" }, [
-      _c("button", { staticClass: "uk-button uk-button-success" }, [
-        _c("i", { staticClass: "fas fa-plus" }),
-        _vm._v(" " + _vm._s(_vm.addCategoryText) + " ")
-      ])
+      _c(
+        "button",
+        {
+          staticClass: "uk-button uk-button-success",
+          on: { click: _vm.openForm }
+        },
+        [
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v(" " + _vm._s(_vm.addGradeText) + " ")
+        ]
+      )
     ]),
     _vm._v(" "),
     _c(
@@ -10164,7 +10951,7 @@ var render = function() {
                             attrs: { "uk-tooltip": _vm.editText },
                             on: {
                               click: function($event) {
-                                return _vm.openSettings()
+                                return _vm.openSettings(2)
                               }
                             }
                           },
@@ -10222,7 +11009,7 @@ var render = function() {
                             attrs: { "uk-tooltip": _vm.editText },
                             on: {
                               click: function($event) {
-                                return _vm.openSettings()
+                                return _vm.openSettings(1)
                               }
                             }
                           },
@@ -10262,7 +11049,129 @@ var render = function() {
           ]
         )
       ]
-    )
+    ),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "addGradeArea", "uk-modal": "" } }, [
+      _c("div", { staticClass: "uk-modal-dialog" }, [
+        _c("div", { staticClass: "uk-modal-header" }, [
+          !_vm.hasItem
+            ? _c("h2", { staticClass: "uk-modal-title" }, [
+                _vm._v(_vm._s(_vm.addGradeText))
+              ])
+            : _c("h2", { staticClass: "uk-modal-title" }, [
+                _vm._v(_vm._s(_vm.editGradeText))
+              ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
+          [
+            _c("div", { staticClass: "uk-margin-bottom" }, [
+              _c("div", { staticClass: "uk-form-label" }, [
+                _vm._v(_vm._s(_vm.iconText))
+              ]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.icon,
+                      expression: "icon"
+                    }
+                  ],
+                  staticClass: "uk-width uk-select",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.icon = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "option",
+                    {
+                      attrs: {
+                        value: "",
+                        hidden: "",
+                        disabled: "",
+                        selected: ""
+                      }
+                    },
+                    [_vm._v(_vm._s(_vm.selectIconText))]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(9),
+                  _vm._v(" "),
+                  _vm._m(10)
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "uk-form-label" }, [
+                _vm._v(_vm._s(_vm.gradeNameText))
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.name,
+                    expression: "name"
+                  }
+                ],
+                staticClass: "uk-width uk-input",
+                attrs: { placeholder: _vm.gradeNameText },
+                domProps: { value: _vm.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.name = $event.target.value
+                  }
+                }
+              })
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-modal-footer uk-text-right" }, [
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-default uk-modal-close",
+              attrs: { type: "button" },
+              on: { click: _vm.clearForm }
+            },
+            [_vm._v(_vm._s(_vm.cancelText))]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-primary",
+              attrs: { type: "button" },
+              on: { click: _vm.saveItem }
+            },
+            [_vm._v(_vm._s(_vm.saveText))]
+          )
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -10329,6 +11238,24 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", [_c("p", [_vm._v("Edinburgh")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("option", { attrs: { value: "fa-user" } }, [
+      _c("i", { staticClass: "fas fa-user icon-tiny" }),
+      _vm._v(" user ")
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("option", { attrs: { value: "fa-chalkboard-teacher" } }, [
+      _c("i", { staticClass: "fas fa-chalkboard-teacher icon-tiny" }),
+      _vm._v("  chalkboard teacher")
+    ])
   }
 ]
 render._withStripped = true
@@ -10354,10 +11281,17 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "uk-margin-large-top" }, [
     _c("div", { staticClass: "text-right" }, [
-      _c("button", { staticClass: "uk-button uk-button-success" }, [
-        _c("i", { staticClass: "fas fa-plus" }),
-        _vm._v(" " + _vm._s(_vm.addCategoryText) + " ")
-      ])
+      _c(
+        "button",
+        {
+          staticClass: "uk-button uk-button-success",
+          on: { click: _vm.openForm }
+        },
+        [
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v(" " + _vm._s(_vm.addLessonText) + " ")
+        ]
+      )
     ]),
     _vm._v(" "),
     _c(
@@ -10379,14 +11313,22 @@ var render = function() {
             _vm._v(" "),
             true
               ? _c("tbody", [
-                  _c("tr", { on: { click: _vm.routeSubjects } }, [
-                    _vm._m(1),
+                  _c("tr", [
+                    _c("td", { on: { click: _vm.routeSubjects } }, [
+                      _c("p", [_vm._v("a")])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(2),
+                    _c("td", { on: { click: _vm.routeSubjects } }, [
+                      _c("p", [_vm._v("Tiger Nixon")])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(3),
+                    _c("td", { on: { click: _vm.routeSubjects } }, [
+                      _c("p", [_vm._v("System Architect")])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(4),
+                    _c("td", { on: { click: _vm.routeSubjects } }, [
+                      _c("p", [_vm._v("Edinburgh")])
+                    ]),
                     _vm._v(" "),
                     _c(
                       "td",
@@ -10401,7 +11343,7 @@ var render = function() {
                             attrs: { "uk-tooltip": _vm.editText },
                             on: {
                               click: function($event) {
-                                return _vm.openSettings()
+                                return _vm.openSettings(1)
                               }
                             }
                           },
@@ -10438,13 +11380,21 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("tr", [
-                    _vm._m(5),
+                    _c("td", { on: { click: _vm.routeSubjects } }, [
+                      _c("p", [_vm._v("s")])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(6),
+                    _c("td", { on: { click: _vm.routeSubjects } }, [
+                      _c("p", [_vm._v("Tiger Nixon")])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(7),
+                    _c("td", { on: { click: _vm.routeSubjects } }, [
+                      _c("p", [_vm._v("System Architect")])
+                    ]),
                     _vm._v(" "),
-                    _vm._m(8),
+                    _c("td", { on: { click: _vm.routeSubjects } }, [
+                      _c("p", [_vm._v("Edinburgh")])
+                    ]),
                     _vm._v(" "),
                     _c(
                       "td",
@@ -10459,7 +11409,7 @@ var render = function() {
                             attrs: { "uk-tooltip": _vm.editText },
                             on: {
                               click: function($event) {
-                                return _vm.openSettings()
+                                return _vm.openSettings(2)
                               }
                             }
                           },
@@ -10499,7 +11449,124 @@ var render = function() {
           ]
         )
       ]
-    )
+    ),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "addLessonArea", "uk-modal": "" } }, [
+      _c("div", { staticClass: "uk-modal-dialog" }, [
+        _c("div", { staticClass: "uk-modal-header" }, [
+          !_vm.hasItem
+            ? _c("h2", { staticClass: "uk-modal-title" }, [
+                _vm._v(_vm._s(_vm.addLessonText))
+              ])
+            : _c("h2", { staticClass: "uk-modal-title" }, [
+                _vm._v(_vm._s(_vm.editLessonText))
+              ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
+          [
+            _c("div", { staticClass: "uk-margin-bottom" }, [
+              _c("div", { staticClass: "uk-form-label" }, [
+                _vm._v(_vm._s(_vm.iconText))
+              ]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.icon,
+                      expression: "icon"
+                    }
+                  ],
+                  staticClass: "uk-width uk-select",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.icon = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "" } }, [
+                    _vm._v(_vm._s(_vm.selectIconText))
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "fa-user" } }, [
+                    _vm._v(" user ")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "fa-chalkboard-teacher" } }, [
+                    _vm._v(" chalkboard teacher ")
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "uk-form-label" }, [
+                _vm._v(_vm._s(_vm.lessonNameText))
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.name,
+                    expression: "name"
+                  }
+                ],
+                staticClass: "uk-width uk-input",
+                attrs: { placeholder: _vm.lessonNameText },
+                domProps: { value: _vm.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.name = $event.target.value
+                  }
+                }
+              })
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-modal-footer uk-text-right" }, [
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-default uk-modal-close",
+              attrs: { type: "button" },
+              on: { click: _vm.clearForm }
+            },
+            [_vm._v(_vm._s(_vm.cancelText))]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-primary",
+              attrs: { type: "button" },
+              on: { click: _vm.saveItem }
+            },
+            [_vm._v(_vm._s(_vm.saveText))]
+          )
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -10518,54 +11585,6 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th")
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("a")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Tiger Nixon")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("System Architect")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Edinburgh")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("s")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Tiger Nixon")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("System Architect")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Edinburgh")])])
   }
 ]
 render._withStripped = true
@@ -10799,7 +11818,41 @@ var render = function() {
           ]
         )
       ]
-    )
+    ),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "addSubCategoryArea", "uk-modal": "" } }, [
+      _c("div", { staticClass: "uk-modal-dialog" }, [
+        _c("div", { staticClass: "uk-modal-header" }, [
+          _c("h2", { staticClass: "uk-modal-title" }, [
+            _vm._v(_vm._s(_vm.addCategoryText))
+          ])
+        ]),
+        _vm._v(" "),
+        _vm._m(9),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-modal-footer uk-text-right" }, [
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-default uk-modal-close",
+              attrs: { type: "button" },
+              on: { click: _vm.clearForm }
+            },
+            [_vm._v(_vm._s(_vm.cancelText))]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-primary",
+              attrs: { type: "button" },
+              on: { click: _vm.saveItem }
+            },
+            [_vm._v(_vm._s(_vm.saveText))]
+          )
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -10866,6 +11919,16 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", [_c("p", [_vm._v("Edinburgh")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
+      [_c("input"), _vm._v(" "), _c("input"), _vm._v(" "), _c("input")]
+    )
   }
 ]
 render._withStripped = true
@@ -10915,10 +11978,17 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "text-right" }, [
-          _c("button", { staticClass: "uk-button uk-button-success" }, [
-            _c("i", { staticClass: "fas fa-plus" }),
-            _vm._v(" " + _vm._s(_vm.addSubCategoryText) + " ")
-          ])
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-success",
+              on: { click: _vm.openForm }
+            },
+            [
+              _c("i", { staticClass: "fas fa-plus" }),
+              _vm._v(" " + _vm._s(_vm.addSubjectText) + " ")
+            ]
+          )
         ])
       ]
     ),
@@ -10964,7 +12034,7 @@ var render = function() {
                             attrs: { "uk-tooltip": _vm.editText },
                             on: {
                               click: function($event) {
-                                return _vm.openSettings()
+                                return _vm.openSettings(2)
                               }
                             }
                           },
@@ -11022,7 +12092,7 @@ var render = function() {
                             attrs: { "uk-tooltip": _vm.editText },
                             on: {
                               click: function($event) {
-                                return _vm.openSettings()
+                                return _vm.openSettings(1)
                               }
                             }
                           },
@@ -11062,7 +12132,129 @@ var render = function() {
           ]
         )
       ]
-    )
+    ),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "addSubjectArea", "uk-modal": "" } }, [
+      _c("div", { staticClass: "uk-modal-dialog" }, [
+        _c("div", { staticClass: "uk-modal-header" }, [
+          !_vm.hasItem
+            ? _c("h2", { staticClass: "uk-modal-title" }, [
+                _vm._v(_vm._s(_vm.addSubjectText))
+              ])
+            : _c("h2", { staticClass: "uk-modal-title" }, [
+                _vm._v(_vm._s(_vm.editSubjectText))
+              ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
+          [
+            _c("div", { staticClass: "uk-margin-bottom" }, [
+              _c("div", { staticClass: "uk-form-label" }, [
+                _vm._v(_vm._s(_vm.lessonText))
+              ]),
+              _vm._v(" "),
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.lessonId,
+                      expression: "lessonId"
+                    }
+                  ],
+                  staticClass: "uk-width uk-select",
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.lessonId = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c(
+                    "option",
+                    {
+                      attrs: {
+                        value: "",
+                        selected: "",
+                        hidden: "",
+                        disabled: ""
+                      }
+                    },
+                    [_vm._v(_vm._s(_vm.selectLessonText))]
+                  ),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "1" } }, [_vm._v("ders1")]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "2" } }, [_vm._v("ders2")])
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "uk-form-label" }, [
+                _vm._v(_vm._s(_vm.subjectNameText))
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.name,
+                    expression: "name"
+                  }
+                ],
+                staticClass: "uk-width uk-input",
+                attrs: { placeholder: _vm.subjectNameText },
+                domProps: { value: _vm.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.name = $event.target.value
+                  }
+                }
+              })
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-modal-footer uk-text-right" }, [
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-default uk-modal-close",
+              attrs: { type: "button" },
+              on: { click: _vm.clearForm }
+            },
+            [_vm._v(_vm._s(_vm.cancelText))]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-primary",
+              attrs: { type: "button" },
+              on: { click: _vm.saveItem }
+            },
+            [_vm._v(_vm._s(_vm.saveText))]
+          )
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = [

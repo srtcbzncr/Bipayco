@@ -51,6 +51,24 @@
                 </div>
             </table>
         </div>
+        <div id="addSubCategoryArea" uk-modal>
+            <div class="uk-modal-dialog">
+                <div class="uk-modal-header">
+                    <h2 class="uk-modal-title">{{addCategoryText}}</h2>
+                </div>
+
+                <div class="uk-modal-body" uk-overflow-auto>
+                    <input>
+                    <input>
+                    <input>
+                </div>
+
+                <div class="uk-modal-footer uk-text-right">
+                    <button class="uk-button uk-button-default uk-modal-close" @click="clearForm" type="button">{{cancelText}}</button>
+                    <button class="uk-button uk-button-primary" type="button" @click="saveItem">{{saveText}}</button>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -106,8 +124,21 @@
             },
             openSettings:function () {
 
-            }
+            },
+            openModel:function () {
+                UIkit.modal('#addSubCategoryArea', {
+                    escClose:false,
+                    bgClose:false,
+                }).show();
+            },
+            clearForm:function () {
 
+            },
+            saveItem:function () {
+                this.clearForm();
+
+                UIkit.modal('#addSubCategoryArea').hide();
+            }
         }
     }
 </script>
