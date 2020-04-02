@@ -209,16 +209,41 @@ Route::get('lastCourses/{id}', 'API\Auth\AuthController@getLastWatchedCourses')-
 
 Route::prefix('admin')->group(function (){
    Route::prefix('bs')->group(function (){
+       Route::prefix('country')->group(function (){
+           Route::post('/create','API\Admin\BaseController@createCountry')->name('admin_bs_country_create');
+           Route::get('/show','API\Admin\BaseController@showCountries')->name('admin_bs_country_show');
+           Route::get('/show/{countryId}','API\Admin\BaseController@showCountry')->name('admin_bs_country_show_country');
+           Route::post('/delete/{countryId}','API\Admin\BaseController@deleteCountry')->name('admin_bs_country_delete');
+           Route::post('/update/{countryId}','API\Admin\BaseController@updateCountry')->name('admin_bs_country_update');
+       });
        Route::prefix('city')->group(function (){
-           Route::post('/create','API\Admin\BaseController@createCity')->name('admin_bs_create');
-           Route::get('/show','API\Admin\BaseController@showCities')->name('admin_bs_show');
-           Route::get('/show/{cityId}','API\Admin\BaseController@showCity')->name('admin_bs_show_city');
-           Route::post('/delete/{cityId}','API\Admin\BaseController@deleteCity')->name('admin_bs_delete');
+           Route::post('/create','API\Admin\BaseController@createCity')->name('admin_bs_city_create');
+           Route::get('/show','API\Admin\BaseController@showCities')->name('admin_bs_city_show');
+           Route::get('/show/{cityId}','API\Admin\BaseController@showCity')->name('admin_bs_city_show_city');
+           Route::post('/delete/{cityId}','API\Admin\BaseController@deleteCity')->name('admin_bs_city_delete');
+           Route::post('/update/{cityId}','API\Admin\BaseController@updateCity')->name('admin_bs_city_update');
        });
        Route::prefix('district')->group(function (){
-           Route::post('/create','API\Admin\BaseController@createDistrict')->name('admin_bs_create');
-           Route::get('/show','API\Admin\BaseController@showDistricts')->name('admin_bs_show');
-           Route::post('/delete/{districtId}','API\Admin\BaseController@deleteDistrict')->name('admin_bs_delete');
+           Route::post('/create','API\Admin\BaseController@createDistrict')->name('admin_bs_district_create');
+           Route::get('/show','API\Admin\BaseController@showDistricts')->name('admin_bs_district_show');
+           Route::post('/delete/{districtId}','API\Admin\BaseController@deleteDistrict')->name('admin_bs_district_delete');
        });
+   });
+   Route::prefix('ge')->group(function (){
+       Route::prefix('category')->group(function (){
+           Route::post('/create','API\Admin\CategoryController@createCategory')->name('admin_ge_category_create');
+           Route::get('/show','API\Admin\CategoryController@showCategories')->name('admin_ge_category_show');
+           Route::get('/show/{categoryId}','API\Admin\CategoryController@showCategory')->name('admin_ge_category_show_category');
+           Route::post('/delete/{categoryId}','API\Admin\CategoryController@deleteCategory')->name('admin_ge_category_delete');
+           Route::post('/update/{categoryId}','API\Admin\CategoryController@updateCategory')->name('admin_ge_category_update');
+       });
+       Route::prefix('subCategory')->group(function (){
+           Route::post('/create','API\Admin\SubCategoryController@createSubCategory')->name('admin_ge_subCategory_create');
+           Route::get('/show','API\Admin\SubCategoryController@showSubCategories')->name('admin_ge_subCategory_show');
+           Route::post('/delete/{districtId}','API\Admin\SubCategoryController@deleteSubCategory')->name('admin_ge_subCategory_delete');
+       });
+   });
+   Route::prefix('cr')->group(function (){
+
    });
 });

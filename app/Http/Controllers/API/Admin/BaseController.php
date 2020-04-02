@@ -8,6 +8,28 @@ use Illuminate\Http\Request;
 
 class BaseController extends Controller
 {
+    # Country
+    public function createCountry(Request $request){
+
+    }
+
+    public function showCountries(){
+
+    }
+
+    public function showCountry($countryId){
+
+    }
+
+    public function deleteCountry($countryId){
+
+    }
+
+    public function updateCountry($countryId,Request $request){
+
+    }
+
+    # City ...
     public function createCity(Request $request){
         // initializing
         $data = $request->toArray();
@@ -85,6 +107,27 @@ class BaseController extends Controller
         return response()->json([
             'error' => true,
             'message' => 'Şehir silinirken hata meydana geldi.Tekrar deneyin',
+            'errorMessage' =>  $resp->getError()
+        ],400);
+    }
+
+    function updateCity($cityId,Request $request){
+        // initializing
+        $repo = new BaseRepository();
+        $data = $request->toArray();
+
+        // Operations
+        $resp = $repo->update($cityId,$data);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Şehir başarıyla güncellendi.',
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Şehir güncellenirken hata meydana geldi.Tekrar deneyin',
             'errorMessage' =>  $resp->getError()
         ],400);
     }
