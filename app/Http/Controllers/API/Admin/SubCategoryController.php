@@ -71,4 +71,45 @@ class SubCategoryController extends Controller
             'errorMessage' => $resp->getError()
         ]);
     }
+
+    public function setActive($subCategoryId){
+        // initializing
+        $repo = new SubCategoryRepository();
+
+        // operations
+        $resp = $repo->setPassive($subCategoryId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData(),
+                'message' => 'Alt kategori başarıyla aktif hale getirildi.'
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Alt kategori silinirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
+    public function setPassive($subCategoryId){
+        // initializing
+        $repo = new SubCategoryRepository();
+
+        // operations
+        $resp = $repo->setPassive($subCategoryId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData(),
+                'message' => 'Alt kategori başarıyla aktif hale getirildi.'
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Alt kategori silinirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
 }

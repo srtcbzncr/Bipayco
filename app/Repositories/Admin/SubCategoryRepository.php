@@ -100,11 +100,47 @@ class SubCategoryRepository implements IRepository
 
     public function setActive($id)
     {
-        // TODO: Implement setActive() method.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = SubCategory::find($id);
+            $object->active = true;
+            $object->save();
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 
     public function setPassive($id)
     {
-        // TODO: Implement setPassive() method.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = SubCategory::find($id);
+            $object->active = false;
+            $object->save();
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 }

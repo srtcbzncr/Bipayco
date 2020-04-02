@@ -132,7 +132,47 @@ class BaseController extends Controller
         ],400);
     }
 
-    # --İLÇE--
+    public function setActiveCity($cityId){
+        // initializing
+        $repo = new BaseRepository();
+
+        // Operations
+        $resp = $repo->setActive($cityId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Şehir başarıyla aktif hale getirildi.',
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Şehir güncellenirken hata meydana geldi.Tekrar deneyin',
+            'errorMessage' =>  $resp->getError()
+        ],400);
+    }
+
+    public function setPassiveCity($cityId){
+        // initializing
+        $repo = new BaseRepository();
+
+        // Operations
+        $resp = $repo->setPassive($cityId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Şehir başarıyla pasif hale getirildi.',
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Şehir güncellenirken hata meydana geldi.Tekrar deneyin',
+            'errorMessage' =>  $resp->getError()
+        ],400);
+    }
+
+    # --İLÇE------------------------
 
     public function createDistrict(Request $request){
         // initializing
@@ -191,6 +231,46 @@ class BaseController extends Controller
         return response()->json([
             'error' => true,
             'message' => 'İlçe silinirken hata meydana geldi.Tekrar deneyin',
+            'errorMessage' =>  $resp->getError()
+        ],400);
+    }
+
+    public function setActiveDistrict($districtId){
+        // initializing
+        $repo = new BaseRepository();
+
+        // Operations
+        $resp = $repo->setActiveDistrict($districtId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'İlçe başarıyla aktif hale getirildi.',
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'İlçe güncellenirken hata meydana geldi.Tekrar deneyin',
+            'errorMessage' =>  $resp->getError()
+        ],400);
+    }
+
+    public function setPassiveDistrict($districtId){
+        // initializing
+        $repo = new BaseRepository();
+
+        // Operations
+        $resp = $repo->setPassiveDistrict($districtId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'İlçe başarıyla pasif hale getirildi.',
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'İlçe güncellenirken hata meydana geldi.Tekrar deneyin',
             'errorMessage' =>  $resp->getError()
         ],400);
     }

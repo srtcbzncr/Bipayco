@@ -222,11 +222,15 @@ Route::prefix('admin')->group(function (){
            Route::get('/show/{cityId}','API\Admin\BaseController@showCity')->name('admin_bs_city_show_city');
            Route::post('/delete/{cityId}','API\Admin\BaseController@deleteCity')->name('admin_bs_city_delete');
            Route::post('/update/{cityId}','API\Admin\BaseController@updateCity')->name('admin_bs_city_update');
+           Route::post('/setActive/{cityId}','API\Admin\BaseController@setActiveCity')->name('admin_bs_city_active');
+           Route::post('/setPassive/{cityId}','API\Admin\BaseController@setPassiveCity')->name('admin_bs_city_passive');
        });
        Route::prefix('district')->group(function (){
            Route::post('/create','API\Admin\BaseController@createDistrict')->name('admin_bs_district_create');
            Route::get('/show','API\Admin\BaseController@showDistricts')->name('admin_bs_district_show');
            Route::post('/delete/{districtId}','API\Admin\BaseController@deleteDistrict')->name('admin_bs_district_delete');
+           Route::post('/setActive/{districtId}','API\Admin\BaseController@setActiveDistrict')->name('admin_bs_district_active');
+           Route::post('/setPassive/{districtId}','API\Admin\BaseController@setPassiveDistrict')->name('admin_bs_district_passive');
        });
    });
    Route::prefix('ge')->group(function (){
@@ -236,11 +240,15 @@ Route::prefix('admin')->group(function (){
            Route::get('/show/{categoryId}','API\Admin\CategoryController@showCategory')->name('admin_ge_category_show_category');
            Route::post('/delete/{categoryId}','API\Admin\CategoryController@deleteCategory')->name('admin_ge_category_delete');
            Route::post('/update/{categoryId}','API\Admin\CategoryController@updateCategory')->name('admin_ge_category_update');
+           Route::post('/setActive/{categoryId}','API\Admin\CategoryController@setActive')->name('admin_ge_category_active');
+           Route::post('/setPassive/{categoryId}','API\Admin\CategoryController@setPassive')->name('admin_ge_category_passive');
        });
        Route::prefix('subCategory')->group(function (){
            Route::post('/create','API\Admin\SubCategoryController@createSubCategory')->name('admin_ge_subCategory_create');
            Route::get('/show','API\Admin\SubCategoryController@showSubCategories')->name('admin_ge_subCategory_show');
-           Route::post('/delete/{districtId}','API\Admin\SubCategoryController@deleteSubCategory')->name('admin_ge_subCategory_delete');
+           Route::post('/delete/{subCategoryId}','API\Admin\SubCategoryController@deleteSubCategory')->name('admin_ge_subCategory_delete');
+           Route::post('/setActive/{subCategoryId}','API\Admin\SubCategoryController@setActive')->name('admin_ge_subCategory_active');
+           Route::post('/setPassive/{subCategoryId}','API\Admin\SubCategoryController@setPassive')->name('admin_ge_subCategory_passive');
        });
    });
    Route::prefix('cr')->group(function (){

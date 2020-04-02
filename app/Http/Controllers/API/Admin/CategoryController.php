@@ -112,4 +112,44 @@ class CategoryController extends Controller
             'errorMessage' => $resp->getError()
         ]);
     }
+
+    public function setActive($categoryId){
+        // initializing
+        $repo = new CategoryRepository();
+
+        // operations
+        $resp = $repo->setActive($categoryId);
+        if ($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Kategori başarıyla aktif hale getirildi.'
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Kategori silinirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
+
+    public function setPassive($categoryId){
+        // initializing
+        $repo = new CategoryRepository();
+
+        // operations
+        $resp = $repo->setPassive($categoryId);
+        if ($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Kategori başarıyla pasif hale getirildi.'
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Kategori silinirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
 }
