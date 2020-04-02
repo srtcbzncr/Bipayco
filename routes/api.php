@@ -206,3 +206,19 @@ Route::prefix('questionSource')->group(function (){
 
 Route::get('myCourses/{id}', 'API\Auth\AuthController@courses')->name('api_my_courses');
 Route::get('lastCourses/{id}', 'API\Auth\AuthController@getLastWatchedCourses')->name('api_my_last_courses');
+
+Route::prefix('admin')->group(function (){
+   Route::prefix('bs')->group(function (){
+       Route::prefix('city')->group(function (){
+           Route::post('/create','API\Admin\BaseController@createCity')->name('admin_bs_create');
+           Route::get('/show','API\Admin\BaseController@showCities')->name('admin_bs_show');
+           Route::get('/show/{cityId}','API\Admin\BaseController@showCity')->name('admin_bs_show_city');
+           Route::post('/delete/{cityId}','API\Admin\BaseController@deleteCity')->name('admin_bs_delete');
+       });
+       Route::prefix('district')->group(function (){
+           Route::post('/create','API\Admin\BaseController@createDistrict')->name('admin_bs_create');
+           Route::get('/show','API\Admin\BaseController@showDistricts')->name('admin_bs_show');
+           Route::post('/delete/{districtId}','API\Admin\BaseController@deleteDistrict')->name('admin_bs_delete');
+       });
+   });
+});
