@@ -27,7 +27,7 @@ class GradeController extends Controller
            'error' => true,
            'message' => 'Sınıf oluşturulurken hata meydane geldi.Tekrar deneyin.',
            'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
 
     public function showGradies(){
@@ -48,7 +48,7 @@ class GradeController extends Controller
             'error' => true,
             'message' => 'Sınıflar getirilirken hata meydane geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
 
     public function showGrade($gradeId){
@@ -69,7 +69,7 @@ class GradeController extends Controller
             'error' => true,
             'message' => 'Sınıf getirilirken hata meydane geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
 
     public function deleteGrade($gradeId){
@@ -90,7 +90,7 @@ class GradeController extends Controller
             'error' => true,
             'message' => 'Sınıf silinirken hata meydane geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
 
     public function updateGrade($gradeId,Request $request){
@@ -112,6 +112,6 @@ class GradeController extends Controller
             'error' => true,
             'message' => 'Sınıf oluşturulurken hata meydane geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
 }

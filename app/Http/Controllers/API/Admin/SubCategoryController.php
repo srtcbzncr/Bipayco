@@ -27,7 +27,7 @@ class SubCategoryController extends Controller
             'error' => true,
             'message' => 'Alt kategori oluşturulurken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
 
     public function showSubCategories(){
@@ -48,7 +48,7 @@ class SubCategoryController extends Controller
             'error' => true,
             'message' => 'Alt kategoriler getirilirken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
 
     public function showSubCategory($subCategoryId){
@@ -69,7 +69,7 @@ class SubCategoryController extends Controller
             'error' => true,
             'message' => 'Alt kategori getirilirken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
 
     public function deleteSubCategory($subCategoryId){
@@ -90,7 +90,7 @@ class SubCategoryController extends Controller
             'error' => true,
             'message' => 'Alt kategori silinirken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
 
     public function updateSubCategory($subCategoryId,Request $request){
@@ -112,7 +112,7 @@ class SubCategoryController extends Controller
             'error' => true,
             'message' => 'Alt kategori güncellenirken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
 
     public function setActive($subCategoryId){
@@ -133,7 +133,7 @@ class SubCategoryController extends Controller
             'error' => true,
             'message' => 'Alt kategori silinirken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
     public function setPassive($subCategoryId){
         // initializing
@@ -153,6 +153,6 @@ class SubCategoryController extends Controller
             'error' => true,
             'message' => 'Alt kategori silinirken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
 }

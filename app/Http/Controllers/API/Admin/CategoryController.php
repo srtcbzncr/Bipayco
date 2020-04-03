@@ -27,7 +27,7 @@ class CategoryController extends Controller
             'error' => true,
             'message' => 'Kategori oluşturulurken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
 
     public function showCategories(){
@@ -48,7 +48,7 @@ class CategoryController extends Controller
             'error' => true,
             'message' => 'Kategoriler getirilirken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
 
     public function showCategory($categoryId){
@@ -69,7 +69,7 @@ class CategoryController extends Controller
             'error' => true,
             'message' => 'Kategori getirilirken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
 
     public function deleteCategory($categoryId){
@@ -89,7 +89,7 @@ class CategoryController extends Controller
             'error' => true,
             'message' => 'Kategori silinirken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
 
     public function updateCategory($categoryId,Request $request){
@@ -110,7 +110,7 @@ class CategoryController extends Controller
             'error' => true,
             'message' => 'Kategori silinirken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
 
     public function setActive($categoryId){
@@ -130,7 +130,7 @@ class CategoryController extends Controller
             'error' => true,
             'message' => 'Kategori silinirken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
 
     public function setPassive($categoryId){
@@ -150,7 +150,7 @@ class CategoryController extends Controller
             'error' => true,
             'message' => 'Kategori pasif hale getirilirken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
 
     public function getSubCategories($categoryId){
@@ -170,6 +170,6 @@ class CategoryController extends Controller
             'error' => true,
             'message' => 'Kategoriye ait alt kategoriler getirilirken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
-        ]);
+        ],400);
     }
 }
