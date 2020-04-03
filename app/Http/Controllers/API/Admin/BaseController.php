@@ -215,6 +215,26 @@ class BaseController extends Controller
         ],400);
     }
 
+    public function showDistrict($districtId){
+        // initializing
+        $repo = new BaseRepository();
+
+        // Operations
+        $resp = $repo->getDistrict();
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'İlçe başarıyla getirildi.',
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'İlçe getirilirken hata meydana geldi.Tekrar deneyin',
+            'errorMessage' =>  $resp->getError()
+        ],400);
+    }
+
     public function deleteDistrict($districtId){
         // initializing
         $repo = new BaseRepository();
@@ -231,6 +251,27 @@ class BaseController extends Controller
         return response()->json([
             'error' => true,
             'message' => 'İlçe silinirken hata meydana geldi.Tekrar deneyin',
+            'errorMessage' =>  $resp->getError()
+        ],400);
+    }
+
+    public function updateDistrict($districtId,Request $request){
+        // initializing
+        $data = $request->toArray();
+        $repo = new BaseRepository();
+
+        // Operations
+        $resp = $repo->updateDistrict($districtId,$data);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'İlçe başarıyla güncellendi.',
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'İlçe güncellenirken hata meydana geldi.Tekrar deneyin',
             'errorMessage' =>  $resp->getError()
         ],400);
     }

@@ -51,6 +51,27 @@ class SubCategoryController extends Controller
         ]);
     }
 
+    public function showSubCategory($subCategoryId){
+        // initializing
+        $repo = new SubCategoryRepository();
+
+        // operations
+        $resp = $repo->get($subCategoryId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData(),
+                'message' => 'Alt kategori başarıyla getirildi.'
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Alt kategori getirilirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
+
     public function deleteSubCategory($subCategoryId){
         // initializing
         $repo = new SubCategoryRepository();
@@ -68,6 +89,28 @@ class SubCategoryController extends Controller
         return response()->json([
             'error' => true,
             'message' => 'Alt kategori silinirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
+
+    public function updateSubCategory($subCategoryId,Request $request){
+        // initializing
+        $data = $request->toArray();
+        $repo = new SubCategoryRepository();
+
+        // operations
+        $resp = $repo->update($subCategoryId,$data);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData(),
+                'message' => 'Alt kategori başarıyla güncellendi.'
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Alt kategori güncellenirken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
         ]);
     }

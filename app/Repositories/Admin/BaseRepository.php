@@ -78,6 +78,27 @@ class BaseRepository implements IRepository
         return $resp;
     }
 
+    public function getDistrict($id)
+    {
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = District::find($id);
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
     public function create(array $data)
     {
         // Response variables
@@ -146,6 +167,33 @@ class BaseRepository implements IRepository
             $object = City::find($id);
             $object->country_id = $data['countryId'];
             $object->code = $data['code'];
+            $object->name = $data['name'];
+            $object->save();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function updateDistrict($id, array $data)
+    {
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $object = District::find($id);
+            $object->city_id = $data['cityId'];
             $object->name = $data['name'];
             $object->save();
             DB::commit();

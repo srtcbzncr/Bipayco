@@ -36,7 +36,23 @@ class SubCategoryRepository implements IRepository
 
     public function get($id)
     {
-        // TODO: Implement get() method.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = SubCategory::find($id);
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 
     public function create(array $data)
@@ -73,7 +89,36 @@ class SubCategoryRepository implements IRepository
 
     public function update($id, array $data)
     {
-        // TODO: Implement update() method.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $object = new SubCategory();
+            $object->category_id = $data['categoryId '];
+            $object->name = $data['name'];
+            $object->color = $data['color'];
+            $object->symbol = $data['symbol'];
+            if(isset($data['image']) and $data['image'] != null){
+                $filePath = $data['image']->store('public/images');
+                $accessPath = Storage::url($filePath);
+                $object->image = $accessPath;
+            }
+            $object->save();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 
     public function delete($id)

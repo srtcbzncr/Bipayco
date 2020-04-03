@@ -228,7 +228,9 @@ Route::prefix('admin')->group(function (){
        Route::prefix('district')->group(function (){
            Route::post('/create','API\Admin\BaseController@createDistrict')->name('admin_bs_district_create');
            Route::get('/show','API\Admin\BaseController@showDistricts')->name('admin_bs_district_show');
+           Route::get('/show/{districtId}','API\Admin\BaseController@showDistrict')->name('admin_bs_district_show_district');
            Route::post('/delete/{districtId}','API\Admin\BaseController@deleteDistrict')->name('admin_bs_district_delete');
+           Route::post('/update/{districtId}','API\Admin\BaseController@updateDistrict')->name('admin_bs_district_update');
            Route::post('/setActive/{districtId}','API\Admin\BaseController@setActiveDistrict')->name('admin_bs_district_active');
            Route::post('/setPassive/{districtId}','API\Admin\BaseController@setPassiveDistrict')->name('admin_bs_district_passive');
        });
@@ -246,7 +248,9 @@ Route::prefix('admin')->group(function (){
        Route::prefix('subCategory')->group(function (){
            Route::post('/create','API\Admin\SubCategoryController@createSubCategory')->name('admin_ge_subCategory_create');
            Route::get('/show','API\Admin\SubCategoryController@showSubCategories')->name('admin_ge_subCategory_show');
+           Route::get('/show/{subCategoryId}','API\Admin\SubCategoryController@showSubCategory')->name('admin_ge_subCategory_show_category');
            Route::post('/delete/{subCategoryId}','API\Admin\SubCategoryController@deleteSubCategory')->name('admin_ge_subCategory_delete');
+           Route::post('/update/{subCategoryId}','API\Admin\SubCategoryController@updateSubCategory')->name('admin_ge_subCategory_update');
            Route::post('/setActive/{subCategoryId}','API\Admin\SubCategoryController@setActive')->name('admin_ge_subCategory_active');
            Route::post('/setPassive/{subCategoryId}','API\Admin\SubCategoryController@setPassive')->name('admin_ge_subCategory_passive');
        });
