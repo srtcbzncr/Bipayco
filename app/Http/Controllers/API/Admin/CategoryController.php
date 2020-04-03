@@ -148,7 +148,27 @@ class CategoryController extends Controller
 
         return response()->json([
             'error' => true,
-            'message' => 'Kategori silinirken bir hata meydana geldi.Tekrar deneyin.',
+            'message' => 'Kategori pasif hale getirilirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
+
+    public function getSubCategories($categoryId){
+        // initializing
+        $repo = new CategoryRepository();
+
+        // operations
+        $resp = $repo->getSubCategoriesOfCategory($categoryId);
+        if ($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Kategoriye ait alt kategoriler başarıyla getirildi.'
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Kategoriye ait alt kategoriler getirilirken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
         ]);
     }

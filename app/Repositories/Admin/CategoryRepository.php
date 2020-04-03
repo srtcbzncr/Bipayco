@@ -204,4 +204,26 @@ class CategoryRepository implements IRepository
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+
+    public function getSubCategoriesOfCategory($id)
+    {
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $category = Category::find($id);
+            $object = $category->subCategories;
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
 }
