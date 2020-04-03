@@ -172,6 +172,26 @@ class BaseController extends Controller
         ],400);
     }
 
+    public function getDistricts($cityId){
+        // initializing
+        $repo = new BaseRepository();
+
+        // Operations
+        $resp = $repo->getDistrictsOfCity($cityId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Şehire ait ilçeler başarıyla getirildi.',
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Şehire ait ilçeler getirilirken hata meydana geldi.Tekrar deneyin',
+            'errorMessage' =>  $resp->getError()
+        ],400);
+    }
+
     # --İLÇE------------------------
 
     public function createDistrict(Request $request){

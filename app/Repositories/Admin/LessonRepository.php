@@ -145,4 +145,26 @@ class LessonRepository implements IRepository
     {
         // TODO: Implement setPassive() method.
     }
+
+    public function getSubjectsOfLesson($id)
+    {
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $lesson = Lesson::find($id);
+            $object = Subject::where('lesson_id',$id)->get();
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
 }

@@ -224,6 +224,7 @@ Route::prefix('admin')->group(function (){
            Route::post('/update/{cityId}','API\Admin\BaseController@updateCity')->name('admin_bs_city_update');
            Route::post('/setActive/{cityId}','API\Admin\BaseController@setActiveCity')->name('admin_bs_city_active');
            Route::post('/setPassive/{cityId}','API\Admin\BaseController@setPassiveCity')->name('admin_bs_city_passive');
+           Route::get('/{cityId}/district','API\Admin\BaseController@getDistricts')->name('admin_bs_city_district');
        });
        Route::prefix('district')->group(function (){
            Route::post('/create','API\Admin\BaseController@createDistrict')->name('admin_bs_district_create');
@@ -244,6 +245,7 @@ Route::prefix('admin')->group(function (){
            Route::post('/update/{categoryId}','API\Admin\CategoryController@updateCategory')->name('admin_ge_category_update');
            Route::post('/setActive/{categoryId}','API\Admin\CategoryController@setActive')->name('admin_ge_category_active');
            Route::post('/setPassive/{categoryId}','API\Admin\CategoryController@setPassive')->name('admin_ge_category_passive');
+           Route::get('/{categoryId}/subCategories','API\Admin\CategoryController@getSubCategories')->name('admin_ge_category_subCategories');
        });
        Route::prefix('subCategory')->group(function (){
            Route::post('/create','API\Admin\SubCategoryController@createSubCategory')->name('admin_ge_subCategory_create');
@@ -269,6 +271,7 @@ Route::prefix('admin')->group(function (){
            Route::get('/show/{lessonId}','API\Admin\LessonController@showLesson')->name('admin_cr_lesson_show_grade');
            Route::post('/delete/{lessonId}','API\Admin\LessonController@deleteLesson')->name('admin_cr_lesson_delete');
            Route::post('/update/{lessonId}','API\Admin\LessonController@updateLesson')->name('admin_cr_lesson_update');
+           Route::get('/{lessonId}/subjects','API\Admin\LessonController@getSubjects')->name('admin_cr_lesson_subjects');
        });
        Route::prefix('subject')->group(function (){
            Route::post('/create','API\Admin\SubjectController@createSubject')->name('admin_cr_subject_create');

@@ -109,4 +109,24 @@ class LessonController extends Controller
             'errorMessage' => $resp->getError()
         ],400);
     }
+
+    public function getSubjects($lessonId){
+        // initializing
+        $repo = new LessonRepository();
+
+        // operations
+        $resp = $repo->getSubjectsOfLesson($lessonId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Derse ait konular başarıyla getirildi.',
+                'data' => $resp->getData()
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Derse ait konular getirilirken hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
 }

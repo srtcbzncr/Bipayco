@@ -78,6 +78,27 @@ class BaseRepository implements IRepository
         return $resp;
     }
 
+    public function getDistrictsOfCity($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $city = City::find($id);
+            $object = $city->districts;
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
     public function getDistrict($id)
     {
         // Response variables
