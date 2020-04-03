@@ -128,26 +128,31 @@
             }
         },
         methods:{
-            deactivateItem:function () {
-
+            deactivateItem:function (id) {
+                Axios.post('/api/admin/cr/grade/setPassive/'+id).then(response=>console.log(response.data));
             },
-            activateItem:function () {
-
+            activateItem:function (id) {
+                Axios.post('/api/admin/cr/grade/setActive/'+id).then(response=>console.log(response.data));
             },
-            deleteItem:function () {
-
+            deleteItem:function (id) {
+                Axios.post('/api/admin/cr/grade/delete/'+id).then(response=>console.log(response.data));
             },
             openSettings:function (id) {
                 this.selectedGradeId=id;
-                this.hasItem=true;
-                this.icon="fa-user";
-                this.name=id+". adı";
+                Axios.get('/api/admin/cr/grade/show/'+id)
+                    .then(response=>this.setSelected(response.data));
+            },
+            openForm:function () {
                 UIkit.modal('#addGradeArea', {
                     escClose:false,
                     bgClose:false,
                 }).show();
             },
-            openForm:function () {
+            setSelected:function(selectedData){
+                console.log(selectedData);
+                this.icon=selectedData.symbol;
+                this.name=selectedData.name;
+                this.hasItem=true;
                 UIkit.modal('#addGradeArea', {
                     escClose:false,
                     bgClose:false,
@@ -160,10 +165,23 @@
                 this.selectedGradeId="";
             },
             saveItem:function () {
+                if(hasItem){
+                    Axios.post('/api/admin/cr/grade/update/'+this.selectedGradeId, {
+                        symbol: this.icon,
+                        name: this.name,
+                    }).then(response=>console.log(response))
+                }else{
+                    Axios.post('/api/admin/cr/grade/create', {
+                        symbol: this.icon,
+                        name: this.name,
+                    }).then(response=>console.log(response));
+                }
                 this.clearForm();
-
                 UIkit.modal('#addGradeArea').hide();
             }
+        },
+        created() {
+
         }
     }
 </script>

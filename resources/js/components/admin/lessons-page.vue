@@ -141,26 +141,30 @@
             routeSubjects:function () {
                 window.location.replace(this.subjectsRoute);
             },
-            deactivateItem:function () {
-
+            deactivateItem:function (id) {
+                Axios.post('/api/admin/cr/lesson/setPassive/'+id).then(response=>console.log(response));
             },
-            activateItem:function () {
-
+            activateItem:function (id) {
+                Axios.post('/api/admin/cr/lesson/setActive/'+id).then(response=>console.log(response));
             },
-            deleteItem:function () {
-
+            deleteItem:function (id) {
+                Axios.post('/api/admin/cr/lesson/delete/'+id).then(response=>console.log(response));
             },
             openSettings:function (id) {
                 this.selectedLessonId=id;
-                this.hasItem=true;
-                this.icon="fa-chalkboard-teacher";
-                this.name=id+". ders";
+                Axios.get('/api/admin/cr/lesson/show/'+id)
+                    .then(response=>this.setSelected(response.data));
+            },
+            openForm:function () {
                 UIkit.modal('#addLessonArea', {
                     escClose:false,
                     bgClose:false,
                 }).show();
             },
-            openForm:function () {
+            setSelected:function(selectedData){
+                this.icon=selectedData.symbol;
+                this.name=selectedData.name;
+                this.hasItem=true;
                 UIkit.modal('#addLessonArea', {
                     escClose:false,
                     bgClose:false,
@@ -173,10 +177,23 @@
                 this.selectedLessonId="";
             },
             saveItem:function () {
+                if(hasItem){
+                    Axios.post('/api/admin/cr/lesson/update/'+this.selectedLessonId,{
+                        symbol:this.icon,
+                        name: this.name,
+                    }).then(response=>console.log(response));
+                }else{
+                    Axios.post('/api/admin/cr/lesson/create', {
+                        symbol:this.icon,
+                        name: this.name,
+                    }).then(response=>console.log(response))
+                }
                 this.clearForm();
-
                 UIkit.modal('#addLessonArea').hide();
             }
+        },
+        created() {
+
         }
     }
 </script>

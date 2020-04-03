@@ -154,26 +154,30 @@
             routeLessons:function () {
                 window.location.replace(this.lessonsRoute);
             },
-            deactivateItem:function () {
-
+            deactivateItem:function (id) {
+                Axios.post('/api/admin/cr/subject/setPassive/'+id).then(response=>console.log(response.data))
             },
-            activateItem:function () {
-
+            activateItem:function (id) {
+                Axios.post('/api/admin/cr/subject/setActive/'+id).then(response=>console.log(response.data))
             },
-            deleteItem:function () {
-
+            deleteItem:function (id) {
+                Axios.post('/api/admin/cr/subject/delete/'+id).then(response=>console.log(response.data))
             },
             openSettings:function (id) {
-                ths.selectedGradeId=id;
-                this.hasItem=true;
-                this.name=id+". konu";
-                this.lessonId=id;
+                this.selectedGradeId=id;
+                Axios.get('/api/admin/cr/subject/show/'+id)
+                    .then(response=>this.setSelected(response.data));
+            },
+            openForm:function () {
                 UIkit.modal('#addSubjectArea', {
                     escClose:false,
                     bgClose:false,
                 }).show();
             },
-            openForm:function () {
+            setSelected:function(selectedData){
+                this.name=selectedData.name;
+                this.lessonId=selectedData.lessonId;
+                this.hasItem=true;
                 UIkit.modal('#addSubjectArea', {
                     escClose:false,
                     bgClose:false,
@@ -186,10 +190,23 @@
                 this.selectedSubjectId="";
             },
             saveItem:function () {
+                if(hasItem){
+                    Axios.post('/api/admin/cr/subject/update/'+this.selectedSubjectId, {
+                        name:this.name,
+                        lessonId:this.lessonId,
+                    }).then(response=>console.log(response))
+                }else{
+                    Axios.post('/api/admin/cr/subject/create', {
+                        name:this.name,
+                        lessonId:this.lessonId,
+                    }).then(response=>console.log(response))
+                }
                 this.clearForm();
-
                 UIkit.modal('#addSubjectArea').hide();
             }
+        },
+        created() {
+
         }
     }
 </script>

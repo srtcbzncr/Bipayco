@@ -51,11 +51,20 @@
                 </div>
 
                 <div class="uk-modal-body" uk-overflow-auto>
+                    <div class="uk-form-label">{{categoryNameText}}</div>
+                    <input class="uk-width uk-input" v-model="name" :placeholder="categoryNameText">
+                    <img>
                     <input>
-                    <input>
-                    <input>
+                    <textarea class="uk-width uk-textarea" v-model="description"></textarea>
+                    <div class="uk-form-label">{{iconText}}</div>
+                    <select class="uk-width uk-select" v-model="icon">
+                        <option selected hidden disabled value="">{{selectIconText}}</option>
+                    </select>
+                    <div class="uk-form-label">{{colorText}}</div>
+                    <select class="uk-width uk-select" v-model="color">
+                        <option selected hidden disabled value="">{{selectColorText}}</option>
+                    </select>
                 </div>
-
                 <div class="uk-modal-footer uk-text-right">
                     <button class="uk-button uk-button-default uk-modal-close" @click="clearForm" type="button">{{cancelText}}</button>
                     <button class="uk-button uk-button-primary" type="button" @click="saveItem">{{saveText}}</button>
@@ -72,7 +81,7 @@
             return{
                 name:"",
                 icon:"",
-                image:"",
+                description:"",
                 color:"",
                 hasItem:false,
                 selectedCategoryId:"",
@@ -118,6 +127,34 @@
             editCategoryText:{
                 type:String,
                 default:"Kategori Düzenle"
+            },
+            selectColorText:{
+                type:String,
+                default:"Renk Seçiniz"
+            },
+            selectedIconText:{
+                type:String,
+                default:"İkon Seçiniz"
+            },
+            categoryNameText:{
+                type:String,
+                default:"Kategori Adı"
+            },
+            colorText:{
+                type:String,
+                default:"Renk"
+            },
+            iconText:{
+                type:String,
+                default:"İkon"
+            },
+            imageText:{
+                type:String,
+                default:"Kategori Resmi"
+            },
+            descriptionText:{
+                type:String,
+                default:"Açıklama"
             }
         },
         methods:{
@@ -135,13 +172,22 @@
             },
             openSettings:function (id) {
                 this.selectedCategoryId=id;
-                this.hasItem=true;
+                Axios.get('/api/admin/ge/category/show/'+id)
+                    .then(response=>this.setSelected(response.data))
+            },
+            openForm:function () {
                 UIkit.modal('#addCategoryArea', {
                     escClose:false,
                     bgClose:false,
                 }).show();
             },
-            openForm:function () {
+            setSelected:function(selectedData){
+                console.log(selectedData);
+                this.name=selectedData.name;
+                this.icon=selectedData.symbol;
+                this.description=selectedData.description;
+                this.color=selectedData.color;
+                this.hasItem=true;
                 UIkit.modal('#addCategoryArea', {
                     escClose:false,
                     bgClose:false,
@@ -150,24 +196,28 @@
             clearForm:function () {
                 this.name="";
                 this.icon="";
-                this.image="";
+                this.description="";
                 this.color="";
                 this.hasItem=false;
                 this.selectedCategoryId="";
             },
             saveItem:function () {
+                var formData = new FormData();
+                formData.append('name', this.name);
+                formData.append('description', this.description);
+                formData.append('symbol', this.icon);
+                formData.append('color', this.color);
                 if(this.hasItem){
-                    Axios.post('/api/admin/ge/update/'+this.selectedCategoryId, {
-
-                    }).then(response=>console.log(response));
+                    Axios.post('/api/admin/ge/category/update/'+this.selectedCategoryId, formData).then(response=>console.log(response));
                 }else{
-                    Axios.post('/api/admin/ge/create', {
-
-                    }).then(response=>console.log(response));
+                    Axios.post('/api/admin/ge/category/create', formData).then(response=>console.log(response));
                 }
                 this.clearForm();
                 UIkit.modal('#addCategoryArea').hide();
             }
+        },
+        created() {
+
         }
     }
 </script>

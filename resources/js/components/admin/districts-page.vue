@@ -66,8 +66,6 @@
                             </select>
                             <div class="uk-form-label">{{districtNameText}}</div>
                             <input v-model="name" class="uk-width uk-input" :placeholder="districtNameText">
-                            <div class="uk-form-label">{{districtCodeText}}</div>
-                            <input v-model="code" class="uk-width uk-input" :placeholder="districtCodeText">
                         </div>
                     </div>
                 </div>
@@ -89,10 +87,13 @@
         data(){
           return{
               name:"",
-              code:"",
               cityId:"",
               hasItem:false,
               selectedDistrictId:"",
+              selectedDistrict:{
+                  name:"",
+                  cityId:"",
+              },
           }
         },
         props:{
@@ -151,7 +152,7 @@
             cancelText:{
                 type:String,
                 default:"Vazgeç"
-            }
+            },
         },
         methods:{
             routeCities:function () {
@@ -168,16 +169,8 @@
             },
             openSettings:function (id) {
                 this.selectedDistrictId=id;
-                Axios.get('/api/admin/bs/district/show/'+id).then(response=>console.log(response));
-                this.hasItem=true;
-                this.cityId=1;
-                this.code=id+". şehirin Kodu var burda";
-                this.name=id+". şehrin adı var burda";
-
-                UIkit.modal('#addDistrictArea', {
-                    escClose:false,
-                    bgClose:false,
-                }).show();
+                Axios.get('/api/admin/bs/district/show/'+id)
+                    .then(response=>this.setSelected(response.data));
             },
             openForm:function () {
                 UIkit.modal('#addDistrictArea', {
@@ -187,24 +180,38 @@
             },
             clearForm:function () {
                 this.name="";
-                this.code="";
                 this.cityId="";
                 this.hasItem=false;
                 this.selectedDistrictId="";
             },
+            setSelected:function(selectedData){
+                console.log(selectedData);
+                this.cityId=selectedData.cityId;
+                this.name=selectedData.name;
+                this.hasItem=true;
+                UIkit.modal('#addDistrictArea', {
+                    escClose:false,
+                    bgClose:false,
+                }).show();
+            },
             saveItem:function () {
                 if(this.hasItem){
                     Axios.post('/api/admin/bs/district/update/'+this.selectedDistrictId, {
-
+                        name: this.name,
+                        cityId: this.cityId,
                     }).then(response=>console.log(response));
                 }else{
                     Axios.post('/api/admin/bs/district/create', {
-
+                        name: this.name,
+                        cityId: this.cityId,
                     }).then(response=>console.log(response));
                 }
                 this.clearForm();
                 UIkit.modal('#addDistrictArea').hide();
             }
+        },
+        created() {
+
         }
     }
 </script>

@@ -63,7 +63,7 @@
                     <select class="uk-width uk-select" v-model="categoryId">
                         <option selected hidden disabled value="">{{selectCategoryText}}</option>
                     </select>
-                    <div class="uk-form-label">{{addSubCategoryText}}</div>
+                    <div class="uk-form-label">{{subCategoryNameText}}</div>
                     <input class="uk-width uk-input" v-model="name" :placeholder="subCategoryNameText">
                     <img>
                     <input>
@@ -95,8 +95,9 @@
                 icon:"",
                 name:"",
                 categoryId:"",
-                image:"",
+                description:"",
                 hasItem:false,
+                selectedSubCategoryId:"",
             }
         },
         props:{
@@ -131,10 +132,55 @@
             backText:{
                 type:String,
                 default:"Geri"
+            },
+            categoryText:{
+                type:String,
+                default:"Kategori"
+            },
+            selectCategoryText:{
+                type:String,
+                default:"Kategori Seçiniz"
+            },
+            subCategoryName:{
+                type:String,
+                default:"Alt Kategori Adı"
+            },
+            subCategoryImg:{
+                type:String,
+                default:"Alt Kategori Resmi"
+            },
+            iconText:{
+                type:String,
+                default:"İkon"
+            },
+            selectIconText:{
+                type:String,
+                default:"İkon Seçiniz"
+            },
+            selectColorText:{
+                type:String,
+                default:"Renk Seçiniz"
+            },
+            colorText:{
+                type:String,
+                default:"Renk"
+            },
+            editSubCategoryText:{
+                type:String,
+                default:"Alt Kategori Düzenle"
+            },
+            saveText:{
+                type:String,
+                default:"Kaydet"
+            },
+            cancelText:{
+                type:String,
+                default:"Cancel"
             }
         },
         methods:{
             routeCategory:function () {
+
                 window.location.replace(this.subCategoryRoute);
             },
             deactivateItem:function (id) {
@@ -147,16 +193,8 @@
                 Axios.post('/api/admin/ge/subCategory/delete/'+id).then(response=>console.log(response))
             },
             openSettings:function (id) {
-                this.hasItem=true;
-                this.image="";
-                this.color=id;
-                this.name=id+". alt Kategori";
-                this.icon=id;
-                this.categoryId=id;
-                UIkit.modal('#addSubCategoryArea', {
-                    escClose:false,
-                    bgClose:false,
-                }).show();
+                this.selectedSubCategoryId=id;
+                Axios.get('/api/admin/ge/subCategory/show/'+id).then(response=>this.setSelected(response.data));
             },
             openForm:function () {
                 UIkit.modal('#addSubCategoryArea', {
@@ -164,19 +202,47 @@
                     bgClose:false,
                 }).show();
             },
+            setSelected:function(selectedData){
+                console.log(selectedData);
+                this.description=selectedData.description;
+                this.color=selectedData.color;
+                this.name=selectedData.name;
+                this.icon=selectedData.symbol;
+                this.categoryId=selectedData.categoryId;
+                this.hasItem=true;
+                UIkit.modal('#addSubCategoryArea', {
+                    escClose:false,
+                    bgClose:false,
+                }).show();
+            },
             clearForm:function () {
                 this.hasItem=false;
-                this.image="";
+                this.description="";
                 this.color="";
                 this.name="";
                 this.icon="";
                 this.categoryId="";
+                this.selectedSubCategoryId="";
             },
             saveItem:function () {
-                this.clearForm();
+                var formData=new FormData();
+                formData.append('name', this.name);
+                formData.append('categoryId', this.categoryId);
+                formData.append('symbol', this.icon);
+                formData.append('color', this.color);
+                formData.append('description', this.description);
 
+                if(hasItem){
+                    Axios.post('/api/admin/ge/subCategory/update/'+this.selectedSubCategoryId, formData).then(response=>console.log(response));
+                }else{
+                    Axios.post('/api/admin/ge/subCategory/create', formData).then(response=>console.log(response));
+                }
+                this.clearForm();
                 UIkit.modal('#addSubCategoryArea').hide();
             }
+        },
+        created() {
+
         }
     }
 </script>

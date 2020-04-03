@@ -1905,13 +1905,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "categories-page",
   data: function data() {
     return {
       name: "",
       icon: "",
-      image: "",
+      description: "",
       color: "",
       hasItem: false,
       selectedCategoryId: ""
@@ -1957,6 +1966,34 @@ __webpack_require__.r(__webpack_exports__);
     editCategoryText: {
       type: String,
       "default": "Kategori Düzenle"
+    },
+    selectColorText: {
+      type: String,
+      "default": "Renk Seçiniz"
+    },
+    selectedIconText: {
+      type: String,
+      "default": "İkon Seçiniz"
+    },
+    categoryNameText: {
+      type: String,
+      "default": "Kategori Adı"
+    },
+    colorText: {
+      type: String,
+      "default": "Renk"
+    },
+    iconText: {
+      type: String,
+      "default": "İkon"
+    },
+    imageText: {
+      type: String,
+      "default": "Kategori Resmi"
+    },
+    descriptionText: {
+      type: String,
+      "default": "Açıklama"
     }
   },
   methods: {
@@ -1979,14 +2016,26 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     openSettings: function openSettings(id) {
+      var _this = this;
+
       this.selectedCategoryId = id;
-      this.hasItem = true;
+      Axios.get('/api/admin/ge/category/show/' + id).then(function (response) {
+        return _this.setSelected(response.data);
+      });
+    },
+    openForm: function openForm() {
       UIkit.modal('#addCategoryArea', {
         escClose: false,
         bgClose: false
       }).show();
     },
-    openForm: function openForm() {
+    setSelected: function setSelected(selectedData) {
+      console.log(selectedData);
+      this.name = selectedData.name;
+      this.icon = selectedData.symbol;
+      this.description = selectedData.description;
+      this.color = selectedData.color;
+      this.hasItem = true;
       UIkit.modal('#addCategoryArea', {
         escClose: false,
         bgClose: false
@@ -1995,18 +2044,24 @@ __webpack_require__.r(__webpack_exports__);
     clearForm: function clearForm() {
       this.name = "";
       this.icon = "";
-      this.image = "";
+      this.description = "";
       this.color = "";
       this.hasItem = false;
       this.selectedCategoryId = "";
     },
     saveItem: function saveItem() {
+      var formData = new FormData();
+      formData.append('name', this.name);
+      formData.append('description', this.description);
+      formData.append('symbol', this.icon);
+      formData.append('color', this.color);
+
       if (this.hasItem) {
-        Axios.post('/api/admin/ge/update/' + this.selectedCategoryId, {}).then(function (response) {
+        Axios.post('/api/admin/ge/category/update/' + this.selectedCategoryId, formData).then(function (response) {
           return console.log(response);
         });
       } else {
-        Axios.post('/api/admin/ge/create', {}).then(function (response) {
+        Axios.post('/api/admin/ge/category/create', formData).then(function (response) {
           return console.log(response);
         });
       }
@@ -2014,7 +2069,8 @@ __webpack_require__.r(__webpack_exports__);
       this.clearForm();
       UIkit.modal('#addCategoryArea').hide();
     }
-  }
+  },
+  created: function created() {}
 });
 
 /***/ }),
@@ -2172,18 +2228,21 @@ __webpack_require__.r(__webpack_exports__);
     openSettings: function openSettings(id) {
       this.selectedCityId = id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/bs/city/show/' + id).then(function (response) {
-        return console.log(response);
+        return setSelected(response.data);
       });
-      this.hasItem = true;
-      this.code = id + ". şehirin Kodu var burda";
-      this.name = id + ". şehrin adı var burda";
+    },
+    openForm: function openForm() {
+      this.hasItem = false;
       UIkit.modal('#addCityArea', {
         escClose: false,
         bgClose: false
       }).show();
     },
-    openForm: function openForm() {
-      this.hasItem = false;
+    setSelected: function setSelected(selectedData) {
+      console.log(selectedData);
+      this.name = selectedData.name;
+      this.code = selectedData.code;
+      this.hasItem = true;
       UIkit.modal('#addCityArea', {
         escClose: false,
         bgClose: false
@@ -2195,11 +2254,17 @@ __webpack_require__.r(__webpack_exports__);
     },
     saveItem: function saveItem() {
       if (this.hasItem) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/update/' + this.selectedCityId, {}).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/update/' + this.selectedCityId, {
+          name: this.name,
+          code: this.code
+        }).then(function (response) {
           return console.log(response);
         });
       } else {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/create', {}).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/create', {
+          name: this.name,
+          code: this.name
+        }).then(function (response) {
           return console.log(response);
         });
       }
@@ -2207,7 +2272,8 @@ __webpack_require__.r(__webpack_exports__);
       this.clearForm();
       UIkit.modal('#addCityArea').hide();
     }
-  }
+  },
+  created: function created() {}
 });
 
 /***/ }),
@@ -2331,18 +2397,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "districts-page",
   data: function data() {
     return {
       name: "",
-      code: "",
       cityId: "",
       hasItem: false,
-      selectedDistrictId: ""
+      selectedDistrictId: "",
+      selectedDistrict: {
+        name: "",
+        cityId: ""
+      }
     };
   },
   props: {
@@ -2423,18 +2490,12 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     openSettings: function openSettings(id) {
+      var _this = this;
+
       this.selectedDistrictId = id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/bs/district/show/' + id).then(function (response) {
-        return console.log(response);
+        return _this.setSelected(response.data);
       });
-      this.hasItem = true;
-      this.cityId = 1;
-      this.code = id + ". şehirin Kodu var burda";
-      this.name = id + ". şehrin adı var burda";
-      UIkit.modal('#addDistrictArea', {
-        escClose: false,
-        bgClose: false
-      }).show();
     },
     openForm: function openForm() {
       UIkit.modal('#addDistrictArea', {
@@ -2444,18 +2505,33 @@ __webpack_require__.r(__webpack_exports__);
     },
     clearForm: function clearForm() {
       this.name = "";
-      this.code = "";
       this.cityId = "";
       this.hasItem = false;
       this.selectedDistrictId = "";
     },
+    setSelected: function setSelected(selectedData) {
+      console.log(selectedData);
+      this.cityId = selectedData.cityId;
+      this.name = selectedData.name;
+      this.hasItem = true;
+      UIkit.modal('#addDistrictArea', {
+        escClose: false,
+        bgClose: false
+      }).show();
+    },
     saveItem: function saveItem() {
       if (this.hasItem) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/update/' + this.selectedDistrictId, {}).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/update/' + this.selectedDistrictId, {
+          name: this.name,
+          cityId: this.cityId
+        }).then(function (response) {
           return console.log(response);
         });
       } else {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/create', {}).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/create', {
+          name: this.name,
+          cityId: this.cityId
+        }).then(function (response) {
           return console.log(response);
         });
       }
@@ -2463,7 +2539,8 @@ __webpack_require__.r(__webpack_exports__);
       this.clearForm();
       UIkit.modal('#addDistrictArea').hide();
     }
-  }
+  },
+  created: function created() {}
 });
 
 /***/ }),
@@ -2606,20 +2683,40 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
-    deactivateItem: function deactivateItem() {},
-    activateItem: function activateItem() {},
-    deleteItem: function deleteItem() {},
+    deactivateItem: function deactivateItem(id) {
+      Axios.post('/api/admin/cr/grade/setPassive/' + id).then(function (response) {
+        return console.log(response.data);
+      });
+    },
+    activateItem: function activateItem(id) {
+      Axios.post('/api/admin/cr/grade/setActive/' + id).then(function (response) {
+        return console.log(response.data);
+      });
+    },
+    deleteItem: function deleteItem(id) {
+      Axios.post('/api/admin/cr/grade/delete/' + id).then(function (response) {
+        return console.log(response.data);
+      });
+    },
     openSettings: function openSettings(id) {
+      var _this = this;
+
       this.selectedGradeId = id;
-      this.hasItem = true;
-      this.icon = "fa-user";
-      this.name = id + ". adı";
+      Axios.get('/api/admin/cr/grade/show/' + id).then(function (response) {
+        return _this.setSelected(response.data);
+      });
+    },
+    openForm: function openForm() {
       UIkit.modal('#addGradeArea', {
         escClose: false,
         bgClose: false
       }).show();
     },
-    openForm: function openForm() {
+    setSelected: function setSelected(selectedData) {
+      console.log(selectedData);
+      this.icon = selectedData.symbol;
+      this.name = selectedData.name;
+      this.hasItem = true;
       UIkit.modal('#addGradeArea', {
         escClose: false,
         bgClose: false
@@ -2632,10 +2729,27 @@ __webpack_require__.r(__webpack_exports__);
       this.selectedGradeId = "";
     },
     saveItem: function saveItem() {
+      if (hasItem) {
+        Axios.post('/api/admin/cr/grade/update/' + this.selectedGradeId, {
+          symbol: this.icon,
+          name: this.name
+        }).then(function (response) {
+          return console.log(response);
+        });
+      } else {
+        Axios.post('/api/admin/cr/grade/create', {
+          symbol: this.icon,
+          name: this.name
+        }).then(function (response) {
+          return console.log(response);
+        });
+      }
+
       this.clearForm();
       UIkit.modal('#addGradeArea').hide();
     }
-  }
+  },
+  created: function created() {}
 });
 
 /***/ }),
@@ -2791,20 +2905,39 @@ __webpack_require__.r(__webpack_exports__);
     routeSubjects: function routeSubjects() {
       window.location.replace(this.subjectsRoute);
     },
-    deactivateItem: function deactivateItem() {},
-    activateItem: function activateItem() {},
-    deleteItem: function deleteItem() {},
+    deactivateItem: function deactivateItem(id) {
+      Axios.post('/api/admin/cr/lesson/setPassive/' + id).then(function (response) {
+        return console.log(response);
+      });
+    },
+    activateItem: function activateItem(id) {
+      Axios.post('/api/admin/cr/lesson/setActive/' + id).then(function (response) {
+        return console.log(response);
+      });
+    },
+    deleteItem: function deleteItem(id) {
+      Axios.post('/api/admin/cr/lesson/delete/' + id).then(function (response) {
+        return console.log(response);
+      });
+    },
     openSettings: function openSettings(id) {
+      var _this = this;
+
       this.selectedLessonId = id;
-      this.hasItem = true;
-      this.icon = "fa-chalkboard-teacher";
-      this.name = id + ". ders";
+      Axios.get('/api/admin/cr/lesson/show/' + id).then(function (response) {
+        return _this.setSelected(response.data);
+      });
+    },
+    openForm: function openForm() {
       UIkit.modal('#addLessonArea', {
         escClose: false,
         bgClose: false
       }).show();
     },
-    openForm: function openForm() {
+    setSelected: function setSelected(selectedData) {
+      this.icon = selectedData.symbol;
+      this.name = selectedData.name;
+      this.hasItem = true;
       UIkit.modal('#addLessonArea', {
         escClose: false,
         bgClose: false
@@ -2817,10 +2950,27 @@ __webpack_require__.r(__webpack_exports__);
       this.selectedLessonId = "";
     },
     saveItem: function saveItem() {
+      if (hasItem) {
+        Axios.post('/api/admin/cr/lesson/update/' + this.selectedLessonId, {
+          symbol: this.icon,
+          name: this.name
+        }).then(function (response) {
+          return console.log(response);
+        });
+      } else {
+        Axios.post('/api/admin/cr/lesson/create', {
+          symbol: this.icon,
+          name: this.name
+        }).then(function (response) {
+          return console.log(response);
+        });
+      }
+
       this.clearForm();
       UIkit.modal('#addLessonArea').hide();
     }
-  }
+  },
+  created: function created() {}
 });
 
 /***/ }),
@@ -2961,8 +3111,9 @@ __webpack_require__.r(__webpack_exports__);
       icon: "",
       name: "",
       categoryId: "",
-      image: "",
-      hasItem: false
+      description: "",
+      hasItem: false,
+      selectedSubCategoryId: ""
     };
   },
   props: {
@@ -2997,6 +3148,50 @@ __webpack_require__.r(__webpack_exports__);
     backText: {
       type: String,
       "default": "Geri"
+    },
+    categoryText: {
+      type: String,
+      "default": "Kategori"
+    },
+    selectCategoryText: {
+      type: String,
+      "default": "Kategori Seçiniz"
+    },
+    subCategoryName: {
+      type: String,
+      "default": "Alt Kategori Adı"
+    },
+    subCategoryImg: {
+      type: String,
+      "default": "Alt Kategori Resmi"
+    },
+    iconText: {
+      type: String,
+      "default": "İkon"
+    },
+    selectIconText: {
+      type: String,
+      "default": "İkon Seçiniz"
+    },
+    selectColorText: {
+      type: String,
+      "default": "Renk Seçiniz"
+    },
+    colorText: {
+      type: String,
+      "default": "Renk"
+    },
+    editSubCategoryText: {
+      type: String,
+      "default": "Alt Kategori Düzenle"
+    },
+    saveText: {
+      type: String,
+      "default": "Kaydet"
+    },
+    cancelText: {
+      type: String,
+      "default": "Cancel"
     }
   },
   methods: {
@@ -3019,16 +3214,12 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     openSettings: function openSettings(id) {
-      this.hasItem = true;
-      this.image = "";
-      this.color = id;
-      this.name = id + ". alt Kategori";
-      this.icon = id;
-      this.categoryId = id;
-      UIkit.modal('#addSubCategoryArea', {
-        escClose: false,
-        bgClose: false
-      }).show();
+      var _this = this;
+
+      this.selectedSubCategoryId = id;
+      Axios.get('/api/admin/ge/subCategory/show/' + id).then(function (response) {
+        return _this.setSelected(response.data);
+      });
     },
     openForm: function openForm() {
       UIkit.modal('#addSubCategoryArea', {
@@ -3036,19 +3227,51 @@ __webpack_require__.r(__webpack_exports__);
         bgClose: false
       }).show();
     },
+    setSelected: function setSelected(selectedData) {
+      console.log(selectedData);
+      this.description = selectedData.description;
+      this.color = selectedData.color;
+      this.name = selectedData.name;
+      this.icon = selectedData.symbol;
+      this.categoryId = selectedData.categoryId;
+      this.hasItem = true;
+      UIkit.modal('#addSubCategoryArea', {
+        escClose: false,
+        bgClose: false
+      }).show();
+    },
     clearForm: function clearForm() {
       this.hasItem = false;
-      this.image = "";
+      this.description = "";
       this.color = "";
       this.name = "";
       this.icon = "";
       this.categoryId = "";
+      this.selectedSubCategoryId = "";
     },
     saveItem: function saveItem() {
+      var formData = new FormData();
+      formData.append('name', this.name);
+      formData.append('categoryId', this.categoryId);
+      formData.append('symbol', this.icon);
+      formData.append('color', this.color);
+      formData.append('description', this.description);
+
+      if (hasItem) {
+        Axios.post('/api/admin/ge/subCategory/update/' + this.selectedSubCategoryId, formData).then(function (response) {
+          return console.log(response);
+        });
+      } else {
+        Axios.post('/api/admin/ge/subCategory/create', formData).then(function (response) {
+          return console.log(response);
+        });
+      }
+
       this.clearForm();
       UIkit.modal('#addSubCategoryArea').hide();
     }
-  }
+  },
+  created: function created() {}
 });
 
 /***/ }),
@@ -3216,20 +3439,39 @@ __webpack_require__.r(__webpack_exports__);
     routeLessons: function routeLessons() {
       window.location.replace(this.lessonsRoute);
     },
-    deactivateItem: function deactivateItem() {},
-    activateItem: function activateItem() {},
-    deleteItem: function deleteItem() {},
+    deactivateItem: function deactivateItem(id) {
+      Axios.post('/api/admin/cr/subject/setPassive/' + id).then(function (response) {
+        return console.log(response.data);
+      });
+    },
+    activateItem: function activateItem(id) {
+      Axios.post('/api/admin/cr/subject/setActive/' + id).then(function (response) {
+        return console.log(response.data);
+      });
+    },
+    deleteItem: function deleteItem(id) {
+      Axios.post('/api/admin/cr/subject/delete/' + id).then(function (response) {
+        return console.log(response.data);
+      });
+    },
     openSettings: function openSettings(id) {
-      ths.selectedGradeId = id;
-      this.hasItem = true;
-      this.name = id + ". konu";
-      this.lessonId = id;
+      var _this = this;
+
+      this.selectedGradeId = id;
+      Axios.get('/api/admin/cr/subject/show/' + id).then(function (response) {
+        return _this.setSelected(response.data);
+      });
+    },
+    openForm: function openForm() {
       UIkit.modal('#addSubjectArea', {
         escClose: false,
         bgClose: false
       }).show();
     },
-    openForm: function openForm() {
+    setSelected: function setSelected(selectedData) {
+      this.name = selectedData.name;
+      this.lessonId = selectedData.lessonId;
+      this.hasItem = true;
       UIkit.modal('#addSubjectArea', {
         escClose: false,
         bgClose: false
@@ -3242,10 +3484,27 @@ __webpack_require__.r(__webpack_exports__);
       this.selectedSubjectId = "";
     },
     saveItem: function saveItem() {
+      if (hasItem) {
+        Axios.post('/api/admin/cr/subject/update/' + this.selectedSubjectId, {
+          name: this.name,
+          lessonId: this.lessonId
+        }).then(function (response) {
+          return console.log(response);
+        });
+      } else {
+        Axios.post('/api/admin/cr/subject/create', {
+          name: this.name,
+          lessonId: this.lessonId
+        }).then(function (response) {
+          return console.log(response);
+        });
+      }
+
       this.clearForm();
       UIkit.modal('#addSubjectArea').hide();
     }
-  }
+  },
+  created: function created() {}
 });
 
 /***/ }),
@@ -10138,7 +10397,148 @@ var render = function() {
               ])
         ]),
         _vm._v(" "),
-        _vm._m(5),
+        _c(
+          "div",
+          { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
+          [
+            _c("div", { staticClass: "uk-form-label" }, [
+              _vm._v(_vm._s(_vm.categoryNameText))
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.name,
+                  expression: "name"
+                }
+              ],
+              staticClass: "uk-width uk-input",
+              attrs: { placeholder: _vm.categoryNameText },
+              domProps: { value: _vm.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.name = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("img"),
+            _vm._v(" "),
+            _c("input"),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.description,
+                  expression: "description"
+                }
+              ],
+              staticClass: "uk-width uk-textarea",
+              domProps: { value: _vm.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.description = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "uk-form-label" }, [
+              _vm._v(_vm._s(_vm.iconText))
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.icon,
+                    expression: "icon"
+                  }
+                ],
+                staticClass: "uk-width uk-select",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.icon = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c(
+                  "option",
+                  {
+                    attrs: { selected: "", hidden: "", disabled: "", value: "" }
+                  },
+                  [_vm._v(_vm._s(_vm.selectIconText))]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "uk-form-label" }, [
+              _vm._v(_vm._s(_vm.colorText))
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.color,
+                    expression: "color"
+                  }
+                ],
+                staticClass: "uk-width uk-select",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.color = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c(
+                  "option",
+                  {
+                    attrs: { selected: "", hidden: "", disabled: "", value: "" }
+                  },
+                  [_vm._v(_vm._s(_vm.selectColorText))]
+                )
+              ]
+            )
+          ]
+        ),
         _vm._v(" "),
         _c("div", { staticClass: "uk-modal-footer uk-text-right" }, [
           _c(
@@ -10205,16 +10605,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", [_c("p", [_vm._v("Edinburgh")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
-      [_c("input"), _vm._v(" "), _c("input"), _vm._v(" "), _c("input")]
-    )
   }
 ]
 render._withStripped = true
@@ -10823,32 +11213,6 @@ var render = function() {
                         return
                       }
                       _vm.name = $event.target.value
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-form-label" }, [
-                  _vm._v(_vm._s(_vm.districtCodeText))
-                ]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.code,
-                      expression: "code"
-                    }
-                  ],
-                  staticClass: "uk-width uk-input",
-                  attrs: { placeholder: _vm.districtCodeText },
-                  domProps: { value: _vm.code },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.code = $event.target.value
                     }
                   }
                 })
@@ -11897,7 +12261,7 @@ var render = function() {
             ),
             _vm._v(" "),
             _c("div", { staticClass: "uk-form-label" }, [
-              _vm._v(_vm._s(_vm.addSubCategoryText))
+              _vm._v(_vm._s(_vm.subCategoryNameText))
             ]),
             _vm._v(" "),
             _c("input", {

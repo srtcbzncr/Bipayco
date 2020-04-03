@@ -121,6 +121,7 @@
         },
         methods:{
             routeDistricts:function () {
+
                 window.location.replace(this.districtsRoute);
             },
             deactivateItem:function (id) {
@@ -134,18 +135,21 @@
             },
             openSettings:function (id) {
                 this.selectedCityId=id;
-                Axios.get('/api/admin/bs/city/show/'+id).then(response=>console.log(response));
-                this.hasItem=true;
-                this.code=id+". şehirin Kodu var burda";
-                this.name=id+". şehrin adı var burda";
-
+                Axios.get('/api/admin/bs/city/show/'+id)
+                    .then(response=>setSelected(response.data));
+            },
+            openForm:function () {
+                this.hasItem=false;
                 UIkit.modal('#addCityArea', {
                     escClose:false,
                     bgClose:false,
                 }).show();
             },
-            openForm:function () {
-                this.hasItem=false;
+            setSelected:function(selectedData){
+                console.log(selectedData);
+                this.name=selectedData.name;
+                this.code=selectedData.code;
+                this.hasItem=true;
                 UIkit.modal('#addCityArea', {
                     escClose:false,
                     bgClose:false,
@@ -158,17 +162,22 @@
             saveItem:function () {
                 if(this.hasItem){
                     Axios.post('/api/admin/bs/city/update/'+this.selectedCityId, {
-
+                        name: this.name,
+                        code: this.code,
                     }).then(response=>console.log(response));
                 }else{
                     Axios.post('/api/admin/bs/city/create', {
-
+                        name: this.name,
+                        code: this.name,
                     }).then(response=>console.log(response));
                 }
                 this.clearForm();
                 UIkit.modal('#addCityArea').hide();
 
             }
+        },
+        created() {
+
         }
     }
 </script>
