@@ -256,6 +256,26 @@ Route::prefix('admin')->group(function (){
        });
    });
    Route::prefix('cr')->group(function (){
-
+       Route::prefix('grade')->group(function (){
+           Route::post('/create','API\Admin\GradeController@createGrade')->name('admin_cr_grade_create');
+           Route::get('/show','API\Admin\GradeController@showGradies')->name('admin_cr_grade_show');
+           Route::get('/show/{gradeId}','API\Admin\GradeController@showGrade')->name('admin_cr_grade_show_grade');
+           Route::post('/delete/{gradeId}','API\Admin\GradeController@deleteGrade')->name('admin_cr_grade_delete');
+           Route::post('/update/{gradeId}','API\Admin\GradeController@updateGrade')->name('admin_cr_grade_update');
+       });
+       Route::prefix('lesson')->group(function (){
+           Route::post('/create','API\Admin\LessonController@createLesson')->name('admin_cr_lesson_create');
+           Route::get('/show','API\Admin\LessonController@showLessons')->name('admin_cr_lesson_show');
+           Route::get('/show/{lessonId}','API\Admin\LessonController@showLesson')->name('admin_cr_lesson_show_grade');
+           Route::post('/delete/{lessonId}','API\Admin\LessonController@deleteLesson')->name('admin_cr_lesson_delete');
+           Route::post('/update/{lessonId}','API\Admin\LessonController@updateLesson')->name('admin_cr_lesson_update');
+       });
+       Route::prefix('subject')->group(function (){
+           Route::post('/create','API\Admin\SubjectController@createSubject')->name('admin_cr_subject_create');
+           Route::get('/show','API\Admin\SubjectController@showSubjects')->name('admin_cr_subject_show');
+           Route::get('/show/{subjectId}','API\Admin\SubjectController@showSubject')->name('admin_cr_subject_show_subject');
+           Route::post('/delete/{subjectId}','API\Admin\SubjectController@deleteSubject')->name('admin_cr_subject_delete');
+           Route::post('/update/{subjectId}','API\Admin\SubjectController@updateSubject')->name('admin_cr_subject_update');
+       });
    });
 });
