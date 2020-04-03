@@ -19,7 +19,8 @@ class CategoryController extends Controller
             return response()->json([
                 'error' => false,
                 'data' => $resp->getData(),
-                'message' => 'Kategori başarıyla oluşturuldu.'
+                'message' => 'Kategori başarıyla oluşturuldu.',
+                'data' => $resp->getData()
             ]);
         }
 
@@ -40,7 +41,8 @@ class CategoryController extends Controller
             return response()->json([
                 'error' => false,
                 'data' => $resp->getData(),
-                'message' => 'Kategoriler başarıyla getirildi.'
+                'message' => 'Kategoriler başarıyla getirildi.',
+                'data' => $resp->getData()
             ]);
         }
 
@@ -61,7 +63,8 @@ class CategoryController extends Controller
             return response()->json([
                 'error' => false,
                 'data' => $resp->getData(),
-                'message' => 'Kategori başarıyla getirildi.'
+                'message' => 'Kategori başarıyla getirildi.',
+                'data' => $resp->getData()
             ]);
         }
 
@@ -102,13 +105,14 @@ class CategoryController extends Controller
         if ($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'message' => 'Kategori başarıyla silindi.'
+                'message' => 'Kategori başarıyla güncellendi.',
+                'data' => $resp->getData()
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'message' => 'Kategori silinirken bir hata meydana geldi.Tekrar deneyin.',
+            'message' => 'Kategori güncellenirken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
         ],400);
     }
@@ -122,7 +126,8 @@ class CategoryController extends Controller
         if ($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'message' => 'Kategori başarıyla aktif hale getirildi.'
+                'message' => 'Kategori başarıyla aktif hale getirildi.',
+                'data' => $resp->getData()
             ]);
         }
 
@@ -162,7 +167,8 @@ class CategoryController extends Controller
         if ($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'message' => 'Kategoriye ait alt kategoriler başarıyla getirildi.'
+                'message' => 'Kategoriye ait alt kategoriler başarıyla getirildi.',
+                'data' => $resp->getData()
             ]);
         }
 
