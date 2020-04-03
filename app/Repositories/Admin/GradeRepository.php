@@ -4,13 +4,12 @@
 namespace App\Repositories\Admin;
 
 
-use App\Models\GeneralEducation\SubCategory;
+use App\Models\Curriculum\Grade;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
-class SubCategoryRepository implements IRepository
+class GradeRepository implements IRepository
 {
 
     public function all()
@@ -22,7 +21,7 @@ class SubCategoryRepository implements IRepository
 
         // Operations
         try{
-            $object = SubCategory::all();
+            $object = Grade::all();
         }
         catch(\Exception $e){
             $error = $e->getMessage();
@@ -43,7 +42,7 @@ class SubCategoryRepository implements IRepository
 
         // Operations
         try{
-            $object = SubCategory::find($id);
+            $object = Grade::find($id);
         }
         catch(\Exception $e){
             $error = $e->getMessage();
@@ -65,14 +64,9 @@ class SubCategoryRepository implements IRepository
         // Operations
         try{
             DB::beginTransaction();
-            $object = new SubCategory();
-            $object->category_id = $data['categoryId '];
+            $object = new Grade();
             $object->name = $data['name'];
-            $object->color = $data['color'];
-            $object->symbol = $data['symbol'];
-            $filePath = $data['image']->store('public/images');
-            $accessPath = Storage::url($filePath);
-            $object->image = $accessPath;
+            $object->name = $data['symbol'];
             $object->save();
             DB::commit();
         }
@@ -97,16 +91,9 @@ class SubCategoryRepository implements IRepository
         // Operations
         try{
             DB::beginTransaction();
-            $object = new SubCategory();
-            $object->category_id = $data['categoryId '];
+            $object = Grade::find($id);
             $object->name = $data['name'];
-            $object->color = $data['color'];
-            $object->symbol = $data['symbol'];
-            if(isset($data['image']) and $data['image'] != null){
-                $filePath = $data['image']->store('public/images');
-                $accessPath = Storage::url($filePath);
-                $object->image = $accessPath;
-            }
+            $object->name = $data['symbol'];
             $object->save();
             DB::commit();
         }
@@ -130,7 +117,7 @@ class SubCategoryRepository implements IRepository
 
         // Operations
         try{
-            $object = SubCategory::find($id);
+            $object = Grade::find($id);
             $object->delete();
         }
         catch(\Exception $e){
@@ -145,47 +132,11 @@ class SubCategoryRepository implements IRepository
 
     public function setActive($id)
     {
-        // Response variables
-        $result = true;
-        $error = null;
-        $object = null;
-
-        // Operations
-        try{
-            $object = SubCategory::find($id);
-            $object->active = true;
-            $object->save();
-        }
-        catch(\Exception $e){
-            $error = $e->getMessage();
-            $result = false;
-        }
-
-        // Response
-        $resp = new RepositoryResponse($result, $object, $error);
-        return $resp;
+        // TODO: Implement setActive() method.
     }
 
     public function setPassive($id)
     {
-        // Response variables
-        $result = true;
-        $error = null;
-        $object = null;
-
-        // Operations
-        try{
-            $object = SubCategory::find($id);
-            $object->active = false;
-            $object->save();
-        }
-        catch(\Exception $e){
-            $error = $e->getMessage();
-            $result = false;
-        }
-
-        // Response
-        $resp = new RepositoryResponse($result, $object, $error);
-        return $resp;
+        // TODO: Implement setPassive() method.
     }
 }
