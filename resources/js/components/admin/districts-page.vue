@@ -15,10 +15,9 @@
             <table id="categoryTable" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0">
                 <thead v-if="true">
                 <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
+                    <th>{{districtNameText}}</th>
+                    <th>{{districtCodeText}}</th>
+                    <th>{{cityText}}</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -27,7 +26,6 @@
                     <td><p>a</p></td>
                     <td><p>Tiger Nixon</p></td>
                     <td><p>System Architect</p></td>
-                    <td><p>Edinburgh</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-between">
                         <a @click="openSettings(2)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
                         <a @click="deactivateItem()" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
@@ -38,7 +36,6 @@
                     <td><p>s</p></td>
                     <td><p>Tiger Nixon</p></td>
                     <td><p>System Architect</p></td>
-                    <td><p>Edinburgh</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-between">
                         <a @click="openSettings(1)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
                         <a @click="activateItem()" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
@@ -85,6 +82,8 @@
 </template>
 
 <script>
+    import Axios from "axios";
+
     export default {
         name: "districts-page",
         data(){
@@ -93,6 +92,7 @@
               code:"",
               cityId:"",
               hasItem:false,
+              selectedDistrictId:"",
           }
         },
         props:{
@@ -157,16 +157,18 @@
             routeCities:function () {
                 window.location.replace(this.citiesRoute);
             },
-            deactivateItem:function () {
-
+            deactivateItem:function (id) {
+                Axios.post('/api/admin/bs/district/setPassive/'+id).then(response=>console.log(response));
             },
-            activateItem:function () {
-
+            activateItem:function (id) {
+                Axios.post('/api/admin/bs/district/setActive/'+id).then(response=>console.log(response));
             },
-            deleteItem:function () {
-
+            deleteItem:function (id) {
+                Axios.post('/api/admin/bs/district/delete/'+id).then(response=>console.log(response));
             },
             openSettings:function (id) {
+                this.selectedDistrictId=id;
+                Axios.get('/api/admin/bs/district/show/'+id).then(response=>console.log(response));
                 this.hasItem=true;
                 this.cityId=1;
                 this.code=id+". şehirin Kodu var burda";
@@ -188,10 +190,19 @@
                 this.code="";
                 this.cityId="";
                 this.hasItem=false;
+                this.selectedDistrictId="";
             },
             saveItem:function () {
-                this.clearForm();
+                if(this.hasItem){
+                    Axios.post('/api/admin/bs/district/update/'+this.selectedDistrictId, {
 
+                    }).then(response=>console.log(response));
+                }else{
+                    Axios.post('/api/admin/bs/district/create', {
+
+                    }).then(response=>console.log(response));
+                }
+                this.clearForm();
                 UIkit.modal('#addDistrictArea').hide();
             }
         }

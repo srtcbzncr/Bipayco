@@ -8,7 +8,7 @@
                 </a>
             </div>
             <div class="text-right">
-                <button class="uk-button uk-button-success"><i class="fas fa-plus"></i> {{addSubCategoryText}} </button>
+                <button class="uk-button uk-button-success" @click="openForm"><i class="fas fa-plus"></i> {{addSubCategoryText}} </button>
             </div>
         </div>
         <div class="uk-background-default uk-padding-remove uk-margin-small-top border-radius-6">
@@ -54,13 +54,27 @@
         <div id="addSubCategoryArea" uk-modal>
             <div class="uk-modal-dialog">
                 <div class="uk-modal-header">
-                    <h2 class="uk-modal-title">{{addCategoryText}}</h2>
+                    <h2 v-if="!hasItem" class="uk-modal-title">{{addSubCategoryText}}</h2>
+                    <h2 v-else class="uk-modal-title">{{editSubCategoryText}}</h2>
                 </div>
 
                 <div class="uk-modal-body" uk-overflow-auto>
+                    <div>{{categoryText}}</div>
+                    <select class="uk-width uk-select" v-model="categoryId">
+                        <option selected hidden disabled value="">{{selectCategoryText}}</option>
+                    </select>
+                    <div class="uk-form-label">{{addSubCategoryText}}</div>
+                    <input class="uk-width uk-input" v-model="name" :placeholder="subCategoryNameText">
+                    <img>
                     <input>
-                    <input>
-                    <input>
+                    <div class="uk-form-label">{{iconText}}</div>
+                    <select class="uk-width uk-select" v-model="icon">
+                        <option selected hidden disabled value="">{{selectIconText}}</option>
+                    </select>
+                    <div class="uk-form-label">{{colorText}}</div>
+                    <select class="uk-width uk-select" v-model="color">
+                        <option selected hidden disabled value="">{{selectColorText}}</option>
+                    </select>
                 </div>
 
                 <div class="uk-modal-footer uk-text-right">
@@ -74,7 +88,17 @@
 
 <script>
     export default {
-        name: "categories-page",
+        name: "sub-categories-page",
+        data(){
+            return{
+                color:"",
+                icon:"",
+                name:"",
+                categoryId:"",
+                image:"",
+                hasItem:false,
+            }
+        },
         props:{
             categoryRoute:{
                 type:String,
@@ -113,26 +137,40 @@
             routeCategory:function () {
                 window.location.replace(this.subCategoryRoute);
             },
-            deactivateItem:function () {
-
+            deactivateItem:function (id) {
+                Axios.post('/api/admin/ge/subCategory/setPassive/'+id).then(response=>console.log(response))
             },
-            activateItem:function () {
-
+            activateItem:function (id) {
+                Axios.post('/api/admin/ge/subCategory/setActive/'+id).then(response=>console.log(response))
             },
-            deleteItem:function () {
-
+            deleteItem:function (id) {
+                Axios.post('/api/admin/ge/subCategory/delete/'+id).then(response=>console.log(response))
             },
-            openSettings:function () {
-
+            openSettings:function (id) {
+                this.hasItem=true;
+                this.image="";
+                this.color=id;
+                this.name=id+". alt Kategori";
+                this.icon=id;
+                this.categoryId=id;
+                UIkit.modal('#addSubCategoryArea', {
+                    escClose:false,
+                    bgClose:false,
+                }).show();
             },
-            openModel:function () {
+            openForm:function () {
                 UIkit.modal('#addSubCategoryArea', {
                     escClose:false,
                     bgClose:false,
                 }).show();
             },
             clearForm:function () {
-
+                this.hasItem=false;
+                this.image="";
+                this.color="";
+                this.name="";
+                this.icon="";
+                this.categoryId="";
             },
             saveItem:function () {
                 this.clearForm();

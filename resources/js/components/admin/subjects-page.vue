@@ -88,6 +88,7 @@
                 name:"",
                 lessonId:"",
                 hasItem:false,
+                selectedSubjectId:"",
             }
         },
         props:{
@@ -163,6 +164,7 @@
 
             },
             openSettings:function (id) {
+                ths.selectedGradeId=id;
                 this.hasItem=true;
                 this.name=id+". konu";
                 this.lessonId=id;
@@ -181,6 +183,7 @@
                 this.name="";
                 this.lessonId="";
                 this.hasItem=false;
+                this.selectedSubjectId="";
             },
             saveItem:function () {
                 this.clearForm();

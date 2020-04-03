@@ -7,34 +7,20 @@
             <table id="categoryTable" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0">
                 <thead v-if="true">
                 <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
+                    <th>{{cityNameText}}</th>
+                    <th>{{cityCodeText}}</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody v-if="true">
-                <tr>
+                <tr v-for="city in cities">
                     <td @click="routeDistricts"><p>a</p></td>
                     <td @click="routeDistricts"><p>Tiger Nixon</p></td>
-                    <td @click="routeDistricts"><p>System Architect</p></td>
-                    <td @click="routeDistricts"><p>Edinburgh</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-between">
-                        <a @click="openSettings(1)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
-                        <a @click="deactivateItem()" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
-                        <a @click="deleteItem()" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>s</p></td>
-                    <td><p>Tiger Nixon</p></td>
-                    <td><p>System Architect</p></td>
-                    <td><p>Edinburgh</p></td>
-                    <td class="uk-flex flex-wrap align-items-center justify-content-between">
-                        <a @click="openSettings(1)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
-                        <a @click="activateItem()" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
-                        <a @click="deleteItem()" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
+                        <a @click="openSettings(city.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
+                        <a v-if="city.active" @click="activateItem(city.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
+                        <a v-else @click="deactivateItem(city.id)" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
+                        <a @click="deleteItem(city.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                     </td>
                 </tr>
                 </tbody>
@@ -54,10 +40,10 @@
                     <div class="uk-margin-bottom">
                         <div class="uk-margin-bottom">
                             <input hidden disabled value="1" id="countryId">
-                            <div class="uk-form-label">{{cityName}}</div>
-                            <input class="uk-input uk-width" v-model="name" :placeholder="cityName">
-                            <div class="uk-form-label">{{cityCode}}</div>
-                            <input class="uk-input uk-width" v-model="code" :placeholder="cityCode">
+                            <div class="uk-form-label">{{cityNameText}}</div>
+                            <input class="uk-input uk-width" v-model="name" :placeholder="cityNameText">
+                            <div class="uk-form-label">{{cityCodeText}}</div>
+                            <input class="uk-input uk-width" v-model="code" :placeholder="cityCodeText">
                         </div>
                     </div>
                 </div>
@@ -72,6 +58,7 @@
 </template>
 
 <script>
+    import Axios from 'axios';
     export default {
         name: "cities-page",
         data(){
@@ -79,6 +66,7 @@
                 name:"",
                 code:"",
                 hasItem:false,
+                selectedCityId:"",
             }
         },
         props:{
@@ -110,11 +98,11 @@
                 type:String,
                 default:"Düzenle"
             },
-            cityName:{
+            cityNameText:{
                 type:String,
                 default:"Şehir Adı"
             },
-            cityCode:{
+            cityCodeText:{
                 type:String,
                 default:"Şehir Kodu"
             },
@@ -135,16 +123,18 @@
             routeDistricts:function () {
                 window.location.replace(this.districtsRoute);
             },
-            deactivateItem:function () {
-
+            deactivateItem:function (id) {
+                Axios.post('/api/admin/bs/city/setPassive/'+id).then(response=>console.log(response));
             },
-            activateItem:function () {
-
+            activateItem:function (id) {
+                Axios.post('/api/admin/bs/city/setActive/'+id).then(response=>console.log(response));
             },
-            deleteItem:function () {
-
+            deleteItem:function (id) {
+                Axios.post('/api/admin/bs/city/delete/'+id).then(response=>console.log(response));
             },
             openSettings:function (id) {
+                this.selectedCityId=id;
+                Axios.get('/api/admin/bs/city/show/'+id).then(response=>console.log(response));
                 this.hasItem=true;
                 this.code=id+". şehirin Kodu var burda";
                 this.name=id+". şehrin adı var burda";
@@ -166,8 +156,18 @@
                 this.code="";
             },
             saveItem:function () {
+                if(this.hasItem){
+                    Axios.post('/api/admin/bs/city/update/'+this.selectedCityId, {
+
+                    }).then(response=>console.log(response));
+                }else{
+                    Axios.post('/api/admin/bs/city/create', {
+
+                    }).then(response=>console.log(response));
+                }
                 this.clearForm();
                 UIkit.modal('#addCityArea').hide();
+
             }
         }
     }

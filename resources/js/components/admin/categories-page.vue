@@ -1,7 +1,7 @@
 <template>
     <div class="uk-margin-large-top">
         <div class="text-right">
-            <button class="uk-button uk-button-success" @click="openModel"><i class="fas fa-plus"></i> {{addCategoryText}} </button>
+            <button class="uk-button uk-button-success" @click="openForm"><i class="fas fa-plus"></i> {{addCategoryText}} </button>
         </div>
         <div class="uk-background-default uk-padding-remove uk-margin-small-top border-radius-6">
             <table id="categoryTable" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0">
@@ -70,7 +70,12 @@
         name: "categories-page",
         data(){
             return{
+                name:"",
+                icon:"",
+                image:"",
+                color:"",
                 hasItem:false,
+                selectedCategoryId:"",
             }
         },
         props:{
@@ -119,34 +124,48 @@
             routeSubCategories:function () {
                 window.location.replace(this.subCategoriesRoute);
             },
-            deactivateItem:function () {
-
+            deactivateItem:function (id) {
+                Axios.post('/api/admin/ge/category/setPassive/'+id).then(response=>console.log(response));
             },
-            activateItem:function () {
-
+            activateItem:function (id) {
+                Axios.post('/api/admin/ge/category/setActive/'+id).then(response=>console.log(response));
             },
-            deleteItem:function () {
-
+            deleteItem:function (id) {
+                Axios.post('/api/admin/ge/category/delete/'+id).then(response=>console.log(response));
             },
             openSettings:function (id) {
+                this.selectedCategoryId=id;
                 this.hasItem=true;
                 UIkit.modal('#addCategoryArea', {
                     escClose:false,
                     bgClose:false,
                 }).show();
             },
-            openModel:function () {
+            openForm:function () {
                 UIkit.modal('#addCategoryArea', {
                     escClose:false,
                     bgClose:false,
                 }).show();
             },
             clearForm:function () {
+                this.name="";
+                this.icon="";
+                this.image="";
+                this.color="";
                 this.hasItem=false;
+                this.selectedCategoryId="";
             },
             saveItem:function () {
-                this.clearForm();
+                if(this.hasItem){
+                    Axios.post('/api/admin/ge/update/'+this.selectedCategoryId, {
 
+                    }).then(response=>console.log(response));
+                }else{
+                    Axios.post('/api/admin/ge/create', {
+
+                    }).then(response=>console.log(response));
+                }
+                this.clearForm();
                 UIkit.modal('#addCategoryArea').hide();
             }
         }

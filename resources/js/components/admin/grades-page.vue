@@ -9,19 +9,15 @@
                 <tr>
                     <th>Name</th>
                     <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody v-if="true">
                 <tr>
-                    <td><p>a</p></td>
-                    <td><p>Tiger Nixon</p></td>
-                    <td><p>System Architect</p></td>
-                    <td><p>Edinburgh</p></td>
-                    <td class="uk-flex flex-wrap align-items-center justify-content-between">
-                        <a @click="openSettings(2)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
+                    <td class="uk-width-1-3"><p>a</p></td>
+                    <td class="uk-width-1-3"><p>Tiger Nixon</p></td>
+                    <td class="uk-flex flex-wrap align-items-center justify-content-around">
+                        <a @click="openSettings(2)" :uk-tooltip="editText" ><i class="fas fa-cog"></i></a>
                         <a @click="deactivateItem()" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
                         <a @click="deleteItem()" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                     </td>
@@ -29,9 +25,7 @@
                 <tr>
                     <td><p>s</p></td>
                     <td><p>Tiger Nixon</p></td>
-                    <td><p>System Architect</p></td>
-                    <td><p>Edinburgh</p></td>
-                    <td class="uk-flex flex-wrap align-items-center justify-content-between">
+                    <td class="uk-flex flex-wrap align-items-center justify-content-around">
                         <a @click="openSettings(1)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
                         <a @click="activateItem()" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
                         <a @click="deleteItem()" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
@@ -80,6 +74,7 @@
                 name:"",
                 icon:"",
                 hasItem:false,
+                selectedGradeId:"",
             }
         },
         props:{
@@ -143,6 +138,7 @@
 
             },
             openSettings:function (id) {
+                this.selectedGradeId=id;
                 this.hasItem=true;
                 this.icon="fa-user";
                 this.name=id+". adı";
@@ -161,6 +157,7 @@
                 this.icon="";
                 this.name="";
                 this.hasItem=false;
+                this.selectedGradeId="";
             },
             saveItem:function () {
                 this.clearForm();

@@ -80,6 +80,7 @@
                 name:"",
                 icon:"",
                 hasItem:false,
+                selectedLessonId:"",
             }
         },
         props:{
@@ -150,6 +151,7 @@
 
             },
             openSettings:function (id) {
+                this.selectedLessonId=id;
                 this.hasItem=true;
                 this.icon="fa-chalkboard-teacher";
                 this.name=id+". ders";
@@ -168,6 +170,7 @@
                 this.icon="";
                 this.name="";
                 this.hasItem=false;
+                this.selectedLessonId="";
             },
             saveItem:function () {
                 this.clearForm();

@@ -1909,7 +1909,12 @@ __webpack_require__.r(__webpack_exports__);
   name: "categories-page",
   data: function data() {
     return {
-      hasItem: false
+      name: "",
+      icon: "",
+      image: "",
+      color: "",
+      hasItem: false,
+      selectedCategoryId: ""
     };
   },
   props: {
@@ -1958,26 +1963,54 @@ __webpack_require__.r(__webpack_exports__);
     routeSubCategories: function routeSubCategories() {
       window.location.replace(this.subCategoriesRoute);
     },
-    deactivateItem: function deactivateItem() {},
-    activateItem: function activateItem() {},
-    deleteItem: function deleteItem() {},
+    deactivateItem: function deactivateItem(id) {
+      Axios.post('/api/admin/ge/category/setPassive/' + id).then(function (response) {
+        return console.log(response);
+      });
+    },
+    activateItem: function activateItem(id) {
+      Axios.post('/api/admin/ge/category/setActive/' + id).then(function (response) {
+        return console.log(response);
+      });
+    },
+    deleteItem: function deleteItem(id) {
+      Axios.post('/api/admin/ge/category/delete/' + id).then(function (response) {
+        return console.log(response);
+      });
+    },
     openSettings: function openSettings(id) {
+      this.selectedCategoryId = id;
       this.hasItem = true;
       UIkit.modal('#addCategoryArea', {
         escClose: false,
         bgClose: false
       }).show();
     },
-    openModel: function openModel() {
+    openForm: function openForm() {
       UIkit.modal('#addCategoryArea', {
         escClose: false,
         bgClose: false
       }).show();
     },
     clearForm: function clearForm() {
+      this.name = "";
+      this.icon = "";
+      this.image = "";
+      this.color = "";
       this.hasItem = false;
+      this.selectedCategoryId = "";
     },
     saveItem: function saveItem() {
+      if (this.hasItem) {
+        Axios.post('/api/admin/ge/update/' + this.selectedCategoryId, {}).then(function (response) {
+          return console.log(response);
+        });
+      } else {
+        Axios.post('/api/admin/ge/create', {}).then(function (response) {
+          return console.log(response);
+        });
+      }
+
       this.clearForm();
       UIkit.modal('#addCategoryArea').hide();
     }
@@ -1995,6 +2028,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2054,27 +2089,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "cities-page",
   data: function data() {
     return {
       name: "",
       code: "",
-      hasItem: false
+      hasItem: false,
+      selectedCityId: ""
     };
   },
   props: {
@@ -2106,11 +2129,11 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       "default": "Düzenle"
     },
-    cityName: {
+    cityNameText: {
       type: String,
       "default": "Şehir Adı"
     },
-    cityCode: {
+    cityCodeText: {
       type: String,
       "default": "Şehir Kodu"
     },
@@ -2131,10 +2154,26 @@ __webpack_require__.r(__webpack_exports__);
     routeDistricts: function routeDistricts() {
       window.location.replace(this.districtsRoute);
     },
-    deactivateItem: function deactivateItem() {},
-    activateItem: function activateItem() {},
-    deleteItem: function deleteItem() {},
+    deactivateItem: function deactivateItem(id) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/setPassive/' + id).then(function (response) {
+        return console.log(response);
+      });
+    },
+    activateItem: function activateItem(id) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/setActive/' + id).then(function (response) {
+        return console.log(response);
+      });
+    },
+    deleteItem: function deleteItem(id) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/delete/' + id).then(function (response) {
+        return console.log(response);
+      });
+    },
     openSettings: function openSettings(id) {
+      this.selectedCityId = id;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/bs/city/show/' + id).then(function (response) {
+        return console.log(response);
+      });
       this.hasItem = true;
       this.code = id + ". şehirin Kodu var burda";
       this.name = id + ". şehrin adı var burda";
@@ -2155,6 +2194,16 @@ __webpack_require__.r(__webpack_exports__);
       this.code = "";
     },
     saveItem: function saveItem() {
+      if (this.hasItem) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/update/' + this.selectedCityId, {}).then(function (response) {
+          return console.log(response);
+        });
+      } else {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/create', {}).then(function (response) {
+          return console.log(response);
+        });
+      }
+
       this.clearForm();
       UIkit.modal('#addCityArea').hide();
     }
@@ -2199,6 +2248,8 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2282,9 +2333,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "districts-page",
   data: function data() {
@@ -2292,7 +2341,8 @@ __webpack_require__.r(__webpack_exports__);
       name: "",
       code: "",
       cityId: "",
-      hasItem: false
+      hasItem: false,
+      selectedDistrictId: ""
     };
   },
   props: {
@@ -2357,10 +2407,26 @@ __webpack_require__.r(__webpack_exports__);
     routeCities: function routeCities() {
       window.location.replace(this.citiesRoute);
     },
-    deactivateItem: function deactivateItem() {},
-    activateItem: function activateItem() {},
-    deleteItem: function deleteItem() {},
+    deactivateItem: function deactivateItem(id) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/setPassive/' + id).then(function (response) {
+        return console.log(response);
+      });
+    },
+    activateItem: function activateItem(id) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/setActive/' + id).then(function (response) {
+        return console.log(response);
+      });
+    },
+    deleteItem: function deleteItem(id) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/delete/' + id).then(function (response) {
+        return console.log(response);
+      });
+    },
     openSettings: function openSettings(id) {
+      this.selectedDistrictId = id;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/bs/district/show/' + id).then(function (response) {
+        return console.log(response);
+      });
       this.hasItem = true;
       this.cityId = 1;
       this.code = id + ". şehirin Kodu var burda";
@@ -2381,8 +2447,19 @@ __webpack_require__.r(__webpack_exports__);
       this.code = "";
       this.cityId = "";
       this.hasItem = false;
+      this.selectedDistrictId = "";
     },
     saveItem: function saveItem() {
+      if (this.hasItem) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/update/' + this.selectedDistrictId, {}).then(function (response) {
+          return console.log(response);
+        });
+      } else {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/create', {}).then(function (response) {
+          return console.log(response);
+        });
+      }
+
       this.clearForm();
       UIkit.modal('#addDistrictArea').hide();
     }
@@ -2468,19 +2545,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "grades-page",
   data: function data() {
     return {
       name: "",
       icon: "",
-      hasItem: false
+      hasItem: false,
+      selectedGradeId: ""
     };
   },
   props: {
@@ -2538,6 +2610,7 @@ __webpack_require__.r(__webpack_exports__);
     activateItem: function activateItem() {},
     deleteItem: function deleteItem() {},
     openSettings: function openSettings(id) {
+      this.selectedGradeId = id;
       this.hasItem = true;
       this.icon = "fa-user";
       this.name = id + ". adı";
@@ -2556,6 +2629,7 @@ __webpack_require__.r(__webpack_exports__);
       this.icon = "";
       this.name = "";
       this.hasItem = false;
+      this.selectedGradeId = "";
     },
     saveItem: function saveItem() {
       this.clearForm();
@@ -2655,7 +2729,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       name: "",
       icon: "",
-      hasItem: false
+      hasItem: false,
+      selectedLessonId: ""
     };
   },
   props: {
@@ -2720,6 +2795,7 @@ __webpack_require__.r(__webpack_exports__);
     activateItem: function activateItem() {},
     deleteItem: function deleteItem() {},
     openSettings: function openSettings(id) {
+      this.selectedLessonId = id;
       this.hasItem = true;
       this.icon = "fa-chalkboard-teacher";
       this.name = id + ". ders";
@@ -2738,6 +2814,7 @@ __webpack_require__.r(__webpack_exports__);
       this.icon = "";
       this.name = "";
       this.hasItem = false;
+      this.selectedLessonId = "";
     },
     saveItem: function saveItem() {
       this.clearForm();
@@ -2862,8 +2939,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "categories-page",
+  name: "sub-categories-page",
+  data: function data() {
+    return {
+      color: "",
+      icon: "",
+      name: "",
+      categoryId: "",
+      image: "",
+      hasItem: false
+    };
+  },
   props: {
     categoryRoute: {
       type: String,
@@ -2902,17 +3003,47 @@ __webpack_require__.r(__webpack_exports__);
     routeCategory: function routeCategory() {
       window.location.replace(this.subCategoryRoute);
     },
-    deactivateItem: function deactivateItem() {},
-    activateItem: function activateItem() {},
-    deleteItem: function deleteItem() {},
-    openSettings: function openSettings() {},
-    openModel: function openModel() {
+    deactivateItem: function deactivateItem(id) {
+      Axios.post('/api/admin/ge/subCategory/setPassive/' + id).then(function (response) {
+        return console.log(response);
+      });
+    },
+    activateItem: function activateItem(id) {
+      Axios.post('/api/admin/ge/subCategory/setActive/' + id).then(function (response) {
+        return console.log(response);
+      });
+    },
+    deleteItem: function deleteItem(id) {
+      Axios.post('/api/admin/ge/subCategory/delete/' + id).then(function (response) {
+        return console.log(response);
+      });
+    },
+    openSettings: function openSettings(id) {
+      this.hasItem = true;
+      this.image = "";
+      this.color = id;
+      this.name = id + ". alt Kategori";
+      this.icon = id;
+      this.categoryId = id;
       UIkit.modal('#addSubCategoryArea', {
         escClose: false,
         bgClose: false
       }).show();
     },
-    clearForm: function clearForm() {},
+    openForm: function openForm() {
+      UIkit.modal('#addSubCategoryArea', {
+        escClose: false,
+        bgClose: false
+      }).show();
+    },
+    clearForm: function clearForm() {
+      this.hasItem = false;
+      this.image = "";
+      this.color = "";
+      this.name = "";
+      this.icon = "";
+      this.categoryId = "";
+    },
     saveItem: function saveItem() {
       this.clearForm();
       UIkit.modal('#addSubCategoryArea').hide();
@@ -3019,7 +3150,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       name: "",
       lessonId: "",
-      hasItem: false
+      hasItem: false,
+      selectedSubjectId: ""
     };
   },
   props: {
@@ -3088,6 +3220,7 @@ __webpack_require__.r(__webpack_exports__);
     activateItem: function activateItem() {},
     deleteItem: function deleteItem() {},
     openSettings: function openSettings(id) {
+      ths.selectedGradeId = id;
       this.hasItem = true;
       this.name = id + ". konu";
       this.lessonId = id;
@@ -3106,6 +3239,7 @@ __webpack_require__.r(__webpack_exports__);
       this.name = "";
       this.lessonId = "";
       this.hasItem = false;
+      this.selectedSubjectId = "";
     },
     saveItem: function saveItem() {
       this.clearForm();
@@ -9834,7 +9968,7 @@ var render = function() {
         "button",
         {
           staticClass: "uk-button uk-button-success",
-          on: { click: _vm.openModel }
+          on: { click: _vm.openForm }
         },
         [
           _c("i", { staticClass: "fas fa-plus" }),
@@ -10134,134 +10268,107 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true ? _c("thead", [_vm._m(0)]) : undefined,
-            _vm._v(" "),
             true
-              ? _c("tbody", [
+              ? _c("thead", [
                   _c("tr", [
-                    _c("td", { on: { click: _vm.routeDistricts } }, [
-                      _c("p", [_vm._v("a")])
-                    ]),
+                    _c("th", [_vm._v(_vm._s(_vm.cityNameText))]),
                     _vm._v(" "),
-                    _c("td", { on: { click: _vm.routeDistricts } }, [
-                      _c("p", [_vm._v("Tiger Nixon")])
-                    ]),
+                    _c("th", [_vm._v(_vm._s(_vm.cityCodeText))]),
                     _vm._v(" "),
-                    _c("td", { on: { click: _vm.routeDistricts } }, [
-                      _c("p", [_vm._v("System Architect")])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { on: { click: _vm.routeDistricts } }, [
-                      _c("p", [_vm._v("Edinburgh")])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticClass:
-                          "uk-flex flex-wrap align-items-center justify-content-between"
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.editText },
-                            on: {
-                              click: function($event) {
-                                return _vm.openSettings(1)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-cog" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deactivateText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deactivateItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-times-circle" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deleteText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-trash text-danger" })]
-                        )
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticClass:
-                          "uk-flex flex-wrap align-items-center justify-content-between"
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.editText },
-                            on: {
-                              click: function($event) {
-                                return _vm.openSettings(1)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-cog" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.activateText },
-                            on: {
-                              click: function($event) {
-                                return _vm.activateItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-check-circle" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deleteText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-trash text-danger" })]
-                        )
-                      ]
-                    )
+                    _c("th")
                   ])
                 ])
+              : undefined,
+            _vm._v(" "),
+            true
+              ? _c(
+                  "tbody",
+                  _vm._l(_vm.cities, function(city) {
+                    return _c("tr", [
+                      _c("td", { on: { click: _vm.routeDistricts } }, [
+                        _c("p", [_vm._v("a")])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { on: { click: _vm.routeDistricts } }, [
+                        _c("p", [_vm._v("Tiger Nixon")])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticClass:
+                            "uk-flex flex-wrap align-items-center justify-content-between"
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              attrs: { "uk-tooltip": _vm.editText },
+                              on: {
+                                click: function($event) {
+                                  return _vm.openSettings(city.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-cog" })]
+                          ),
+                          _vm._v(" "),
+                          city.active
+                            ? _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.activateText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.activateItem(city.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-check-circle"
+                                  })
+                                ]
+                              )
+                            : _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.deactivateText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deactivateItem(city.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-times-circle"
+                                  })
+                                ]
+                              ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              attrs: { "uk-tooltip": _vm.deleteText },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteItem(city.id)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-trash text-danger"
+                              })
+                            ]
+                          )
+                        ]
+                      )
+                    ])
+                  }),
+                  0
+                )
               : undefined
           ]
         )
@@ -10296,7 +10403,7 @@ var render = function() {
                 }),
                 _vm._v(" "),
                 _c("div", { staticClass: "uk-form-label" }, [
-                  _vm._v(_vm._s(_vm.cityName))
+                  _vm._v(_vm._s(_vm.cityNameText))
                 ]),
                 _vm._v(" "),
                 _c("input", {
@@ -10309,7 +10416,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "uk-input uk-width",
-                  attrs: { placeholder: _vm.cityName },
+                  attrs: { placeholder: _vm.cityNameText },
                   domProps: { value: _vm.name },
                   on: {
                     input: function($event) {
@@ -10322,7 +10429,7 @@ var render = function() {
                 }),
                 _vm._v(" "),
                 _c("div", { staticClass: "uk-form-label" }, [
-                  _vm._v(_vm._s(_vm.cityCode))
+                  _vm._v(_vm._s(_vm.cityCodeText))
                 ]),
                 _vm._v(" "),
                 _c("input", {
@@ -10335,7 +10442,7 @@ var render = function() {
                     }
                   ],
                   staticClass: "uk-input uk-width",
-                  attrs: { placeholder: _vm.cityCode },
+                  attrs: { placeholder: _vm.cityCodeText },
                   domProps: { value: _vm.code },
                   on: {
                     input: function($event) {
@@ -10376,48 +10483,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("Name")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Position")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Office")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Age")]),
-      _vm._v(" "),
-      _c("th")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("s")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Tiger Nixon")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("System Architect")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Edinburgh")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -10531,18 +10597,28 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true ? _c("thead", [_vm._m(0)]) : undefined,
+            true
+              ? _c("thead", [
+                  _c("tr", [
+                    _c("th", [_vm._v(_vm._s(_vm.districtNameText))]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v(_vm._s(_vm.districtCodeText))]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v(_vm._s(_vm.cityText))]),
+                    _vm._v(" "),
+                    _c("th")
+                  ])
+                ])
+              : undefined,
             _vm._v(" "),
             true
               ? _c("tbody", [
                   _c("tr", [
+                    _vm._m(0),
+                    _vm._v(" "),
                     _vm._m(1),
                     _vm._v(" "),
                     _vm._m(2),
-                    _vm._v(" "),
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _vm._m(4),
                     _vm._v(" "),
                     _c(
                       "td",
@@ -10594,13 +10670,11 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("tr", [
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _vm._m(4),
+                    _vm._v(" "),
                     _vm._m(5),
-                    _vm._v(" "),
-                    _vm._m(6),
-                    _vm._v(" "),
-                    _vm._m(7),
-                    _vm._v(" "),
-                    _vm._m(8),
                     _vm._v(" "),
                     _c(
                       "td",
@@ -10813,22 +10887,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("Name")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Position")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Office")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Age")]),
-      _vm._v(" "),
-      _c("th")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("td", [_c("p", [_vm._v("a")])])
   },
   function() {
@@ -10847,12 +10905,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Edinburgh")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("td", [_c("p", [_vm._v("s")])])
   },
   function() {
@@ -10866,12 +10918,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", [_c("p", [_vm._v("System Architect")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Edinburgh")])])
   }
 ]
 render._withStripped = true
@@ -10934,15 +10980,11 @@ var render = function() {
                     _vm._v(" "),
                     _vm._m(2),
                     _vm._v(" "),
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _vm._m(4),
-                    _vm._v(" "),
                     _c(
                       "td",
                       {
                         staticClass:
-                          "uk-flex flex-wrap align-items-center justify-content-between"
+                          "uk-flex flex-wrap align-items-center justify-content-around"
                       },
                       [
                         _c(
@@ -10988,19 +11030,15 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("tr", [
-                    _vm._m(5),
+                    _vm._m(3),
                     _vm._v(" "),
-                    _vm._m(6),
-                    _vm._v(" "),
-                    _vm._m(7),
-                    _vm._v(" "),
-                    _vm._m(8),
+                    _vm._m(4),
                     _vm._v(" "),
                     _c(
                       "td",
                       {
                         staticClass:
-                          "uk-flex flex-wrap align-items-center justify-content-between"
+                          "uk-flex flex-wrap align-items-center justify-content-around"
                       },
                       [
                         _c(
@@ -11114,9 +11152,9 @@ var render = function() {
                     [_vm._v(_vm._s(_vm.selectIconText))]
                   ),
                   _vm._v(" "),
-                  _vm._m(9),
+                  _vm._m(5),
                   _vm._v(" "),
-                  _vm._m(10)
+                  _vm._m(6)
                 ]
               ),
               _vm._v(" "),
@@ -11184,10 +11222,6 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("Position")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Office")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Age")]),
-      _vm._v(" "),
       _c("th")
     ])
   },
@@ -11195,25 +11229,15 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("a")])])
+    return _c("td", { staticClass: "uk-width-1-3" }, [_c("p", [_vm._v("a")])])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Tiger Nixon")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("System Architect")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Edinburgh")])])
+    return _c("td", { staticClass: "uk-width-1-3" }, [
+      _c("p", [_vm._v("Tiger Nixon")])
+    ])
   },
   function() {
     var _vm = this
@@ -11226,18 +11250,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", [_c("p", [_vm._v("Tiger Nixon")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("System Architect")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Edinburgh")])])
   },
   function() {
     var _vm = this
@@ -11671,10 +11683,17 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "text-right" }, [
-          _c("button", { staticClass: "uk-button uk-button-success" }, [
-            _c("i", { staticClass: "fas fa-plus" }),
-            _vm._v(" " + _vm._s(_vm.addSubCategoryText) + " ")
-          ])
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-success",
+              on: { click: _vm.openForm }
+            },
+            [
+              _c("i", { staticClass: "fas fa-plus" }),
+              _vm._v(" " + _vm._s(_vm.addSubCategoryText) + " ")
+            ]
+          )
         ])
       ]
     ),
@@ -11823,12 +11842,177 @@ var render = function() {
     _c("div", { attrs: { id: "addSubCategoryArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
         _c("div", { staticClass: "uk-modal-header" }, [
-          _c("h2", { staticClass: "uk-modal-title" }, [
-            _vm._v(_vm._s(_vm.addCategoryText))
-          ])
+          !_vm.hasItem
+            ? _c("h2", { staticClass: "uk-modal-title" }, [
+                _vm._v(_vm._s(_vm.addSubCategoryText))
+              ])
+            : _c("h2", { staticClass: "uk-modal-title" }, [
+                _vm._v(_vm._s(_vm.editSubCategoryText))
+              ])
         ]),
         _vm._v(" "),
-        _vm._m(9),
+        _c(
+          "div",
+          { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
+          [
+            _c("div", [_vm._v(_vm._s(_vm.categoryText))]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.categoryId,
+                    expression: "categoryId"
+                  }
+                ],
+                staticClass: "uk-width uk-select",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.categoryId = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c(
+                  "option",
+                  {
+                    attrs: { selected: "", hidden: "", disabled: "", value: "" }
+                  },
+                  [_vm._v(_vm._s(_vm.selectCategoryText))]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "uk-form-label" }, [
+              _vm._v(_vm._s(_vm.addSubCategoryText))
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.name,
+                  expression: "name"
+                }
+              ],
+              staticClass: "uk-width uk-input",
+              attrs: { placeholder: _vm.subCategoryNameText },
+              domProps: { value: _vm.name },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.name = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("img"),
+            _vm._v(" "),
+            _c("input"),
+            _vm._v(" "),
+            _c("div", { staticClass: "uk-form-label" }, [
+              _vm._v(_vm._s(_vm.iconText))
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.icon,
+                    expression: "icon"
+                  }
+                ],
+                staticClass: "uk-width uk-select",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.icon = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c(
+                  "option",
+                  {
+                    attrs: { selected: "", hidden: "", disabled: "", value: "" }
+                  },
+                  [_vm._v(_vm._s(_vm.selectIconText))]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "uk-form-label" }, [
+              _vm._v(_vm._s(_vm.colorText))
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.color,
+                    expression: "color"
+                  }
+                ],
+                staticClass: "uk-width uk-select",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.color = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c(
+                  "option",
+                  {
+                    attrs: { selected: "", hidden: "", disabled: "", value: "" }
+                  },
+                  [_vm._v(_vm._s(_vm.selectColorText))]
+                )
+              ]
+            )
+          ]
+        ),
         _vm._v(" "),
         _c("div", { staticClass: "uk-modal-footer uk-text-right" }, [
           _c(
@@ -11919,16 +12103,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", [_c("p", [_vm._v("Edinburgh")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
-      [_c("input"), _vm._v(" "), _c("input"), _vm._v(" "), _c("input")]
-    )
   }
 ]
 render._withStripped = true
