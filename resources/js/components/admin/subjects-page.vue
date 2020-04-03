@@ -81,6 +81,8 @@
 </template>
 
 <script>
+    import Axios from 'axios';
+    import {mapState, mapActions} from 'vuex';
     export default {
         name: "subjects-page",
         data(){
@@ -150,7 +152,16 @@
             },
 
         },
+        computed:{
+            ...mapState([
+                'adminSelectedId',
+                'adminSubject'
+            ]),
+        },
         methods:{
+            ...mapActions([
+                'loadAdminSubject'
+            ]),
             routeLessons:function () {
                 window.location.replace(this.lessonsRoute);
             },
@@ -194,19 +205,19 @@
                     Axios.post('/api/admin/cr/subject/update/'+this.selectedSubjectId, {
                         name:this.name,
                         lessonId:this.lessonId,
-                    }).then(response=>console.log(response))
+                    }).then(this.$store.dispatch('loadAdminSubject', this.adminSelectedId))
                 }else{
                     Axios.post('/api/admin/cr/subject/create', {
                         name:this.name,
                         lessonId:this.lessonId,
-                    }).then(response=>console.log(response))
+                    }).then(this.$store.dispatch('loadAdminSubject', this.adminSelectedId))
                 }
                 this.clearForm();
                 UIkit.modal('#addSubjectArea').hide();
             }
         },
         created() {
-
+            this.$store.dispatch('loadAdminSubject', this.adminSelectedId);
         }
     }
 </script>

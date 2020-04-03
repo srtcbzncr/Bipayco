@@ -87,6 +87,8 @@
 </template>
 
 <script>
+    import Axios from 'axios';
+    import {mapState, mapActions} from 'vuex';
     export default {
         name: "sub-categories-page",
         data(){
@@ -178,9 +180,17 @@
                 default:"Cancel"
             }
         },
+        computed:{
+            ...mapState([
+                'adminSelectedId',
+                'adminSubCategory'
+            ]),
+        },
         methods:{
+            ...mapActions([
+                'loadAdminSubCategory'
+            ]),
             routeCategory:function () {
-
                 window.location.replace(this.subCategoryRoute);
             },
             deactivateItem:function (id) {
@@ -233,20 +243,24 @@
                 formData.append('description', this.description);
 
                 if(hasItem){
-                    Axios.post('/api/admin/ge/subCategory/update/'+this.selectedSubCategoryId, formData).then(response=>console.log(response));
+                    Axios.post('/api/admin/ge/subCategory/update/'+this.selectedSubCategoryId, formData)
+                        .then(this.$store.dispatch('loadAdminSubCategory', this.adminSelectedId));
                 }else{
-                    Axios.post('/api/admin/ge/subCategory/create', formData).then(response=>console.log(response));
+                    Axios.post('/api/admin/ge/subCategory/create', formData)
+                        .then(this.$store.dispatch('loadAdminSubCategory', this.adminSelectedId));
                 }
                 this.clearForm();
                 UIkit.modal('#addSubCategoryArea').hide();
             }
         },
         created() {
-
+            this.$store.dispatch('loadAdminSubCategory', this.adminSelectedId)
         }
     }
 </script>
 
 <style scoped>
-
+    textarea{
+        resize:none
+    }
 </style>

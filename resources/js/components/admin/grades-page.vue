@@ -67,6 +67,8 @@
 </template>
 
 <script>
+    import Axios from 'axios';
+    import {mapState, mapActions} from 'vuex';
     export default {
         name: "grades-page",
         data(){
@@ -127,7 +129,15 @@
                 default:"Sınıf Düzenle"
             }
         },
+        computed:{
+            ...mapState([
+                'adminGrade',
+            ]),
+        },
         methods:{
+            ...mapActions([
+                'loadAdminGrade',
+            ]),
             deactivateItem:function (id) {
                 Axios.post('/api/admin/cr/grade/setPassive/'+id).then(response=>console.log(response.data));
             },
@@ -169,19 +179,19 @@
                     Axios.post('/api/admin/cr/grade/update/'+this.selectedGradeId, {
                         symbol: this.icon,
                         name: this.name,
-                    }).then(response=>console.log(response))
+                    }).then(this.$store.dispatch('loadAdminGrade'))
                 }else{
                     Axios.post('/api/admin/cr/grade/create', {
                         symbol: this.icon,
                         name: this.name,
-                    }).then(response=>console.log(response));
+                    }).then(this.$store.dispatch('loadAdminGrade'));
                 }
                 this.clearForm();
                 UIkit.modal('#addGradeArea').hide();
             }
         },
         created() {
-
+            this.$store.dispatch('loadAdminGrade');
         }
     }
 </script>

@@ -73,6 +73,8 @@
 </template>
 
 <script>
+    import Axios from 'axios';
+    import {mapState, mapActions} from 'vuex';
     export default {
         name: "lessons-page",
         data(){
@@ -137,8 +139,18 @@
                 default:"İkon Seçiniz"
             },
         },
+        computed:{
+            ...mapState([
+                'adminLesson',
+            ]),
+        },
         methods:{
-            routeSubjects:function () {
+            ...mapActions([
+                'loadAdminLesson',
+                'loadAdminSelectedId',
+            ]),
+            routeSubjects:function (id) {
+                this.$store.dispatch('loadAdminSelectedId', id);
                 window.location.replace(this.subjectsRoute);
             },
             deactivateItem:function (id) {
@@ -181,19 +193,19 @@
                     Axios.post('/api/admin/cr/lesson/update/'+this.selectedLessonId,{
                         symbol:this.icon,
                         name: this.name,
-                    }).then(response=>console.log(response));
+                    }).then(this.$store.dispatch('loadAdminLesson'));
                 }else{
                     Axios.post('/api/admin/cr/lesson/create', {
                         symbol:this.icon,
                         name: this.name,
-                    }).then(response=>console.log(response))
+                    }).then(this.$store.dispatch('loadAdminLesson'))
                 }
                 this.clearForm();
                 UIkit.modal('#addLessonArea').hide();
             }
         },
         created() {
-
+            this.$store.dispatch('loadAdminLesson')
         }
     }
 </script>

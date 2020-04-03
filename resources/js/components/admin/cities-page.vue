@@ -13,9 +13,9 @@
                 </tr>
                 </thead>
                 <tbody v-if="true">
-                <tr v-for="city in cities">
-                    <td @click="routeDistricts"><p>a</p></td>
-                    <td @click="routeDistricts"><p>Tiger Nixon</p></td>
+                <tr v-for="city in adminCity">
+                    <td @click="routeDistricts(city.id)"><p>{{city.name}}</p></td>
+                    <td @click="routeDistricts(city.id)"><p>{{city.code}}</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-between">
                         <a @click="openSettings(city.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
                         <a v-if="city.active" @click="activateItem(city.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
@@ -59,6 +59,7 @@
 
 <script>
     import Axios from 'axios';
+    import {mapState, mapActions} from 'vuex';
     export default {
         name: "cities-page",
         data(){
@@ -119,9 +120,18 @@
                 default:"Şehir Düzenle"
             }
         },
+        computed:{
+            ...mapState([
+                'adminCity',
+            ]),
+        },
         methods:{
-            routeDistricts:function () {
-
+            ...mapActions([
+                'loadAdminCity',
+                'loadAdminSelectedId',
+            ]),
+            routeDistricts:function (id) {
+                this.$store.dispatch('loadAdminSelectedId', id);
                 window.location.replace(this.districtsRoute);
             },
             deactivateItem:function (id) {
@@ -164,12 +174,12 @@
                     Axios.post('/api/admin/bs/city/update/'+this.selectedCityId, {
                         name: this.name,
                         code: this.code,
-                    }).then(response=>console.log(response));
+                    }).then(this.$store.dispatch('loadAdminCity'));
                 }else{
                     Axios.post('/api/admin/bs/city/create', {
                         name: this.name,
                         code: this.name,
-                    }).then(response=>console.log(response));
+                    }).then(this.$store.dispatch('loadAdminCity'));
                 }
                 this.clearForm();
                 UIkit.modal('#addCityArea').hide();
@@ -177,7 +187,7 @@
             }
         },
         created() {
-
+            this.$store.dispatch('loadAdminCity');
         }
     }
 </script>

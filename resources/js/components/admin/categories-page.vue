@@ -75,6 +75,8 @@
 </template>
 
 <script>
+    import Axios from 'axios';
+    import {mapState, mapActions} from 'vuex';
     export default {
         name: "categories-page",
         data(){
@@ -132,7 +134,7 @@
                 type:String,
                 default:"Renk Seçiniz"
             },
-            selectedIconText:{
+            selectIconText:{
                 type:String,
                 default:"İkon Seçiniz"
             },
@@ -157,8 +159,18 @@
                 default:"Açıklama"
             }
         },
+        computed:{
+            ...mapState([
+                'adminCategory'
+            ]),
+        },
         methods:{
-            routeSubCategories:function () {
+            ...mapActions([
+                'loadAdminCategory',
+                'loadAdminSelectedId'
+            ]),
+            routeSubCategories:function (id) {
+                this.$store.dispatch('loadAdminSelectedId', id);
                 window.location.replace(this.subCategoriesRoute);
             },
             deactivateItem:function (id) {
@@ -208,16 +220,18 @@
                 formData.append('symbol', this.icon);
                 formData.append('color', this.color);
                 if(this.hasItem){
-                    Axios.post('/api/admin/ge/category/update/'+this.selectedCategoryId, formData).then(response=>console.log(response));
+                    Axios.post('/api/admin/ge/category/update/'+this.selectedCategoryId, formData)
+                        .then(this.$store.dispatch('loadAdminCategory'));
                 }else{
-                    Axios.post('/api/admin/ge/category/create', formData).then(response=>console.log(response));
+                    Axios.post('/api/admin/ge/category/create', formData)
+                        .then(this.$store.dispatch('loadAdminCategory'));
                 }
                 this.clearForm();
                 UIkit.modal('#addCategoryArea').hide();
             }
         },
         created() {
-
+            this.$store.dispatch('loadAdminCategory');
         }
     }
 </script>
@@ -225,5 +239,8 @@
 <style scoped>
     tbody tr{
         cursor: pointer;
+    }
+    textarea{
+        resize:none;
     }
 </style>

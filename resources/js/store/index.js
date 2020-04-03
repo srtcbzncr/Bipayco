@@ -68,6 +68,14 @@ const state={
     courseCard:{},
     urlForCourseCard:"",
     isInCart:"",
+    adminCity:{},
+    adminDistrict:{},
+    adminLesson:{},
+    adminSubject:{},
+    adminGrade:{},
+    adminCategory:{},
+    adminSubCategory:{},
+    adminSelectedId:"",
 };
 const getters={};
 const mutations={
@@ -144,6 +152,38 @@ const mutations={
     setIsInCart(state, bool){
         console.log(bool);
         state.isInCart=bool.inBasket;
+    },
+    setAdminCity(state, city){
+        console.log(city);
+        state.adminCity=city;
+    },
+    setAdminDistrict(state, district){
+        console.log(district);
+        state.adminDistrict=district;
+    },
+    setAdminLesson(state, lesson){
+        console.log(lesson);
+        state.adminLesson=lesson;
+    },
+    setAdminSubject(state, subject){
+        console.log(subject);
+        state.adminSubject=subject;
+    },
+    setAdminGrade(state, grade){
+        console.log(grade);
+        state.adminGrade=grade;
+    },
+    setAdminCategory(state, category){
+        console.log(category);
+        state.adminCategory=category;
+    },
+    setAdminSubCategory(state, subCategory){
+        console.log(subCategory);
+        state.adminSubCategory=subCategory;
+    },
+    setAdminSelectedId(state, id){
+        console.log(id);
+        state.adminSelectedId=id;
     }
 };
 const actions={
@@ -247,6 +287,37 @@ const actions={
         Axios.get('/api/'+module+'/inBasket/'+userId+'/'+courseId)
             .then(response=>commit('setIsInCart', response.data));
     },
+    loadAdminLesson({commit}){
+        Axios.get('/api/admin/cr/lesson/show')
+            .then(response=>commit('setAdminLesson', response.data));
+    },
+    loadAdminSubject({commit}, lessonId){
+        Axios.get('/api/admin/cr/lesson/'+lessonId+'subjects')
+            .then(response=>commit('setAdminSubject', response.data));
+    },
+    loadAdminGrade({commit}){
+        Axios.get('/api/admin/cr/grade/show')
+            .then(response=>commit('setAdminGrade', response.data));
+    },
+    loadAdminCategory({commit}){
+        Axios.get('/api/admin/ge/category/show')
+            .then(response=>commit('setAdminCategory', response.data));
+    },
+    loadAdminSubCategory({commit}, categoryId){
+        Axios.get('/api/admin/ge/category/'+categoryId+'/subCategories')
+            .then(response=>commit('setAdminSubCategory', response.data));
+    },
+    loadAdminCity({commit}){
+        Axios.get('/api/admin/bs/city/show')
+            .then(response=>commit('setAdminCity', response.data));
+    },
+    loadAdminDistrict({commit}, cityId){
+        Axios.get('/api/admin/bs/city/'+cityId+'/district')
+            .then(response=>commit('setAdminDistrict', response.data));
+    },
+    loadAdminSelectedId({commit}, id){
+        commit('setAdminSelectedId', id);
+    }
 };
 
 const store=new Vuex.Store({

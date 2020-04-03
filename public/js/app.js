@@ -1838,6 +1838,15 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -1914,6 +1923,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "categories-page",
   data: function data() {
@@ -1971,7 +1982,7 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       "default": "Renk Seçiniz"
     },
-    selectedIconText: {
+    selectIconText: {
       type: String,
       "default": "İkon Seçiniz"
     },
@@ -1996,22 +2007,24 @@ __webpack_require__.r(__webpack_exports__);
       "default": "Açıklama"
     }
   },
-  methods: {
-    routeSubCategories: function routeSubCategories() {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminCategory'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminCategory', 'loadAdminSelectedId']), {
+    routeSubCategories: function routeSubCategories(id) {
+      this.$store.dispatch('loadAdminSelectedId', id);
       window.location.replace(this.subCategoriesRoute);
     },
     deactivateItem: function deactivateItem(id) {
-      Axios.post('/api/admin/ge/category/setPassive/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/setPassive/' + id).then(function (response) {
         return console.log(response);
       });
     },
     activateItem: function activateItem(id) {
-      Axios.post('/api/admin/ge/category/setActive/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/setActive/' + id).then(function (response) {
         return console.log(response);
       });
     },
     deleteItem: function deleteItem(id) {
-      Axios.post('/api/admin/ge/category/delete/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/delete/' + id).then(function (response) {
         return console.log(response);
       });
     },
@@ -2019,7 +2032,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.selectedCategoryId = id;
-      Axios.get('/api/admin/ge/category/show/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/ge/category/show/' + id).then(function (response) {
         return _this.setSelected(response.data);
       });
     },
@@ -2057,20 +2070,18 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('color', this.color);
 
       if (this.hasItem) {
-        Axios.post('/api/admin/ge/category/update/' + this.selectedCategoryId, formData).then(function (response) {
-          return console.log(response);
-        });
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/update/' + this.selectedCategoryId, formData).then(this.$store.dispatch('loadAdminCategory'));
       } else {
-        Axios.post('/api/admin/ge/category/create', formData).then(function (response) {
-          return console.log(response);
-        });
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/create', formData).then(this.$store.dispatch('loadAdminCategory'));
       }
 
       this.clearForm();
       UIkit.modal('#addCategoryArea').hide();
     }
-  },
-  created: function created() {}
+  }),
+  created: function created() {
+    this.$store.dispatch('loadAdminCategory');
+  }
 });
 
 /***/ }),
@@ -2086,6 +2097,13 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2145,6 +2163,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "cities-page",
@@ -2206,8 +2225,10 @@ __webpack_require__.r(__webpack_exports__);
       "default": "Şehir Düzenle"
     }
   },
-  methods: {
-    routeDistricts: function routeDistricts() {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminCity'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminCity', 'loadAdminSelectedId']), {
+    routeDistricts: function routeDistricts(id) {
+      this.$store.dispatch('loadAdminSelectedId', id);
       window.location.replace(this.districtsRoute);
     },
     deactivateItem: function deactivateItem(id) {
@@ -2257,23 +2278,21 @@ __webpack_require__.r(__webpack_exports__);
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/update/' + this.selectedCityId, {
           name: this.name,
           code: this.code
-        }).then(function (response) {
-          return console.log(response);
-        });
+        }).then(this.$store.dispatch('loadAdminCity'));
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/create', {
           name: this.name,
           code: this.name
-        }).then(function (response) {
-          return console.log(response);
-        });
+        }).then(this.$store.dispatch('loadAdminCity'));
       }
 
       this.clearForm();
       UIkit.modal('#addCityArea').hide();
     }
-  },
-  created: function created() {}
+  }),
+  created: function created() {
+    this.$store.dispatch('loadAdminCity');
+  }
 });
 
 /***/ }),
@@ -2316,6 +2335,13 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2397,6 +2423,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "districts-page",
@@ -2470,7 +2497,8 @@ __webpack_require__.r(__webpack_exports__);
       "default": "Vazgeç"
     }
   },
-  methods: {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSelectedId', 'adminDistrict'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminDistrict']), {
     routeCities: function routeCities() {
       window.location.replace(this.citiesRoute);
     },
@@ -2524,23 +2552,21 @@ __webpack_require__.r(__webpack_exports__);
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/update/' + this.selectedDistrictId, {
           name: this.name,
           cityId: this.cityId
-        }).then(function (response) {
-          return console.log(response);
-        });
+        }).then(this.$store.dispatch('loadAdminDistrict', this.adminSelectedId));
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/create', {
           name: this.name,
           cityId: this.cityId
-        }).then(function (response) {
-          return console.log(response);
-        });
+        }).then(this.$store.dispatch('loadAdminDistrict', this.adminSelectedId));
       }
 
       this.clearForm();
       UIkit.modal('#addDistrictArea').hide();
     }
-  },
-  created: function created() {}
+  }),
+  created: function created() {
+    this.$store.dispatch('loadAdminDistrict', this.adminSelectedId);
+  }
 });
 
 /***/ }),
@@ -2554,6 +2580,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2622,6 +2657,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "grades-page",
   data: function data() {
@@ -2682,19 +2719,20 @@ __webpack_require__.r(__webpack_exports__);
       "default": "Sınıf Düzenle"
     }
   },
-  methods: {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminGrade'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminGrade']), {
     deactivateItem: function deactivateItem(id) {
-      Axios.post('/api/admin/cr/grade/setPassive/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/setPassive/' + id).then(function (response) {
         return console.log(response.data);
       });
     },
     activateItem: function activateItem(id) {
-      Axios.post('/api/admin/cr/grade/setActive/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/setActive/' + id).then(function (response) {
         return console.log(response.data);
       });
     },
     deleteItem: function deleteItem(id) {
-      Axios.post('/api/admin/cr/grade/delete/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/delete/' + id).then(function (response) {
         return console.log(response.data);
       });
     },
@@ -2702,7 +2740,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.selectedGradeId = id;
-      Axios.get('/api/admin/cr/grade/show/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/cr/grade/show/' + id).then(function (response) {
         return _this.setSelected(response.data);
       });
     },
@@ -2730,26 +2768,24 @@ __webpack_require__.r(__webpack_exports__);
     },
     saveItem: function saveItem() {
       if (hasItem) {
-        Axios.post('/api/admin/cr/grade/update/' + this.selectedGradeId, {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/update/' + this.selectedGradeId, {
           symbol: this.icon,
           name: this.name
-        }).then(function (response) {
-          return console.log(response);
-        });
+        }).then(this.$store.dispatch('loadAdminGrade'));
       } else {
-        Axios.post('/api/admin/cr/grade/create', {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/create', {
           symbol: this.icon,
           name: this.name
-        }).then(function (response) {
-          return console.log(response);
-        });
+        }).then(this.$store.dispatch('loadAdminGrade'));
       }
 
       this.clearForm();
       UIkit.modal('#addGradeArea').hide();
     }
-  },
-  created: function created() {}
+  }),
+  created: function created() {
+    this.$store.dispatch('loadAdminGrade');
+  }
 });
 
 /***/ }),
@@ -2763,6 +2799,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2837,6 +2882,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "lessons-page",
   data: function data() {
@@ -2901,22 +2948,24 @@ __webpack_require__.r(__webpack_exports__);
       "default": "İkon Seçiniz"
     }
   },
-  methods: {
-    routeSubjects: function routeSubjects() {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminLesson'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminLesson', 'loadAdminSelectedId']), {
+    routeSubjects: function routeSubjects(id) {
+      this.$store.dispatch('loadAdminSelectedId', id);
       window.location.replace(this.subjectsRoute);
     },
     deactivateItem: function deactivateItem(id) {
-      Axios.post('/api/admin/cr/lesson/setPassive/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/setPassive/' + id).then(function (response) {
         return console.log(response);
       });
     },
     activateItem: function activateItem(id) {
-      Axios.post('/api/admin/cr/lesson/setActive/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/setActive/' + id).then(function (response) {
         return console.log(response);
       });
     },
     deleteItem: function deleteItem(id) {
-      Axios.post('/api/admin/cr/lesson/delete/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/delete/' + id).then(function (response) {
         return console.log(response);
       });
     },
@@ -2924,7 +2973,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.selectedLessonId = id;
-      Axios.get('/api/admin/cr/lesson/show/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/cr/lesson/show/' + id).then(function (response) {
         return _this.setSelected(response.data);
       });
     },
@@ -2951,26 +3000,24 @@ __webpack_require__.r(__webpack_exports__);
     },
     saveItem: function saveItem() {
       if (hasItem) {
-        Axios.post('/api/admin/cr/lesson/update/' + this.selectedLessonId, {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/update/' + this.selectedLessonId, {
           symbol: this.icon,
           name: this.name
-        }).then(function (response) {
-          return console.log(response);
-        });
+        }).then(this.$store.dispatch('loadAdminLesson'));
       } else {
-        Axios.post('/api/admin/cr/lesson/create', {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/create', {
           symbol: this.icon,
           name: this.name
-        }).then(function (response) {
-          return console.log(response);
-        });
+        }).then(this.$store.dispatch('loadAdminLesson'));
       }
 
       this.clearForm();
       UIkit.modal('#addLessonArea').hide();
     }
-  },
-  created: function created() {}
+  }),
+  created: function created() {
+    this.$store.dispatch('loadAdminLesson');
+  }
 });
 
 /***/ }),
@@ -3015,6 +3062,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3103,6 +3159,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "sub-categories-page",
   data: function data() {
@@ -3194,22 +3252,23 @@ __webpack_require__.r(__webpack_exports__);
       "default": "Cancel"
     }
   },
-  methods: {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSelectedId', 'adminSubCategory'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminSubCategory']), {
     routeCategory: function routeCategory() {
       window.location.replace(this.subCategoryRoute);
     },
     deactivateItem: function deactivateItem(id) {
-      Axios.post('/api/admin/ge/subCategory/setPassive/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/setPassive/' + id).then(function (response) {
         return console.log(response);
       });
     },
     activateItem: function activateItem(id) {
-      Axios.post('/api/admin/ge/subCategory/setActive/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/setActive/' + id).then(function (response) {
         return console.log(response);
       });
     },
     deleteItem: function deleteItem(id) {
-      Axios.post('/api/admin/ge/subCategory/delete/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/delete/' + id).then(function (response) {
         return console.log(response);
       });
     },
@@ -3217,7 +3276,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.selectedSubCategoryId = id;
-      Axios.get('/api/admin/ge/subCategory/show/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/ge/subCategory/show/' + id).then(function (response) {
         return _this.setSelected(response.data);
       });
     },
@@ -3258,20 +3317,18 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('description', this.description);
 
       if (hasItem) {
-        Axios.post('/api/admin/ge/subCategory/update/' + this.selectedSubCategoryId, formData).then(function (response) {
-          return console.log(response);
-        });
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/update/' + this.selectedSubCategoryId, formData).then(this.$store.dispatch('loadAdminSubCategory', this.adminSelectedId));
       } else {
-        Axios.post('/api/admin/ge/subCategory/create', formData).then(function (response) {
-          return console.log(response);
-        });
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/create', formData).then(this.$store.dispatch('loadAdminSubCategory', this.adminSelectedId));
       }
 
       this.clearForm();
       UIkit.modal('#addSubCategoryArea').hide();
     }
-  },
-  created: function created() {}
+  }),
+  created: function created() {
+    this.$store.dispatch('loadAdminSubCategory', this.adminSelectedId);
+  }
 });
 
 /***/ }),
@@ -3285,6 +3342,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3367,6 +3433,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "subjects-page",
   data: function data() {
@@ -3435,22 +3503,23 @@ __webpack_require__.r(__webpack_exports__);
       "default": "Konu Adı"
     }
   },
-  methods: {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSelectedId', 'adminSubject'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminSubject']), {
     routeLessons: function routeLessons() {
       window.location.replace(this.lessonsRoute);
     },
     deactivateItem: function deactivateItem(id) {
-      Axios.post('/api/admin/cr/subject/setPassive/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/subject/setPassive/' + id).then(function (response) {
         return console.log(response.data);
       });
     },
     activateItem: function activateItem(id) {
-      Axios.post('/api/admin/cr/subject/setActive/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/subject/setActive/' + id).then(function (response) {
         return console.log(response.data);
       });
     },
     deleteItem: function deleteItem(id) {
-      Axios.post('/api/admin/cr/subject/delete/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/subject/delete/' + id).then(function (response) {
         return console.log(response.data);
       });
     },
@@ -3458,7 +3527,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       this.selectedGradeId = id;
-      Axios.get('/api/admin/cr/subject/show/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/cr/subject/show/' + id).then(function (response) {
         return _this.setSelected(response.data);
       });
     },
@@ -3485,26 +3554,24 @@ __webpack_require__.r(__webpack_exports__);
     },
     saveItem: function saveItem() {
       if (hasItem) {
-        Axios.post('/api/admin/cr/subject/update/' + this.selectedSubjectId, {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/subject/update/' + this.selectedSubjectId, {
           name: this.name,
           lessonId: this.lessonId
-        }).then(function (response) {
-          return console.log(response);
-        });
+        }).then(this.$store.dispatch('loadAdminSubject', this.adminSelectedId));
       } else {
-        Axios.post('/api/admin/cr/subject/create', {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/subject/create', {
           name: this.name,
           lessonId: this.lessonId
-        }).then(function (response) {
-          return console.log(response);
-        });
+        }).then(this.$store.dispatch('loadAdminSubject', this.adminSelectedId));
       }
 
       this.clearForm();
       UIkit.modal('#addSubjectArea').hide();
     }
-  },
-  created: function created() {}
+  }),
+  created: function created() {
+    this.$store.dispatch('loadAdminSubject', this.adminSelectedId);
+  }
 });
 
 /***/ }),
@@ -8631,7 +8698,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\ntbody tr[data-v-22d6dfa5]{\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\ntbody tr[data-v-22d6dfa5]{\n    cursor: pointer;\n}\ntextarea[data-v-22d6dfa5]{\n    resize:none;\n}\n", ""]);
 
 // exports
 
@@ -8695,6 +8762,25 @@ exports.push([module.i, "\ntbody tr[data-v-0e0b82ac]{\n    cursor: pointer;\n}\n
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/sub-categories-page.vue?vue&type=style&index=0&id=7761a3d0&scoped=true&lang=css&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/sub-categories-page.vue?vue&type=style&index=0&id=7761a3d0&scoped=true&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\ntextarea[data-v-7761a3d0]{\n    resize:none\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/homepage-content.vue?vue&type=style&index=0&id=0c09ca36&scoped=true&lang=css&":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/homepage-content.vue?vue&type=style&index=0&id=0c09ca36&scoped=true&lang=css& ***!
@@ -8707,7 +8793,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nli[data-v-0c09ca36]{\r\n    list-style-type: none;\n}\r\n", ""]);
+exports.push([module.i, "\nli[data-v-0c09ca36]{\n    list-style-type: none;\n}\n", ""]);
 
 // exports
 
@@ -9451,6 +9537,36 @@ if(false) {}
 
 
 var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./lessons-page.vue?vue&type=style&index=0&id=0e0b82ac&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/lessons-page.vue?vue&type=style&index=0&id=0e0b82ac&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/sub-categories-page.vue?vue&type=style&index=0&id=7761a3d0&scoped=true&lang=css&":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/sub-categories-page.vue?vue&type=style&index=0&id=7761a3d0&scoped=true&lang=css& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./sub-categories-page.vue?vue&type=style&index=0&id=7761a3d0&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/sub-categories-page.vue?vue&type=style&index=0&id=7761a3d0&scoped=true&lang=css&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -10673,15 +10789,31 @@ var render = function() {
             true
               ? _c(
                   "tbody",
-                  _vm._l(_vm.cities, function(city) {
+                  _vm._l(_vm.adminCity, function(city) {
                     return _c("tr", [
-                      _c("td", { on: { click: _vm.routeDistricts } }, [
-                        _c("p", [_vm._v("a")])
-                      ]),
+                      _c(
+                        "td",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.routeDistricts(city.id)
+                            }
+                          }
+                        },
+                        [_c("p", [_vm._v(_vm._s(city.name))])]
+                      ),
                       _vm._v(" "),
-                      _c("td", { on: { click: _vm.routeDistricts } }, [
-                        _c("p", [_vm._v("Tiger Nixon")])
-                      ]),
+                      _c(
+                        "td",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.routeDistricts(city.id)
+                            }
+                          }
+                        },
+                        [_c("p", [_vm._v(_vm._s(city.code))])]
+                      ),
                       _vm._v(" "),
                       _c(
                         "td",
@@ -34148,7 +34280,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _sub_categories_page_vue_vue_type_template_id_7761a3d0_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sub-categories-page.vue?vue&type=template&id=7761a3d0&scoped=true& */ "./resources/js/components/admin/sub-categories-page.vue?vue&type=template&id=7761a3d0&scoped=true&");
 /* harmony import */ var _sub_categories_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./sub-categories-page.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/sub-categories-page.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _sub_categories_page_vue_vue_type_style_index_0_id_7761a3d0_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sub-categories-page.vue?vue&type=style&index=0&id=7761a3d0&scoped=true&lang=css& */ "./resources/js/components/admin/sub-categories-page.vue?vue&type=style&index=0&id=7761a3d0&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -34156,7 +34290,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _sub_categories_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _sub_categories_page_vue_vue_type_template_id_7761a3d0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _sub_categories_page_vue_vue_type_template_id_7761a3d0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -34185,6 +34319,22 @@ component.options.__file = "resources/js/components/admin/sub-categories-page.vu
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_sub_categories_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./sub-categories-page.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/sub-categories-page.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_sub_categories_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/sub-categories-page.vue?vue&type=style&index=0&id=7761a3d0&scoped=true&lang=css&":
+/*!************************************************************************************************************************!*\
+  !*** ./resources/js/components/admin/sub-categories-page.vue?vue&type=style&index=0&id=7761a3d0&scoped=true&lang=css& ***!
+  \************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_sub_categories_page_vue_vue_type_style_index_0_id_7761a3d0_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./sub-categories-page.vue?vue&type=style&index=0&id=7761a3d0&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/sub-categories-page.vue?vue&type=style&index=0&id=7761a3d0&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_sub_categories_page_vue_vue_type_style_index_0_id_7761a3d0_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_sub_categories_page_vue_vue_type_style_index_0_id_7761a3d0_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_sub_categories_page_vue_vue_type_style_index_0_id_7761a3d0_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_sub_categories_page_vue_vue_type_style_index_0_id_7761a3d0_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_sub_categories_page_vue_vue_type_style_index_0_id_7761a3d0_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -36698,7 +36848,15 @@ var state = {
   shoppingCart: {},
   courseCard: {},
   urlForCourseCard: "",
-  isInCart: ""
+  isInCart: "",
+  adminCity: {},
+  adminDistrict: {},
+  adminLesson: {},
+  adminSubject: {},
+  adminGrade: {},
+  adminCategory: {},
+  adminSubCategory: {},
+  adminSelectedId: ""
 };
 var getters = {};
 var mutations = {
@@ -36777,6 +36935,38 @@ var mutations = {
   setIsInCart: function setIsInCart(state, bool) {
     console.log(bool);
     state.isInCart = bool.inBasket;
+  },
+  setAdminCity: function setAdminCity(state, city) {
+    console.log(city);
+    state.adminCity = city;
+  },
+  setAdminDistrict: function setAdminDistrict(state, district) {
+    console.log(district);
+    state.adminDistrict = district;
+  },
+  setAdminLesson: function setAdminLesson(state, lesson) {
+    console.log(lesson);
+    state.adminLesson = lesson;
+  },
+  setAdminSubject: function setAdminSubject(state, subject) {
+    console.log(subject);
+    state.adminSubject = subject;
+  },
+  setAdminGrade: function setAdminGrade(state, grade) {
+    console.log(grade);
+    state.adminGrade = grade;
+  },
+  setAdminCategory: function setAdminCategory(state, category) {
+    console.log(category);
+    state.adminCategory = category;
+  },
+  setAdminSubCategory: function setAdminSubCategory(state, subCategory) {
+    console.log(subCategory);
+    state.adminSubCategory = subCategory;
+  },
+  setAdminSelectedId: function setAdminSelectedId(state, id) {
+    console.log(id);
+    state.adminSelectedId = id;
   }
 };
 var actions = {
@@ -36972,6 +37162,52 @@ var actions = {
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/' + module + '/inBasket/' + userId + '/' + courseId).then(function (response) {
       return commit('setIsInCart', response.data);
     });
+  },
+  loadAdminLesson: function loadAdminLesson(_ref42) {
+    var commit = _ref42.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/cr/lesson/show').then(function (response) {
+      return commit('setAdminLesson', response.data);
+    });
+  },
+  loadAdminSubject: function loadAdminSubject(_ref43, lessonId) {
+    var commit = _ref43.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/cr/lesson/' + lessonId + 'subjects').then(function (response) {
+      return commit('setAdminSubject', response.data);
+    });
+  },
+  loadAdminGrade: function loadAdminGrade(_ref44) {
+    var commit = _ref44.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/cr/grade/show').then(function (response) {
+      return commit('setAdminGrade', response.data);
+    });
+  },
+  loadAdminCategory: function loadAdminCategory(_ref45) {
+    var commit = _ref45.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/ge/category/show').then(function (response) {
+      return commit('setAdminCategory', response.data);
+    });
+  },
+  loadAdminSubCategory: function loadAdminSubCategory(_ref46, categoryId) {
+    var commit = _ref46.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/ge/category/' + categoryId + '/subCategories').then(function (response) {
+      return commit('setAdminSubCategory', response.data);
+    });
+  },
+  loadAdminCity: function loadAdminCity(_ref47) {
+    var commit = _ref47.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/bs/city/show').then(function (response) {
+      return commit('setAdminCity', response.data);
+    });
+  },
+  loadAdminDistrict: function loadAdminDistrict(_ref48, cityId) {
+    var commit = _ref48.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/bs/city/' + cityId + '/district').then(function (response) {
+      return commit('setAdminDistrict', response.data);
+    });
+  },
+  loadAdminSelectedId: function loadAdminSelectedId(_ref49, id) {
+    var commit = _ref49.commit;
+    commit('setAdminSelectedId', id);
   }
 };
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
@@ -37002,8 +37238,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\Bipayco\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\bedri\Documents\GitHub\Bipayco\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\bedri\Documents\GitHub\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

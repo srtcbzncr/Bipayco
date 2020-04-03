@@ -80,8 +80,8 @@
 </template>
 
 <script>
-    import Axios from "axios";
-
+    import Axios from 'axios';
+    import {mapState, mapActions} from 'vuex';
     export default {
         name: "districts-page",
         data(){
@@ -154,7 +154,16 @@
                 default:"Vazgeç"
             },
         },
+        computed:{
+            ...mapState([
+                'adminSelectedId',
+                'adminDistrict'
+            ]),
+        },
         methods:{
+            ...mapActions([
+                'loadAdminDistrict'
+            ]),
             routeCities:function () {
                 window.location.replace(this.citiesRoute);
             },
@@ -199,19 +208,19 @@
                     Axios.post('/api/admin/bs/district/update/'+this.selectedDistrictId, {
                         name: this.name,
                         cityId: this.cityId,
-                    }).then(response=>console.log(response));
+                    }).then(this.$store.dispatch('loadAdminDistrict', this.adminSelectedId));
                 }else{
                     Axios.post('/api/admin/bs/district/create', {
                         name: this.name,
                         cityId: this.cityId,
-                    }).then(response=>console.log(response));
+                    }).then(this.$store.dispatch('loadAdminDistrict', this.adminSelectedId));
                 }
                 this.clearForm();
                 UIkit.modal('#addDistrictArea').hide();
             }
         },
         created() {
-
+            this.$store.dispatch('loadAdminDistrict', this.adminSelectedId);
         }
     }
 </script>
