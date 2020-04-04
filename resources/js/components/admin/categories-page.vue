@@ -78,10 +78,6 @@
             }
         },
         props:{
-            subCategoriesRoute:{
-                type:String,
-                required:true,
-            },
             addCategoryText:{
                 type:String,
                 default:"Kategori Ekle"
@@ -155,20 +151,18 @@
         methods:{
             ...mapActions([
                 'loadAdminCategory',
-                'loadAdminSelectedId'
             ]),
             routeSubCategories:function (id) {
-                this.$store.dispatch('loadAdminSelectedId', id);
-                window.location.replace(this.subCategoriesRoute);
+                window.location.replace('/admin/category/'+id+'/subCategories');
             },
             deactivateItem:function (id) {
-                Axios.post('/api/admin/ge/category/setPassive/'+id).then(response=>console.log(response));
+                Axios.post('/api/admin/ge/category/setPassive/'+id).then(this.$store.dispatch('loadAdminCategory'));
             },
             activateItem:function (id) {
-                Axios.post('/api/admin/ge/category/setActive/'+id).then(response=>console.log(response));
+                Axios.post('/api/admin/ge/category/setActive/'+id).then(this.$store.dispatch('loadAdminCategory'));
             },
             deleteItem:function (id) {
-                Axios.post('/api/admin/ge/category/delete/'+id).then(response=>console.log(response));
+                Axios.post('/api/admin/ge/category/delete/'+id).then(this.$store.dispatch('loadAdminCategory'));
             },
             openSettings:function (id) {
                 this.selectedCategoryId=id;

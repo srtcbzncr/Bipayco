@@ -87,7 +87,7 @@
           }
         },
         props:{
-            citiesRoute:{
+            selectedCityId:{
                 type:String,
                 required:true,
             },
@@ -146,7 +146,6 @@
         },
         computed:{
             ...mapState([
-                'adminSelectedId',
                 'adminDistrict'
             ]),
         },
@@ -198,19 +197,19 @@
                     Axios.post('/api/admin/bs/district/update/'+this.selectedDistrictId, {
                         name: this.name,
                         cityId: this.cityId,
-                    }).then(this.$store.dispatch('loadAdminDistrict', this.adminSelectedId));
+                    }).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
                 }else{
                     Axios.post('/api/admin/bs/district/create', {
                         name: this.name,
                         cityId: this.cityId,
-                    }).then(this.$store.dispatch('loadAdminDistrict', this.adminSelectedId));
+                    }).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
                 }
                 this.clearForm();
                 UIkit.modal('#addDistrictArea').hide();
             }
         },
         created() {
-            this.$store.dispatch('loadAdminDistrict', this.adminSelectedId);
+            this.$store.dispatch('loadAdminDistrict', this.selectedCityId);
         }
     }
 </script>

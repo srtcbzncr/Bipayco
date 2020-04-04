@@ -1926,10 +1926,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   props: {
-    subCategoriesRoute: {
-      type: String,
-      required: true
-    },
     addCategoryText: {
       type: String,
       "default": "Kategori Ekle"
@@ -1996,25 +1992,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminCategory'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminCategory', 'loadAdminSelectedId']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminCategory']), {
     routeSubCategories: function routeSubCategories(id) {
-      this.$store.dispatch('loadAdminSelectedId', id);
-      window.location.replace(this.subCategoriesRoute);
+      window.location.replace('/admin/category/' + id + '/subCategories');
     },
     deactivateItem: function deactivateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/setPassive/' + id).then(function (response) {
-        return console.log(response);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/setPassive/' + id).then(this.$store.dispatch('loadAdminCategory'));
     },
     activateItem: function activateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/setActive/' + id).then(function (response) {
-        return console.log(response);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/setActive/' + id).then(this.$store.dispatch('loadAdminCategory'));
     },
     deleteItem: function deleteItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/delete/' + id).then(function (response) {
-        return console.log(response);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/delete/' + id).then(this.$store.dispatch('loadAdminCategory'));
     },
     openSettings: function openSettings(id) {
       var _this = this;
@@ -2164,10 +2153,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   props: {
-    districtsRoute: {
-      type: String,
-      required: true
-    },
     addCityText: {
       type: String,
       "default": "Şehir Ekle"
@@ -2214,10 +2199,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminCity'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminCity', 'loadAdminSelectedId']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminCity']), {
     routeDistricts: function routeDistricts(id) {
-      this.$store.dispatch('loadAdminSelectedId', id);
-      window.location.replace(this.districtsRoute);
+      window.location.replace('/api/admin/city/' + id + '/districts');
     },
     deactivateItem: function deactivateItem(id) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/setPassive/' + id).then(function (response) {
@@ -2418,7 +2402,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   props: {
-    citiesRoute: {
+    selectedCityId: {
       type: String,
       required: true
     },
@@ -2475,7 +2459,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Vazgeç"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSelectedId', 'adminDistrict'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminDistrict'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminDistrict']), {
     routeCities: function routeCities() {
       window.location.replace(this.citiesRoute);
@@ -2530,12 +2514,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/update/' + this.selectedDistrictId, {
           name: this.name,
           cityId: this.cityId
-        }).then(this.$store.dispatch('loadAdminDistrict', this.adminSelectedId));
+        }).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/create', {
           name: this.name,
           cityId: this.cityId
-        }).then(this.$store.dispatch('loadAdminDistrict', this.adminSelectedId));
+        }).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
       }
 
       this.clearForm();
@@ -2543,7 +2527,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   created: function created() {
-    this.$store.dispatch('loadAdminDistrict', this.adminSelectedId);
+    this.$store.dispatch('loadAdminDistrict', this.selectedCityId);
   }
 });
 
@@ -2567,8 +2551,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
 //
 //
 //
@@ -2692,19 +2674,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminGrade'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminGrade']), {
     deactivateItem: function deactivateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/setPassive/' + id).then(function (response) {
-        return console.log(response.data);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/setPassive/' + id).then(this.$store.dispatch('loadAdminGrade'));
     },
     activateItem: function activateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/setActive/' + id).then(function (response) {
-        return console.log(response.data);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/setActive/' + id).then(this.$store.dispatch('loadAdminGrade'));
     },
     deleteItem: function deleteItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/delete/' + id).then(function (response) {
-        return console.log(response.data);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/delete/' + id).then(this.$store.dispatch('loadAdminGrade'));
     },
     openSettings: function openSettings(id) {
       var _this = this;
@@ -2737,7 +2713,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.selectedGradeId = "";
     },
     saveItem: function saveItem() {
-      if (hasItem) {
+      console.log(this.name);
+      console.log(this.icon);
+
+      if (this.hasItem) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/update/' + this.selectedGradeId, {
           symbol: this.icon,
           name: this.name
@@ -2836,8 +2815,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2851,10 +2828,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   props: {
-    subjectsRoute: {
-      type: String,
-      required: true
-    },
     addLessonText: {
       type: String,
       "default": "Ders Ekle"
@@ -2905,11 +2878,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminLesson'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminLesson', 'loadAdminSelectedId', 'loadAdminSubject']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminLesson']), {
     routeSubjects: function routeSubjects(id) {
-      this.$store.dispatch('loadAdminSelectedId', id);
-      this.$store.dispatch('loadAdminSubject', id);
-      window.location.replace(this.subjectsRoute);
+      window.location.replace('/api/admin/lesson/' + id + '/subjects');
     },
     deactivateItem: function deactivateItem(id) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/setPassive/' + id).then(function (response) {
@@ -3120,7 +3091,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   props: {
-    categoriesRoute: {
+    selectedCategoryId: {
       type: String,
       required: true
     },
@@ -3197,25 +3168,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Cancel"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSelectedId', 'adminSubCategory'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSubCategory'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminSubCategory']), {
     routeCategory: function routeCategory() {
       window.location.replace(this.subCategoriesRoute);
     },
     deactivateItem: function deactivateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/setPassive/' + id).then(function (response) {
-        return console.log(response);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/setPassive/' + id).then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId));
     },
     activateItem: function activateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/setActive/' + id).then(function (response) {
-        return console.log(response);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/setActive/' + id).then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId));
     },
     deleteItem: function deleteItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/delete/' + id).then(function (response) {
-        return console.log(response);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/delete/' + id).then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId));
     },
     openSettings: function openSettings(id) {
       var _this = this;
@@ -3262,9 +3227,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('description', this.description);
 
       if (hasItem) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/update/' + this.selectedSubCategoryId, formData).then(this.$store.dispatch('loadAdminSubCategory', this.adminSelectedId));
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/update/' + this.selectedSubCategoryId, formData).then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId));
       } else {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/create', formData).then(this.$store.dispatch('loadAdminSubCategory', this.adminSelectedId));
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/create', formData).then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId));
       }
 
       this.clearForm();
@@ -3272,7 +3237,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   created: function created() {
-    this.$store.dispatch('loadAdminSubCategory', this.adminSelectedId);
+    this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId);
   }
 });
 
@@ -3364,8 +3329,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3379,7 +3342,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   props: {
-    lessonsRoute: {
+    selectedLessonId: {
       type: String,
       required: true
     },
@@ -3436,7 +3399,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Konu Adı"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSelectedId', 'adminSubject'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSubject'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminSubject']), {
     routeLessons: function routeLessons() {
       window.location.replace(this.lessonsRoute);
@@ -3490,18 +3453,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/subject/update/' + this.selectedSubjectId, {
           name: this.name,
           lessonId: this.lessonId
-        }).then(this.$store.dispatch('loadAdminSubject', this.adminSelectedId));
+        }).then(this.$store.dispatch('loadAdminSubject', this.selectedLessonId));
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/subject/create', {
           name: this.name,
           lessonId: this.lessonId
-        }).then(this.$store.dispatch('loadAdminSubject', this.adminSelectedId));
+        }).then(this.$store.dispatch('loadAdminSubject', this.selectedLessonId));
       }
 
       this.clearForm();
       UIkit.modal('#addSubjectArea').hide();
     }
-  })
+  }),
+  created: function created() {
+    this.$store.dispatch('loadAdminSubject', this.selectedLessonId);
+  }
 });
 
 /***/ }),
@@ -11324,40 +11290,6 @@ var render = function() {
                             [_c("i", { staticClass: "fas fa-cog" })]
                           ),
                           _vm._v(" "),
-                          item.active
-                            ? _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.activateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.activateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-check-circle"
-                                  })
-                                ]
-                              )
-                            : _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.deactivateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.deactivateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-times-circle"
-                                  })
-                                ]
-                              ),
-                          _vm._v(" "),
                           _c(
                             "a",
                             {
@@ -11642,40 +11574,6 @@ var render = function() {
                             },
                             [_c("i", { staticClass: "fas fa-cog" })]
                           ),
-                          _vm._v(" "),
-                          item.active
-                            ? _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.activateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.activateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-check-circle"
-                                  })
-                                ]
-                              )
-                            : _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.deactivateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.deactivateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-times-circle"
-                                  })
-                                ]
-                              ),
                           _vm._v(" "),
                           _c(
                             "a",
@@ -12369,40 +12267,6 @@ var render = function() {
                             },
                             [_c("i", { staticClass: "fas fa-cog" })]
                           ),
-                          _vm._v(" "),
-                          item.active
-                            ? _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.activateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.activateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-check-circle"
-                                  })
-                                ]
-                              )
-                            : _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.deactivateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.deactivateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-times-circle"
-                                  })
-                                ]
-                              ),
                           _vm._v(" "),
                           _c(
                             "a",
@@ -36435,8 +36299,7 @@ var state = {
   adminSubject: {},
   adminGrade: {},
   adminCategory: {},
-  adminSubCategory: {},
-  adminSelectedId: ""
+  adminSubCategory: {}
 };
 var getters = {};
 var mutations = {
@@ -36543,10 +36406,6 @@ var mutations = {
   setAdminSubCategory: function setAdminSubCategory(state, subCategory) {
     console.log(subCategory);
     state.adminSubCategory = subCategory.data;
-  },
-  setAdminSelectedId: function setAdminSelectedId(state, id) {
-    console.log(id);
-    state.adminSelectedId = id;
   }
 };
 var actions = {
@@ -36784,10 +36643,6 @@ var actions = {
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/bs/city/' + cityId + '/district').then(function (response) {
       return commit('setAdminDistrict', response.data);
     });
-  },
-  loadAdminSelectedId: function loadAdminSelectedId(_ref49, id) {
-    var commit = _ref49.commit;
-    commit('setAdminSelectedId', id);
   }
 };
 var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({

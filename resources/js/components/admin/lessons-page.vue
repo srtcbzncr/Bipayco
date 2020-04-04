@@ -18,8 +18,6 @@
                     <td @click="routeSubjects(item.id)"><p>{{item.symbol}}</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-between">
                         <a @click="openSettings(item.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
-                        <a v-if="item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
-                        <a v-else @click="deactivateItem(item.id)" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
                         <a @click="deleteItem(item.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                     </td>
                 </tr>
@@ -72,10 +70,6 @@
             }
         },
         props:{
-            subjectsRoute:{
-                type:String,
-                required:true,
-            },
             addLessonText:{
                 type:String,
                 default:"Ders Ekle"
@@ -133,13 +127,9 @@
         methods:{
             ...mapActions([
                 'loadAdminLesson',
-                'loadAdminSelectedId',
-                'loadAdminSubject'
             ]),
             routeSubjects:function (id) {
-                this.$store.dispatch('loadAdminSelectedId', id);
-                this.$store.dispatch('loadAdminSubject', id);
-                window.location.replace(this.subjectsRoute);
+                window.location.replace('/api/admin/lesson/'+id+'/subjects');
             },
             deactivateItem:function (id) {
                 Axios.post('/api/admin/cr/lesson/setPassive/'+id).then(response=>console.log(response));

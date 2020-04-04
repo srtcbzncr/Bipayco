@@ -28,8 +28,6 @@
                         <td><p>{{item.lessonId}}</p></td>
                         <td class="uk-flex flex-wrap align-items-center justify-content-between">
                             <a @click="openSettings(item.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
-                            <a v-if="item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
-                            <a v-else @click="deactivateItem(item.id)" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
                             <a @click="deleteItem(item.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                         </td>
                     </tr>
@@ -82,7 +80,7 @@
             }
         },
         props:{
-            lessonsRoute:{
+            selectedLessonId:{
                 type:String,
                 required:true,
             },
@@ -142,7 +140,6 @@
         },
         computed:{
             ...mapState([
-                'adminSelectedId',
                 'adminSubject'
             ]),
         },
@@ -193,17 +190,20 @@
                     Axios.post('/api/admin/cr/subject/update/'+this.selectedSubjectId, {
                         name:this.name,
                         lessonId:this.lessonId,
-                    }).then(this.$store.dispatch('loadAdminSubject', this.adminSelectedId))
+                    }).then(this.$store.dispatch('loadAdminSubject', this.selectedLessonId))
                 }else{
                     Axios.post('/api/admin/cr/subject/create', {
                         name:this.name,
                         lessonId:this.lessonId,
-                    }).then(this.$store.dispatch('loadAdminSubject', this.adminSelectedId))
+                    }).then(this.$store.dispatch('loadAdminSubject', this.selectedLessonId))
                 }
                 this.clearForm();
                 UIkit.modal('#addSubjectArea').hide();
             }
         },
+        created() {
+            this.$store.dispatch('loadAdminSubject', this.selectedLessonId);
+        }
     }
 </script>
 

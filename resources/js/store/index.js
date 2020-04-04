@@ -75,7 +75,6 @@ const state={
     adminGrade:{},
     adminCategory:{},
     adminSubCategory:{},
-    adminSelectedId:"",
 };
 const getters={};
 const mutations={
@@ -181,10 +180,6 @@ const mutations={
         console.log(subCategory);
         state.adminSubCategory=subCategory.data;
     },
-    setAdminSelectedId(state, id){
-        console.log(id);
-        state.adminSelectedId=id;
-    }
 };
 const actions={
     /*province.vue*/
@@ -315,9 +310,6 @@ const actions={
         Axios.get('/api/admin/bs/city/'+cityId+'/district')
             .then(response=>commit('setAdminDistrict', response.data));
     },
-    loadAdminSelectedId({commit}, id){
-        commit('setAdminSelectedId', id);
-    }
 };
 
 const store=new Vuex.Store({

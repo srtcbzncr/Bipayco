@@ -91,7 +91,7 @@
             }
         },
         props:{
-            categoriesRoute:{
+            selectedCategoryId:{
                 type:String,
                 required:true,
             },
@@ -170,7 +170,6 @@
         },
         computed:{
             ...mapState([
-                'adminSelectedId',
                 'adminSubCategory'
             ]),
         },
@@ -182,13 +181,13 @@
                 window.location.replace(this.subCategoriesRoute);
             },
             deactivateItem:function (id) {
-                Axios.post('/api/admin/ge/subCategory/setPassive/'+id).then(response=>console.log(response))
+                Axios.post('/api/admin/ge/subCategory/setPassive/'+id).then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId))
             },
             activateItem:function (id) {
-                Axios.post('/api/admin/ge/subCategory/setActive/'+id).then(response=>console.log(response))
+                Axios.post('/api/admin/ge/subCategory/setActive/'+id).then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId))
             },
             deleteItem:function (id) {
-                Axios.post('/api/admin/ge/subCategory/delete/'+id).then(response=>console.log(response))
+                Axios.post('/api/admin/ge/subCategory/delete/'+id).then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId))
             },
             openSettings:function (id) {
                 this.selectedSubCategoryId=id;
@@ -233,17 +232,17 @@
 
                 if(hasItem){
                     Axios.post('/api/admin/ge/subCategory/update/'+this.selectedSubCategoryId, formData)
-                        .then(this.$store.dispatch('loadAdminSubCategory', this.adminSelectedId));
+                        .then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId));
                 }else{
                     Axios.post('/api/admin/ge/subCategory/create', formData)
-                        .then(this.$store.dispatch('loadAdminSubCategory', this.adminSelectedId));
+                        .then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId));
                 }
                 this.clearForm();
                 UIkit.modal('#addSubCategoryArea').hide();
             }
         },
         created() {
-            this.$store.dispatch('loadAdminSubCategory', this.adminSelectedId)
+            this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId)
         }
     }
 </script>

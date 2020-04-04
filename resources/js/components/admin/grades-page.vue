@@ -18,8 +18,6 @@
                         <td><p>{{item.symbol}}</p></td>
                         <td class="uk-flex flex-wrap align-items-center justify-content-between">
                             <a @click="openSettings(item.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
-                            <a v-if="item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
-                            <a v-else @click="deactivateItem(item.id)" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
                             <a @click="deleteItem(item.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                         </td>
                     </tr>
@@ -131,13 +129,13 @@
                 'loadAdminGrade',
             ]),
             deactivateItem:function (id) {
-                Axios.post('/api/admin/cr/grade/setPassive/'+id).then(response=>console.log(response.data));
+                Axios.post('/api/admin/cr/grade/setPassive/'+id).then(this.$store.dispatch('loadAdminGrade'));
             },
             activateItem:function (id) {
-                Axios.post('/api/admin/cr/grade/setActive/'+id).then(response=>console.log(response.data));
+                Axios.post('/api/admin/cr/grade/setActive/'+id).then(this.$store.dispatch('loadAdminGrade'));
             },
             deleteItem:function (id) {
-                Axios.post('/api/admin/cr/grade/delete/'+id).then(response=>console.log(response.data));
+                Axios.post('/api/admin/cr/grade/delete/'+id).then(this.$store.dispatch('loadAdminGrade'));
             },
             openSettings:function (id) {
                 this.selectedGradeId=id;
@@ -167,7 +165,9 @@
                 this.selectedGradeId="";
             },
             saveItem:function () {
-                if(hasItem){
+                console.log(this.name);
+                console.log(this.icon);
+                if(this.hasItem){
                     Axios.post('/api/admin/cr/grade/update/'+this.selectedGradeId, {
                         symbol: this.icon,
                         name: this.name,

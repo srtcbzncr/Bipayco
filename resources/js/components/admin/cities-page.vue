@@ -71,10 +71,6 @@
             }
         },
         props:{
-            districtsRoute:{
-                type:String,
-                required:true,
-            },
             addCityText:{
                 type:String,
                 default:"Şehir Ekle"
@@ -128,11 +124,9 @@
         methods:{
             ...mapActions([
                 'loadAdminCity',
-                'loadAdminSelectedId',
             ]),
             routeDistricts:function (id) {
-                this.$store.dispatch('loadAdminSelectedId', id);
-                window.location.replace(this.districtsRoute);
+                window.location.replace('/api/admin/city/'+id+'/districts');
             },
             deactivateItem:function (id) {
                 Axios.post('/api/admin/bs/city/setPassive/'+id).then(response=>console.log(response));
