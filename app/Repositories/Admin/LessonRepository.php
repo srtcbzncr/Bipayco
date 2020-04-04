@@ -22,7 +22,7 @@ class LessonRepository implements IRepository
 
         // Operations
         try{
-            $object = Lesson::all();
+            $object = DB::table('cr_lessons')->paginate(10);
         }
         catch(\Exception $e){
             $error = $e->getMessage();

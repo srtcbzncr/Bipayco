@@ -21,7 +21,7 @@ class GradeRepository implements IRepository
 
         // Operations
         try{
-            $object = Grade::all();
+            $object = DB::table('cr_grades')->paginate(10);
         }
         catch(\Exception $e){
             $error = $e->getMessage();
