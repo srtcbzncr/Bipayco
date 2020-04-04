@@ -28,7 +28,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::get('/grade','Admin\HomeController@grade')->name('adminGrade');
     Route::get('/lesson','Admin\HomeController@lesson')->name('adminLesson');
     //Route::get('/subjects','Admin\HomeController@subjects')->name('adminSubjects');
-    Route::get('/category/{categoryId}/subCategories','Admin\HomeController@getSubjectsOfCategory')->name('admingetSubjects');
+    Route::get('/category/{categoryId}/subCategories','Admin\HomeController@getSubcategoryOfCategory')->name('admingetSubjects');
     Route::get('/city/{cityId}/districts','Admin\HomeController@getDistrictsOfCity')->name('admingetDistricts');
     Route::get('/lesson/{lessonId}/subjects','Admin\HomeController@getSubjectsOfLesson')->name('admingetSubjects');
 });

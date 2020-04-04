@@ -39,7 +39,7 @@ class HomeController extends Controller
         return view('admin.subjects');
     }*/
 
-    public function getSubjectsOfCategory($categoryId){
+    public function getSubcategoryOfCategory($categoryId){
         // initializing
         $data = array();
 
@@ -63,6 +63,6 @@ class HomeController extends Controller
 
         // operations
         $data['lessonId'] = $lessonId;
-        return view('admin.lesson')->with('data',$data);
+        return view('admin.subjects')->with('data',$data);
     }
 }
