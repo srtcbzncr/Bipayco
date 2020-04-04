@@ -43,7 +43,7 @@ class BaseRepository implements IRepository
 
         // Operations
         try{
-            $object = District::all();
+            $object = DB::table('bs_districts')->paginate(10);
         }
         catch(\Exception $e){
             $error = $e->getMessage();
