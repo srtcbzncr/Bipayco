@@ -22,7 +22,7 @@ class BaseRepository implements IRepository
 
         // Operations
         try{
-            $object = City::all();
+            $object = DB::table('bs_cities')->paginate(10);
         }
         catch(\Exception $e){
             $error = $e->getMessage();
