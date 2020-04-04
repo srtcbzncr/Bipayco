@@ -7,16 +7,14 @@
             <table id="categoryTable" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0">
                 <thead v-if="true">
                 <tr>
-                    <th>Name</th>
-                    <th>Position</th>
+                    <th>{{lessonNameText}}</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody v-if="true">
-                <tr v-for="item in adminLesson">
-                    <td @click="routeSubjects(item.id)"><p>{{item.name}}</p></td>
-                    <td @click="routeSubjects(item.id)"><p>{{item.symbol}}</p></td>
-                    <td class="uk-flex flex-wrap align-items-center justify-content-between">
+                <tr v-for="item in adminLesson.data">
+                    <td @click="routeSubjects(item.id)" class="uk-width-3-4"><p>{{item.name}}</p></td>
+                    <td class="uk-flex flex-wrap align-items-center justify-content-around">
                         <a @click="openSettings(item.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
                         <a @click="deleteItem(item.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                     </td>
@@ -129,7 +127,7 @@
                 'loadAdminLesson',
             ]),
             routeSubjects:function (id) {
-                window.location.replace('/api/admin/lesson/'+id+'/subjects');
+                window.location.replace('/admin/lesson/'+id+'/subjects');
             },
             deactivateItem:function (id) {
                 Axios.post('/api/admin/cr/lesson/setPassive/'+id).then(response=>console.log(response));

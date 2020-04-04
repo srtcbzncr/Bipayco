@@ -1909,8 +1909,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2201,17 +2199,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminCity'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminCity']), {
     routeDistricts: function routeDistricts(id) {
-      window.location.replace('/api/admin/city/' + id + '/districts');
+      window.location.replace('/admin/city/' + id + '/districts');
     },
     deactivateItem: function deactivateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/setPassive/' + id).then(function (response) {
-        return console.log(response);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/setPassive/' + id).then(this.$store.dispatch('loadAdminCity'));
     },
     activateItem: function activateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/setActive/' + id).then(function (response) {
-        return console.log(response);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/setActive/' + id).then(this.$store.dispatch('loadAdminCity'));
     },
     deleteItem: function deleteItem(id) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/delete/' + id).then(function (response) {
@@ -2376,15 +2370,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2392,7 +2377,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       name: "",
-      cityId: "",
       hasItem: false,
       selectedDistrictId: "",
       selectedDistrict: {
@@ -2402,6 +2386,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   props: {
+    citiesRoute: {
+      type: String,
+      required: true
+    },
     selectedCityId: {
       type: String,
       required: true
@@ -2465,19 +2453,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       window.location.replace(this.citiesRoute);
     },
     deactivateItem: function deactivateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/setPassive/' + id).then(function (response) {
-        return console.log(response);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/setPassive/' + id).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
     },
     activateItem: function activateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/setActive/' + id).then(function (response) {
-        return console.log(response);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/setActive/' + id).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
     },
     deleteItem: function deleteItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/delete/' + id).then(function (response) {
-        return console.log(response);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/delete/' + id).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
     },
     openSettings: function openSettings(id) {
       var _this = this;
@@ -2495,13 +2477,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     clearForm: function clearForm() {
       this.name = "";
-      this.cityId = "";
       this.hasItem = false;
       this.selectedDistrictId = "";
     },
     setSelected: function setSelected(selectedData) {
       console.log(selectedData);
-      this.cityId = selectedData.cityId;
       this.name = selectedData.name;
       this.hasItem = true;
       UIkit.modal('#addDistrictArea', {
@@ -2513,12 +2493,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.hasItem) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/update/' + this.selectedDistrictId, {
           name: this.name,
-          cityId: this.cityId
+          cityId: this.selectedCityId
         }).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/create', {
           name: this.name,
-          cityId: this.cityId
+          cityId: this.selectedCityId
         }).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
       }
 
@@ -2551,6 +2531,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -2813,8 +2794,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2880,7 +2859,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminLesson'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminLesson']), {
     routeSubjects: function routeSubjects(id) {
-      window.location.replace('/api/admin/lesson/' + id + '/subjects');
+      window.location.replace('/admin/lesson/' + id + '/subjects');
     },
     deactivateItem: function deactivateItem(id) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/setPassive/' + id).then(function (response) {
@@ -3073,8 +3052,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3091,6 +3068,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   props: {
+    categoriesRoute: {
+      type: String,
+      required: true
+    },
     selectedCategoryId: {
       type: String,
       required: true
@@ -3166,12 +3147,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     cancelText: {
       type: String,
       "default": "Cancel"
+    },
+    descriptionText: {
+      type: String,
+      "default": "Açıklama"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSubCategory'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminSubCategory']), {
     routeCategory: function routeCategory() {
-      window.location.replace(this.subCategoriesRoute);
+      window.location.replace(this.categoriesRoute);
     },
     deactivateItem: function deactivateItem(id) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/setPassive/' + id).then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId));
@@ -3325,10 +3310,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3342,6 +3323,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   props: {
+    lessonsRoute: {
+      type: String,
+      required: true
+    },
     selectedLessonId: {
       type: String,
       required: true
@@ -10263,16 +10248,27 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true ? _c("thead", [_vm._m(0)]) : undefined,
+            true
+              ? _c("thead", [
+                  _c("tr", [
+                    _c("th", [_vm._v(_vm._s(_vm.categoryNameText))]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v(_vm._s(_vm.descriptionText))]),
+                    _vm._v(" "),
+                    _c("th")
+                  ])
+                ])
+              : undefined,
             _vm._v(" "),
             true
               ? _c(
                   "tbody",
-                  _vm._l(_vm.adminCategory, function(item) {
+                  _vm._l(_vm.adminCategory.data, function(item) {
                     return _c("tr", [
                       _c(
                         "td",
                         {
+                          staticClass: "uk-width-1-4",
                           on: {
                             click: function($event) {
                               return _vm.routeSubCategories(item.id)
@@ -10285,6 +10281,7 @@ var render = function() {
                       _c(
                         "td",
                         {
+                          staticClass: "uk-width-1-2",
                           on: {
                             click: function($event) {
                               return _vm.routeSubCategories(item.id)
@@ -10298,7 +10295,7 @@ var render = function() {
                         "td",
                         {
                           staticClass:
-                            "uk-flex flex-wrap align-items-center justify-content-between"
+                            "uk-flex flex-wrap align-items-center justify-content-around"
                         },
                         [
                           _c(
@@ -10314,7 +10311,7 @@ var render = function() {
                             [_c("i", { staticClass: "fas fa-cog" })]
                           ),
                           _vm._v(" "),
-                          item.active
+                          !item.active
                             ? _c(
                                 "a",
                                 {
@@ -10556,24 +10553,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("Name")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Position")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Office")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Age")]),
-      _vm._v(" "),
-      _c("th")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -10640,11 +10620,12 @@ var render = function() {
             true
               ? _c(
                   "tbody",
-                  _vm._l(_vm.adminCity, function(item) {
+                  _vm._l(_vm.adminCity.data, function(item) {
                     return _c("tr", [
                       _c(
                         "td",
                         {
+                          staticClass: "uk-width-1-4",
                           on: {
                             click: function($event) {
                               return _vm.routeDistricts(item.id)
@@ -10657,6 +10638,7 @@ var render = function() {
                       _c(
                         "td",
                         {
+                          staticClass: "uk-width-1-2",
                           on: {
                             click: function($event) {
                               return _vm.routeDistricts(item.id)
@@ -10670,7 +10652,7 @@ var render = function() {
                         "td",
                         {
                           staticClass:
-                            "uk-flex flex-wrap align-items-center justify-content-between"
+                            "uk-flex flex-wrap align-items-center justify-content-around"
                         },
                         [
                           _c(
@@ -10686,7 +10668,7 @@ var render = function() {
                             [_c("i", { staticClass: "fas fa-cog" })]
                           ),
                           _vm._v(" "),
-                          item.active
+                          !item.active
                             ? _c(
                                 "a",
                                 {
@@ -10975,10 +10957,6 @@ var render = function() {
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.districtNameText))]),
                     _vm._v(" "),
-                    _c("th", [_vm._v(_vm._s(_vm.districtCodeText))]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v(_vm._s(_vm.cityText))]),
-                    _vm._v(" "),
                     _c("th")
                   ])
                 ])
@@ -10989,15 +10967,15 @@ var render = function() {
                   "tbody",
                   _vm._l(_vm.adminDistrict, function(item) {
                     return _c("tr", [
-                      _c("td", [_c("p", [_vm._v(_vm._s(item.name))])]),
-                      _vm._v(" "),
-                      _vm._m(0, true),
+                      _c("td", { staticClass: "uk-width-3-4" }, [
+                        _c("p", [_vm._v(_vm._s(item.name))])
+                      ]),
                       _vm._v(" "),
                       _c(
                         "td",
                         {
                           staticClass:
-                            "uk-flex flex-wrap align-items-center justify-content-between"
+                            "uk-flex flex-wrap align-items-center justify-content-around"
                         },
                         [
                           _c(
@@ -11013,7 +10991,7 @@ var render = function() {
                             [_c("i", { staticClass: "fas fa-cog" })]
                           ),
                           _vm._v(" "),
-                          item.active
+                          !item.active
                             ? _c(
                                 "a",
                                 {
@@ -11094,58 +11072,6 @@ var render = function() {
             _c("div", { staticClass: "uk-margin-bottom" }, [
               _c("div", { staticClass: "uk-margin-bottom" }, [
                 _c("div", { staticClass: "uk-form-label" }, [
-                  _vm._v(_vm._s(_vm.cityText))
-                ]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.cityId,
-                        expression: "cityId"
-                      }
-                    ],
-                    staticClass: "uk-width uk-select",
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.cityId = $event.target.multiple
-                          ? $$selectedVal
-                          : $$selectedVal[0]
-                      }
-                    }
-                  },
-                  [
-                    _c(
-                      "option",
-                      {
-                        attrs: {
-                          value: "",
-                          selected: "",
-                          disabled: "",
-                          hidden: ""
-                        }
-                      },
-                      [_vm._v(_vm._s(_vm.selectCityText))]
-                    ),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "1" } }, [_vm._v("şehir1")]),
-                    _vm._v(" "),
-                    _c("option", { attrs: { value: "2" } }, [_vm._v("şehir2")])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-form-label" }, [
                   _vm._v(_vm._s(_vm.districtNameText))
                 ]),
                 _vm._v(" "),
@@ -11200,14 +11126,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("a")])])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -11229,7 +11148,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "uk-margin-large-top" }, [
+  return _c("div", { staticClass: "uk-margin-medium-top" }, [
     _c("div", { staticClass: "text-right" }, [
       _c(
         "button",
@@ -11259,22 +11178,30 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true ? _c("thead", [_vm._m(0)]) : undefined,
+            true
+              ? _c("thead", [
+                  _c("tr", [
+                    _c("th", [_vm._v(_vm._s(_vm.gradeNameText))]),
+                    _vm._v(" "),
+                    _c("th")
+                  ])
+                ])
+              : undefined,
             _vm._v(" "),
             true
               ? _c(
                   "tbody",
-                  _vm._l(_vm.adminGrade, function(item) {
+                  _vm._l(_vm.adminGrade.data, function(item) {
                     return _c("tr", [
-                      _c("td", [_c("p", [_vm._v(_vm._s(item.name))])]),
-                      _vm._v(" "),
-                      _c("td", [_c("p", [_vm._v(_vm._s(item.symbol))])]),
+                      _c("td", { staticClass: "uk-width-3-4" }, [
+                        _c("p", [_vm._v(_vm._s(item.name))])
+                      ]),
                       _vm._v(" "),
                       _c(
                         "td",
                         {
                           staticClass:
-                            "uk-flex flex-wrap align-items-center justify-content-between"
+                            "uk-flex flex-wrap align-items-center justify-content-around"
                         },
                         [
                           _c(
@@ -11317,6 +11244,8 @@ var render = function() {
         )
       ]
     ),
+    _vm._v(" "),
+    _c("div", { staticClass: "text-center" }),
     _vm._v(" "),
     _c("div", { attrs: { id: "addGradeArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
@@ -11381,9 +11310,9 @@ var render = function() {
                     [_vm._v(_vm._s(_vm.selectIconText))]
                   ),
                   _vm._v(" "),
-                  _vm._m(1),
+                  _vm._m(0),
                   _vm._v(" "),
-                  _vm._m(2)
+                  _vm._m(1)
                 ]
               ),
               _vm._v(" "),
@@ -11442,18 +11371,6 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("Name")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Position")]),
-      _vm._v(" "),
-      _c("th")
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -11524,16 +11441,25 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true ? _c("thead", [_vm._m(0)]) : undefined,
+            true
+              ? _c("thead", [
+                  _c("tr", [
+                    _c("th", [_vm._v(_vm._s(_vm.lessonNameText))]),
+                    _vm._v(" "),
+                    _c("th")
+                  ])
+                ])
+              : undefined,
             _vm._v(" "),
             true
               ? _c(
                   "tbody",
-                  _vm._l(_vm.adminLesson, function(item) {
+                  _vm._l(_vm.adminLesson.data, function(item) {
                     return _c("tr", [
                       _c(
                         "td",
                         {
+                          staticClass: "uk-width-3-4",
                           on: {
                             click: function($event) {
                               return _vm.routeSubjects(item.id)
@@ -11546,20 +11472,8 @@ var render = function() {
                       _c(
                         "td",
                         {
-                          on: {
-                            click: function($event) {
-                              return _vm.routeSubjects(item.id)
-                            }
-                          }
-                        },
-                        [_c("p", [_vm._v(_vm._s(item.symbol))])]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
                           staticClass:
-                            "uk-flex flex-wrap align-items-center justify-content-between"
+                            "uk-flex flex-wrap align-items-center justify-content-around"
                         },
                         [
                           _c(
@@ -11721,20 +11635,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("Name")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Position")]),
-      _vm._v(" "),
-      _c("th")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -11812,9 +11713,14 @@ var render = function() {
                 "fas fa-arrow-alt-circle-left icon-medium uk-margin-small-right"
             }),
             _vm._v(" "),
-            _c("h6", { staticClass: "uk-margin-remove" }, [
-              _vm._v(_vm._s(_vm.backText))
-            ])
+            _c(
+              "h6",
+              {
+                staticClass: "uk-margin-remove",
+                on: { click: _vm.routeCategory }
+              },
+              [_vm._v(_vm._s(_vm.backText))]
+            )
           ])
         ]),
         _vm._v(" "),
@@ -11849,22 +11755,36 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true ? _c("thead", [_vm._m(0)]) : undefined,
+            true
+              ? _c("thead", [
+                  _c("tr", [
+                    _c("th", [_vm._v(_vm._s(_vm.subCategoryNameText))]),
+                    _vm._v(" "),
+                    _c("th", [_vm._v(_vm._s(_vm.descriptionText))]),
+                    _vm._v(" "),
+                    _c("th")
+                  ])
+                ])
+              : undefined,
             _vm._v(" "),
             true
               ? _c(
                   "tbody",
-                  _vm._l(_vm.adminSubCategory, function(item) {
+                  _vm._l(_vm.adminSubCategory.data, function(item) {
                     return _c("tr", [
-                      _c("td", [_c("p", [_vm._v(_vm._s(item.name))])]),
+                      _c("td", { staticClass: "uk-width-1-4" }, [
+                        _c("p", [_vm._v(_vm._s(item.name))])
+                      ]),
                       _vm._v(" "),
-                      _c("td", [_c("p", [_vm._v(_vm._s(item.lessonId))])]),
+                      _c("td", { staticClass: "uk-width-1-2" }, [
+                        _c("p", [_vm._v(_vm._s(item.description))])
+                      ]),
                       _vm._v(" "),
                       _c(
                         "td",
                         {
                           staticClass:
-                            "uk-flex flex-wrap align-items-center justify-content-between"
+                            "uk-flex flex-wrap align-items-center justify-content-around"
                         },
                         [
                           _c(
@@ -11880,7 +11800,7 @@ var render = function() {
                             [_c("i", { staticClass: "fas fa-cog" })]
                           ),
                           _vm._v(" "),
-                          item.active
+                          !item.active
                             ? _c(
                                 "a",
                                 {
@@ -12142,24 +12062,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("Name")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Position")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Office")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Age")]),
-      _vm._v(" "),
-      _c("th")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -12237,22 +12140,30 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true ? _c("thead", [_vm._m(0)]) : undefined,
+            true
+              ? _c("thead", [
+                  _c("tr", [
+                    _c("th", [_vm._v(_vm._s(_vm.subjectNameText))]),
+                    _vm._v(" "),
+                    _c("th")
+                  ])
+                ])
+              : undefined,
             _vm._v(" "),
             true
               ? _c(
                   "tbody",
-                  _vm._l(_vm.adminSubject, function(item) {
+                  _vm._l(_vm.adminSubject.data, function(item) {
                     return _c("tr", [
-                      _c("td", [_c("p", [_vm._v(_vm._s(item.name))])]),
-                      _vm._v(" "),
-                      _c("td", [_c("p", [_vm._v(_vm._s(item.lessonId))])]),
+                      _c("td", { staticClass: "uk-width-3-4" }, [
+                        _c("p", [_vm._v(_vm._s(item.name))])
+                      ]),
                       _vm._v(" "),
                       _c(
                         "td",
                         {
                           staticClass:
-                            "uk-flex flex-wrap align-items-center justify-content-between"
+                            "uk-flex flex-wrap align-items-center justify-content-around"
                         },
                         [
                           _c(
@@ -12419,24 +12330,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("tr", [
-      _c("th", [_vm._v("Name")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Position")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Office")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Age")]),
-      _vm._v(" "),
-      _c("th")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -36640,7 +36534,7 @@ var actions = {
   },
   loadAdminDistrict: function loadAdminDistrict(_ref48, cityId) {
     var commit = _ref48.commit;
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/bs/city/' + cityId + '/district').then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/bs/city/' + cityId + '/districts').then(function (response) {
       return commit('setAdminDistrict', response.data);
     });
   }

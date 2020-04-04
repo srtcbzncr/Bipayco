@@ -16,18 +16,15 @@
                 <thead v-if="true">
                 <tr>
                     <th>{{districtNameText}}</th>
-                    <th>{{districtCodeText}}</th>
-                    <th>{{cityText}}</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody v-if="true">
                     <tr v-for="item in adminDistrict">
-                        <td><p>{{item.name}}</p></td>
-                        <td><p>a</p></td>
-                        <td class="uk-flex flex-wrap align-items-center justify-content-between">
+                        <td class="uk-width-3-4"><p>{{item.name}}</p></td>
+                        <td class="uk-flex flex-wrap align-items-center justify-content-around">
                             <a @click="openSettings(item.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
-                            <a v-if="item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
+                            <a v-if="!item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
                             <a v-else @click="deactivateItem(item.id)" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
                             <a @click="deleteItem(item.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                         </td>
@@ -48,12 +45,6 @@
                 <div class="uk-modal-body" uk-overflow-auto>
                     <div class="uk-margin-bottom">
                         <div class="uk-margin-bottom">
-                            <div class="uk-form-label">{{cityText}}</div>
-                            <select v-model="cityId" class="uk-width uk-select">
-                                <option value="" selected disabled hidden>{{selectCityText}}</option>
-                                <option value="1">şehir1</option>
-                                <option value="2">şehir2</option>
-                            </select>
                             <div class="uk-form-label">{{districtNameText}}</div>
                             <input v-model="name" class="uk-width uk-input" :placeholder="districtNameText">
                         </div>
@@ -77,7 +68,6 @@
         data(){
           return{
               name:"",
-              cityId:"",
               hasItem:false,
               selectedDistrictId:"",
               selectedDistrict:{
@@ -87,6 +77,10 @@
           }
         },
         props:{
+            citiesRoute:{
+                type:String,
+                required:true,
+            },
             selectedCityId:{
                 type:String,
                 required:true,
@@ -157,13 +151,13 @@
                 window.location.replace(this.citiesRoute);
             },
             deactivateItem:function (id) {
-                Axios.post('/api/admin/bs/district/setPassive/'+id).then(response=>console.log(response));
+                Axios.post('/api/admin/bs/district/setPassive/'+id).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
             },
             activateItem:function (id) {
-                Axios.post('/api/admin/bs/district/setActive/'+id).then(response=>console.log(response));
+                Axios.post('/api/admin/bs/district/setActive/'+id).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
             },
             deleteItem:function (id) {
-                Axios.post('/api/admin/bs/district/delete/'+id).then(response=>console.log(response));
+                Axios.post('/api/admin/bs/district/delete/'+id).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
             },
             openSettings:function (id) {
                 this.selectedDistrictId=id;
@@ -178,13 +172,11 @@
             },
             clearForm:function () {
                 this.name="";
-                this.cityId="";
                 this.hasItem=false;
                 this.selectedDistrictId="";
             },
             setSelected:function(selectedData){
                 console.log(selectedData);
-                this.cityId=selectedData.cityId;
                 this.name=selectedData.name;
                 this.hasItem=true;
                 UIkit.modal('#addDistrictArea', {
@@ -196,12 +188,12 @@
                 if(this.hasItem){
                     Axios.post('/api/admin/bs/district/update/'+this.selectedDistrictId, {
                         name: this.name,
-                        cityId: this.cityId,
+                        cityId: this.selectedCityId,
                     }).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
                 }else{
                     Axios.post('/api/admin/bs/district/create', {
                         name: this.name,
-                        cityId: this.cityId,
+                        cityId: this.selectedCityId,
                     }).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
                 }
                 this.clearForm();

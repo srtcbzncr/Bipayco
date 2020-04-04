@@ -307,7 +307,7 @@ const actions={
             .then(response=>commit('setAdminCity', response.data));
     },
     loadAdminDistrict({commit}, cityId){
-        Axios.get('/api/admin/bs/city/'+cityId+'/district')
+        Axios.get('/api/admin/bs/city/'+cityId+'/districts')
             .then(response=>commit('setAdminDistrict', response.data));
     },
 };

@@ -4,7 +4,7 @@
             <div class="text-left">
                 <a class="uk-flex align-item-center">
                     <i class="fas fa-arrow-alt-circle-left icon-medium uk-margin-small-right"></i>
-                    <h6 class="uk-margin-remove">{{backText}}</h6>
+                    <h6 class="uk-margin-remove" @click="routeCategory">{{backText}}</h6>
                 </a>
             </div>
             <div class="text-right">
@@ -15,20 +15,18 @@
             <table id="categoryTable" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0">
                 <thead v-if="true">
                 <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
+                    <th>{{subCategoryNameText}}</th>
+                    <th>{{descriptionText}}</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody v-if="true">
-                <tr v-for="item in adminSubCategory">
-                    <td><p>{{item.name}}</p></td>
-                    <td><p>{{item.lessonId}}</p></td>
-                    <td class="uk-flex flex-wrap align-items-center justify-content-between">
+                <tr v-for="item in adminSubCategory.data">
+                    <td class="uk-width-1-4"><p>{{item.name}}</p></td>
+                    <td class="uk-width-1-2"><p>{{item.description}}</p></td>
+                    <td class="uk-flex flex-wrap align-items-center justify-content-around">
                         <a @click="openSettings(item.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
-                        <a v-if="item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
+                        <a v-if="!item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
                         <a v-else @click="deactivateItem(item.id)" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
                         <a @click="deleteItem(item.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                     </td>
@@ -91,6 +89,10 @@
             }
         },
         props:{
+            categoriesRoute:{
+                type:String,
+                required: true,
+            },
             selectedCategoryId:{
                 type:String,
                 required:true,
@@ -167,6 +169,10 @@
                 type:String,
                 default:"Cancel"
             },
+            descriptionText:{
+                type:String,
+                default:"Açıklama"
+            }
         },
         computed:{
             ...mapState([
@@ -178,7 +184,7 @@
                 'loadAdminSubCategory'
             ]),
             routeCategory:function () {
-                window.location.replace(this.subCategoriesRoute);
+                window.location.replace(this.categoriesRoute);
             },
             deactivateItem:function (id) {
                 Axios.post('/api/admin/ge/subCategory/setPassive/'+id).then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId))

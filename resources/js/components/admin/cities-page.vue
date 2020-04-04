@@ -13,12 +13,12 @@
                 </tr>
                 </thead>
                 <tbody v-if="true">
-                <tr v-for="item in adminCity">
-                    <td @click="routeDistricts(item.id)"><p>{{item.name}}</p></td>
-                    <td @click="routeDistricts(item.id)"><p>{{item.code}}</p></td>
-                    <td class="uk-flex flex-wrap align-items-center justify-content-between">
+                <tr v-for="item in adminCity.data">
+                    <td @click="routeDistricts(item.id)" class="uk-width-1-4"><p>{{item.name}}</p></td>
+                    <td @click="routeDistricts(item.id)" class="uk-width-1-2"><p>{{item.code}}</p></td>
+                    <td class="uk-flex flex-wrap align-items-center justify-content-around">
                         <a @click="openSettings(item.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
-                        <a v-if="item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
+                        <a v-if="!item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
                         <a v-else @click="deactivateItem(item.id)" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
                         <a @click="deleteItem(item.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                     </td>
@@ -126,13 +126,13 @@
                 'loadAdminCity',
             ]),
             routeDistricts:function (id) {
-                window.location.replace('/api/admin/city/'+id+'/districts');
+                window.location.replace('/admin/city/'+id+'/districts');
             },
             deactivateItem:function (id) {
-                Axios.post('/api/admin/bs/city/setPassive/'+id).then(response=>console.log(response));
+                Axios.post('/api/admin/bs/city/setPassive/'+id).then(this.$store.dispatch('loadAdminCity'));
             },
             activateItem:function (id) {
-                Axios.post('/api/admin/bs/city/setActive/'+id).then(response=>console.log(response));
+                Axios.post('/api/admin/bs/city/setActive/'+id).then(this.$store.dispatch('loadAdminCity'));
             },
             deleteItem:function (id) {
                 Axios.post('/api/admin/bs/city/delete/'+id).then(response=>console.log(response));

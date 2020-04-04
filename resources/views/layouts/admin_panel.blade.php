@@ -60,10 +60,10 @@
                     <a href="{{route('adminCategories')}}"> <i class="fas fa-book"></i>@lang('front/auth.categories')</a>
                 </li>
                 <li>
-                    <a href="{{route('adminLesson')}}"> <i class="fas fa-book-open"></i>@lang('front/auth.lessons')</a>
+                    <a href="{{route('adminGrade')}}"> <i class="fas fa-pencil-alt"></i>@lang('front/auth.grade')</a>
                 </li>
                 <li>
-                    <a href="{{route('adminGrade')}}"> <i class="fas fa-pencil-alt"></i>@lang('front/auth.grade')</a>
+                    <a href="{{route('adminLesson')}}"> <i class="fas fa-book-open"></i>@lang('front/auth.lessons')</a>
                 </li>
                 <li>
                     <a href="{{route('student_profile', Auth::user()->id)}}"> <i class="fas fa-user"></i>@lang('front/auth.student_mode')</a>

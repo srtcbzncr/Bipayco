@@ -15,18 +15,14 @@
             <table id="categoryTable" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0">
                 <thead v-if="true">
                 <tr>
-                    <th>Name</th>
-                    <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
+                    <th>{{subjectNameText}}</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody v-if="true">
-                    <tr v-for="item in adminSubject">
-                        <td><p>{{item.name}}</p></td>
-                        <td><p>{{item.lessonId}}</p></td>
-                        <td class="uk-flex flex-wrap align-items-center justify-content-between">
+                    <tr v-for="item in adminSubject.data">
+                        <td class="uk-width-3-4"><p>{{item.name}}</p></td>
+                        <td class="uk-flex flex-wrap align-items-center justify-content-around">
                             <a @click="openSettings(item.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
                             <a @click="deleteItem(item.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                         </td>
@@ -80,6 +76,10 @@
             }
         },
         props:{
+            lessonsRoute:{
+                type:String,
+                required:true,
+            },
             selectedLessonId:{
                 type:String,
                 required:true,

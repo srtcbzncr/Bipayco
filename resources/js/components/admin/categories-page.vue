@@ -7,20 +7,18 @@
             <table id="categoryTable" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0">
                 <thead v-if="true">
                     <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
+                        <th>{{categoryNameText}}</th>
+                        <th>{{descriptionText}}</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody v-if="true">
-                <tr v-for="item in adminCategory">
-                    <td @click="routeSubCategories(item.id)"><p>{{item.name}}</p></td>
-                    <td @click="routeSubCategories(item.id)"><p>{{item.description}}</p></td>
-                    <td class="uk-flex flex-wrap align-items-center justify-content-between">
+                <tr v-for="item in adminCategory.data">
+                    <td @click="routeSubCategories(item.id)" class="uk-width-1-4"><p>{{item.name}}</p></td>
+                    <td @click="routeSubCategories(item.id)" class="uk-width-1-2"><p>{{item.description}}</p></td>
+                    <td class="uk-flex flex-wrap align-items-center justify-content-around">
                         <a @click="openSettings(item.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
-                        <a v-if="item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
+                        <a v-if="!item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
                         <a v-else @click="deactivateItem(item.id)" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
                         <a @click="deleteItem(item.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                     </td>
@@ -141,7 +139,7 @@
             descriptionText:{
                 type:String,
                 default:"Açıklama"
-            }
+            },
         },
         computed:{
             ...mapState([
