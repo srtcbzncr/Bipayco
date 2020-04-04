@@ -23,28 +23,16 @@
                 </tr>
                 </thead>
                 <tbody v-if="true">
-                <tr>
-                    <td><p>a</p></td>
-                    <td><p>Tiger Nixon</p></td>
-                    <td><p>System Architect</p></td>
-                    <td><p>Edinburgh</p></td>
-                    <td class="uk-flex flex-wrap align-items-center justify-content-between">
-                        <a @click="openSettings(2)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
-                        <a @click="deactivateItem()" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
-                        <a @click="deleteItem()" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>s</p></td>
-                    <td><p>Tiger Nixon</p></td>
-                    <td><p>System Architect</p></td>
-                    <td><p>Edinburgh</p></td>
-                    <td class="uk-flex flex-wrap align-items-center justify-content-between">
-                        <a @click="openSettings(1)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
-                        <a @click="activateItem()" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
-                        <a @click="deleteItem()" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
-                    </td>
-                </tr>
+                    <tr v-for="item in adminSubject">
+                        <td><p>{{item.name}}</p></td>
+                        <td><p>{{item.lessonId}}</p></td>
+                        <td class="uk-flex flex-wrap align-items-center justify-content-between">
+                            <a @click="openSettings(item.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
+                            <a v-if="item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
+                            <a v-else @click="deactivateItem(item.id)" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
+                            <a @click="deleteItem(item.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
+                        </td>
+                    </tr>
                 </tbody>
                 <div v-else class=" uk-width uk-height-small uk-flex align-items-center justify-content-center">
                     <h4> {{noContentText}} </h4>
@@ -177,7 +165,7 @@
             openSettings:function (id) {
                 this.selectedGradeId=id;
                 Axios.get('/api/admin/cr/subject/show/'+id)
-                    .then(response=>this.setSelected(response.data));
+                    .then(response=>this.setSelected(response.data.data));
             },
             openForm:function () {
                 UIkit.modal('#addSubjectArea', {
@@ -201,7 +189,7 @@
                 this.selectedSubjectId="";
             },
             saveItem:function () {
-                if(hasItem){
+                if(this.hasItem){
                     Axios.post('/api/admin/cr/subject/update/'+this.selectedSubjectId, {
                         name:this.name,
                         lessonId:this.lessonId,
@@ -216,9 +204,6 @@
                 UIkit.modal('#addSubjectArea').hide();
             }
         },
-        created() {
-            this.$store.dispatch('loadAdminSubject', this.adminSelectedId);
-        }
     }
 </script>
 

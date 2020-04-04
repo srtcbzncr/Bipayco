@@ -23,26 +23,14 @@
                 </tr>
                 </thead>
                 <tbody v-if="true">
-                <tr @click="routeCategory">
-                    <td><p>a</p></td>
-                    <td><p>Tiger Nixon</p></td>
-                    <td><p>System Architect</p></td>
-                    <td><p>Edinburgh</p></td>
+                <tr v-for="item in adminSubCategory">
+                    <td><p>{{item.name}}</p></td>
+                    <td><p>{{item.lessonId}}</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-between">
-                        <a @click="openSettings()" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
-                        <a @click="deactivateItem()" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
-                        <a @click="deleteItem()" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td><p>s</p></td>
-                    <td><p>Tiger Nixon</p></td>
-                    <td><p>System Architect</p></td>
-                    <td><p>Edinburgh</p></td>
-                    <td class="uk-flex flex-wrap align-items-center justify-content-between">
-                        <a @click="openSettings()" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
-                        <a @click="activateItem()" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
-                        <a @click="deleteItem()" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
+                        <a @click="openSettings(item.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
+                        <a v-if="item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
+                        <a v-else @click="deactivateItem(item.id)" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
+                        <a @click="deleteItem(item.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                     </td>
                 </tr>
                 </tbody>
@@ -103,7 +91,7 @@
             }
         },
         props:{
-            categoryRoute:{
+            categoriesRoute:{
                 type:String,
                 required:true,
             },
@@ -143,7 +131,7 @@
                 type:String,
                 default:"Kategori Seçiniz"
             },
-            subCategoryName:{
+            subCategoryNameText:{
                 type:String,
                 default:"Alt Kategori Adı"
             },
@@ -178,7 +166,7 @@
             cancelText:{
                 type:String,
                 default:"Cancel"
-            }
+            },
         },
         computed:{
             ...mapState([
@@ -191,7 +179,7 @@
                 'loadAdminSubCategory'
             ]),
             routeCategory:function () {
-                window.location.replace(this.subCategoryRoute);
+                window.location.replace(this.subCategoriesRoute);
             },
             deactivateItem:function (id) {
                 Axios.post('/api/admin/ge/subCategory/setPassive/'+id).then(response=>console.log(response))
@@ -204,7 +192,8 @@
             },
             openSettings:function (id) {
                 this.selectedSubCategoryId=id;
-                Axios.get('/api/admin/ge/subCategory/show/'+id).then(response=>this.setSelected(response.data));
+                Axios.get('/api/admin/ge/subCategory/show/'+id)
+                    .then(response=>this.setSelected(response.data.data));
             },
             openForm:function () {
                 UIkit.modal('#addSubCategoryArea', {

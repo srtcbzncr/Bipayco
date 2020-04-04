@@ -1911,18 +1911,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2033,7 +2021,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.selectedCategoryId = id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/ge/category/show/' + id).then(function (response) {
-        return _this.setSelected(response.data);
+        return _this.setSelected(response.data.data);
       });
     },
     openForm: function openForm() {
@@ -2249,7 +2237,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     openSettings: function openSettings(id) {
       this.selectedCityId = id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/bs/city/show/' + id).then(function (response) {
-        return setSelected(response.data);
+        return setSelected(response.data.data);
       });
     },
     openForm: function openForm() {
@@ -2282,7 +2270,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/create', {
           name: this.name,
-          code: this.name
+          code: this.code
         }).then(this.$store.dispatch('loadAdminCity'));
       }
 
@@ -2342,16 +2330,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2522,7 +2500,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.selectedDistrictId = id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/bs/district/show/' + id).then(function (response) {
-        return _this.setSelected(response.data);
+        return _this.setSelected(response.data.data);
       });
     },
     openForm: function openForm() {
@@ -2589,14 +2567,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2741,7 +2711,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.selectedGradeId = id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/cr/grade/show/' + id).then(function (response) {
-        return _this.setSelected(response.data);
+        return _this.setSelected(response.data.data);
       });
     },
     openForm: function openForm() {
@@ -2808,20 +2778,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2949,9 +2905,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminLesson'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminLesson', 'loadAdminSelectedId']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminLesson', 'loadAdminSelectedId', 'loadAdminSubject']), {
     routeSubjects: function routeSubjects(id) {
       this.$store.dispatch('loadAdminSelectedId', id);
+      this.$store.dispatch('loadAdminSubject', id);
       window.location.replace(this.subjectsRoute);
     },
     deactivateItem: function deactivateItem(id) {
@@ -2974,7 +2931,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.selectedLessonId = id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/cr/lesson/show/' + id).then(function (response) {
-        return _this.setSelected(response.data);
+        return _this.setSelected(response.data.data);
       });
     },
     openForm: function openForm() {
@@ -2999,7 +2956,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.selectedLessonId = "";
     },
     saveItem: function saveItem() {
-      if (hasItem) {
+      if (this.hasItem) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/update/' + this.selectedLessonId, {
           symbol: this.icon,
           name: this.name
@@ -3147,18 +3104,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3175,7 +3120,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   props: {
-    categoryRoute: {
+    categoriesRoute: {
       type: String,
       required: true
     },
@@ -3215,7 +3160,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       "default": "Kategori Seçiniz"
     },
-    subCategoryName: {
+    subCategoryNameText: {
       type: String,
       "default": "Alt Kategori Adı"
     },
@@ -3255,7 +3200,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSelectedId', 'adminSubCategory'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminSubCategory']), {
     routeCategory: function routeCategory() {
-      window.location.replace(this.subCategoryRoute);
+      window.location.replace(this.subCategoriesRoute);
     },
     deactivateItem: function deactivateItem(id) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/setPassive/' + id).then(function (response) {
@@ -3277,7 +3222,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.selectedSubCategoryId = id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/ge/subCategory/show/' + id).then(function (response) {
-        return _this.setSelected(response.data);
+        return _this.setSelected(response.data.data);
       });
     },
     openForm: function openForm() {
@@ -3351,18 +3296,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -3528,7 +3461,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.selectedGradeId = id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/cr/subject/show/' + id).then(function (response) {
-        return _this.setSelected(response.data);
+        return _this.setSelected(response.data.data);
       });
     },
     openForm: function openForm() {
@@ -3553,7 +3486,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.selectedSubjectId = "";
     },
     saveItem: function saveItem() {
-      if (hasItem) {
+      if (this.hasItem) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/subject/update/' + this.selectedSubjectId, {
           name: this.name,
           lessonId: this.lessonId
@@ -3568,10 +3501,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.clearForm();
       UIkit.modal('#addSubjectArea').hide();
     }
-  }),
-  created: function created() {
-    this.$store.dispatch('loadAdminSubject', this.adminSelectedId);
-  }
+  })
 });
 
 /***/ }),
@@ -10370,131 +10300,110 @@ var render = function() {
             true ? _c("thead", [_vm._m(0)]) : undefined,
             _vm._v(" "),
             true
-              ? _c("tbody", [
-                  _c("tr", [
-                    _c("td", { on: { click: _vm.routeSubCategories } }, [
-                      _c("p", [_vm._v("a")])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { on: { click: _vm.routeSubCategories } }, [
-                      _c("p", [_vm._v("Tiger Nixon")])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { on: { click: _vm.routeSubCategories } }, [
-                      _c("p", [_vm._v("System Architect")])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { on: { click: _vm.routeSubCategories } }, [
-                      _c("p", [_vm._v("Edinburgh")])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticClass:
-                          "uk-flex flex-wrap align-items-center justify-content-between"
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.editText },
-                            on: {
-                              click: function($event) {
-                                return _vm.openSettings(2)
-                              }
+              ? _c(
+                  "tbody",
+                  _vm._l(_vm.adminCategory, function(item) {
+                    return _c("tr", [
+                      _c(
+                        "td",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.routeSubCategories(item.id)
                             }
-                          },
-                          [_c("i", { staticClass: "fas fa-cog" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deactivateText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deactivateItem()
-                              }
+                          }
+                        },
+                        [_c("p", [_vm._v(_vm._s(item.name))])]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.routeSubCategories(item.id)
                             }
-                          },
-                          [_c("i", { staticClass: "fas fa-times-circle" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deleteText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteItem()
+                          }
+                        },
+                        [_c("p", [_vm._v(_vm._s(item.description))])]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticClass:
+                            "uk-flex flex-wrap align-items-center justify-content-between"
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              attrs: { "uk-tooltip": _vm.editText },
+                              on: {
+                                click: function($event) {
+                                  return _vm.openSettings(item.id)
+                                }
                               }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-trash text-danger" })]
-                        )
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticClass:
-                          "uk-flex flex-wrap align-items-center justify-content-between"
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.editText },
-                            on: {
-                              click: function($event) {
-                                return _vm.openSettings(1)
+                            },
+                            [_c("i", { staticClass: "fas fa-cog" })]
+                          ),
+                          _vm._v(" "),
+                          item.active
+                            ? _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.activateText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.activateItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-check-circle"
+                                  })
+                                ]
+                              )
+                            : _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.deactivateText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deactivateItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-times-circle"
+                                  })
+                                ]
+                              ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              attrs: { "uk-tooltip": _vm.deleteText },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteItem(item.id)
+                                }
                               }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-cog" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.activateText },
-                            on: {
-                              click: function($event) {
-                                return _vm.activateItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-check-circle" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deleteText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-trash text-danger" })]
-                        )
-                      ]
-                    )
-                  ])
-                ])
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-trash text-danger"
+                              })
+                            ]
+                          )
+                        ]
+                      )
+                    ])
+                  }),
+                  0
+                )
               : undefined
           ]
         )
@@ -10697,30 +10606,6 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th")
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("s")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Tiger Nixon")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("System Architect")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Edinburgh")])])
   }
 ]
 render._withStripped = true
@@ -10789,18 +10674,18 @@ var render = function() {
             true
               ? _c(
                   "tbody",
-                  _vm._l(_vm.adminCity, function(city) {
+                  _vm._l(_vm.adminCity, function(item) {
                     return _c("tr", [
                       _c(
                         "td",
                         {
                           on: {
                             click: function($event) {
-                              return _vm.routeDistricts(city.id)
+                              return _vm.routeDistricts(item.id)
                             }
                           }
                         },
-                        [_c("p", [_vm._v(_vm._s(city.name))])]
+                        [_c("p", [_vm._v(_vm._s(item.name))])]
                       ),
                       _vm._v(" "),
                       _c(
@@ -10808,11 +10693,11 @@ var render = function() {
                         {
                           on: {
                             click: function($event) {
-                              return _vm.routeDistricts(city.id)
+                              return _vm.routeDistricts(item.id)
                             }
                           }
                         },
-                        [_c("p", [_vm._v(_vm._s(city.code))])]
+                        [_c("p", [_vm._v(_vm._s(item.code))])]
                       ),
                       _vm._v(" "),
                       _c(
@@ -10828,21 +10713,21 @@ var render = function() {
                               attrs: { "uk-tooltip": _vm.editText },
                               on: {
                                 click: function($event) {
-                                  return _vm.openSettings(city.id)
+                                  return _vm.openSettings(item.id)
                                 }
                               }
                             },
                             [_c("i", { staticClass: "fas fa-cog" })]
                           ),
                           _vm._v(" "),
-                          city.active
+                          item.active
                             ? _c(
                                 "a",
                                 {
                                   attrs: { "uk-tooltip": _vm.activateText },
                                   on: {
                                     click: function($event) {
-                                      return _vm.activateItem(city.id)
+                                      return _vm.activateItem(item.id)
                                     }
                                   }
                                 },
@@ -10858,7 +10743,7 @@ var render = function() {
                                   attrs: { "uk-tooltip": _vm.deactivateText },
                                   on: {
                                     click: function($event) {
-                                      return _vm.deactivateItem(city.id)
+                                      return _vm.deactivateItem(item.id)
                                     }
                                   }
                                 },
@@ -10875,7 +10760,7 @@ var render = function() {
                               attrs: { "uk-tooltip": _vm.deleteText },
                               on: {
                                 click: function($event) {
-                                  return _vm.deleteItem(city.id)
+                                  return _vm.deleteItem(item.id)
                                 }
                               }
                             },
@@ -11134,119 +11019,90 @@ var render = function() {
               : undefined,
             _vm._v(" "),
             true
-              ? _c("tbody", [
-                  _c("tr", [
-                    _vm._m(0),
-                    _vm._v(" "),
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticClass:
-                          "uk-flex flex-wrap align-items-center justify-content-between"
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.editText },
-                            on: {
-                              click: function($event) {
-                                return _vm.openSettings(2)
+              ? _c(
+                  "tbody",
+                  _vm._l(_vm.adminDistrict, function(item) {
+                    return _c("tr", [
+                      _c("td", [_c("p", [_vm._v(_vm._s(item.name))])]),
+                      _vm._v(" "),
+                      _vm._m(0, true),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticClass:
+                            "uk-flex flex-wrap align-items-center justify-content-between"
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              attrs: { "uk-tooltip": _vm.editText },
+                              on: {
+                                click: function($event) {
+                                  return _vm.openSettings(item.id)
+                                }
                               }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-cog" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deactivateText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deactivateItem()
+                            },
+                            [_c("i", { staticClass: "fas fa-cog" })]
+                          ),
+                          _vm._v(" "),
+                          item.active
+                            ? _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.activateText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.activateItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-check-circle"
+                                  })
+                                ]
+                              )
+                            : _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.deactivateText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deactivateItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-times-circle"
+                                  })
+                                ]
+                              ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              attrs: { "uk-tooltip": _vm.deleteText },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteItem(item.id)
+                                }
                               }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-times-circle" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deleteText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-trash text-danger" })]
-                        )
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _vm._m(5),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticClass:
-                          "uk-flex flex-wrap align-items-center justify-content-between"
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.editText },
-                            on: {
-                              click: function($event) {
-                                return _vm.openSettings(1)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-cog" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.activateText },
-                            on: {
-                              click: function($event) {
-                                return _vm.activateItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-check-circle" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deleteText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-trash text-danger" })]
-                        )
-                      ]
-                    )
-                  ])
-                ])
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-trash text-danger"
+                              })
+                            ]
+                          )
+                        ]
+                      )
+                    ])
+                  }),
+                  0
+                )
               : undefined
           ]
         )
@@ -11384,36 +11240,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("td", [_c("p", [_vm._v("a")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Tiger Nixon")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("System Architect")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("s")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Tiger Nixon")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("System Architect")])])
   }
 ]
 render._withStripped = true
@@ -11470,115 +11296,90 @@ var render = function() {
             true ? _c("thead", [_vm._m(0)]) : undefined,
             _vm._v(" "),
             true
-              ? _c("tbody", [
-                  _c("tr", [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticClass:
-                          "uk-flex flex-wrap align-items-center justify-content-around"
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.editText },
-                            on: {
-                              click: function($event) {
-                                return _vm.openSettings(2)
+              ? _c(
+                  "tbody",
+                  _vm._l(_vm.adminGrade, function(item) {
+                    return _c("tr", [
+                      _c("td", [_c("p", [_vm._v(_vm._s(item.name))])]),
+                      _vm._v(" "),
+                      _c("td", [_c("p", [_vm._v(_vm._s(item.symbol))])]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticClass:
+                            "uk-flex flex-wrap align-items-center justify-content-between"
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              attrs: { "uk-tooltip": _vm.editText },
+                              on: {
+                                click: function($event) {
+                                  return _vm.openSettings(item.id)
+                                }
                               }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-cog" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deactivateText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deactivateItem()
+                            },
+                            [_c("i", { staticClass: "fas fa-cog" })]
+                          ),
+                          _vm._v(" "),
+                          item.active
+                            ? _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.activateText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.activateItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-check-circle"
+                                  })
+                                ]
+                              )
+                            : _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.deactivateText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deactivateItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-times-circle"
+                                  })
+                                ]
+                              ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              attrs: { "uk-tooltip": _vm.deleteText },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteItem(item.id)
+                                }
                               }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-times-circle" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deleteText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-trash text-danger" })]
-                        )
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticClass:
-                          "uk-flex flex-wrap align-items-center justify-content-around"
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.editText },
-                            on: {
-                              click: function($event) {
-                                return _vm.openSettings(1)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-cog" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.activateText },
-                            on: {
-                              click: function($event) {
-                                return _vm.activateItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-check-circle" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deleteText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-trash text-danger" })]
-                        )
-                      ]
-                    )
-                  ])
-                ])
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-trash text-danger"
+                              })
+                            ]
+                          )
+                        ]
+                      )
+                    ])
+                  }),
+                  0
+                )
               : undefined
           ]
         )
@@ -11648,9 +11449,9 @@ var render = function() {
                     [_vm._v(_vm._s(_vm.selectIconText))]
                   ),
                   _vm._v(" "),
-                  _vm._m(5),
+                  _vm._m(1),
                   _vm._v(" "),
-                  _vm._m(6)
+                  _vm._m(2)
                 ]
               ),
               _vm._v(" "),
@@ -11725,32 +11526,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "uk-width-1-3" }, [_c("p", [_vm._v("a")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "uk-width-1-3" }, [
-      _c("p", [_vm._v("Tiger Nixon")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("s")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Tiger Nixon")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("option", { attrs: { value: "fa-user" } }, [
       _c("i", { staticClass: "fas fa-user icon-tiny" }),
       _vm._v(" user ")
@@ -11820,139 +11595,110 @@ var render = function() {
             true ? _c("thead", [_vm._m(0)]) : undefined,
             _vm._v(" "),
             true
-              ? _c("tbody", [
-                  _c("tr", [
-                    _c("td", { on: { click: _vm.routeSubjects } }, [
-                      _c("p", [_vm._v("a")])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { on: { click: _vm.routeSubjects } }, [
-                      _c("p", [_vm._v("Tiger Nixon")])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { on: { click: _vm.routeSubjects } }, [
-                      _c("p", [_vm._v("System Architect")])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { on: { click: _vm.routeSubjects } }, [
-                      _c("p", [_vm._v("Edinburgh")])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticClass:
-                          "uk-flex flex-wrap align-items-center justify-content-between"
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.editText },
-                            on: {
-                              click: function($event) {
-                                return _vm.openSettings(1)
-                              }
+              ? _c(
+                  "tbody",
+                  _vm._l(_vm.adminLesson, function(item) {
+                    return _c("tr", [
+                      _c(
+                        "td",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.routeSubjects(item.id)
                             }
-                          },
-                          [_c("i", { staticClass: "fas fa-cog" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deactivateText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deactivateItem()
-                              }
+                          }
+                        },
+                        [_c("p", [_vm._v(_vm._s(item.name))])]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.routeSubjects(item.id)
                             }
-                          },
-                          [_c("i", { staticClass: "fas fa-times-circle" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deleteText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteItem()
+                          }
+                        },
+                        [_c("p", [_vm._v(_vm._s(item.symbol))])]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticClass:
+                            "uk-flex flex-wrap align-items-center justify-content-between"
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              attrs: { "uk-tooltip": _vm.editText },
+                              on: {
+                                click: function($event) {
+                                  return _vm.openSettings(item.id)
+                                }
                               }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-trash text-danger" })]
-                        )
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _c("td", { on: { click: _vm.routeSubjects } }, [
-                      _c("p", [_vm._v("s")])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { on: { click: _vm.routeSubjects } }, [
-                      _c("p", [_vm._v("Tiger Nixon")])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { on: { click: _vm.routeSubjects } }, [
-                      _c("p", [_vm._v("System Architect")])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { on: { click: _vm.routeSubjects } }, [
-                      _c("p", [_vm._v("Edinburgh")])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticClass:
-                          "uk-flex flex-wrap align-items-center justify-content-between"
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.editText },
-                            on: {
-                              click: function($event) {
-                                return _vm.openSettings(2)
+                            },
+                            [_c("i", { staticClass: "fas fa-cog" })]
+                          ),
+                          _vm._v(" "),
+                          item.active
+                            ? _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.activateText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.activateItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-check-circle"
+                                  })
+                                ]
+                              )
+                            : _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.deactivateText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deactivateItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-times-circle"
+                                  })
+                                ]
+                              ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              attrs: { "uk-tooltip": _vm.deleteText },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteItem(item.id)
+                                }
                               }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-cog" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.activateText },
-                            on: {
-                              click: function($event) {
-                                return _vm.activateItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-check-circle" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deleteText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-trash text-danger" })]
-                        )
-                      ]
-                    )
-                  ])
-                ])
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-trash text-danger"
+                              })
+                            ]
+                          )
+                        ]
+                      )
+                    ])
+                  }),
+                  0
+                )
               : undefined
           ]
         )
@@ -12087,10 +11833,6 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th", [_vm._v("Position")]),
       _vm._v(" "),
-      _c("th", [_vm._v("Office")]),
-      _vm._v(" "),
-      _c("th", [_vm._v("Age")]),
-      _vm._v(" "),
       _c("th")
     ])
   }
@@ -12212,123 +11954,90 @@ var render = function() {
             true ? _c("thead", [_vm._m(0)]) : undefined,
             _vm._v(" "),
             true
-              ? _c("tbody", [
-                  _c("tr", { on: { click: _vm.routeCategory } }, [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticClass:
-                          "uk-flex flex-wrap align-items-center justify-content-between"
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.editText },
-                            on: {
-                              click: function($event) {
-                                return _vm.openSettings()
+              ? _c(
+                  "tbody",
+                  _vm._l(_vm.adminSubCategory, function(item) {
+                    return _c("tr", [
+                      _c("td", [_c("p", [_vm._v(_vm._s(item.name))])]),
+                      _vm._v(" "),
+                      _c("td", [_c("p", [_vm._v(_vm._s(item.lessonId))])]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticClass:
+                            "uk-flex flex-wrap align-items-center justify-content-between"
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              attrs: { "uk-tooltip": _vm.editText },
+                              on: {
+                                click: function($event) {
+                                  return _vm.openSettings(item.id)
+                                }
                               }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-cog" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deactivateText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deactivateItem()
+                            },
+                            [_c("i", { staticClass: "fas fa-cog" })]
+                          ),
+                          _vm._v(" "),
+                          item.active
+                            ? _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.activateText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.activateItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-check-circle"
+                                  })
+                                ]
+                              )
+                            : _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.deactivateText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deactivateItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-times-circle"
+                                  })
+                                ]
+                              ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              attrs: { "uk-tooltip": _vm.deleteText },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteItem(item.id)
+                                }
                               }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-times-circle" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deleteText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-trash text-danger" })]
-                        )
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _vm._m(5),
-                    _vm._v(" "),
-                    _vm._m(6),
-                    _vm._v(" "),
-                    _vm._m(7),
-                    _vm._v(" "),
-                    _vm._m(8),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticClass:
-                          "uk-flex flex-wrap align-items-center justify-content-between"
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.editText },
-                            on: {
-                              click: function($event) {
-                                return _vm.openSettings()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-cog" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.activateText },
-                            on: {
-                              click: function($event) {
-                                return _vm.activateItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-check-circle" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deleteText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-trash text-danger" })]
-                        )
-                      ]
-                    )
-                  ])
-                ])
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-trash text-danger"
+                              })
+                            ]
+                          )
+                        ]
+                      )
+                    ])
+                  }),
+                  0
+                )
               : undefined
           ]
         )
@@ -12551,54 +12260,6 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th")
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("a")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Tiger Nixon")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("System Architect")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Edinburgh")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("s")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Tiger Nixon")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("System Architect")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Edinburgh")])])
   }
 ]
 render._withStripped = true
@@ -12681,123 +12342,90 @@ var render = function() {
             true ? _c("thead", [_vm._m(0)]) : undefined,
             _vm._v(" "),
             true
-              ? _c("tbody", [
-                  _c("tr", [
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _vm._m(3),
-                    _vm._v(" "),
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticClass:
-                          "uk-flex flex-wrap align-items-center justify-content-between"
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.editText },
-                            on: {
-                              click: function($event) {
-                                return _vm.openSettings(2)
+              ? _c(
+                  "tbody",
+                  _vm._l(_vm.adminSubject, function(item) {
+                    return _c("tr", [
+                      _c("td", [_c("p", [_vm._v(_vm._s(item.name))])]),
+                      _vm._v(" "),
+                      _c("td", [_c("p", [_vm._v(_vm._s(item.lessonId))])]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticClass:
+                            "uk-flex flex-wrap align-items-center justify-content-between"
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              attrs: { "uk-tooltip": _vm.editText },
+                              on: {
+                                click: function($event) {
+                                  return _vm.openSettings(item.id)
+                                }
                               }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-cog" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deactivateText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deactivateItem()
+                            },
+                            [_c("i", { staticClass: "fas fa-cog" })]
+                          ),
+                          _vm._v(" "),
+                          item.active
+                            ? _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.activateText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.activateItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-check-circle"
+                                  })
+                                ]
+                              )
+                            : _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.deactivateText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deactivateItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-times-circle"
+                                  })
+                                ]
+                              ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              attrs: { "uk-tooltip": _vm.deleteText },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteItem(item.id)
+                                }
                               }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-times-circle" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deleteText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-trash text-danger" })]
-                        )
-                      ]
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("tr", [
-                    _vm._m(5),
-                    _vm._v(" "),
-                    _vm._m(6),
-                    _vm._v(" "),
-                    _vm._m(7),
-                    _vm._v(" "),
-                    _vm._m(8),
-                    _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticClass:
-                          "uk-flex flex-wrap align-items-center justify-content-between"
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.editText },
-                            on: {
-                              click: function($event) {
-                                return _vm.openSettings(1)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-cog" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.activateText },
-                            on: {
-                              click: function($event) {
-                                return _vm.activateItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-check-circle" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deleteText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteItem()
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-trash text-danger" })]
-                        )
-                      ]
-                    )
-                  ])
-                ])
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-trash text-danger"
+                              })
+                            ]
+                          )
+                        ]
+                      )
+                    ])
+                  }),
+                  0
+                )
               : undefined
           ]
         )
@@ -12943,54 +12571,6 @@ var staticRenderFns = [
       _vm._v(" "),
       _c("th")
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("a")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Tiger Nixon")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("System Architect")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Edinburgh")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("s")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Tiger Nixon")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("System Architect")])])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", [_c("p", [_vm._v("Edinburgh")])])
   }
 ]
 render._withStripped = true
@@ -36938,31 +36518,31 @@ var mutations = {
   },
   setAdminCity: function setAdminCity(state, city) {
     console.log(city);
-    state.adminCity = city;
+    state.adminCity = city.data;
   },
   setAdminDistrict: function setAdminDistrict(state, district) {
     console.log(district);
-    state.adminDistrict = district;
+    state.adminDistrict = district.data;
   },
   setAdminLesson: function setAdminLesson(state, lesson) {
     console.log(lesson);
-    state.adminLesson = lesson;
+    state.adminLesson = lesson.data;
   },
   setAdminSubject: function setAdminSubject(state, subject) {
     console.log(subject);
-    state.adminSubject = subject;
+    state.adminSubject = subject.data;
   },
   setAdminGrade: function setAdminGrade(state, grade) {
     console.log(grade);
-    state.adminGrade = grade;
+    state.adminGrade = grade.data;
   },
   setAdminCategory: function setAdminCategory(state, category) {
     console.log(category);
-    state.adminCategory = category;
+    state.adminCategory = category.data;
   },
   setAdminSubCategory: function setAdminSubCategory(state, subCategory) {
     console.log(subCategory);
-    state.adminSubCategory = subCategory;
+    state.adminSubCategory = subCategory.data;
   },
   setAdminSelectedId: function setAdminSelectedId(state, id) {
     console.log(id);
@@ -37171,7 +36751,7 @@ var actions = {
   },
   loadAdminSubject: function loadAdminSubject(_ref43, lessonId) {
     var commit = _ref43.commit;
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/cr/lesson/' + lessonId + 'subjects').then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/cr/lesson/' + lessonId + '/subjects').then(function (response) {
       return commit('setAdminSubject', response.data);
     });
   },

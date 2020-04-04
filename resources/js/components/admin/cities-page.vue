@@ -13,14 +13,14 @@
                 </tr>
                 </thead>
                 <tbody v-if="true">
-                <tr v-for="city in adminCity">
-                    <td @click="routeDistricts(city.id)"><p>{{city.name}}</p></td>
-                    <td @click="routeDistricts(city.id)"><p>{{city.code}}</p></td>
+                <tr v-for="item in adminCity">
+                    <td @click="routeDistricts(item.id)"><p>{{item.name}}</p></td>
+                    <td @click="routeDistricts(item.id)"><p>{{item.code}}</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-between">
-                        <a @click="openSettings(city.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
-                        <a v-if="city.active" @click="activateItem(city.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
-                        <a v-else @click="deactivateItem(city.id)" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
-                        <a @click="deleteItem(city.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
+                        <a @click="openSettings(item.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
+                        <a v-if="item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
+                        <a v-else @click="deactivateItem(item.id)" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
+                        <a @click="deleteItem(item.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                     </td>
                 </tr>
                 </tbody>
@@ -146,7 +146,7 @@
             openSettings:function (id) {
                 this.selectedCityId=id;
                 Axios.get('/api/admin/bs/city/show/'+id)
-                    .then(response=>setSelected(response.data));
+                    .then(response=>setSelected(response.data.data));
             },
             openForm:function () {
                 this.hasItem=false;
@@ -178,7 +178,7 @@
                 }else{
                     Axios.post('/api/admin/bs/city/create', {
                         name: this.name,
-                        code: this.name,
+                        code: this.code,
                     }).then(this.$store.dispatch('loadAdminCity'));
                 }
                 this.clearForm();

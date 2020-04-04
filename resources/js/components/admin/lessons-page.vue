@@ -9,32 +9,18 @@
                 <tr>
                     <th>Name</th>
                     <th>Position</th>
-                    <th>Office</th>
-                    <th>Age</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody v-if="true">
-                <tr>
-                    <td @click="routeSubjects"><p>a</p></td>
-                    <td @click="routeSubjects"><p>Tiger Nixon</p></td>
-                    <td @click="routeSubjects"><p>System Architect</p></td>
-                    <td @click="routeSubjects"><p>Edinburgh</p></td>
+                <tr v-for="item in adminLesson">
+                    <td @click="routeSubjects(item.id)"><p>{{item.name}}</p></td>
+                    <td @click="routeSubjects(item.id)"><p>{{item.symbol}}</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-between">
-                        <a @click="openSettings(1)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
-                        <a @click="deactivateItem()" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
-                        <a @click="deleteItem()" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td @click="routeSubjects"><p>s</p></td>
-                    <td @click="routeSubjects"><p>Tiger Nixon</p></td>
-                    <td @click="routeSubjects"><p>System Architect</p></td>
-                    <td @click="routeSubjects"><p>Edinburgh</p></td>
-                    <td class="uk-flex flex-wrap align-items-center justify-content-between">
-                        <a @click="openSettings(2)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
-                        <a @click="activateItem()" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
-                        <a @click="deleteItem()" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
+                        <a @click="openSettings(item.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
+                        <a v-if="item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
+                        <a v-else @click="deactivateItem(item.id)" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
+                        <a @click="deleteItem(item.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                     </td>
                 </tr>
                 </tbody>
@@ -148,9 +134,11 @@
             ...mapActions([
                 'loadAdminLesson',
                 'loadAdminSelectedId',
+                'loadAdminSubject'
             ]),
             routeSubjects:function (id) {
                 this.$store.dispatch('loadAdminSelectedId', id);
+                this.$store.dispatch('loadAdminSubject', id);
                 window.location.replace(this.subjectsRoute);
             },
             deactivateItem:function (id) {
@@ -165,7 +153,7 @@
             openSettings:function (id) {
                 this.selectedLessonId=id;
                 Axios.get('/api/admin/cr/lesson/show/'+id)
-                    .then(response=>this.setSelected(response.data));
+                    .then(response=>this.setSelected(response.data.data));
             },
             openForm:function () {
                 UIkit.modal('#addLessonArea', {
@@ -189,7 +177,7 @@
                 this.selectedLessonId="";
             },
             saveItem:function () {
-                if(hasItem){
+                if(this.hasItem){
                     Axios.post('/api/admin/cr/lesson/update/'+this.selectedLessonId,{
                         symbol:this.icon,
                         name: this.name,

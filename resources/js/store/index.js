@@ -155,31 +155,31 @@ const mutations={
     },
     setAdminCity(state, city){
         console.log(city);
-        state.adminCity=city;
+        state.adminCity=city.data;
     },
     setAdminDistrict(state, district){
         console.log(district);
-        state.adminDistrict=district;
+        state.adminDistrict=district.data;
     },
     setAdminLesson(state, lesson){
         console.log(lesson);
-        state.adminLesson=lesson;
+        state.adminLesson=lesson.data;
     },
     setAdminSubject(state, subject){
         console.log(subject);
-        state.adminSubject=subject;
+        state.adminSubject=subject.data;
     },
     setAdminGrade(state, grade){
         console.log(grade);
-        state.adminGrade=grade;
+        state.adminGrade=grade.data;
     },
     setAdminCategory(state, category){
         console.log(category);
-        state.adminCategory=category;
+        state.adminCategory=category.data;
     },
     setAdminSubCategory(state, subCategory){
         console.log(subCategory);
-        state.adminSubCategory=subCategory;
+        state.adminSubCategory=subCategory.data;
     },
     setAdminSelectedId(state, id){
         console.log(id);
@@ -292,7 +292,7 @@ const actions={
             .then(response=>commit('setAdminLesson', response.data));
     },
     loadAdminSubject({commit}, lessonId){
-        Axios.get('/api/admin/cr/lesson/'+lessonId+'subjects')
+        Axios.get('/api/admin/cr/lesson/'+lessonId+'/subjects')
             .then(response=>commit('setAdminSubject', response.data));
     },
     loadAdminGrade({commit}){
