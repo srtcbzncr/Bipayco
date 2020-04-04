@@ -15,27 +15,54 @@ class HomeController extends Controller
         return view('admin.categories');
     }
 
-    public function subCategories(){
+  /*  public function subCategories(){
         return view('admin.sub_categories');
-    }
+    }*/
 
     public function cities(){
         return view('admin.cities');
     }
 
-    public function districts(){
+  /*  public function districts(){
         return view('admin.districts');
-    }
+    }*/
 
     public function grade(){
         return view('admin.grade');
     }
 
-    public function lesson(){
+    /*public function lesson(){
         return view('admin.lesson');
-    }
+    }*/
 
     public function subjects(){
         return view('admin.subjects');
+    }
+
+    public function getSubjectsOfCategory($categoryId){
+        // initializing
+        $data = array();
+
+        // operations
+        $data['categoryId'] = $categoryId;
+        return view('admin.sub_categories')->with('data',$data);
+    }
+
+    public function getDistrictsOfCity($cityId){
+        // initializing
+        $data = array();
+
+        // operations
+        $data['cityId'] = $cityId;
+        return view('admin.districts')->with('data',$data);
+    }
+
+    public function getSubjectsOfLesson($lessonId){
+        // initializing
+        $data = array();
+
+        // operations
+        $data['lessonId'] = $lessonId;
+        return view('admin.lesson')->with('data',$data);
     }
 }

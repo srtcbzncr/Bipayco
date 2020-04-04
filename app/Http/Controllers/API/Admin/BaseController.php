@@ -41,6 +41,7 @@ class BaseController extends Controller
             return response()->json([
                 'error' => false,
                 'message' => 'Şehir başarıyla oluşturuldu.',
+                'data' => $resp->getData()
             ]);
         }
 
@@ -61,6 +62,7 @@ class BaseController extends Controller
             return response()->json([
                 'error' => false,
                 'message' => 'Şehir başarıyla getirildi.',
+                'data' => $resp->getData()
             ]);
         }
 
@@ -81,6 +83,7 @@ class BaseController extends Controller
             return response()->json([
                 'error' => false,
                 'message' => 'Şehir başarıyla getirildi.',
+                'data' => $resp->getData()
             ]);
         }
 
@@ -122,6 +125,7 @@ class BaseController extends Controller
             return response()->json([
                 'error' => false,
                 'message' => 'Şehir başarıyla güncellendi.',
+                'data' => $resp->getData()
             ]);
         }
 
@@ -142,6 +146,7 @@ class BaseController extends Controller
             return response()->json([
                 'error' => false,
                 'message' => 'Şehir başarıyla aktif hale getirildi.',
+                'data' => $resp->getData()
             ]);
         }
 
@@ -182,6 +187,7 @@ class BaseController extends Controller
             return response()->json([
                 'error' => false,
                 'message' => 'Şehire ait ilçeler başarıyla getirildi.',
+                'data' => $resp->getData()
             ]);
         }
 
@@ -205,6 +211,7 @@ class BaseController extends Controller
             return response()->json([
                 'error' => false,
                 'message' => 'İlçe başarıyla oluşturuldu.',
+                'data' => $resp->getData()
             ]);
         }
 
@@ -225,6 +232,7 @@ class BaseController extends Controller
             return response()->json([
                 'error' => false,
                 'message' => 'İlçe başarıyla getirildi.',
+                'data' => $resp->getData()
             ]);
         }
 
@@ -245,6 +253,7 @@ class BaseController extends Controller
             return response()->json([
                 'error' => false,
                 'message' => 'İlçe başarıyla getirildi.',
+                'data' => $resp->getData()
             ]);
         }
 
@@ -286,6 +295,7 @@ class BaseController extends Controller
             return response()->json([
                 'error' => false,
                 'message' => 'İlçe başarıyla güncellendi.',
+                'data' => $resp->getData()
             ]);
         }
 
@@ -306,6 +316,7 @@ class BaseController extends Controller
             return response()->json([
                 'error' => false,
                 'message' => 'İlçe başarıyla aktif hale getirildi.',
+                'data' => $resp->getData()
             ]);
         }
 
