@@ -214,8 +214,7 @@ class CategoryRepository implements IRepository
 
         // Operations
         try{
-            $category = Category::find($id);
-            $object = $category->subCategories;
+            $object = SubCategory::where('category_id ',$id)->get();
         }
         catch(\Exception $e){
             $error = $e->getMessage();
