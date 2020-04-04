@@ -248,7 +248,7 @@ class BaseController extends Controller
         $repo = new BaseRepository();
 
         // Operations
-        $resp = $repo->getDistrict();
+        $resp = $repo->getDistrict($districtId);
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
