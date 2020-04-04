@@ -224,7 +224,7 @@ Route::prefix('admin')->group(function (){
            Route::post('/update/{cityId}','API\Admin\BaseController@updateCity')->name('admin_bs_city_update');
            Route::post('/setActive/{cityId}','API\Admin\BaseController@setActiveCity')->name('admin_bs_city_active');
            Route::post('/setPassive/{cityId}','API\Admin\BaseController@setPassiveCity')->name('admin_bs_city_passive');
-           Route::get('/{cityId}/district','API\Admin\BaseController@getDistricts')->name('admin_bs_city_district');
+           Route::get('/{cityId}/districts','API\Admin\BaseController@getDistricts')->name('admin_bs_city_district');
        });
        Route::prefix('district')->group(function (){
            Route::post('/create','API\Admin\BaseController@createDistrict')->name('admin_bs_district_create');

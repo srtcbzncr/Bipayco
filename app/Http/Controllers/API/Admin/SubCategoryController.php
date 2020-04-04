@@ -120,7 +120,7 @@ class SubCategoryController extends Controller
         $repo = new SubCategoryRepository();
 
         // operations
-        $resp = $repo->setPassive($subCategoryId);
+        $resp = $repo->setActive($subCategoryId);
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
@@ -145,13 +145,13 @@ class SubCategoryController extends Controller
             return response()->json([
                 'error' => false,
                 'data' => $resp->getData(),
-                'message' => 'Alt kategori başarıyla aktif hale getirildi.'
+                'message' => 'Alt kategori başarıyla pasif hale getirildi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'message' => 'Alt kategori silinirken bir hata meydana geldi.Tekrar deneyin.',
+            'message' => 'Alt kategori pasif hale getirilirken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
         ],400);
     }

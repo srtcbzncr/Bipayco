@@ -31,13 +31,13 @@ class HomeController extends Controller
         return view('admin.grade');
     }
 
-    /*public function lesson(){
+    public function lesson(){
         return view('admin.lesson');
-    }*/
-
-    public function subjects(){
-        return view('admin.subjects');
     }
+
+  /*  public function subjects(){
+        return view('admin.subjects');
+    }*/
 
     public function getSubjectsOfCategory($categoryId){
         // initializing

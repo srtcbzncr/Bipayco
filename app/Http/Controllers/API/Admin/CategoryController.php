@@ -133,7 +133,7 @@ class CategoryController extends Controller
 
         return response()->json([
             'error' => true,
-            'message' => 'Kategori silinirken bir hata meydana geldi.Tekrar deneyin.',
+            'message' => 'Kategori aktif hale getirilirken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
         ],400);
     }

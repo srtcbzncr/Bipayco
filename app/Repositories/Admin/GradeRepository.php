@@ -66,7 +66,7 @@ class GradeRepository implements IRepository
             DB::beginTransaction();
             $object = new Grade();
             $object->name = $data['name'];
-            $object->name = $data['symbol'];
+            $object->symbol = $data['symbol'];
             $object->save();
             DB::commit();
         }
@@ -93,7 +93,7 @@ class GradeRepository implements IRepository
             DB::beginTransaction();
             $object = Grade::find($id);
             $object->name = $data['name'];
-            $object->name = $data['symbol'];
+            $object->symbol = $data['symbol'];
             $object->save();
             DB::commit();
         }
