@@ -25,6 +25,19 @@
                 </div>
             </table>
         </div>
+        <ul class="uk-pagination uk-flex-center uk-margin-medium">
+            <li>
+                <button v-show="adminLesson.current_page>1" @click="loadNewPage(adminLesson.prev_page_url)"> < </button>
+            </li>
+            <li v-for="page in pageNumber">
+                <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
+                <button v-else-if="page==adminLesson.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/admin/cr/lesson/show?page='+page)">{{page}}</button>
+                <button v-else @click="loadNewPage('/api/admin/cr/lesson/show?page='+page)">{{page}}</button>
+            </li>
+            <li>
+                <button v-show="adminLesson.current_page<adminLesson.last_page" @click="loadNewPage(adminLesson.next_page_url)"> > </button>
+            </li>
+        </ul>
         <div id="addLessonArea" uk-modal>
             <div class="uk-modal-dialog">
                 <div class="uk-modal-header">
@@ -121,10 +134,32 @@
             ...mapState([
                 'adminLesson',
             ]),
+            pageNumber(){
+                var pages=['1'];
+                var index=2;
+                for(var i=2; index<=this.adminLesson.last_page; i++){
+                    if(i==2 && this.adminLesson.current_page-2>3){
+                        pages.push('...');
+                        if(this.adminLesson.current_page+3>this.adminLesson.last_page){
+                            index=this.adminLesson.last_page-6;
+                        }else{
+                            index=this.adminLesson.current_page-2;
+                        }
+                    }else if(i==8 && this.adminLesson.current_page+2<this.adminLesson.last_page-2){
+                        pages.push('...');
+                        index=this.adminLesson.last_page;
+                    }else{
+                        pages.push(index);
+                        index++;
+                    }
+                }
+                return pages;
+            },
         },
         methods:{
             ...mapActions([
                 'loadAdminLesson',
+                'loadAdminNewPage'
             ]),
             routeSubjects:function (id) {
                 window.location.replace('/admin/lesson/'+id+'/subjects');
@@ -178,6 +213,9 @@
                 }
                 this.clearForm();
                 UIkit.modal('#addLessonArea').hide();
+            },
+            loadNewPage: function(name){
+                this.$store.dispatch('loadAdminNewPage',[name, 'setAdminLesson']);
             }
         },
         created() {

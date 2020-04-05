@@ -25,9 +25,19 @@
                 </div>
             </table>
         </div>
-        <div class="text-center">
-
-        </div>
+        <ul class="uk-pagination uk-flex-center uk-margin-medium">
+            <li>
+                <button v-show="adminGrade.current_page>1" @click="loadNewPage(adminGrade.prev_page_url)"> < </button>
+            </li>
+            <li v-for="page in pageNumber">
+                <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
+                <button v-else-if="page==adminGrade.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/admin/cr/grade/show?page='+page)">{{page}}</button>
+                <button v-else @click="loadNewPage('/api/admin/cr/grade/show?page='+page)">{{page}}</button>
+            </li>
+            <li>
+                <button v-show="adminGrade.current_page<adminGrade.last_page" @click="loadNewPage(adminGrade.next_page_url)"> > </button>
+            </li>
+        </ul>
         <div id="addGradeArea" uk-modal>
             <div class="uk-modal-dialog">
                 <div class="uk-modal-header">
@@ -124,10 +134,32 @@
             ...mapState([
                 'adminGrade',
             ]),
+            pageNumber(){
+                var pages=['1'];
+                var index=2;
+                for(var i=2; index<=this.adminGrade.last_page; i++){
+                    if(i==2 && this.adminGrade.current_page-2>3){
+                        pages.push('...');
+                        if(this.adminGrade.current_page+3>this.adminGrade.last_page){
+                            index=this.adminGrade.last_page-6;
+                        }else{
+                            index=this.adminGrade.current_page-2;
+                        }
+                    }else if(i==8 && this.adminGrade.current_page+2<this.adminGrade.last_page-2){
+                        pages.push('...');
+                        index=this.adminGrade.last_page;
+                    }else{
+                        pages.push(index);
+                        index++;
+                    }
+                }
+                return pages;
+            },
         },
         methods:{
             ...mapActions([
                 'loadAdminGrade',
+                'loadAdminNewPage'
             ]),
             deactivateItem:function (id) {
                 Axios.post('/api/admin/cr/grade/setPassive/'+id).then(this.$store.dispatch('loadAdminGrade'));
@@ -181,6 +213,9 @@
                 }
                 this.clearForm();
                 UIkit.modal('#addGradeArea').hide();
+            },
+            loadNewPage: function(name){
+                this.$store.dispatch('loadAdminNewPage',[name, 'setAdminGrade']);
             }
         },
         created() {

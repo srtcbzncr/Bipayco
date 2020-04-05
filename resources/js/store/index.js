@@ -310,6 +310,9 @@ const actions={
         Axios.get('/api/admin/bs/city/'+cityId+'/districts')
             .then(response=>commit('setAdminDistrict', response.data));
     },
+    loadAdminNewPage({commit}, [url, mutationName]){
+        Axios.get(url).then(response=>commit(mutationName, response.data));
+    }
 };
 
 const store=new Vuex.Store({

@@ -20,7 +20,7 @@
                 </tr>
                 </thead>
                 <tbody v-if="true">
-                    <tr v-for="item in adminDistrict">
+                    <tr v-for="item in adminDistrict.data">
                         <td class="uk-width-3-4"><p>{{item.name}}</p></td>
                         <td class="uk-flex flex-wrap align-items-center justify-content-around">
                             <a @click="openSettings(item.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
@@ -35,6 +35,19 @@
                 </div>
             </table>
         </div>
+        <ul class="uk-pagination uk-flex-center uk-margin-medium">
+            <li>
+                <button v-show="adminDistrict.current_page>1" @click="loadNewPage(adminDistrict.prev_page_url)"> < </button>
+            </li>
+            <li v-for="page in pageNumber">
+                <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
+                <button v-else-if="page==adminDistrict.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/admin/bs/city/'+selectedCityId+'/districts?page='+page)">{{page}}</button>
+                <button v-else @click="loadNewPage('/api/admin/bs/city/'+selectedCityId+'/districts?page='+page)">{{page}}</button>
+            </li>
+            <li>
+                <button v-show="adminDistrict.current_page<adminDistrict.last_page" @click="loadNewPage(adminDistrict.next_page_url)"> > </button>
+            </li>
+        </ul>
         <div id="addDistrictArea" uk-modal>
             <div class="uk-modal-dialog">
                 <div class="uk-modal-header">
@@ -142,10 +155,32 @@
             ...mapState([
                 'adminDistrict'
             ]),
+            pageNumber(){
+                var pages=['1'];
+                var index=2;
+                for(var i=2; index<=this.adminDistrict.last_page; i++){
+                    if(i==2 && this.adminDistrict.current_page-2>3){
+                        pages.push('...');
+                        if(this.adminDistrict.current_page+3>this.adminDistrict.last_page){
+                            index=this.adminDistrict.last_page-6;
+                        }else{
+                            index=this.adminDistrict.current_page-2;
+                        }
+                    }else if(i==8 && this.adminDistrict.current_page+2<this.adminDistrict.last_page-2){
+                        pages.push('...');
+                        index=this.adminDistrict.last_page;
+                    }else{
+                        pages.push(index);
+                        index++;
+                    }
+                }
+                return pages;
+            },
         },
         methods:{
             ...mapActions([
-                'loadAdminDistrict'
+                'loadAdminDistrict',
+                'loadAdminNewPage'
             ]),
             routeCities:function () {
                 window.location.replace(this.citiesRoute);
@@ -198,6 +233,9 @@
                 }
                 this.clearForm();
                 UIkit.modal('#addDistrictArea').hide();
+            },
+            loadNewPage: function(name){
+                this.$store.dispatch('loadAdminNewPage',[name, 'setAdminDistrict']);
             }
         },
         created() {

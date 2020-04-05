@@ -1909,6 +1909,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1989,8 +2002,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Açıklama"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminCategory'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminCategory']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminCategory']), {
+    pageNumber: function pageNumber() {
+      var pages = ['1'];
+      var index = 2;
+
+      for (var i = 2; index <= this.adminCategory.last_page; i++) {
+        if (i == 2 && this.adminCategory.current_page - 2 > 3) {
+          pages.push('...');
+
+          if (this.adminCategory.current_page + 3 > this.adminCategory.last_page) {
+            index = this.adminCategory.last_page - 6;
+          } else {
+            index = this.adminCategory.current_page - 2;
+          }
+        } else if (i == 8 && this.adminCategory.current_page + 2 < this.adminCategory.last_page - 2) {
+          pages.push('...');
+          index = this.adminCategory.last_page;
+        } else {
+          pages.push(index);
+          index++;
+        }
+      }
+
+      return pages;
+    }
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminCategory', 'loadAdminNewPage']), {
     routeSubCategories: function routeSubCategories(id) {
       window.location.replace('/admin/category/' + id + '/subCategories');
     },
@@ -2052,6 +2090,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.clearForm();
       UIkit.modal('#addCategoryArea').hide();
+    },
+    loadNewPage: function loadNewPage(name) {
+      this.$store.dispatch('loadAdminNewPage', [name, 'setAdminCategory']);
     }
   }),
   created: function created() {
@@ -2079,6 +2120,19 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2196,8 +2250,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Şehir Düzenle"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminCity'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminCity']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminCity']), {
+    pageNumber: function pageNumber() {
+      var pages = ['1'];
+      var index = 2;
+
+      for (var i = 2; index <= this.adminCity.last_page; i++) {
+        if (i == 2 && this.adminCity.current_page - 2 > 3) {
+          pages.push('...');
+
+          if (this.adminCity.current_page + 3 > this.adminCity.last_page) {
+            index = this.adminCity.last_page - 6;
+          } else {
+            index = this.adminCity.current_page - 2;
+          }
+        } else if (i == 8 && this.adminCity.current_page + 2 < this.adminCity.last_page - 2) {
+          pages.push('...');
+          index = this.adminCity.last_page;
+        } else {
+          pages.push(index);
+          index++;
+        }
+      }
+
+      return pages;
+    }
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminCity', 'loadAdminNewPage']), {
     routeDistricts: function routeDistricts(id) {
       window.location.replace('/admin/city/' + id + '/districts');
     },
@@ -2254,6 +2333,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.clearForm();
       UIkit.modal('#addCityArea').hide();
+    },
+    loadNewPage: function loadNewPage(name) {
+      this.$store.dispatch('loadAdminNewPage', [name, 'setAdminCity']);
     }
   }),
   created: function created() {
@@ -2308,6 +2390,19 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2447,8 +2542,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Vazgeç"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminDistrict'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminDistrict']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminDistrict']), {
+    pageNumber: function pageNumber() {
+      var pages = ['1'];
+      var index = 2;
+
+      for (var i = 2; index <= this.adminDistrict.last_page; i++) {
+        if (i == 2 && this.adminDistrict.current_page - 2 > 3) {
+          pages.push('...');
+
+          if (this.adminDistrict.current_page + 3 > this.adminDistrict.last_page) {
+            index = this.adminDistrict.last_page - 6;
+          } else {
+            index = this.adminDistrict.current_page - 2;
+          }
+        } else if (i == 8 && this.adminDistrict.current_page + 2 < this.adminDistrict.last_page - 2) {
+          pages.push('...');
+          index = this.adminDistrict.last_page;
+        } else {
+          pages.push(index);
+          index++;
+        }
+      }
+
+      return pages;
+    }
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminDistrict', 'loadAdminNewPage']), {
     routeCities: function routeCities() {
       window.location.replace(this.citiesRoute);
     },
@@ -2504,6 +2624,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.clearForm();
       UIkit.modal('#addDistrictArea').hide();
+    },
+    loadNewPage: function loadNewPage(name) {
+      this.$store.dispatch('loadAdminNewPage', [name, 'setAdminDistrict']);
     }
   }),
   created: function created() {
@@ -2531,6 +2654,16 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2652,8 +2785,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Sınıf Düzenle"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminGrade'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminGrade']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminGrade']), {
+    pageNumber: function pageNumber() {
+      var pages = ['1'];
+      var index = 2;
+
+      for (var i = 2; index <= this.adminGrade.last_page; i++) {
+        if (i == 2 && this.adminGrade.current_page - 2 > 3) {
+          pages.push('...');
+
+          if (this.adminGrade.current_page + 3 > this.adminGrade.last_page) {
+            index = this.adminGrade.last_page - 6;
+          } else {
+            index = this.adminGrade.current_page - 2;
+          }
+        } else if (i == 8 && this.adminGrade.current_page + 2 < this.adminGrade.last_page - 2) {
+          pages.push('...');
+          index = this.adminGrade.last_page;
+        } else {
+          pages.push(index);
+          index++;
+        }
+      }
+
+      return pages;
+    }
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminGrade', 'loadAdminNewPage']), {
     deactivateItem: function deactivateItem(id) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/setPassive/' + id).then(this.$store.dispatch('loadAdminGrade'));
     },
@@ -2711,6 +2869,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.clearForm();
       UIkit.modal('#addGradeArea').hide();
+    },
+    loadNewPage: function loadNewPage(name) {
+      this.$store.dispatch('loadAdminNewPage', [name, 'setAdminGrade']);
     }
   }),
   created: function created() {
@@ -2738,6 +2899,19 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2856,8 +3030,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "İkon Seçiniz"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminLesson'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminLesson']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminLesson']), {
+    pageNumber: function pageNumber() {
+      var pages = ['1'];
+      var index = 2;
+
+      for (var i = 2; index <= this.adminLesson.last_page; i++) {
+        if (i == 2 && this.adminLesson.current_page - 2 > 3) {
+          pages.push('...');
+
+          if (this.adminLesson.current_page + 3 > this.adminLesson.last_page) {
+            index = this.adminLesson.last_page - 6;
+          } else {
+            index = this.adminLesson.current_page - 2;
+          }
+        } else if (i == 8 && this.adminLesson.current_page + 2 < this.adminLesson.last_page - 2) {
+          pages.push('...');
+          index = this.adminLesson.last_page;
+        } else {
+          pages.push(index);
+          index++;
+        }
+      }
+
+      return pages;
+    }
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminLesson', 'loadAdminNewPage']), {
     routeSubjects: function routeSubjects(id) {
       window.location.replace('/admin/lesson/' + id + '/subjects');
     },
@@ -2920,6 +3119,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.clearForm();
       UIkit.modal('#addLessonArea').hide();
+    },
+    loadNewPage: function loadNewPage(name) {
+      this.$store.dispatch('loadAdminNewPage', [name, 'setAdminLesson']);
     }
   }),
   created: function created() {
@@ -2978,6 +3180,19 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3153,8 +3368,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Açıklama"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSubCategory'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminSubCategory']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSubCategory']), {
+    pageNumber: function pageNumber() {
+      var pages = ['1'];
+      var index = 2;
+
+      for (var i = 2; index <= this.adminSubCategory.last_page; i++) {
+        if (i == 2 && this.adminSubCategory.current_page - 2 > 3) {
+          pages.push('...');
+
+          if (this.adminSubCategory.current_page + 3 > this.adminSubCategory.last_page) {
+            index = this.adminSubCategory.last_page - 6;
+          } else {
+            index = this.adminSubCategory.current_page - 2;
+          }
+        } else if (i == 8 && this.adminSubCategory.current_page + 2 < this.adminSubCategory.last_page - 2) {
+          pages.push('...');
+          index = this.adminSubCategory.last_page;
+        } else {
+          pages.push(index);
+          index++;
+        }
+      }
+
+      return pages;
+    }
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminSubCategory', 'loadAdminNewPage']), {
     routeCategory: function routeCategory() {
       window.location.replace(this.categoriesRoute);
     },
@@ -3219,6 +3459,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.clearForm();
       UIkit.modal('#addSubCategoryArea').hide();
+    },
+    loadNewPage: function loadNewPage(name) {
+      this.$store.dispatch('loadAdminNewPage', [name, 'setAdminSubCategory']);
     }
   }),
   created: function created() {
@@ -3246,6 +3489,19 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3384,8 +3640,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Konu Adı"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSubject'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminSubject']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSubject']), {
+    pageNumber: function pageNumber() {
+      var pages = ['1'];
+      var index = 2;
+
+      for (var i = 2; index <= this.adminSubCategory.last_page; i++) {
+        if (i == 2 && this.adminSubCategory.current_page - 2 > 3) {
+          pages.push('...');
+
+          if (this.adminSubCategory.current_page + 3 > this.adminSubCategory.last_page) {
+            index = this.adminSubCategory.last_page - 6;
+          } else {
+            index = this.adminSubCategory.current_page - 2;
+          }
+        } else if (i == 8 && this.adminSubCategory.current_page + 2 < this.adminSubCategory.last_page - 2) {
+          pages.push('...');
+          index = this.adminSubCategory.last_page;
+        } else {
+          pages.push(index);
+          index++;
+        }
+      }
+
+      return pages;
+    }
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminSubject', 'loadAdminNewPage']), {
     routeLessons: function routeLessons() {
       window.location.replace(this.lessonsRoute);
     },
@@ -3448,6 +3729,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.clearForm();
       UIkit.modal('#addSubjectArea').hide();
+    },
+    loadNewPage: function loadNewPage(name) {
+      this.$store.dispatch('loadAdminNewPage', [name, 'setAdminSubject']);
     }
   }),
   created: function created() {
@@ -10373,6 +10657,97 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
+    _c(
+      "ul",
+      { staticClass: "uk-pagination uk-flex-center uk-margin-medium" },
+      [
+        _c("li", [
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.adminCategory.current_page > 1,
+                  expression: "adminCategory.current_page>1"
+                }
+              ],
+              on: {
+                click: function($event) {
+                  return _vm.loadNewPage(_vm.adminCategory.prev_page_url)
+                }
+              }
+            },
+            [_vm._v(" < ")]
+          )
+        ]),
+        _vm._v(" "),
+        _vm._l(_vm.pageNumber, function(page) {
+          return _c("li", [
+            page == "..."
+              ? _c("button", { staticClass: "uk-disabled" }, [
+                  _vm._v(_vm._s(page))
+                ])
+              : page == _vm.adminCategory.current_page
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "uk-background-default uk-disabled",
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(
+                          "/api/admin/ge/category/show/" + "?page=" + page
+                        )
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(page))]
+                )
+              : _c(
+                  "button",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(
+                          "/api/admin/ge/category/show/" + "?page=" + page
+                        )
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(page))]
+                )
+          ])
+        }),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value:
+                    _vm.adminCategory.current_page <
+                    _vm.adminCategory.last_page,
+                  expression:
+                    "adminCategory.current_page<adminCategory.last_page"
+                }
+              ],
+              on: {
+                click: function($event) {
+                  return _vm.loadNewPage(_vm.adminCategory.next_page_url)
+                }
+              }
+            },
+            [_vm._v(" > ")]
+          )
+        ])
+      ],
+      2
+    ),
+    _vm._v(" "),
     _c("div", { attrs: { id: "addCategoryArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
         _c("div", { staticClass: "uk-modal-header" }, [
@@ -10730,6 +11105,95 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
+    _c(
+      "ul",
+      { staticClass: "uk-pagination uk-flex-center uk-margin-medium" },
+      [
+        _c("li", [
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.adminCity.current_page > 1,
+                  expression: "adminCity.current_page>1"
+                }
+              ],
+              on: {
+                click: function($event) {
+                  return _vm.loadNewPage(_vm.adminCity.prev_page_url)
+                }
+              }
+            },
+            [_vm._v(" < ")]
+          )
+        ]),
+        _vm._v(" "),
+        _vm._l(_vm.pageNumber, function(page) {
+          return _c("li", [
+            page == "..."
+              ? _c("button", { staticClass: "uk-disabled" }, [
+                  _vm._v(_vm._s(page))
+                ])
+              : page == _vm.adminCity.current_page
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "uk-background-default uk-disabled",
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(
+                          "/api/admin/bs/city/show?page=" + page
+                        )
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(page))]
+                )
+              : _c(
+                  "button",
+                  {
+                    staticClass: "uk-",
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(
+                          "/api/admin/bs/city/show?page=" + page
+                        )
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(page))]
+                )
+          ])
+        }),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.adminCity.current_page < _vm.adminCity.last_page,
+                  expression: "adminCity.current_page<adminCity.last_page"
+                }
+              ],
+              on: {
+                click: function($event) {
+                  return _vm.loadNewPage(_vm.adminCity.next_page_url)
+                }
+              }
+            },
+            [_vm._v(" > ")]
+          )
+        ])
+      ],
+      2
+    ),
+    _vm._v(" "),
     _c("div", { attrs: { id: "addCityArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
         _c("div", { staticClass: "uk-modal-header" }, [
@@ -10965,7 +11429,7 @@ var render = function() {
             true
               ? _c(
                   "tbody",
-                  _vm._l(_vm.adminDistrict, function(item) {
+                  _vm._l(_vm.adminDistrict.data, function(item) {
                     return _c("tr", [
                       _c("td", { staticClass: "uk-width-3-4" }, [
                         _c("p", [_vm._v(_vm._s(item.name))])
@@ -11051,6 +11515,103 @@ var render = function() {
           ]
         )
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "ul",
+      { staticClass: "uk-pagination uk-flex-center uk-margin-medium" },
+      [
+        _c("li", [
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.adminDistrict.current_page > 1,
+                  expression: "adminDistrict.current_page>1"
+                }
+              ],
+              on: {
+                click: function($event) {
+                  return _vm.loadNewPage(_vm.adminDistrict.prev_page_url)
+                }
+              }
+            },
+            [_vm._v(" < ")]
+          )
+        ]),
+        _vm._v(" "),
+        _vm._l(_vm.pageNumber, function(page) {
+          return _c("li", [
+            page == "..."
+              ? _c("button", { staticClass: "uk-disabled" }, [
+                  _vm._v(_vm._s(page))
+                ])
+              : page == _vm.adminDistrict.current_page
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "uk-background-default uk-disabled",
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(
+                          "/api/admin/bs/city/" +
+                            _vm.selectedCityId +
+                            "/districts?page=" +
+                            page
+                        )
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(page))]
+                )
+              : _c(
+                  "button",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(
+                          "/api/admin/bs/city/" +
+                            _vm.selectedCityId +
+                            "/districts?page=" +
+                            page
+                        )
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(page))]
+                )
+          ])
+        }),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value:
+                    _vm.adminDistrict.current_page <
+                    _vm.adminDistrict.last_page,
+                  expression:
+                    "adminDistrict.current_page<adminDistrict.last_page"
+                }
+              ],
+              on: {
+                click: function($event) {
+                  return _vm.loadNewPage(_vm.adminDistrict.next_page_url)
+                }
+              }
+            },
+            [_vm._v(" > ")]
+          )
+        ])
+      ],
+      2
     ),
     _vm._v(" "),
     _c("div", { attrs: { id: "addDistrictArea", "uk-modal": "" } }, [
@@ -11245,7 +11806,93 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _c("div", { staticClass: "text-center" }),
+    _c(
+      "ul",
+      { staticClass: "uk-pagination uk-flex-center uk-margin-medium" },
+      [
+        _c("li", [
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.adminGrade.current_page > 1,
+                  expression: "adminGrade.current_page>1"
+                }
+              ],
+              on: {
+                click: function($event) {
+                  return _vm.loadNewPage(_vm.adminGrade.prev_page_url)
+                }
+              }
+            },
+            [_vm._v(" < ")]
+          )
+        ]),
+        _vm._v(" "),
+        _vm._l(_vm.pageNumber, function(page) {
+          return _c("li", [
+            page == "..."
+              ? _c("button", { staticClass: "uk-disabled" }, [
+                  _vm._v(_vm._s(page))
+                ])
+              : page == _vm.adminGrade.current_page
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "uk-background-default uk-disabled",
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(
+                          "/api/admin/cr/grade/show?page=" + page
+                        )
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(page))]
+                )
+              : _c(
+                  "button",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(
+                          "/api/admin/cr/grade/show?page=" + page
+                        )
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(page))]
+                )
+          ])
+        }),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.adminGrade.current_page < _vm.adminGrade.last_page,
+                  expression: "adminGrade.current_page<adminGrade.last_page"
+                }
+              ],
+              on: {
+                click: function($event) {
+                  return _vm.loadNewPage(_vm.adminGrade.next_page_url)
+                }
+              }
+            },
+            [_vm._v(" > ")]
+          )
+        ])
+      ],
+      2
+    ),
     _vm._v(" "),
     _c("div", { attrs: { id: "addGradeArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
@@ -11515,6 +12162,95 @@ var render = function() {
           ]
         )
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "ul",
+      { staticClass: "uk-pagination uk-flex-center uk-margin-medium" },
+      [
+        _c("li", [
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.adminLesson.current_page > 1,
+                  expression: "adminLesson.current_page>1"
+                }
+              ],
+              on: {
+                click: function($event) {
+                  return _vm.loadNewPage(_vm.adminLesson.prev_page_url)
+                }
+              }
+            },
+            [_vm._v(" < ")]
+          )
+        ]),
+        _vm._v(" "),
+        _vm._l(_vm.pageNumber, function(page) {
+          return _c("li", [
+            page == "..."
+              ? _c("button", { staticClass: "uk-disabled" }, [
+                  _vm._v(_vm._s(page))
+                ])
+              : page == _vm.adminLesson.current_page
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "uk-background-default uk-disabled",
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(
+                          "/api/admin/cr/lesson/show?page=" + page
+                        )
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(page))]
+                )
+              : _c(
+                  "button",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(
+                          "/api/admin/cr/lesson/show?page=" + page
+                        )
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(page))]
+                )
+          ])
+        }),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value:
+                    _vm.adminLesson.current_page < _vm.adminLesson.last_page,
+                  expression: "adminLesson.current_page<adminLesson.last_page"
+                }
+              ],
+              on: {
+                click: function($event) {
+                  return _vm.loadNewPage(_vm.adminLesson.next_page_url)
+                }
+              }
+            },
+            [_vm._v(" > ")]
+          )
+        ])
+      ],
+      2
     ),
     _vm._v(" "),
     _c("div", { attrs: { id: "addLessonArea", "uk-modal": "" } }, [
@@ -11862,6 +12598,103 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
+    _c(
+      "ul",
+      { staticClass: "uk-pagination uk-flex-center uk-margin-medium" },
+      [
+        _c("li", [
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.adminSubCategory.current_page > 1,
+                  expression: "adminSubCategory.current_page>1"
+                }
+              ],
+              on: {
+                click: function($event) {
+                  return _vm.loadNewPage(_vm.adminSubCategory.prev_page_url)
+                }
+              }
+            },
+            [_vm._v(" < ")]
+          )
+        ]),
+        _vm._v(" "),
+        _vm._l(_vm.pageNumber, function(page) {
+          return _c("li", [
+            page == "..."
+              ? _c("button", { staticClass: "uk-disabled" }, [
+                  _vm._v(_vm._s(page))
+                ])
+              : page == _vm.adminSubCategory.current_page
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "uk-background-default uk-disabled",
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(
+                          "/api/admin/bs/city/" +
+                            _vm.selectedCategoryId +
+                            "/SubCategories?page=" +
+                            page
+                        )
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(page))]
+                )
+              : _c(
+                  "button",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(
+                          "/api/admin/bs/city/" +
+                            _vm.selectedSubCategoryId +
+                            "/SubCategories?page=" +
+                            page
+                        )
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(page))]
+                )
+          ])
+        }),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value:
+                    _vm.adminSubCategory.current_page <
+                    _vm.adminSubCategory.last_page,
+                  expression:
+                    "adminSubCategory.current_page<adminSubCategory.last_page"
+                }
+              ],
+              on: {
+                click: function($event) {
+                  return _vm.loadNewPage(_vm.adminSubCategory.next_page_url)
+                }
+              }
+            },
+            [_vm._v(" > ")]
+          )
+        ])
+      ],
+      2
+    ),
+    _vm._v(" "),
     _c("div", { attrs: { id: "addSubCategoryArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
         _c("div", { staticClass: "uk-modal-header" }, [
@@ -12205,6 +13038,101 @@ var render = function() {
           ]
         )
       ]
+    ),
+    _vm._v(" "),
+    _c(
+      "ul",
+      { staticClass: "uk-pagination uk-flex-center uk-margin-medium" },
+      [
+        _c("li", [
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.adminSubject.current_page > 1,
+                  expression: "adminSubject.current_page>1"
+                }
+              ],
+              on: {
+                click: function($event) {
+                  return _vm.loadNewPage(_vm.adminSubject.prev_page_url)
+                }
+              }
+            },
+            [_vm._v(" < ")]
+          )
+        ]),
+        _vm._v(" "),
+        _vm._l(_vm.pageNumber, function(page) {
+          return _c("li", [
+            page == "..."
+              ? _c("button", { staticClass: "uk-disabled" }, [
+                  _vm._v(_vm._s(page))
+                ])
+              : page == _vm.adminSubject.current_page
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "uk-background-default uk-disabled",
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(
+                          "/api/admin/bs/city/" +
+                            _vm.selectedLessonId +
+                            "/subjects?page=" +
+                            page
+                        )
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(page))]
+                )
+              : _c(
+                  "button",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(
+                          "/api/admin/bs/city/" +
+                            _vm.selectedLessonId +
+                            "/subjects?page=" +
+                            page
+                        )
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(page))]
+                )
+          ])
+        }),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value:
+                    _vm.adminSubject.current_page < _vm.adminSubject.last_page,
+                  expression: "adminSubject.current_page<adminSubject.last_page"
+                }
+              ],
+              on: {
+                click: function($event) {
+                  return _vm.loadNewPage(_vm.adminSubject.next_page_url)
+                }
+              }
+            },
+            [_vm._v(" > ")]
+          )
+        ])
+      ],
+      2
     ),
     _vm._v(" "),
     _c("div", { attrs: { id: "addSubjectArea", "uk-modal": "" } }, [
@@ -36536,6 +37464,17 @@ var actions = {
     var commit = _ref48.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/bs/city/' + cityId + '/districts').then(function (response) {
       return commit('setAdminDistrict', response.data);
+    });
+  },
+  loadAdminNewPage: function loadAdminNewPage(_ref49, _ref50) {
+    var commit = _ref49.commit;
+
+    var _ref51 = _slicedToArray(_ref50, 2),
+        url = _ref51[0],
+        mutationName = _ref51[1];
+
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
+      return commit(mutationName, response.data);
     });
   }
 };

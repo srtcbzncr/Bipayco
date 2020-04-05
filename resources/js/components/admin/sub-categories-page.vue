@@ -37,6 +37,19 @@
                 </div>
             </table>
         </div>
+        <ul class="uk-pagination uk-flex-center uk-margin-medium">
+            <li>
+                <button v-show="adminSubCategory.current_page>1" @click="loadNewPage(adminSubCategory.prev_page_url)"> < </button>
+            </li>
+            <li v-for="page in pageNumber">
+                <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
+                <button v-else-if="page==adminSubCategory.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/admin/bs/city/'+selectedCategoryId+'/SubCategories?page='+page)">{{page}}</button>
+                <button v-else @click="loadNewPage('/api/admin/bs/city/'+selectedSubCategoryId+'/SubCategories?page='+page)">{{page}}</button>
+            </li>
+            <li>
+                <button v-show="adminSubCategory.current_page<adminSubCategory.last_page" @click="loadNewPage(adminSubCategory.next_page_url)"> > </button>
+            </li>
+        </ul>
         <div id="addSubCategoryArea" uk-modal>
             <div class="uk-modal-dialog">
                 <div class="uk-modal-header">
@@ -178,10 +191,32 @@
             ...mapState([
                 'adminSubCategory'
             ]),
+            pageNumber(){
+                var pages=['1'];
+                var index=2;
+                for(var i=2; index<=this.adminSubCategory.last_page; i++){
+                    if(i==2 && this.adminSubCategory.current_page-2>3){
+                        pages.push('...');
+                        if(this.adminSubCategory.current_page+3>this.adminSubCategory.last_page){
+                            index=this.adminSubCategory.last_page-6;
+                        }else{
+                            index=this.adminSubCategory.current_page-2;
+                        }
+                    }else if(i==8 && this.adminSubCategory.current_page+2<this.adminSubCategory.last_page-2){
+                        pages.push('...');
+                        index=this.adminSubCategory.last_page;
+                    }else{
+                        pages.push(index);
+                        index++;
+                    }
+                }
+                return pages;
+            },
         },
         methods:{
             ...mapActions([
-                'loadAdminSubCategory'
+                'loadAdminSubCategory',
+                'loadAdminNewPage'
             ]),
             routeCategory:function () {
                 window.location.replace(this.categoriesRoute);
@@ -245,6 +280,9 @@
                 }
                 this.clearForm();
                 UIkit.modal('#addSubCategoryArea').hide();
+            },
+            loadNewPage: function(name){
+                this.$store.dispatch('loadAdminNewPage',[name, 'setAdminSubCategory']);
             }
         },
         created() {

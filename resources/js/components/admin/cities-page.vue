@@ -29,6 +29,19 @@
                 </div>
             </table>
         </div>
+        <ul class="uk-pagination uk-flex-center uk-margin-medium">
+            <li>
+                <button v-show="adminCity.current_page>1" @click="loadNewPage(adminCity.prev_page_url)"> < </button>
+            </li>
+            <li v-for="page in pageNumber">
+                <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
+                <button v-else-if="page==adminCity.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/admin/bs/city/show?page='+page)">{{page}}</button>
+                <button v-else class="uk-" @click="loadNewPage('/api/admin/bs/city/show?page='+page)">{{page}}</button>
+            </li>
+            <li>
+                <button v-show="adminCity.current_page<adminCity.last_page" @click="loadNewPage(adminCity.next_page_url)"> > </button>
+            </li>
+        </ul>
         <div id="addCityArea" uk-modal>
             <div class="uk-modal-dialog">
                 <div class="uk-modal-header">
@@ -120,10 +133,32 @@
             ...mapState([
                 'adminCity',
             ]),
+            pageNumber(){
+                var pages=['1'];
+                var index=2;
+                for(var i=2; index<=this.adminCity.last_page; i++){
+                    if(i==2 && this.adminCity.current_page-2>3){
+                        pages.push('...');
+                        if(this.adminCity.current_page+3>this.adminCity.last_page){
+                            index=this.adminCity.last_page-6;
+                        }else{
+                            index=this.adminCity.current_page-2;
+                        }
+                    }else if(i==8 && this.adminCity.current_page+2<this.adminCity.last_page-2){
+                        pages.push('...');
+                        index=this.adminCity.last_page;
+                    }else{
+                        pages.push(index);
+                        index++;
+                    }
+                }
+                return pages;
+            },
         },
         methods:{
             ...mapActions([
                 'loadAdminCity',
+                'loadAdminNewPage'
             ]),
             routeDistricts:function (id) {
                 window.location.replace('/admin/city/'+id+'/districts');
@@ -177,7 +212,9 @@
                 }
                 this.clearForm();
                 UIkit.modal('#addCityArea').hide();
-
+            },
+            loadNewPage: function(name){
+                this.$store.dispatch('loadAdminNewPage',[name,'setAdminCity']);
             }
         },
         created() {
