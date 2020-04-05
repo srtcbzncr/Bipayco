@@ -22,7 +22,7 @@ class BaseRepository implements IRepository
 
         // Operations
         try{
-            $object = DB::table('bs_cities')->paginate(10);
+            $object = DB::table('bs_cities')->where('deleted_at',null)->paginate(10);
         }
         catch(\Exception $e){
             $error = $e->getMessage();
@@ -43,7 +43,7 @@ class BaseRepository implements IRepository
 
         // Operations
         try{
-            $object = DB::table('bs_districts')->paginate(10);
+            $object = DB::table('bs_districts')->where('deleted_at',null)->paginate(10);
         }
         catch(\Exception $e){
             $error = $e->getMessage();

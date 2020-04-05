@@ -23,7 +23,7 @@ class CategoryRepository implements IRepository
 
         // Operations
         try{
-            $object = DB::table('ge_categories')->paginate(10);
+            $object = DB::table('ge_categories')->where('deleted_at',null)->paginate(10);
         }
         catch(\Exception $e){
             $error = $e->getMessage();

@@ -22,7 +22,7 @@ class SubCategoryRepository implements IRepository
 
         // Operations
         try{
-            $object = DB::table('ge_sub_categories')->paginate(10);
+            $object = DB::table('ge_sub_categories')->where('deleted_at',null)->paginate(10);
         }
         catch(\Exception $e){
             $error = $e->getMessage();

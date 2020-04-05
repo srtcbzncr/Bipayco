@@ -21,7 +21,7 @@ class SubjectRepository implements IRepository
 
         // Operations
         try{
-            $object = DB::table('cr_subjects')->paginate(10);
+            $object = DB::table('cr_subjects')->where('deleted_at',null)->paginate(10);
         }
         catch(\Exception $e){
             $error = $e->getMessage();

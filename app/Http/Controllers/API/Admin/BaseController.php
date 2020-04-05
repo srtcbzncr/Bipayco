@@ -61,14 +61,14 @@ class BaseController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'message' => 'Şehir başarıyla getirildi.',
+                'message' => 'Şehirler başarıyla getirildi.',
                 'data' => $resp->getData()
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'message' => 'Şehir getirilirken hata meydana geldi.Tekrar deneyin',
+            'message' => 'Şehirler getirilirken hata meydana geldi.Tekrar deneyin',
             'errorMessage' =>  $resp->getError()
         ],400);
     }
