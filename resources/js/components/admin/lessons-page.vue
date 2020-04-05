@@ -166,13 +166,37 @@
                 window.location.replace('/admin/lesson/'+id+'/subjects');
             },
             deactivateItem:function (id) {
-                Axios.post('/api/admin/cr/lesson/setPassive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminLesson']));
+                Axios.post('/api/admin/cr/lesson/setPassive/'+id)
+                    .then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminLesson'])
+                        }
+                    });
             },
             activateItem:function (id) {
-                Axios.post('/api/admin/cr/lesson/setActive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminLesson']));
+                Axios.post('/api/admin/cr/lesson/setActive/'+id)
+                    .then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminLesson'])
+                        }
+                    });
             },
             deleteItem:function (id) {
-                Axios.post('/api/admin/cr/lesson/delete/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminLesson']));
+                Axios.post('/api/admin/cr/lesson/delete/'+id)
+                    .then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminLesson'])
+                        }
+                    });
             },
             openSettings:function (id) {
                 this.selectedLessonId=id;
@@ -205,12 +229,26 @@
                     Axios.post('/api/admin/cr/lesson/update/'+this.selectedLessonId,{
                         symbol:this.icon,
                         name: this.name,
-                    }).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminLesson']));
+                    }).then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminLesson'])
+                        }
+                    });
                 }else{
                     Axios.post('/api/admin/cr/lesson/create', {
                         symbol:this.icon,
                         name: this.name,
-                    }).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminLesson']))
+                    }).then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminLesson'])
+                        }
+                    });
                 }
                 this.clearForm();
                 UIkit.modal('#addLessonArea').hide();

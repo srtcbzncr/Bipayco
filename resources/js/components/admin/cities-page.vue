@@ -166,13 +166,37 @@
                 window.location.replace('/admin/city/'+id+'/districts');
             },
             deactivateItem:function (id) {
-                Axios.post('/api/admin/bs/city/setPassive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCity']));
+                Axios.post('/api/admin/bs/city/setPassive/'+id)
+                    .then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCity'])
+                        }
+                    });
             },
             activateItem:function (id) {
-                Axios.post('/api/admin/bs/city/setActive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCity']));
+                Axios.post('/api/admin/bs/city/setActive/'+id)
+                    .then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCity'])
+                        }
+                    });
             },
             deleteItem:function (id) {
-                Axios.post('/api/admin/bs/city/delete/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCity']));
+                Axios.post('/api/admin/bs/city/delete/'+id)
+                    .then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCity'])
+                        }
+                    });
             },
             openSettings:function (id) {
                 this.selectedCityId=id;
@@ -206,13 +230,27 @@
                         countryId:this.countryId,
                         name: this.name,
                         code: this.code,
-                    }).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCity']));
+                    }).then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCity'])
+                        }
+                    });
                 }else{
                     Axios.post('/api/admin/bs/city/create', {
                         countryId:this.countryId,
                         name: this.name,
                         code: this.code,
-                    }).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCity']));
+                    }).then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCity'])
+                        }
+                    });
                 }
                 this.clearForm();
                 UIkit.modal('#addCityArea').hide();

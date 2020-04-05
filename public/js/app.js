@@ -2068,21 +2068,69 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       window.location.replace('/admin/category/' + id + '/subCategories');
     },
     deactivateItem: function deactivateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/setPassive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCategory']));
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/setPassive/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminCategory']);
+        }
+      });
     },
     activateItem: function activateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/setActive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCategory']));
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/setActive/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminCategory']);
+        }
+      });
     },
     deleteItem: function deleteItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/delete/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCategory']));
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/delete/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminCategory']);
+        }
+      });
     },
     openSettings: function openSettings(id, index) {
-      var _this = this;
+      var _this4 = this;
 
       this.selectedCategoryIndex = index;
       this.selectedCategoryId = id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/ge/category/show/' + id).then(function (response) {
-        return _this.setSelected(response.data.data);
+        return _this4.setSelected(response.data.data);
       });
     },
     openForm: function openForm() {
@@ -2114,6 +2162,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       document.getElementById('uploadForm').reset();
     },
     saveItem: function saveItem() {
+      var _this5 = this;
+
       var formData = new FormData();
       var image = document.querySelector('#newCourseImage');
 
@@ -2127,9 +2177,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('color', this.color);
 
       if (this.hasItem) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/update/' + this.selectedCategoryId, formData).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCategory']));
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/update/' + this.selectedCategoryId, formData).then(function (response) {
+          if (response.data.error) {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'success'
+            });
+
+            _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminCategory']);
+          }
+        });
       } else {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/create', formData).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCategory']));
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/create', formData).then(function (response) {
+          if (response.data.error) {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'success'
+            });
+
+            _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminCategory']);
+          }
+        });
       }
 
       this.clearForm();
@@ -2341,20 +2419,68 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       window.location.replace('/admin/city/' + id + '/districts');
     },
     deactivateItem: function deactivateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/setPassive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCity']));
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/setPassive/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminCity']);
+        }
+      });
     },
     activateItem: function activateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/setActive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCity']));
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/setActive/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminCity']);
+        }
+      });
     },
     deleteItem: function deleteItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/delete/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCity']));
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/delete/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminCity']);
+        }
+      });
     },
     openSettings: function openSettings(id) {
-      var _this = this;
+      var _this4 = this;
 
       this.selectedCityId = id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/bs/city/show/' + id).then(function (response) {
-        return _this.setSelected(response.data.data);
+        return _this4.setSelected(response.data.data);
       });
     },
     openForm: function openForm() {
@@ -2379,18 +2505,48 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.code = "";
     },
     saveItem: function saveItem() {
+      var _this5 = this;
+
       if (this.hasItem) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/update/' + this.selectedCityId, {
           countryId: this.countryId,
           name: this.name,
           code: this.code
-        }).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCity']));
+        }).then(function (response) {
+          if (response.data.error) {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'success'
+            });
+
+            _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminCity']);
+          }
+        });
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/create', {
           countryId: this.countryId,
           name: this.name,
           code: this.code
-        }).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCity']));
+        }).then(function (response) {
+          if (response.data.error) {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'success'
+            });
+
+            _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminCity']);
+          }
+        });
       }
 
       this.clearForm();
@@ -2637,20 +2793,68 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       window.location.replace(this.citiesRoute);
     },
     deactivateItem: function deactivateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/setPassive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminDistrict']));
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/setPassive/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminDistrict']);
+        }
+      });
     },
     activateItem: function activateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/setActive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminDistrict']));
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/setActive/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminDistrict']);
+        }
+      });
     },
     deleteItem: function deleteItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/delete/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminDistrict']));
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/delete/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminDistrict']);
+        }
+      });
     },
     openSettings: function openSettings(id) {
-      var _this = this;
+      var _this4 = this;
 
       this.selectedDistrictId = id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/bs/district/show/' + id).then(function (response) {
-        return _this.setSelected(response.data.data);
+        return _this4.setSelected(response.data.data);
       });
     },
     openForm: function openForm() {
@@ -2674,16 +2878,46 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).show();
     },
     saveItem: function saveItem() {
+      var _this5 = this;
+
       if (this.hasItem) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/update/' + this.selectedDistrictId, {
           name: this.name,
           cityId: this.selectedCityId
-        }).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminDistrict']));
+        }).then(function (response) {
+          if (response.data.error) {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'success'
+            });
+
+            _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminDistrict']);
+          }
+        });
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/create', {
           name: this.name,
           cityId: this.selectedCityId
-        }).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminDistrict']));
+        }).then(function (response) {
+          if (response.data.error) {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'success'
+            });
+
+            _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminDistrict']);
+          }
+        });
       }
 
       this.clearForm();
@@ -2879,20 +3113,68 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminGrade', 'loadAdminNewPage']), {
     deactivateItem: function deactivateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/setPassive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminGrade']));
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/setPassive/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminGrade']);
+        }
+      });
     },
     activateItem: function activateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/setActive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminGrade']));
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/setActive/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminGrade']);
+        }
+      });
     },
     deleteItem: function deleteItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/delete/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminGrade']));
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/delete/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminGrade']);
+        }
+      });
     },
     openSettings: function openSettings(id) {
-      var _this = this;
+      var _this4 = this;
 
       this.selectedGradeId = id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/cr/grade/show/' + id).then(function (response) {
-        return _this.setSelected(response.data.data);
+        return _this4.setSelected(response.data.data);
       });
     },
     openForm: function openForm() {
@@ -2918,6 +3200,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.selectedGradeId = "";
     },
     saveItem: function saveItem() {
+      var _this5 = this;
+
       console.log(this.name);
       console.log(this.icon);
 
@@ -2925,12 +3209,40 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/update/' + this.selectedGradeId, {
           symbol: this.icon,
           name: this.name
-        }).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminGrade']));
+        }).then(function (response) {
+          if (response.data.error) {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'success'
+            });
+
+            _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminGrade']);
+          }
+        });
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/create', {
           symbol: this.icon,
           name: this.name
-        }).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminGrade']));
+        }).then(function (response) {
+          if (response.data.error) {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'success'
+            });
+
+            _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminGrade']);
+          }
+        });
       }
 
       this.clearForm();
@@ -3129,20 +3441,68 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       window.location.replace('/admin/lesson/' + id + '/subjects');
     },
     deactivateItem: function deactivateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/setPassive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminLesson']));
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/setPassive/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminLesson']);
+        }
+      });
     },
     activateItem: function activateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/setActive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminLesson']));
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/setActive/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminLesson']);
+        }
+      });
     },
     deleteItem: function deleteItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/delete/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminLesson']));
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/delete/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminLesson']);
+        }
+      });
     },
     openSettings: function openSettings(id) {
-      var _this = this;
+      var _this4 = this;
 
       this.selectedLessonId = id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/cr/lesson/show/' + id).then(function (response) {
-        return _this.setSelected(response.data.data);
+        return _this4.setSelected(response.data.data);
       });
     },
     openForm: function openForm() {
@@ -3167,16 +3527,46 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.selectedLessonId = "";
     },
     saveItem: function saveItem() {
+      var _this5 = this;
+
       if (this.hasItem) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/update/' + this.selectedLessonId, {
           symbol: this.icon,
           name: this.name
-        }).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminLesson']));
+        }).then(function (response) {
+          if (response.data.error) {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'success'
+            });
+
+            _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminLesson']);
+          }
+        });
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/create', {
           symbol: this.icon,
           name: this.name
-        }).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminLesson']));
+        }).then(function (response) {
+          if (response.data.error) {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'success'
+            });
+
+            _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminLesson']);
+          }
+        });
       }
 
       this.clearForm();
@@ -3492,20 +3882,68 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       window.location.replace(this.categoriesRoute);
     },
     deactivateItem: function deactivateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/setPassive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminSubCategory']));
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/setPassive/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminSubCategory']);
+        }
+      });
     },
     activateItem: function activateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/setActive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminSubCategory']));
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/setActive/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminSubCategory']);
+        }
+      });
     },
     deleteItem: function deleteItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/delete/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminSubCategory']));
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/delete/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminSubCategory']);
+        }
+      });
     },
     openSettings: function openSettings(id) {
-      var _this = this;
+      var _this4 = this;
 
       this.selectedSubCategoryId = id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/ge/subCategory/show/' + id).then(function (response) {
-        return _this.setSelected(response.data.data);
+        return _this4.setSelected(response.data.data);
       });
     },
     openForm: function openForm() {
@@ -3537,6 +3975,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       document.getElementById('uploadForm').reset();
     },
     saveItem: function saveItem() {
+      var _this5 = this;
+
       var formData = new FormData();
       var image = document.querySelector('#newCourseImage');
 
@@ -3551,9 +3991,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('description', this.description);
 
       if (this.hasItem) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/update/' + this.selectedSubCategoryId, formData).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminSubCategory']));
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/update/' + this.selectedSubCategoryId, formData).then(function (response) {
+          if (response.data.error) {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'success'
+            });
+
+            _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminSubCategory']);
+          }
+        });
       } else {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/create', formData).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminSubCategory']));
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/create', formData).then(function (response) {
+          if (response.data.error) {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'success'
+            });
+
+            _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminSubCategory']);
+          }
+        });
       }
 
       this.clearForm();

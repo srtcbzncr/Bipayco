@@ -163,13 +163,37 @@
                 'loadAdminNewPage'
             ]),
             deactivateItem:function (id) {
-                Axios.post('/api/admin/cr/grade/setPassive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade']));
+                Axios.post('/api/admin/cr/grade/setPassive/'+id)
+                    .then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade'])
+                        }
+                    });
             },
             activateItem:function (id) {
-                Axios.post('/api/admin/cr/grade/setActive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade']));
+                Axios.post('/api/admin/cr/grade/setActive/'+id)
+                    .then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade'])
+                        }
+                    });
             },
             deleteItem:function (id) {
-                Axios.post('/api/admin/cr/grade/delete/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade']));
+                Axios.post('/api/admin/cr/grade/delete/'+id)
+                    .then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade'])
+                        }
+                    });
             },
             openSettings:function (id) {
                 this.selectedGradeId=id;
@@ -205,12 +229,26 @@
                     Axios.post('/api/admin/cr/grade/update/'+this.selectedGradeId, {
                         symbol: this.icon,
                         name: this.name,
-                    }).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade']))
+                    }).then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade'])
+                        }
+                    });
                 }else{
                     Axios.post('/api/admin/cr/grade/create', {
                         symbol: this.icon,
                         name: this.name,
-                    }).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade']));
+                    }).then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade'])
+                        }
+                    });
                 }
                 this.clearForm();
                 UIkit.modal('#addGradeArea').hide();

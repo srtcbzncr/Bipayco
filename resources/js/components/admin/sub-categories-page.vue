@@ -252,13 +252,37 @@
                 window.location.replace(this.categoriesRoute);
             },
             deactivateItem:function (id) {
-                Axios.post('/api/admin/ge/subCategory/setPassive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubCategory']))
+                Axios.post('/api/admin/ge/subCategory/setPassive/'+id)
+                    .then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubCategory'])
+                        }
+                    })
             },
             activateItem:function (id) {
-                Axios.post('/api/admin/ge/subCategory/setActive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubCategory']))
+                Axios.post('/api/admin/ge/subCategory/setActive/'+id)
+                    .then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else {
+                            UIkit.notification({message: response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminSubCategory'])
+                        }
+                    })
             },
             deleteItem:function (id) {
-                Axios.post('/api/admin/ge/subCategory/delete/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubCategory']))
+                Axios.post('/api/admin/ge/subCategory/delete/'+id)
+                    .then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubCategory'])
+                        }
+                    })
             },
             openSettings:function (id) {
                 this.selectedSubCategoryId=id;
@@ -307,10 +331,24 @@
 
                 if(this.hasItem){
                     Axios.post('/api/admin/ge/subCategory/update/'+this.selectedSubCategoryId, formData)
-                        .then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubCategory']));
+                        .then(response=>{
+                            if(response.data.error){
+                                UIkit.notification({message:response.data.message, status: 'danger'});
+                            }else{
+                                UIkit.notification({message:response.data.message, status: 'success'});
+                                this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubCategory'])
+                            }
+                        });
                 }else{
                     Axios.post('/api/admin/ge/subCategory/create', formData)
-                        .then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubCategory']));
+                        .then(response=>{
+                            if(response.data.error){
+                                UIkit.notification({message:response.data.message, status: 'danger'});
+                            }else{
+                                UIkit.notification({message:response.data.message, status: 'success'});
+                                this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubCategory'])
+                            }
+                        });
                 }
                 this.clearForm();
                 UIkit.modal('#addSubCategoryArea').hide();

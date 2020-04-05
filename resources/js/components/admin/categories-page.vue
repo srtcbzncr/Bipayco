@@ -224,13 +224,37 @@
                 window.location.replace('/admin/category/'+id+'/subCategories');
             },
             deactivateItem:function (id) {
-                Axios.post('/api/admin/ge/category/setPassive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCategory']));
+                Axios.post('/api/admin/ge/category/setPassive/'+id)
+                    .then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCategory'])
+                        }
+                    });
             },
             activateItem:function (id) {
-                Axios.post('/api/admin/ge/category/setActive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCategory']));
+                Axios.post('/api/admin/ge/category/setActive/'+id)
+                    .then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCategory'])
+                        }
+                    });
             },
             deleteItem:function (id) {
-                Axios.post('/api/admin/ge/category/delete/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCategory']));
+                Axios.post('/api/admin/ge/category/delete/'+id)
+                    .then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCategory'])
+                        }
+                    });
             },
             openSettings:function (id, index) {
                 this.selectedCategoryIndex=index;
@@ -278,10 +302,24 @@
                 formData.append('color', this.color);
                 if(this.hasItem){
                     Axios.post('/api/admin/ge/category/update/'+this.selectedCategoryId, formData)
-                        .then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCategory']));
+                        .then(response=>{
+                            if(response.data.error){
+                                UIkit.notification({message:response.data.message, status: 'danger'});
+                            }else{
+                                UIkit.notification({message:response.data.message, status: 'success'});
+                                this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCategory'])
+                            }
+                        });
                 }else{
                     Axios.post('/api/admin/ge/category/create', formData)
-                        .then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCategory']));
+                        .then(response=>{
+                            if(response.data.error){
+                                UIkit.notification({message:response.data.message, status: 'danger'});
+                            }else{
+                                UIkit.notification({message:response.data.message, status: 'success'});
+                                this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCategory'])
+                            }
+                        });
                 }
                 this.clearForm();
                 UIkit.modal('#addCategoryArea').hide();
