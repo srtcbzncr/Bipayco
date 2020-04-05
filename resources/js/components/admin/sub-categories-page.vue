@@ -168,10 +168,6 @@
                 type:String,
                 default:"Alt Kategori Adı"
             },
-            subCategoryImg:{
-                type:String,
-                default:"Alt Kategori Resmi"
-            },
             iconText:{
                 type:String,
                 default:"İkon"

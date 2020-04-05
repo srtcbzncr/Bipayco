@@ -2,5 +2,22 @@
 @section('content')
     <categories-page
         default-image-path="{{asset('images/courses/course-1.jpg')}}"
+        add-category-text="@lang('front/auth.add_category')"
+        no-content-text="@lang('front/auth.no_content')"
+        delete-text="@lang('front/auth.delete')"
+        activate-text="@lang('front/auth.activate')"
+        deactivate-text="@lang('front/auth.deactivate')"
+        edit-text="@lang('front/auth.edit')"
+        save-text="@lang('front/auth.save')"
+        cancel-text="@lang('front/auth.cancel')"
+        edit-category-text="@lang('front/auth.edit_category')"
+        select-color-text="@lang('front/auth.select_color')"
+        select-icon-text="@lang('front/auth.select-icon')"
+        category-name-text="@lang('front/auth.category_name')"
+        color-text="@lang('front/auth.color')"
+        icon-text="@lang('front/auth.icon')"
+        description-text="@lang('front/auth.description')"
+        category-image-text="@lang('front/auth.category_image')"
+        select-file-text="@lang('front/auth.select_file')"
     > </categories-page>
 @endsection

@@ -1,5 +1,16 @@
 @extends('layouts.admin_panel')
 @section('content')
     <grade-page
+        add-grade-text="@lang('front/auth.add_grade')"
+        no-content-text="@lang('front/auth.no_content')"
+        delete-text="@lang('front/auth.delete')"
+        activate-text="@lang('front/auth.activate')"
+        deactivate-text="@lang('front/auth.deactivate')"
+        edit-text="@lang('front/auth.edit')"
+        save-text="@lang('front/auth.save')"
+        cancel-text="@lang('front/auth.cancel')"
+        icon-text="@lang('front/auth.icon')"
+        grade-name-text="@lang('front/auth.grade_name')"
+        edit-grade-text="@lang('front/auth.edit_grade')"
     ></grade-page>
 @endsection

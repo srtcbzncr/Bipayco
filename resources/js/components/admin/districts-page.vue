@@ -127,10 +127,6 @@
                 type:String,
                 default:"Geri"
             },
-            selectCityText:{
-                type:String,
-                default:"İl Seçiniz"
-            },
             cityText:{
                 type:String,
                 default:"İl"
@@ -138,10 +134,6 @@
             districtNameText:{
                 type:String,
                 default:"İlçe Adı",
-            },
-            districtCodeText:{
-                type:String,
-                default:"İlçe Kodu"
             },
             saveText:{
                 type:String,

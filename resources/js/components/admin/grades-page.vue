@@ -48,11 +48,11 @@
                 <div class="uk-modal-body" uk-overflow-auto>
                     <div class="uk-margin-bottom">
                         <div class="uk-form-label">{{iconText}}</div>
-                        <select v-model="icon" class="uk-width uk-select">
-                            <option value="" hidden disabled selected>{{selectIconText}}</option>
-                            <option value="fa-user"><i class="fas fa-user icon-tiny"></i> user </option>
-                            <option value="fa-chalkboard-teacher"><i class="fas fa-chalkboard-teacher icon-tiny"></i>  chalkboard teacher</option>
-                        </select>
+                        <div class="uk-flex align-items-center justify-content-between">
+                            <input class="uk-input uk-width-5-6 " placeholder="fa-user" v-model="icon">
+                            <i v-if="icon==''" class="fas icon-medium uk-width-1-6 text-center fa-user" ></i>
+                            <i v-else class="fas icon-medium uk-width-1-6 text-center" :class="icon"></i>
+                        </div>
                         <div class="uk-form-label">{{gradeNameText}}</div>
                         <input v-model="name" class="uk-width uk-input" :placeholder="gradeNameText">
                     </div>
@@ -113,10 +113,6 @@
             cancelText:{
                 type:String,
                 default:"Vazgeç"
-            },
-            selectIconText:{
-                type:String,
-                default:"İkon Seçiniz"
             },
             iconText:{
                 type:String,

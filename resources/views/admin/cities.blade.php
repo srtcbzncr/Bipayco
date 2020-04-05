@@ -1,6 +1,16 @@
 @extends('layouts.admin_panel')
 @section('content')
     <cities-page
-
+        add-city-text="@lang('front/auth.add_city')"
+        no-content-text="@lang('front/auth.no_content')"
+        delete-text="@lang('front/auth.delete')"
+        activate-text="@lang('front/auth.activate')"
+        deactivate-text="@lang('front/auth.deactivate')"
+        edit-text="@lang('front/auth.edit')"
+        city-name-text="@lang('front/auth.city_name')"
+        city-code-text="@lang('front/auth.city_code')"
+        save-text="@lang('front/auth.save')"
+        cancel-text="@lang('front/auth.cancel')"
+        edit-city-text="@lang('front/auth.edit_city')"
     ></cities-page>
 @endsection

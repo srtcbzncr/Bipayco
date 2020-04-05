@@ -2016,10 +2016,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       "default": "İkon"
     },
-    imageText: {
-      type: String,
-      "default": "Kategori Resmi"
-    },
     descriptionText: {
       type: String,
       "default": "Açıklama"
@@ -2737,10 +2733,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       "default": "Geri"
     },
-    selectCityText: {
-      type: String,
-      "default": "İl Seçiniz"
-    },
     cityText: {
       type: String,
       "default": "İl"
@@ -2748,10 +2740,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     districtNameText: {
       type: String,
       "default": "İlçe Adı"
-    },
-    districtCodeText: {
-      type: String,
-      "default": "İlçe Kodu"
     },
     saveText: {
       type: String,
@@ -3067,10 +3055,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     cancelText: {
       type: String,
       "default": "Vazgeç"
-    },
-    selectIconText: {
-      type: String,
-      "default": "İkon Seçiniz"
     },
     iconText: {
       type: String,
@@ -3801,10 +3785,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     subCategoryNameText: {
       type: String,
       "default": "Alt Kategori Adı"
-    },
-    subCategoryImg: {
-      type: String,
-      "default": "Alt Kategori Resmi"
     },
     iconText: {
       type: String,
@@ -12645,50 +12625,43 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c(
-                "select",
+                "div",
                 {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.icon,
-                      expression: "icon"
-                    }
-                  ],
-                  staticClass: "uk-width uk-select",
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.icon = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    }
-                  }
+                  staticClass:
+                    "uk-flex align-items-center justify-content-between"
                 },
                 [
-                  _c(
-                    "option",
-                    {
-                      attrs: {
-                        value: "",
-                        hidden: "",
-                        disabled: "",
-                        selected: ""
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.icon,
+                        expression: "icon"
                       }
-                    },
-                    [_vm._v(_vm._s(_vm.selectIconText))]
-                  ),
+                    ],
+                    staticClass: "uk-input uk-width-5-6 ",
+                    attrs: { placeholder: "fa-user" },
+                    domProps: { value: _vm.icon },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.icon = $event.target.value
+                      }
+                    }
+                  }),
                   _vm._v(" "),
-                  _vm._m(0),
-                  _vm._v(" "),
-                  _vm._m(1)
+                  _vm.icon == ""
+                    ? _c("i", {
+                        staticClass:
+                          "fas icon-medium uk-width-1-6 text-center fa-user"
+                      })
+                    : _c("i", {
+                        staticClass: "fas icon-medium uk-width-1-6 text-center",
+                        class: _vm.icon
+                      })
                 ]
               ),
               _vm._v(" "),
@@ -12746,26 +12719,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("option", { attrs: { value: "fa-user" } }, [
-      _c("i", { staticClass: "fas fa-user icon-tiny" }),
-      _vm._v(" user ")
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("option", { attrs: { value: "fa-chalkboard-teacher" } }, [
-      _c("i", { staticClass: "fas fa-chalkboard-teacher icon-tiny" }),
-      _vm._v("  chalkboard teacher")
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -13007,45 +12961,43 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c(
-                "select",
+                "div",
                 {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.icon,
-                      expression: "icon"
-                    }
-                  ],
-                  staticClass: "uk-width uk-select",
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.icon = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    }
-                  }
+                  staticClass:
+                    "uk-flex align-items-center justify-content-between"
                 },
                 [
-                  _c("option", { attrs: { value: "" } }, [
-                    _vm._v(_vm._s(_vm.selectIconText))
-                  ]),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.icon,
+                        expression: "icon"
+                      }
+                    ],
+                    staticClass: "uk-input uk-width-5-6 ",
+                    attrs: { placeholder: "fa-user" },
+                    domProps: { value: _vm.icon },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.icon = $event.target.value
+                      }
+                    }
+                  }),
                   _vm._v(" "),
-                  _c("option", { attrs: { value: "fa-user" } }, [
-                    _vm._v(" user ")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "fa-chalkboard-teacher" } }, [
-                    _vm._v(" chalkboard teacher ")
-                  ])
+                  _vm.icon == ""
+                    ? _c("i", {
+                        staticClass:
+                          "fas icon-medium uk-width-1-6 text-center fa-user"
+                      })
+                    : _c("i", {
+                        staticClass: "fas icon-medium uk-width-1-6 text-center",
+                        class: _vm.icon
+                      })
                 ]
               ),
               _vm._v(" "),
@@ -13991,45 +13943,43 @@ var render = function() {
           [
             _c("div", { staticClass: "uk-margin-bottom" }, [
               _c(
-                "select",
+                "div",
                 {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.icon,
-                      expression: "icon"
-                    }
-                  ],
-                  staticClass: "uk-width uk-select",
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.icon = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    }
-                  }
+                  staticClass:
+                    "uk-flex align-items-center justify-content-between"
                 },
                 [
-                  _c("option", { attrs: { value: "" } }, [
-                    _vm._v(_vm._s(_vm.selectIconText))
-                  ]),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.icon,
+                        expression: "icon"
+                      }
+                    ],
+                    staticClass: "uk-input uk-width-5-6 ",
+                    attrs: { placeholder: "fa-user" },
+                    domProps: { value: _vm.icon },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.icon = $event.target.value
+                      }
+                    }
+                  }),
                   _vm._v(" "),
-                  _c("option", { attrs: { value: "fa-user" } }, [
-                    _vm._v(" user ")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "fa-chalkboard-teacher" } }, [
-                    _vm._v(" chalkboard teacher ")
-                  ])
+                  _vm.icon == ""
+                    ? _c("i", {
+                        staticClass:
+                          "fas icon-medium uk-width-1-6 text-center fa-user"
+                      })
+                    : _c("i", {
+                        staticClass: "fas icon-medium uk-width-1-6 text-center",
+                        class: _vm.icon
+                      })
                 ]
               ),
               _vm._v(" "),

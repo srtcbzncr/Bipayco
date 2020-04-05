@@ -48,11 +48,11 @@
                 <div class="uk-modal-body" uk-overflow-auto>
                     <div class="uk-margin-bottom">
                         <div class="uk-form-label">{{iconText}}</div>
-                        <select class="uk-width uk-select" v-model="icon">
-                            <option value="">{{selectIconText}}</option>
-                            <option value="fa-user"> user </option>
-                            <option value="fa-chalkboard-teacher"> chalkboard teacher </option>
-                        </select>
+                        <div class="uk-flex align-items-center justify-content-between">
+                            <input class="uk-input uk-width-5-6 " placeholder="fa-user" v-model="icon">
+                            <i v-if="icon==''" class="fas icon-medium uk-width-1-6 text-center fa-user" ></i>
+                            <i v-else class="fas icon-medium uk-width-1-6 text-center" :class="icon"></i>
+                        </div>
                         <div class="uk-form-label">{{lessonNameText}}</div>
                         <input class="uk-width uk-input" v-model="name" :placeholder="lessonNameText">
                     </div>

@@ -3,5 +3,16 @@
     <districts-page
         cities-route="{{route('adminCities')}}"
         selected-city-id="{{$data['cityId']}}"
+        add-district-text="@lang('front/auth.add_district')"
+        no-content-text="@lang('front/auth.no_content')"
+        delete-text="@lang('front/auth.delete')"
+        activate-text="@lang('front/auth.activate')"
+        deactivate-text="@lang('front/auth.deactivate')"
+        edit-text="@lang('front/auth.edit')"
+        back-text="@lang('front/auth.back')"
+        city-text="@lang('front/auth.city')"
+        district-name-text="@lang('front/auth.district_name')"
+        save-text="@lang('front/auth.save')"
+        cancel-text="@lang('front/auth.cancel')"
     ></districts-page>
 @endsection

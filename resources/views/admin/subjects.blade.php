@@ -3,5 +3,20 @@
     <subject-page
         lessons-route="{{route('adminLesson')}}"
         selected-lesson-id="{{$data['lessonId']}}"
+        add-subject-text="@lang('front/auth.add_subject')"
+        no-content-text="@lang('front/auth.no_content')"
+        delete-text="@lang('front/auth.delete')"
+        activate-text="@lang('front/auth.activate')"
+        deactivate-text="@lang('front/auth.deactivate')"
+        edit-text="@lang('front/auth.edit')"
+        back-text="@lang('front/auth.back')"
+        save-text="@lang('front/auth.save')"
+        cancel-text="@lang('front/auth.cancel')"
+        lesson-text="@lang('front/auth.lesson')"
+        select-lesson-text="@lang('front/auth.select_lesson')"
+        edit-subject-text="@lang('front/auth.edit_subject')"
+        subject-name-text="@lang('front/auth.subject_name')"
+        select-icon-text="@lang('front/auth.select_icon')"
+        icon-text="@lang('front/auth.icon')"
     ></subject-page>
 @endsection

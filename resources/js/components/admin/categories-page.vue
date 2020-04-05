@@ -168,10 +168,6 @@
                 type:String,
                 default:"İkon"
             },
-            imageText:{
-                type:String,
-                default:"Kategori Resmi"
-            },
             descriptionText:{
                 type:String,
                 default:"Açıklama"
