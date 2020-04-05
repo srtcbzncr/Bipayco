@@ -118,6 +118,7 @@ class LessonRepository implements IRepository
 
         // Operations
         try{
+            DB::beginTransaction();
             $object = Lesson::find($id);
             $subjects = Subject::where('lesson_id',$id)->get();
             foreach ($subjects as $subject){
@@ -125,8 +126,10 @@ class LessonRepository implements IRepository
                 $tempSubject->delete();
             }
             $object->delete();
+            DB::commit();
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e->getMessage();
             $result = false;
         }
