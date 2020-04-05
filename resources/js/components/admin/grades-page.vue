@@ -78,6 +78,7 @@
                 icon:"",
                 hasItem:false,
                 selectedGradeId:"",
+                selectedPage:"/api/admin/cr/grade/show?page=1"
             }
         },
         props:{
@@ -162,13 +163,13 @@
                 'loadAdminNewPage'
             ]),
             deactivateItem:function (id) {
-                Axios.post('/api/admin/cr/grade/setPassive/'+id).then(this.$store.dispatch('loadAdminGrade'));
+                Axios.post('/api/admin/cr/grade/setPassive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade']));
             },
             activateItem:function (id) {
-                Axios.post('/api/admin/cr/grade/setActive/'+id).then(this.$store.dispatch('loadAdminGrade'));
+                Axios.post('/api/admin/cr/grade/setActive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade']));
             },
             deleteItem:function (id) {
-                Axios.post('/api/admin/cr/grade/delete/'+id).then(this.$store.dispatch('loadAdminGrade'));
+                Axios.post('/api/admin/cr/grade/delete/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade']));
             },
             openSettings:function (id) {
                 this.selectedGradeId=id;
@@ -204,17 +205,18 @@
                     Axios.post('/api/admin/cr/grade/update/'+this.selectedGradeId, {
                         symbol: this.icon,
                         name: this.name,
-                    }).then(this.$store.dispatch('loadAdminGrade'))
+                    }).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade']))
                 }else{
                     Axios.post('/api/admin/cr/grade/create', {
                         symbol: this.icon,
                         name: this.name,
-                    }).then(this.$store.dispatch('loadAdminGrade'));
+                    }).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade']));
                 }
                 this.clearForm();
                 UIkit.modal('#addGradeArea').hide();
             },
             loadNewPage: function(name){
+                this.selectedPage=name;
                 this.$store.dispatch('loadAdminNewPage',[name, 'setAdminGrade']);
             }
         },

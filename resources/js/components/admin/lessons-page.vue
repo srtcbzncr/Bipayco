@@ -78,6 +78,7 @@
                 icon:"",
                 hasItem:false,
                 selectedLessonId:"",
+                selectedPage:"/api/admin/cr/lesson/show?page=1"
             }
         },
         props:{
@@ -165,18 +166,18 @@
                 window.location.replace('/admin/lesson/'+id+'/subjects');
             },
             deactivateItem:function (id) {
-                Axios.post('/api/admin/cr/lesson/setPassive/'+id).then(response=>console.log(response));
+                Axios.post('/api/admin/cr/lesson/setPassive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminLesson']));
             },
             activateItem:function (id) {
-                Axios.post('/api/admin/cr/lesson/setActive/'+id).then(response=>console.log(response));
+                Axios.post('/api/admin/cr/lesson/setActive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminLesson']));
             },
             deleteItem:function (id) {
-                Axios.post('/api/admin/cr/lesson/delete/'+id).then(response=>console.log(response));
+                Axios.post('/api/admin/cr/lesson/delete/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminLesson']));
             },
             openSettings:function (id) {
                 this.selectedLessonId=id;
                 Axios.get('/api/admin/cr/lesson/show/'+id)
-                    .then(response=>console.log(response));
+                    .then(response=>this.setSelected(response.data.data));
             },
             openForm:function () {
                 UIkit.modal('#addLessonArea', {
@@ -204,17 +205,18 @@
                     Axios.post('/api/admin/cr/lesson/update/'+this.selectedLessonId,{
                         symbol:this.icon,
                         name: this.name,
-                    }).then(this.$store.dispatch('loadAdminLesson'));
+                    }).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminLesson']));
                 }else{
                     Axios.post('/api/admin/cr/lesson/create', {
                         symbol:this.icon,
                         name: this.name,
-                    }).then(this.$store.dispatch('loadAdminLesson'))
+                    }).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminLesson']))
                 }
                 this.clearForm();
                 UIkit.modal('#addLessonArea').hide();
             },
             loadNewPage: function(name){
+                this.selectedPage=name;
                 this.$store.dispatch('loadAdminNewPage',[name, 'setAdminLesson']);
             }
         },

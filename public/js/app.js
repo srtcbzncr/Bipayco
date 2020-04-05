@@ -1922,6 +1922,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1933,7 +1939,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       description: "",
       color: "",
       hasItem: false,
-      selectedCategoryId: ""
+      selectedCategoryId: "",
+      selectedPage: "/api/admin/ge/category/show?page=1"
     };
   },
   props: {
@@ -2033,13 +2040,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       window.location.replace('/admin/category/' + id + '/subCategories');
     },
     deactivateItem: function deactivateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/setPassive/' + id).then(this.$store.dispatch('loadAdminCategory'));
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/setPassive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCategory']));
     },
     activateItem: function activateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/setActive/' + id).then(this.$store.dispatch('loadAdminCategory'));
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/setActive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCategory']));
     },
     deleteItem: function deleteItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/delete/' + id).then(this.$store.dispatch('loadAdminCategory'));
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/delete/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCategory']));
     },
     openSettings: function openSettings(id) {
       var _this = this;
@@ -2083,15 +2090,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('color', this.color);
 
       if (this.hasItem) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/update/' + this.selectedCategoryId, formData).then(this.$store.dispatch('loadAdminCategory'));
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/update/' + this.selectedCategoryId, formData).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCategory']));
       } else {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/create', formData).then(this.$store.dispatch('loadAdminCategory'));
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/create', formData).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCategory']));
       }
 
       this.clearForm();
       UIkit.modal('#addCategoryArea').hide();
     },
     loadNewPage: function loadNewPage(name) {
+      this.selectedPage = name;
       this.$store.dispatch('loadAdminNewPage', [name, 'setAdminCategory']);
     }
   }),
@@ -2289,9 +2297,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/setActive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCity']));
     },
     deleteItem: function deleteItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/delete/' + id).then(function (response) {
-        return console.log(response);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/delete/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCity']));
     },
     openSettings: function openSettings(id) {
       var _this = this;
@@ -2328,13 +2334,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           countryId: this.countryId,
           name: this.name,
           code: this.code
-        }).then(this.$store.dispatch('loadAdminCity'));
+        }).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCity']));
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/create', {
           countryId: this.countryId,
           name: this.name,
           code: this.code
-        }).then(this.$store.dispatch('loadAdminCity'));
+        }).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCity']));
       }
 
       this.clearForm();
@@ -2484,7 +2490,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       selectedDistrict: {
         name: "",
         cityId: ""
-      }
+      },
+      selectedPage: '/api/admin/bs/city/' + this.selectedCityId + '/districts?page=1'
     };
   },
   props: {
@@ -2580,13 +2587,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       window.location.replace(this.citiesRoute);
     },
     deactivateItem: function deactivateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/setPassive/' + id).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/setPassive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminDistrict']));
     },
     activateItem: function activateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/setActive/' + id).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/setActive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminDistrict']));
     },
     deleteItem: function deleteItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/delete/' + id).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/delete/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminDistrict']));
     },
     openSettings: function openSettings(id) {
       var _this = this;
@@ -2621,18 +2628,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/update/' + this.selectedDistrictId, {
           name: this.name,
           cityId: this.selectedCityId
-        }).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
+        }).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminDistrict']));
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/create', {
           name: this.name,
           cityId: this.selectedCityId
-        }).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
+        }).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminDistrict']));
       }
 
       this.clearForm();
       UIkit.modal('#addDistrictArea').hide();
     },
     loadNewPage: function loadNewPage(name) {
+      this.selectedPage = name;
       this.$store.dispatch('loadAdminNewPage', [name, 'setAdminDistrict']);
     }
   }),
@@ -2739,7 +2747,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       name: "",
       icon: "",
       hasItem: false,
-      selectedGradeId: ""
+      selectedGradeId: "",
+      selectedPage: "/api/admin/cr/grade/show?page=1"
     };
   },
   props: {
@@ -2820,13 +2829,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminGrade', 'loadAdminNewPage']), {
     deactivateItem: function deactivateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/setPassive/' + id).then(this.$store.dispatch('loadAdminGrade'));
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/setPassive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminGrade']));
     },
     activateItem: function activateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/setActive/' + id).then(this.$store.dispatch('loadAdminGrade'));
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/setActive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminGrade']));
     },
     deleteItem: function deleteItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/delete/' + id).then(this.$store.dispatch('loadAdminGrade'));
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/delete/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminGrade']));
     },
     openSettings: function openSettings(id) {
       var _this = this;
@@ -2866,18 +2875,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/update/' + this.selectedGradeId, {
           symbol: this.icon,
           name: this.name
-        }).then(this.$store.dispatch('loadAdminGrade'));
+        }).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminGrade']));
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/create', {
           symbol: this.icon,
           name: this.name
-        }).then(this.$store.dispatch('loadAdminGrade'));
+        }).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminGrade']));
       }
 
       this.clearForm();
       UIkit.modal('#addGradeArea').hide();
     },
     loadNewPage: function loadNewPage(name) {
+      this.selectedPage = name;
       this.$store.dispatch('loadAdminNewPage', [name, 'setAdminGrade']);
     }
   }),
@@ -2984,7 +2994,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       name: "",
       icon: "",
       hasItem: false,
-      selectedLessonId: ""
+      selectedLessonId: "",
+      selectedPage: "/api/admin/cr/lesson/show?page=1"
     };
   },
   props: {
@@ -3068,24 +3079,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       window.location.replace('/admin/lesson/' + id + '/subjects');
     },
     deactivateItem: function deactivateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/setPassive/' + id).then(function (response) {
-        return console.log(response);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/setPassive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminLesson']));
     },
     activateItem: function activateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/setActive/' + id).then(function (response) {
-        return console.log(response);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/setActive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminLesson']));
     },
     deleteItem: function deleteItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/delete/' + id).then(function (response) {
-        return console.log(response);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/delete/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminLesson']));
     },
     openSettings: function openSettings(id) {
+      var _this = this;
+
       this.selectedLessonId = id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/cr/lesson/show/' + id).then(function (response) {
-        return console.log(response);
+        return _this.setSelected(response.data.data);
       });
     },
     openForm: function openForm() {
@@ -3114,18 +3121,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/update/' + this.selectedLessonId, {
           symbol: this.icon,
           name: this.name
-        }).then(this.$store.dispatch('loadAdminLesson'));
+        }).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminLesson']));
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/create', {
           symbol: this.icon,
           name: this.name
-        }).then(this.$store.dispatch('loadAdminLesson'));
+        }).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminLesson']));
       }
 
       this.clearForm();
       UIkit.modal('#addLessonArea').hide();
     },
     loadNewPage: function loadNewPage(name) {
+      this.selectedPage = name;
       this.$store.dispatch('loadAdminNewPage', [name, 'setAdminLesson']);
     }
   }),
@@ -3268,10 +3276,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3281,10 +3285,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       color: "",
       icon: "",
       name: "",
-      categoryId: "",
       description: "",
       hasItem: false,
-      selectedSubCategoryId: ""
+      selectedSubCategoryId: "",
+      selectedPage: '/api/admin/ge/category/' + this.selectedCategoryId + '/subCategories?page=1'
     };
   },
   props: {
@@ -3404,13 +3408,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       window.location.replace(this.categoriesRoute);
     },
     deactivateItem: function deactivateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/setPassive/' + id).then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId));
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/setPassive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminSubCategory']));
     },
     activateItem: function activateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/setActive/' + id).then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId));
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/setActive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminSubCategory']));
     },
     deleteItem: function deleteItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/delete/' + id).then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId));
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/delete/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminSubCategory']));
     },
     openSettings: function openSettings(id) {
       var _this = this;
@@ -3432,7 +3436,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.color = selectedData.color;
       this.name = selectedData.name;
       this.icon = selectedData.symbol;
-      this.categoryId = selectedData.categoryId;
       this.hasItem = true;
       UIkit.modal('#addSubCategoryArea', {
         escClose: false,
@@ -3445,27 +3448,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.color = "";
       this.name = "";
       this.icon = "";
-      this.categoryId = "";
       this.selectedSubCategoryId = "";
     },
     saveItem: function saveItem() {
       var formData = new FormData();
       formData.append('name', this.name);
-      formData.append('categoryId', this.categoryId);
+      formData.append('categoryId', this.selectedCategoryId);
       formData.append('symbol', this.icon);
       formData.append('color', this.color);
       formData.append('description', this.description);
 
-      if (hasItem) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/update/' + this.selectedSubCategoryId, formData).then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId));
+      if (this.hasItem) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/update/' + this.selectedSubCategoryId, formData).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminSubCategory']));
       } else {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/create', formData).then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId));
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/create', formData).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminSubCategory']));
       }
 
       this.clearForm();
       UIkit.modal('#addSubCategoryArea').hide();
     },
     loadNewPage: function loadNewPage(name) {
+      this.selectedPage = name;
       this.$store.dispatch('loadAdminNewPage', [name, 'setAdminSubCategory']);
     }
   }),
@@ -3570,7 +3573,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3578,9 +3580,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       name: "",
-      lessonId: "",
+      icon: "",
       hasItem: false,
-      selectedSubjectId: ""
+      selectedSubjectId: "",
+      selectedPage: '/api/admin/cr/lesson/' + this.selectedLessonId + '/subjects?page=1'
     };
   },
   props: {
@@ -3643,6 +3646,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     subjectNameText: {
       type: String,
       "default": "Konu Adı"
+    },
+    selectIconText: {
+      type: String,
+      "default": "İkon seç"
+    },
+    iconText: {
+      type: String,
+      "default": "İkon"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSubject']), {
@@ -3650,18 +3661,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var pages = ['1'];
       var index = 2;
 
-      for (var i = 2; index <= this.adminSubCategory.last_page; i++) {
-        if (i == 2 && this.adminSubCategory.current_page - 2 > 3) {
+      for (var i = 2; index <= this.adminSubject.last_page; i++) {
+        if (i == 2 && this.adminSubject.current_page - 2 > 3) {
           pages.push('...');
 
-          if (this.adminSubCategory.current_page + 3 > this.adminSubCategory.last_page) {
-            index = this.adminSubCategory.last_page - 6;
+          if (this.adminSubject.current_page + 3 > this.adminSubject.last_page) {
+            index = this.adminSubject.last_page - 6;
           } else {
-            index = this.adminSubCategory.current_page - 2;
+            index = this.adminSubject.current_page - 2;
           }
-        } else if (i == 8 && this.adminSubCategory.current_page + 2 < this.adminSubCategory.last_page - 2) {
+        } else if (i == 8 && this.adminSubject.current_page + 2 < this.adminSubject.last_page - 2) {
           pages.push('...');
-          index = this.adminSubCategory.last_page;
+          index = this.adminSubject.last_page;
         } else {
           pages.push(index);
           index++;
@@ -3676,19 +3687,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       window.location.replace(this.lessonsRoute);
     },
     deactivateItem: function deactivateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/subject/setPassive/' + id).then(function (response) {
-        return console.log(response.data);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/subject/setPassive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminSubject']));
     },
     activateItem: function activateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/subject/setActive/' + id).then(function (response) {
-        return console.log(response.data);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/subject/setActive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminSubject']));
     },
     deleteItem: function deleteItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/subject/delete/' + id).then(function (response) {
-        return console.log(response.data);
-      });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/subject/delete/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminSubject']));
     },
     openSettings: function openSettings(id) {
       var _this = this;
@@ -3705,8 +3710,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).show();
     },
     setSelected: function setSelected(selectedData) {
+      this.selectedSubjectId = selectedData.id;
+      this.icon = selectedData.symbol;
       this.name = selectedData.name;
-      this.lessonId = selectedData.lessonId;
       this.hasItem = true;
       UIkit.modal('#addSubjectArea', {
         escClose: false,
@@ -3715,27 +3721,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     clearForm: function clearForm() {
       this.name = "";
-      this.lessonId = "";
+      this.icon = "";
       this.hasItem = false;
       this.selectedSubjectId = "";
     },
     saveItem: function saveItem() {
       if (this.hasItem) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/subject/update/' + this.selectedSubjectId, {
+          symbol: this.icon,
           name: this.name,
-          lessonId: this.lessonId
-        }).then(this.$store.dispatch('loadAdminSubject', this.selectedLessonId));
+          lessonId: this.selectedLessonId
+        }).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminSubject']));
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/subject/create', {
+          symbol: this.icon,
           name: this.name,
-          lessonId: this.lessonId
-        }).then(this.$store.dispatch('loadAdminSubject', this.selectedLessonId));
+          lessonId: this.selectedLessonId
+        }).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminSubject']));
       }
 
       this.clearForm();
       UIkit.modal('#addSubjectArea').hide();
     },
     loadNewPage: function loadNewPage(name) {
+      this.selectedPage = name;
       this.$store.dispatch('loadAdminNewPage', [name, 'setAdminSubject']);
     }
   }),
@@ -10705,7 +10714,7 @@ var render = function() {
                     on: {
                       click: function($event) {
                         return _vm.loadNewPage(
-                          "/api/admin/ge/category/show/" + "?page=" + page
+                          "/api/admin/ge/category/show?page=" + page
                         )
                       }
                     }
@@ -10718,7 +10727,7 @@ var render = function() {
                     on: {
                       click: function($event) {
                         return _vm.loadNewPage(
-                          "/api/admin/ge/category/show/" + "?page=" + page
+                          "/api/admin/ge/category/show?page=" + page
                         )
                       }
                     }
@@ -10798,9 +10807,9 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _c("img"),
+            _vm._m(0),
             _vm._v(" "),
-            _c("input"),
+            _vm._m(1),
             _vm._v(" "),
             _c("textarea", {
               directives: [
@@ -10936,7 +10945,56 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", { staticClass: "uk-form-label" }, [_vm._v("image")]),
+      _vm._v(" "),
+      _c("div", {
+        staticClass:
+          "uk-background-center-center uk-background-cover uk-height",
+        attrs: { id: "imagePreview" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "uk-flex uk-flex-center uk-margin",
+        attrs: { "uk-form-custom": "target: true" }
+      },
+      [
+        _c("input", {
+          attrs: {
+            name: "image",
+            type: "file",
+            accept: "image/*",
+            id: "newCourseImage",
+            onchange: "previewImage(this)",
+            required: ""
+          }
+        }),
+        _vm._v(" "),
+        _c("input", {
+          staticClass: "uk-input",
+          attrs: {
+            type: "text",
+            tabindex: "-1",
+            disabled: "",
+            placeholder: "@lang('front/auth.select_file')"
+          }
+        })
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -12748,47 +12806,6 @@ var render = function() {
           "div",
           { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
           [
-            _c("div", [_vm._v(_vm._s(_vm.categoryText))]),
-            _vm._v(" "),
-            _c(
-              "select",
-              {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.categoryId,
-                    expression: "categoryId"
-                  }
-                ],
-                staticClass: "uk-width uk-select",
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.categoryId = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  }
-                }
-              },
-              [
-                _c(
-                  "option",
-                  {
-                    attrs: { selected: "", hidden: "", disabled: "", value: "" }
-                  },
-                  [_vm._v(_vm._s(_vm.selectCategoryText))]
-                )
-              ]
-            ),
-            _vm._v(" "),
             _c("div", { staticClass: "uk-form-label" }, [
               _vm._v(_vm._s(_vm.subCategoryNameText))
             ]),
@@ -13192,10 +13209,6 @@ var render = function() {
           { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
           [
             _c("div", { staticClass: "uk-margin-bottom" }, [
-              _c("div", { staticClass: "uk-form-label" }, [
-                _vm._v(_vm._s(_vm.lessonText))
-              ]),
-              _vm._v(" "),
               _c(
                 "select",
                 {
@@ -13203,8 +13216,8 @@ var render = function() {
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.lessonId,
-                      expression: "lessonId"
+                      value: _vm.icon,
+                      expression: "icon"
                     }
                   ],
                   staticClass: "uk-width uk-select",
@@ -13218,29 +13231,24 @@ var render = function() {
                           var val = "_value" in o ? o._value : o.value
                           return val
                         })
-                      _vm.lessonId = $event.target.multiple
+                      _vm.icon = $event.target.multiple
                         ? $$selectedVal
                         : $$selectedVal[0]
                     }
                   }
                 },
                 [
-                  _c(
-                    "option",
-                    {
-                      attrs: {
-                        value: "",
-                        selected: "",
-                        hidden: "",
-                        disabled: ""
-                      }
-                    },
-                    [_vm._v(_vm._s(_vm.selectLessonText))]
-                  ),
+                  _c("option", { attrs: { value: "" } }, [
+                    _vm._v(_vm._s(_vm.selectIconText))
+                  ]),
                   _vm._v(" "),
-                  _c("option", { attrs: { value: "1" } }, [_vm._v("ders1")]),
+                  _c("option", { attrs: { value: "fa-user" } }, [
+                    _vm._v(" user ")
+                  ]),
                   _vm._v(" "),
-                  _c("option", { attrs: { value: "2" } }, [_vm._v("ders2")])
+                  _c("option", { attrs: { value: "fa-chalkboard-teacher" } }, [
+                    _vm._v(" chalkboard teacher ")
+                  ])
                 ]
               ),
               _vm._v(" "),

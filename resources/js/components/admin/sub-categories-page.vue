@@ -58,10 +58,6 @@
                 </div>
 
                 <div class="uk-modal-body" uk-overflow-auto>
-                    <div>{{categoryText}}</div>
-                    <select class="uk-width uk-select" v-model="categoryId">
-                        <option selected hidden disabled value="">{{selectCategoryText}}</option>
-                    </select>
                     <div class="uk-form-label">{{subCategoryNameText}}</div>
                     <input class="uk-width uk-input" v-model="name" :placeholder="subCategoryNameText">
                     <img>
@@ -95,10 +91,10 @@
                 color:"",
                 icon:"",
                 name:"",
-                categoryId:"",
                 description:"",
                 hasItem:false,
                 selectedSubCategoryId:"",
+                selectedPage:'/api/admin/ge/category/'+this.selectedCategoryId+'/subCategories?page=1'
             }
         },
         props:{
@@ -189,7 +185,7 @@
         },
         computed:{
             ...mapState([
-                'adminSubCategory'
+                'adminSubCategory',
             ]),
             pageNumber(){
                 var pages=['1'];
@@ -222,13 +218,13 @@
                 window.location.replace(this.categoriesRoute);
             },
             deactivateItem:function (id) {
-                Axios.post('/api/admin/ge/subCategory/setPassive/'+id).then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId))
+                Axios.post('/api/admin/ge/subCategory/setPassive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubCategory']))
             },
             activateItem:function (id) {
-                Axios.post('/api/admin/ge/subCategory/setActive/'+id).then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId))
+                Axios.post('/api/admin/ge/subCategory/setActive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubCategory']))
             },
             deleteItem:function (id) {
-                Axios.post('/api/admin/ge/subCategory/delete/'+id).then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId))
+                Axios.post('/api/admin/ge/subCategory/delete/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubCategory']))
             },
             openSettings:function (id) {
                 this.selectedSubCategoryId=id;
@@ -247,7 +243,6 @@
                 this.color=selectedData.color;
                 this.name=selectedData.name;
                 this.icon=selectedData.symbol;
-                this.categoryId=selectedData.categoryId;
                 this.hasItem=true;
                 UIkit.modal('#addSubCategoryArea', {
                     escClose:false,
@@ -260,33 +255,33 @@
                 this.color="";
                 this.name="";
                 this.icon="";
-                this.categoryId="";
                 this.selectedSubCategoryId="";
             },
             saveItem:function () {
                 var formData=new FormData();
                 formData.append('name', this.name);
-                formData.append('categoryId', this.categoryId);
+                formData.append('categoryId', this.selectedCategoryId);
                 formData.append('symbol', this.icon);
                 formData.append('color', this.color);
                 formData.append('description', this.description);
 
-                if(hasItem){
+                if(this.hasItem){
                     Axios.post('/api/admin/ge/subCategory/update/'+this.selectedSubCategoryId, formData)
-                        .then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId));
+                        .then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubCategory']));
                 }else{
                     Axios.post('/api/admin/ge/subCategory/create', formData)
-                        .then(this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId));
+                        .then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubCategory']));
                 }
                 this.clearForm();
                 UIkit.modal('#addSubCategoryArea').hide();
             },
             loadNewPage: function(name){
+                this.selectedPage=name;
                 this.$store.dispatch('loadAdminNewPage',[name, 'setAdminSubCategory']);
             }
         },
         created() {
-            this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId)
+            this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId);
         }
     }
 </script>

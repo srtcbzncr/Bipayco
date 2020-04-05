@@ -55,11 +55,10 @@
 
                 <div class="uk-modal-body" uk-overflow-auto>
                     <div class="uk-margin-bottom">
-                        <div class="uk-form-label">{{lessonText}}</div>
-                        <select class="uk-width uk-select" v-model="lessonId">
-                            <option value="" selected hidden disabled>{{selectLessonText}}</option>
-                            <option value="1">ders1</option>
-                            <option value="2">ders2</option>
+                        <select class="uk-width uk-select" v-model="icon">
+                            <option value="">{{selectIconText}}</option>
+                            <option value="fa-user"> user </option>
+                            <option value="fa-chalkboard-teacher"> chalkboard teacher </option>
                         </select>
                         <div class="uk-form-label">{{subjectNameText}}</div>
                         <input class="uk-width uk-input" v-model="name" :placeholder="subjectNameText">
@@ -83,9 +82,10 @@
         data(){
             return{
                 name:"",
-                lessonId:"",
+                icon:"",
                 hasItem:false,
                 selectedSubjectId:"",
+                selectedPage:'/api/admin/cr/lesson/'+this.selectedLessonId+'/subjects?page=1'
             }
         },
         props:{
@@ -149,6 +149,14 @@
                 type:String,
                 default:"Konu Adı"
             },
+            selectIconText:{
+                type:String,
+                default:"İkon seç"
+            },
+            iconText:{
+                type:String,
+                default:"İkon"
+            }
 
         },
         computed:{
@@ -158,17 +166,17 @@
             pageNumber(){
                 var pages=['1'];
                 var index=2;
-                for(var i=2; index<=this.adminSubCategory.last_page; i++){
-                    if(i==2 && this.adminSubCategory.current_page-2>3){
+                for(var i=2; index<=this.adminSubject.last_page; i++){
+                    if(i==2 && this.adminSubject.current_page-2>3){
                         pages.push('...');
-                        if(this.adminSubCategory.current_page+3>this.adminSubCategory.last_page){
-                            index=this.adminSubCategory.last_page-6;
+                        if(this.adminSubject.current_page+3>this.adminSubject.last_page){
+                            index=this.adminSubject.last_page-6;
                         }else{
-                            index=this.adminSubCategory.current_page-2;
+                            index=this.adminSubject.current_page-2;
                         }
-                    }else if(i==8 && this.adminSubCategory.current_page+2<this.adminSubCategory.last_page-2){
+                    }else if(i==8 && this.adminSubject.current_page+2<this.adminSubject.last_page-2){
                         pages.push('...');
-                        index=this.adminSubCategory.last_page;
+                        index=this.adminSubject.last_page;
                     }else{
                         pages.push(index);
                         index++;
@@ -186,13 +194,13 @@
                 window.location.replace(this.lessonsRoute);
             },
             deactivateItem:function (id) {
-                Axios.post('/api/admin/cr/subject/setPassive/'+id).then(response=>console.log(response.data))
+                Axios.post('/api/admin/cr/subject/setPassive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubject']))
             },
             activateItem:function (id) {
-                Axios.post('/api/admin/cr/subject/setActive/'+id).then(response=>console.log(response.data))
+                Axios.post('/api/admin/cr/subject/setActive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubject']))
             },
             deleteItem:function (id) {
-                Axios.post('/api/admin/cr/subject/delete/'+id).then(response=>console.log(response.data))
+                Axios.post('/api/admin/cr/subject/delete/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubject']))
             },
             openSettings:function (id) {
                 this.selectedGradeId=id;
@@ -206,8 +214,9 @@
                 }).show();
             },
             setSelected:function(selectedData){
+                this.selectedSubjectId=selectedData.id;
+                this.icon=selectedData.symbol;
                 this.name=selectedData.name;
-                this.lessonId=selectedData.lessonId;
                 this.hasItem=true;
                 UIkit.modal('#addSubjectArea', {
                     escClose:false,
@@ -216,26 +225,29 @@
             },
             clearForm:function () {
                 this.name="";
-                this.lessonId="";
+                this.icon="";
                 this.hasItem=false;
                 this.selectedSubjectId="";
             },
             saveItem:function () {
                 if(this.hasItem){
                     Axios.post('/api/admin/cr/subject/update/'+this.selectedSubjectId, {
+                        symbol:this.icon,
                         name:this.name,
-                        lessonId:this.lessonId,
-                    }).then(this.$store.dispatch('loadAdminSubject', this.selectedLessonId))
+                        lessonId:this.selectedLessonId,
+                    }).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubject']))
                 }else{
                     Axios.post('/api/admin/cr/subject/create', {
+                        symbol:this.icon,
                         name:this.name,
-                        lessonId:this.lessonId,
-                    }).then(this.$store.dispatch('loadAdminSubject', this.selectedLessonId))
+                        lessonId:this.selectedLessonId,
+                    }).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubject']))
                 }
                 this.clearForm();
                 UIkit.modal('#addSubjectArea').hide();
             },
             loadNewPage: function(name){
+                this.selectedPage=name;
                 this.$store.dispatch('loadAdminNewPage',[name, 'setAdminSubject']);
             }
         },

@@ -35,8 +35,8 @@
             </li>
             <li v-for="page in pageNumber">
                 <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
-                <button v-else-if="page==adminCategory.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/admin/ge/category/show/'+'?page='+page)">{{page}}</button>
-                <button v-else @click="loadNewPage('/api/admin/ge/category/show/'+'?page='+page)">{{page}}</button>
+                <button v-else-if="page==adminCategory.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/admin/ge/category/show?page='+page)">{{page}}</button>
+                <button v-else @click="loadNewPage('/api/admin/ge/category/show?page='+page)">{{page}}</button>
             </li>
             <li>
                 <button v-show="adminCategory.current_page<adminCategory.last_page" @click="loadNewPage(adminCategory.next_page_url)"> > </button>
@@ -52,8 +52,14 @@
                 <div class="uk-modal-body" uk-overflow-auto>
                     <div class="uk-form-label">{{categoryNameText}}</div>
                     <input class="uk-width uk-input" v-model="name" :placeholder="categoryNameText">
-                    <img>
-                    <input>
+                    <div>
+                        <div class="uk-form-label">image</div>
+                        <div id="imagePreview" class="uk-background-center-center uk-background-cover uk-height"></div>
+                    </div>
+                    <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
+                        <input name="image" type="file" accept="image/*" id="newCourseImage" onchange="previewImage(this)" required>
+                        <input class="uk-input" type="text" tabindex="-1" disabled placeholder="@lang('front/auth.select_file')">
+                    </div>
                     <textarea class="uk-width uk-textarea" v-model="description"></textarea>
                     <div class="uk-form-label">{{iconText}}</div>
                     <select class="uk-width uk-select" v-model="icon">
@@ -86,6 +92,7 @@
                 color:"",
                 hasItem:false,
                 selectedCategoryId:"",
+                selectedPage:"/api/admin/ge/category/show?page=1"
             }
         },
         props:{
@@ -189,13 +196,13 @@
                 window.location.replace('/admin/category/'+id+'/subCategories');
             },
             deactivateItem:function (id) {
-                Axios.post('/api/admin/ge/category/setPassive/'+id).then(this.$store.dispatch('loadAdminCategory'));
+                Axios.post('/api/admin/ge/category/setPassive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCategory']));
             },
             activateItem:function (id) {
-                Axios.post('/api/admin/ge/category/setActive/'+id).then(this.$store.dispatch('loadAdminCategory'));
+                Axios.post('/api/admin/ge/category/setActive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCategory']));
             },
             deleteItem:function (id) {
-                Axios.post('/api/admin/ge/category/delete/'+id).then(this.$store.dispatch('loadAdminCategory'));
+                Axios.post('/api/admin/ge/category/delete/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCategory']));
             },
             openSettings:function (id) {
                 this.selectedCategoryId=id;
@@ -236,15 +243,16 @@
                 formData.append('color', this.color);
                 if(this.hasItem){
                     Axios.post('/api/admin/ge/category/update/'+this.selectedCategoryId, formData)
-                        .then(this.$store.dispatch('loadAdminCategory'));
+                        .then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCategory']));
                 }else{
                     Axios.post('/api/admin/ge/category/create', formData)
-                        .then(this.$store.dispatch('loadAdminCategory'));
+                        .then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCategory']));
                 }
                 this.clearForm();
                 UIkit.modal('#addCategoryArea').hide();
             },
             loadNewPage: function(name){
+                this.selectedPage=name;
                 this.$store.dispatch('loadAdminNewPage',[name,'setAdminCategory']);
             }
         },

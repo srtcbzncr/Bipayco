@@ -87,6 +87,7 @@
                   name:"",
                   cityId:"",
               },
+              selectedPage:'/api/admin/bs/city/'+this.selectedCityId+'/districts?page=1'
           }
         },
         props:{
@@ -186,13 +187,13 @@
                 window.location.replace(this.citiesRoute);
             },
             deactivateItem:function (id) {
-                Axios.post('/api/admin/bs/district/setPassive/'+id).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
+                Axios.post('/api/admin/bs/district/setPassive/'+id).then( this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminDistrict']));
             },
             activateItem:function (id) {
-                Axios.post('/api/admin/bs/district/setActive/'+id).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
+                Axios.post('/api/admin/bs/district/setActive/'+id).then( this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminDistrict']));
             },
             deleteItem:function (id) {
-                Axios.post('/api/admin/bs/district/delete/'+id).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
+                Axios.post('/api/admin/bs/district/delete/'+id).then( this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminDistrict']));
             },
             openSettings:function (id) {
                 this.selectedDistrictId=id;
@@ -224,17 +225,18 @@
                     Axios.post('/api/admin/bs/district/update/'+this.selectedDistrictId, {
                         name: this.name,
                         cityId: this.selectedCityId,
-                    }).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
+                    }).then( this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminDistrict']));
                 }else{
                     Axios.post('/api/admin/bs/district/create', {
                         name: this.name,
                         cityId: this.selectedCityId,
-                    }).then(this.$store.dispatch('loadAdminDistrict', this.selectedCityId));
+                    }).then( this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminDistrict']));
                 }
                 this.clearForm();
                 UIkit.modal('#addDistrictArea').hide();
             },
             loadNewPage: function(name){
+                this.selectedPage=name;
                 this.$store.dispatch('loadAdminNewPage',[name, 'setAdminDistrict']);
             }
         },
