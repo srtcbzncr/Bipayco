@@ -1930,6 +1930,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3231,6 +3243,18 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -8958,7 +8982,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\ntbody tr[data-v-22d6dfa5]{\n    cursor: pointer;\n}\ntextarea[data-v-22d6dfa5]{\n    resize:none;\n}\n", ""]);
+exports.push([module.i, "\ntbody tr[data-v-22d6dfa5]{\n    cursor: pointer;\n}\ntextarea[data-v-22d6dfa5]{\n    resize:none;\n}\n.background1[data-v-22d6dfa5]{\n    background-color: #3659a2;\n}\n.background2[data-v-22d6dfa5]{\n    background-color: #c92592;\n}\n.background3[data-v-22d6dfa5]{\n    background-color: #9b3b5a;\n}\n.background4[data-v-22d6dfa5]{\n    background-color: #30826c;\n}\n.background5[data-v-22d6dfa5]{\n    background-color: #890ca1;\n}\n.background6[data-v-22d6dfa5]{\n    background-color: #7a8230;\n}\n.background7[data-v-22d6dfa5]{\n    background-color: #f7265c;\n}\n.background8[data-v-22d6dfa5]{\n    background-color: #a290da;\n}\n.background9[data-v-22d6dfa5]{\n    background-color: #3b8895;\n}\n.background0[data-v-22d6dfa5]{\n    background-color: #65e1e0;\n}\n", ""]);
 
 // exports
 
@@ -9034,7 +9058,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\ntextarea[data-v-7761a3d0]{\n    resize:none\n}\n", ""]);
+exports.push([module.i, "\ntextarea[data-v-7761a3d0]{\n    resize:none\n}\n.background1[data-v-7761a3d0]{\n    background-color: #3659a2;\n}\n.background2[data-v-7761a3d0]{\n    background-color: #c92592;\n}\n.background3[data-v-7761a3d0]{\n    background-color: #9b3b5a;\n}\n.background4[data-v-7761a3d0]{\n    background-color: #30826c;\n}\n.background5[data-v-7761a3d0]{\n    background-color: #890ca1;\n}\n.background6[data-v-7761a3d0]{\n    background-color: #7a8230;\n}\n.background7[data-v-7761a3d0]{\n    background-color: #f7265c;\n}\n.background8[data-v-7761a3d0]{\n    background-color: #a290da;\n}\n.background9[data-v-7761a3d0]{\n    background-color: #3b8895;\n}\n.background0[data-v-7761a3d0]{\n    background-color: #65e1e0;\n}\noption[data-v-7761a3d0]:hover{\n    box-shadow:none;\n}\n", ""]);
 
 // exports
 
@@ -10983,41 +11007,43 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c(
-              "select",
+              "div",
               {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.icon,
-                    expression: "icon"
-                  }
-                ],
-                staticClass: "uk-width uk-select",
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.icon = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  }
-                }
+                staticClass:
+                  "uk-flex align-items-center justify-content-between"
               },
               [
-                _c(
-                  "option",
-                  {
-                    attrs: { selected: "", hidden: "", disabled: "", value: "" }
-                  },
-                  [_vm._v(_vm._s(_vm.selectIconText))]
-                )
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.icon,
+                      expression: "icon"
+                    }
+                  ],
+                  staticClass: "uk-input uk-width-5-6 ",
+                  attrs: { placeholder: "fa-user" },
+                  domProps: { value: _vm.icon },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.icon = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.icon == ""
+                  ? _c("i", {
+                      staticClass:
+                        "fas icon-medium uk-width-1-6 text-center fa-user"
+                    })
+                  : _c("i", {
+                      staticClass: "fas icon-medium uk-width-1-6 text-center",
+                      class: _vm.icon
+                    })
               ]
             ),
             _vm._v(" "),
@@ -11037,6 +11063,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "uk-width uk-select",
+                style: { "background-color": _vm.color },
                 on: {
                   change: function($event) {
                     var $$selectedVal = Array.prototype.filter
@@ -11060,7 +11087,57 @@ var render = function() {
                     attrs: { selected: "", hidden: "", disabled: "", value: "" }
                   },
                   [_vm._v(_vm._s(_vm.selectColorText))]
-                )
+                ),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background1",
+                  attrs: { value: "#3659a2" }
+                }),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background2",
+                  attrs: { value: "#c92592" }
+                }),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background3",
+                  attrs: { value: "#9b3b5a" }
+                }),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background4",
+                  attrs: { value: "#30826c" }
+                }),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background5",
+                  attrs: { value: "#890ca1" }
+                }),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background6",
+                  attrs: { value: "#7a8230" }
+                }),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background7",
+                  attrs: { value: "#f7265c" }
+                }),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background8",
+                  attrs: { value: "#a290da" }
+                }),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background9",
+                  attrs: { value: "#3b8895" }
+                }),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background0",
+                  attrs: { value: "#65e1e0" }
+                })
               ]
             )
           ]
@@ -13024,41 +13101,43 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c(
-              "select",
+              "div",
               {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.icon,
-                    expression: "icon"
-                  }
-                ],
-                staticClass: "uk-width uk-select",
-                on: {
-                  change: function($event) {
-                    var $$selectedVal = Array.prototype.filter
-                      .call($event.target.options, function(o) {
-                        return o.selected
-                      })
-                      .map(function(o) {
-                        var val = "_value" in o ? o._value : o.value
-                        return val
-                      })
-                    _vm.icon = $event.target.multiple
-                      ? $$selectedVal
-                      : $$selectedVal[0]
-                  }
-                }
+                staticClass:
+                  "uk-flex align-items-center justify-content-between"
               },
               [
-                _c(
-                  "option",
-                  {
-                    attrs: { selected: "", hidden: "", disabled: "", value: "" }
-                  },
-                  [_vm._v(_vm._s(_vm.selectIconText))]
-                )
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.icon,
+                      expression: "icon"
+                    }
+                  ],
+                  staticClass: "uk-input uk-width-5-6 ",
+                  attrs: { placeholder: "fa-user" },
+                  domProps: { value: _vm.icon },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.icon = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.icon == ""
+                  ? _c("i", {
+                      staticClass:
+                        "fas icon-medium uk-width-1-6 text-center fa-user"
+                    })
+                  : _c("i", {
+                      staticClass: "fas icon-medium uk-width-1-6 text-center",
+                      class: _vm.icon
+                    })
               ]
             ),
             _vm._v(" "),
@@ -13078,6 +13157,7 @@ var render = function() {
                   }
                 ],
                 staticClass: "uk-width uk-select",
+                style: { "background-color": _vm.color },
                 on: {
                   change: function($event) {
                     var $$selectedVal = Array.prototype.filter
@@ -13101,7 +13181,57 @@ var render = function() {
                     attrs: { selected: "", hidden: "", disabled: "", value: "" }
                   },
                   [_vm._v(_vm._s(_vm.selectColorText))]
-                )
+                ),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background1",
+                  attrs: { value: "#3659a2" }
+                }),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background2",
+                  attrs: { value: "#c92592" }
+                }),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background3",
+                  attrs: { value: "#9b3b5a" }
+                }),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background4",
+                  attrs: { value: "#30826c" }
+                }),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background5",
+                  attrs: { value: "#890ca1" }
+                }),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background6",
+                  attrs: { value: "#7a8230" }
+                }),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background7",
+                  attrs: { value: "#f7265c" }
+                }),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background8",
+                  attrs: { value: "#a290da" }
+                }),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background9",
+                  attrs: { value: "#3b8895" }
+                }),
+                _vm._v(" "),
+                _c("option", {
+                  staticClass: "background0",
+                  attrs: { value: "#65e1e0" }
+                })
               ]
             )
           ]

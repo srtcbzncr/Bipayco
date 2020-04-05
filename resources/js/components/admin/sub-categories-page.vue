@@ -72,12 +72,24 @@
                     <div class="uk-form-label">{{descriptionText}}</div>
                     <textarea class="uk-width uk-textarea uk-height-small" v-model="description" :placeholder="descriptionText"></textarea>
                     <div class="uk-form-label">{{iconText}}</div>
-                    <select class="uk-width uk-select" v-model="icon">
-                        <option selected hidden disabled value="">{{selectIconText}}</option>
-                    </select>
+                    <div class="uk-flex align-items-center justify-content-between">
+                        <input class="uk-input uk-width-5-6 " placeholder="fa-user" v-model="icon">
+                        <i v-if="icon==''" class="fas icon-medium uk-width-1-6 text-center fa-user" ></i>
+                        <i v-else class="fas icon-medium uk-width-1-6 text-center" :class="icon"></i>
+                    </div>
                     <div class="uk-form-label">{{colorText}}</div>
-                    <select class="uk-width uk-select" v-model="color">
+                    <select class="uk-width uk-select" v-model="color" :style="{'background-color': color}">
                         <option selected hidden disabled value="">{{selectColorText}}</option>
+                        <option value="#3659a2" class="background1"></option>
+                        <option value="#c92592" class="background2"></option>
+                        <option value="#9b3b5a" class="background3"></option>
+                        <option value="#30826c" class="background4"></option>
+                        <option value="#890ca1" class="background5"></option>
+                        <option value="#7a8230" class="background6"></option>
+                        <option value="#f7265c" class="background7"></option>
+                        <option value="#a290da" class="background8"></option>
+                        <option value="#3b8895" class="background9"></option>
+                        <option value="#65e1e0" class="background0"></option>
                     </select>
                 </div>
 
@@ -327,5 +339,38 @@
 <style scoped>
     textarea{
         resize:none
+    }
+    .background1{
+        background-color: #3659a2;
+    }
+    .background2{
+        background-color: #c92592;
+    }
+    .background3{
+        background-color: #9b3b5a;
+    }
+    .background4{
+        background-color: #30826c;
+    }
+    .background5{
+        background-color: #890ca1;
+    }
+    .background6{
+        background-color: #7a8230;
+    }
+    .background7{
+        background-color: #f7265c;
+    }
+    .background8{
+        background-color: #a290da;
+    }
+    .background9{
+        background-color: #3b8895;
+    }
+    .background0{
+        background-color: #65e1e0;
+    }
+    option:hover{
+        box-shadow:none;
     }
 </style>
