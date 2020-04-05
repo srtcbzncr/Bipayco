@@ -99,7 +99,7 @@ class CategoryRepository implements IRepository
         // Operations
         try{
             DB::beginTransaction();
-            $object = new Category();
+            $object = Category::find($id);
             $object->name = $data['name'];
             $object->description = $data['description'];
             $object->symbol = $data['symbol'];

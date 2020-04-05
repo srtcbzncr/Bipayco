@@ -94,7 +94,7 @@ class LessonRepository implements IRepository
         // Operations
         try{
             DB::beginTransaction();
-            $object = new Lesson();
+            $object = Lesson::find($id);
             $object->name = $data['name'];
             $object->symbol = $data['symbol'];
             $object->save();
