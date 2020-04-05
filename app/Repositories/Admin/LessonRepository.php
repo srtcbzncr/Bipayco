@@ -70,6 +70,7 @@ class LessonRepository implements IRepository
             $object = new Lesson();
             $object->name = $data['name'];
             $object->symbol = $data['symbol'];
+            $object->save();
             DB::commit();
         }
         catch(\Exception $e){
@@ -96,6 +97,7 @@ class LessonRepository implements IRepository
             $object = new Lesson();
             $object->name = $data['name'];
             $object->symbol = $data['symbol'];
+            $object->save();
             DB::commit();
         }
         catch(\Exception $e){
