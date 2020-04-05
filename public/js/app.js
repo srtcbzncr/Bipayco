@@ -2201,7 +2201,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       name: "",
       code: "",
       hasItem: false,
-      selectedCityId: ""
+      countryId: 1,
+      selectedCityId: "",
+      selectedPage: "/api/admin/bs/city/show?page=1"
     };
   },
   props: {
@@ -2281,10 +2283,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       window.location.replace('/admin/city/' + id + '/districts');
     },
     deactivateItem: function deactivateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/setPassive/' + id).then(this.$store.dispatch('loadAdminCity'));
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/setPassive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCity']));
     },
     activateItem: function activateItem(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/setActive/' + id).then(this.$store.dispatch('loadAdminCity'));
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/setActive/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCity']));
     },
     deleteItem: function deleteItem(id) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/delete/' + id).then(function (response) {
@@ -2292,9 +2294,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     openSettings: function openSettings(id) {
+      var _this = this;
+
       this.selectedCityId = id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/bs/city/show/' + id).then(function (response) {
-        return setSelected(response.data.data);
+        return _this.setSelected(response.data.data);
       });
     },
     openForm: function openForm() {
@@ -2321,11 +2325,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     saveItem: function saveItem() {
       if (this.hasItem) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/update/' + this.selectedCityId, {
+          countryId: this.countryId,
           name: this.name,
           code: this.code
         }).then(this.$store.dispatch('loadAdminCity'));
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/create', {
+          countryId: this.countryId,
           name: this.name,
           code: this.code
         }).then(this.$store.dispatch('loadAdminCity'));
@@ -2335,6 +2341,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       UIkit.modal('#addCityArea').hide();
     },
     loadNewPage: function loadNewPage(name) {
+      this.selectedPage = name;
       this.$store.dispatch('loadAdminNewPage', [name, 'setAdminCity']);
     }
   }),
@@ -3076,11 +3083,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     openSettings: function openSettings(id) {
-      var _this = this;
-
       this.selectedLessonId = id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/cr/lesson/show/' + id).then(function (response) {
-        return _this.setSelected(response.data.data);
+        return console.log(response);
       });
     },
     openForm: function openForm() {
@@ -10659,7 +10664,10 @@ var render = function() {
     _vm._v(" "),
     _c(
       "ul",
-      { staticClass: "uk-pagination uk-flex-center uk-margin-medium" },
+      {
+        staticClass:
+          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+      },
       [
         _c("li", [
           _c(
@@ -11107,7 +11115,10 @@ var render = function() {
     _vm._v(" "),
     _c(
       "ul",
-      { staticClass: "uk-pagination uk-flex-center uk-margin-medium" },
+      {
+        staticClass:
+          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+      },
       [
         _c("li", [
           _c(
@@ -11213,11 +11224,23 @@ var render = function() {
             _c("div", { staticClass: "uk-margin-bottom" }, [
               _c("div", { staticClass: "uk-margin-bottom" }, [
                 _c("input", {
-                  attrs: {
-                    hidden: "",
-                    disabled: "",
-                    value: "1",
-                    id: "countryId"
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.countryId,
+                      expression: "countryId"
+                    }
+                  ],
+                  attrs: { hidden: "", disabled: "" },
+                  domProps: { value: _vm.countryId },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.countryId = $event.target.value
+                    }
                   }
                 }),
                 _vm._v(" "),
@@ -11519,7 +11542,10 @@ var render = function() {
     _vm._v(" "),
     _c(
       "ul",
-      { staticClass: "uk-pagination uk-flex-center uk-margin-medium" },
+      {
+        staticClass:
+          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+      },
       [
         _c("li", [
           _c(
@@ -11808,7 +11834,10 @@ var render = function() {
     _vm._v(" "),
     _c(
       "ul",
-      { staticClass: "uk-pagination uk-flex-center uk-margin-medium" },
+      {
+        staticClass:
+          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+      },
       [
         _c("li", [
           _c(
@@ -12166,7 +12195,10 @@ var render = function() {
     _vm._v(" "),
     _c(
       "ul",
-      { staticClass: "uk-pagination uk-flex-center uk-margin-medium" },
+      {
+        staticClass:
+          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+      },
       [
         _c("li", [
           _c(
@@ -12443,21 +12475,23 @@ var render = function() {
       { staticClass: "uk-flex align-items-center justify-content-between" },
       [
         _c("div", { staticClass: "text-left" }, [
-          _c("a", { staticClass: "uk-flex align-item-center" }, [
-            _c("i", {
-              staticClass:
-                "fas fa-arrow-alt-circle-left icon-medium uk-margin-small-right"
-            }),
-            _vm._v(" "),
-            _c(
-              "h6",
-              {
-                staticClass: "uk-margin-remove",
-                on: { click: _vm.routeCategory }
-              },
-              [_vm._v(_vm._s(_vm.backText))]
-            )
-          ])
+          _c(
+            "a",
+            {
+              staticClass: "uk-flex align-item-center",
+              on: { click: _vm.routeCategory }
+            },
+            [
+              _c("i", {
+                staticClass:
+                  "fas fa-arrow-alt-circle-left icon-medium uk-margin-small-right"
+              }),
+              _vm._v(" "),
+              _c("h6", { staticClass: "uk-margin-remove" }, [
+                _vm._v(_vm._s(_vm.backText))
+              ])
+            ]
+          )
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "text-right" }, [
@@ -12600,7 +12634,10 @@ var render = function() {
     _vm._v(" "),
     _c(
       "ul",
-      { staticClass: "uk-pagination uk-flex-center uk-margin-medium" },
+      {
+        staticClass:
+          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+      },
       [
         _c("li", [
           _c(
@@ -13042,7 +13079,10 @@ var render = function() {
     _vm._v(" "),
     _c(
       "ul",
-      { staticClass: "uk-pagination uk-flex-center uk-margin-medium" },
+      {
+        staticClass:
+          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+      },
       [
         _c("li", [
           _c(

@@ -25,7 +25,7 @@
                 </div>
             </table>
         </div>
-        <ul class="uk-pagination uk-flex-center uk-margin-medium">
+        <ul class="uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
             <li>
                 <button v-show="adminLesson.current_page>1" @click="loadNewPage(adminLesson.prev_page_url)"> < </button>
             </li>
@@ -176,7 +176,7 @@
             openSettings:function (id) {
                 this.selectedLessonId=id;
                 Axios.get('/api/admin/cr/lesson/show/'+id)
-                    .then(response=>this.setSelected(response.data.data));
+                    .then(response=>console.log(response));
             },
             openForm:function () {
                 UIkit.modal('#addLessonArea', {

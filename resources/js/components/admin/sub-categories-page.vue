@@ -2,9 +2,9 @@
     <div class="uk-margin-large-top">
         <div class="uk-flex align-items-center justify-content-between">
             <div class="text-left">
-                <a class="uk-flex align-item-center">
+                <a  @click="routeCategory" class="uk-flex align-item-center">
                     <i class="fas fa-arrow-alt-circle-left icon-medium uk-margin-small-right"></i>
-                    <h6 class="uk-margin-remove" @click="routeCategory">{{backText}}</h6>
+                    <h6 class="uk-margin-remove">{{backText}}</h6>
                 </a>
             </div>
             <div class="text-right">
@@ -37,7 +37,7 @@
                 </div>
             </table>
         </div>
-        <ul class="uk-pagination uk-flex-center uk-margin-medium">
+        <ul class="uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
             <li>
                 <button v-show="adminSubCategory.current_page>1" @click="loadNewPage(adminSubCategory.prev_page_url)"> < </button>
             </li>

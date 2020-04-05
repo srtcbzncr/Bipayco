@@ -29,7 +29,7 @@
                 </div>
             </table>
         </div>
-        <ul class="uk-pagination uk-flex-center uk-margin-medium">
+        <ul class="uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
             <li>
                 <button v-show="adminCity.current_page>1" @click="loadNewPage(adminCity.prev_page_url)"> < </button>
             </li>
@@ -52,7 +52,7 @@
                 <div class="uk-modal-body" uk-overflow-auto>
                     <div class="uk-margin-bottom">
                         <div class="uk-margin-bottom">
-                            <input hidden disabled value="1" id="countryId">
+                            <input hidden disabled v-model="countryId">
                             <div class="uk-form-label">{{cityNameText}}</div>
                             <input class="uk-input uk-width" v-model="name" :placeholder="cityNameText">
                             <div class="uk-form-label">{{cityCodeText}}</div>
@@ -80,7 +80,9 @@
                 name:"",
                 code:"",
                 hasItem:false,
+                countryId:1,
                 selectedCityId:"",
+                selectedPage:"/api/admin/bs/city/show?page=1"
             }
         },
         props:{
@@ -164,10 +166,10 @@
                 window.location.replace('/admin/city/'+id+'/districts');
             },
             deactivateItem:function (id) {
-                Axios.post('/api/admin/bs/city/setPassive/'+id).then(this.$store.dispatch('loadAdminCity'));
+                Axios.post('/api/admin/bs/city/setPassive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCity']));
             },
             activateItem:function (id) {
-                Axios.post('/api/admin/bs/city/setActive/'+id).then(this.$store.dispatch('loadAdminCity'));
+                Axios.post('/api/admin/bs/city/setActive/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCity']));
             },
             deleteItem:function (id) {
                 Axios.post('/api/admin/bs/city/delete/'+id).then(response=>console.log(response));
@@ -175,7 +177,7 @@
             openSettings:function (id) {
                 this.selectedCityId=id;
                 Axios.get('/api/admin/bs/city/show/'+id)
-                    .then(response=>setSelected(response.data.data));
+                    .then(response=>this.setSelected(response.data.data));
             },
             openForm:function () {
                 this.hasItem=false;
@@ -201,11 +203,13 @@
             saveItem:function () {
                 if(this.hasItem){
                     Axios.post('/api/admin/bs/city/update/'+this.selectedCityId, {
+                        countryId:this.countryId,
                         name: this.name,
                         code: this.code,
                     }).then(this.$store.dispatch('loadAdminCity'));
                 }else{
                     Axios.post('/api/admin/bs/city/create', {
+                        countryId:this.countryId,
                         name: this.name,
                         code: this.code,
                     }).then(this.$store.dispatch('loadAdminCity'));
@@ -214,6 +218,7 @@
                 UIkit.modal('#addCityArea').hide();
             },
             loadNewPage: function(name){
+                this.selectedPage=name;
                 this.$store.dispatch('loadAdminNewPage',[name,'setAdminCity']);
             }
         },

@@ -35,7 +35,7 @@
                 </div>
             </table>
         </div>
-        <ul class="uk-pagination uk-flex-center uk-margin-medium">
+        <ul class="uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
             <li>
                 <button v-show="adminDistrict.current_page>1" @click="loadNewPage(adminDistrict.prev_page_url)"> < </button>
             </li>
