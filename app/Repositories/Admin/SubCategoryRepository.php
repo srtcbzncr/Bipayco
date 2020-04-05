@@ -66,7 +66,7 @@ class SubCategoryRepository implements IRepository
         try{
             DB::beginTransaction();
             $object = new SubCategory();
-            $object->category_id = $data['categoryId '];
+            $object->category_id = $data['categoryId'];
             $object->name = $data['name'];
             $object->color = $data['color'];
             $object->symbol = $data['symbol'];
