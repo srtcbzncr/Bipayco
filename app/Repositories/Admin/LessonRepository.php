@@ -158,8 +158,8 @@ class LessonRepository implements IRepository
 
         // Operations
         try{
-            $lesson = Lesson::find($id);
-            $object = Subject::where('lesson_id',$id)->get();
+            $object = DB::table('cr_subjects')->where('lesson_id',$id)->where('deleted_at',null)->paginate(10);
+            //$object = Subject::where('lesson_id',$id)->get();
         }
         catch(\Exception $e){
             $error = $e->getMessage();

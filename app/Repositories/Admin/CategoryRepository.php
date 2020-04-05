@@ -214,7 +214,8 @@ class CategoryRepository implements IRepository
 
         // Operations
         try{
-            $object = SubCategory::where('category_id',$id)->get();
+            $object = DB::table('ge_sub_categories')->where('category_id',$id)->where('deleted_at',null)->paginate(10);
+           // $object = SubCategory::where('category_id',$id)->get();
         }
         catch(\Exception $e){
             $error = $e->getMessage();

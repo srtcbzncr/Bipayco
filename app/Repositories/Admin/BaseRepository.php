@@ -86,7 +86,8 @@ class BaseRepository implements IRepository
 
         // Operations
         try{
-            $object = District::where('city_id',$id)->get();
+            $object = DB::table('bs_districts')->where('city_id',$id)->where('deleted_at',null)->paginate(10);
+            //$object = District::where('city_id',$id)->get();
         }
         catch(\Exception $e){
             $error = $e->getMessage();
