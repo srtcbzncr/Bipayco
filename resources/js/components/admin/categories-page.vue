@@ -13,11 +13,11 @@
                     </tr>
                 </thead>
                 <tbody v-if="true">
-                <tr v-for="item in adminCategory.data">
+                <tr v-for="(item, index) in adminCategory.data">
                     <td @click="routeSubCategories(item.id)" class="uk-width-1-4"><p>{{item.name}}</p></td>
                     <td @click="routeSubCategories(item.id)" class="uk-width-1-2"><p>{{item.description}}</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-around">
-                        <a @click="openSettings(item.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
+                        <a @click="openSettings(item.id, index)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
                         <a v-if="!item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
                         <a v-else @click="deactivateItem(item.id)" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
                         <a @click="deleteItem(item.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
@@ -52,15 +52,17 @@
                 <div class="uk-modal-body" uk-overflow-auto>
                     <div class="uk-form-label">{{categoryNameText}}</div>
                     <input class="uk-width uk-input" v-model="name" :placeholder="categoryNameText">
-                    <div>
-                        <div class="uk-form-label">image</div>
-                        <div id="imagePreview" class="uk-background-center-center uk-background-cover uk-height"></div>
-                    </div>
-                    <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
-                        <input name="image" type="file" accept="image/*" id="newCourseImage" onchange="previewImage(this)" required>
-                        <input class="uk-input" type="text" tabindex="-1" disabled placeholder="@lang('front/auth.select_file')">
-                    </div>
-                    <textarea class="uk-width uk-textarea" v-model="description"></textarea>
+                    <div class="uk-form-label">{{categoryImageText}}</div>
+                    <form class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove" id="uploadForm">
+                        <div v-if="hasItem" id="imagePreview" class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :style="{'background-image':'url('+image+')'}"></div>
+                        <div v-else id="imagePreview" class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :style="{'background-image': 'url('+ defaultImagePath+')'}"></div>
+                        <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
+                            <input name="image" type="file" accept="image/*" id="newCourseImage" @change="previewImage()" required>
+                            <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
+                        </div>
+                    </form>
+                    <div class="uk-form-label">{{descriptionText}}</div>
+                    <textarea class="uk-width uk-textarea uk-height-small" v-model="description" :placeholder="descriptionText"></textarea>
                     <div class="uk-form-label">{{iconText}}</div>
                     <select class="uk-width uk-select" v-model="icon">
                         <option selected hidden disabled value="">{{selectIconText}}</option>
@@ -90,8 +92,10 @@
                 icon:"",
                 description:"",
                 color:"",
+                image:"",
                 hasItem:false,
                 selectedCategoryId:"",
+                selectedCategoryIndex:"",
                 selectedPage:"/api/admin/ge/category/show?page=1"
             }
         },
@@ -160,6 +164,18 @@
                 type:String,
                 default:"Açıklama"
             },
+            categoryImageText:{
+                type:String,
+                default:"Kategori Resmi"
+            },
+            selectFileText:{
+                type:String,
+                default:"Dosya Seç"
+            },
+            defaultImagePath:{
+                type:String,
+                required:true,
+            }
         },
         computed:{
             ...mapState([
@@ -204,7 +220,8 @@
             deleteItem:function (id) {
                 Axios.post('/api/admin/ge/category/delete/'+id).then(this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCategory']));
             },
-            openSettings:function (id) {
+            openSettings:function (id, index) {
+                this.selectedCategoryIndex=index;
                 this.selectedCategoryId=id;
                 Axios.get('/api/admin/ge/category/show/'+id)
                     .then(response=>this.setSelected(response.data.data))
@@ -217,6 +234,7 @@
             },
             setSelected:function(selectedData){
                 console.log(selectedData);
+                this.image=selectedData.image;
                 this.name=selectedData.name;
                 this.icon=selectedData.symbol;
                 this.description=selectedData.description;
@@ -234,9 +252,14 @@
                 this.color="";
                 this.hasItem=false;
                 this.selectedCategoryId="";
+                document.getElementById('uploadForm').reset();
             },
             saveItem:function () {
                 var formData = new FormData();
+                var image=document.querySelector('#newCourseImage');
+                if(image.files[0]!=undefined){
+                    formData.append('image', image.files[0]);
+                }
                 formData.append('name', this.name);
                 formData.append('description', this.description);
                 formData.append('symbol', this.icon);
@@ -254,6 +277,16 @@
             loadNewPage: function(name){
                 this.selectedPage=name;
                 this.$store.dispatch('loadAdminNewPage',[name,'setAdminCategory']);
+            },
+            previewImage: function(){
+                var input=document.querySelector('#newCourseImage');
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        document.querySelector('#imagePreview').setAttribute('style', 'background-image:url('+e.target.result+')');
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
             }
         },
         created() {

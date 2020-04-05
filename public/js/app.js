@@ -1928,6 +1928,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -1938,8 +1940,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       icon: "",
       description: "",
       color: "",
+      image: "",
       hasItem: false,
       selectedCategoryId: "",
+      selectedCategoryIndex: "",
       selectedPage: "/api/admin/ge/category/show?page=1"
     };
   },
@@ -2007,6 +2011,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     descriptionText: {
       type: String,
       "default": "Açıklama"
+    },
+    categoryImageText: {
+      type: String,
+      "default": "Kategori Resmi"
+    },
+    selectFileText: {
+      type: String,
+      "default": "Dosya Seç"
+    },
+    defaultImagePath: {
+      type: String,
+      required: true
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminCategory']), {
@@ -2048,9 +2064,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     deleteItem: function deleteItem(id) {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/delete/' + id).then(this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCategory']));
     },
-    openSettings: function openSettings(id) {
+    openSettings: function openSettings(id, index) {
       var _this = this;
 
+      this.selectedCategoryIndex = index;
       this.selectedCategoryId = id;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/ge/category/show/' + id).then(function (response) {
         return _this.setSelected(response.data.data);
@@ -2064,6 +2081,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     setSelected: function setSelected(selectedData) {
       console.log(selectedData);
+      this.image = selectedData.image;
       this.name = selectedData.name;
       this.icon = selectedData.symbol;
       this.description = selectedData.description;
@@ -2081,9 +2099,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.color = "";
       this.hasItem = false;
       this.selectedCategoryId = "";
+      document.getElementById('uploadForm').reset();
     },
     saveItem: function saveItem() {
       var formData = new FormData();
+      var image = document.querySelector('#newCourseImage');
+
+      if (image.files[0] != undefined) {
+        formData.append('image', image.files[0]);
+      }
+
       formData.append('name', this.name);
       formData.append('description', this.description);
       formData.append('symbol', this.icon);
@@ -2101,6 +2126,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     loadNewPage: function loadNewPage(name) {
       this.selectedPage = name;
       this.$store.dispatch('loadAdminNewPage', [name, 'setAdminCategory']);
+    },
+    previewImage: function previewImage() {
+      var input = document.querySelector('#newCourseImage');
+
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          document.querySelector('#imagePreview').setAttribute('style', 'background-image:url(' + e.target.result + ')');
+        };
+
+        reader.readAsDataURL(input.files[0]);
+      }
     }
   }),
   created: function created() {
@@ -3276,6 +3314,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3285,6 +3332,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       color: "",
       icon: "",
       name: "",
+      image: "",
       description: "",
       hasItem: false,
       selectedSubCategoryId: "",
@@ -3375,6 +3423,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     descriptionText: {
       type: String,
       "default": "Açıklama"
+    },
+    subCategoryImageText: {
+      type: String,
+      "default": "Alt Kategori Resmi"
+    },
+    selectFileText: {
+      type: String,
+      "default": "Dosya Seç"
+    },
+    defaultImagePath: {
+      type: String,
+      required: true
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSubCategory']), {
@@ -3432,6 +3492,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     setSelected: function setSelected(selectedData) {
       console.log(selectedData);
+      this.image = selectedData.image;
       this.description = selectedData.description;
       this.color = selectedData.color;
       this.name = selectedData.name;
@@ -3449,9 +3510,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.name = "";
       this.icon = "";
       this.selectedSubCategoryId = "";
+      document.getElementById('uploadForm').reset();
     },
     saveItem: function saveItem() {
       var formData = new FormData();
+      var image = document.querySelector('#newCourseImage');
+
+      if (image.files[0] != undefined) {
+        formData.append('image', image.files[0]);
+      }
+
       formData.append('name', this.name);
       formData.append('categoryId', this.selectedCategoryId);
       formData.append('symbol', this.icon);
@@ -3470,6 +3538,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     loadNewPage: function loadNewPage(name) {
       this.selectedPage = name;
       this.$store.dispatch('loadAdminNewPage', [name, 'setAdminSubCategory']);
+    },
+    previewImage: function previewImage() {
+      var input = document.querySelector('#newCourseImage');
+
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          document.querySelector('#imagePreview').setAttribute('style', 'background-image:url(' + e.target.result + ')');
+        };
+
+        reader.readAsDataURL(input.files[0]);
+      }
     }
   }),
   created: function created() {
@@ -10561,7 +10642,7 @@ var render = function() {
             true
               ? _c(
                   "tbody",
-                  _vm._l(_vm.adminCategory.data, function(item) {
+                  _vm._l(_vm.adminCategory.data, function(item, index) {
                     return _c("tr", [
                       _c(
                         "td",
@@ -10602,7 +10683,7 @@ var render = function() {
                               attrs: { "uk-tooltip": _vm.editText },
                               on: {
                                 click: function($event) {
-                                  return _vm.openSettings(item.id)
+                                  return _vm.openSettings(item.id, index)
                                 }
                               }
                             },
@@ -10807,9 +10888,73 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _vm._m(0),
+            _c("div", { staticClass: "uk-form-label" }, [
+              _vm._v(_vm._s(_vm.categoryImageText))
+            ]),
             _vm._v(" "),
-            _vm._m(1),
+            _c(
+              "form",
+              {
+                staticClass:
+                  "uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove",
+                attrs: { id: "uploadForm" }
+              },
+              [
+                _vm.hasItem
+                  ? _c("div", {
+                      staticClass:
+                        "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                      style: { "background-image": "url(" + _vm.image + ")" },
+                      attrs: { id: "imagePreview" }
+                    })
+                  : _c("div", {
+                      staticClass:
+                        "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                      style: {
+                        "background-image": "url(" + _vm.defaultImagePath + ")"
+                      },
+                      attrs: { id: "imagePreview" }
+                    }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "uk-flex uk-flex-center uk-margin",
+                    attrs: { "uk-form-custom": "target: true" }
+                  },
+                  [
+                    _c("input", {
+                      attrs: {
+                        name: "image",
+                        type: "file",
+                        accept: "image/*",
+                        id: "newCourseImage",
+                        required: ""
+                      },
+                      on: {
+                        change: function($event) {
+                          return _vm.previewImage()
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: {
+                        type: "text",
+                        tabindex: "-1",
+                        disabled: "",
+                        placeholder: _vm.selectFileText
+                      }
+                    })
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "uk-form-label" }, [
+              _vm._v(_vm._s(_vm.descriptionText))
+            ]),
             _vm._v(" "),
             _c("textarea", {
               directives: [
@@ -10820,7 +10965,8 @@ var render = function() {
                   expression: "description"
                 }
               ],
-              staticClass: "uk-width uk-textarea",
+              staticClass: "uk-width uk-textarea uk-height-small",
+              attrs: { placeholder: _vm.descriptionText },
               domProps: { value: _vm.description },
               on: {
                 input: function($event) {
@@ -10945,56 +11091,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", { staticClass: "uk-form-label" }, [_vm._v("image")]),
-      _vm._v(" "),
-      _c("div", {
-        staticClass:
-          "uk-background-center-center uk-background-cover uk-height",
-        attrs: { id: "imagePreview" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "uk-flex uk-flex-center uk-margin",
-        attrs: { "uk-form-custom": "target: true" }
-      },
-      [
-        _c("input", {
-          attrs: {
-            name: "image",
-            type: "file",
-            accept: "image/*",
-            id: "newCourseImage",
-            onchange: "previewImage(this)",
-            required: ""
-          }
-        }),
-        _vm._v(" "),
-        _c("input", {
-          staticClass: "uk-input",
-          attrs: {
-            type: "text",
-            tabindex: "-1",
-            disabled: "",
-            placeholder: "@lang('front/auth.select_file')"
-          }
-        })
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -12832,9 +12929,95 @@ var render = function() {
               }
             }),
             _vm._v(" "),
-            _c("img"),
+            _c("div", { staticClass: "uk-form-label" }, [
+              _vm._v(_vm._s(_vm.subCategoryImageText))
+            ]),
             _vm._v(" "),
-            _c("input"),
+            _c(
+              "form",
+              {
+                staticClass:
+                  "uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove",
+                attrs: { id: "uploadForm" }
+              },
+              [
+                _vm.hasItem
+                  ? _c("div", {
+                      staticClass:
+                        "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                      style: { "background-image": "url(" + _vm.image + ")" },
+                      attrs: { id: "imagePreview" }
+                    })
+                  : _c("div", {
+                      staticClass:
+                        "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                      style: {
+                        "background-image": "url(" + _vm.defaultImagePath + ")"
+                      },
+                      attrs: { id: "imagePreview" }
+                    }),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "uk-flex uk-flex-center uk-margin",
+                    attrs: { "uk-form-custom": "target: true" }
+                  },
+                  [
+                    _c("input", {
+                      attrs: {
+                        name: "image",
+                        type: "file",
+                        accept: "image/*",
+                        id: "newCourseImage",
+                        required: ""
+                      },
+                      on: {
+                        change: function($event) {
+                          return _vm.previewImage()
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("input", {
+                      staticClass: "uk-input",
+                      attrs: {
+                        type: "text",
+                        tabindex: "-1",
+                        disabled: "",
+                        placeholder: _vm.selectFileText
+                      }
+                    })
+                  ]
+                )
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "uk-form-label" }, [
+              _vm._v(_vm._s(_vm.descriptionText))
+            ]),
+            _vm._v(" "),
+            _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.description,
+                  expression: "description"
+                }
+              ],
+              staticClass: "uk-width uk-textarea uk-height-small",
+              attrs: { placeholder: _vm.descriptionText },
+              domProps: { value: _vm.description },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.description = $event.target.value
+                }
+              }
+            }),
             _vm._v(" "),
             _c("div", { staticClass: "uk-form-label" }, [
               _vm._v(_vm._s(_vm.iconText))
