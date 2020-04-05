@@ -45,7 +45,7 @@ class CategoryRepository implements IRepository
         // Operations
         try{
             $object = Category::find($id);
-            $object['subCategories'] = $object->subCategories;
+            $object['subCategories'] = SubCategory::where('category_id',$id)->get();
         }
         catch(\Exception $e){
             $error = $e->getMessage();
@@ -134,7 +134,7 @@ class CategoryRepository implements IRepository
         try{
             DB::beginTransaction();
             $object = Category::find($id);
-            $subs = $object->subCategories;
+            $subs = SubCategory::where('category_id',$id)->get();
             foreach ($subs as $sub){
                 $tempSub = SubCategory::find($sub->id);
                 $tempSub->delete();
@@ -210,11 +210,11 @@ class CategoryRepository implements IRepository
         // Response variables
         $result = true;
         $error = null;
-        $object = null;
+        $object = array();
 
         // Operations
         try{
-            $object = SubCategory::where('category_id ',$id)->get();
+            $object = SubCategory::where('category_id',$id)->get();
         }
         catch(\Exception $e){
             $error = $e->getMessage();

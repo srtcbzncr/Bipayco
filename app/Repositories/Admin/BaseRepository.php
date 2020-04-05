@@ -65,7 +65,7 @@ class BaseRepository implements IRepository
         // Operations
         try{
             $object = City::find($id);
-            $districts = $object->districts;
+            $districts = District::where('city_id',$id)->get();
             $object['districts'] = $districts;
         }
         catch(\Exception $e){
@@ -86,8 +86,7 @@ class BaseRepository implements IRepository
 
         // Operations
         try{
-            $city = City::find($id);
-            $object = $city->districts;
+            $object = District::where('city_id',$id)->get();
         }
         catch(\Exception $e){
             $error = $e->getMessage();
@@ -241,7 +240,7 @@ class BaseRepository implements IRepository
         try{
             DB::beginTransaction();
             $object = City::find($id);
-            $districts = $object->districts;
+            $districts = District::where('city_id',$id)->get();
             foreach ($districts as $district){
                 $tempDistrict = District::find($district->id);
                 $tempDistrict->delete();

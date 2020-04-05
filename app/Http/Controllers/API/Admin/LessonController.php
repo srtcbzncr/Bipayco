@@ -78,13 +78,13 @@ class LessonController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'message' => 'Ders başarıyla getirildi.',
+                'message' => 'Ders başarıyla silindi.',
                 'data' => $resp->getData()
             ]);
         }
         return response()->json([
             'error' => true,
-            'message' => 'Ders getirilirken hata meydana geldi.Tekrar deneyin.',
+            'message' => 'Ders silinirken hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
         ],400);
     }
