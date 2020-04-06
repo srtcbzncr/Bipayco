@@ -10667,7 +10667,7 @@ iframe.uk-cover {
 }
 
 /* Tablet landscape and bigger */
-@media (min-width: 960px) {
+@media (min-width: 900px) {
     .uk-hidden\@m {
         display: none !important;
     }
@@ -10698,7 +10698,7 @@ iframe.uk-cover {
 }
 
 /* Phone landscape and smaller */
-@media (max-width: 959px) {
+@media (max-width: 900px) {
     .uk-visible\@m {
         display: none !important;
     }
