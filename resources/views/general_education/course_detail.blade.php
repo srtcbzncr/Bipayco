@@ -97,6 +97,9 @@
                     course-id="{{$course->id}}"
                     module-name="generalEducation"
                     :sections="{{$course->sections}}"
+                    preview-text="@lang('front/auth.preview')"
+                    no-content-text="@lang('front/auth.no_content')"
+                    section-text="@lang('front/auth.section')"
                 ></course-previews>
                 <!-- Reviews  -->
                 <div id="Reviews" class="tabcontent animation: uk-animation-slide-right-medium">

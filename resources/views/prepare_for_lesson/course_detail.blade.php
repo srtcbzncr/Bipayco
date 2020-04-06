@@ -96,60 +96,15 @@
                     </ul>
                 </div>
                 <!-- Course-Videos tab  -->
-                <div id="Course-Videos" class="tabcontent  animation: uk-animation-slide-right-medium">
-                    <ul uk-accordion="" class="uk-accordion">
-                        @forelse($course->sections as $section)
-                        <li class="tm-course-lesson-section uk-background-default">
-                            <a class="uk-accordion-title uk-padding-small" href="#"><h6> @lang('front/auth.section') {{$section->no}}</h6> <h4 class="uk-margin-remove"> {{$section->name}}</h4> </a>
-                            <div class="uk-accordion-content uk-margin-remove-top">
-                                <div class="tm-course-section-list">
-                                    <ul>
-                                        @forelse($section->lessons as $lesson)
-                                        <li>
-                                            <a class="uk-link-reset" @if($lesson->preview) uk-toggle="target: #modal-media-video" @endif>
-                                                <!-- Play icon  -->
-                                                <span>
-                                                    @if(Auth::check()&& in_array($lesson->id, $completed) )
-                                                        <i style="color:#2ED24A" class="fas fa-check-circle icon-medium" uk-tooltip="title: @lang('front/auth.watch_again')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>
-                                                    @elseif($lesson->is_video)
-                                                        <i style="color:#666666" class="fas fa-play-circle icon-medium" uk-tooltip="title: @lang('front/auth.watch')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>
-                                                    @else
-                                                        <i style="color:#666666" class="fas fa-file-alt icon-medium" uk-tooltip="title: @lang('front/auth.watch')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>
-                                                    @endif
-                                                </span>
-                                                <!-- Course title  -->
-                                                <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{$lesson->name}}</div>
-                                                </a>
-                                            @if($lesson->preview)
-                                               <!-- preview link -->
-                                                <a style="color:#666666" class="uk-link-reset uk-margin-xlarge-right uk-position-center-right uk-padding-small uk-text-small uk-visible@s" href="#preview-video-1" uk-toggle> <i class="fas fa-play icon-small uk-text-grey"></i> @lang('front/auth.preview')  </a>
-                                                <!-- time -->
-                                                @if($lesson->is_video)
-                                                   <span style="color:#666666" class="uk-visible@m uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{$lesson->long}}</span>
-                                                @endif
-                                            @elseif($lesson->is_video)
-                                                    <span style="color:#666666" class="uk-visible@m uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{$lesson->long}}</span>
-                                            @endif
-                                        </li>
-                                        @empty
-                                            <p>@lang('front/auth.have_no_requirement')</p>
-                                        @endforelse
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        @empty
-                            <p>@lang('front/auth.have_no_requirement')</p>
-                        @endforelse
-                    </ul>
 
-                    <!-- Model  Preview videos-->
-                    <course-previews
-                        course-id="{{$course->id}}"
-                        module-name="prepareLessons"
-                    ></course-previews>
-                    <!-- Model  Preview videos-->
-                </div>
+                <course-previews
+                    course-id="{{$course->id}}"
+                    module-name="prepareLessons"
+                    :sections="{{$course->sections}}"
+                    preview-text="@lang('front/auth.preview')"
+                    no-content-text="@lang('front/auth.no_content')"
+                    section-text="@lang('front/auth.section')"
+                ></course-previews>
                 <!-- Reviews  -->
                 <div id="Reviews" class="tabcontent animation: uk-animation-slide-right-medium">
                     <h3 style="tab-index: 1">@lang('front/auth.reviews')</h3>
