@@ -1,7 +1,7 @@
 <template>
     <div class="uk-width-1-3@m uk-visible@m">
-        <h3 class="uk-text-bold">{{relatedCoursesText}}</h3>
-        <div v-for="course in courseCard" class="uk-margin-medium-bottom">
+        <h3 class="uk-text-bold uk-margin-small-left  ">{{relatedCoursesText}}</h3>
+        <div v-for="course in courseCard" class="uk-padding-small">
             <course-card
                 v-if="authCheck"
                 :course="course"

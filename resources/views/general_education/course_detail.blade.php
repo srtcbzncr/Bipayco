@@ -67,7 +67,7 @@
             <a href="#" class="tablinks" onclick="openTabs(event, 'Instructor')"> @lang('front/auth.instructor') </a>
         </li>
     </ul>
-    <div class="uk-padding-large tm-hero">
+    <div class="uk-padding-large uk-padding-remove-top  tm-hero">
         <div uk-grid>
             <!-- page contant -->
             <div class="uk-width-2-3@m uk-first-column">
@@ -187,16 +187,16 @@
                 </div>
             </div>
             <!-- side contant -->
-            <similar-course-card
-                @if(Auth::check())
+                <similar-course-card
+                    @if(Auth::check())
                     auth-check
                     user-id="{{Auth::user()->id}}"
-                @endif
-                course-id="{{$course->id}}"
-                module-name="generalEducation"
-                module="ge"
-                related-courses-text="@lang('front/auth.related_courses')"
-            > </similar-course-card>
+                    @endif
+                    course-id="{{$course->id}}"
+                    module-name="generalEducation"
+                    module="ge"
+                    related-courses-text="@lang('front/auth.related_courses')"
+                > </similar-course-card>
         </div>
     </div>
 @endsection

@@ -15968,14 +15968,14 @@ var render = function() {
     "div",
     { staticClass: "uk-width-1-3@m uk-visible@m" },
     [
-      _c("h3", { staticClass: "uk-text-bold" }, [
+      _c("h3", { staticClass: "uk-text-bold uk-margin-small-left  " }, [
         _vm._v(_vm._s(_vm.relatedCoursesText))
       ]),
       _vm._v(" "),
       _vm._l(_vm.courseCard, function(course) {
         return _c(
           "div",
-          { staticClass: "uk-margin-medium-bottom" },
+          { staticClass: "uk-padding-small" },
           [
             _vm.authCheck
               ? _c("course-card", {
