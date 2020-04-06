@@ -5014,20 +5014,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-previews",
   data: function data() {
     return {
-      selected: 0
+      selectedPath: "",
+      isVideo: false
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['previewLessons']), {
-    selectedLesson: function selectedLesson() {
-      console.log(this.selected);
-      return this.selected;
-    }
-  }),
   props: {
     courseId: {
       type: String,
@@ -5036,14 +5048,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     moduleName: {
       type: String,
       required: true
+    },
+    authCheck: {
+      type: Boolean,
+      "default": false
+    },
+    previewText: {
+      type: String,
+      "default": "Önizleme"
+    },
+    noContentText: {
+      type: String,
+      "default": "İçerik Bulunmuyor"
+    },
+    sectionText: {
+      type: String,
+      "default": "Bölüm"
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadPreviewLessons']), {
-    changeSelected: function changeSelected(index) {
-      this.selected = index;
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['sections', 'previewLessons'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections', 'loadPreviewLessons']), {
+    openPreview: function openPreview(filePath, isVideo, isPreview, lessonId) {
+      if (isPreview) {
+        this.selectedPath = filePath;
+        this.isVideo = isVideo;
+        UIkit.modal('#preview' + lessonId).show();
+      }
     }
   }),
   created: function created() {
+    this.$store.dispatch('loadSections', [this.moduleName, this.courseId]);
     this.$store.dispatch('loadPreviewLessons', [this.moduleName, this.courseId]);
   }
 });
@@ -15554,123 +15588,220 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { attrs: { id: "modal-media-video", "uk-modal": "" } }, [
-    _c("div", { staticClass: "uk-modal-dialog uk-margin-auto-vertical" }, [
-      _c("button", {
-        staticClass: "uk-modal-close-outside",
-        attrs: { type: "button", "uk-close": "" }
-      }),
-      _vm._v(" "),
+  return _c(
+    "div",
+    {
+      staticClass: "tabcontent  animation: uk-animation-slide-right-medium",
+      attrs: { id: "Course-Videos" }
+    },
+    [
       _c(
-        "video",
-        {
-          attrs: {
-            id: "courseLessonVideo",
-            width: "400",
-            controls: "",
-            controlsList: "nodownload"
-          }
-        },
-        [
-          _c("source", {
-            attrs: {
-              src: _vm.previewLessons[_vm.selectedLesson].file_path,
-              type: "video/mp4"
-            }
-          }),
-          _vm._v(" "),
-          _c("source", {
-            attrs: {
-              src: _vm.previewLessons[_vm.selectedLesson].file_path,
-              type: "video/ogg"
-            }
-          }),
-          _vm._v(
-            "\n            Your browser does not support HTML5 video.\n        "
-          )
-        ]
-      ),
-      _vm._v(
-        "\n        " +
-          _vm._s(_vm.previewLessons[_vm.selectedLesson]) +
-          "\n        "
-      ),
-      _c("div", { staticClass: "tm-course-section-list uk-margin-top" }, [
-        _c(
-          "ul",
-          _vm._l(_vm.previewLessons, function(lesson, index) {
-            return _c(
-              "a",
-              {
-                staticClass: "uk-link-reset",
-                on: {
-                  click: function($event) {
-                    return _vm.changeSelected(index)
-                  }
-                }
-              },
-              [
-                _c("li", [
-                  _vm._m(0, true),
+        "ul",
+        { staticClass: "uk-accordion", attrs: { "uk-accordion": "" } },
+        _vm._l(_vm.sections, function(section) {
+          return _vm.sections.length > 0
+            ? _c(
+                "li",
+                {
+                  staticClass: "tm-course-lesson-section uk-background-default"
+                },
+                [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "uk-accordion-title uk-padding-small",
+                      attrs: { href: "#" }
+                    },
+                    [
+                      _c("h6", [
+                        _vm._v(
+                          " " +
+                            _vm._s(_vm.sectionText) +
+                            "  " +
+                            _vm._s(section.no)
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("h4", { staticClass: "uk-margin-remove" }, [
+                        _vm._v(" " + _vm._s(section.name))
+                      ])
+                    ]
+                  ),
                   _vm._v(" "),
                   _c(
                     "div",
                     {
-                      staticClass:
-                        "uk-panel uk-panel-box uk-text-truncate uk-margin-large-right"
+                      staticClass: "uk-accordion-content uk-margin-remove-top"
                     },
-                    [_vm._v(_vm._s(lesson.name))]
-                  ),
-                  _vm._v(" "),
-                  _vm._m(1, true),
-                  _vm._v(" "),
-                  _c(
-                    "span",
-                    {
-                      staticClass:
-                        "uk-position-center-right time uk-margin-medium-right"
-                    },
-                    [_vm._v(_vm._s(lesson.long))]
+                    [
+                      _c("div", { staticClass: "tm-course-section-list" }, [
+                        _c(
+                          "ul",
+                          _vm._l(section.lessons, function(lesson) {
+                            return section.lessons.length > 0
+                              ? _c("li", [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "uk-link-reset",
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.openPreview(
+                                            lesson.file_path,
+                                            lesson.is_video,
+                                            lesson.preview,
+                                            lesson.id
+                                          )
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("span", [
+                                        _vm.authCheck && lesson.is_completed
+                                          ? _c("i", {
+                                              staticClass:
+                                                "fas fa-check-circle icon-medium",
+                                              staticStyle: { color: "#2ED24A" },
+                                              attrs: {
+                                                "uk-tooltip":
+                                                  "title: @lang('front/auth.watch_again')  ; delay: 300 ; pos: top ;animation:\tuk-animation-slide-bottom-small"
+                                              }
+                                            })
+                                          : lesson.is_video
+                                          ? _c("i", {
+                                              staticClass:
+                                                "fas fa-play-circle icon-medium",
+                                              staticStyle: { color: "#666666" },
+                                              attrs: {
+                                                "uk-tooltip":
+                                                  "title: @lang('front/auth.watch')  ; delay: 300 ; pos: top ;animation:\tuk-animation-slide-bottom-small"
+                                              }
+                                            })
+                                          : _c("i", {
+                                              staticClass:
+                                                "fas fa-file-alt icon-medium",
+                                              staticStyle: { color: "#666666" },
+                                              attrs: {
+                                                "uk-tooltip":
+                                                  "title: @lang('front/auth.watch')  ; delay: 300 ; pos: top ;animation:\tuk-animation-slide-bottom-small"
+                                              }
+                                            })
+                                      ]),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right"
+                                        },
+                                        [_vm._v(_vm._s(lesson.name))]
+                                      )
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  lesson.preview
+                                    ? _c(
+                                        "a",
+                                        {
+                                          staticClass:
+                                            "uk-link-reset uk-margin-xlarge-right uk-position-center-right uk-padding-small uk-text-small uk-visible@s",
+                                          staticStyle: { color: "#666666" }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "fas fa-play icon-small uk-text-grey"
+                                          }),
+                                          _vm._v(
+                                            " " + _vm._s(_vm.previewText) + "  "
+                                          )
+                                        ]
+                                      )
+                                    : _vm._e(),
+                                  _vm._v(" "),
+                                  lesson.is_video
+                                    ? _c(
+                                        "span",
+                                        {
+                                          staticClass:
+                                            "uk-visible@m uk-position-center-right time uk-margin-right",
+                                          staticStyle: { color: "#666666" }
+                                        },
+                                        [
+                                          _c("i", {
+                                            staticClass:
+                                              "fas fa-clock icon-small"
+                                          }),
+                                          _vm._v("  " + _vm._s(lesson.long))
+                                        ]
+                                      )
+                                    : _vm._e()
+                                ])
+                              : _c("p", [_vm._v(_vm._s(_vm.noContentText))])
+                          }),
+                          0
+                        )
+                      ])
+                    ]
                   )
-                ])
+                ]
+              )
+            : _c("p", [_vm._v(_vm._s(_vm.noContentText))])
+        }),
+        0
+      ),
+      _vm._v(" "),
+      _vm._l(_vm.previewLessons, function(lesson) {
+        return _c(
+          "div",
+          { attrs: { id: "preview" + lesson.id, "uk-modal": "" } },
+          [
+            _c(
+              "div",
+              { staticClass: "uk-modal-dialog uk-margin-auto-vertical" },
+              [
+                _c("button", {
+                  staticClass: "uk-modal-close-outside",
+                  attrs: { type: "button", "uk-close": "" }
+                }),
+                _vm._v(" "),
+                lesson.is_video
+                  ? _c(
+                      "video",
+                      {
+                        attrs: {
+                          id: "courseLessonVideo",
+                          controls: "",
+                          controlsList: "nodownload"
+                        }
+                      },
+                      [
+                        _c("source", {
+                          attrs: { src: lesson.file_path, type: "video/mp4" }
+                        }),
+                        _vm._v(" "),
+                        _c("source", {
+                          attrs: { src: lesson.file_path, type: "video/ogg" }
+                        }),
+                        _vm._v(
+                          "\n                Your browser does not support HTML5 video.\n            "
+                        )
+                      ]
+                    )
+                  : _c("iframe", {
+                      staticClass: "uk-width uk-height-large",
+                      attrs: { src: lesson.file_path, frameborder: "0" }
+                    })
               ]
             )
-          }),
-          0
+          ]
         )
-      ])
-    ])
-  ])
+      })
+    ],
+    2
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "uk-icon-button icon-play" }, [
-      _c("i", { staticClass: "fas fa-play icon-small" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "a",
-      {
-        staticClass:
-          "uk-icon-button uk-link-reset uk-margin-small-right uk-icon uk-button-success uk-position-center-right uk-animation-scale-up",
-        staticStyle: { display: "none" },
-        attrs: { href: "#" }
-      },
-      [
-        _c("i", {
-          staticClass: "fas fa-check-circle icon-small  uk-text-white"
-        })
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -16773,7 +16904,8 @@ var render = function() {
                   "button",
                   {
                     staticClass:
-                      "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right"
+                      "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+                    attrs: { "uk-toggle": "target: #modal-example" }
                   },
                   [_vm._v(_vm._s(_vm.saveText))]
                 )
