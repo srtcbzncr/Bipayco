@@ -41,7 +41,11 @@
             general-education-route="{{route('ge_index')}}"
             home-route="{{route('home')}}"
             logo="{{asset('images/logo.png')}}"
-            general-education="@lang('front/auth.general_education')"
+            general-education-text="@lang('front/auth.general_education')"
+            prepare-lesson-text="@lang('front/auth.prepare_for_lessons')"
+            prepare-exams-text="@lang('front/auth.prepare_for_exams')"
+            books-text="@lang('front/auth.books')"
+            exams-text="@lang('front/auth.exams')"
             all-of-category="@lang('front/auth.all_of_category')"
         ></side-bar>
     </div>
@@ -187,20 +191,20 @@
                                     <a href="{{route('ge_index')}}">Genel Eğitim Modülü </a>
                                 </li>
                                 <li>
-                                    <a href="#">Sınavlara Hazırlık Modülü  </a>
+                                    <a href="#"> Derslere Hazırlık Modülü </a>
                                 </li>
                                 <li>
-                                    <a href="#"> Derslere Hazırlık Modülü </a>
+                                    <a href="#">Sınavlara Hazırlık Modülü  </a>
                                 </li>
                             </ul>
                         </div>
                         <div class="uk-width-expand@m uk-width-1-2@s">
                             <ul class="uk-list  tm-footer-list">
                                 <li>
-                                    <a href="#"> Denemeler </a>
+                                    <a href="#"> Soru Bankaları </a>
                                 </li>
                                 <li>
-                                    <a href="#"> Ödemeler </a>
+                                    <a href="#"> Deneme Sınavları </a>
                                 </li>
                                 <li>
                                     <a href="#"> İletişim </a>

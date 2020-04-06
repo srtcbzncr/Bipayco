@@ -8396,9 +8396,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "side-bar",
   props: {
     homeRoute: String,
-    generalEducation: {
+    generalEducationText: {
       type: String,
       "default": 'Genel Eğitim'
+    },
+    prepareExamsText: {
+      type: String,
+      "default": 'Sınavlara Hazırlık'
+    },
+    prepareLessonsText: {
+      type: String,
+      "default": 'Derslere Hazırlık'
+    },
+    examsText: {
+      type: String,
+      "default": 'Deneme Sınavları'
+    },
+    booksText: {
+      type: String,
+      "default": 'Soru Bankaları'
     },
     logo: {
       type: String,
@@ -16285,11 +16301,11 @@ var render = function() {
             {
               on: {
                 click: function($event) {
-                  return _vm.changeModule("exams")
+                  return _vm.changeModule("books")
                 }
               }
             },
-            [_vm._v(_vm._s(_vm.examsText))]
+            [_vm._v(_vm._s(_vm.booksText))]
           )
         ]),
         _vm._v(" "),
@@ -16299,11 +16315,11 @@ var render = function() {
             {
               on: {
                 click: function($event) {
-                  return _vm.changeModule("books")
+                  return _vm.changeModule("exams")
                 }
               }
             },
-            [_vm._v(_vm._s(_vm.booksText))]
+            [_vm._v(_vm._s(_vm.examsText))]
           )
         ])
       ]
@@ -19747,9 +19763,19 @@ var render = function() {
     _vm._v(" "),
     _c("ul", [
       _c("li", [
-        _c("a", { attrs: { href: _vm.generalEducationRoute } }, [
-          _c("i", { staticClass: "fas fa-laptop-code icon-medium" })
-        ]),
+        _c(
+          "a",
+          {
+            attrs: {
+              href: _vm.generalEducationRoute,
+              "uk-tooltip":
+                "title:" +
+                _vm.generalEducationText +
+                "; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"
+            }
+          },
+          [_c("i", { staticClass: "fas fa-laptop-code icon-medium" })]
+        ),
         _vm._v(" "),
         _c(
           "div",
@@ -19767,7 +19793,7 @@ var render = function() {
                   staticStyle: { "": "hover" },
                   attrs: { href: _vm.generalEducationRoute }
                 },
-                [_c("b", [_vm._v(_vm._s(_vm.generalEducation))])]
+                [_c("b", [_vm._v(_vm._s(_vm.generalEducationText))])]
               ),
               _vm._v(" "),
               _c(
@@ -19831,77 +19857,77 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm._m(0),
+      _c("li", [
+        _c(
+          "a",
+          {
+            attrs: {
+              href: "#",
+              "uk-tooltip":
+                "title:" +
+                _vm.prepareLessonsText +
+                "; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"
+            }
+          },
+          [_c("i", { staticClass: "fas fa-school icon-medium" })]
+        )
+      ]),
       _vm._v(" "),
-      _vm._m(1),
+      _c("li", [
+        _c(
+          "a",
+          {
+            staticClass: "active",
+            attrs: {
+              href: "#",
+              "uk-tooltip":
+                "title:" +
+                _vm.prepareExamsText +
+                "; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"
+            }
+          },
+          [_c("i", { staticClass: "fas fa-user-graduate icon-medium" })]
+        )
+      ]),
       _vm._v(" "),
-      _vm._m(2),
+      _c("li", [
+        _c(
+          "a",
+          {
+            staticClass: "active",
+            attrs: {
+              href: "#",
+              "uk-tooltip":
+                "title:" +
+                _vm.booksText +
+                "; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"
+            }
+          },
+          [_c("i", { staticClass: "fas fa-book icon-medium" })]
+        )
+      ]),
       _vm._v(" "),
-      _vm._m(3)
+      _c("li", [
+        _c(
+          "a",
+          {
+            attrs: {
+              href: "#",
+              "uk-tooltip":
+                "title:" +
+                _vm.examsText +
+                "; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"
+            }
+          },
+          [_c("i", { staticClass: "fas fa-award icon-medium" })]
+        )
+      ])
     ]),
     _vm._v(" "),
-    _vm._m(4)
+    _vm._m(0)
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-school icon-medium" })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c(
-        "a",
-        {
-          staticClass: "active",
-          attrs: {
-            href: "#",
-            "uk-tooltip":
-              "title: Discussion ; delay: 500 ; pos: right ;animation:\tuk-animation-scale-up"
-          }
-        },
-        [_c("i", { staticClass: "fas fa-user-graduate icon-medium" })]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c(
-        "a",
-        {
-          staticClass: "active",
-          attrs: {
-            href: "#",
-            "uk-tooltip":
-              "title: Blogs ; delay: 500 ; pos: right ;animation:\tuk-animation-scale-up"
-          }
-        },
-        [_c("i", { staticClass: "fas fa-book icon-medium" })]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", { attrs: { href: "#" } }, [
-        _c("i", { staticClass: "fas fa-award icon-medium" })
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

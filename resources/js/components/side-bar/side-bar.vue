@@ -7,10 +7,10 @@
         </div>
             <ul>
                 <li>
-                    <a :href="generalEducationRoute"> <i class="fas fa-laptop-code icon-medium"> </i> </a>
+                    <a :href="generalEducationRoute" :uk-tooltip="'title:'+ generalEducationText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-laptop-code icon-medium"> </i> </a>
                     <div class="side-menu-slide" style="overflow-y: auto">
                         <div class="side-menu-slide-content">
-                            <a class="uk-background-grey uk-margin-remove general-title" style=":hover" :href="generalEducationRoute"><b>{{generalEducation}}</b></a>
+                            <a class="uk-background-grey uk-margin-remove general-title" style=":hover" :href="generalEducationRoute"><b>{{generalEducationText}}</b></a>
                             <ul uk-accordion>
                                 <li v-for="category in categories" class=" uk-margin-remove-top">
                                     <a class="uk-accordion-title" :id="category.id"> <i class="fas fa-layer-group"> </i>{{category.name}}</a>
@@ -27,19 +27,19 @@
                 </li>
             <li>
                 <!-- scripts -->
-                <a href="#"> <i class="fas fa-school icon-medium"/> </a>
+                <a href="#" :uk-tooltip="'title:'+ prepareLessonsText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-school icon-medium"/> </a>
 
             </li>
             <li>
-                <a href="#" class="active" uk-tooltip="title: Discussion ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"> <i class="fas fa-user-graduate icon-medium"></i> </a>
+                <a href="#" class="active" :uk-tooltip="'title:'+ prepareExamsText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-user-graduate icon-medium"></i> </a>
             </li>
             <li>
                 <!-- blog -->
-                <a href="#" class="active" uk-tooltip="title: Blogs ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"> <i class="fas fa-book icon-medium"></i> </a>
+                <a href="#" class="active" :uk-tooltip="'title:'+ booksText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-book icon-medium"></i> </a>
             </li>
             <li>
                 <!-- ui compounents -->
-                <a href="#"> <i class="fas fa-award icon-medium"></i> </a>
+                <a href="#" :uk-tooltip="'title:'+examsText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-award icon-medium"></i> </a>
 
             </li>
         </ul>
@@ -83,9 +83,25 @@ export default {
     name: "side-bar",
     props:{
         homeRoute:String,
-        generalEducation:{
+        generalEducationText:{
             type:String,
             default:'Genel Eğitim'
+        },
+        prepareExamsText:{
+            type:String,
+            default:'Sınavlara Hazırlık'
+        },
+        prepareLessonsText:{
+            type:String,
+            default:'Derslere Hazırlık'
+        },
+        examsText:{
+            type:String,
+            default:'Deneme Sınavları'
+        },
+        booksText:{
+            type:String,
+            default:'Soru Bankaları'
         },
         logo:{
             type:String,
