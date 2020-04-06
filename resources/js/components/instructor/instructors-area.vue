@@ -46,6 +46,7 @@
 </template>
 
 <script>
+    import Axios from 'axios'
     export default {
         name: "instructors-area",
         data(){
@@ -114,7 +115,7 @@
                 this.instructorsInfo.push(info);
             },
             searchInstructor:function(){
-                axios.get('/api/instructor/search?email='+this.instructorEmail)
+                Axios.get('/api/instructor/search?email='+this.instructorEmail)
                     .then(response=>response.data)
                     .then(response=>{
                         if(response.error){
@@ -136,7 +137,7 @@
                     var percent=this.instructorsInfo[i].percent;
                     instructors.push({'instructor_id':id,'percent': percent});
                 }
-                axios.post('/api/instructor/'+this.moduleName+'/course/'+courseId+'/instructors',instructors)
+                Axios.post('/api/instructor/'+this.moduleName+'/course/'+courseId+'/instructors',instructors)
                     .then(response=>{
                         console.log(response);
                         if(response.data.error){
@@ -148,7 +149,7 @@
             }
         },
         created() {
-            axios.get('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/instructors')
+            Axios.get('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/instructors')
                 .then(response=>response.data.data)
                 .then(response=>{
                     console.log(response.instructor);

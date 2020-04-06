@@ -55,7 +55,7 @@
     <div class="app">
         <main>
             <!--  Top bar nav -->
-            <nav class="tm-mobile-header uk-navbar uk-padding-remove-top uk-padding-remove-bottom"style="height:auto;">
+            <nav class="tm-mobile-header uk-navbar uk-padding-remove-top uk-padding-remove-bottom">
                 <!-- mobile icon for side nav on nav-mobile-->
                 <span class="uk-hidden@m tm-mobile-menu-icon" uk-toggle="target: #side-nav; cls: side-nav-active"><i class="fas fa-bars icon-large"></i></span>
                 <!-- mobile icon for user icon on nav-mobile -->
@@ -77,7 +77,7 @@
                 <div class="uk-navbar-right tm-show-on-mobile uk-flex-right" id="tm-show-on-mobile" >
                     <!-- this will clouse after display user icon -->
                     <span class="uk-hidden@m tm-mobile-user-close-icon uk-align-right" uk-toggle="target: #tm-show-on-mobile; cls: tm-show-on-mobile-active"><i class="fas fa-times icon-large"></i></span>
-                    <ul class="uk-navbar-nav uk-flex-middle" style="margin:10px;">
+                    <ul class="uk-navbar-nav uk-flex-middle">
                         <li>
                             <a href="#modal-full" uk-toggle><i style="color: #424242" class="fas fa-search icon-medium"></i></a>
                         </li>

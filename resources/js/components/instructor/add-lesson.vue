@@ -62,7 +62,8 @@
         </div>
         <div class="uk-grid">
             <div class="uk-width-1-2@m">
-                <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="addLesson" uk-toggle="target: #modal-example">{{saveText}}</button>
+                <button v-if="!isClicked" class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="addLesson" uk-toggle="target: #modal-example">{{saveText}}</button>
+                <button v-else class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right">{{saveText}}</button>
             </div>
             <div class="uk-width-1-2@m">
                 <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="cancel" uk-toggle="target: .addLesson">{{cancelText}}</button>
@@ -84,7 +85,7 @@
 
 <script>
     import {mapActions, mapState} from "vuex";
-
+    import axios from 'axios'
     export default {
         name: "add-lesson",
         data(){
@@ -94,6 +95,7 @@
                 message:"",
                 sources:[],
                 checked:false,
+                isClicked:false,
             }
         },
         props:{
@@ -180,6 +182,7 @@
                 this.message=message;
             },
             addLesson: function () {
+                this.isClicked=true;
                 var isPreview = document.querySelector('#lessonPreview').checked ? '1' : '0';
                 let doc;
                 if(this.isVideo== 1){
@@ -256,6 +259,7 @@
                 this.sources=[];
                 this.uploadPercentage=0;
                 this.checked=false;
+                this.isClicked=false;
             },
             toggleLesson:function(){
                 UIkit.toggle(".addLesson").toggle()

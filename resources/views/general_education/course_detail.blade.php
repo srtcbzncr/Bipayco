@@ -58,7 +58,7 @@
             <a href="#" class="tablinks" onclick="openTabs(event, 'Description')"> @lang('front/auth.description')  </a>
         </li>
         <li>
-            <a href="#" class="tablinks" onclick="openTabs(event, 'Course-Videos')"> <!--<span class="uk-visible@m"> Kurs </span>-->  @lang('front/auth.videos_course') </a>
+            <a href="#" class="tablinks" onclick="openTabs(event, 'Course-Videos')"> <!--<span class="uk-visible@m"> Kurs </span>-->  @lang('front/auth.course_content') </a>
         </li>
         <li>
             <a href="#" class="tablinks" onclick="openTabs(event, 'Reviews')"> @lang('front/auth.reviews') </a>
@@ -67,7 +67,7 @@
             <a href="#" class="tablinks" onclick="openTabs(event, 'Instructor')"> @lang('front/auth.instructor') </a>
         </li>
     </ul>
-    <div class="uk-container tm-hero">
+    <div class="uk-padding-large tm-hero">
         <div uk-grid>
             <!-- page contant -->
             <div class="uk-width-2-3@m uk-first-column">

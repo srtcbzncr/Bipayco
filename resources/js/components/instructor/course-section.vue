@@ -42,8 +42,8 @@
             <a class="uk-button-icon uk-margin-small-left uk-width-1-4" @click="removeSection"><i class="fas fa-trash-alt text-danger icon-small"> </i></a>
             <a class="uk-button-icon uk-margin-small-left uk-width-1-4" @click="sendInfo(sectionIndex)" uk-toggle="target: .sectionSettings"><i class="fas fa-cog icon-small"> </i></a>
             <div class="uk-margin-small-left uk-padding-remove uk-flex uk-flex-column uk-width-1-4">
-                <a @click="sectionUp"><i class="fas fa-sort-up"></i></a>
-                <a @click="sectionDown"><i class="fas fa-sort-down"></i></a>
+                <a @click="sectionUp" v-if="sectionIndex>0"><i class="fas fa-sort-up"></i></a>
+                <a @click="sectionDown" v-if="sectionIndex<sectionsLength-1"><i class="fas fa-sort-down"></i></a>
             </div>
         </div>
     </div>
@@ -125,6 +125,10 @@
             },
             moduleName:{
                 type:String,
+                required:true,
+            },
+            sectionsLength:{
+                type:Number,
                 required:true,
             }
         },

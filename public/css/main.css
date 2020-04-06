@@ -634,7 +634,7 @@ header .uk-navbar {
         margin-left: -65px;
     }
     .tm-show-on-mobile {
-        padding: 20px 5px;
+        padding: 23px 5px;
         display: none;
         background: #ffffff;
         z-index: 2;
@@ -648,7 +648,7 @@ for horizetal layout
 ******/
 
 header .tm-mobile-header .tm-show-on-mobile{
-    margin-top: 14px;
+    margin-top: 10px;
 }
 header .tm-mobile-header .tm-show-on-mobile .tm-mobile-user-close-icon{
     top: 0px;
@@ -670,7 +670,7 @@ header .tm-mobile-header .uk-logo {
         width: 100%;
         border-bottom: 1px solid #f1f1f1;
         background: #fff;
-        min-height: 60px;
+        min-height: 50px;
     }
 
     .uk-navbar-container .tm-mobile-header {
@@ -683,14 +683,14 @@ header .tm-mobile-header .uk-logo {
         display: inline-block;
         left: 35%;
         position: relative;
-        line-height: 60px;
+        line-height: 50px;
         font-size: 25px;
     }
 
     .tm-mobile-menu-icon {
         position: absolute;
         left: 11px;
-        top: 13px;
+        top: 5px;
         color: #898995;
         cursor: pointer;
         padding: 6px 13px;
@@ -698,10 +698,10 @@ header .tm-mobile-header .uk-logo {
 
     .tm-mobile-close-icon {
         left: 69px;
-        top: 13px;
+        top: 5px;
         position: absolute;
         display: none;
-        padding: 6px 13px;
+        padding: 0px 13px;
     }
 
     .side-nav-active .tm-mobile-close-icon {
@@ -711,7 +711,7 @@ header .tm-mobile-header .uk-logo {
     .tm-mobile-user-icon {
         position: absolute;
         right: 11px;
-        top: 12px;
+        top: 5px;
         color: #898995;
         cursor: pointer;
         padding: 6px 12px;
@@ -733,7 +733,7 @@ header .tm-mobile-header .uk-logo {
         top: 11px;
         position: absolute;
         display: none;
-        padding: 8px 10px;
+        padding: 0px 10px;
     }
 
     .tm-show-on-mobile .tm-mobile-user-close-icon {

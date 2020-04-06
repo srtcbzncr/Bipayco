@@ -23,6 +23,7 @@
 </template>
 
 <script>
+    import Axios from 'axios'
     export default {
         name: "add-achievements",
         props:{
@@ -76,7 +77,7 @@
             }
         },
         created() {
-            axios.get('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/goals')
+            Axios.get('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/goals')
                 .then(response=>response.data.data)
                 .then(response=>{
                     switch (this.field) {

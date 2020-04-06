@@ -24,6 +24,7 @@
                     :saved-success-text="savedSuccessText"
                     :select-file-text="selectFileText"
                     :module-name="moduleName"
+                    :sections-length="sections.length"
                 > </course-section>
             </div>
         </div>

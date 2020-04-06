@@ -5095,6 +5095,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-review",
@@ -5809,6 +5812,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -5899,6 +5904,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "add-lesson",
@@ -5908,7 +5915,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       uploadPercentage: 0,
       message: "",
       sources: [],
-      checked: false
+      checked: false,
+      isClicked: false
     };
   },
   props: {
@@ -5989,6 +5997,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     addLesson: function addLesson() {
       var _this = this;
 
+      this.isClicked = true;
       var isPreview = document.querySelector('#lessonPreview').checked ? '1' : '0';
       var doc;
 
@@ -6035,7 +6044,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }
 
-      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/create', formData, {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         },
@@ -6100,6 +6109,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.sources = [];
       this.uploadPercentage = 0;
       this.checked = false;
+      this.isClicked = false;
     },
     toggleLesson: function toggleLesson() {
       UIkit.toggle(".addLesson").toggle();
@@ -6136,6 +6146,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -6160,6 +6172,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "add-achievements",
   props: {
@@ -6215,7 +6228,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios.get('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/goals').then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/goals').then(function (response) {
       return response.data.data;
     }).then(function (response) {
       switch (_this.field) {
@@ -6995,6 +7008,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -7332,6 +7346,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     moduleName: {
       type: String,
       required: true
+    },
+    sectionsLength: {
+      type: Number,
+      required: true
     }
   },
   computed: {
@@ -7378,6 +7396,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -7425,6 +7445,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "instructors-area",
   data: function data() {
@@ -7495,7 +7516,7 @@ __webpack_require__.r(__webpack_exports__);
     searchInstructor: function searchInstructor() {
       var _this = this;
 
-      axios.get('/api/instructor/search?email=' + this.instructorEmail).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/instructor/search?email=' + this.instructorEmail).then(function (response) {
         return response.data;
       }).then(function (response) {
         if (response.error) {
@@ -7532,7 +7553,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
 
-      axios.post('/api/instructor/' + this.moduleName + '/course/' + courseId + '/instructors', instructors).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/instructor/' + this.moduleName + '/course/' + courseId + '/instructors', instructors).then(function (response) {
         console.log(response);
 
         if (response.data.error) {
@@ -7552,7 +7573,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this2 = this;
 
-    axios.get('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/instructors').then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/instructors').then(function (response) {
       return response.data.data;
     }).then(function (response) {
       console.log(response.instructor);
@@ -15683,47 +15704,57 @@ var render = function() {
               attrs: { "uk-grid": "" }
             },
             [
-              _c("div", { staticClass: "uk-width-1-5 uk-first-column" }, [
+              _c("div", { staticClass: "uk-width-1-5@m uk-first-column" }, [
                 _c("img", {
                   staticClass:
-                    "uk-width-1-2 uk-margin-small-top uk-margin-small-bottom uk-border-circle uk-align-center  uk-box-shadow-large",
+                    "uk-visible@m uk-width-1-2 uk-margin-small-top uk-margin-small-bottom uk-border-circle uk-align-center  uk-box-shadow-large",
                   attrs: { alt: "Image", src: review.user.avatar }
                 })
               ]),
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "uk-width-4-5 uk-padding-remove-left" },
+                { staticClass: "uk-width-4-5@m uk-padding-remove-left" },
                 [
                   _c(
                     "div",
-                    { staticClass: "uk-float-right" },
+                    { staticClass: "uk-flex justify-content-between" },
                     [
+                      _c("div", { staticClass: "uk-width-3-4" }, [
+                        _c("h4", { staticClass: "uk-margin-remove" }, [
+                          _vm._v(
+                            _vm._s(review.user.first_name) +
+                              " " +
+                              _vm._s(review.user.last_name)
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "uk-text-small" }, [
+                          _vm._v(
+                            _vm._s(
+                              Math.ceil(
+                                Math.abs(
+                                  new Date() - new Date(review.created_at)
+                                ) /
+                                  (1000 * 60 * 60 * 24)
+                              )
+                            ) + " days before"
+                          )
+                        ])
+                      ]),
+                      _vm._v(" "),
                       _c("stars-rating", {
-                        attrs: { rating: Number(review.point) }
+                        attrs: {
+                          rating: Number(review.point),
+                          "style-full-star-color": "#F4C150",
+                          "style-empty-star-color": "#C1C1C1",
+                          "style-star-width": 14,
+                          "style-star-height": 14
+                        }
                       })
                     ],
                     1
                   ),
-                  _vm._v(" "),
-                  _c("h4", { staticClass: "uk-margin-remove" }, [
-                    _vm._v(
-                      _vm._s(review.user.first_name) +
-                        " " +
-                        _vm._s(review.user.last_name)
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "uk-text-small" }, [
-                    _vm._v(
-                      _vm._s(
-                        Math.ceil(
-                          Math.abs(new Date() - new Date(review.created_at)) /
-                            (1000 * 60 * 60 * 24)
-                        )
-                      ) + " days before"
-                    )
-                  ]),
                   _vm._v(" "),
                   _c("hr", { staticClass: "uk-margin-small" }),
                   _vm._v(" "),
@@ -16727,16 +16758,25 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "uk-grid" }, [
           _c("div", { staticClass: "uk-width-1-2@m" }, [
-            _c(
-              "button",
-              {
-                staticClass:
-                  "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
-                attrs: { "uk-toggle": "target: #modal-example" },
-                on: { click: _vm.addLesson }
-              },
-              [_vm._v(_vm._s(_vm.saveText))]
-            )
+            !_vm.isClicked
+              ? _c(
+                  "button",
+                  {
+                    staticClass:
+                      "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
+                    attrs: { "uk-toggle": "target: #modal-example" },
+                    on: { click: _vm.addLesson }
+                  },
+                  [_vm._v(_vm._s(_vm.saveText))]
+                )
+              : _c(
+                  "button",
+                  {
+                    staticClass:
+                      "uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right"
+                  },
+                  [_vm._v(_vm._s(_vm.saveText))]
+                )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "uk-width-1-2@m" }, [
@@ -18310,7 +18350,8 @@ var render = function() {
                 "save-text": _vm.saveText,
                 "saved-success-text": _vm.savedSuccessText,
                 "select-file-text": _vm.selectFileText,
-                "module-name": _vm.moduleName
+                "module-name": _vm.moduleName,
+                "sections-length": _vm.sections.length
               }
             })
           ],
@@ -18613,13 +18654,17 @@ var render = function() {
               "uk-margin-small-left uk-padding-remove uk-flex uk-flex-column uk-width-1-4"
           },
           [
-            _c("a", { on: { click: _vm.sectionUp } }, [
-              _c("i", { staticClass: "fas fa-sort-up" })
-            ]),
+            _vm.sectionIndex > 0
+              ? _c("a", { on: { click: _vm.sectionUp } }, [
+                  _c("i", { staticClass: "fas fa-sort-up" })
+                ])
+              : _vm._e(),
             _vm._v(" "),
-            _c("a", { on: { click: _vm.sectionDown } }, [
-              _c("i", { staticClass: "fas fa-sort-down" })
-            ])
+            _vm.sectionIndex < _vm.sectionsLength - 1
+              ? _c("a", { on: { click: _vm.sectionDown } }, [
+                  _c("i", { staticClass: "fas fa-sort-down" })
+                ])
+              : _vm._e()
           ]
         )
       ])
@@ -19662,29 +19707,40 @@ var render = function() {
                                 "uk-margin-small-left uk-padding-remove uk-flex uk-flex-column uk-width-1-4"
                             },
                             [
-                              _c(
-                                "a",
-                                {
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.lessonUp(lesson.id)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-sort-up" })]
-                              ),
+                              lessonIndex > 0
+                                ? _c(
+                                    "a",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.lessonUp(lesson.id)
+                                        }
+                                      }
+                                    },
+                                    [_c("i", { staticClass: "fas fa-sort-up" })]
+                                  )
+                                : _vm._e(),
                               _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.lessonDown(lesson.id)
-                                    }
-                                  }
-                                },
-                                [_c("i", { staticClass: "fas fa-sort-down" })]
-                              )
+                              lessonIndex <
+                              _vm.sections[_vm.selectedSectionIndex].lessons
+                                .length -
+                                1
+                                ? _c(
+                                    "a",
+                                    {
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.lessonDown(lesson.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-sort-down"
+                                      })
+                                    ]
+                                  )
+                                : _vm._e()
                             ]
                           )
                         ]

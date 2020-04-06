@@ -35,8 +35,8 @@
                             </div>
                         </div>
                         <div class="uk-margin-small-left uk-padding-remove uk-flex uk-flex-column uk-width-1-4">
-                            <a @click="lessonUp(lesson.id)"><i class="fas fa-sort-up"></i></a>
-                            <a @click="lessonDown(lesson.id)"><i class="fas fa-sort-down"></i></a>
+                            <a @click="lessonUp(lesson.id)" v-if="lessonIndex>0"><i class="fas fa-sort-up"></i></a>
+                            <a @click="lessonDown(lesson.id)" v-if="lessonIndex<sections[selectedSectionIndex].lessons.length-1"><i class="fas fa-sort-down"></i></a>
                         </div>
                     </li>
                 </ul>
