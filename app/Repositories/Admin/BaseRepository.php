@@ -4,6 +4,7 @@
 namespace App\Repositories\Admin;
 
 
+use App\Models\Auth\User;
 use App\Models\Base\City;
 use App\Models\Base\District;
 use App\Repositories\IRepository;
@@ -247,6 +248,15 @@ class BaseRepository implements IRepository
                 $tempDistrict->delete();
             }
             $object->delete();
+
+            foreach ($districts as $district){
+                $users = User::where('district_id',$district->id)->get();
+                foreach ($users as $user){
+                    $tempUser = User::find($user->id);
+                    $tempUser->district_id = null;
+                    $tempUser->save();
+                }
+            }
             DB::commit();
         }
         catch(\Exception $e){
@@ -272,6 +282,13 @@ class BaseRepository implements IRepository
             DB::beginTransaction();
             $object = District::find($id);
             $object->delete();
+
+            $users = User::where('district_id',$id)->get();
+            foreach ($users as $user){
+                $tempUser = User::find($user->id);
+                $tempUser->district_id = null;
+                $tempUser->save();
+            }
             DB::commit();
         }
         catch(\Exception $e){
