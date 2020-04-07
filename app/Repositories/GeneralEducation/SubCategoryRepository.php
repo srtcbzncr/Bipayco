@@ -246,7 +246,7 @@ class SubCategoryRepository implements IRepository{
             $user = Auth::user();
             if($user == null){
                 $subCategory = SubCategory::find($id);
-                $object = $subCategory->courses;
+                $object = $subCategory->courses->where('active',true);
             }
             else{
                 $subCategory = SubCategory::find($id);

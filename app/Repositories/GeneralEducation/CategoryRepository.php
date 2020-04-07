@@ -22,7 +22,7 @@ class CategoryRepository implements IRepository{
 
         // Operations
         try{
-            $object = Category::all();
+            $object = Category::where('active',true)->get();
         }
         catch(\Exception $e){
             $error = $e;
@@ -242,7 +242,7 @@ class CategoryRepository implements IRepository{
         // Operations
         try{
             $category = Category::find($id);
-            $object = $category->subCategories;
+            $object = $category->subCategories->where('active',true);
         }
         catch(\Exception $e){
             $error = $e;
@@ -265,7 +265,7 @@ class CategoryRepository implements IRepository{
             $user = Auth::user();
             if($user == null){
                 $category = Category::find($id);
-                $object = $category->courses;
+                $object = $category->courses->where('active',true);
             }
             else{
                 $category = Category::find($id);

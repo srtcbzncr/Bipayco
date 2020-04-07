@@ -22,7 +22,7 @@ class GE_CategoryResource extends JsonResource
             'symbol' => $this->symbol,
             'color' => $this->color,
             'active' => $this->active,
-            'sub_categories' => new GE_SubCategoryCollection($this->subCategories),
+            'sub_categories' => new GE_SubCategoryCollection($this->subCategories->where('active',true)),
         ];
     }
 }
