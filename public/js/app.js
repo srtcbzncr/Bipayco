@@ -6513,6 +6513,132 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6529,7 +6655,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       singleAnswersImg: [],
       multiAnswers: [],
       multiAnswersImg: [],
-      blanks: []
+      blanks: [],
+      isCorrect: 1,
+      rankingAnswers: [],
+      matchingAnswers: [],
+      matchingAnswersImg: [],
+      matchingAnswerType: ""
     };
   },
   props: {
@@ -6668,6 +6799,50 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     wrongAnswerImageText: {
       type: String,
       "default": "Yanlış Cevap Resmi"
+    },
+    trueText: {
+      type: String,
+      "default": "Doğru"
+    },
+    falseText: {
+      type: String,
+      "default": "Yanlış"
+    },
+    trueFalseText: {
+      type: String,
+      "default": "Doğru Yanlış"
+    },
+    phraseText: {
+      type: String,
+      "default": "İfade"
+    },
+    addPhraseText: {
+      type: String,
+      "default": "İfade Ekle"
+    },
+    phrasesText: {
+      type: String,
+      "default": "İfadeler"
+    },
+    matchingText: {
+      type: String,
+      "default": "Eşleştirme"
+    },
+    rankingText: {
+      type: String,
+      "default": "Sıralama"
+    },
+    firstPhraseText: {
+      type: String,
+      "default": "İlk İfade"
+    },
+    secondPhraseText: {
+      type: String,
+      "default": "İkinci İfade"
+    },
+    rankText: {
+      type: String,
+      "default": "Sıra"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['courseSubjects', 'plLessonType'])),
@@ -6967,18 +7142,118 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
       window.location.replace('/questionSource');
     },
+    addTrueFalseQuestion: function addTrueFalseQuestion() {
+      formData.append('level', this.questionLevel);
+      formData.append('content', document.getElementById('trueFalseQuestion').value);
+      formData.append('isCorrect', this.isCorrect);
+      formData.append('crLessonId', this.selectedLessonId);
+      formData.append('crSubjectId', this.selectedSubjectId);
+      formData.append('instructorId', this.instructorId);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        return console.log(response);
+      });
+      window.location.replace('/questionSource');
+    },
+    addMatchingTextQuestion: function addMatchingTextQuestion() {
+      formData.append('level', this.questionLevel);
+      formData.append('text', document.getElementById('matchingQuestion').value);
+      formData.append('crLessonId', this.selectedLessonId);
+      formData.append('crSubjectId', this.selectedSubjectId);
+      formData.append('instructorId', this.instructorId);
+
+      for (var i = 0; i < this.matchingAnswers.length; i++) {
+        formData.append('answers[' + i + ']', JSON.stringify(this.matchingAnswers[i]));
+      }
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        return console.log(response);
+      });
+      window.location.replace('/questionSource');
+    },
+    addMatchingImgQuestion: function addMatchingImgQuestion() {
+      formData.append('level', this.questionLevel);
+      formData.append('text', document.getElementById('matchingQuestion').value);
+      formData.append('crLessonId', this.selectedLessonId);
+      formData.append('crSubjectId', this.selectedSubjectId);
+      formData.append('instructorId', this.instructorId);
+
+      for (var i = 0; i < this.matchingAnswersImg.length; i++) {
+        formData.append('answersFirst[' + i + ']', this.matchingAnswersImg[i].first);
+        formData.append('answersSecond[' + i + ']', this.matchingAnswersImg[i].second);
+        formData.append('answers[' + i + ']', JSON.stringify(this.matchingAnswersImg[i]));
+      }
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        return console.log(response);
+      });
+      window.location.replace('/questionSource');
+    },
+    addRankingQuestion: function addRankingQuestion() {
+      formData.append('level', this.questionLevel);
+      formData.append('text', document.getElementById('rankingQuestion').value);
+      formData.append('crLessonId', this.selectedLessonId);
+      formData.append('crSubjectId', this.selectedSubjectId);
+      formData.append('instructorId', this.instructorId);
+
+      for (var i = 0; i < this.rankingAnswers.length; i++) {
+        formData.append('content[' + i + ']', this.rankingAnswers[i].content);
+      }
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then(function (response) {
+        return console.log(response);
+      });
+      window.location.replace('/questionSource');
+    },
     loadSubjects: function loadSubjects() {
       this.$store.dispatch('loadLessonSubjects', this.selectedLessonId);
     },
     pushImage: function pushImage(answerType, index, inputId, previewId) {
       var image = document.querySelector('#' + inputId);
 
-      if (answerType == 'multiQuestion') {
-        this.multiAnswersImg[index].content = image.files[0];
-        console.log(this.multiAnswersImg[index].content);
-      } else if (answerType == 'singleQuestion') {
-        this.singleAnswersImg[index].content = image.files[0];
-        console.log(this.singleAnswersImg[index].content);
+      switch (answerType) {
+        case 'multiQuestion':
+          {
+            this.multiAnswersImg[index].content = image.files[0];
+            console.log(this.multiAnswersImg[index].content);
+            break;
+          }
+
+        case 'singleQuestion':
+          {
+            this.singleAnswersImg[index].content = image.files[0];
+            console.log(this.singleAnswersImg[index].content);
+            break;
+          }
+
+        case 'matchingQuestionFirst':
+          {
+            this.matchingAnswersImg[index].first = image.files[0];
+            console.log(this.matchingAnswersImg[index].content);
+            break;
+          }
+
+        case 'matchingQuestionSecond':
+          {
+            this.matchingAnswersImg[index].second = image.files[0];
+            console.log(this.matchingAnswersImg[index].content);
+            break;
+          }
       }
 
       this.previewImage(inputId, previewId);
@@ -17308,6 +17583,18 @@ var render = function() {
         _vm._v(" "),
         _c("option", { attrs: { value: "fillInTheBlank" } }, [
           _vm._v(_vm._s(_vm.fillBlankText))
+        ]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "trueFalse" } }, [
+          _vm._v(_vm._s(_vm.trueFalseText))
+        ]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "matching" } }, [
+          _vm._v(_vm._s(_vm.matchingText))
+        ]),
+        _vm._v(" "),
+        _c("option", { attrs: { value: "ranking" } }, [
+          _vm._v(_vm._s(_vm.rankingText))
         ])
       ]
     ),
@@ -18194,8 +18481,7 @@ var render = function() {
                   disabled: "",
                   placeholder: _vm.selectFileText
                 }
-              }),
-              _vm._v("g\n        ")
+              })
             ]
           ),
           _vm._v(" "),
@@ -18328,6 +18614,719 @@ var render = function() {
             2
           )
         ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.questionType == "trueFalse"
+      ? _c("div", { staticClass: "uk-margin-top" }, [
+          _c("div", { staticClass: "uk-margin-top" }, [
+            _c("div", { staticClass: "uk-margin-bottom" }, [
+              _c("div", { staticClass: "uk-form-label" }, [
+                _vm._v(" " + _vm._s(_vm.phraseText) + " ")
+              ]),
+              _vm._v(" "),
+              _c("textarea", {
+                staticClass: "uk-height uk-textarea uk-overflow-auto",
+                attrs: { id: "trueFalseContent", required: "" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "uk-margin-bottom" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-flex align-items-center justify-content-around"
+                },
+                [
+                  _c("div", { staticClass: "uk-flex align-items-center" }, [
+                    _c("input", {
+                      staticClass: "uk-radio uk-margin-remove",
+                      attrs: { type: "radio", name: "isCorrect", checked: "" },
+                      on: {
+                        click: function($event) {
+                          _vm.isCorrect = 1
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "p",
+                      {
+                        staticClass:
+                          "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
+                      },
+                      [_vm._v(_vm._s(_vm.trueText))]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-flex align-items-center" }, [
+                    _c("input", {
+                      staticClass: "uk-radio uk-margin-remove",
+                      attrs: { type: "radio", name: "isCorrect" },
+                      on: {
+                        click: function($event) {
+                          _vm.isCorrect = 0
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "p",
+                      {
+                        staticClass:
+                          "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
+                      },
+                      [_vm._v(_vm._s(_vm.falseText))]
+                    )
+                  ])
+                ]
+              )
+            ]),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "uk-button uk-button-grey uk-margin-top uk-width",
+                on: { click: _vm.addTrueFalseQuestion }
+              },
+              [_vm._v(" " + _vm._s(_vm.saveText) + " ")]
+            )
+          ])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.questionType == "ranking"
+      ? _c("div", { staticClass: "uk-margin-top" }, [
+          _c("div", { staticClass: "uk-form-label" }, [
+            _vm._v(" " + _vm._s(_vm.questionImageText) + " ")
+          ]),
+          _vm._v(" "),
+          _vm._m(4),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "uk-flex uk-flex-center uk-margin",
+              attrs: { "uk-form-custom": "target: true" }
+            },
+            [
+              _c("input", {
+                attrs: {
+                  name: "image",
+                  type: "file",
+                  accept: "image/*",
+                  id: "rankingQuestionImg"
+                },
+                on: {
+                  change: function($event) {
+                    return _vm.previewImage(
+                      "multiQuestionImg",
+                      "multiQuestionImgPreview"
+                    )
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "uk-input",
+                attrs: {
+                  type: "text",
+                  tabindex: "-1",
+                  disabled: "",
+                  placeholder: _vm.selectFileText
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "uk-form-label" }, [
+            _vm._v(" " + _vm._s(_vm.questionText) + " ")
+          ]),
+          _vm._v(" "),
+          _c("textarea", {
+            staticClass: "uk-height-small uk-textarea uk-overflow-auto",
+            attrs: { id: "rankingQuestion", required: "" }
+          }),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "uk-margin-top" },
+            [
+              _vm.rankingAnswers.length > 0
+                ? _c("div", { staticClass: "uk-form-label" }, [
+                    _vm._v(" " + _vm._s(_vm.phrasesText) + " ")
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm._l(_vm.rankingAnswers, function(rankingAnswer, rankingIndex) {
+                return _c(
+                  "div",
+                  { staticClass: "uk-flex align-items-center uk-margin" },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "uk-margin-right uk-margin-left" },
+                      [
+                        _c("i", {
+                          staticClass: "fas fa-trash-alt text-danger",
+                          on: {
+                            click: function($event) {
+                              return _vm.rankingAnswers.splice(rankingIndex, 1)
+                            }
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-margin-right" }, [
+                      _c(
+                        "p",
+                        { staticClass: "uk-margin-remove uk-padding-remove" },
+                        [
+                          _vm._v(
+                            _vm._s(rankingIndex + 1) +
+                              "." +
+                              _vm._s(_vm.rankText)
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "uk-width" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: rankingAnswer.content,
+                            expression: "rankingAnswer.content"
+                          }
+                        ],
+                        staticClass: "uk-input uk-width",
+                        attrs: { type: "text", required: "" },
+                        domProps: { value: rankingAnswer.content },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              rankingAnswer,
+                              "content",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ]
+                )
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "uk-width uk-button-success uk-button",
+                  on: {
+                    click: function($event) {
+                      return _vm.rankingAnswers.push({ content: "" })
+                    }
+                  }
+                },
+                [
+                  _c("i", { staticClass: "fas fa-plus" }),
+                  _vm._v(" " + _vm._s(_vm.addPhraseText))
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "uk-button uk-button-grey uk-margin-top uk-width",
+                  on: { click: _vm.addRankingQuestion }
+                },
+                [_vm._v(" " + _vm._s(_vm.saveText) + " ")]
+              )
+            ],
+            2
+          )
+        ])
+      : _vm._e(),
+    _vm._v(" "),
+    _vm.questionType == "matching"
+      ? _c("div", { staticClass: "uk-margin-top" }, [
+          _c("div", { staticClass: "uk-form-label" }, [
+            _vm._v(" " + _vm._s(_vm.questionImageText) + " ")
+          ]),
+          _vm._v(" "),
+          _vm._m(5),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "uk-flex uk-flex-center uk-margin",
+              attrs: { "uk-form-custom": "target: true" }
+            },
+            [
+              _c("input", {
+                attrs: {
+                  name: "image",
+                  type: "file",
+                  accept: "image/*",
+                  id: "matchingQuestionImg"
+                },
+                on: {
+                  change: function($event) {
+                    return _vm.previewImage(
+                      "multiQuestionImg",
+                      "multiQuestionImgPreview"
+                    )
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "uk-input",
+                attrs: {
+                  type: "text",
+                  tabindex: "-1",
+                  disabled: "",
+                  placeholder: _vm.selectFileText
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "uk-form-label" }, [
+            _vm._v(" " + _vm._s(_vm.questionText) + " ")
+          ]),
+          _vm._v(" "),
+          _c("textarea", {
+            staticClass: "uk-height-small uk-textarea uk-overflow-auto",
+            attrs: { id: "matchingQuestion", required: "" }
+          }),
+          _vm._v(" "),
+          _c("div", [
+            _c("div", { staticClass: "uk-form-label" }, [
+              _vm._v(" " + _vm._s(_vm.answerTypeText) + " ")
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.matchingAnswerType,
+                    expression: "matchingAnswerType"
+                  }
+                ],
+                staticClass: "uk-width uk-select",
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.matchingAnswerType = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c(
+                  "option",
+                  {
+                    attrs: { value: "", hidden: "", disabled: "", selected: "" }
+                  },
+                  [_vm._v(_vm._s(_vm.chooseAnswerTypeText))]
+                ),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "withImage" } }, [
+                  _vm._v(_vm._s(_vm.withImage))
+                ]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "withText" } }, [
+                  _vm._v(_vm._s(_vm.withText))
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _vm.matchingAnswerType == "withImage"
+              ? _c("div", { staticClass: "uk-margin-top" }, [
+                  _c(
+                    "div",
+                    { staticClass: "uk-margin" },
+                    [
+                      _vm.matchingAnswersImg.legth > 0
+                        ? _c("div", { staticClass: "uk-form-label" }, [
+                            _vm._v(" " + _vm._s(_vm.answerImageText) + " ")
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm._l(_vm.matchingAnswersImg, function(
+                        matchingAnswer,
+                        matchingIndex
+                      ) {
+                        return _c(
+                          "div",
+                          {
+                            staticClass: "uk-flex align-items-center uk-margin"
+                          },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "uk-grid uk-width uk-child-width-1-2@m"
+                              },
+                              [
+                                _c("div", {}, [
+                                  _c("div", { staticClass: "uk-form-label" }, [
+                                    _vm._v(_vm._s(_vm.firstPhraseText))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", [
+                                    _c("div", {
+                                      staticClass:
+                                        "uk-background-center-center uk-background-cover uk-height",
+                                      attrs: {
+                                        id:
+                                          "matchingAnswerFirstImgPreview" +
+                                          matchingIndex
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "uk-flex uk-flex-center",
+                                      attrs: {
+                                        "uk-form-custom": "target: true"
+                                      }
+                                    },
+                                    [
+                                      _c("input", {
+                                        attrs: {
+                                          name: "image",
+                                          type: "file",
+                                          accept: "image/*",
+                                          id:
+                                            "matchingAnswerFirstImg" +
+                                            matchingIndex
+                                        },
+                                        on: {
+                                          change: function($event) {
+                                            return _vm.pushImage(
+                                              "matchingQuestionFirst",
+                                              matchingIndex,
+                                              "matchingAnswerFirstImg" +
+                                                matchingIndex,
+                                              "matchingAnswerFirstImgPreview" +
+                                                matchingIndex
+                                            )
+                                          }
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        staticClass: "uk-input",
+                                        attrs: {
+                                          type: "text",
+                                          tabindex: "-1",
+                                          disabled: "",
+                                          placeholder: _vm.selectFileText
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("div", {}, [
+                                  _c("div", { staticClass: "uk-form-label" }, [
+                                    _vm._v(_vm._s(_vm.secondPhraseText))
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("div", [
+                                    _c("div", {
+                                      staticClass:
+                                        "uk-background-center-center uk-background-cover uk-height",
+                                      attrs: {
+                                        id:
+                                          "matchingAnswerSecondImgPreview" +
+                                          matchingIndex
+                                      }
+                                    })
+                                  ]),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass: "uk-flex uk-flex-center",
+                                      attrs: {
+                                        "uk-form-custom": "target: true"
+                                      }
+                                    },
+                                    [
+                                      _c("input", {
+                                        attrs: {
+                                          name: "image",
+                                          type: "file",
+                                          accept: "image/*",
+                                          id:
+                                            "matchingAnswerSecondImg" +
+                                            matchingIndex
+                                        },
+                                        on: {
+                                          change: function($event) {
+                                            return _vm.pushImage(
+                                              "matchingQuestionSecond",
+                                              matchingIndex,
+                                              "matchingAnswerSecondImg" +
+                                                matchingIndex,
+                                              "matchingAnswerSecondImgPreview" +
+                                                matchingIndex
+                                            )
+                                          }
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("input", {
+                                        staticClass: "uk-input",
+                                        attrs: {
+                                          type: "text",
+                                          tabindex: "-1",
+                                          disabled: "",
+                                          placeholder: _vm.selectFileText
+                                        }
+                                      })
+                                    ]
+                                  )
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "uk-margin-small-left uk-margin-medium-top"
+                              },
+                              [
+                                _c("i", {
+                                  staticClass: "fas fa-trash-alt text-danger",
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.matchingAnswersImg.splice(
+                                        matchingIndex,
+                                        1
+                                      )
+                                    }
+                                  }
+                                })
+                              ]
+                            )
+                          ]
+                        )
+                      })
+                    ],
+                    2
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "uk-width uk-button-success uk-button",
+                      on: {
+                        click: function($event) {
+                          return _vm.matchingAnswersImg.push({
+                            first: "",
+                            second: "",
+                            type: "image"
+                          })
+                        }
+                      }
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-plus" }),
+                      _vm._v(" " + _vm._s(_vm.addAnswerText))
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass:
+                        "uk-button uk-button-grey uk-margin-top uk-width",
+                      on: { click: _vm.addMatchingImgQuestion }
+                    },
+                    [_vm._v(" " + _vm._s(_vm.saveText) + " ")]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.matchingAnswerType == "withText"
+              ? _c(
+                  "div",
+                  { staticClass: "uk-margin-top" },
+                  [
+                    _vm.matchingAnswers.length > 0
+                      ? _c("div", { staticClass: "uk-form-label" }, [
+                          _vm._v(" " + _vm._s(_vm.phrasesText) + " ")
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm._l(_vm.matchingAnswers, function(
+                      matching,
+                      matchingIndex
+                    ) {
+                      return _c(
+                        "div",
+                        {
+                          staticClass:
+                            "uk-flex align-items-center uk-margin-bottom"
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "uk-grid uk-width uk-child-width-1-2@m"
+                            },
+                            [
+                              _c("div", {}, [
+                                _c("div", { staticClass: "uk-form-label" }, [
+                                  _vm._v(_vm._s(_vm.firstPhraseText))
+                                ]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: matching.first,
+                                      expression: "matching.first"
+                                    }
+                                  ],
+                                  staticClass: "uk-input uk-width",
+                                  attrs: { type: "text", required: "" },
+                                  domProps: { value: matching.first },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        matching,
+                                        "first",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("div", {}, [
+                                _c("div", { staticClass: "uk-form-label" }, [
+                                  _vm._v(_vm._s(_vm.secondPhraseText))
+                                ]),
+                                _vm._v(" "),
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: matching.second,
+                                      expression: "matching.second"
+                                    }
+                                  ],
+                                  staticClass: "uk-input uk-width",
+                                  attrs: { type: "text", required: "" },
+                                  domProps: { value: matching.second },
+                                  on: {
+                                    input: function($event) {
+                                      if ($event.target.composing) {
+                                        return
+                                      }
+                                      _vm.$set(
+                                        matching,
+                                        "second",
+                                        $event.target.value
+                                      )
+                                    }
+                                  }
+                                })
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "uk-margin-small-left uk-margin-medium-top"
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-trash-alt text-danger",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.matchingAnswers.splice(
+                                      matchingIndex,
+                                      1
+                                    )
+                                  }
+                                }
+                              })
+                            ]
+                          )
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass: "uk-width uk-button-success uk-button",
+                        on: {
+                          click: function($event) {
+                            return _vm.matchingAnswers.push({
+                              first: "",
+                              second: "",
+                              type: "text"
+                            })
+                          }
+                        }
+                      },
+                      [
+                        _c("i", { staticClass: "fas fa-plus" }),
+                        _vm._v(" " + _vm._s(_vm.addPhraseText))
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "uk-button uk-button-grey uk-margin-top uk-width",
+                        on: { click: _vm.addMatchingTextQuestion }
+                      },
+                      [_vm._v(" " + _vm._s(_vm.saveText) + " ")]
+                    )
+                  ],
+                  2
+                )
+              : _vm._e()
+          ])
+        ])
       : _vm._e()
   ])
 }
@@ -18381,6 +19380,30 @@ var staticRenderFns = [
         staticClass:
           "uk-background-center-center uk-background-cover uk-height",
         attrs: { id: "blankImgPreview" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", {
+        staticClass:
+          "uk-background-center-center uk-background-cover uk-height",
+        attrs: { id: "rankingQuestionImgPreview" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", {
+        staticClass:
+          "uk-background-center-center uk-background-cover uk-height",
+        attrs: { id: "matchingQuestionImgPreview" }
       })
     ])
   }
