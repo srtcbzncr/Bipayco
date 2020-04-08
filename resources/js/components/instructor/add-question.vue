@@ -687,6 +687,7 @@
                 formData.append('crLessonId', this.selectedLessonId);
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
+                formData.append('type', 'trueFalse');
                 Axios.post('/api/questionSource/create', formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
@@ -699,6 +700,7 @@
                 formData.append('crLessonId', this.selectedLessonId);
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
+                formData.append('type', 'match');
                 for(var i=0; i<this.matchingAnswers.length; i++) {
                     formData.append('answers['+i+']', JSON.stringify(this.matchingAnswers[i]));
                 }
@@ -714,6 +716,7 @@
                 formData.append('crLessonId', this.selectedLessonId);
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
+                formData.append('type', 'match');
                 for(var i=0; i<this.matchingAnswersImg.length; i++) {
                     formData.append('answersFirst['+i+']', this.matchingAnswersImg[i].first);
                     formData.append('answersSecond['+i+']', this.matchingAnswersImg[i].second);
@@ -731,6 +734,7 @@
                 formData.append('crLessonId', this.selectedLessonId);
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
+                formData.append('type', 'order');
                 for(var i=0; i<this.rankingAnswers.length; i++) {
                     formData.append('content['+i+']', this.rankingAnswers[i].content);
                 }
