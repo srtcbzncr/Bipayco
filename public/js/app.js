@@ -7171,7 +7171,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     addMatchingTextQuestion: function addMatchingTextQuestion() {
       var formData = new FormData();
       formData.append('level', this.questionLevel);
-      var image = document.querySelector('#mactchQuestionImg');
+      var image = document.querySelector('#matchingQuestionImg');
 
       if (image.files != undefined) {
         formData.append('imgUrl', image.files[0]);
@@ -7199,7 +7199,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var formData = new FormData();
       formData.append('level', this.questionLevel);
       formData.append('text', document.getElementById('matchingQuestion').value);
-      var image = document.querySelector('#matchQuestionImg');
+      var image = document.querySelector('#matchingQuestionImg');
 
       if (image.files != undefined) {
         formData.append('imgUrl', image.files[0]);
@@ -7228,7 +7228,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var formData = new FormData();
       formData.append('level', this.questionLevel);
       formData.append('text', document.getElementById('rankingQuestion').value);
-      var image = document.querySelector('#rankQuestionImg');
+      var image = document.querySelector('#rankingQuestionImg');
 
       if (image.files != undefined) {
         formData.append('imgUrl', image.files[0]);
