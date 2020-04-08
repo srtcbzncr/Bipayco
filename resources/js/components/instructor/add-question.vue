@@ -710,7 +710,7 @@
             addMatchingTextQuestion:function(){
                 var formData=new FormData();
                 formData.append('level', this.questionLevel);
-                var image=document.querySelector('#mactchQuestionImg');
+                var image=document.querySelector('#matchingQuestionImg');
                 if(image.files!=undefined){
                     formData.append('imgUrl', image.files[0]);
                 }
@@ -732,7 +732,7 @@
                 var formData=new FormData();
                 formData.append('level', this.questionLevel);
                 formData.append('text', document.getElementById('matchingQuestion').value);
-                var image=document.querySelector('#matchQuestionImg');
+                var image=document.querySelector('#matchingQuestionImg');
                 if(image.files!=undefined){
                     formData.append('imgUrl', image.files[0]);
                 }
@@ -755,7 +755,7 @@
                 var formData=new FormData();
                 formData.append('level', this.questionLevel);
                 formData.append('text', document.getElementById('rankingQuestion').value);
-                var image=document.querySelector('#rankQuestionImg');
+                var image=document.querySelector('#rankingQuestionImg');
                 if(image.files!=undefined){
                     formData.append('imgUrl', image.files[0]);
                 }
