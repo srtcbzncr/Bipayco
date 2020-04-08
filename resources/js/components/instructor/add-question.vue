@@ -196,7 +196,7 @@
             <div class="uk-margin-top">
                 <div class="uk-margin-bottom">
                     <div class="uk-form-label"> {{phraseText}} </div>
-                    <textarea class="uk-height uk-textarea uk-overflow-auto" id="trueFalseContent" required></textarea>
+                    <textarea class="uk-height uk-textarea uk-overflow-auto" id="trueFalseQuestion" required></textarea>
                 </div>
                 <div class="uk-margin-bottom">
                     <div class="uk-flex align-items-center justify-content-around">

@@ -18628,7 +18628,7 @@ var render = function() {
               _vm._v(" "),
               _c("textarea", {
                 staticClass: "uk-height uk-textarea uk-overflow-auto",
-                attrs: { id: "trueFalseContent", required: "" }
+                attrs: { id: "trueFalseQuestion", required: "" }
               })
             ]),
             _vm._v(" "),
