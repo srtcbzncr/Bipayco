@@ -94,16 +94,25 @@ class QuestionSourceRepository implements IRepository
             DB::beginTransaction();
             $object = new Question();
             if($data['type'] == 'singleChoice' or $data['type'] == 'multiChoice'){
-                if(isset($data['text']) or $data['text'] != null)
+                $control = false;
+                if(isset($data['text']) or $data['text'] != null){
                     $object->text = $data['text'];
+                    $control = true;
+                }
                 if(isset($data['imgUrl']) and $data['imgUrl'] != "undefined"){
                     $path = $data['imgUrl']->store('public/questionSource');
                     $accessPath=Storage::url($path);
                     $object->imgUrl = $accessPath;
+                    $control = true;
                 }
                 else{
                     $object->imgUrl = null;
                 }
+
+                if($control == false){
+                    $sonuc = 1/0;
+                }
+
 
                 $object->level = $data['level'];
                 if($data['type'] == 'singleChoice')
@@ -201,13 +210,20 @@ class QuestionSourceRepository implements IRepository
                 }
             }
             else if($data['type'] == 'fillBlank'){
+                $control = false;
                 if(isset($data['imgUrl'])){
                     $path = $data['imgUrl']->store('public/questionSource');
                     $accessPath=Storage::url($path);
                     $object->imgUrl = $accessPath;
+                    $control = true;
                 }
                 if(isset($data['beginningOfSentence'])){
                     $object->text = $data['beginningOfSentence'];
+                    $control = true;
+                }
+
+                if($control == false){
+                    $sonuc = 1/0;
                 }
 
                 $object->level = $data['level'];
@@ -232,13 +248,20 @@ class QuestionSourceRepository implements IRepository
                 }
             }
             else if($data['type'] == 'trueFalse'){
+                $control = false;
                 if(isset($data['imgUrl']) and $data['imgUrl']!=null){
                     $path = $data['imgUrl']->store('public/questionSource');
                     $accessPath=Storage::url($path);
                     $object->imgUrl = $accessPath;
+                    $control = true;
                 }
                 if(isset($data['content']) and $data['content']!=null){
                     $object->text = $data['content'];
+                    $control = true;
+                }
+
+                if($control == false){
+                    $sonuc = 1/0;
                 }
 
                 $object->level = $data['level'];
@@ -256,14 +279,22 @@ class QuestionSourceRepository implements IRepository
                 $objectAnswer->save();
             }
             else if($data['type'] == 'order'){
+                $control = false;
                 if(isset($data['imgUrl']) and $data['imgUrl']!=null){
                     $path = $data['imgUrl']->store('public/questionSource');
                     $accessPath=Storage::url($path);
                     $object->imgUrl = $accessPath;
+                    $control = true;
                 }
                 if(isset($data['content']) and $data['content']!=null){
                     $object->text = $data['text'];
+                    $control = true;
                 }
+
+                if($control == false){
+                    $sonuc = 1/0;
+                }
+
                 $object->level = $data['level'];
                 $object->type = 'App\Models\QuestionSource\Order';
                 $object->crLessonId = $data['crLessonId'];
@@ -282,13 +313,20 @@ class QuestionSourceRepository implements IRepository
                 }
             }
             else if($data['type'] == 'match'){
+                $control = false;
                 if(isset($data['imgUrl']) and $data['imgUrl']!=null and file_exists($data['imgUrl'])){
                     $path = $data['imgUrl']->store('public/questionSource');
                     $accessPath=Storage::url($path);
                     $object->imgUrl = $accessPath;
+                    $control = true;
                 }
                 if(isset($data['text']) and $data['text']!=null){
                     $object->text = $data['text'];
+                    $control = true;
+                }
+
+                if($control == false){
+                   $sonuc = 1/0;
                 }
 
                 $object->level = $data['level'];
