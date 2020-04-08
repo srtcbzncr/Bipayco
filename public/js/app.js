@@ -7184,7 +7184,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('type', 'match');
 
       for (var i = 0; i < this.matchingAnswers.length; i++) {
-        formData.append('answers[' + i + ']', JSON.stringify(this.matchingAnswers[i]));
+        formData.append('answers[' + i + ']', this.matchingAnswers[i]);
       }
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {

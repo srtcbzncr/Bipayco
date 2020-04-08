@@ -720,7 +720,7 @@
                 formData.append('instructorId', this.instructorId);
                 formData.append('type', 'match');
                 for(var i=0; i<this.matchingAnswers.length; i++) {
-                    formData.append('answers['+i+']', JSON.stringify(this.matchingAnswers[i]));
+                    formData.append('answers['+i+']', this.matchingAnswers[i]);
                 }
                 Axios.post('/api/questionSource/create', formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
