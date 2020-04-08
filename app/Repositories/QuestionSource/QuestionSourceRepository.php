@@ -10,6 +10,7 @@ use App\Models\Curriculum\Lesson;
 use App\Models\Curriculum\Subject;
 use App\Models\QuestionSource\GapFilling;
 use App\Models\QuestionSource\MultiChoice;
+use App\Models\QuestionSource\Order;
 use App\Models\QuestionSource\Question;
 use App\Models\QuestionSource\SingleChoice;
 use App\Models\QuestionSource\TrueFalse;
@@ -230,17 +231,9 @@ class QuestionSourceRepository implements IRepository
                 }
             }
             else if($data['type'] == 'trueFalse'){
-                if(isset($data['imgUrl']) and $data['imgUrl']!=null){
-                    $path = $data['imgUrl']->store('public/questionSource');
-                    $accessPath=Storage::url($path);
-                    $object->imgUrl = $accessPath;
-                }
-                else if(isset($data['text']) and $data['text']!=null){
-                    $object->text = $data['text'];
-                }
+                $object->text = $data['content'];
                 $object->level = $data['level'];
                 $object->type = 'App\Models\QuestionSource\TrueFalse';
-                $object->crLessonId = $data['crLessonId'];
                 $object->crLessonId = $data['crLessonId'];
                 $object->crSubjectId = $data['crSubjectId'];
                 $object->instructorId = $data['instructorId'];
@@ -250,11 +243,26 @@ class QuestionSourceRepository implements IRepository
                 // answer ekle.
                 $objectAnswer = new TrueFalse();
                 $objectAnswer->questionId = $object->id;
-                $objectAnswer->content = $data['content'];
+                $objectAnswer->content = $data['isCorrect'];
                 $objectAnswer->save();
             }
             else if($data['type'] == 'order'){
+                $object->text = $data['text'];
+                $object->level = $data['level'];
+                $object->crLessonId = $data['crLessonId'];
+                $object->crSubjectId = $data['crSubjectId'];
+                $object->instructorId = $data['instructorId'];
+                $object->isConfirm = false;
+                $object->save();
 
+                // answers ekle
+                foreach ($data['content'] as $key=> $item){
+                    $objectAnswer = new Order();
+                    $objectAnswer->questionId = $object->id;
+                    $objectAnswer->content = $item;
+                    $objectAnswer->no = $key;
+                    $objectAnswer->save();
+                }
             }
             else if($data['type'] == 'match'){
 
