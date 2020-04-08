@@ -194,6 +194,14 @@
         </div>
         <div v-if="questionType=='trueFalse'" class="uk-margin-top">
             <div class="uk-margin-top">
+                <div class="uk-form-label"> {{questionImageText}} </div>
+                <div>
+                    <div class="uk-background-center-center uk-background-cover uk-height" id="trueFalseImgPreview"></div>
+                </div>
+                <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
+                    <input name="image" type="file" accept="image/*" id="trueFalseImg" @change="previewImage('trueFalseImg', 'trueFalseImgPreview')" >
+                    <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
+                </div>
                 <div class="uk-margin-bottom">
                     <div class="uk-form-label"> {{phraseText}} </div>
                     <textarea class="uk-height uk-textarea uk-overflow-auto" id="trueFalseQuestion" required></textarea>
@@ -219,7 +227,7 @@
                 <div class="uk-background-center-center uk-background-cover uk-height" id="rankingQuestionImgPreview"></div>
             </div>
             <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
-                <input name="image" type="file" accept="image/*" id="rankingQuestionImg" @change="previewImage('multiQuestionImg', 'multiQuestionImgPreview')" >
+                <input name="image" type="file" accept="image/*" id="rankingQuestionImg" @change="previewImage('rankingQuestionImg', 'rankingQuestionImgPreview')" >
                 <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
             </div>
             <div class="uk-form-label"> {{questionText}} </div>
@@ -247,7 +255,7 @@
                 <div class="uk-background-center-center uk-background-cover uk-height" id="matchingQuestionImgPreview"></div>
             </div>
             <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
-                <input name="image" type="file" accept="image/*" id="matchingQuestionImg" @change="previewImage('multiQuestionImg', 'multiQuestionImgPreview')" >
+                <input name="image" type="file" accept="image/*" id="matchingQuestionImg" @change="previewImage('matchingQuestionImg', 'matchingQuestionImgPreview')" >
                 <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
             </div>
             <div class="uk-form-label"> {{questionText}} </div>
@@ -682,6 +690,10 @@
             },
             addTrueFalseQuestion:function(){
                 var formData=new FormData();
+                var image=document.querySelector('#trueFalseImg');
+                if(image.files!=undefined){
+                    formData.append('imgUrl', image.files[0]);
+                }
                 formData.append('level', this.questionLevel);
                 formData.append('content', document.getElementById('trueFalseQuestion').value);
                 formData.append('isCorrect',this.isCorrect);
@@ -698,6 +710,10 @@
             addMatchingTextQuestion:function(){
                 var formData=new FormData();
                 formData.append('level', this.questionLevel);
+                var image=document.querySelector('#mactchQuestionImg');
+                if(image.files!=undefined){
+                    formData.append('imgUrl', image.files[0]);
+                }
                 formData.append('text', document.getElementById('matchingQuestion').value);
                 formData.append('crLessonId', this.selectedLessonId);
                 formData.append('crSubjectId', this.selectedSubjectId);
@@ -716,6 +732,10 @@
                 var formData=new FormData();
                 formData.append('level', this.questionLevel);
                 formData.append('text', document.getElementById('matchingQuestion').value);
+                var image=document.querySelector('#matchQuestionImg');
+                if(image.files!=undefined){
+                    formData.append('imgUrl', image.files[0]);
+                }
                 formData.append('crLessonId', this.selectedLessonId);
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
@@ -735,6 +755,10 @@
                 var formData=new FormData();
                 formData.append('level', this.questionLevel);
                 formData.append('text', document.getElementById('rankingQuestion').value);
+                var image=document.querySelector('#rankQuestionImg');
+                if(image.files!=undefined){
+                    formData.append('imgUrl', image.files[0]);
+                }
                 formData.append('crLessonId', this.selectedLessonId);
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);

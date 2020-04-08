@@ -6639,6 +6639,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7139,6 +7147,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     addTrueFalseQuestion: function addTrueFalseQuestion() {
       var formData = new FormData();
+      var image = document.querySelector('#trueFalseImg');
+
+      if (image.files != undefined) {
+        formData.append('imgUrl', image.files[0]);
+      }
+
       formData.append('level', this.questionLevel);
       formData.append('content', document.getElementById('trueFalseQuestion').value);
       formData.append('isCorrect', this.isCorrect);
@@ -7157,6 +7171,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     addMatchingTextQuestion: function addMatchingTextQuestion() {
       var formData = new FormData();
       formData.append('level', this.questionLevel);
+      var image = document.querySelector('#mactchQuestionImg');
+
+      if (image.files != undefined) {
+        formData.append('imgUrl', image.files[0]);
+      }
+
       formData.append('text', document.getElementById('matchingQuestion').value);
       formData.append('crLessonId', this.selectedLessonId);
       formData.append('crSubjectId', this.selectedSubjectId);
@@ -7179,6 +7199,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var formData = new FormData();
       formData.append('level', this.questionLevel);
       formData.append('text', document.getElementById('matchingQuestion').value);
+      var image = document.querySelector('#matchQuestionImg');
+
+      if (image.files != undefined) {
+        formData.append('imgUrl', image.files[0]);
+      }
+
       formData.append('crLessonId', this.selectedLessonId);
       formData.append('crSubjectId', this.selectedSubjectId);
       formData.append('instructorId', this.instructorId);
@@ -7202,6 +7228,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var formData = new FormData();
       formData.append('level', this.questionLevel);
       formData.append('text', document.getElementById('rankingQuestion').value);
+      var image = document.querySelector('#rankQuestionImg');
+
+      if (image.files != undefined) {
+        formData.append('imgUrl', image.files[0]);
+      }
+
       formData.append('crLessonId', this.selectedLessonId);
       formData.append('crSubjectId', this.selectedSubjectId);
       formData.append('instructorId', this.instructorId);
@@ -18612,6 +18644,48 @@ var render = function() {
     _vm.questionType == "trueFalse"
       ? _c("div", { staticClass: "uk-margin-top" }, [
           _c("div", { staticClass: "uk-margin-top" }, [
+            _c("div", { staticClass: "uk-form-label" }, [
+              _vm._v(" " + _vm._s(_vm.questionImageText) + " ")
+            ]),
+            _vm._v(" "),
+            _vm._m(4),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "uk-flex uk-flex-center uk-margin",
+                attrs: { "uk-form-custom": "target: true" }
+              },
+              [
+                _c("input", {
+                  attrs: {
+                    name: "image",
+                    type: "file",
+                    accept: "image/*",
+                    id: "trueFalseImg"
+                  },
+                  on: {
+                    change: function($event) {
+                      return _vm.previewImage(
+                        "trueFalseImg",
+                        "trueFalseImgPreview"
+                      )
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "uk-input",
+                  attrs: {
+                    type: "text",
+                    tabindex: "-1",
+                    disabled: "",
+                    placeholder: _vm.selectFileText
+                  }
+                })
+              ]
+            ),
+            _vm._v(" "),
             _c("div", { staticClass: "uk-margin-bottom" }, [
               _c("div", { staticClass: "uk-form-label" }, [
                 _vm._v(" " + _vm._s(_vm.phraseText) + " ")
@@ -18694,7 +18768,7 @@ var render = function() {
             _vm._v(" " + _vm._s(_vm.questionImageText) + " ")
           ]),
           _vm._v(" "),
-          _vm._m(4),
+          _vm._m(5),
           _vm._v(" "),
           _c(
             "div",
@@ -18713,8 +18787,8 @@ var render = function() {
                 on: {
                   change: function($event) {
                     return _vm.previewImage(
-                      "multiQuestionImg",
-                      "multiQuestionImgPreview"
+                      "rankingQuestionImg",
+                      "rankingQuestionImgPreview"
                     )
                   }
                 }
@@ -18853,7 +18927,7 @@ var render = function() {
             _vm._v(" " + _vm._s(_vm.questionImageText) + " ")
           ]),
           _vm._v(" "),
-          _vm._m(5),
+          _vm._m(6),
           _vm._v(" "),
           _c(
             "div",
@@ -18872,8 +18946,8 @@ var render = function() {
                 on: {
                   change: function($event) {
                     return _vm.previewImage(
-                      "multiQuestionImg",
-                      "multiQuestionImgPreview"
+                      "matchingQuestionImg",
+                      "matchingQuestionImgPreview"
                     )
                   }
                 }
@@ -19373,6 +19447,18 @@ var staticRenderFns = [
         staticClass:
           "uk-background-center-center uk-background-cover uk-height",
         attrs: { id: "blankImgPreview" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("div", {
+        staticClass:
+          "uk-background-center-center uk-background-cover uk-height",
+        attrs: { id: "trueFalseImgPreview" }
       })
     ])
   },
