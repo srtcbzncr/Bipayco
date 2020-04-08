@@ -6916,8 +6916,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (response) {
         return console.log(response);
-      });
-      window.location.replace('/questionSource');
+      }); //window.location.replace('/questionSource');
     },
     addSingleChoiceImgQuestion: function addSingleChoiceImgQuestion() {
       this.singleAnswersImg.push({
@@ -6976,8 +6975,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (response) {
         return console.log(response);
-      });
-      window.location.replace('/questionSource');
+      }); //window.location.replace('/questionSource');
     },
     addMultiChoiceTextQuestion: function addMultiChoiceTextQuestion() {
       var formData = new FormData();
@@ -7030,8 +7028,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (response) {
         return console.log(response);
-      });
-      window.location.replace('/questionSource');
+      }); //window.location.replace('/questionSource');
     },
     addMultiChoiceImgQuestion: function addMultiChoiceImgQuestion() {
       var formData = new FormData();
@@ -7085,8 +7082,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (response) {
         return console.log(response);
-      });
-      window.location.replace('/questionSource');
+      }); //window.location.replace('/questionSource');
     },
     addFillBlankQuestion: function addFillBlankQuestion() {
       var image = document.querySelector('#blankImg');
@@ -7139,8 +7135,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (response) {
         return console.log(response);
-      });
-      window.location.replace('/questionSource');
+      }); //window.location.replace('/questionSource');
     },
     addTrueFalseQuestion: function addTrueFalseQuestion() {
       var formData = new FormData();
@@ -7157,8 +7152,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (response) {
         return console.log(response);
-      });
-      window.location.replace('/questionSource');
+      }); //window.location.replace('/questionSource');
     },
     addMatchingTextQuestion: function addMatchingTextQuestion() {
       var formData = new FormData();
@@ -7179,8 +7173,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (response) {
         return console.log(response);
-      });
-      window.location.replace('/questionSource');
+      }); //window.location.replace('/questionSource');
     },
     addMatchingImgQuestion: function addMatchingImgQuestion() {
       var formData = new FormData();
@@ -7203,8 +7196,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (response) {
         return console.log(response);
-      });
-      window.location.replace('/questionSource');
+      }); //window.location.replace('/questionSource');
     },
     addRankingQuestion: function addRankingQuestion() {
       var formData = new FormData();
@@ -7225,8 +7217,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       }).then(function (response) {
         return console.log(response);
-      });
-      window.location.replace('/questionSource');
+      }); //window.location.replace('/questionSource');
     },
     loadSubjects: function loadSubjects() {
       this.$store.dispatch('loadLessonSubjects', this.selectedLessonId);
@@ -20621,7 +20612,7 @@ var render = function() {
                             attrs: { "uk-tooltip": _vm.deleteText },
                             on: {
                               click: function($event) {
-                                return _vm.editPageRoute(question.id)
+                                return _vm.deleteQuestion(question.id)
                               }
                             }
                           },

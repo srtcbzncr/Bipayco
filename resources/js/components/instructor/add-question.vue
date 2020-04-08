@@ -571,7 +571,7 @@
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
                     .then(response=>console.log(response));
-                window.location.replace('/questionSource');
+                //window.location.replace('/questionSource');
             },
             addSingleChoiceImgQuestion:function () {
                 this.singleAnswersImg.push({content:document.querySelector('#singleCorrectAnswerImg').files[0], isCorrect:true, type:'image'});
@@ -599,7 +599,7 @@
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
                     .then(response=>console.log(response));
-                window.location.replace('/questionSource');
+                //window.location.replace('/questionSource');
             },
             addMultiChoiceTextQuestion:function () {
                 var formData=new FormData();
@@ -625,7 +625,7 @@
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
                     .then(response=>console.log(response));
-                window.location.replace('/questionSource');
+                //window.location.replace('/questionSource');
             },
             addMultiChoiceImgQuestion:function () {
                 var formData=new FormData();
@@ -652,7 +652,7 @@
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
                     .then(response=>console.log(response));
-                window.location.replace('/questionSource');
+                //window.location.replace('/questionSource');
             },
             addFillBlankQuestion:function () {
                 var image=document.querySelector('#blankImg');
@@ -678,7 +678,7 @@
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
                     .then(response=>console.log(response));
-                window.location.replace('/questionSource');
+                //window.location.replace('/questionSource');
             },
             addTrueFalseQuestion:function(){
                 var formData=new FormData();
@@ -693,7 +693,7 @@
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
                     .then(response=>console.log(response));
-                window.location.replace('/questionSource');
+                //window.location.replace('/questionSource');
             },
             addMatchingTextQuestion:function(){
                 var formData=new FormData();
@@ -710,7 +710,7 @@
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
                     .then(response=>console.log(response));
-                window.location.replace('/questionSource');
+                //window.location.replace('/questionSource');
             },
             addMatchingImgQuestion:function(){
                 var formData=new FormData();
@@ -729,7 +729,7 @@
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
                     .then(response=>console.log(response));
-                window.location.replace('/questionSource');
+                //window.location.replace('/questionSource');
             },
             addRankingQuestion:function(){
                 var formData=new FormData();
@@ -746,7 +746,7 @@
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
                     .then(response=>console.log(response));
-                window.location.replace('/questionSource');
+                //window.location.replace('/questionSource');
             },
             loadSubjects:function () {
                 this.$store.dispatch('loadLessonSubjects', this.selectedLessonId);
