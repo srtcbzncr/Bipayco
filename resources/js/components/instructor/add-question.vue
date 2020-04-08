@@ -720,9 +720,9 @@
                 formData.append('instructorId', this.instructorId);
                 formData.append('type', 'match');
                 for(var i=0; i<this.matchingAnswers.length; i++) {
-                    formData.append('answers['+i+'].first', this.matchingAnswers[i].first);
-                    formData.append('answers['+i+'].second', this.matchingAnswers[i].second);
-                    formData.append('answers['+i+'].type', this.matchingAnswers[i].type);
+                    formData.append("answers["+i+"]['first']", this.matchingAnswers[i].first);
+                    formData.append("answers["+i+"]['second']", this.matchingAnswers[i].second);
+                    formData.append("answers["+i+"]['type']", this.matchingAnswers[i].type);
                 }
                 Axios.post('/api/questionSource/create', formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
