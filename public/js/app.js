@@ -7143,12 +7143,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       window.location.replace('/questionSource');
     },
     addTrueFalseQuestion: function addTrueFalseQuestion() {
+      var formData = new FormData();
       formData.append('level', this.questionLevel);
       formData.append('content', document.getElementById('trueFalseQuestion').value);
       formData.append('isCorrect', this.isCorrect);
       formData.append('crLessonId', this.selectedLessonId);
       formData.append('crSubjectId', this.selectedSubjectId);
       formData.append('instructorId', this.instructorId);
+      formData.append('type', 'trueFalse');
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -7159,11 +7161,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       window.location.replace('/questionSource');
     },
     addMatchingTextQuestion: function addMatchingTextQuestion() {
+      var formData = new FormData();
       formData.append('level', this.questionLevel);
       formData.append('text', document.getElementById('matchingQuestion').value);
       formData.append('crLessonId', this.selectedLessonId);
       formData.append('crSubjectId', this.selectedSubjectId);
       formData.append('instructorId', this.instructorId);
+      formData.append('type', 'match');
 
       for (var i = 0; i < this.matchingAnswers.length; i++) {
         formData.append('answers[' + i + ']', JSON.stringify(this.matchingAnswers[i]));
@@ -7179,11 +7183,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       window.location.replace('/questionSource');
     },
     addMatchingImgQuestion: function addMatchingImgQuestion() {
+      var formData = new FormData();
       formData.append('level', this.questionLevel);
       formData.append('text', document.getElementById('matchingQuestion').value);
       formData.append('crLessonId', this.selectedLessonId);
       formData.append('crSubjectId', this.selectedSubjectId);
       formData.append('instructorId', this.instructorId);
+      formData.append('type', 'match');
 
       for (var i = 0; i < this.matchingAnswersImg.length; i++) {
         formData.append('answersFirst[' + i + ']', this.matchingAnswersImg[i].first);
@@ -7201,11 +7207,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       window.location.replace('/questionSource');
     },
     addRankingQuestion: function addRankingQuestion() {
+      var formData = new FormData();
       formData.append('level', this.questionLevel);
       formData.append('text', document.getElementById('rankingQuestion').value);
       formData.append('crLessonId', this.selectedLessonId);
       formData.append('crSubjectId', this.selectedSubjectId);
       formData.append('instructorId', this.instructorId);
+      formData.append('type', 'order');
 
       for (var i = 0; i < this.rankingAnswers.length; i++) {
         formData.append('content[' + i + ']', this.rankingAnswers[i].content);

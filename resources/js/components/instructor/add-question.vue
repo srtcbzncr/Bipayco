@@ -681,6 +681,7 @@
                 window.location.replace('/questionSource');
             },
             addTrueFalseQuestion:function(){
+                var formData=new FormData();
                 formData.append('level', this.questionLevel);
                 formData.append('content', document.getElementById('trueFalseQuestion').value);
                 formData.append('isCorrect',this.isCorrect);
@@ -695,6 +696,7 @@
                 window.location.replace('/questionSource');
             },
             addMatchingTextQuestion:function(){
+                var formData=new FormData();
                 formData.append('level', this.questionLevel);
                 formData.append('text', document.getElementById('matchingQuestion').value);
                 formData.append('crLessonId', this.selectedLessonId);
@@ -711,6 +713,7 @@
                 window.location.replace('/questionSource');
             },
             addMatchingImgQuestion:function(){
+                var formData=new FormData();
                 formData.append('level', this.questionLevel);
                 formData.append('text', document.getElementById('matchingQuestion').value);
                 formData.append('crLessonId', this.selectedLessonId);
@@ -729,6 +732,7 @@
                 window.location.replace('/questionSource');
             },
             addRankingQuestion:function(){
+                var formData=new FormData();
                 formData.append('level', this.questionLevel);
                 formData.append('text', document.getElementById('rankingQuestion').value);
                 formData.append('crLessonId', this.selectedLessonId);
