@@ -230,14 +230,7 @@ class QuestionSourceRepository implements IRepository
                 }
             }
             else if($data['type'] == 'trueFalse'){
-                if(isset($data['imgUrl']) and $data['imgUrl']!=null){
-                    $path = $data['imgUrl']->store('public/questionSource');
-                    $accessPath=Storage::url($path);
-                    $object->imgUrl = $accessPath;
-                }
-                else if(isset($data['text']) and $data['text']!=null){
-                    $object->text = $data['text'];
-                }
+                $object->text = $data['content'];
                 $object->level = $data['level'];
                 $object->type = 'App\Models\QuestionSource\TrueFalse';
                 $object->crLessonId = $data['crLessonId'];
@@ -250,7 +243,7 @@ class QuestionSourceRepository implements IRepository
                 // answer ekle.
                 $objectAnswer = new TrueFalse();
                 $objectAnswer->questionId = $object->id;
-                $objectAnswer->content = $data['content'];
+                $objectAnswer->content = $data['isCorrect'];
                 $objectAnswer->save();
             }
             else if($data['type'] == 'order'){
