@@ -8383,20 +8383,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8417,6 +8403,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     difficultyText: {
       type: String,
       "default": "Zorluk Seviyesi"
+    },
+    editText: {
+      type: String,
+      "default": "Düzenle"
+    },
+    deleteText: {
+      type: String,
+      "default": "Sil"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['questionSource'])),
@@ -20551,113 +20545,89 @@ var render = function() {
     "div",
     {
       staticClass:
-        "uk-card uk-card-default uk-margin-medium-top border-radius-6 uk-height"
+        "uk-background-default uk-margin-medium-top border-radius-6 uk-height"
     },
     [
-      _c("div", { staticClass: "uk-card-body uk-padding-small" }, [
-        _vm.questionSource.length > 0
-          ? _c(
-              "div",
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "uk-grid align-items-center justify-content-center"
-                  },
-                  [
-                    _c("div", { staticClass: "uk-width-1-6" }),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "uk-width-1-2" }, [
-                      _c("h4", { staticClass: "uk-form-label" }, [
-                        _vm._v(" " + _vm._s(_vm.questionText) + " ")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "uk-width-1-6" }, [
-                      _c("h4", { staticClass: "uk-form-label" }, [
-                        _vm._v(" " + _vm._s(_vm.lessonText) + " ")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "uk-width-1-6 text-center" }, [
-                      _c("h4", { staticClass: "uk-form-label" }, [
-                        _vm._v(" " + _vm._s(_vm.difficultyText) + " ")
-                      ])
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("hr", { staticClass: "uk-margin-small-top" }),
-                _vm._v(" "),
+      _c(
+        "table",
+        {
+          staticClass:
+            "uk-table uk-table-hover uk-table-striped uk-width uk-height",
+          attrs: { id: "categoryTable", cellspacing: "0" }
+        },
+        [
+          true
+            ? _c("thead", [
+                _c("tr", [
+                  _c("th", [_vm._v(_vm._s(_vm.questionText))]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v(_vm._s(_vm.lessonText))]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v(_vm._s(_vm.difficultyText))]),
+                  _vm._v(" "),
+                  _c("th")
+                ])
+              ])
+            : undefined,
+          _vm._v(" "),
+          true
+            ? _c(
+                "tbody",
                 _vm._l(_vm.questionSource, function(question) {
-                  return _c("div", { staticClass: "uk-margin-bottom" }, [
-                    _c("div", { staticClass: "uk-grid align-items-center" }, [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "uk-width-1-6 uk-flex uk-child-width-1-4@m text-center"
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "fas fa-trash-alt text-danger",
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteQuestion(question.id)
-                              }
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("i", {
-                            staticClass: "fas fa-cog",
+                  return _c("tr", [
+                    _c("td", { staticClass: "uk-width-2-5" }, [
+                      _c("p", [_vm._v(" " + _vm._s(question.text))])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "uk-width-1-5" }, [
+                      _c("p", [_vm._v(_vm._s(question.lesson.name))])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "uk-width-1-5" }, [
+                      _c("p", [_vm._v(_vm._s(question.level))])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "td",
+                      {
+                        staticClass:
+                          "uk-flex flex-wrap align-items-center justify-content-around"
+                      },
+                      [
+                        _c(
+                          "a",
+                          {
+                            attrs: { "uk-tooltip": _vm.editText },
                             on: {
                               click: function($event) {
                                 return _vm.editPageRoute(question.id)
                               }
                             }
-                          })
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "uk-width-1-2" }, [
-                        _c("h6", [_vm._v(" " + _vm._s(question.text) + " ")])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "uk-width-1-6" }, [
-                        _c("h6", [
-                          _vm._v(" " + _vm._s(question.lesson.name) + " ")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "uk-width-1-6 text-center" }, [
-                        _c("h6", [_vm._v(" " + _vm._s(question.level) + " ")])
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("hr")
+                          },
+                          [_c("i", { staticClass: "fas fa-cog" })]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            attrs: { "uk-tooltip": _vm.deleteText },
+                            on: {
+                              click: function($event) {
+                                return _vm.editPageRoute(question.id)
+                              }
+                            }
+                          },
+                          [_c("i", { staticClass: "fas fa-trash text-danger" })]
+                        )
+                      ]
+                    )
                   ])
-                })
-              ],
-              2
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.questionSource.length <= 0
-          ? _c(
-              "div",
-              {
-                staticClass:
-                  "uk-width uk-flex align-item-center justify-content-center uk-padding"
-              },
-              [
-                _c("h4", { staticClass: "uk-margin-remove" }, [
-                  _vm._v("Soru Bulunmamaktadır")
-                ])
-              ]
-            )
-          : _vm._e()
-      ])
+                }),
+                0
+              )
+            : undefined
+        ]
+      )
     ]
   )
 }

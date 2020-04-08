@@ -12,6 +12,8 @@
             question-text="@lang('front/auth.question')"
             lesson-text="@lang('front/auth.lesson')"
             difficulty-text="@lang('front/auth.difficulty')"
+            edit-text="@lang('front/auth.edit')"
+            delete-text="@lang('front/auth.delete')"
         > </question-source-list>
     </div>
 @endsection

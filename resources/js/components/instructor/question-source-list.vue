@@ -1,43 +1,29 @@
 <template>
-    <div class="uk-card uk-card-default uk-margin-medium-top border-radius-6 uk-height" >
-        <div class="uk-card-body uk-padding-small">
-            <div v-if="questionSource.length>0">
-                <div class="uk-grid align-items-center justify-content-center">
-                    <div class="uk-width-1-6"> </div>
-                    <div class="uk-width-1-2">
-                        <h4 class="uk-form-label"> {{questionText}} </h4>
-                    </div>
-                    <div class="uk-width-1-6">
-                        <h4 class="uk-form-label"> {{lessonText}} </h4>
-                    </div>
-                    <div class="uk-width-1-6 text-center">
-                        <h4 class="uk-form-label"> {{difficultyText}} </h4>
-                    </div>
-                </div>
-                <hr class="uk-margin-small-top">
-                <div v-for="question in questionSource" class="uk-margin-bottom">
-                    <div class="uk-grid align-items-center">
-                        <div class="uk-width-1-6 uk-flex uk-child-width-1-4@m text-center">
-                            <i class="fas fa-trash-alt text-danger" @click="deleteQuestion(question.id)"></i>
-                            <i class="fas fa-cog" @click="editPageRoute(question.id)"></i>
-                        </div>
-                        <div class="uk-width-1-2">
-                            <h6> {{question.text}} </h6>
-                        </div>
-                        <div class="uk-width-1-6">
-                            <h6> {{question.lesson.name}} </h6>
-                        </div>
-                        <div class="uk-width-1-6 text-center">
-                            <h6> {{question.level}} </h6>
-                        </div>
-                    </div>
-                    <hr>
-                </div>
+    <div class="uk-background-default uk-margin-medium-top border-radius-6 uk-height" >
+        <table id="categoryTable" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0">
+            <thead v-if="true">
+            <tr>
+                <th>{{questionText}}</th>
+                <th>{{lessonText}}</th>
+                <th>{{difficultyText}}</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody v-if="true">
+            <tr v-for="question in questionSource">
+                <td class="uk-width-2-5"><p> {{question.text}}</p></td>
+                <td class="uk-width-1-5"><p>{{question.lesson.name}}</p></td>
+                <td class="uk-width-1-5"><p>{{question.level}}</p></td>
+                <td class="uk-flex flex-wrap align-items-center justify-content-around">
+                    <a @click="editPageRoute(question.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
+                    <a @click="editPageRoute(question.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
+                </td>
+            </tr>
+            </tbody>
+            <div v-else class=" uk-width uk-height-small uk-flex align-items-center justify-content-center">
+                <h4> {{noContentText}} </h4>
             </div>
-            <div v-if="questionSource.length<=0" class="uk-width uk-flex align-item-center justify-content-center uk-padding">
-                <h4 class="uk-margin-remove">Soru Bulunmamaktadır</h4>
-            </div>
-        </div>
+        </table>
     </div>
 </template>
 
@@ -62,6 +48,14 @@
             difficultyText:{
                 type:String,
                 default:"Zorluk Seviyesi"
+            },
+            editText:{
+                type:String,
+                default:"Düzenle"
+            },
+            deleteText:{
+                type:String,
+                default:"Sil"
             }
         },
         computed:{
