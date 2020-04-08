@@ -12,6 +12,7 @@ use App\Models\QuestionSource\GapFilling;
 use App\Models\QuestionSource\MultiChoice;
 use App\Models\QuestionSource\Question;
 use App\Models\QuestionSource\SingleChoice;
+use App\Models\QuestionSource\TrueFalse;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\DB;
@@ -228,7 +229,36 @@ class QuestionSourceRepository implements IRepository
                     }
                 }
             }
+            else if($data['type'] == 'trueFalse'){
+                if(isset($data['imgUrl']) and $data['imgUrl']!=null){
+                    $path = $data['imgUrl']->store('public/questionSource');
+                    $accessPath=Storage::url($path);
+                    $object->imgUrl = $accessPath;
+                }
+                else if(isset($data['text']) and $data['text']!=null){
+                    $object->text = $data['text'];
+                }
+                $object->level = $data['level'];
+                $object->type = 'App\Models\QuestionSource\TrueFalse';
+                $object->crLessonId = $data['crLessonId'];
+                $object->crLessonId = $data['crLessonId'];
+                $object->crSubjectId = $data['crSubjectId'];
+                $object->instructorId = $data['instructorId'];
+                $object->isConfirm = false;
+                $object->save();
 
+                // answer ekle.
+                $objectAnswer = new TrueFalse();
+                $objectAnswer->questionId = $object->id;
+                $objectAnswer->content = $data['content'];
+                $objectAnswer->save();
+            }
+            else if($data['type'] == 'order'){
+
+            }
+            else if($data['type'] == 'match'){
+
+            }
             DB::commit();
         }
         catch(\Exception $e){
