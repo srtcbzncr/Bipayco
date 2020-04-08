@@ -7213,9 +7213,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('type', 'match');
 
       for (var i = 0; i < this.matchingAnswersImg.length; i++) {
-        formData.append('answersFirst[' + i + ']', this.matchingAnswersImg[i].first);
-        formData.append('answersSecond[' + i + ']', this.matchingAnswersImg[i].second);
-        formData.append('answers[' + i + ']', JSON.stringify(this.matchingAnswersImg[i]));
+        formData.append("answers[" + i + "]['first']", this.matchingAnswersImg[i].first);
+        formData.append("answers[" + i + "]['second']", this.matchingAnswersImg[i].second);
+        formData.append("answers[" + i + "]['type']", this.matchingAnswersImg[i].type);
       }
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {

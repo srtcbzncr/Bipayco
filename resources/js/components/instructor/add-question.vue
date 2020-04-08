@@ -743,9 +743,9 @@
                 formData.append('instructorId', this.instructorId);
                 formData.append('type', 'match');
                 for(var i=0; i<this.matchingAnswersImg.length; i++) {
-                    formData.append('answersFirst['+i+']', this.matchingAnswersImg[i].first);
-                    formData.append('answersSecond['+i+']', this.matchingAnswersImg[i].second);
-                    formData.append('answers['+i+']', JSON.stringify(this.matchingAnswersImg[i]));
+                    formData.append("answers["+i+"]['first']", this.matchingAnswersImg[i].first);
+                    formData.append("answers["+i+"]['second']", this.matchingAnswersImg[i].second);
+                    formData.append("answers["+i+"]['type']", this.matchingAnswersImg[i].type);
                 }
                 Axios.post('/api/questionSource/create', formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
