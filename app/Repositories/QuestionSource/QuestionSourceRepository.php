@@ -39,11 +39,10 @@ class QuestionSourceRepository implements IRepository
         try{
             $user = User::find($id);
             $instructor = Instructor::where('user_id',$user->id)->first();
-            $questions = DB::table('qs_question')->where('instructorId',$instructor->id)->paginate(20);
-           // $questions = Question::where('instructorId',$instructor->id)->get();
+            $questions = Question::where('instructorId',$instructor->id)->get();
 
             // subject ve lesson bilgisinide getir
-            foreach ($questions['data'] as $key=> $question){
+            foreach ($questions as $key=> $question){
                 $subject = Subject::find($question->crSubjectId);
                 $lesson = Lesson::find($question->crLessonId);
                 $questions[$key]['lesson'] = $lesson;
