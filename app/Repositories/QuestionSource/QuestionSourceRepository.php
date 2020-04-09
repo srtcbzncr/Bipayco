@@ -9,6 +9,7 @@ use App\Models\Auth\User;
 use App\Models\Curriculum\Lesson;
 use App\Models\Curriculum\Subject;
 use App\Models\QuestionSource\GapFilling;
+use App\Models\QuestionSource\Match;
 use App\Models\QuestionSource\MultiChoice;
 use App\Models\QuestionSource\Order;
 use App\Models\QuestionSource\Question;
@@ -93,16 +94,25 @@ class QuestionSourceRepository implements IRepository
             DB::beginTransaction();
             $object = new Question();
             if($data['type'] == 'singleChoice' or $data['type'] == 'multiChoice'){
-                if(isset($data['text']) or $data['text'] != null)
+                $control = false;
+                if(isset($data['text']) or $data['text'] != null){
                     $object->text = $data['text'];
+                    $control = true;
+                }
                 if(isset($data['imgUrl']) and $data['imgUrl'] != "undefined"){
                     $path = $data['imgUrl']->store('public/questionSource');
                     $accessPath=Storage::url($path);
                     $object->imgUrl = $accessPath;
+                    $control = true;
                 }
                 else{
                     $object->imgUrl = null;
                 }
+
+                if($control == false){
+                    $sonuc = 1/0;
+                }
+
 
                 $object->level = $data['level'];
                 if($data['type'] == 'singleChoice')
@@ -200,13 +210,20 @@ class QuestionSourceRepository implements IRepository
                 }
             }
             else if($data['type'] == 'fillBlank'){
+                $control = false;
                 if(isset($data['imgUrl'])){
                     $path = $data['imgUrl']->store('public/questionSource');
                     $accessPath=Storage::url($path);
                     $object->imgUrl = $accessPath;
+                    $control = true;
                 }
                 if(isset($data['beginningOfSentence'])){
                     $object->text = $data['beginningOfSentence'];
+                    $control = true;
+                }
+
+                if($control == false){
+                    $sonuc = 1/0;
                 }
 
                 $object->level = $data['level'];
@@ -231,7 +248,22 @@ class QuestionSourceRepository implements IRepository
                 }
             }
             else if($data['type'] == 'trueFalse'){
-                $object->text = $data['content'];
+                $control = false;
+                if(isset($data['imgUrl']) and $data['imgUrl']!=null){
+                    $path = $data['imgUrl']->store('public/questionSource');
+                    $accessPath=Storage::url($path);
+                    $object->imgUrl = $accessPath;
+                    $control = true;
+                }
+                if(isset($data['content']) and $data['content']!=null){
+                    $object->text = $data['content'];
+                    $control = true;
+                }
+
+                if($control == false){
+                    $sonuc = 1/0;
+                }
+
                 $object->level = $data['level'];
                 $object->type = 'App\Models\QuestionSource\TrueFalse';
                 $object->crLessonId = $data['crLessonId'];
@@ -247,8 +279,24 @@ class QuestionSourceRepository implements IRepository
                 $objectAnswer->save();
             }
             else if($data['type'] == 'order'){
-                $object->text = $data['text'];
+                $control = false;
+                if(isset($data['imgUrl']) and $data['imgUrl']!=null){
+                    $path = $data['imgUrl']->store('public/questionSource');
+                    $accessPath=Storage::url($path);
+                    $object->imgUrl = $accessPath;
+                    $control = true;
+                }
+                if(isset($data['content']) and $data['content']!=null){
+                    $object->text = $data['text'];
+                    $control = true;
+                }
+
+                if($control == false){
+                    $sonuc = 1/0;
+                }
+
                 $object->level = $data['level'];
+                $object->type = 'App\Models\QuestionSource\Order';
                 $object->crLessonId = $data['crLessonId'];
                 $object->crSubjectId = $data['crSubjectId'];
                 $object->instructorId = $data['instructorId'];
@@ -265,7 +313,89 @@ class QuestionSourceRepository implements IRepository
                 }
             }
             else if($data['type'] == 'match'){
+                $control = false;
+                if(isset($data['imgUrl']) and $data['imgUrl']!=null and file_exists($data['imgUrl'])){
+                    $path = $data['imgUrl']->store('public/questionSource');
+                    $accessPath=Storage::url($path);
+                    $object->imgUrl = $accessPath;
+                    $control = true;
+                }
+                if(isset($data['text']) and $data['text']!=null){
+                    $object->text = $data['text'];
+                    $control = true;
+                }
 
+                if($control == false){
+                   $sonuc = 1/0;
+                }
+
+                $object->level = $data['level'];
+                $object->type = 'App\Models\QuestionSource\Match';
+                $object->crLessonId = $data['crLessonId'];
+                $object->crSubjectId = $data['crSubjectId'];
+                $object->instructorId = $data['instructorId'];
+                $object->isConfirm = false;
+                $object->save();
+
+                // add answers
+                $type=null;
+                $i=0;
+                foreach ($data['answers'] as $answers){
+                    $keyler= array_keys($answers);
+                    foreach ($keyler as $index => $key){
+                        if($key == '\'type\''){
+                           foreach ($answers as $answer){
+                                if($i==$index){
+                                    $type=$answer;
+                                    break;
+                                }
+                                else{
+                                    $i++;
+                                }
+                           }
+                            break;
+                        }
+                    }
+                    break;
+                }
+                $i=0;
+                foreach ($data['answers'] as $answers){
+                    $objectAnswer = new Match();
+                    if($type=="text"){
+                        foreach ($answers as $answer){
+                            $objectAnswer->questionId = $object->id;
+                            $objectAnswer->type = $type;
+                            if($i==0){
+                                $objectAnswer->content = $answer;
+                            }
+                            else if($i==1) {
+                                $objectAnswer->answer = $answer;
+                            }
+                            $i++;
+                        }
+                        $i=0;
+                        $objectAnswer->save();
+                    }
+                    else{
+                        foreach ($answers as $answer){
+                            $objectAnswer->questionId = $object->id;
+                            $objectAnswer->type = $type;
+                            if($i==1){
+                                $filePath = $answer->store('public/questionSource');
+                                $accessPath=Storage::url($filePath);
+                                $objectAnswer->content = $accessPath;
+                            }
+                            else if($i==2) {
+                                $filePath = $answer->store('public/questionSource');
+                                $accessPath=Storage::url($filePath);
+                                $objectAnswer->answer = $accessPath;
+                            }
+                            $i++;
+                        }
+                        $i=0;
+                        $objectAnswer->save();
+                    }
+                }
             }
             DB::commit();
         }
