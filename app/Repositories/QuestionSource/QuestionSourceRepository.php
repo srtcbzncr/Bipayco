@@ -99,7 +99,7 @@ class QuestionSourceRepository implements IRepository
                     $object->text = $data['text'];
                     $control = true;
                 }
-                if(isset($data['imgUrl']) and $data['imgUrl'] != "undefined"){
+                if(isset($data['imgUrl']) and $data['imgUrl'] != null and file_exists($data['imgUrl'])){
                     $path = $data['imgUrl']->store('public/questionSource');
                     $accessPath=Storage::url($path);
                     $object->imgUrl = $accessPath;
@@ -211,7 +211,7 @@ class QuestionSourceRepository implements IRepository
             }
             else if($data['type'] == 'fillBlank'){
                 $control = false;
-                if(isset($data['imgUrl'])){
+                if(isset($data['imgUrl']) and $data['imgUrl'] != null and file_exists($data['imgUrl'])){
                     $path = $data['imgUrl']->store('public/questionSource');
                     $accessPath=Storage::url($path);
                     $object->imgUrl = $accessPath;
@@ -280,7 +280,7 @@ class QuestionSourceRepository implements IRepository
             }
             else if($data['type'] == 'order'){
                 $control = false;
-                if(isset($data['imgUrl']) and $data['imgUrl']!=null){
+                if(isset($data['imgUrl']) and $data['imgUrl']!=null and file_exists($data['imgUrl'])){
                     $path = $data['imgUrl']->store('public/questionSource');
                     $accessPath=Storage::url($path);
                     $object->imgUrl = $accessPath;
