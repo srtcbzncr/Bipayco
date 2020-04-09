@@ -249,7 +249,7 @@ class QuestionSourceRepository implements IRepository
             }
             else if($data['type'] == 'trueFalse'){
                 $control = false;
-                if(isset($data['imgUrl']) and $data['imgUrl']!=null){
+                if(isset($data['imgUrl']) and $data['imgUrl']!=null and file_exists($data['imgUrl'])){
                     $path = $data['imgUrl']->store('public/questionSource');
                     $accessPath=Storage::url($path);
                     $object->imgUrl = $accessPath;
