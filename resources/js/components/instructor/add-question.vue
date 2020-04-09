@@ -555,7 +555,7 @@
                 }
             },
             addSingleChoiceTextQuestion:function () {
-                this.singleAnswers.push({content:document.getElementById('singleCorrectAnswer').value, isCorrect:true, type:'text'});
+                var i;
                 var formData=new FormData();
                 var image=document.querySelector('#singleQuestionImg');
                 if(image.files!=undefined){
@@ -566,9 +566,10 @@
                 formData.append('crLessonId', this.selectedLessonId);
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
-                for(var i=0; i<this.singleAnswers.length; i++){
+                for(i=0; i<this.singleAnswers.length; i++){
                     formData.append('answers['+i+']', JSON.stringify(this.singleAnswers[i]));
                 }
+                formData.append('answers['+i+']', JSON.stringify({'content':document.getElementById('singleCorrectAnswer').value, 'type':'text', 'isCorrect':'true'}));
                 formData.append('type', 'singleChoice');
                 for(var pair of formData){
                     console.log(pair[0]);
@@ -578,11 +579,18 @@
                 Axios.post('/api/questionSource/create', formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
-                    .then(response=>console.log(response));
-                //window.location.replace('/questionSource');
+                    .then(response=>{
+                        if(!response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }
+                    });
+
             },
             addSingleChoiceImgQuestion:function () {
-                this.singleAnswersImg.push({content:document.querySelector('#singleCorrectAnswerImg').files[0], isCorrect:true, type:'image'});
+                var i;
                 var formData=new FormData();
                 var image=document.querySelector('#singleQuestionImg');
                 if(image.files!=undefined){
@@ -593,10 +601,12 @@
                 formData.append('crLessonId', this.selectedLessonId);
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
-                for(var i=0; i<this.singleAnswersImg.length; i++){
+                for(i=0; i<this.singleAnswersImg.length; i++){
                     formData.append('answersContent['+i+']', this.singleAnswersImg[i].content);
                     formData.append('answers['+i+']', JSON.stringify(this.singleAnswersImg[i]));
                 }
+                formData.append('answersContent['+i+']', document.querySelector('#singleCorrectAnswerImg').files[0]);
+                formData.append('answers['+i+']', JSON.stringify({content:document.querySelector('#singleCorrectAnswerImg').files[0], type:'image', isCorrect:'true'}));
                 formData.append('type', 'singleChoice');
                 for(var pair of formData){
                     console.log(pair[0]);
@@ -606,8 +616,14 @@
                 Axios.post('/api/questionSource/create', formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
-                    .then(response=>console.log(response));
-                //window.location.replace('/questionSource');
+                    .then(response=>{
+                        if(!response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }
+                    });
             },
             addMultiChoiceTextQuestion:function () {
                 var formData=new FormData();
@@ -632,8 +648,14 @@
                 Axios.post('/api/questionSource/create', formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
-                    .then(response=>console.log(response));
-                //window.location.replace('/questionSource');
+                    .then(response=>{
+                        if(!response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }
+                    });
             },
             addMultiChoiceImgQuestion:function () {
                 var formData=new FormData();
@@ -659,8 +681,14 @@
                 Axios.post('/api/questionSource/create', formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
-                    .then(response=>console.log(response));
-                //window.location.replace('/questionSource');
+                    .then(response=>{
+                        if(!response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }
+                    });
             },
             addFillBlankQuestion:function () {
                 var image=document.querySelector('#blankImg');
@@ -685,8 +713,14 @@
                 Axios.post('/api/questionSource/create', formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
-                    .then(response=>console.log(response));
-                //window.location.replace('/questionSource');
+                    .then(response=>{
+                        if(!response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }
+                    });
             },
             addTrueFalseQuestion:function(){
                 var formData=new FormData();
@@ -704,8 +738,14 @@
                 Axios.post('/api/questionSource/create', formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
-                    .then(response=>console.log(response));
-                //window.location.replace('/questionSource');
+                    .then(response=>{
+                        if(!response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }
+                    });
             },
             addMatchingTextQuestion:function(){
                 var formData=new FormData();
@@ -727,8 +767,14 @@
                 Axios.post('/api/questionSource/create', formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
-                    .then(response=>console.log(response));
-                //window.location.replace('/questionSource');
+                    .then(response=>{
+                        if(!response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }
+                    });
             },
             addMatchingImgQuestion:function(){
                 var formData=new FormData();
@@ -750,8 +796,14 @@
                 Axios.post('/api/questionSource/create', formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
-                    .then(response=>console.log(response));
-                //window.location.replace('/questionSource');
+                    .then(response=>{
+                        if(!response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }
+                    });
             },
             addRankingQuestion:function(){
                 var formData=new FormData();
@@ -771,8 +823,14 @@
                 Axios.post('/api/questionSource/create', formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
-                    .then(response=>console.log(response));
-                //window.location.replace('/questionSource');
+                    .then(response=>{
+                        if(!response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }
+                    });
             },
             loadSubjects:function () {
                 this.$store.dispatch('loadLessonSubjects', this.selectedLessonId);

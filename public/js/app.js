@@ -6869,11 +6869,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     addSingleChoiceTextQuestion: function addSingleChoiceTextQuestion() {
-      this.singleAnswers.push({
-        content: document.getElementById('singleCorrectAnswer').value,
-        isCorrect: true,
-        type: 'text'
-      });
+      var i;
       var formData = new FormData();
       var image = document.querySelector('#singleQuestionImg');
 
@@ -6887,10 +6883,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('crSubjectId', this.selectedSubjectId);
       formData.append('instructorId', this.instructorId);
 
-      for (var i = 0; i < this.singleAnswers.length; i++) {
+      for (i = 0; i < this.singleAnswers.length; i++) {
         formData.append('answers[' + i + ']', JSON.stringify(this.singleAnswers[i]));
       }
 
+      formData.append('answers[' + i + ']', JSON.stringify({
+        'content': document.getElementById('singleCorrectAnswer').value,
+        'type': 'text',
+        'isCorrect': 'true'
+      }));
       formData.append('type', 'singleChoice');
       var _iteratorNormalCompletion = true;
       var _didIteratorError = false;
@@ -6923,15 +6924,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
-        return console.log(response);
-      }); //window.location.replace('/questionSource');
+        if (!response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+          setTimeout(function () {
+            window.location.replace('/questionSource');
+          }, 1000);
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        }
+      });
     },
     addSingleChoiceImgQuestion: function addSingleChoiceImgQuestion() {
-      this.singleAnswersImg.push({
-        content: document.querySelector('#singleCorrectAnswerImg').files[0],
-        isCorrect: true,
-        type: 'image'
-      });
+      var i;
       var formData = new FormData();
       var image = document.querySelector('#singleQuestionImg');
 
@@ -6945,11 +6955,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('crSubjectId', this.selectedSubjectId);
       formData.append('instructorId', this.instructorId);
 
-      for (var i = 0; i < this.singleAnswersImg.length; i++) {
+      for (i = 0; i < this.singleAnswersImg.length; i++) {
         formData.append('answersContent[' + i + ']', this.singleAnswersImg[i].content);
         formData.append('answers[' + i + ']', JSON.stringify(this.singleAnswersImg[i]));
       }
 
+      formData.append('answersContent[' + i + ']', document.querySelector('#singleCorrectAnswerImg').files[0]);
+      formData.append('answers[' + i + ']', JSON.stringify({
+        content: document.querySelector('#singleCorrectAnswerImg').files[0],
+        type: 'image',
+        isCorrect: 'true'
+      }));
       formData.append('type', 'singleChoice');
       var _iteratorNormalCompletion2 = true;
       var _didIteratorError2 = false;
@@ -6982,8 +6998,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
-        return console.log(response);
-      }); //window.location.replace('/questionSource');
+        if (!response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+          setTimeout(function () {
+            window.location.replace('/questionSource');
+          }, 1000);
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        }
+      });
     },
     addMultiChoiceTextQuestion: function addMultiChoiceTextQuestion() {
       var formData = new FormData();
@@ -7035,8 +7064,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
-        return console.log(response);
-      }); //window.location.replace('/questionSource');
+        if (!response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+          setTimeout(function () {
+            window.location.replace('/questionSource');
+          }, 1000);
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        }
+      });
     },
     addMultiChoiceImgQuestion: function addMultiChoiceImgQuestion() {
       var formData = new FormData();
@@ -7089,8 +7131,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
-        return console.log(response);
-      }); //window.location.replace('/questionSource');
+        if (!response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+          setTimeout(function () {
+            window.location.replace('/questionSource');
+          }, 1000);
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        }
+      });
     },
     addFillBlankQuestion: function addFillBlankQuestion() {
       var image = document.querySelector('#blankImg');
@@ -7142,8 +7197,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
-        return console.log(response);
-      }); //window.location.replace('/questionSource');
+        if (!response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+          setTimeout(function () {
+            window.location.replace('/questionSource');
+          }, 1000);
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        }
+      });
     },
     addTrueFalseQuestion: function addTrueFalseQuestion() {
       var formData = new FormData();
@@ -7165,8 +7233,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
-        return console.log(response);
-      }); //window.location.replace('/questionSource');
+        if (!response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+          setTimeout(function () {
+            window.location.replace('/questionSource');
+          }, 1000);
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        }
+      });
     },
     addMatchingTextQuestion: function addMatchingTextQuestion() {
       var formData = new FormData();
@@ -7194,8 +7275,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
-        return console.log(response);
-      }); //window.location.replace('/questionSource');
+        if (!response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+          setTimeout(function () {
+            window.location.replace('/questionSource');
+          }, 1000);
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        }
+      });
     },
     addMatchingImgQuestion: function addMatchingImgQuestion() {
       var formData = new FormData();
@@ -7223,8 +7317,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
-        return console.log(response);
-      }); //window.location.replace('/questionSource');
+        if (!response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+          setTimeout(function () {
+            window.location.replace('/questionSource');
+          }, 1000);
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        }
+      });
     },
     addRankingQuestion: function addRankingQuestion() {
       var formData = new FormData();
@@ -7250,8 +7357,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           'Content-Type': 'multipart/form-data'
         }
       }).then(function (response) {
-        return console.log(response);
-      }); //window.location.replace('/questionSource');
+        if (!response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+          setTimeout(function () {
+            window.location.replace('/questionSource');
+          }, 1000);
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        }
+      });
     },
     loadSubjects: function loadSubjects() {
       this.$store.dispatch('loadLessonSubjects', this.selectedLessonId);
