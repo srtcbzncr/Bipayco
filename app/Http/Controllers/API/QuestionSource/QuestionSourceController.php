@@ -76,6 +76,7 @@ class QuestionSourceController extends Controller
 
         // Operations
         $resp = $repo->getQuestion($id);
+        $data = $resp->getData();
         if($resp->getResult()){
             return response()->json([
                 'error' => false,

@@ -60,6 +60,24 @@ class QuestionSourceRepository implements IRepository
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+
+    function OzelKarakterTemizle($veri)
+    {
+        $veri =str_replace("\"","",$veri);
+        $veri =str_replace("{","",$veri);
+        $veri =str_replace("}","",$veri);
+        $veri =str_replace("%","",$veri);
+        $veri =str_replace("!","",$veri);
+        $veri =str_replace("#","",$veri);
+        $veri =str_replace("<","",$veri);
+        $veri =str_replace(">","",$veri);
+        $veri =str_replace("*","",$veri);
+        $veri =str_replace("And","",$veri);
+        $veri =str_replace("'","",$veri);
+        $veri =str_replace("chr(34)","",$veri);
+        $veri =str_replace("chr(39)","",$veri);
+        return $veri;
+    }
     public function getQuestion($id)
     {
         // Response variables
@@ -78,7 +96,17 @@ class QuestionSourceRepository implements IRepository
             else if($question->type == 'App\Models\QuestionSource\GapFilling'){
                 $question['type'] = "fillBlank";
                 $answers = GapFilling::where('questionId',$id)->get();
-                $question['answers'] = $answers;
+                $newAns = array();
+                foreach ($answers as $key=> $answer){
+                    $a=explode(":",explode(",",$answer['content'])[0])[1];
+                    $b=explode(":",explode(",",$answer['content'])[1])[1];
+                    $a=$this->OzelKarakterTemizle($a);
+                    $b=$this->OzelKarakterTemizle($b);
+
+                    $newAns[$key]['answer'] = $a;
+                    $newAns[$key]['after'] = $b;
+                }
+                $question['answers'] = $newAns;
             }
             else if($question->type == 'App\Models\QuestionSource\Match'){
                 $question['type'] = "match";
