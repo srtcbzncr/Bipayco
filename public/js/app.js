@@ -6861,7 +6861,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['courseSubjects', 'plLessonType']), {
     url: function url() {
-      if (this.questionId != '') {
+      if (this.questionId == '') {
         return '/api/questionSource/create';
       } else {
         return '/api/questionSource/update/' + this.questionId;

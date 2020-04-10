@@ -544,7 +544,7 @@
                 'plLessonType'
             ]),
             url(){
-                if(this.questionId!=''){
+                if(this.questionId==''){
                     return '/api/questionSource/create'
                 }else{
                     return '/api/questionSource/update/'+this.questionId
