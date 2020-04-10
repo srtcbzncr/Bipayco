@@ -30,10 +30,10 @@
             <option selected disabled hidden value="">{{chooseQuestionTypeText}}</option>
             <option value="singleChoice">{{singleChoiceText}}</option>
             <option value="multiChoice">{{multiChoiceText}}</option>
-            <option value="fillInTheBlank">{{fillBlankText}}</option>
+            <option value="fillBlank">{{fillBlankText}}</option>
             <option value="trueFalse">{{trueFalseText}}</option>
-            <option value="matching">{{matchingText}}</option>
-            <option value="ranking">{{rankingText}}</option>
+            <option value="match">{{matchingText}}</option>
+            <option value="order">{{rankingText}}</option>
         </select>
         <div v-if="questionType=='singleChoice'" class="uk-margin-top">
             <div class="uk-form-label"> {{questionImageText}} </div>
@@ -45,7 +45,8 @@
                 <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
             </div>
             <div class="uk-form-label"> {{questionText}} </div>
-            <textarea class="uk-height-small uk-textarea uk-overflow-auto" id="singleQuestion" required></textarea>
+            <textarea class="uk-height-small uk-textarea uk-overflow-auto" id="singleQuestion" v-model="text" required></textarea>
+            {{text}}
             <div >
                 <div class="uk-form-label"> {{answerTypeText}} </div>
                 <select v-model="singleAnswerType"  class="uk-width uk-select">
@@ -112,11 +113,11 @@
                 <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
             </div>
             <div class="uk-form-label"> {{questionText}} </div>
-            <textarea class="uk-height-small uk-textarea uk-overflow-auto" id="multiQuestion" required></textarea>
+            <textarea class="uk-height-small uk-textarea uk-overflow-auto" id="multiQuestion" v-model="text" required></textarea>
             <div>
                 <div class="uk-form-label"> {{answerTypeText}} </div>
                 <select v-model="multiAnswerType"  class="uk-width uk-select">
-                    <option value="" hidden disabled selected>{{chooseAnswerTypeText}}</option>
+                    <option value="" hidden disabled>{{chooseAnswerTypeText}}</option>
                     <option value="withImage">{{withImage}}</option>
                     <option value="withText">{{withText}}</option>
                 </select>
@@ -162,7 +163,7 @@
                 </div>
             </div>
         </div>
-        <div v-if="questionType=='fillInTheBlank'" class="uk-margin-top">
+        <div v-if="questionType=='fillBlank'" class="uk-margin-top">
             <div class="uk-form-label"> {{questionImageText}} </div>
             <div>
                 <input type="text" value="" hidden disabled>
@@ -204,16 +205,16 @@
                 </div>
                 <div class="uk-margin-bottom">
                     <div class="uk-form-label"> {{phraseText}} </div>
-                    <textarea class="uk-height uk-textarea uk-overflow-auto" id="trueFalseQuestion" required></textarea>
+                    <textarea class="uk-height uk-textarea uk-overflow-auto" id="trueFalseQuestion" v-model="text" required></textarea>
                 </div>
                 <div class="uk-margin-bottom">
                     <div class="uk-flex align-items-center justify-content-around">
                         <div class="uk-flex align-items-center">
-                            <input class="uk-radio uk-margin-remove" type="radio" name="isCorrect" checked @click="isCorrect=1">
+                            <input class="uk-radio uk-margin-remove" type="radio" name="isCorrect" value="1" checked @click="isCorrect=1">
                             <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">{{trueText}}</p>
                         </div>
                         <div class="uk-flex align-items-center">
-                            <input class="uk-radio uk-margin-remove" type="radio" name="isCorrect" @click="isCorrect=0">
+                            <input class="uk-radio uk-margin-remove" type="radio" name="isCorrect" value="0" @click="isCorrect=0">
                             <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">{{falseText}}</p>
                         </div>
                     </div>
@@ -221,7 +222,7 @@
                 <button class="uk-button uk-button-grey uk-margin-top uk-width" @click="addTrueFalseQuestion"> {{saveText}} </button>
             </div>
         </div>
-        <div v-if="questionType=='ranking'" class="uk-margin-top">
+        <div v-if="questionType=='order'" class="uk-margin-top">
             <div class="uk-form-label"> {{questionImageText}} </div>
             <div>
                 <div class="uk-background-center-center uk-background-cover uk-height" id="rankingQuestionImgPreview"></div>
@@ -231,7 +232,7 @@
                 <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
             </div>
             <div class="uk-form-label"> {{questionText}} </div>
-            <textarea class="uk-height-small uk-textarea uk-overflow-auto" id="rankingQuestion" required></textarea>
+            <textarea class="uk-height-small uk-textarea uk-overflow-auto" id="rankingQuestion" v-model="text" required></textarea>
             <div class="uk-margin-top">
                 <div v-if="rankingAnswers.length>0" class="uk-form-label"> {{phrasesText}} </div>
                 <div v-for="(rankingAnswer, rankingIndex) in rankingAnswers" class="uk-flex align-items-center uk-margin">
@@ -249,7 +250,7 @@
                 <button class="uk-button uk-button-grey uk-margin-top uk-width" @click="addRankingQuestion"> {{saveText}} </button>
             </div>
         </div>
-        <div v-if="questionType=='matching'" class="uk-margin-top">
+        <div v-if="questionType=='match'" class="uk-margin-top">
             <div class="uk-form-label"> {{questionImageText}} </div>
             <div>
                 <div class="uk-background-center-center uk-background-cover uk-height" id="matchingQuestionImgPreview"></div>
@@ -259,7 +260,7 @@
                 <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
             </div>
             <div class="uk-form-label"> {{questionText}} </div>
-            <textarea class="uk-height-small uk-textarea uk-overflow-auto" id="matchingQuestion" required></textarea>
+            <textarea class="uk-height-small uk-textarea uk-overflow-auto" id="matchingQuestion" v-model="text" required></textarea>
             <div>
                 <div class="uk-form-label"> {{answerTypeText}} </div>
                 <select v-model="matchingAnswerType"  class="uk-width uk-select">
@@ -332,6 +333,7 @@
         name: "add-question",
         data(){
             return{
+                text:"",
                 selectedLessonId:"",
                 selectedSubjectId:"",
                 questionLevel:"",
@@ -530,6 +532,10 @@
             rankText:{
                 type:String,
                 default:"Sıra"
+            },
+            questionId:{
+                type:String,
+                required:true,
             }
         },
         computed:{
@@ -537,6 +543,13 @@
                 'courseSubjects',
                 'plLessonType'
             ]),
+            url(){
+                if(this.questionId!=''){
+                    return '/api/questionSource/create'
+                }else{
+                    return '/api/questionSource/update/'+this.questionId
+                }
+            }
         },
         methods:{
             ...mapActions([
@@ -576,7 +589,7 @@
                     console.log(pair[1]);
                 }
                 console.log(this.singleAnswers);
-                Axios.post('/api/questionSource/create', formData, {
+                Axios.post(this.url, formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
                     .then(response=>{
@@ -613,7 +626,7 @@
                     console.log(pair[1]);
                 }
                 console.log(this.singleAnswersImg);
-                Axios.post('/api/questionSource/create', formData, {
+                Axios.post(this.url, formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
                     .then(response=>{
@@ -645,7 +658,7 @@
                     console.log(pair[1]);
                 }
                 console.log(this.multiAnswers);
-                Axios.post('/api/questionSource/create', formData, {
+                Axios.post(this.url, formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
                     .then(response=>{
@@ -678,7 +691,7 @@
                     console.log(pair[1]);
                 }
                 console.log(this.multiAnswersImg);
-                Axios.post('/api/questionSource/create', formData, {
+                Axios.post(this.url, formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
                     .then(response=>{
@@ -710,7 +723,7 @@
                     console.log(pair[1]);
                 }
                 console.log(this.blanks);
-                Axios.post('/api/questionSource/create', formData, {
+                Axios.post(this.url, formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
                     .then(response=>{
@@ -735,7 +748,7 @@
                 formData.append('crSubjectId', this.selectedSubjectId);
                 formData.append('instructorId', this.instructorId);
                 formData.append('type', 'trueFalse');
-                Axios.post('/api/questionSource/create', formData, {
+                Axios.post(this.url, formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
                     .then(response=>{
@@ -764,7 +777,7 @@
                     formData.append("answers["+i+"]['second']", this.matchingAnswers[i].second);
                     formData.append("answers["+i+"]['type']", this.matchingAnswers[i].type);
                 }
-                Axios.post('/api/questionSource/create', formData, {
+                Axios.post(this.url, formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
                     .then(response=>{
@@ -793,7 +806,7 @@
                     formData.append("answers["+i+"]['second']", this.matchingAnswersImg[i].second);
                     formData.append("answers["+i+"]['type']", this.matchingAnswersImg[i].type);
                 }
-                Axios.post('/api/questionSource/create', formData, {
+                Axios.post(this.url, formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
                     .then(response=>{
@@ -820,7 +833,7 @@
                 for(var i=0; i<this.rankingAnswers.length; i++) {
                     formData.append('content['+i+']', this.rankingAnswers[i].content);
                 }
-                Axios.post('/api/questionSource/create', formData, {
+                Axios.post(this.url, formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
                     .then(response=>{
@@ -861,9 +874,89 @@
                 }
                 this.previewImage(inputId,previewId);
             },
+            loadData:function(data){
+                this.text=data.text;
+                this.selectedLessonId=data.crLessonId;
+                this.$store.dispatch('loadLessonSubjects', data.crLessonId);
+                this.selectedSubjectId=data.crSubjectId;
+                this.questionLevel=data.level;
+                this.questionType=data.type;
+                switch (data.type) {
+                    case 'singleChoice':{
+                        if(data.answers[0].type=='text'){
+                            this.singleAnswerType='withText';
+                            for(var i=0; i<data.answers.length; i++){
+                                if(data.answers[i].isCorrect){
+                                    document.getElementById('singleCorrectAnswer').value=data.answers[i].content;
+                                }else{
+                                    this.singleAnswers.push(data.answers[i]);
+                                }
+                            }
+                        }else{
+                            this.singleAnswerType='withImage';
+                            for(var i=0; i<data.answers.length; i++){
+                                if(data.answers[i].isCorrect){
+
+                                }else{
+                                    this.singleAnswersImg.push(data.answers[i]);
+                                }
+                            }
+                        }
+                        break;
+                    }
+                    case 'multiChoice':{
+                        if(data.answers[0].type=='text'){
+                            this.multiAnswerType='withText';
+                            for(var i=0; i<data.answers.length; i++){
+                                this.multiAnswers.push(data.answers[i]);
+                            }
+                        }else{
+                            this.multiAnswerType='withImage';
+                            for(var i=0; i<data.answers.length; i++){
+                                this.multiAnswersImg.push(data.answers[i]);
+                            }
+                        }
+                        break;
+                    }
+                    case 'fillBlank':{
+                        this.blanks=data.answers;
+                        break;
+                    }
+                    case 'trueFalse':{
+                        this.isCorrect= data.answers[0].content;
+                        document.getElementsByName("isCorrect").value=data.answers[0].content;
+                        break;
+                    }
+                    case 'match':{
+                        if(data.answers[0].type=='text'){
+                            this.matchingAnswerType='withText';
+                            for(var i=0; i<data.answers.length; i++){
+                                this.matchingAnswers.push({first:data.answers[i].content, second:data.answers[i].answer, type:data.answers[i].type});
+                            }
+
+                        }else{
+                            this.matchingAnswerType='withImage';
+                            for(var i=0; i<data.answers.length; i++){
+                                this.matchingAnswers.push({first:data.answers[i].content, second:data.answers[i].answer, type:data.answers[i].type});
+                            }
+                        }
+                        break;
+                    }
+                    case 'order':{
+                        for(var i=0; i<data.answers.length; i++){
+                            this.rankingAnswers[data.answers.no]=data.answers[i];
+                        }
+                        break;
+                    }
+                }
+            },
         },
         created() {
             this.$store.dispatch('loadPlLessonType');
+            if(this.questionId!=''){
+                Axios.get('/api/questionSource/getQuestion/'+this.questionId)
+                    .then(response=>this.loadData(response.data.data))
+            }
         }
     }
 </script>

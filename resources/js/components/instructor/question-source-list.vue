@@ -72,7 +72,7 @@
                     .then(this.$store.dispatch('loadQuestionSource', this.userId));
             },
             editPageRoute:function (questionId) {
-                window.location.replace('/questionSource/'+questionId)
+                window.location.replace('/questionSource/update/'+questionId)
             }
         },
         created() {

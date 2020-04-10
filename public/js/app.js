@@ -6647,12 +6647,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "add-question",
   data: function data() {
     return {
+      text: "",
       selectedLessonId: "",
       selectedSubjectId: "",
       questionLevel: "",
@@ -6851,9 +6853,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     rankText: {
       type: String,
       "default": "Sıra"
+    },
+    questionId: {
+      type: String,
+      required: true
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['courseSubjects', 'plLessonType'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['courseSubjects', 'plLessonType']), {
+    url: function url() {
+      if (this.questionId != '') {
+        return '/api/questionSource/create';
+      } else {
+        return '/api/questionSource/update/' + this.questionId;
+      }
+    }
+  }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadLessonSubjects', 'loadPlLessonType']), {
     previewImage: function previewImage(inputId, previewId) {
       var input = document.getElementById(inputId);
@@ -6919,7 +6933,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       console.log(this.singleAnswers);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -6993,7 +7007,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       console.log(this.singleAnswersImg);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -7059,7 +7073,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       console.log(this.multiAnswers);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -7126,7 +7140,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       console.log(this.multiAnswersImg);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -7192,7 +7206,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       console.log(this.blanks);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -7228,7 +7242,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('crSubjectId', this.selectedSubjectId);
       formData.append('instructorId', this.instructorId);
       formData.append('type', 'trueFalse');
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -7270,7 +7284,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         formData.append("answers[" + i + "]['type']", this.matchingAnswers[i].type);
       }
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -7312,7 +7326,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         formData.append("answers[" + i + "]['type']", this.matchingAnswersImg[i].type);
       }
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -7352,7 +7366,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         formData.append('content[' + i + ']', this.rankingAnswers[i].content);
       }
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/questionSource/create', formData, {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
@@ -7410,10 +7424,121 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       this.previewImage(inputId, previewId);
+    },
+    loadData: function loadData(data) {
+      this.text = data.text;
+      this.selectedLessonId = data.crLessonId;
+      this.$store.dispatch('loadLessonSubjects', data.crLessonId);
+      this.selectedSubjectId = data.crSubjectId;
+      this.questionLevel = data.level;
+      this.questionType = data.type;
+
+      switch (data.type) {
+        case 'singleChoice':
+          {
+            if (data.answers[0].type == 'text') {
+              this.singleAnswerType = 'withText';
+
+              for (var i = 0; i < data.answers.length; i++) {
+                if (data.answers[i].isCorrect) {
+                  document.getElementById('singleCorrectAnswer').value = data.answers[i].content;
+                } else {
+                  this.singleAnswers.push(data.answers[i]);
+                }
+              }
+            } else {
+              this.singleAnswerType = 'withImage';
+
+              for (var i = 0; i < data.answers.length; i++) {
+                if (data.answers[i].isCorrect) {} else {
+                  this.singleAnswersImg.push(data.answers[i]);
+                }
+              }
+            }
+
+            break;
+          }
+
+        case 'multiChoice':
+          {
+            if (data.answers[0].type == 'text') {
+              this.multiAnswerType = 'withText';
+
+              for (var i = 0; i < data.answers.length; i++) {
+                this.multiAnswers.push(data.answers[i]);
+              }
+            } else {
+              this.multiAnswerType = 'withImage';
+
+              for (var i = 0; i < data.answers.length; i++) {
+                this.multiAnswersImg.push(data.answers[i]);
+              }
+            }
+
+            break;
+          }
+
+        case 'fillBlank':
+          {
+            this.blanks = data.answers;
+            break;
+          }
+
+        case 'trueFalse':
+          {
+            this.isCorrect = data.answers[0].content;
+            document.getElementsByName("isCorrect").value = data.answers[0].content;
+            break;
+          }
+
+        case 'match':
+          {
+            if (data.answers[0].type == 'text') {
+              this.matchingAnswerType = 'withText';
+
+              for (var i = 0; i < data.answers.length; i++) {
+                this.matchingAnswers.push({
+                  first: data.answers[i].content,
+                  second: data.answers[i].answer,
+                  type: data.answers[i].type
+                });
+              }
+            } else {
+              this.matchingAnswerType = 'withImage';
+
+              for (var i = 0; i < data.answers.length; i++) {
+                this.matchingAnswers.push({
+                  first: data.answers[i].content,
+                  second: data.answers[i].answer,
+                  type: data.answers[i].type
+                });
+              }
+            }
+
+            break;
+          }
+
+        case 'order':
+          {
+            for (var i = 0; i < data.answers.length; i++) {
+              this.rankingAnswers[data.answers.no] = data.answers[i];
+            }
+
+            break;
+          }
+      }
     }
   }),
   created: function created() {
+    var _this = this;
+
     this.$store.dispatch('loadPlLessonType');
+
+    if (this.questionId != '') {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/questionSource/getQuestion/' + this.questionId).then(function (response) {
+        return _this.loadData(response.data.data);
+      });
+    }
   }
 });
 
@@ -8572,7 +8697,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/questionSource/delete/' + questionId).then(this.$store.dispatch('loadQuestionSource', this.userId));
     },
     editPageRoute: function editPageRoute(questionId) {
-      window.location.replace('/questionSource/' + questionId);
+      window.location.replace('/questionSource/update/' + questionId);
     }
   }),
   created: function created() {
@@ -17728,7 +17853,7 @@ var render = function() {
           _vm._v(_vm._s(_vm.multiChoiceText))
         ]),
         _vm._v(" "),
-        _c("option", { attrs: { value: "fillInTheBlank" } }, [
+        _c("option", { attrs: { value: "fillBlank" } }, [
           _vm._v(_vm._s(_vm.fillBlankText))
         ]),
         _vm._v(" "),
@@ -17736,11 +17861,11 @@ var render = function() {
           _vm._v(_vm._s(_vm.trueFalseText))
         ]),
         _vm._v(" "),
-        _c("option", { attrs: { value: "matching" } }, [
+        _c("option", { attrs: { value: "match" } }, [
           _vm._v(_vm._s(_vm.matchingText))
         ]),
         _vm._v(" "),
-        _c("option", { attrs: { value: "ranking" } }, [
+        _c("option", { attrs: { value: "order" } }, [
           _vm._v(_vm._s(_vm.rankingText))
         ])
       ]
@@ -17795,10 +17920,27 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.text,
+                expression: "text"
+              }
+            ],
             staticClass: "uk-height-small uk-textarea uk-overflow-auto",
-            attrs: { id: "singleQuestion", required: "" }
+            attrs: { id: "singleQuestion", required: "" },
+            domProps: { value: _vm.text },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.text = $event.target.value
+              }
+            }
           }),
-          _vm._v(" "),
+          _vm._v("\n        " + _vm._s(_vm.text) + "\n        "),
           _c("div", [
             _c("div", { staticClass: "uk-form-label" }, [
               _vm._v(" " + _vm._s(_vm.answerTypeText) + " ")
@@ -18195,8 +18337,25 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.text,
+                expression: "text"
+              }
+            ],
             staticClass: "uk-height-small uk-textarea uk-overflow-auto",
-            attrs: { id: "multiQuestion", required: "" }
+            attrs: { id: "multiQuestion", required: "" },
+            domProps: { value: _vm.text },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.text = $event.target.value
+              }
+            }
           }),
           _vm._v(" "),
           _c("div", [
@@ -18235,9 +18394,7 @@ var render = function() {
               [
                 _c(
                   "option",
-                  {
-                    attrs: { value: "", hidden: "", disabled: "", selected: "" }
-                  },
+                  { attrs: { value: "", hidden: "", disabled: "" } },
                   [_vm._v(_vm._s(_vm.chooseAnswerTypeText))]
                 ),
                 _vm._v(" "),
@@ -18591,7 +18748,7 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _vm.questionType == "fillInTheBlank"
+    _vm.questionType == "fillBlank"
       ? _c("div", { staticClass: "uk-margin-top" }, [
           _c("div", { staticClass: "uk-form-label" }, [
             _vm._v(" " + _vm._s(_vm.questionImageText) + " ")
@@ -18814,8 +18971,25 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.text,
+                    expression: "text"
+                  }
+                ],
                 staticClass: "uk-height uk-textarea uk-overflow-auto",
-                attrs: { id: "trueFalseQuestion", required: "" }
+                attrs: { id: "trueFalseQuestion", required: "" },
+                domProps: { value: _vm.text },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.text = $event.target.value
+                  }
+                }
               })
             ]),
             _vm._v(" "),
@@ -18830,7 +19004,12 @@ var render = function() {
                   _c("div", { staticClass: "uk-flex align-items-center" }, [
                     _c("input", {
                       staticClass: "uk-radio uk-margin-remove",
-                      attrs: { type: "radio", name: "isCorrect", checked: "" },
+                      attrs: {
+                        type: "radio",
+                        name: "isCorrect",
+                        value: "1",
+                        checked: ""
+                      },
                       on: {
                         click: function($event) {
                           _vm.isCorrect = 1
@@ -18851,7 +19030,7 @@ var render = function() {
                   _c("div", { staticClass: "uk-flex align-items-center" }, [
                     _c("input", {
                       staticClass: "uk-radio uk-margin-remove",
-                      attrs: { type: "radio", name: "isCorrect" },
+                      attrs: { type: "radio", name: "isCorrect", value: "0" },
                       on: {
                         click: function($event) {
                           _vm.isCorrect = 0
@@ -18884,7 +19063,7 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _vm.questionType == "ranking"
+    _vm.questionType == "order"
       ? _c("div", { staticClass: "uk-margin-top" }, [
           _c("div", { staticClass: "uk-form-label" }, [
             _vm._v(" " + _vm._s(_vm.questionImageText) + " ")
@@ -18933,8 +19112,25 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.text,
+                expression: "text"
+              }
+            ],
             staticClass: "uk-height-small uk-textarea uk-overflow-auto",
-            attrs: { id: "rankingQuestion", required: "" }
+            attrs: { id: "rankingQuestion", required: "" },
+            domProps: { value: _vm.text },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.text = $event.target.value
+              }
+            }
           }),
           _vm._v(" "),
           _c(
@@ -19043,7 +19239,7 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _vm.questionType == "matching"
+    _vm.questionType == "match"
       ? _c("div", { staticClass: "uk-margin-top" }, [
           _c("div", { staticClass: "uk-form-label" }, [
             _vm._v(" " + _vm._s(_vm.questionImageText) + " ")
@@ -19092,8 +19288,25 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("textarea", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.text,
+                expression: "text"
+              }
+            ],
             staticClass: "uk-height-small uk-textarea uk-overflow-auto",
-            attrs: { id: "matchingQuestion", required: "" }
+            attrs: { id: "matchingQuestion", required: "" },
+            domProps: { value: _vm.text },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.text = $event.target.value
+              }
+            }
           }),
           _vm._v(" "),
           _c("div", [

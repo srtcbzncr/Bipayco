@@ -6,6 +6,7 @@
                 <a href="{{route('questionSource_show')}}" class="uk-margin-remove"><i class="fas fa-arrow-alt-circle-left"></i> @lang('front/auth.back')</a>
                 <h4 class="uk-margin-medium-top">@lang('front/auth.create_new_question')</h4>
             </div>
+
             <div class="uk-card-body uk-padding-medium">
                 <add-question
                     instructor-id="{{Auth::user()->instructor->id}}"
@@ -16,6 +17,7 @@
                     multi-choice-text="@lang('front/auth.multi_choice')"
                     fill-blank-text="@lang('front/auth.fill_in_the_blank')"
                     question-source-route="{{route('questionSource_show')}}"
+                    question-id="{{$questionId ?? ''}}"
                 > </add-question>
             </div>
         </div>
