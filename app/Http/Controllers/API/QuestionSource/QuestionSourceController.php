@@ -89,22 +89,23 @@ class QuestionSourceController extends Controller
         ],400);
     }
 
-    public function update($id){
+    public function update($id,Request $request){
         // Initializing
         $repo = new QuestionSourceRepository();
+        $data = $request->toArray();
 
         // Operations
-        $resp = $repo->getQuestion($id);
+        $resp = $repo->update($id,$data);
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'message' => 'Soru başarıyla silindi.',
+                'message' => 'Soru başarıyla güncellendi.',
                 'data' => $resp->getData()
             ]);
         }
         return response()->json([
             'error' => true,
-            'message' => 'Soru silinirken hata meydana geldi.Tekrar deneyin',
+            'message' => 'Soru güncellenirken hata meydana geldi.Tekrar deneyin',
         ],400);
     }
 }
