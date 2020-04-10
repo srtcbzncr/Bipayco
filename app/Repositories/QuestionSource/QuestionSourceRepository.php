@@ -70,6 +70,18 @@ class QuestionSourceRepository implements IRepository
         // Operations
         try{
             $question = Question::find($id);
+            if($question->type == 'App\Models\QuestionSource\SingleChoice')
+                $object['type'] = "singleChoice";
+            else if($question->type == 'App\Models\QuestionSource\GapFilling')
+                $object['type'] = "fillBlank";
+            else if($question->type == 'App\Models\QuestionSource\Match')
+                $object['type'] = "match";
+            else if($question->type == 'App\Models\QuestionSource\MultiChoice')
+                $object['type'] = "multiChoice";
+            else if($question->type == 'App\Models\QuestionSource\order')
+                $object['type'] = "order";
+            else if($question->type == 'App\Models\QuestionSource\TrueFalse')
+                $object['type'] = "trueFalse";
             $object = $question;
         }
         catch(\Exception $e){
