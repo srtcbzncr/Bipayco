@@ -908,12 +908,12 @@
                         if(data.answers[0].type=='text'){
                             this.multiAnswerType='withText';
                             for(var i=0; i<data.answers.length; i++){
-                                this.multiAnswers.push(data.answers[i]);
+                                this.multiAnswers.push({content: data.answers[i].content, isCorrect:data.answers[i].isTrue, type:data.answers[i].type});
                             }
                         }else{
                             this.multiAnswerType='withImage';
                             for(var i=0; i<data.answers.length; i++){
-                                this.multiAnswersImg.push(data.answers[i]);
+                                this.multiAnswersImg.push({content: data.answers[i].content, isCorrect:data.answers[i].isTrue, type:data.answers[i].type});
                             }
                         }
                         break;
