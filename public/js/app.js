@@ -7521,7 +7521,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         case 'order':
           {
             for (var i = 0; i < data.answers.length; i++) {
-              this.rankingAnswers[data.answers.no] = data.answers[i];
+              this.rankingAnswers = data.answers;
             }
 
             break;
