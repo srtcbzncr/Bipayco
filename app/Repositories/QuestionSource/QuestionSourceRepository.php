@@ -91,29 +91,27 @@ class QuestionSourceRepository implements IRepository
             if($question->type == 'App\Models\QuestionSource\SingleChoice'){
                 $question['type'] = "singleChoice";
                 $answers = SingleChoice::where('questionId',$id)->get();
-                $newAns = array();
                 foreach ($answers as $key=> $answer){
                     $content = $this->OzelKarakterTemizle($answer['content']);
                     $type = $this->OzelKarakterTemizle($answer['type']);
-                    $newAns[$key]['content'] = $content;
-                    $newAns[$key]['type'] = $type;
+                    $answers[$key]['content'] = $content;
+                    $answers[$key]['type'] = $type;
                 }
-                $question['answers'] = $newAns;
+                $question['answers'] = $answers;
             }
             else if($question->type == 'App\Models\QuestionSource\GapFilling'){
                 $question['type'] = "fillBlank";
                 $answers = GapFilling::where('questionId',$id)->get();
-                $newAns = array();
                 foreach ($answers as $key=> $answer){
                     $a=explode(":",explode(",",$answer['content'])[0])[1];
                     $b=explode(":",explode(",",$answer['content'])[1])[1];
                     $a=$this->OzelKarakterTemizle($a);
                     $b=$this->OzelKarakterTemizle($b);
 
-                    $newAns[$key]['answer'] = $a;
-                    $newAns[$key]['after'] = $b;
+                    $answers[$key]['answer'] = $a;
+                    $answers[$key]['after'] = $b;
                 }
-                $question['answers'] = $newAns;
+                $question['answers'] = $answers;
             }
             else if($question->type == 'App\Models\QuestionSource\Match'){
                 $question['type'] = "match";
@@ -123,14 +121,13 @@ class QuestionSourceRepository implements IRepository
             else if($question->type == 'App\Models\QuestionSource\MultiChoice') {
                 $question['type'] = "multiChoice";
                 $answers = MultiChoice::where('questionId',$id)->get();
-                $newAns = array();
                 foreach ($answers as $key=> $answer){
                     $content = $this->OzelKarakterTemizle($answer['content']);
                     $type = $this->OzelKarakterTemizle($answer['type']);
-                    $newAns[$key]['content'] = $content;
-                    $newAns[$key]['type'] = $type;
+                    $answers[$key]['content'] = $content;
+                    $answers[$key]['type'] = $type;
                 }
-                $question['answers'] = $newAns;
+                $question['answers'] = $answers;
             }
             else if($question->type == 'App\Models\QuestionSource\Order'){
                 $question['type'] = "order";
