@@ -91,7 +91,14 @@ class QuestionSourceRepository implements IRepository
             if($question->type == 'App\Models\QuestionSource\SingleChoice'){
                 $question['type'] = "singleChoice";
                 $answers = SingleChoice::where('questionId',$id)->get();
-                $question['answers'] = $answers;
+                $newAns = array();
+                foreach ($answers as $key=> $answer){
+                    $content = $this->OzelKarakterTemizle($answer['content']);
+                    $type = $this->OzelKarakterTemizle($answer['type']);
+                    $newAns[$key]['content'] = $content;
+                    $newAns[$key]['type'] = $type;
+                }
+                $question['answers'] = $newAns;
             }
             else if($question->type == 'App\Models\QuestionSource\GapFilling'){
                 $question['type'] = "fillBlank";
@@ -116,7 +123,14 @@ class QuestionSourceRepository implements IRepository
             else if($question->type == 'App\Models\QuestionSource\MultiChoice') {
                 $question['type'] = "multiChoice";
                 $answers = MultiChoice::where('questionId',$id)->get();
-                $question['answers'] = $answers;
+                $newAns = array();
+                foreach ($answers as $key=> $answer){
+                    $content = $this->OzelKarakterTemizle($answer['content']);
+                    $type = $this->OzelKarakterTemizle($answer['type']);
+                    $newAns[$key]['content'] = $content;
+                    $newAns[$key]['type'] = $type;
+                }
+                $question['answers'] = $newAns;
             }
             else if($question->type == 'App\Models\QuestionSource\Order'){
                 $question['type'] = "order";
