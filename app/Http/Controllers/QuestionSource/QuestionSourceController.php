@@ -14,4 +14,8 @@ class QuestionSourceController extends Controller
     public function createGet(){
         return view('instructor.question_source_create');
     }
+
+    public function updateGet($questionId){
+        return view('instructor.question_source_create')->with('questionId',$questionId);
+    }
 }
