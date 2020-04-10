@@ -70,18 +70,37 @@ class QuestionSourceRepository implements IRepository
         // Operations
         try{
             $question = Question::find($id);
-            if($question->type == 'App\Models\QuestionSource\SingleChoice')
+            if($question->type == 'App\Models\QuestionSource\SingleChoice'){
                 $question['type'] = "singleChoice";
-            else if($question->type == 'App\Models\QuestionSource\GapFilling')
+                $answers = SingleChoice::where('questionId',$id)->get();
+                $question['answers'] = $answers;
+            }
+            else if($question->type == 'App\Models\QuestionSource\GapFilling'){
                 $question['type'] = "fillBlank";
-            else if($question->type == 'App\Models\QuestionSource\Match')
+                $answers = GapFilling::where('questionId',$id)->get();
+                $question['answers'] = $answers;
+            }
+            else if($question->type == 'App\Models\QuestionSource\Match'){
                 $question['type'] = "match";
-            else if($question->type == 'App\Models\QuestionSource\MultiChoice')
+                $answers = Match::where('questionId',$id)->get();
+                $question['answers'] = $answers;
+            }
+            else if($question->type == 'App\Models\QuestionSource\MultiChoice') {
                 $question['type'] = "multiChoice";
-            else if($question->type == 'App\Models\QuestionSource\order')
+                $answers = MultiChoice::where('questionId',$id)->get();
+                $question['answers'] = $answers;
+            }
+            else if($question->type == 'App\Models\QuestionSource\Order'){
                 $question['type'] = "order";
-            else if($question->type == 'App\Models\QuestionSource\TrueFalse')
+                $answers = Order::where('questionId',$id)->get();
+                $question['answers'] = $answers;
+            }
+            else if($question->type == 'App\Models\QuestionSource\TrueFalse'){
                 $question['type'] = "trueFalse";
+                $answers = TrueFalse::where('questionId',$id)->get();
+                $question['answers'] = $answers;
+            }
+
             $object = $question;
         }
         catch(\Exception $e){
