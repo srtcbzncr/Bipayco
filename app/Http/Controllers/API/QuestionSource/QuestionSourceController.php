@@ -93,7 +93,6 @@ class QuestionSourceController extends Controller
         // Initializing
         $repo = new QuestionSourceRepository();
         $data = $request->toArray();
-
         // Operations
         $resp = $repo->update($id,$data);
         if($resp->getResult()){
@@ -106,6 +105,7 @@ class QuestionSourceController extends Controller
         return response()->json([
             'error' => true,
             'message' => 'Soru güncellenirken hata meydana geldi.Tekrar deneyin',
+            'errorMessage' => $resp->getError()
         ],400);
     }
 }
