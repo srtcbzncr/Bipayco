@@ -46,7 +46,6 @@
             </div>
             <div class="uk-form-label"> {{questionText}} </div>
             <textarea class="uk-height-small uk-textarea uk-overflow-auto" id="singleQuestion" v-model="text" required></textarea>
-            {{text}}
             <div >
                 <div class="uk-form-label"> {{answerTypeText}} </div>
                 <select v-model="singleAnswerType"  class="uk-width uk-select">
@@ -72,7 +71,8 @@
                             <div class="uk-width">
                                 <div>
                                     <input type="text" value=""  hidden disabled>
-                                    <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'singleAnswerImgPreview'+singleIndex" :style="{'background-image': 'url('+ singleAnswer.content+')'}"></div>
+                                    <div v-if="singleAnswer.content!=''" class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'singleAnswerImgPreview'+singleIndex" :style="{'background-image': 'url('+ singleAnswer.content+')'}"></div>
+                                    <div v-else class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'singleAnswerImgPreview'+singleIndex" :style="{'background-image': 'url('+ defaultImagePatht+')'}"></div>
                                 </div>
                                 <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                                     <input name="image" type="file" accept="image/*" :id="'singleAnswerImg'+singleIndex" @change="pushImage('singleQuestion', singleIndex,'singleAnswerImg'+singleIndex,'singleAnswerImgPreview'+singleIndex)">
@@ -130,7 +130,8 @@
                             </div>
                             <div class="uk-width">
                                 <div>
-                                    <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'multiAnswerImgPreview'+multiIndex" :style="{'background-image': 'url('+ multiAnswer.content+')'}"></div>
+                                    <div v-if="multiAnswer.content!=''" class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'multiAnswerImgPreview'+multiIndex" :style="{'background-image': 'url('+ multiAnswer.content+')'}"></div>
+                                    <div v-else class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'multiAnswerImgPreview'+multiIndex" :style="{'background-image': 'url('+ defaultImagePath+')'}"></div>
                                 </div>
                                 <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                                     <input name="image" type="file" accept="image/*" :id="'multiAnswerImg'+multiIndex" @change="pushImage('multiQuestion', multiIndex,'multiAnswerImg'+multiIndex,'multiAnswerImgPreview'+multiIndex)">
@@ -276,7 +277,8 @@
                                 <div class="">
                                     <div class="uk-form-label">{{firstPhraseText}}</div>
                                     <div>
-                                        <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'matchingAnswerFirstImgPreview'+matchingIndex" :style="{'background-image': 'url('+ matchingAnswer.first+')'}"></div>
+                                        <div v-if="matchingAnswer.first!=''" class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'matchingAnswerFirstImgPreview'+matchingIndex" :style="{'background-image': 'url('+ matchingAnswer.first+')'}"></div>
+                                        <div v-else class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'matchingAnswerFirstImgPreview'+matchingIndex" :style="{'background-image': 'url('+defaultImagePath+')'}"></div>
                                     </div>
                                     <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                                         <input name="image" type="file" accept="image/*" :id="'matchingAnswerFirstImg'+matchingIndex" @change="pushImage('matchingQuestionFirst', matchingIndex,'matchingAnswerFirstImg'+matchingIndex,'matchingAnswerFirstImgPreview'+matchingIndex)">
@@ -286,7 +288,8 @@
                                 <div class="">
                                     <div class="uk-form-label">{{secondPhraseText}}</div>
                                     <div>
-                                        <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'matchingAnswerSecondImgPreview'+matchingIndex" :style="{'background-image': 'url('+ matchingAnswer.second+')'}"></div>
+                                        <div v-if="matchingAnswer.second!=''" class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'matchingAnswerSecondImgPreview'+matchingIndex" :style="{'background-image': 'url('+ matchingAnswer.second+')'}"></div>
+                                        <div v-else class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'matchingAnswerFirstImgPreview'+matchingIndex" :style="{'background-image': 'url('+defaultImagePath+')'}"></div>
                                     </div>
                                     <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                                         <input name="image" type="file" accept="image/*" :id="'matchingAnswerSecondImg'+matchingIndex" @change="pushImage('matchingQuestionSecond', matchingIndex,'matchingAnswerSecondImg'+matchingIndex,'matchingAnswerSecondImgPreview'+matchingIndex)">
@@ -350,8 +353,8 @@
                 matchingAnswers:[],
                 matchingAnswersImg:[],
                 matchingAnswerType:"",
-                imgUrl:null,
-                correctAnswerImage:null,
+                imgUrl:"",
+                correctAnswerImage:"",
             }
         },
         props:{
@@ -588,12 +591,13 @@
                 }
             },
             addSingleChoiceTextQuestion:function () {
+                console.log(this.imgUrl);
                 var i;
                 var formData=new FormData();
                 var image=document.querySelector('#singleQuestionImg');
-                if(image.files!=undefined){
+                if(image.files && image.files[0]){
                     formData.append('imgUrl', image.files[0]);
-                }else{
+                }else if(this.imgUrl!=null && this.imgUrl!="" && this.imgUrl!=undefined){
                     formData.append('imgUrl', this.imgUrl);
                 }
                 formData.append('level', this.questionLevel);
@@ -628,9 +632,9 @@
                 var i;
                 var formData=new FormData();
                 var image=document.querySelector('#singleQuestionImg');
-                if(image.files!=undefined){
+                if(image.files && image.files[0]){
                     formData.append('imgUrl', image.files[0]);
-                }else{
+                }else if(this.imgUrl!=null && this.imgUrl!="" && this.imgUrl!=undefined){
                     formData.append('imgUrl', this.imgUrl);
                 }
                 formData.append('level', this.questionLevel);
@@ -670,9 +674,9 @@
             addMultiChoiceTextQuestion:function () {
                 var formData=new FormData();
                 var image=document.querySelector('#multiQuestionImg');
-                if(image.files!=undefined){
+                if(image.files && image.files[0]){
                     formData.append('imgUrl', image.files[0]);
-                }else{
+                }else if(this.imgUrl!=null && this.imgUrl!="" && this.imgUrl!=undefined){
                     formData.append('imgUrl', this.imgUrl);
                 }
                 formData.append('level', this.questionLevel);
@@ -704,9 +708,9 @@
             addMultiChoiceImgQuestion:function () {
                 var formData=new FormData();
                 var image=document.querySelector('#multiQuestionImg');
-                if(image.files!=undefined){
+                if(image.files && image.files[0]){
                     formData.append('imgUrl', image.files[0]);
-                }else{
+                }else if(this.imgUrl!=null && this.imgUrl!="" && this.imgUrl!=undefined){
                     formData.append('imgUrl', this.imgUrl);
                 }
                 formData.append('level', this.questionLevel);
@@ -741,9 +745,9 @@
                 var formData=new FormData();
                 formData.append('level', this.questionLevel);
                 formData.append('beginningOfSentence', document.getElementById('blankQuestion').value);
-                if(image.files[0]!=undefined){
+                if(image.files && image.files[0]){
                     formData.append('imgUrl', image.files[0]);
-                }else{
+                }else if(this.imgUrl!=null && this.imgUrl!="" && this.imgUrl!=undefined){
                     formData.append('imgUrl', this.imgUrl);
                 }
                 formData.append('crLessonId', this.selectedLessonId);
@@ -773,9 +777,9 @@
             addTrueFalseQuestion:function(){
                 var formData=new FormData();
                 var image=document.querySelector('#trueFalseImg');
-                if(image.files!=undefined){
+                if(image.files && image.files[0]){
                     formData.append('imgUrl', image.files[0]);
-                }else{
+                }else if(this.imgUrl!=null && this.imgUrl!="" && this.imgUrl!=undefined){
                     formData.append('imgUrl', this.imgUrl);
                 }
                 formData.append('level', this.questionLevel);
@@ -801,9 +805,9 @@
                 var formData=new FormData();
                 formData.append('level', this.questionLevel);
                 var image=document.querySelector('#matchingQuestionImg');
-                if(image.files!=undefined){
+                if(image.files && image.files[0]){
                     formData.append('imgUrl', image.files[0]);
-                }else{
+                }else if(this.imgUrl!=null && this.imgUrl!="" && this.imgUrl!=undefined){
                     formData.append('imgUrl', this.imgUrl);
                 }
                 formData.append('text', document.getElementById('matchingQuestion').value);
@@ -833,9 +837,9 @@
                 formData.append('level', this.questionLevel);
                 formData.append('text', document.getElementById('matchingQuestion').value);
                 var image=document.querySelector('#matchingQuestionImg');
-                if(image.files!=undefined){
+                if(image.files && image.files[0]){
                     formData.append('imgUrl', image.files[0]);
-                }else{
+                }else if(this.imgUrl!=null && this.imgUrl!="" && this.imgUrl!=undefined){
                     formData.append('imgUrl', this.imgUrl);
                 }
                 formData.append('crLessonId', this.selectedLessonId);
@@ -864,9 +868,9 @@
                 formData.append('level', this.questionLevel);
                 formData.append('text', document.getElementById('rankingQuestion').value);
                 var image=document.querySelector('#rankingQuestionImg');
-                if(image.files!=undefined){
+                if(image.files && image.files[0]){
                     formData.append('imgUrl', image.files[0]);
-                }else{
+                }else if(this.imgUrl!=null && this.imgUrl!="" && this.imgUrl!=undefined){
                     formData.append('imgUrl', this.imgUrl);
                 }
                 formData.append('crLessonId', this.selectedLessonId);

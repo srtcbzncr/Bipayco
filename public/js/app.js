@@ -6648,6 +6648,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6671,8 +6674,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       matchingAnswers: [],
       matchingAnswersImg: [],
       matchingAnswerType: "",
-      imgUrl: null,
-      correctAnswerImage: null
+      imgUrl: "",
+      correctAnswerImage: ""
     };
   },
   props: {
@@ -6903,13 +6906,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     addSingleChoiceTextQuestion: function addSingleChoiceTextQuestion() {
+      console.log(this.imgUrl);
       var i;
       var formData = new FormData();
       var image = document.querySelector('#singleQuestionImg');
 
-      if (image.files != undefined) {
+      if (image.files && image.files[0]) {
         formData.append('imgUrl', image.files[0]);
-      } else {
+      } else if (this.imgUrl != null && this.imgUrl != "" && this.imgUrl != undefined) {
         formData.append('imgUrl', this.imgUrl);
       }
 
@@ -6978,9 +6982,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var formData = new FormData();
       var image = document.querySelector('#singleQuestionImg');
 
-      if (image.files != undefined) {
+      if (image.files && image.files[0]) {
         formData.append('imgUrl', image.files[0]);
-      } else {
+      } else if (this.imgUrl != null && this.imgUrl != "" && this.imgUrl != undefined) {
         formData.append('imgUrl', this.imgUrl);
       }
 
@@ -7060,9 +7064,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var formData = new FormData();
       var image = document.querySelector('#multiQuestionImg');
 
-      if (image.files != undefined) {
+      if (image.files && image.files[0]) {
         formData.append('imgUrl', image.files[0]);
-      } else {
+      } else if (this.imgUrl != null && this.imgUrl != "" && this.imgUrl != undefined) {
         formData.append('imgUrl', this.imgUrl);
       }
 
@@ -7125,9 +7129,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var formData = new FormData();
       var image = document.querySelector('#multiQuestionImg');
 
-      if (image.files != undefined) {
+      if (image.files && image.files[0]) {
         formData.append('imgUrl', image.files[0]);
-      } else {
+      } else if (this.imgUrl != null && this.imgUrl != "" && this.imgUrl != undefined) {
         formData.append('imgUrl', this.imgUrl);
       }
 
@@ -7193,9 +7197,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('level', this.questionLevel);
       formData.append('beginningOfSentence', document.getElementById('blankQuestion').value);
 
-      if (image.files[0] != undefined) {
+      if (image.files && image.files[0]) {
         formData.append('imgUrl', image.files[0]);
-      } else {
+      } else if (this.imgUrl != null && this.imgUrl != "" && this.imgUrl != undefined) {
         formData.append('imgUrl', this.imgUrl);
       }
 
@@ -7256,9 +7260,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var formData = new FormData();
       var image = document.querySelector('#trueFalseImg');
 
-      if (image.files != undefined) {
+      if (image.files && image.files[0]) {
         formData.append('imgUrl', image.files[0]);
-      } else {
+      } else if (this.imgUrl != null && this.imgUrl != "" && this.imgUrl != undefined) {
         formData.append('imgUrl', this.imgUrl);
       }
 
@@ -7292,9 +7296,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('level', this.questionLevel);
       var image = document.querySelector('#matchingQuestionImg');
 
-      if (image.files != undefined) {
+      if (image.files && image.files[0]) {
         formData.append('imgUrl', image.files[0]);
-      } else {
+      } else if (this.imgUrl != null && this.imgUrl != "" && this.imgUrl != undefined) {
         formData.append('imgUrl', this.imgUrl);
       }
 
@@ -7334,9 +7338,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('text', document.getElementById('matchingQuestion').value);
       var image = document.querySelector('#matchingQuestionImg');
 
-      if (image.files != undefined) {
+      if (image.files && image.files[0]) {
         formData.append('imgUrl', image.files[0]);
-      } else {
+      } else if (this.imgUrl != null && this.imgUrl != "" && this.imgUrl != undefined) {
         formData.append('imgUrl', this.imgUrl);
       }
 
@@ -7375,9 +7379,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('text', document.getElementById('rankingQuestion').value);
       var image = document.querySelector('#rankingQuestionImg');
 
-      if (image.files != undefined) {
+      if (image.files && image.files[0]) {
         formData.append('imgUrl', image.files[0]);
-      } else {
+      } else if (this.imgUrl != null && this.imgUrl != "" && this.imgUrl != undefined) {
         formData.append('imgUrl', this.imgUrl);
       }
 
@@ -17991,7 +17995,7 @@ var render = function() {
               }
             }
           }),
-          _vm._v("\n        " + _vm._s(_vm.text) + "\n        "),
+          _vm._v(" "),
           _c("div", [
             _c("div", { staticClass: "uk-form-label" }, [
               _vm._v(" " + _vm._s(_vm.answerTypeText) + " ")
@@ -18147,17 +18151,31 @@ var render = function() {
                                   }
                                 }),
                                 _vm._v(" "),
-                                _c("div", {
-                                  staticClass:
-                                    "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
-                                  style: {
-                                    "background-image":
-                                      "url(" + singleAnswer.content + ")"
-                                  },
-                                  attrs: {
-                                    id: "singleAnswerImgPreview" + singleIndex
-                                  }
-                                })
+                                singleAnswer.content != ""
+                                  ? _c("div", {
+                                      staticClass:
+                                        "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                      style: {
+                                        "background-image":
+                                          "url(" + singleAnswer.content + ")"
+                                      },
+                                      attrs: {
+                                        id:
+                                          "singleAnswerImgPreview" + singleIndex
+                                      }
+                                    })
+                                  : _c("div", {
+                                      staticClass:
+                                        "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                      style: {
+                                        "background-image":
+                                          "url(" + _vm.defaultImagePatht + ")"
+                                      },
+                                      attrs: {
+                                        id:
+                                          "singleAnswerImgPreview" + singleIndex
+                                      }
+                                    })
                               ]),
                               _vm._v(" "),
                               _c(
@@ -18523,17 +18541,29 @@ var render = function() {
                             _vm._v(" "),
                             _c("div", { staticClass: "uk-width" }, [
                               _c("div", [
-                                _c("div", {
-                                  staticClass:
-                                    "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
-                                  style: {
-                                    "background-image":
-                                      "url(" + multiAnswer.content + ")"
-                                  },
-                                  attrs: {
-                                    id: "multiAnswerImgPreview" + multiIndex
-                                  }
-                                })
+                                multiAnswer.content != ""
+                                  ? _c("div", {
+                                      staticClass:
+                                        "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                      style: {
+                                        "background-image":
+                                          "url(" + multiAnswer.content + ")"
+                                      },
+                                      attrs: {
+                                        id: "multiAnswerImgPreview" + multiIndex
+                                      }
+                                    })
+                                  : _c("div", {
+                                      staticClass:
+                                        "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                      style: {
+                                        "background-image":
+                                          "url(" + _vm.defaultImagePath + ")"
+                                      },
+                                      attrs: {
+                                        id: "multiAnswerImgPreview" + multiIndex
+                                      }
+                                    })
                               ]),
                               _vm._v(" "),
                               _c(
@@ -19506,19 +19536,37 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("div", [
-                                    _c("div", {
-                                      staticClass:
-                                        "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
-                                      style: {
-                                        "background-image":
-                                          "url(" + matchingAnswer.first + ")"
-                                      },
-                                      attrs: {
-                                        id:
-                                          "matchingAnswerFirstImgPreview" +
-                                          matchingIndex
-                                      }
-                                    })
+                                    matchingAnswer.first != ""
+                                      ? _c("div", {
+                                          staticClass:
+                                            "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                          style: {
+                                            "background-image":
+                                              "url(" +
+                                              matchingAnswer.first +
+                                              ")"
+                                          },
+                                          attrs: {
+                                            id:
+                                              "matchingAnswerFirstImgPreview" +
+                                              matchingIndex
+                                          }
+                                        })
+                                      : _c("div", {
+                                          staticClass:
+                                            "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                          style: {
+                                            "background-image":
+                                              "url(" +
+                                              _vm.defaultImagePath +
+                                              ")"
+                                          },
+                                          attrs: {
+                                            id:
+                                              "matchingAnswerFirstImgPreview" +
+                                              matchingIndex
+                                          }
+                                        })
                                   ]),
                                   _vm._v(" "),
                                   _c(
@@ -19573,19 +19621,37 @@ var render = function() {
                                   ]),
                                   _vm._v(" "),
                                   _c("div", [
-                                    _c("div", {
-                                      staticClass:
-                                        "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
-                                      style: {
-                                        "background-image":
-                                          "url(" + matchingAnswer.second + ")"
-                                      },
-                                      attrs: {
-                                        id:
-                                          "matchingAnswerSecondImgPreview" +
-                                          matchingIndex
-                                      }
-                                    })
+                                    matchingAnswer.second != ""
+                                      ? _c("div", {
+                                          staticClass:
+                                            "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                          style: {
+                                            "background-image":
+                                              "url(" +
+                                              matchingAnswer.second +
+                                              ")"
+                                          },
+                                          attrs: {
+                                            id:
+                                              "matchingAnswerSecondImgPreview" +
+                                              matchingIndex
+                                          }
+                                        })
+                                      : _c("div", {
+                                          staticClass:
+                                            "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                          style: {
+                                            "background-image":
+                                              "url(" +
+                                              _vm.defaultImagePath +
+                                              ")"
+                                          },
+                                          attrs: {
+                                            id:
+                                              "matchingAnswerFirstImgPreview" +
+                                              matchingIndex
+                                          }
+                                        })
                                   ]),
                                   _vm._v(" "),
                                   _c(
