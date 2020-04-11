@@ -6670,10 +6670,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       rankingAnswers: [],
       matchingAnswers: [],
       matchingAnswersImg: [],
-      matchingAnswerType: ""
+      matchingAnswerType: "",
+      imgUrl: ""
     };
   },
   props: {
+    defaultImagePath: {
+      type: String,
+      required: true
+    },
     questionText: {
       type: String,
       "default": "Soru"
@@ -6866,6 +6871,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       } else {
         return '/api/questionSource/update/' + this.questionId;
       }
+    },
+    previewUrl: function previewUrl() {
+      if (this.imgUrl != "" && this.imgUrl != null && this.imgUrl == undefined) {
+        return this.imgUrl;
+      } else {
+        return this.defaultImagePath;
+      }
     }
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadLessonSubjects', 'loadPlLessonType']), {
@@ -6889,6 +6901,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (image.files != undefined) {
         formData.append('imgUrl', image.files[0]);
+      } else {
+        formData.append('imgUrl', this.imgUrl);
       }
 
       formData.append('level', this.questionLevel);
@@ -6961,6 +6975,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (image.files != undefined) {
         formData.append('imgUrl', image.files[0]);
+      } else {
+        formData.append('imgUrl', this.imgUrl);
       }
 
       formData.append('level', this.questionLevel);
@@ -7034,6 +7050,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (image.files != undefined) {
         formData.append('imgUrl', image.files[0]);
+      } else {
+        formData.append('imgUrl', this.imgUrl);
       }
 
       formData.append('level', this.questionLevel);
@@ -7100,6 +7118,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (image.files != undefined) {
         formData.append('imgUrl', image.files[0]);
+      } else {
+        formData.append('imgUrl', this.imgUrl);
       }
 
       formData.append('level', this.questionLevel);
@@ -7169,6 +7189,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (image.files[0] != undefined) {
         formData.append('imgUrl', image.files[0]);
+      } else {
+        formData.append('imgUrl', this.imgUrl);
       }
 
       formData.append('crLessonId', this.selectedLessonId);
@@ -7233,6 +7255,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (image.files != undefined) {
         formData.append('imgUrl', image.files[0]);
+      } else {
+        formData.append('imgUrl', this.imgUrl);
       }
 
       formData.append('level', this.questionLevel);
@@ -7270,6 +7294,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (image.files != undefined) {
         formData.append('imgUrl', image.files[0]);
+      } else {
+        formData.append('imgUrl', this.imgUrl);
       }
 
       formData.append('text', document.getElementById('matchingQuestion').value);
@@ -7313,6 +7339,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (image.files != undefined) {
         formData.append('imgUrl', image.files[0]);
+      } else {
+        formData.append('imgUrl', this.imgUrl);
       }
 
       formData.append('crLessonId', this.selectedLessonId);
@@ -7355,6 +7383,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (image.files != undefined) {
         formData.append('imgUrl', image.files[0]);
+      } else {
+        formData.append('imgUrl', this.imgUrl);
       }
 
       formData.append('crLessonId', this.selectedLessonId);
@@ -7432,15 +7462,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.selectedSubjectId = data.crSubjectId;
       this.questionLevel = data.level;
       this.questionType = data.type;
+      this.imgUrl = data.imgUrl;
+      console.log(this.imgUrl);
 
       switch (data.type) {
         case 'singleChoice':
           {
-            if (data.answers[0].type == 'text') {
+            document.getElementById('#singleQuestionImg').value = data.imgUrl;
+
+            if (data.answers[0].type === 'text') {
               this.singleAnswerType = 'withText';
 
               for (var i = 0; i < data.answers.length; i++) {
-                if (data.answers[i].isCorrect) {
+                if (data.answers[i].isTrue) {
                   document.getElementById('singleCorrectAnswer').value = data.answers[i].content;
                 } else {
                   this.singleAnswers.push(data.answers[i]);
@@ -7448,12 +7482,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               }
             } else {
               this.singleAnswerType = 'withImage';
-
-              for (var i = 0; i < data.answers.length; i++) {
-                if (data.answers[i].isCorrect) {} else {
-                  this.singleAnswersImg.push(data.answers[i]);
+              document.addEventListener("DOMContentLoaded", function () {
+                for (var i = 0; i < data.answers.length; i++) {
+                  if (data.answers[i].isTrue) {} else {
+                    document.getElementById('singleAnswerImgPreview' + i).setAttribute('style', 'background-image: url(' + data.answers[i].content + ')');
+                    this.singleAnswersImg.push(data.answers[i]);
+                  }
                 }
-              }
+              });
             }
 
             break;
@@ -7532,6 +7568,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               this.rankingAnswers = data.answers;
             }
 
+            break;
+          }
+      }
+    },
+    previewImageForUpdate: function previewImageForUpdate(questionType) {
+      switch (questionType) {
+        case 'singleChoice':
+          {
+            console.log('calisti');
+            document.querySelector('#singleQuestionImgPreview').setAttribute('style', 'background-image:url(' + this.imgUrl + ')');
             break;
           }
       }
@@ -17885,7 +17931,14 @@ var render = function() {
             _vm._v(" " + _vm._s(_vm.questionImageText) + " ")
           ]),
           _vm._v(" "),
-          _vm._m(0),
+          _c("div", [
+            _c("div", {
+              staticClass:
+                "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+              style: { "background-image": "url(" + _vm.previewUrl + ")" },
+              attrs: { id: "singleQuestionImgPreview" }
+            })
+          ]),
           _vm._v(" "),
           _c(
             "div",
@@ -18011,7 +18064,17 @@ var render = function() {
                         _vm._v(" " + _vm._s(_vm.correctAnswerText) + " ")
                       ]),
                       _vm._v(" "),
-                      _vm._m(1),
+                      _c("div", [
+                        _c("div", {
+                          staticClass:
+                            "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                          style: {
+                            "background-image":
+                              "url(" + _vm.defaultImagePath + ")"
+                          },
+                          attrs: { id: "singleCorrectAnswerImgPreview" }
+                        })
+                      ]),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -18096,7 +18159,11 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("div", {
                                   staticClass:
-                                    "uk-background-center-center uk-background-cover uk-height",
+                                    "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                  style: {
+                                    "background-image":
+                                      "url(" + _vm.defaultImagePath + ")"
+                                  },
                                   attrs: {
                                     id: "singleAnswerImgPreview" + singleIndex
                                   }
@@ -18302,7 +18369,14 @@ var render = function() {
             _vm._v(" " + _vm._s(_vm.questionImageText) + " ")
           ]),
           _vm._v(" "),
-          _vm._m(2),
+          _c("div", [
+            _c("div", {
+              staticClass:
+                "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+              style: { "background-image": "url(" + _vm.previewUrl + ")" },
+              attrs: { id: "multiQuestionImgPreview" }
+            })
+          ]),
           _vm._v(" "),
           _c(
             "div",
@@ -18460,7 +18534,7 @@ var render = function() {
                               _c("div", [
                                 _c("div", {
                                   staticClass:
-                                    "uk-background-center-center uk-background-cover uk-height",
+                                    "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
                                   attrs: {
                                     id: "multiAnswerImgPreview" + multiIndex
                                   }
@@ -18762,7 +18836,18 @@ var render = function() {
             _vm._v(" " + _vm._s(_vm.questionImageText) + " ")
           ]),
           _vm._v(" "),
-          _vm._m(3),
+          _c("div", [
+            _c("input", {
+              attrs: { type: "text", value: "", hidden: "", disabled: "" }
+            }),
+            _vm._v(" "),
+            _c("div", {
+              staticClass:
+                "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+              style: { "background-image": "url(" + _vm.previewUrl + ")" },
+              attrs: { id: "blankImgPreview" }
+            })
+          ]),
           _vm._v(" "),
           _c(
             "div",
@@ -18935,7 +19020,14 @@ var render = function() {
               _vm._v(" " + _vm._s(_vm.questionImageText) + " ")
             ]),
             _vm._v(" "),
-            _vm._m(4),
+            _c("div", [
+              _c("div", {
+                staticClass:
+                  "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                style: { "background-image": "url(" + _vm.previewUrl + ")" },
+                attrs: { id: "trueFalseImgPreview" }
+              })
+            ]),
             _vm._v(" "),
             _c(
               "div",
@@ -19077,7 +19169,14 @@ var render = function() {
             _vm._v(" " + _vm._s(_vm.questionImageText) + " ")
           ]),
           _vm._v(" "),
-          _vm._m(5),
+          _c("div", [
+            _c("div", {
+              staticClass:
+                "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+              style: { "background-image": "url(" + _vm.previewUrl + ")" },
+              attrs: { id: "rankingQuestionImgPreview" }
+            })
+          ]),
           _vm._v(" "),
           _c(
             "div",
@@ -19253,7 +19352,14 @@ var render = function() {
             _vm._v(" " + _vm._s(_vm.questionImageText) + " ")
           ]),
           _vm._v(" "),
-          _vm._m(6),
+          _c("div", [
+            _c("div", {
+              staticClass:
+                "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+              style: { "background-image": "url(" + _vm.previewUrl + ")" },
+              attrs: { id: "matchingQuestionImgPreview" }
+            })
+          ]),
           _vm._v(" "),
           _c(
             "div",
@@ -19406,7 +19512,7 @@ var render = function() {
                                   _c("div", [
                                     _c("div", {
                                       staticClass:
-                                        "uk-background-center-center uk-background-cover uk-height",
+                                        "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
                                       attrs: {
                                         id:
                                           "matchingAnswerFirstImgPreview" +
@@ -19468,7 +19574,7 @@ var render = function() {
                                   _c("div", [
                                     _c("div", {
                                       staticClass:
-                                        "uk-background-center-center uk-background-cover uk-height",
+                                        "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
                                       attrs: {
                                         id:
                                           "matchingAnswerSecondImgPreview" +
@@ -19740,96 +19846,7 @@ var render = function() {
       : _vm._e()
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", {
-        staticClass:
-          "uk-background-center-center uk-background-cover uk-height",
-        attrs: { id: "singleQuestionImgPreview" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", {
-        staticClass:
-          "uk-background-center-center uk-background-cover uk-height",
-        attrs: { id: "singleCorrectAnswerImgPreview" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", {
-        staticClass:
-          "uk-background-center-center uk-background-cover uk-height",
-        attrs: { id: "multiQuestionImgPreview" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("input", {
-        attrs: { type: "text", value: "", hidden: "", disabled: "" }
-      }),
-      _vm._v(" "),
-      _c("div", {
-        staticClass:
-          "uk-background-center-center uk-background-cover uk-height",
-        attrs: { id: "blankImgPreview" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", {
-        staticClass:
-          "uk-background-center-center uk-background-cover uk-height",
-        attrs: { id: "trueFalseImgPreview" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", {
-        staticClass:
-          "uk-background-center-center uk-background-cover uk-height",
-        attrs: { id: "rankingQuestionImgPreview" }
-      })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c("div", {
-        staticClass:
-          "uk-background-center-center uk-background-cover uk-height",
-        attrs: { id: "matchingQuestionImgPreview" }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

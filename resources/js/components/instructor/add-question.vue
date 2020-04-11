@@ -38,7 +38,7 @@
         <div v-if="questionType=='singleChoice'" class="uk-margin-top">
             <div class="uk-form-label"> {{questionImageText}} </div>
             <div>
-                <div class="uk-background-center-center uk-background-cover uk-height" id="singleQuestionImgPreview"></div>
+                <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" id="singleQuestionImgPreview" :style="{'background-image': 'url('+ previewUrl+')'}"></div>
             </div>
             <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                 <input name="image" type="file" accept="image/*" id="singleQuestionImg" @change="previewImage('singleQuestionImg', 'singleQuestionImgPreview')" >
@@ -58,7 +58,7 @@
                     <div class="uk-margin">
                         <div class="uk-form-label"> {{correctAnswerText}} </div>
                         <div>
-                            <div class="uk-background-center-center uk-background-cover uk-height" id="singleCorrectAnswerImgPreview"></div>
+                            <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" id="singleCorrectAnswerImgPreview" :style="{'background-image': 'url('+ defaultImagePath+')'}"></div>
                         </div>
                         <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                             <input name="image" type="file" accept="image/*" id="singleCorrectAnswerImg" @change="previewImage('singleCorrectAnswerImg', 'singleCorrectAnswerImgPreview')" >
@@ -72,7 +72,7 @@
                             <div class="uk-width">
                                 <div>
                                     <input type="text" value=""  hidden disabled>
-                                    <div class="uk-background-center-center uk-background-cover uk-height" :id="'singleAnswerImgPreview'+singleIndex"></div>
+                                    <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'singleAnswerImgPreview'+singleIndex" :style="{'background-image': 'url('+ defaultImagePath+')'}"></div>
                                 </div>
                                 <div uk-form-custom="target: true" class="uk-flex uk-flex-center">
                                     <input name="image" type="file" accept="image/*" :id="'singleAnswerImg'+singleIndex" @change="pushImage('singleQuestion', singleIndex,'singleAnswerImg'+singleIndex,'singleAnswerImgPreview'+singleIndex)">
@@ -106,7 +106,7 @@
         <div v-if="questionType=='multiChoice'" class="uk-margin-top">
             <div class="uk-form-label"> {{questionImageText}} </div>
             <div>
-                <div class="uk-background-center-center uk-background-cover uk-height" id="multiQuestionImgPreview"></div>
+                <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" id="multiQuestionImgPreview" :style="{'background-image': 'url('+ previewUrl+')'}"></div>
             </div>
             <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                 <input name="image" type="file" accept="image/*" id="multiQuestionImg" @change="previewImage('multiQuestionImg', 'multiQuestionImgPreview')" >
@@ -130,7 +130,7 @@
                             </div>
                             <div class="uk-width">
                                 <div>
-                                    <div class="uk-background-center-center uk-background-cover uk-height" :id="'multiAnswerImgPreview'+multiIndex"></div>
+                                    <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'multiAnswerImgPreview'+multiIndex"></div>
                                 </div>
                                 <div uk-form-custom="target: true" class="uk-flex uk-flex-center">
                                     <input name="image" type="file" accept="image/*" :id="'multiAnswerImg'+multiIndex" @change="pushImage('multiQuestion', multiIndex,'multiAnswerImg'+multiIndex,'multiAnswerImgPreview'+multiIndex)">
@@ -167,7 +167,7 @@
             <div class="uk-form-label"> {{questionImageText}} </div>
             <div>
                 <input type="text" value="" hidden disabled>
-                <div class="uk-background-center-center uk-background-cover uk-height" id="blankImgPreview"></div>
+                <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" id="blankImgPreview" :style="{'background-image': 'url('+ previewUrl+')'}"></div>
             </div>
             <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                 <input name="image" type="file" accept="image/*" id="blankImg" @change="previewImage('blankImg', 'blankImgPreview')" >
@@ -197,7 +197,7 @@
             <div class="uk-margin-top">
                 <div class="uk-form-label"> {{questionImageText}} </div>
                 <div>
-                    <div class="uk-background-center-center uk-background-cover uk-height" id="trueFalseImgPreview"></div>
+                    <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" id="trueFalseImgPreview" :style="{'background-image': 'url('+ previewUrl+')'}"></div>
                 </div>
                 <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                     <input name="image" type="file" accept="image/*" id="trueFalseImg" @change="previewImage('trueFalseImg', 'trueFalseImgPreview')" >
@@ -225,7 +225,7 @@
         <div v-if="questionType=='order'" class="uk-margin-top">
             <div class="uk-form-label"> {{questionImageText}} </div>
             <div>
-                <div class="uk-background-center-center uk-background-cover uk-height" id="rankingQuestionImgPreview"></div>
+                <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" id="rankingQuestionImgPreview" :style="{'background-image': 'url('+ previewUrl+')'}"></div>
             </div>
             <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                 <input name="image" type="file" accept="image/*" id="rankingQuestionImg" @change="previewImage('rankingQuestionImg', 'rankingQuestionImgPreview')" >
@@ -253,7 +253,7 @@
         <div v-if="questionType=='match'" class="uk-margin-top">
             <div class="uk-form-label"> {{questionImageText}} </div>
             <div>
-                <div class="uk-background-center-center uk-background-cover uk-height" id="matchingQuestionImgPreview"></div>
+                <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" id="matchingQuestionImgPreview" :style="{'background-image': 'url('+ previewUrl+')'}"></div>
             </div>
             <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                 <input name="image" type="file" accept="image/*" id="matchingQuestionImg" @change="previewImage('matchingQuestionImg', 'matchingQuestionImgPreview')" >
@@ -276,7 +276,7 @@
                                 <div class="">
                                     <div class="uk-form-label">{{firstPhraseText}}</div>
                                     <div>
-                                        <div class="uk-background-center-center uk-background-cover uk-height" :id="'matchingAnswerFirstImgPreview'+matchingIndex"></div>
+                                        <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'matchingAnswerFirstImgPreview'+matchingIndex"></div>
                                     </div>
                                     <div uk-form-custom="target: true" class="uk-flex uk-flex-center">
                                         <input name="image" type="file" accept="image/*" :id="'matchingAnswerFirstImg'+matchingIndex" @change="pushImage('matchingQuestionFirst', matchingIndex,'matchingAnswerFirstImg'+matchingIndex,'matchingAnswerFirstImgPreview'+matchingIndex)">
@@ -286,7 +286,7 @@
                                 <div class="">
                                     <div class="uk-form-label">{{secondPhraseText}}</div>
                                     <div>
-                                        <div class="uk-background-center-center uk-background-cover uk-height" :id="'matchingAnswerSecondImgPreview'+matchingIndex"></div>
+                                        <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'matchingAnswerSecondImgPreview'+matchingIndex"></div>
                                     </div>
                                     <div uk-form-custom="target: true" class="uk-flex uk-flex-center">
                                         <input name="image" type="file" accept="image/*" :id="'matchingAnswerSecondImg'+matchingIndex" @change="pushImage('matchingQuestionSecond', matchingIndex,'matchingAnswerSecondImg'+matchingIndex,'matchingAnswerSecondImgPreview'+matchingIndex)">
@@ -350,9 +350,14 @@
                 matchingAnswers:[],
                 matchingAnswersImg:[],
                 matchingAnswerType:"",
+                imgUrl:"",
             }
         },
         props:{
+            defaultImagePath:{
+                type:String,
+                required:true,
+            },
             questionText:{
                 type:String,
                 default:"Soru"
@@ -549,6 +554,13 @@
                 }else{
                     return '/api/questionSource/update/'+this.questionId
                 }
+            },
+            previewUrl(){
+                if(this.imgUrl!=""&&this.imgUrl!=null&&this.imgUrl==undefined){
+                    return this.imgUrl;
+                }else{
+                    return this.defaultImagePath;
+                }
             }
         },
         methods:{
@@ -573,6 +585,8 @@
                 var image=document.querySelector('#singleQuestionImg');
                 if(image.files!=undefined){
                     formData.append('imgUrl', image.files[0]);
+                }else{
+                    formData.append('imgUrl', this.imgUrl);
                 }
                 formData.append('level', this.questionLevel);
                 formData.append('text', document.getElementById('singleQuestion').value);
@@ -608,6 +622,8 @@
                 var image=document.querySelector('#singleQuestionImg');
                 if(image.files!=undefined){
                     formData.append('imgUrl', image.files[0]);
+                }else{
+                    formData.append('imgUrl', this.imgUrl);
                 }
                 formData.append('level', this.questionLevel);
                 formData.append('text', document.getElementById('singleQuestion').value);
@@ -643,6 +659,8 @@
                 var image=document.querySelector('#multiQuestionImg');
                 if(image.files!=undefined){
                     formData.append('imgUrl', image.files[0]);
+                }else{
+                    formData.append('imgUrl', this.imgUrl);
                 }
                 formData.append('level', this.questionLevel);
                 formData.append('text', document.getElementById('multiQuestion').value);
@@ -675,6 +693,8 @@
                 var image=document.querySelector('#multiQuestionImg');
                 if(image.files!=undefined){
                     formData.append('imgUrl', image.files[0]);
+                }else{
+                    formData.append('imgUrl', this.imgUrl);
                 }
                 formData.append('level', this.questionLevel);
                 formData.append('text', document.getElementById('multiQuestion').value);
@@ -710,6 +730,8 @@
                 formData.append('beginningOfSentence', document.getElementById('blankQuestion').value);
                 if(image.files[0]!=undefined){
                     formData.append('imgUrl', image.files[0]);
+                }else{
+                    formData.append('imgUrl', this.imgUrl);
                 }
                 formData.append('crLessonId', this.selectedLessonId);
                 formData.append('crSubjectId', this.selectedSubjectId);
@@ -740,6 +762,8 @@
                 var image=document.querySelector('#trueFalseImg');
                 if(image.files!=undefined){
                     formData.append('imgUrl', image.files[0]);
+                }else{
+                    formData.append('imgUrl', this.imgUrl);
                 }
                 formData.append('level', this.questionLevel);
                 formData.append('content', document.getElementById('trueFalseQuestion').value);
@@ -766,6 +790,8 @@
                 var image=document.querySelector('#matchingQuestionImg');
                 if(image.files!=undefined){
                     formData.append('imgUrl', image.files[0]);
+                }else{
+                    formData.append('imgUrl', this.imgUrl);
                 }
                 formData.append('text', document.getElementById('matchingQuestion').value);
                 formData.append('crLessonId', this.selectedLessonId);
@@ -796,6 +822,8 @@
                 var image=document.querySelector('#matchingQuestionImg');
                 if(image.files!=undefined){
                     formData.append('imgUrl', image.files[0]);
+                }else{
+                    formData.append('imgUrl', this.imgUrl);
                 }
                 formData.append('crLessonId', this.selectedLessonId);
                 formData.append('crSubjectId', this.selectedSubjectId);
@@ -825,6 +853,8 @@
                 var image=document.querySelector('#rankingQuestionImg');
                 if(image.files!=undefined){
                     formData.append('imgUrl', image.files[0]);
+                }else{
+                    formData.append('imgUrl', this.imgUrl);
                 }
                 formData.append('crLessonId', this.selectedLessonId);
                 formData.append('crSubjectId', this.selectedSubjectId);
@@ -881,12 +911,15 @@
                 this.selectedSubjectId=data.crSubjectId;
                 this.questionLevel=data.level;
                 this.questionType=data.type;
+                this.imgUrl=data.imgUrl;
+                console.log(this.imgUrl);
                 switch (data.type) {
                     case 'singleChoice':{
-                        if(data.answers[0].type=='text'){
+                        document.getElementById('#singleQuestionImg').value= data.imgUrl;
+                        if(data.answers[0].type==='text'){
                             this.singleAnswerType='withText';
                             for(var i=0; i<data.answers.length; i++){
-                                if(data.answers[i].isCorrect){
+                                if(data.answers[i].isTrue){
                                     document.getElementById('singleCorrectAnswer').value=data.answers[i].content;
                                 }else{
                                     this.singleAnswers.push(data.answers[i]);
@@ -894,13 +927,16 @@
                             }
                         }else{
                             this.singleAnswerType='withImage';
-                            for(var i=0; i<data.answers.length; i++){
-                                if(data.answers[i].isCorrect){
-
-                                }else{
-                                    this.singleAnswersImg.push(data.answers[i]);
+                            document.addEventListener("DOMContentLoaded", function() {
+                                for(var i=0; i<data.answers.length; i++){
+                                    if(data.answers[i].isTrue){
+                                    }else{
+                                        document.getElementById('singleAnswerImgPreview'+i).setAttribute('style', 'background-image: url('+data.answers[i].content+')');
+                                        this.singleAnswersImg.push(data.answers[i]);
+                                    }
                                 }
-                            }
+                            });
+
                         }
                         break;
                     }
@@ -950,6 +986,15 @@
                     }
                 }
             },
+            previewImageForUpdate:function (questionType) {
+                switch (questionType) {
+                    case 'singleChoice':{
+                        console.log('calisti');
+                        document.querySelector('#singleQuestionImgPreview').setAttribute('style', 'background-image:url('+this.imgUrl+')');
+                        break;
+                    }
+                }
+            }
         },
         created() {
             this.$store.dispatch('loadPlLessonType');

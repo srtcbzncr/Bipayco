@@ -9,6 +9,7 @@
 
             <div class="uk-card-body uk-padding-medium">
                 <add-question
+                    default-image-path="{{asset('images/courses/course-1.jpg')}}"
                     instructor-id="{{Auth::user()->instructor->id}}"
                     save-text="@lang('front/auth.save')"
                     question-type-text="@lang('front/auth.question_type')"
