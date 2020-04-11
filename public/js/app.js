@@ -6873,7 +6873,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     previewUrl: function previewUrl() {
-      if (this.imgUrl != "" && this.imgUrl != null && this.imgUrl == undefined) {
+      if (this.imgUrl != "" && this.imgUrl != null && this.imgUrl != undefined) {
         return this.imgUrl;
       } else {
         return this.defaultImagePath;
@@ -7463,6 +7463,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.questionLevel = data.level;
       this.questionType = data.type;
       this.imgUrl = data.imgUrl;
+      console.log(this.imgUrl);
 
       switch (data.type) {
         case 'singleChoice':

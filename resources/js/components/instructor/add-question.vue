@@ -556,7 +556,7 @@
                 }
             },
             previewUrl(){
-                if(this.imgUrl!=""&&this.imgUrl!=null&&this.imgUrl==undefined){
+                if(this.imgUrl!=""&&this.imgUrl!=null&&this.imgUrl!=undefined){
                     return this.imgUrl;
                 }else{
                     return this.defaultImagePath;
@@ -912,6 +912,7 @@
                 this.questionLevel=data.level;
                 this.questionType=data.type;
                 this.imgUrl=data.imgUrl;
+                console.log(this.imgUrl);
                 switch (data.type) {
                     case 'singleChoice':{
                         if(data.answers[0].type==='text'){
