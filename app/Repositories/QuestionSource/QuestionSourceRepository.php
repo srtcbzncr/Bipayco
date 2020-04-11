@@ -556,7 +556,10 @@ class QuestionSourceRepository implements IRepository
                     $control = true;
                 }
                 else{
-                    $object->imgUrl = null;
+                    if(isset($data['imgUrl']))
+                        $object->imgUrl = $data['imgUrl'];
+                    else
+                        $object->imgUrl = null;
                 }
 
                 if($control == false){
@@ -601,8 +604,8 @@ class QuestionSourceRepository implements IRepository
                     }
                     else{
                         $i=0;
-                        foreach ($data['answers'] as $key=> $answer){
-                            if($key == count($data['answers'])-1){
+                        foreach ($data['answersContent'] as $key=> $answer){
+                            if($key == count($data['answersContent'])-1){
                                 $objectAnswer = new SingleChoice();
                                 $objectAnswer->questionId = $object->id;
                                 if(!is_string($answer)){
@@ -610,7 +613,9 @@ class QuestionSourceRepository implements IRepository
                                     $accessPath=Storage::url($path);
                                     $objectAnswer->content = $accessPath;
                                 }
-
+                                else{
+                                    $objectAnswer->content = $answer;
+                                }
                                 $objectAnswer->isTrue = true;
                                 $objectAnswer->type = explode('}',explode(':',explode(',',$data['answers'][$i])[2])[1])[0];
                                 $objectAnswer->save();
@@ -623,7 +628,9 @@ class QuestionSourceRepository implements IRepository
                                     $accessPath=Storage::url($path);
                                     $objectAnswer->content = $accessPath;
                                 }
-
+                                else{
+                                    $objectAnswer->content = $answer;
+                                }
                                 $objectAnswer->isTrue = false;
                                 $objectAnswer->type = explode(':',explode(',',$data['answers'][$i])[1])[1];
                                 $objectAnswer->save();
@@ -634,7 +641,7 @@ class QuestionSourceRepository implements IRepository
                 }
                 else if($data['type'] == 'multiChoice'){
                     if(explode('}',explode(':',explode(',',$data['answers'][0])[2])[1])[0]=="\"text\""){
-                        foreach ($data['answers'] as $answer){
+                        foreach ($data['answersContent'] as $answer){
                             $objectAnswer = new MultiChoice();
                             $objectAnswer->questionId = $object->id;
                             $objectAnswer->content = explode(':',explode(',',$answer)[0])[1];
@@ -656,6 +663,9 @@ class QuestionSourceRepository implements IRepository
                                 $accessPath=Storage::url($path);
                                 $objectAnswer->content = $accessPath;
                             }
+                            else{
+                                $objectAnswer->content = $answer;
+                            }
 
                             if(explode(':',explode(',',$data['answers'][$i])[1])[1] == "true")
                                 $objectAnswer->isTrue = true;
@@ -675,6 +685,12 @@ class QuestionSourceRepository implements IRepository
                     $accessPath=Storage::url($path);
                     $object->imgUrl = $accessPath;
                     $control = true;
+                }
+                else{
+                    if(isset($data['imgUrl']))
+                        $object->imgUrl = $data['imgUrl'];
+                    else
+                        $object->imgUrl = null;
                 }
                 if(isset($data['beginningOfSentence'])){
                     $object->text = $data['beginningOfSentence'];
@@ -714,6 +730,12 @@ class QuestionSourceRepository implements IRepository
                     $object->imgUrl = $accessPath;
                     $control = true;
                 }
+                else{
+                    if(isset($data['imgUrl']))
+                        $object->imgUrl = $data['imgUrl'];
+                    else
+                        $object->imgUrl = null;
+                }
                 if(isset($data['content']) and $data['content']!=null){
                     $object->text = $data['content'];
                     $control = true;
@@ -744,6 +766,12 @@ class QuestionSourceRepository implements IRepository
                     $accessPath=Storage::url($path);
                     $object->imgUrl = $accessPath;
                     $control = true;
+                }
+                else{
+                    if(isset($data['imgUrl']))
+                        $object->imgUrl = $data['imgUrl'];
+                    else
+                        $object->imgUrl = null;
                 }
                 if(isset($data['content']) and $data['content']!=null){
                     $object->text = $data['text'];
@@ -778,6 +806,12 @@ class QuestionSourceRepository implements IRepository
                     $accessPath=Storage::url($path);
                     $object->imgUrl = $accessPath;
                     $control = true;
+                }
+                else{
+                    if(isset($data['imgUrl']))
+                        $object->imgUrl = $data['imgUrl'];
+                    else
+                        $object->imgUrl = null;
                 }
                 if(isset($data['text']) and $data['text']!=null){
                     $object->text = $data['text'];
@@ -817,6 +851,7 @@ class QuestionSourceRepository implements IRepository
                     }
                     break;
                 }
+
                 $i=0;
                 foreach ($data['answers'] as $answers){
                     $objectAnswer = new Match();
@@ -836,29 +871,37 @@ class QuestionSourceRepository implements IRepository
                         $objectAnswer->save();
                     }
                     else{
-                        foreach ($answers as $answer){
-                            $objectAnswer->questionId = $object->id;
-                            $objectAnswer->type = $type;
-                            if($i==1){
-                                if(!is_string($answer)){
-                                    $filePath = $answer->store('public/questionSource');
-                                    $accessPath=Storage::url($filePath);
-                                    $objectAnswer->content = $accessPath;
+                        foreach ($data['answers'] as $answers){
+                            $objectAnswer = new Match();
+                            $degerler = array_values($answers);
+                            foreach ($degerler as $key=> $deger){
+                                $objectAnswer->questionId = $object->id;
+                                $objectAnswer->type = $type;
+                                if($i == 0){
+                                    if(!is_string($deger)){
+                                        $filePath = $answer->store('public/questionSource');
+                                        $accessPath=Storage::url($filePath);
+                                        $objectAnswer->content = $accessPath;
+                                    }
+                                    else{
+                                        $objectAnswer->content = $deger;
+                                    }
                                 }
-
-                            }
-                            else if($i==2) {
-                                if(!is_string($answer)){
-                                    $filePath = $answer->store('public/questionSource');
-                                    $accessPath=Storage::url($filePath);
-                                    $objectAnswer->answer = $accessPath;
+                                else if($i == 1){
+                                    if(!is_string($deger)){
+                                        $filePath = $answer->store('public/questionSource');
+                                        $accessPath=Storage::url($filePath);
+                                        $objectAnswer->answer = $accessPath;
+                                    }
+                                    else{
+                                        $objectAnswer->answer = $deger;
+                                    }
                                 }
-
+                                $i++;
                             }
-                            $i++;
+                            $i=0;
+                            $objectAnswer->save();
                         }
-                        $i=0;
-                        $objectAnswer->save();
                     }
                 }
             }

@@ -89,10 +89,12 @@ class QuestionSourceController extends Controller
         ],400);
     }
 
-    public function update($id,Request $request){
+    public function update($id,Request $request)
+    {
         // Initializing
         $repo = new QuestionSourceRepository();
         $data = $request->toArray();
+
         // Operations
         $resp = $repo->update($id,$data);
         if($resp->getResult()){
@@ -108,4 +110,5 @@ class QuestionSourceController extends Controller
             'errorMessage' => $resp->getError()
         ],400);
     }
+
 }
