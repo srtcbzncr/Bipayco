@@ -72,9 +72,9 @@
                             <div class="uk-width">
                                 <div>
                                     <input type="text" value=""  hidden disabled>
-                                    <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'singleAnswerImgPreview'+singleIndex" :style="{'background-image': 'url('+ defaultImagePath+')'}"></div>
+                                    <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'singleAnswerImgPreview'+singleIndex" :style="{'background-image': 'url('+ singleAnswer.content+')'}"></div>
                                 </div>
-                                <div uk-form-custom="target: true" class="uk-flex uk-flex-center">
+                                <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                                     <input name="image" type="file" accept="image/*" :id="'singleAnswerImg'+singleIndex" @change="pushImage('singleQuestion', singleIndex,'singleAnswerImg'+singleIndex,'singleAnswerImgPreview'+singleIndex)">
                                     <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
                                 </div>
@@ -130,9 +130,9 @@
                             </div>
                             <div class="uk-width">
                                 <div>
-                                    <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'multiAnswerImgPreview'+multiIndex"></div>
+                                    <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'multiAnswerImgPreview'+multiIndex" :style="{'background-image': 'url('+ multiAnswer.content+')'}"></div>
                                 </div>
-                                <div uk-form-custom="target: true" class="uk-flex uk-flex-center">
+                                <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                                     <input name="image" type="file" accept="image/*" :id="'multiAnswerImg'+multiIndex" @change="pushImage('multiQuestion', multiIndex,'multiAnswerImg'+multiIndex,'multiAnswerImgPreview'+multiIndex)">
                                     <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
                                 </div>
@@ -276,9 +276,9 @@
                                 <div class="">
                                     <div class="uk-form-label">{{firstPhraseText}}</div>
                                     <div>
-                                        <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'matchingAnswerFirstImgPreview'+matchingIndex"></div>
+                                        <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'matchingAnswerFirstImgPreview'+matchingIndex" :style="{'background-image': 'url('+ matchingAnswer.first+')'}"></div>
                                     </div>
-                                    <div uk-form-custom="target: true" class="uk-flex uk-flex-center">
+                                    <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                                         <input name="image" type="file" accept="image/*" :id="'matchingAnswerFirstImg'+matchingIndex" @change="pushImage('matchingQuestionFirst', matchingIndex,'matchingAnswerFirstImg'+matchingIndex,'matchingAnswerFirstImgPreview'+matchingIndex)">
                                         <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
                                     </div>
@@ -286,9 +286,9 @@
                                 <div class="">
                                     <div class="uk-form-label">{{secondPhraseText}}</div>
                                     <div>
-                                        <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'matchingAnswerSecondImgPreview'+matchingIndex"></div>
+                                        <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'matchingAnswerSecondImgPreview'+matchingIndex" :style="{'background-image': 'url('+ matchingAnswer.second+')'}"></div>
                                     </div>
-                                    <div uk-form-custom="target: true" class="uk-flex uk-flex-center">
+                                    <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                                         <input name="image" type="file" accept="image/*" :id="'matchingAnswerSecondImg'+matchingIndex" @change="pushImage('matchingQuestionSecond', matchingIndex,'matchingAnswerSecondImg'+matchingIndex,'matchingAnswerSecondImgPreview'+matchingIndex)">
                                         <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
                                     </div>
@@ -912,10 +912,8 @@
                 this.questionLevel=data.level;
                 this.questionType=data.type;
                 this.imgUrl=data.imgUrl;
-                console.log(this.imgUrl);
                 switch (data.type) {
                     case 'singleChoice':{
-                        document.getElementById('#singleQuestionImg').value= data.imgUrl;
                         if(data.answers[0].type==='text'){
                             this.singleAnswerType='withText';
                             for(var i=0; i<data.answers.length; i++){
@@ -927,16 +925,12 @@
                             }
                         }else{
                             this.singleAnswerType='withImage';
-                            document.addEventListener("DOMContentLoaded", function() {
-                                for(var i=0; i<data.answers.length; i++){
-                                    if(data.answers[i].isTrue){
-                                    }else{
-                                        document.getElementById('singleAnswerImgPreview'+i).setAttribute('style', 'background-image: url('+data.answers[i].content+')');
-                                        this.singleAnswersImg.push(data.answers[i]);
-                                    }
+                            for(var i=0; i<data.answers.length; i++){
+                                if(data.answers[i].isTrue){
+                                }else{
+                                    this.singleAnswersImg.push(data.answers[i]);
                                 }
-                            });
-
+                            }
                         }
                         break;
                     }
@@ -969,11 +963,11 @@
                             for(var i=0; i<data.answers.length; i++){
                                 this.matchingAnswers.push({first:data.answers[i].content, second:data.answers[i].answer, type:data.answers[i].type});
                             }
-
                         }else{
                             this.matchingAnswerType='withImage';
                             for(var i=0; i<data.answers.length; i++){
-                                this.matchingAnswers.push({first:data.answers[i].content, second:data.answers[i].answer, type:data.answers[i].type});
+                                this.matchingAnswersImg.push({first:data.answers[i].content, second:data.answers[i].answer, type:data.answers[i].type});
+                                console.log(this.matchingAnswers)
                             }
                         }
                         break;

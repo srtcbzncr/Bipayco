@@ -7463,13 +7463,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.questionLevel = data.level;
       this.questionType = data.type;
       this.imgUrl = data.imgUrl;
-      console.log(this.imgUrl);
 
       switch (data.type) {
         case 'singleChoice':
           {
-            document.getElementById('#singleQuestionImg').value = data.imgUrl;
-
             if (data.answers[0].type === 'text') {
               this.singleAnswerType = 'withText';
 
@@ -7482,14 +7479,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               }
             } else {
               this.singleAnswerType = 'withImage';
-              document.addEventListener("DOMContentLoaded", function () {
-                for (var i = 0; i < data.answers.length; i++) {
-                  if (data.answers[i].isTrue) {} else {
-                    document.getElementById('singleAnswerImgPreview' + i).setAttribute('style', 'background-image: url(' + data.answers[i].content + ')');
-                    this.singleAnswersImg.push(data.answers[i]);
-                  }
+
+              for (var i = 0; i < data.answers.length; i++) {
+                if (data.answers[i].isTrue) {} else {
+                  this.singleAnswersImg.push(data.answers[i]);
                 }
-              });
+              }
             }
 
             break;
@@ -7551,11 +7546,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               this.matchingAnswerType = 'withImage';
 
               for (var i = 0; i < data.answers.length; i++) {
-                this.matchingAnswers.push({
+                this.matchingAnswersImg.push({
                   first: data.answers[i].content,
                   second: data.answers[i].answer,
                   type: data.answers[i].type
                 });
+                console.log(this.matchingAnswers);
               }
             }
 
@@ -18162,7 +18158,7 @@ var render = function() {
                                     "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
                                   style: {
                                     "background-image":
-                                      "url(" + _vm.defaultImagePath + ")"
+                                      "url(" + singleAnswer.content + ")"
                                   },
                                   attrs: {
                                     id: "singleAnswerImgPreview" + singleIndex
@@ -18173,7 +18169,8 @@ var render = function() {
                               _c(
                                 "div",
                                 {
-                                  staticClass: "uk-flex uk-flex-center",
+                                  staticClass:
+                                    "uk-flex uk-flex-center uk-margin",
                                   attrs: { "uk-form-custom": "target: true" }
                                 },
                                 [
@@ -18535,6 +18532,10 @@ var render = function() {
                                 _c("div", {
                                   staticClass:
                                     "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                  style: {
+                                    "background-image":
+                                      "url(" + multiAnswer.content + ")"
+                                  },
                                   attrs: {
                                     id: "multiAnswerImgPreview" + multiIndex
                                   }
@@ -18544,7 +18545,8 @@ var render = function() {
                               _c(
                                 "div",
                                 {
-                                  staticClass: "uk-flex uk-flex-center",
+                                  staticClass:
+                                    "uk-flex uk-flex-center uk-margin",
                                   attrs: { "uk-form-custom": "target: true" }
                                 },
                                 [
@@ -19513,6 +19515,10 @@ var render = function() {
                                     _c("div", {
                                       staticClass:
                                         "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                      style: {
+                                        "background-image":
+                                          "url(" + matchingAnswer.first + ")"
+                                      },
                                       attrs: {
                                         id:
                                           "matchingAnswerFirstImgPreview" +
@@ -19524,7 +19530,8 @@ var render = function() {
                                   _c(
                                     "div",
                                     {
-                                      staticClass: "uk-flex uk-flex-center",
+                                      staticClass:
+                                        "uk-flex uk-flex-center uk-margin",
                                       attrs: {
                                         "uk-form-custom": "target: true"
                                       }
@@ -19575,6 +19582,10 @@ var render = function() {
                                     _c("div", {
                                       staticClass:
                                         "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                      style: {
+                                        "background-image":
+                                          "url(" + matchingAnswer.second + ")"
+                                      },
                                       attrs: {
                                         id:
                                           "matchingAnswerSecondImgPreview" +
@@ -19586,7 +19597,8 @@ var render = function() {
                                   _c(
                                     "div",
                                     {
-                                      staticClass: "uk-flex uk-flex-center",
+                                      staticClass:
+                                        "uk-flex uk-flex-center uk-margin",
                                       attrs: {
                                         "uk-form-custom": "target: true"
                                       }
