@@ -58,7 +58,7 @@
                     <div class="uk-margin">
                         <div class="uk-form-label"> {{correctAnswerText}} </div>
                         <div>
-                            <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" id="singleCorrectAnswerImgPreview" :style="{'background-image': 'url('+ defaultImagePath+')'}"></div>
+                            <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" id="singleCorrectAnswerImgPreview" :style="{'background-image': 'url('+ correctAnswerImage+')'}"></div>
                         </div>
                         <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                             <input name="image" type="file" accept="image/*" id="singleCorrectAnswerImg" @change="previewImage('singleCorrectAnswerImg', 'singleCorrectAnswerImgPreview')" >
@@ -350,7 +350,8 @@
                 matchingAnswers:[],
                 matchingAnswersImg:[],
                 matchingAnswerType:"",
-                imgUrl:"",
+                imgUrl:null,
+                correctAnswerImage:null,
             }
         },
         props:{
@@ -561,6 +562,13 @@
                 }else{
                     return this.defaultImagePath;
                 }
+            },
+            correctAnswerImageUrl(){
+                if(this.correctAnswerImage!=""&&this.correctAnswerImage!=null&&this.correctAnswerImage!=undefined){
+                    return this.correctAnswerImage;
+                }else{
+                    return this.defaultImagePath;
+                }
             }
         },
         methods:{
@@ -609,7 +617,7 @@
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                            //setTimeout(()=>{window.location.replace('/questionSource');},1000)
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
@@ -634,8 +642,13 @@
                     formData.append('answersContent['+i+']', this.singleAnswersImg[i].content);
                     formData.append('answers['+i+']', JSON.stringify(this.singleAnswersImg[i]));
                 }
-                formData.append('answersContent['+i+']', document.querySelector('#singleCorrectAnswerImg').files[0]);
-                formData.append('answers['+i+']', JSON.stringify({content:document.querySelector('#singleCorrectAnswerImg').files[0], type:'image', isCorrect:'true'}));
+                if(document.querySelector('#singleCorrectAnswerImg').files[0]!=undefined){
+                    formData.append('answersContent['+i+']', document.querySelector('#singleCorrectAnswerImg').files[0]);
+                    formData.append('answers['+i+']', JSON.stringify({content:document.querySelector('#singleCorrectAnswerImg').files[0], type:'image', isCorrect:'true'}));
+                }else{
+                    formData.append('answersContent['+i+']', this.correctAnswerImage);
+                    formData.append('answers['+i+']', JSON.stringify({content:this.correctAnswerImage, type:'image', isCorrect:'true'}));
+                }
                 formData.append('type', 'singleChoice');
                 for(var pair of formData){
                     console.log(pair[0]);
@@ -648,7 +661,7 @@
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                            //setTimeout(()=>{window.location.replace('/questionSource');},1000)
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
@@ -682,7 +695,7 @@
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                            //setTimeout(()=>{window.location.replace('/questionSource');},1000)
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
@@ -717,7 +730,7 @@
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                            //setTimeout(()=>{window.location.replace('/questionSource');},1000)
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
@@ -751,7 +764,7 @@
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                            //setTimeout(()=>{window.location.replace('/questionSource');},1000)
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
@@ -778,7 +791,7 @@
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                            //setTimeout(()=>{window.location.replace('/questionSource');},1000)
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
@@ -809,7 +822,7 @@
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                            //setTimeout(()=>{window.location.replace('/questionSource');},1000)
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
@@ -840,7 +853,7 @@
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                            //setTimeout(()=>{window.location.replace('/questionSource');},1000)
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
@@ -869,7 +882,7 @@
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                            //setTimeout(()=>{window.location.replace('/questionSource');},1000)
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
@@ -928,6 +941,7 @@
                             this.singleAnswerType='withImage';
                             for(var i=0; i<data.answers.length; i++){
                                 if(data.answers[i].isTrue){
+                                    this.correctAnswerImage=data.answers[i];
                                 }else{
                                     this.singleAnswersImg.push(data.answers[i]);
                                 }
