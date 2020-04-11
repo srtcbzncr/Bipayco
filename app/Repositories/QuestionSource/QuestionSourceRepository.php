@@ -549,7 +549,7 @@ class QuestionSourceRepository implements IRepository
                     $object->text = $data['text'];
                     $control = true;
                 }
-                if(isset($data['imgUrl']) and $data['imgUrl'] != null and file_exists($data['imgUrl']) and gettype($data['imgUrl']) != "string"){
+                if(isset($data['imgUrl']) and $data['imgUrl'] != null and file_exists($data['imgUrl']) and !is_string($data['imgUrl'])){
                     $path = $data['imgUrl']->store('public/questionSource');
                     $accessPath=Storage::url($path);
                     $object->imgUrl = $accessPath;
@@ -601,11 +601,11 @@ class QuestionSourceRepository implements IRepository
                     }
                     else{
                         $i=0;
-                        foreach ($data['answersContent'] as $key=> $answer){
-                            if($key == count($data['answersContent'])-1){
+                        foreach ($data['answers'] as $key=> $answer){
+                            if($key == count($data['answers'])-1){
                                 $objectAnswer = new SingleChoice();
                                 $objectAnswer->questionId = $object->id;
-                                if(gettype($answer) != "string"){
+                                if(!is_string($answer)){
                                     $path = $answer->store('public/questionSource');
                                     $accessPath=Storage::url($path);
                                     $objectAnswer->content = $accessPath;
@@ -618,7 +618,7 @@ class QuestionSourceRepository implements IRepository
                             else{
                                 $objectAnswer = new SingleChoice();
                                 $objectAnswer->questionId = $object->id;
-                                if(gettype($answer) != "string"){
+                                if(!is_string($answer)){
                                     $path = $answer->store('public/questionSource');
                                     $accessPath=Storage::url($path);
                                     $objectAnswer->content = $accessPath;
@@ -651,7 +651,7 @@ class QuestionSourceRepository implements IRepository
                         foreach ($data['answersContent'] as $answer){
                             $objectAnswer = new MultiChoice();
                             $objectAnswer->questionId = $object->id;
-                            if(gettype($answer) != "string"){
+                            if(!is_string($answer)){
                                 $path = $answer->store('public/questionSource');
                                 $accessPath=Storage::url($path);
                                 $objectAnswer->content = $accessPath;
@@ -670,7 +670,7 @@ class QuestionSourceRepository implements IRepository
             }
             else if($data['type'] == 'fillBlank'){
                 $control = false;
-                if(isset($data['imgUrl']) and $data['imgUrl'] != null and file_exists($data['imgUrl']) and gettype($data['imgUrl']) != "string"){
+                if(isset($data['imgUrl']) and $data['imgUrl'] != null and file_exists($data['imgUrl']) and !is_string($data['imgUrl'])){
                     $path = $data['imgUrl']->store('public/questionSource');
                     $accessPath=Storage::url($path);
                     $object->imgUrl = $accessPath;
@@ -708,7 +708,7 @@ class QuestionSourceRepository implements IRepository
             }
             else if($data['type'] == 'trueFalse'){
                 $control = false;
-                if(isset($data['imgUrl']) and $data['imgUrl']!=null and file_exists($data['imgUrl']) and gettype($data['imgUrl']) != "string"){
+                if(isset($data['imgUrl']) and $data['imgUrl']!=null and file_exists($data['imgUrl']) and !is_string($data['imgUrl'])){
                     $path = $data['imgUrl']->store('public/questionSource');
                     $accessPath=Storage::url($path);
                     $object->imgUrl = $accessPath;
@@ -739,7 +739,7 @@ class QuestionSourceRepository implements IRepository
             }
             else if($data['type'] == 'order'){
                 $control = false;
-                if(isset($data['imgUrl']) and $data['imgUrl']!=null and file_exists($data['imgUrl']) and gettype($data['imgUrl']) != "string"){
+                if(isset($data['imgUrl']) and $data['imgUrl']!=null and file_exists($data['imgUrl']) and !is_string($data['imgUrl'])){
                     $path = $data['imgUrl']->store('public/questionSource');
                     $accessPath=Storage::url($path);
                     $object->imgUrl = $accessPath;
@@ -773,7 +773,7 @@ class QuestionSourceRepository implements IRepository
             }
             else if($data['type'] == 'match'){
                 $control = false;
-                if(isset($data['imgUrl']) and $data['imgUrl']!=null and file_exists($data['imgUrl']) and gettype($data['imgUrl']) != "string"){
+                if(isset($data['imgUrl']) and $data['imgUrl']!=null and file_exists($data['imgUrl']) and !is_string($data['imgUrl'])){
                     $path = $data['imgUrl']->store('public/questionSource');
                     $accessPath=Storage::url($path);
                     $object->imgUrl = $accessPath;
@@ -840,7 +840,7 @@ class QuestionSourceRepository implements IRepository
                             $objectAnswer->questionId = $object->id;
                             $objectAnswer->type = $type;
                             if($i==1){
-                                if(gettype($answer) != "string"){
+                                if(!is_string($answer)){
                                     $filePath = $answer->store('public/questionSource');
                                     $accessPath=Storage::url($filePath);
                                     $objectAnswer->content = $accessPath;
@@ -848,7 +848,7 @@ class QuestionSourceRepository implements IRepository
 
                             }
                             else if($i==2) {
-                                if(gettype($answer) != "string"){
+                                if(!is_string($answer)){
                                     $filePath = $answer->store('public/questionSource');
                                     $accessPath=Storage::url($filePath);
                                     $objectAnswer->answer = $accessPath;
