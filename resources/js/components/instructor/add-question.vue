@@ -72,7 +72,7 @@
                                 <div>
                                     <input type="text" value=""  hidden disabled>
                                     <div v-if="singleAnswer.content!=''" class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'singleAnswerImgPreview'+singleIndex" :style="{'background-image': 'url('+ singleAnswer.content+')'}"></div>
-                                    <div v-else class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'singleAnswerImgPreview'+singleIndex" :style="{'background-image': 'url('+ defaultImagePatht+')'}"></div>
+                                    <div v-else class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :id="'singleAnswerImgPreview'+singleIndex" :style="{'background-image': 'url('+ defaultImagePath+')'}"></div>
                                 </div>
                                 <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                                     <input name="image" type="file" accept="image/*" :id="'singleAnswerImg'+singleIndex" @change="pushImage('singleQuestion', singleIndex,'singleAnswerImg'+singleIndex,'singleAnswerImgPreview'+singleIndex)">
@@ -87,7 +87,7 @@
                 <div v-if="singleAnswerType=='withText'" class="uk-margin-top">
                     <div class="uk-margin">
                         <div class="uk-form-label"> {{correctAnswerText}} </div>
-                        <input type="text" class="uk-input uk-width" id="singleCorrectAnswer">
+                        <input type="text" class="uk-input uk-width" id="singleCorrectAnswer" v-model="correctAnswer">
                     </div>
                     <div v-if="singleAnswers.length>0" class="uk-form-label"> {{wrongAnswersText}} </div>
                     <div v-for="(singleAnswer,singleIndex) in singleAnswers" class="uk-flex align-items-center uk-margin">
@@ -355,6 +355,7 @@
                 matchingAnswerType:"",
                 imgUrl:"",
                 correctAnswerImage:"",
+                correctAnswer:"",
             }
         },
         props:{
@@ -567,7 +568,7 @@
                 }
             },
             correctAnswerImageUrl(){
-                if(this.correctAnswerImage!=""&&this.correctAnswerImage!=null&&this.correctAnswerImage!=undefined){
+                if(this.correctAnswerImage!="" && this.correctAnswerImage!=null && this.correctAnswerImage!=undefined){
                     return this.correctAnswerImage;
                 }else{
                     return this.defaultImagePath;
@@ -646,7 +647,7 @@
                     formData.append('answersContent['+i+']', this.singleAnswersImg[i].content);
                     formData.append('answers['+i+']', JSON.stringify(this.singleAnswersImg[i]));
                 }
-                if(document.querySelector('#singleCorrectAnswerImg').files[0]!=undefined){
+                if(document.querySelector('#singleCorrectAnswerImg').files&&document.querySelector('#singleCorrectAnswerImg').files[0]){
                     formData.append('answersContent['+i+']', document.querySelector('#singleCorrectAnswerImg').files[0]);
                     formData.append('answers['+i+']', JSON.stringify({content:document.querySelector('#singleCorrectAnswerImg').files[0], type:'image', isCorrect:'true'}));
                 }else{
@@ -936,18 +937,18 @@
                             this.singleAnswerType='withText';
                             for(var i=0; i<data.answers.length; i++){
                                 if(data.answers[i].isTrue){
-                                    document.getElementById('singleCorrectAnswer').value=data.answers[i].content;
+                                    this.correctAnswer=data.answers[i].content;
                                 }else{
-                                    this.singleAnswers.push(data.answers[i]);
+                                    this.singleAnswers.push({content:data.answers[i].content, type:data.answers[i].type, isCorrect:data.answers[i].isTrue});
                                 }
                             }
                         }else{
                             this.singleAnswerType='withImage';
                             for(var i=0; i<data.answers.length; i++){
                                 if(data.answers[i].isTrue){
-                                    this.correctAnswerImage=data.answers[i];
+                                    this.correctAnswerImage=data.answers[i].content;
                                 }else{
-                                    this.singleAnswersImg.push(data.answers[i]);
+                                    this.singleAnswersImg.push({content:data.answers[i].content, type:data.answers[i].type, isCorrect:data.answers[i].isTrue});
                                 }
                             }
                         }

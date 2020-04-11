@@ -6675,7 +6675,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       matchingAnswersImg: [],
       matchingAnswerType: "",
       imgUrl: "",
-      correctAnswerImage: ""
+      correctAnswerImage: "",
+      correctAnswer: ""
     };
   },
   props: {
@@ -6999,7 +7000,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         formData.append('answers[' + i + ']', JSON.stringify(this.singleAnswersImg[i]));
       }
 
-      if (document.querySelector('#singleCorrectAnswerImg').files[0] != undefined) {
+      if (document.querySelector('#singleCorrectAnswerImg').files && document.querySelector('#singleCorrectAnswerImg').files[0]) {
         formData.append('answersContent[' + i + ']', document.querySelector('#singleCorrectAnswerImg').files[0]);
         formData.append('answers[' + i + ']', JSON.stringify({
           content: document.querySelector('#singleCorrectAnswerImg').files[0],
@@ -7468,9 +7469,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               for (var i = 0; i < data.answers.length; i++) {
                 if (data.answers[i].isTrue) {
-                  document.getElementById('singleCorrectAnswer').value = data.answers[i].content;
+                  this.correctAnswer = data.answers[i].content;
                 } else {
-                  this.singleAnswers.push(data.answers[i]);
+                  this.singleAnswers.push({
+                    content: data.answers[i].content,
+                    type: data.answers[i].type,
+                    isCorrect: data.answers[i].isTrue
+                  });
                 }
               }
             } else {
@@ -7478,9 +7483,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               for (var i = 0; i < data.answers.length; i++) {
                 if (data.answers[i].isTrue) {
-                  this.correctAnswerImage = data.answers[i];
+                  this.correctAnswerImage = data.answers[i].content;
                 } else {
-                  this.singleAnswersImg.push(data.answers[i]);
+                  this.singleAnswersImg.push({
+                    content: data.answers[i].content,
+                    type: data.answers[i].type,
+                    isCorrect: data.answers[i].isTrue
+                  });
                 }
               }
             }
@@ -18169,7 +18178,7 @@ var render = function() {
                                         "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
                                       style: {
                                         "background-image":
-                                          "url(" + _vm.defaultImagePatht + ")"
+                                          "url(" + _vm.defaultImagePath + ")"
                                       },
                                       attrs: {
                                         id:
@@ -18267,8 +18276,25 @@ var render = function() {
                       ]),
                       _vm._v(" "),
                       _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.correctAnswer,
+                            expression: "correctAnswer"
+                          }
+                        ],
                         staticClass: "uk-input uk-width",
-                        attrs: { type: "text", id: "singleCorrectAnswer" }
+                        attrs: { type: "text", id: "singleCorrectAnswer" },
+                        domProps: { value: _vm.correctAnswer },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.correctAnswer = $event.target.value
+                          }
+                        }
                       })
                     ]),
                     _vm._v(" "),
