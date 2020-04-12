@@ -817,7 +817,7 @@
                 formData.append('instructorId', this.instructorId);
                 formData.append('type', 'match');
                 for(var i=0; i<this.matchingAnswers.length; i++) {
-                    formData.append('answers['+i+']', JSON.stringify(this.singleAnswers[i]));
+                    formData.append('answers['+i+']', JSON.stringify(this.matchingAnswers[i]));
                 }
                 Axios.post(this.url, formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
@@ -846,9 +846,9 @@
                 formData.append('instructorId', this.instructorId);
                 formData.append('type', 'match');
                 for(var i=0; i<this.matchingAnswersImg.length; i++) {
-                    formData.append('answersContent['+i+']', this.singleAnswersImg[i].first);
-                    formData.append('answersAnswer['+i+']', this.singleAnswersImg[i].second);
-                    formData.append('answers['+i+']', JSON.stringify(this.singleAnswersImg[i]));
+                    formData.append('answersContent['+i+']', this.matchingAnswersImg[i].first);
+                    formData.append('answersAnswer['+i+']', this.matchingAnswersImg[i].second);
+                    formData.append('answers['+i+']', JSON.stringify(this.matchingAnswersImg[i]));
                 }
                 Axios.post(this.url, formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
