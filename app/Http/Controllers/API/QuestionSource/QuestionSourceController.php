@@ -115,12 +115,15 @@ class QuestionSourceController extends Controller
         // Initializing
         $repo = new QuestionSourceRepository();
         $data = $request->toArray();
-      // return $data;
+        $resp = null;
 
+
+        if($data['type'] == 'singleChoice'){
+            $resp=$repo->updateSingle($id,$data);
+        }
 
         // Operations
-        $resp = $repo->update($id,$data);
-        if($resp->getResult()){
+        if($resp!=null and $resp->getResult()){
             return response()->json([
                 'error' => false,
                 'message' => 'Soru başarıyla güncellendi.',
