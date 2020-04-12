@@ -17,6 +17,7 @@ class CreateQsGapFillingTable extends Migration
             $table->bigIncrements('id');
             $table->integer('questionId');
             $table->string('content');
+            $table->string('after');
             $table->integer('no');
             $table->string('type');
             $table->timestamps();

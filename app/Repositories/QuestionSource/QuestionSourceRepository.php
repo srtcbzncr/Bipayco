@@ -82,6 +82,339 @@ class QuestionSourceRepository implements IRepository
         return $resp;
     }
 
+    public function createSingle($data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = new Question();
+            if(isset($data['text']) and $data['text']!=null){
+                $object->text = $data['text'];
+            }
+            if(isset($data['imgUrl']) and file_exists($data['imgUrl'])){
+                $path = $data['imgUrl']->store('public/questionSource');
+                $accessPath=Storage::url($path);
+                $object->imgUrl = $accessPath;
+            }
+            $object->level = $data['level'];
+            $object->type = SingleChoice::class;
+            $object->crLessonId = $data['crLessonId'];
+            $object->crSubjectId = $data['crSubjectId'];
+            $object->instructorId = $data['instructorId'];
+            $object->isConfirm = false;
+            $object->save();
+
+            // add answers
+            if(isset($data['answersContent']) and count($data['answersContent'])>0){
+                foreach ($data['answers'] as $key=> $answer){
+                    $jsonAnswer = json_decode($answer,true);
+                    $single = new SingleChoice();
+                    $single->questionId = $object->id;
+
+                    $path = $data['answersContent'][$key]->store('public/questionSource');
+                    $accessPath=Storage::url($path);
+                    $single->content = $accessPath;
+
+                    if($jsonAnswer['isCorrect']=='true')
+                        $single->isTrue = true;
+                    else
+                        $single->isTrue = false;
+                    $single->type = $jsonAnswer['type'];
+                    $single->save();
+                }
+            }
+            else{
+                foreach ($data['answers'] as $answer){
+                    $jsonAnswer = json_decode($answer,true);
+                    $single = new SingleChoice();
+                    $single->questionId = $object->id;
+                    $single->content = $jsonAnswer['content'];
+                    if($jsonAnswer['isCorrect']=='true')
+                        $single->isTrue = true;
+                    else
+                        $single->isTrue = false;
+                    $single->type = $jsonAnswer['type'];
+                    $single->save();
+                }
+            }
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+    public function createMulti($data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = new Question();
+            if(isset($data['text']) and $data['text']!=null){
+                $object->text = $data['text'];
+            }
+            if(isset($data['imgUrl']) and file_exists($data['imgUrl'])){
+                $path = $data['imgUrl']->store('public/questionSource');
+                $accessPath=Storage::url($path);
+                $object->imgUrl = $accessPath;
+            }
+            $object->level = $data['level'];
+            $object->type = MultiChoice::class;
+            $object->crLessonId = $data['crLessonId'];
+            $object->crSubjectId = $data['crSubjectId'];
+            $object->instructorId = $data['instructorId'];
+            $object->isConfirm = false;
+            $object->save();
+
+            // add answers
+            if(isset($data['answersContent']) and count($data['answersContent'])>0){
+                foreach ($data['answers'] as $key=> $answer){
+                    $jsonAnswer = json_decode($answer,true);
+                    $single = new MultiChoice();
+                    $single->questionId = $object->id;
+
+                    $path = $data['answersContent'][$key]->store('public/questionSource');
+                    $accessPath=Storage::url($path);
+                    $single->content = $accessPath;
+
+                    if($jsonAnswer['isCorrect']=='true')
+                        $single->isTrue = true;
+                    else
+                        $single->isTrue = false;
+                    $single->type = $jsonAnswer['type'];
+                    $single->save();
+                }
+            }
+            else{
+                foreach ($data['answers'] as $answer){
+                    $jsonAnswer = json_decode($answer,true);
+                    $single = new MultiChoice();
+                    $single->questionId = $object->id;
+                    $single->content = $jsonAnswer['content'];
+                    if($jsonAnswer['isCorrect']=='true')
+                        $single->isTrue = true;
+                    else
+                        $single->isTrue = false;
+                    $single->type = $jsonAnswer['type'];
+                    $single->save();
+                }
+            }
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+    public function createGap($data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = new Question();
+            if(isset($data['beginningOfSentence']) and $data['beginningOfSentence']!=null){
+                $object->text = $data['beginningOfSentence'];
+            }
+            if(isset($data['imgUrl']) and file_exists($data['imgUrl'])){
+                $path = $data['imgUrl']->store('public/questionSource');
+                $accessPath=Storage::url($path);
+                $object->imgUrl = $accessPath;
+            }
+            $object->level = $data['level'];
+            $object->type = GapFilling::class;
+            $object->crLessonId = $data['crLessonId'];
+            $object->crSubjectId = $data['crSubjectId'];
+            $object->instructorId = $data['instructorId'];
+            $object->isConfirm = false;
+            $object->save();
+
+            // add answers
+            foreach ($data['answers'] as $key => $answer){
+                $jsonAnswer = json_decode($answer,true);
+                $single = new GapFilling();
+                $single->questionId = $object->id;
+                $single->content = $jsonAnswer['answer'];
+                $single->after = $jsonAnswer['after'];
+                $single->no = $key;
+                $single->type = "text";
+                $single->save();
+            }
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+    public function createTrueFalse($data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = new Question();
+            if(isset($data['content']) and $data['content']!=null){
+                $object->text = $data['content'];
+            }
+            if(isset($data['imgUrl']) and file_exists($data['imgUrl'])){
+                $path = $data['imgUrl']->store('public/questionSource');
+                $accessPath=Storage::url($path);
+                $object->imgUrl = $accessPath;
+            }
+            $object->level = $data['level'];
+            $object->type = TrueFalse::class;
+            $object->crLessonId = $data['crLessonId'];
+            $object->crSubjectId = $data['crSubjectId'];
+            $object->instructorId = $data['instructorId'];
+            $object->isConfirm = false;
+            $object->save();
+
+            // add answers
+            $answer = new TrueFalse();
+            $answer->questionId = $object->id;
+            if($data['isCorrect'] == "1" or $data['isCorrect'] == "true"){
+                $answer->content = true;
+            }
+            $answer->save();
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+    public function createMatch($data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = new Question();
+            if(isset($data['text']) and $data['text']!=null){
+                $object->text = $data['text'];
+            }
+            if(isset($data['imgUrl']) and file_exists($data['imgUrl'])){
+                $path = $data['imgUrl']->store('public/questionSource');
+                $accessPath=Storage::url($path);
+                $object->imgUrl = $accessPath;
+            }
+            $object->level = $data['level'];
+            $object->type = Match::class;
+            $object->crLessonId = $data['crLessonId'];
+            $object->crSubjectId = $data['crSubjectId'];
+            $object->instructorId = $data['instructorId'];
+            $object->isConfirm = false;
+            $object->save();
+
+            // add answers
+            if(isset($data['answersContent']) and count($data['answersContent'])>0 and isset($data['answersAnswer']) and count($data['answersAnswer'])>0){
+                foreach ($data['answers'] as $key=> $answer){
+                    $jsonAnswer = json_decode($answer,true);
+                    $match = new Match();
+                    $match->questionId = $object->id;
+
+                    $path = $data['answersContent'][$key]->store('public/questionSource');
+                    $accessPath=Storage::url($path);
+                    $match->content = $accessPath;
+
+                    $path = $data['answersAnswer'][$key]->store('public/questionSource');
+                    $accessPath=Storage::url($path);
+                    $match->answer = $accessPath;
+
+                    $match->type = $jsonAnswer['type'];
+                    $match->save();
+                }
+            }
+            else{
+                foreach ($data['answers'] as $answer){
+                    $jsonAnswer = json_decode($answer,true);
+                    $match = new Match();
+                    $match->questionId = $object->id;
+                    $match->content = $jsonAnswer['first'];
+                    $match->type = $jsonAnswer['type'];
+                    $match->answer = $jsonAnswer['second'];
+                    $match->save();
+                }
+            }
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+    public function createOrder($data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = new Question();
+            if(isset($data['text']) and $data['text']!=null){
+                $object->text = $data['text'];
+            }
+            if(isset($data['imgUrl']) and file_exists($data['imgUrl'])){
+                $path = $data['imgUrl']->store('public/questionSource');
+                $accessPath=Storage::url($path);
+                $object->imgUrl = $accessPath;
+            }
+            $object->level = $data['level'];
+            $object->type = Order::class;
+            $object->crLessonId = $data['crLessonId'];
+            $object->crSubjectId = $data['crSubjectId'];
+            $object->instructorId = $data['instructorId'];
+            $object->isConfirm = false;
+            $object->save();
+
+            // add answers
+            foreach ($data['content'] as $key=> $content){
+                $order = new Order();
+                $order->questionId = $object->id;
+                $order->content = $content;
+                $order->no = $key;
+                $order->save();
+            }
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
     function OzelKarakterTemizle($veri)
     {
         $veri =str_replace("\"","",$veri);
@@ -99,6 +432,7 @@ class QuestionSourceRepository implements IRepository
         $veri =str_replace("chr(39)","",$veri);
         return $veri;
     }
+    #todo : yeniden yaz.
     public function getQuestion($id)
     {
         // Response variables
@@ -172,7 +506,7 @@ class QuestionSourceRepository implements IRepository
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
-
+    #todo : yeniden yaz.
     public function create(array $data)
     {
         // Response variables
@@ -500,7 +834,7 @@ class QuestionSourceRepository implements IRepository
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
-
+    #todo : yeniden yaz.
     public function update($id, array $data)
     {
         // Response variables
@@ -599,6 +933,7 @@ class QuestionSourceRepository implements IRepository
                 $object->isConfirm = false;
                 $object->save();
 
+
                 $objectAnswer = null;
                 if($data['type'] == 'singleChoice'){
                     $type = null;
@@ -661,40 +996,33 @@ class QuestionSourceRepository implements IRepository
                     }
                 }
                 else if($data['type'] == 'multiChoice'){
-                    if(explode('}',explode(':',explode(',',$data['answers'][0])[2])[1])[0]=="\"text\""){
-                        foreach ($data['answersContent'] as $answer){
+                    if(json_decode($data['answers'][0],true)['type'] == "text"){
+                        foreach ($data['answers'] as $answer){
+                            $jsonAnswer=json_decode($answer,true);
                             $objectAnswer = new MultiChoice();
                             $objectAnswer->questionId = $object->id;
-                            $objectAnswer->content = explode(':',explode(',',$answer)[0])[1];
-                            if(explode(':',explode(',',$answer)[1])[1] == "true")
-                                $objectAnswer->isTrue = true;
-                            else
-                                $objectAnswer->isTrue = false;
-                            $objectAnswer->type = explode('}',explode(':',explode(',',$answer)[2])[1])[0];
+                            $objectAnswer->content = $jsonAnswer['content'];
+                            $objectAnswer->isTrue = $jsonAnswer['isCorrect'];
+                            $objectAnswer->type = $jsonAnswer['type'];
                             $objectAnswer->save();
                         }
                     }
                     else{
-                        $i=0;
-                        foreach ($data['answersContent'] as $answer){
+                        foreach ($data['answers'] as $key => $answer){
+                            $jsonAnswer=json_decode($answer,true);
                             $objectAnswer = new MultiChoice();
                             $objectAnswer->questionId = $object->id;
-                            if(!is_string($answer)){
-                                $path = $answer->store('public/questionSource');
+                            if(!is_string($jsonAnswer['content'])){
+                                $path = $data['answersContent'][$key]->store('public/questionSource');
                                 $accessPath=Storage::url($path);
                                 $objectAnswer->content = $accessPath;
                             }
                             else{
-                                $objectAnswer->content = $answer;
+                                $objectAnswer->content = $jsonAnswer['content'];
                             }
-
-                            if(explode(':',explode(',',$data['answers'][$i])[1])[1] == "true")
-                                $objectAnswer->isTrue = true;
-                            else
-                                $objectAnswer->isTrue = false;
-                            $objectAnswer->type =  explode('}',explode(':',explode(',',$data['answers'][$i])[2])[1])[0];
+                            $objectAnswer->isTrue = $jsonAnswer['isCorrect'];
+                            $objectAnswer->type =  $jsonAnswer['type'];
                             $objectAnswer->save();
-                            $i++;
                         }
                     }
                 }

@@ -15,9 +15,29 @@ class QuestionSourceController extends Controller
         $repo = new QuestionSourceRepository();
         $data = $request->toArray();
 
+        $resp=null;
+
+        if($data['type'] == 'singleChoice'){
+            $resp=$repo->createSingle($data);
+        }
+        else if($data['type'] == 'multiChoice'){
+            $resp=$repo->createMulti($data);
+        }
+        else if($data['type'] == 'fillBlank'){
+            $resp=$repo->createGap($data);
+        }
+        else if($data['type'] == 'trueFalse'){
+            $resp=$repo->createTrueFalse($data);
+        }
+        else if($data['type'] == 'match'){
+            $resp=$repo->createMatch($data);
+        }
+        else if($data['type'] == 'order'){
+            $resp=$repo->createOrder($data);
+        }
+
         // Operations
-        $resp = $repo->create($data);
-        if($resp->getResult()){
+        if($resp!=null  and $resp->getResult()){
             return response()->json([
                 'error' => false,
                 'message' => 'Soru başarıyla oluşturuldu.',
@@ -29,6 +49,7 @@ class QuestionSourceController extends Controller
             'message' => 'Soru oluşturulurken hata meydana geldi.Tekrar deneyin',
             'errorMessage' => $resp->getError()
         ],400);
+
     }
 
     public function delete($id){
@@ -94,6 +115,8 @@ class QuestionSourceController extends Controller
         // Initializing
         $repo = new QuestionSourceRepository();
         $data = $request->toArray();
+      // return $data;
+
 
         // Operations
         $resp = $repo->update($id,$data);

@@ -9,6 +9,7 @@ class GapFilling extends Model
     protected $fillable = [
         'questionId',
         'content',
+        'after',
         'no',
         'type'
     ];

@@ -16,7 +16,7 @@ class CreateQsTrueFalseTable extends Migration
         Schema::create('qs_true_false', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('questionId');
-            $table->string('content');
+            $table->tinyInteger('content');
             $table->timestamps();
         });
     }
