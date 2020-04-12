@@ -817,9 +817,7 @@
                 formData.append('instructorId', this.instructorId);
                 formData.append('type', 'match');
                 for(var i=0; i<this.matchingAnswers.length; i++) {
-                    formData.append("answers["+i+"]['first']", this.matchingAnswers[i].first);
-                    formData.append("answers["+i+"]['second']", this.matchingAnswers[i].second);
-                    formData.append("answers["+i+"]['type']", this.matchingAnswers[i].type);
+                    formData.append('answers['+i+']', JSON.stringify(this.singleAnswers[i]));
                 }
                 Axios.post(this.url, formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
@@ -848,9 +846,9 @@
                 formData.append('instructorId', this.instructorId);
                 formData.append('type', 'match');
                 for(var i=0; i<this.matchingAnswersImg.length; i++) {
-                    formData.append("answers["+i+"]['first']", this.matchingAnswersImg[i].first);
-                    formData.append("answers["+i+"]['second']", this.matchingAnswersImg[i].second);
-                    formData.append("answers["+i+"]['type']", this.matchingAnswersImg[i].type);
+                    formData.append('answersContent['+i+']', this.singleAnswersImg[i].first);
+                    formData.append('answersAnswer['+i+']', this.singleAnswersImg[i].second);
+                    formData.append('answers['+i+']', JSON.stringify(this.singleAnswersImg[i]));
                 }
                 Axios.post(this.url, formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
