@@ -44,13 +44,16 @@ class QuestionSourceRepository implements IRepository
 
             if(count($questions) > 0 and  count($questions) <= 10){
                 // subject ve lesson bilgisinide getir
-                foreach ($questions as $key=> $question){
-                    $subject = Subject::find($question->crSubjectId);
-                    $lesson = Lesson::find($question->crLessonId);
-                    $questions[$key]['lesson'] = $lesson;
-                    $questions[$key]['subject'] = $subject;
+                $chunkArray = array_chunk($questions,10);
+                foreach ($chunkArray as $keyChunk => $chunk){
+                    foreach ($chunk as $keyQue => $question){
+                        $subject = Subject::find($question['crSubjectId']);
+                        $lesson = Lesson::find($question['crLessonId']);
+                        $chunkArray[$keyChunk][$keyQue]['lesson'] = $lesson;
+                        $chunkArray[$keyChunk][$keyQue]['subject'] = $subject;
+                    }
                 }
-                $object = $questions;
+                $object = $chunkArray;
             }
             else if(count($questions) > 10){
                 $chunkArray = array_chunk($questions,10);
