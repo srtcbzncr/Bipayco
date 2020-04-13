@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\QuestionSource;
 
 use App\Http\Controllers\Controller;
+use App\Models\QuestionSource\Question;
 use App\Repositories\QuestionSource\QuestionSourceRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -94,19 +95,39 @@ class QuestionSourceController extends Controller
     public function getQuestion($id){
         // Initializing
         $repo = new QuestionSourceRepository();
+        $resp = null;
 
         // Operations
-        $resp = $repo->getQuestion($id);
+        $question = Question::find($id);
+        if($question->type == 'App\Models\QuestionSource\SingleChoice'){
+            $resp = $repo->getSingle($id);
+        }
+        else if($question->type == 'App\Models\QuestionSource\MultiChoice') {
+            $resp = $repo->getMulti($id);
+        }
+        else if($question->type == 'App\Models\QuestionSource\GapFilling'){
+            $resp = $repo->getGap($id);
+        }
+        else if($question->type == 'App\Models\QuestionSource\TrueFalse'){
+            $resp = $repo->getTrueFalse($id);
+        }
+        else if($question->type == 'App\Models\QuestionSource\Match'){
+            $resp = $repo->getMatch($id);
+        }
+        else if($question->type == 'App\Models\QuestionSource\Order'){
+            $resp = $repo->getOrder($id);
+        }
+
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'message' => 'Soru başarıyla silindi.',
+                'message' => 'Soru başarıyla getirildi.',
                 'data' => $resp->getData()
             ]);
         }
         return response()->json([
             'error' => true,
-            'message' => 'Soru silinirken hata meydana geldi.Tekrar deneyin',
+            'message' => 'Soru getirilirken hata meydana geldi.Tekrar deneyin',
         ],400);
     }
 
