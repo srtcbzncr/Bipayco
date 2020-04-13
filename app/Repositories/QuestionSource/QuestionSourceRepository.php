@@ -509,7 +509,350 @@ class QuestionSourceRepository implements IRepository
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+    public function updateMulti($id,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
 
+        // Operations
+        try{
+            DB::beginTransaction();
+
+            $object = Question::find($id);
+            $answers = MultiChoice::where('questionId',$id)->get();
+            foreach ($answers as $answer){
+                $temp = SingleChoice::find($answer->id);
+                $temp->delete();
+            }
+            $object->delete();
+
+            // yeni soru oluştur.
+            $object = new Question();
+            if(isset($data['text']) and $data['text']!=null){
+                $object->text = $data['text'];
+            }
+            if(isset($data['imgUrl']) and file_exists($data['imgUrl'])){
+                $path = $data['imgUrl']->store('public/questionSource');
+                $accessPath=Storage::url($path);
+                $object->imgUrl = $accessPath;
+            }
+            else{
+                if(isset($data['imgUrl'])){
+                    $object->imgUrl = $data['imgUrl'];
+                }
+                else{
+                    $object->imgUrl = null;
+                }
+            }
+
+            $object->level = $data['level'];
+            $object->type = MultiChoice::class;
+            $object->crLessonId = $data['crLessonId'];
+            $object->crSubjectId = $data['crSubjectId'];
+            $object->instructorId = $data['instructorId'];
+            $object->isConfirm = false;
+            $object->save();
+
+            // add answers
+            if(isset($data['answersContent']) and count($data['answersContent'])>0){
+                foreach ($data['answers'] as $key=> $answer){
+                    $jsonAnswer = json_decode($answer,true);
+                    $single = new MultiChoice();
+                    $single->questionId = $object->id;
+
+                    if(!is_string($data['answersContent'][$key]) and file_exists($data['answersContent'][$key])){
+                        $path = $data['answersContent'][$key]->store('public/questionSource');
+                        $accessPath=Storage::url($path);
+                        $single->content = $accessPath;
+                    }
+                    else{
+                        $single->content = $data['answersContent'][$key];
+                    }
+
+                    if(strval($jsonAnswer['isCorrect']) == 'true' or strval($jsonAnswer['isCorrect']) == '1')
+                        $single->isTrue = true;
+                    else
+                        $single->isTrue = false;
+                    $single->type = $jsonAnswer['type'];
+                    $single->save();
+                }
+            }
+            else{
+                foreach ($data['answers'] as $answer){
+                    $jsonAnswer = json_decode($answer,true);
+                    $single = new MultiChoice();
+                    $single->questionId = $object->id;
+                    $single->content = $jsonAnswer['content'];
+                    if(strval($jsonAnswer['isCorrect'])=='true' or strval($jsonAnswer['isCorrect']) == '1')
+                        $single->isTrue = true;
+                    else
+                        $single->isTrue = false;
+                    $single->type = $jsonAnswer['type'];
+                    $single->save();
+                }
+            }
+
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+    public function updateGap($id,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $object = Question::find($id);
+            $answers = MultiChoice::where('questionId',$id)->get();
+            foreach ($answers as $answer){
+                $temp = SingleChoice::find($answer->id);
+                $temp->delete();
+            }
+            $object->delete();
+
+            // yeni soru oluştur.
+            $object = new Question();
+            if(isset($data['beginningOfSentence']) and $data['beginningOfSentence']!=null){
+                $object->text = $data['beginningOfSentence'];
+            }
+            if(isset($data['imgUrl']) and file_exists($data['imgUrl'])){
+                $path = $data['imgUrl']->store('public/questionSource');
+                $accessPath=Storage::url($path);
+                $object->imgUrl = $accessPath;
+            }
+            else{
+                if(isset($data['imgUrl'])){
+                    $object->imgUrl = $data['imgUrl'];
+                }
+                else{
+                    $object->imgUrl = null;
+                }
+            }
+            $object->level = $data['level'];
+            $object->type = GapFilling::class;
+            $object->crLessonId = $data['crLessonId'];
+            $object->crSubjectId = $data['crSubjectId'];
+            $object->instructorId = $data['instructorId'];
+            $object->isConfirm = false;
+            $object->save();
+
+            // add answers
+            foreach ($data['answers'] as $key => $answer){
+                $jsonAnswer = json_decode($answer,true);
+                $single = new GapFilling();
+                $single->questionId = $object->id;
+                $single->content = $jsonAnswer['answer'];
+                $single->after = $jsonAnswer['after'];
+                $single->no = $key;
+                $single->type = "text";
+                $single->save();
+            }
+
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+    public function updateMatch($id,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $object = Question::find($id);
+            $answers = MultiChoice::where('questionId',$id)->get();
+            foreach ($answers as $answer){
+                $temp = SingleChoice::find($answer->id);
+                $temp->delete();
+            }
+            $object->delete();
+
+            // yeni soru oluştur.
+            $object = new Question();
+            if(isset($data['text']) and $data['text']!=null){
+                $object->text = $data['text'];
+            }
+            if(isset($data['imgUrl']) and file_exists($data['imgUrl'])){
+                $path = $data['imgUrl']->store('public/questionSource');
+                $accessPath=Storage::url($path);
+                $object->imgUrl = $accessPath;
+            }
+            else{
+                if(isset($data['imgUrl'])){
+                    $object->imgUrl = $data['imgUrl'];
+                }
+                else{
+                    $object->imgUrl = null;
+                }
+            }
+
+            $object->level = $data['level'];
+            $object->type = Match::class;
+            $object->crLessonId = $data['crLessonId'];
+            $object->crSubjectId = $data['crSubjectId'];
+            $object->instructorId = $data['instructorId'];
+            $object->isConfirm = false;
+            $object->save();
+
+            // add answers
+            if(isset($data['answersContent']) and count($data['answersContent'])>0 and isset($data['answersAnswer']) and count($data['answersAnswer'])>0){
+                foreach ($data['answers'] as $key=> $answer){
+                    $jsonAnswer = json_decode($answer,true);
+                    $match = new Match();
+                    $match->questionId = $object->id;
+
+                    if(!is_string($data['answersContent'][$key]) and file_exists($data['answersContent'][$key])){
+                        $path = $data['answersContent'][$key]->store('public/questionSource');
+                        $accessPath=Storage::url($path);
+                        $match->content = $accessPath;
+                    }
+                    else{
+                        $match->content = $data['answersContent'][$key];
+                    }
+
+                    if(!is_string($data['answersAnswer'][$key]) and file_exists($data['answersAnswer'][$key])){
+                        $path = $data['answersAnswer'][$key]->store('public/questionSource');
+                        $accessPath=Storage::url($path);
+                        $match->answer = $accessPath;
+                    }
+                    else{
+                        $match->answer = $data['answersAnswer'][$key];
+                    }
+
+                    $match->type = $jsonAnswer['type'];
+                    $match->save();
+                }
+            }
+            else{
+                foreach ($data['answers'] as $answer){
+                    $jsonAnswer = json_decode($answer,true);
+                    $match = new Match();
+                    $match->questionId = $object->id;
+                    $match->content = $jsonAnswer['first'];
+                    $match->type = $jsonAnswer['type'];
+                    $match->answer = $jsonAnswer['second'];
+                    $match->save();
+                }
+            }
+
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+    public function updateOrder($id,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $object = Question::find($id);
+            $answers = MultiChoice::where('questionId',$id)->get();
+            foreach ($answers as $answer){
+                $temp = SingleChoice::find($answer->id);
+                $temp->delete();
+            }
+            $object->delete();
+
+            // yeni soru oluştur.
+            $object = new Question();
+            if(isset($data['text']) and $data['text']!=null){
+                $object->text = $data['text'];
+            }
+            if(isset($data['imgUrl']) and file_exists($data['imgUrl'])){
+                $path = $data['imgUrl']->store('public/questionSource');
+                $accessPath=Storage::url($path);
+                $object->imgUrl = $accessPath;
+            }
+            else{
+                if(isset($data['imgUrl'])){
+                    $object->imgUrl = $data['imgUrl'];
+                }
+                else{
+                    $object->imgUrl = null;
+                }
+            }
+            $object->level = $data['level'];
+            $object->type = Order::class;
+            $object->crLessonId = $data['crLessonId'];
+            $object->crSubjectId = $data['crSubjectId'];
+            $object->instructorId = $data['instructorId'];
+            $object->isConfirm = false;
+            $object->save();
+
+            // add answers
+            foreach ($data['content'] as $key=> $content){
+                $order = new Order();
+                $order->questionId = $object->id;
+                $order->content = $content;
+                $order->no = $key;
+                $order->save();
+            }
+
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getMulti($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
     function OzelKarakterTemizle($veri)
     {
         $veri =str_replace("\"","",$veri);
@@ -929,7 +1272,7 @@ class QuestionSourceRepository implements IRepository
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
-    #todo : yeniden yaz.
+    #todo : yeniden yaz. OK
     public function update($id, array $data)
     {
         // Response variables

@@ -117,9 +117,20 @@ class QuestionSourceController extends Controller
         $data = $request->toArray();
         $resp = null;
 
-
         if($data['type'] == 'singleChoice'){
             $resp=$repo->updateSingle($id,$data);
+        }
+        else if($data['type'] == 'multiChoice'){
+            $resp=$repo->updateMulti($id,$data);
+        }
+        else if($data['type'] == 'fillBlank'){
+            $resp=$repo->updateGap($id,$data);
+        }
+        else if($data['type'] == 'match'){
+            $resp=$repo->updateMatch($id,$data);
+        }
+        else if($data['type'] == 'order'){
+            $resp=$repo->updateOrder($id,$data);
         }
 
         // Operations
