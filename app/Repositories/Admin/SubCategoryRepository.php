@@ -4,6 +4,7 @@
 namespace App\Repositories\Admin;
 
 
+use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\SubCategory;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
@@ -131,7 +132,19 @@ class SubCategoryRepository implements IRepository
         // Operations
         try{
             $object = SubCategory::find($id);
-            $object->delete();
+            $control = false;
+            $courses = Course::where('sub_category_id',$id)->get();
+            if($courses == null or count($courses) == 0){
+                $control = true;
+            }
+
+            if($control){
+                $object->delete();
+            }
+            else{
+                $result = false;
+                $error = "Alt kategoriye ait kurslar bulunmaktadır.";
+            }
         }
         catch(\Exception $e){
             $error = $e->getMessage();

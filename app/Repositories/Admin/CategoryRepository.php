@@ -5,6 +5,7 @@ namespace App\Repositories\Admin;
 
 
 use App\Models\GeneralEducation\Category;
+use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\SubCategory;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
@@ -132,18 +133,27 @@ class CategoryRepository implements IRepository
 
         // Operations
         try{
-            DB::beginTransaction();
             $object = Category::find($id);
-            $subs = SubCategory::where('category_id',$id)->get();
-            foreach ($subs as $sub){
-                $tempSub = SubCategory::find($sub->id);
-                $tempSub->delete();
+            $courses = Course::where('category_id',$id)->get();
+
+            $control = false;
+            if($courses == null or count($courses) == 0){
+                $control = true;
             }
-            $object->delete();
-            DB::commit();
+            if($control){
+                $subs = SubCategory::where('category_id',$id)->get();
+                foreach ($subs as $sub){
+                    $tempSub = SubCategory::find($sub->id);
+                    $tempSub->delete();
+                }
+                $object->delete();
+            }
+            else{
+                $result = false;
+                $error = "Bu kategoriye bağlı kurs bulunmaktadır.";
+            }
         }
         catch(\Exception $e){
-            DB::rollBack();
             $error = $e->getMessage();
             $result = false;
         }

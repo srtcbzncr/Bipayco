@@ -6,6 +6,7 @@ namespace App\Repositories\Admin;
 
 use App\Models\Curriculum\Lesson;
 use App\Models\Curriculum\Subject;
+use App\Models\PrepareLessons\Course;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\DB;
@@ -122,12 +123,20 @@ class LessonRepository implements IRepository
         try{
             DB::beginTransaction();
             $object = Lesson::find($id);
-            $subjects = Subject::where('lesson_id',$id)->get();
-            foreach ($subjects as $subject){
-                $tempSubject = Subject::find($subject->id);
-                $tempSubject->delete();
+            $courses = Course::where('lesson_id',$id)->get();
+            if($courses == null or count($courses) == 0){
+                $subjects = Subject::where('lesson_id',$id)->get();
+                foreach ($subjects as $subject){
+                    $tempSubject = Subject::find($subject->id);
+                    $tempSubject->delete();
+                }
+                $object->delete();
             }
-            $object->delete();
+            else{
+                $error = "Derse ait kurslar bulunmaktadır.";
+                $result = false;
+            }
+
             DB::commit();
         }
         catch(\Exception $e){

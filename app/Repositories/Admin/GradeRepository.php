@@ -5,6 +5,7 @@ namespace App\Repositories\Admin;
 
 
 use App\Models\Curriculum\Grade;
+use App\Models\PrepareLessons\Course;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\DB;
@@ -118,7 +119,14 @@ class GradeRepository implements IRepository
         // Operations
         try{
             $object = Grade::find($id);
-            $object->delete();
+            $courses = Course::where('grade_id',$id)->get();
+            if($courses == null or count($courses) == 0){
+                $object->delete();
+            }
+            else{
+                $error = "Bu sınıfa ait kurslar bulunmaktadır.";
+                $result = false;
+            }
         }
         catch(\Exception $e){
             $error = $e->getMessage();
