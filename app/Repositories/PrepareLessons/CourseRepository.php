@@ -14,7 +14,13 @@ use App\Models\GeneralEducation\Tag;
 use App\Models\PrepareLessons\Course;
 use App\Models\PrepareLessons\Lesson;
 use App\Models\PrepareLessons\Section;
+use App\Models\QuestionSource\GapFilling;
+use App\Models\QuestionSource\Match;
+use App\Models\QuestionSource\MultiChoice;
+use App\Models\QuestionSource\Order;
 use App\Models\QuestionSource\Question;
+use App\Models\QuestionSource\SingleChoice;
+use App\Models\QuestionSource\TrueFalse;
 use App\Models\UsersOperations\Basket;
 use App\Models\UsersOperations\Favorite;
 use App\Repositories\IRepository;
@@ -1565,16 +1571,19 @@ class CourseRepository implements IRepository{
             $questions1 = Question::where('level',1)->where('crLessonId',$data['crLessonId'])->where('crSubjectId',$data['crSubjectId'])->take(3)->get();
             foreach ($questions1 as $question){
                 $object['questions'][$i] = $question;
+                $object['questions'][$i]['answers'] = $this->getAnswers($question);
                 $i++;
             }
-            $questions2 = Question::where('level',2)->where('crLessonId',$data['crLessonId'])->where('crSubjectId',$data['crSubjectId'])->take(3)->get();
+            $questions2 = Question::where('level',2)->where('crLessonId',$data['crLessonId'])->where('crSubjectId',$data['crSubjectId'])->take(4)->get();
             foreach ($questions2 as $question){
                 $object['questions'][$i] = $question;
+                $object['questions'][$i]['answers'] = $this->getAnswers($question);
                 $i++;
             }
-            $questions3 = Question::where('level',3)->where('crLessonId',$data['crLessonId'])->where('crSubjectId',$data['crSubjectId'])->take(4)->get();
+            $questions3 = Question::where('level',3)->where('crLessonId',$data['crLessonId'])->where('crSubjectId',$data['crSubjectId'])->take(3)->get();
             foreach ($questions3 as $question){
                 $object['questions'][$i] = $question;
+                $object['questions'][$i]['answers'] = $this->getAnswers($question);
                 $i++;
             }
         }
@@ -1586,6 +1595,42 @@ class CourseRepository implements IRepository{
         // Response
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
+    }
+    private function getAnswers($question){
+        $answers = null;
+
+        if($question->type == "App\Models\QuestionSource\SingleChoice"){
+            $answers = SingleChoice::where('questionId',$question->id)->get();
+            shuffle($answers);
+        }
+        else if($question->type == "App\Models\QuestionSource\MultiChoice"){
+            $answers = MultiChoice::where('questionId',$question->id)->get();
+            shuffle($answers);
+        }
+        else if($question->type == "App\Models\QuestionSource\GapFilling"){
+            $answers = GapFilling::where('questionId',$question->id)->get();
+            shuffle($answers);
+        }
+        else if($question->type == "App\Models\QuestionSource\TrueFalse"){
+            $answers = TrueFalse::where('questionId',$question->id)->get();
+            shuffle($answers);
+        }
+        else if($question->type == "App\Models\QuestionSource\Match"){
+            $answers = Match::where('questionId',$question->id)->get();
+            shuffle($answers);
+        }
+        else if($question->type == "App\Models\QuestionSource\Order"){
+            $answers = Order::where('questionId',$question->id)->get();
+            shuffle($answers);
+        }
+
+        if($answers == null){
+            $answers = array();
+            return $answers;
+        }
+        else{
+            return $answers;
+        }
     }
 
     public function inBasket($user_id,$course_id){
