@@ -855,7 +855,6 @@ class QuestionSourceRepository implements IRepository
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
-
     public function getMulti($id){
         // Response variables
         $result = true;
@@ -919,7 +918,6 @@ class QuestionSourceRepository implements IRepository
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
-
     public function getMatch($id){
         // Response variables
         $result = true;
@@ -941,7 +939,6 @@ class QuestionSourceRepository implements IRepository
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
-
     public function getOrder($id){
         // Response variables
         $result = true;

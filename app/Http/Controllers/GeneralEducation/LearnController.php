@@ -47,21 +47,6 @@ class LearnController extends Controller
             return redirect()->route('ge_course',$course_id);
         }
 
-      /*  if($resp->getResult()){
-            $data = $resp->getData();
-            return view('general_education.watch')->with('course',$data);
-        }*/
 
     }
-
-//    private function entry($user,$course){
-//        $now = date('Y-m-d', time());
-//        $entry = Entry::where('student_id', $user->student->id)->where('course_type','App\Models\PrepareLessons\Course')->where('course_id', $course->id)->where('active', true)->first();
-//        if($entry != null and date('Y-m-d',strtotime($entry->access_start))<=$now and date('Y-m-d',strtotime($entry->access_finish))>=$now){
-//            return true;
-//        }
-//        else{
-//            return false;
-//        }
-//    }
 }

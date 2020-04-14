@@ -27,6 +27,7 @@ class CreatePlCoursesTable extends Migration
             $table->float('price_with_discount');
             $table->float('point')->default(0.0);
             $table->unsignedBigInteger('purchase_count')->default(0);
+            $table->integer('score')->nullable(false)->default(50);
             $table->boolean('active')->default(false);
             $table->timestamps();
             $table->softDeletes();
