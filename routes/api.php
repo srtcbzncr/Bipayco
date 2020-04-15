@@ -183,7 +183,8 @@ Route::prefix('learn')->group(function (){
     Route::get('generalEducation/{course_id}/user/{user_id}/defaultLesson','API\Learn\GeneralEducation\LearnController@defaultLesson')->name('api_get_general_education_default_lesson');
 
         # prepare lessons
-    Route::post('prepareLessons/createFirstLastTestStatus','API\QuestionSource\Student\FirstLastTestStatusController@create')->name('api_prepareLessons_create_flTestStatus');
+    Route::post('prepareLessons/createFirstLastTestStatus/create','API\QuestionSource\Student\FirstLastTestStatusController@create')->name('api_prepareLessons_create_flTestStatus');
+    Route::post('prepareLessons/createFirstLastTestAnswers/create','API\QuestionSource\Student\FirstLastTestAnswersController@create')->name('api_prepareLessons_create_flTestAnswers');
 });
 
 Route::prefix('basket')->group(function (){
