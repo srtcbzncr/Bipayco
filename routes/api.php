@@ -172,6 +172,7 @@ Route::prefix('instructor')->group(function(){
 
 # Kurs İzleme Bölümü İçin Routes
 Route::prefix('learn')->group(function (){
+        # general education
     Route::get('generalEducation/{course_id}/user/{user_id}','API\Learn\GeneralEducation\LearnController@getCourse')->name('api_get_general_education_course');
     Route::get('generalEducation/{course_id}/lesson/{lesson_id}','API\Learn\GeneralEducation\LearnController@getLesson')->name('api_get_general_education_lesson');
     Route::get('generalEducation/{course_id}/lesson/{lesson_id}/sources','API\Learn\GeneralEducation\LearnController@getSources')->name('api_get_general_education_sources');
@@ -181,6 +182,8 @@ Route::prefix('learn')->group(function (){
     Route::post('generalEducation/{course_id}/lesson/{lesson_id}/complete','API\Learn\GeneralEducation\LearnController@completeLesson')->name('api_get_general_education_complete_lesson');
     Route::get('generalEducation/{course_id}/user/{user_id}/defaultLesson','API\Learn\GeneralEducation\LearnController@defaultLesson')->name('api_get_general_education_default_lesson');
 
+        # prepare lessons
+    Route::post('prepareLessons/createFirstLastTestStatus','API\QuestionSource\Student\FirstLastTestStatusController@create')->name('api_prepareLessons_create_flTestStatus');
 });
 
 Route::prefix('basket')->group(function (){

@@ -12,7 +12,7 @@ class FirstLastTestStatus extends Model
         'studentId',
         'sectionId',
         'sectionType', // pl kursumu yoksa soru bankasının vb.
-        'testType', // ön test mi son test mi
+        'testType', // ön test mi son test mi: 0: ön test, 1: son test
         'score',
         'result'
     ];
