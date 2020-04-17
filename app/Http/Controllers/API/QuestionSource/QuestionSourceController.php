@@ -147,6 +147,9 @@ class QuestionSourceController extends Controller
         else if($data['type'] == 'fillBlank'){
             $resp=$repo->updateGap($id,$data);
         }
+        else if($data['type'] == "trueFalse"){
+            $resp=$repo->updateTrueFalse($id,$data);
+        }
         else if($data['type'] == 'match'){
             $resp=$repo->updateMatch($id,$data);
         }

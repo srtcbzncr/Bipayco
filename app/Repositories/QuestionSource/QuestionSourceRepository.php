@@ -522,7 +522,7 @@ class QuestionSourceRepository implements IRepository
             $object = Question::find($id);
             $answers = MultiChoice::where('questionId',$id)->get();
             foreach ($answers as $answer){
-                $temp = SingleChoice::find($answer->id);
+                $temp = MultiChoice::find($answer->id);
                 $temp->delete();
             }
             $object->delete();
@@ -615,9 +615,9 @@ class QuestionSourceRepository implements IRepository
         try{
             DB::beginTransaction();
             $object = Question::find($id);
-            $answers = MultiChoice::where('questionId',$id)->get();
+            $answers = GapFilling::where('questionId',$id)->get();
             foreach ($answers as $answer){
-                $temp = SingleChoice::find($answer->id);
+                $temp = GapFilling::find($answer->id);
                 $temp->delete();
             }
             $object->delete();
@@ -672,6 +672,70 @@ class QuestionSourceRepository implements IRepository
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+    public function updateTrueFalse($id,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $object = Question::find($id);
+            $answers = TrueFalse::where('questionId',$id)->get();
+            foreach ($answers as $answer){
+                $temp = TrueFalse::find($answer->id);
+                $temp->delete();
+            }
+            $object->delete();
+
+            $object = new Question();
+            if(isset($data['content']) and $data['content']!=null){
+                $object->text = $data['content'];
+            }
+            if(isset($data['imgUrl']) and file_exists($data['imgUrl'])){
+                $path = $data['imgUrl']->store('public/questionSource');
+                $accessPath=Storage::url($path);
+                $object->imgUrl = $accessPath;
+            }
+            else{
+                if (isset($data['imgUrl'])){
+                    $object->imgUrl = $data['imgUrl'];
+                }
+                else{
+                    $object->imgUrl = null;
+                }
+            }
+            $object->level = $data['level'];
+            $object->type = TrueFalse::class;
+            $object->crLessonId = $data['crLessonId'];
+            $object->crSubjectId = $data['crSubjectId'];
+            $object->instructorId = $data['instructorId'];
+            $object->isConfirm = false;
+            $object->save();
+
+            // add answers
+            $answer = new TrueFalse();
+            $answer->questionId = $object->id;
+            if(strval($data['isCorrect']) == '1' or strval($data['isCorrect']) == 'true'){
+                $answer->content = true;
+            }
+            else{
+                $answer->content = false;
+            }
+            $answer->save();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
     public function updateMatch($id,$data){
         // Response variables
         $result = true;
@@ -682,9 +746,9 @@ class QuestionSourceRepository implements IRepository
         try{
             DB::beginTransaction();
             $object = Question::find($id);
-            $answers = MultiChoice::where('questionId',$id)->get();
+            $answers = Match::where('questionId',$id)->get();
             foreach ($answers as $answer){
-                $temp = SingleChoice::find($answer->id);
+                $temp = Match::find($answer->id);
                 $temp->delete();
             }
             $object->delete();
@@ -779,9 +843,9 @@ class QuestionSourceRepository implements IRepository
         try{
             DB::beginTransaction();
             $object = Question::find($id);
-            $answers = MultiChoice::where('questionId',$id)->get();
+            $answers = Order::where('questionId',$id)->get();
             foreach ($answers as $answer){
-                $temp = SingleChoice::find($answer->id);
+                $temp = Order::find($answer->id);
                 $temp->delete();
             }
             $object->delete();
