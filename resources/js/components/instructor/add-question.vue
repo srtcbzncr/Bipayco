@@ -176,7 +176,7 @@
             </div>
             <div class="uk-margin-bottom">
                 <div class="uk-form-label"> {{questionText}} </div>
-                <textarea class="uk-height-small uk-textarea uk-overflow-auto" id="blankQuestion" required></textarea>
+                <textarea class="uk-height-small uk-textarea uk-overflow-auto" id="blankQuestion" v-model="text" required></textarea>
             </div>
             <div>
                 <div v-for="(blank,blankIndex) in blanks" class="uk-flex align-items-center uk-margin">
@@ -921,6 +921,7 @@
                 this.previewImage(inputId,previewId);
             },
             loadData:function(data){
+                console.log(data);
                 this.text=data.text;
                 this.selectedLessonId=data.crLessonId;
                 this.$store.dispatch('loadLessonSubjects', data.crLessonId);
@@ -967,12 +968,15 @@
                         break;
                     }
                     case 'fillBlank':{
-                        this.blanks=data.answers;
+                        for(var i=0; i<data.answers.length; i++){
+                            this.blanks.push({answer:data.answers[i].content, after:data.answers[i].after, type:data.answers[i].type});
+                        }
                         break;
                     }
                     case 'trueFalse':{
                         this.isCorrect= data.answers[0].content;
                         document.getElementsByName("isCorrect").value=data.answers[0].content;
+                        this.isCorrect=0;
                         break;
                     }
                     case 'match':{

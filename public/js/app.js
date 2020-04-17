@@ -7450,6 +7450,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.previewImage(inputId, previewId);
     },
     loadData: function loadData(data) {
+      console.log(data);
       this.text = data.text;
       this.selectedLessonId = data.crLessonId;
       this.$store.dispatch('loadLessonSubjects', data.crLessonId);
@@ -7524,7 +7525,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         case 'fillBlank':
           {
-            this.blanks = data.answers;
+            for (var i = 0; i < data.answers.length; i++) {
+              this.blanks.push({
+                answer: data.answers[i].content,
+                after: data.answers[i].after,
+                type: data.answers[i].type
+              });
+            }
+
             break;
           }
 
@@ -7532,6 +7540,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           {
             this.isCorrect = data.answers[0].content;
             document.getElementsByName("isCorrect").value = data.answers[0].content;
+            this.isCorrect = 0;
             break;
           }
 
@@ -8716,10 +8725,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "question-source-list",
+  data: function data() {
+    return {
+      currentPage: 1
+    };
+  },
   props: {
     userId: {
       type: String,
@@ -8746,7 +8775,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Sil"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['questionSource'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['questionSource']), {
+    pageNumber: function pageNumber() {
+      var pages = ['1'];
+      var index = 2;
+
+      for (var i = 2; index <= this.questionSource.length; i++) {
+        if (i == 2 && this.currentPage - 2 > 3) {
+          pages.push('...');
+
+          if (this.currentPage + 3 > this.questionSource.length) {
+            index = this.questionSource.length - 6;
+          } else {
+            index = this.currentPage - 2;
+          }
+        } else if (i == 8 && this.currentPage + 2 < this.questionSource.length - 2) {
+          pages.push('...');
+          index = this.questionSource.length;
+        } else {
+          pages.push(index);
+          index++;
+        }
+      }
+
+      return pages;
+    }
+  }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadQuestionSource']), {
     deleteQuestion: function deleteQuestion(questionId) {
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/questionSource/delete/' + questionId).then(this.$store.dispatch('loadQuestionSource', this.userId));
@@ -18938,8 +18992,25 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("textarea", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.text,
+                  expression: "text"
+                }
+              ],
               staticClass: "uk-height-small uk-textarea uk-overflow-auto",
-              attrs: { id: "blankQuestion", required: "" }
+              attrs: { id: "blankQuestion", required: "" },
+              domProps: { value: _vm.text },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.text = $event.target.value
+                }
+              }
             })
           ]),
           _vm._v(" "),
@@ -21082,95 +21153,180 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass:
-        "uk-background-default uk-margin-medium-top border-radius-6 uk-height"
-    },
-    [
-      _c(
-        "table",
-        {
-          staticClass:
-            "uk-table uk-table-hover uk-table-striped uk-width uk-height",
-          attrs: { id: "categoryTable", cellspacing: "0" }
-        },
-        [
-          true
-            ? _c("thead", [
-                _c("tr", [
-                  _c("th", [_vm._v(_vm._s(_vm.questionText))]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v(_vm._s(_vm.lessonText))]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v(_vm._s(_vm.difficultyText))]),
-                  _vm._v(" "),
-                  _c("th")
-                ])
-              ])
-            : undefined,
-          _vm._v(" "),
-          true
-            ? _c(
-                "tbody",
-                _vm._l(_vm.questionSource, function(question) {
-                  return _c("tr", [
-                    _c("td", { staticClass: "uk-width-2-5" }, [
-                      _c("p", [_vm._v(" " + _vm._s(question.text))])
-                    ]),
+  return _c("div", { staticClass: "uk-margin-medium-top" }, [
+    _c(
+      "div",
+      { staticClass: "uk-background-default border-radius-6 uk-height" },
+      [
+        _c(
+          "table",
+          {
+            staticClass:
+              "uk-table uk-table-hover uk-table-striped uk-width uk-height",
+            attrs: { id: "categoryTable", cellspacing: "0" }
+          },
+          [
+            true
+              ? _c("thead", [
+                  _c("tr", [
+                    _c("th", [_vm._v(_vm._s(_vm.questionText))]),
                     _vm._v(" "),
-                    _c("td", { staticClass: "uk-width-1-5" }, [
-                      _c("p", [_vm._v(_vm._s(question.lesson.name))])
-                    ]),
+                    _c("th", [_vm._v(_vm._s(_vm.lessonText))]),
                     _vm._v(" "),
-                    _c("td", { staticClass: "uk-width-1-5" }, [
-                      _c("p", [_vm._v(_vm._s(question.level))])
-                    ]),
+                    _c("th", [_vm._v(_vm._s(_vm.difficultyText))]),
                     _vm._v(" "),
-                    _c(
-                      "td",
-                      {
-                        staticClass:
-                          "uk-flex flex-wrap align-items-center justify-content-around"
-                      },
-                      [
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.editText },
-                            on: {
-                              click: function($event) {
-                                return _vm.editPageRoute(question.id)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-cog" })]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            attrs: { "uk-tooltip": _vm.deleteText },
-                            on: {
-                              click: function($event) {
-                                return _vm.deleteQuestion(question.id)
-                              }
-                            }
-                          },
-                          [_c("i", { staticClass: "fas fa-trash text-danger" })]
-                        )
-                      ]
-                    )
+                    _c("th")
                   ])
-                }),
-                0
-              )
-            : undefined
-        ]
-      )
-    ]
-  )
+                ])
+              : undefined,
+            _vm._v(" "),
+            true
+              ? _c(
+                  "tbody",
+                  _vm._l(_vm.questionSource[_vm.currentPage - 1], function(
+                    question
+                  ) {
+                    return _c("tr", [
+                      _c("td", { staticClass: "uk-width-2-5" }, [
+                        _c("p", [_vm._v(" " + _vm._s(question.text))])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "uk-width-1-5" }, [
+                        _c("p", [_vm._v(_vm._s(question.lesson.name))])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "uk-width-1-5" }, [
+                        _c("p", [_vm._v(_vm._s(question.level))])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticClass:
+                            "uk-flex flex-wrap align-items-center justify-content-around"
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              attrs: { "uk-tooltip": _vm.editText },
+                              on: {
+                                click: function($event) {
+                                  return _vm.editPageRoute(question.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-cog" })]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              attrs: { "uk-tooltip": _vm.deleteText },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteQuestion(question.id)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-trash text-danger"
+                              })
+                            ]
+                          )
+                        ]
+                      )
+                    ])
+                  }),
+                  0
+                )
+              : undefined
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "ul",
+      {
+        staticClass:
+          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+      },
+      [
+        _c("li", [
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.currentPage > 1,
+                  expression: "currentPage>1"
+                }
+              ],
+              on: {
+                click: function($event) {
+                  _vm.currentPage--
+                }
+              }
+            },
+            [_vm._v(" < ")]
+          )
+        ]),
+        _vm._v(" "),
+        _vm._l(_vm.pageNumber, function(page) {
+          return _c("li", [
+            page == "..."
+              ? _c("button", { staticClass: "uk-disabled" }, [
+                  _vm._v(_vm._s(page))
+                ])
+              : page == _vm.currentPage
+              ? _c(
+                  "button",
+                  { staticClass: "uk-background-default uk-disabled" },
+                  [_vm._v(_vm._s(page))]
+                )
+              : _c(
+                  "button",
+                  {
+                    on: {
+                      click: function($event) {
+                        _vm.currentPage = page
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(page))]
+                )
+          ])
+        }),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.currentPage < _vm.questionSource.length,
+                  expression: "currentPage<questionSource.length"
+                }
+              ],
+              on: {
+                click: function($event) {
+                  _vm.currentPage++
+                }
+              }
+            },
+            [_vm._v(" > ")]
+          )
+        ])
+      ],
+      2
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -39711,6 +39867,7 @@ var mutations = {
     state.courseSubjects = subject.data;
   },
   setQuestionSource: function setQuestionSource(state, question) {
+    console.log(question.data);
     state.questionSource = question.data;
   },
   setShoppingCart: function setShoppingCart(state, item) {

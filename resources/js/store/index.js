@@ -135,6 +135,7 @@ const mutations={
         state.courseSubjects=subject.data;
     },
     setQuestionSource(state,question){
+        console.log(question.data);
         state.questionSource=question.data;
     },
     setShoppingCart(state,item){
