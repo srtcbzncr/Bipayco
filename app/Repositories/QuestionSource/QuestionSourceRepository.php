@@ -843,6 +843,7 @@ class QuestionSourceRepository implements IRepository
         // Operations
         try{
             $object = Question::find($id);
+            $object['type'] = "singleChoice";
             $answers = SingleChoice::where('questionId',$id)->get()->toArray();
             $object['answers'] = $answers;
         }
@@ -864,6 +865,7 @@ class QuestionSourceRepository implements IRepository
         // Operations
         try{
             $object = Question::find($id);
+            $object['type'] = "multiChoice";
             $answers = MultiChoice::where('questionId',$id)->get()->toArray();
             $object['answers'] = $answers;
         }
@@ -885,6 +887,7 @@ class QuestionSourceRepository implements IRepository
         // Operations
         try{
             $object = Question::find($id);
+            $object['type'] = "fillBlank";
             $answers = GapFilling::where('questionId',$id)->get()->toArray();
             $object['answers'] = $answers;
         }
@@ -906,6 +909,7 @@ class QuestionSourceRepository implements IRepository
         // Operations
         try{
             $object = Question::find($id);
+            $object['type'] = "trueFalse";
             $answers = TrueFalse::where('questionId',$id)->get()->toArray();
             $object['answers'] = $answers;
         }
@@ -927,6 +931,7 @@ class QuestionSourceRepository implements IRepository
         // Operations
         try{
             $object = Question::find($id);
+            $object['type'] = "match";
             $answers = Match::where('questionId',$id)->get()->toArray();
             $object['answers'] = $answers;
         }
@@ -948,6 +953,7 @@ class QuestionSourceRepository implements IRepository
         // Operations
         try{
             $object = Question::find($id);
+            $object['type'] = "order";
             $answers = Order::where('questionId',$id)->get()->toArray();
             $object['answers'] = $answers;
         }
