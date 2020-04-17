@@ -7310,9 +7310,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('type', 'match');
 
       for (var i = 0; i < this.matchingAnswers.length; i++) {
-        formData.append("answers[" + i + "]['first']", this.matchingAnswers[i].first);
-        formData.append("answers[" + i + "]['second']", this.matchingAnswers[i].second);
-        formData.append("answers[" + i + "]['type']", this.matchingAnswers[i].type);
+        formData.append('answers[' + i + ']', JSON.stringify(this.matchingAnswers[i]));
       }
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, {
@@ -7351,9 +7349,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('type', 'match');
 
       for (var i = 0; i < this.matchingAnswersImg.length; i++) {
-        formData.append("answers[" + i + "]['first']", this.matchingAnswersImg[i].first);
-        formData.append("answers[" + i + "]['second']", this.matchingAnswersImg[i].second);
-        formData.append("answers[" + i + "]['type']", this.matchingAnswersImg[i].type);
+        formData.append('answersContent[' + i + ']', this.matchingAnswersImg[i].first);
+        formData.append('answersAnswer[' + i + ']', this.matchingAnswersImg[i].second);
+        formData.append('answers[' + i + ']', JSON.stringify(this.matchingAnswersImg[i]));
       }
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, {
