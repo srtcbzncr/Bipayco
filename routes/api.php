@@ -163,7 +163,6 @@ Route::prefix('instructor')->group(function(){
     Route::post('prepareLessons/course/{id}/section/{section_id}/down','API\PrepareLessons\CourseController@sectionDown')->name('api_pl_course_section_down');
     Route::post('prepareLessons/course/{id}/section/{section_id}/lesson/{lesson_id}/up','API\PrepareLessons\CourseController@lessonUp')->name('api_gl_course_lesson_up');
     Route::post('prepareLessons/course/{id}/section/{section_id}/lesson/{lesson_id}/down','API\PrepareLessons\CourseController@lessonDown')->name('api_pl_course_lesson_down');
-    Route::get('prepareLessons/getRandomQuestions','API\PrepareLessons\CourseController@getRandomQuestions')->name('api_pl_course_getRandomQuestions');
 
     # getSubjects
     Route::get('subjects/lesson/{id}','API\PrepareLessons\CourseController@getSubjectsForLesson')->name('api_pl_course_subjects_get');
@@ -185,6 +184,8 @@ Route::prefix('learn')->group(function (){
         # prepare lessons
     Route::post('prepareLessons/createFirstLastTestStatus/create','API\QuestionSource\Student\FirstLastTestStatusController@create')->name('api_prepareLessons_create_flTestStatus');
     Route::post('prepareLessons/createFirstLastTestAnswers/create','API\QuestionSource\Student\FirstLastTestAnswersController@create')->name('api_prepareLessons_create_flTestAnswers');
+    Route::get('prepareLessons/getRandomQuestions','API\PrepareLessons\CourseController@getRandomQuestions')->name('api_pl_course_getRandomQuestions');
+
 });
 
 Route::prefix('basket')->group(function (){
