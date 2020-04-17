@@ -2,7 +2,7 @@
     <div class="uk-card uk-card-default uk-align-center">
         <div class="uk-card-body uk-grid uk-padding-remove">
             <div class="uk-width-3-4@m uk-flex align-items-center justify-content-center">
-                <video v-if="selectedLesson.is_video" id="courseLessonVideo" @timeupdate="watched" width="400" controls controlsList="nodownload">
+                <!--<video v-if="selectedLesson.is_video" id="courseLessonVideo" @timeupdate="watched" width="400" controls controlsList="nodownload">
                     <source :src="selectedLesson.file_path" type="video/mp4">
                     <source :src="selectedLesson.file_path" type="video/ogg">
                     Your browser does not support HTML5 video.
@@ -11,7 +11,8 @@
                     <iframe :src="selectedLesson.file_path" @load="completed" class="uk-width" style="height: 550px" frameborder="0"></iframe>
                     <button v-if="course.nextLessonId!=null" @click="selectLesson(course.nextLessonId)" class="uk-button uk-button-primary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right">{{nextLessonText}} <i class="fas fa-arrow-right uk-margin-small-left"></i></button>
                     <button @click="openNewTab" class="uk-button uk-button-secondary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right"><i class="fas fa-expand-arrows-alt uk-margin-small-right"></i> {{fullScreenText}}</button>
-                </div>
+                </div>-->
+                <test-area></test-area>
             </div>
             <!-- side menu -->
             <div class="uk-width-1-4@m uk-container uk-grid-padding-remove@m" style="padding: 0;">
@@ -87,8 +88,10 @@
 <script>
     import Axios from 'axios';
     import {mapActions, mapState} from "vuex";
+    import TestArea from "./test-area";
     export default {
         name: "watch-main",
+        components: {TestArea},
         data(){
             return{
                 posted:false,

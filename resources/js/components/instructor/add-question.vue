@@ -622,7 +622,7 @@
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            //setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
@@ -666,7 +666,7 @@
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            //setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
@@ -700,7 +700,7 @@
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            //setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
@@ -735,7 +735,7 @@
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            //setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
@@ -769,7 +769,7 @@
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            //setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
@@ -796,7 +796,7 @@
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            //setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
@@ -825,7 +825,7 @@
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            //setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
@@ -856,7 +856,7 @@
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            //setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
@@ -885,7 +885,7 @@
                     .then(response=>{
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            //setTimeout(()=>{window.location.replace('/questionSource');},1000)
+                            setTimeout(()=>{window.location.replace('/questionSource');},1000)
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }

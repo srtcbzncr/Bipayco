@@ -99,6 +99,7 @@
         var formData =new FormData();
         var image=document.querySelector('#newCourseImage');
         formData.append('name',document.querySelector('#name').value);
+        formData.append('score',document.querySelector('#score').value);
         formData.append('description',document.querySelector('#description').value);
         formData.append('price',document.querySelector('#price').value);
         formData.append('access_time',document.querySelector('#accessTime').value);

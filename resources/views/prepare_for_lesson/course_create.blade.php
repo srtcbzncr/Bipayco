@@ -93,6 +93,15 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div>
+                                <div class="uk-form-label"> @lang('front/auth.course_name')</div>
+                                <input class="uk-input form-control @error('name') is-invalid @enderror" type="text" id="score"  @if(isset($course)) value="{{$course->score}}" @endif required>
+                                @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
                             <div class="uk-margin uk-flex justify-content-start align-items-center">
                                 <label>
                                     <input class="uk-checkbox" type="checkbox"  @if(isset($course) && $course->certificate) checked @endif id="certificate">
