@@ -1600,45 +1600,33 @@ class CourseRepository implements IRepository{
         $answers = null;
 
         if($question->type == "App\Models\QuestionSource\SingleChoice"){
+            $question->type = "singleChoice";
             $answers = SingleChoice::where('questionId',$question->id)->get()->toArray();
-            foreach ($answers as $key => $answer){
-                $answers[$key]['type'] = "singleChoice";
-            }
             shuffle($answers);
         }
         else if($question->type == "App\Models\QuestionSource\MultiChoice"){
+            $question->type = "multiChoice";
             $answers = MultiChoice::where('questionId',$question->id)->get()->toArray();
-            foreach ($answers as $key => $answer){
-                $answers[$key]['type'] = "singleChoice";
-            }
             shuffle($answers);
         }
         else if($question->type == "App\Models\QuestionSource\GapFilling"){
+            $question->type = "fillBlank";
             $answers = GapFilling::where('questionId',$question->id)->get()->toArray();
-            foreach ($answers as $key => $answer){
-                $answers[$key]['type'] = "singleChoice";
-            }
             shuffle($answers);
         }
         else if($question->type == "App\Models\QuestionSource\TrueFalse"){
+            $question->type = "trueFalse";
             $answers = TrueFalse::where('questionId',$question->id)->get()->toArray();
-            foreach ($answers as $key => $answer){
-                $answers[$key]['type'] = "singleChoice";
-            }
             shuffle($answers);
         }
         else if($question->type == "App\Models\QuestionSource\Match"){
+            $question->type = "match";
             $answers = Match::where('questionId',$question->id)->get()->toArray();
-            foreach ($answers as $key => $answer){
-                $answers[$key]['type'] = "singleChoice";
-            }
             shuffle($answers);
         }
         else if($question->type == "App\Models\QuestionSource\Order"){
+            $question->type = "order";
             $answers = Order::where('questionId',$question->id)->get()->toArray();
-            foreach ($answers as $key => $answer){
-                $answers[$key]['type'] = "singleChoice";
-            }
             shuffle($answers);
         }
 
