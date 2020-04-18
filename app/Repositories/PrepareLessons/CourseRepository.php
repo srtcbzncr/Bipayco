@@ -1622,7 +1622,17 @@ class CourseRepository implements IRepository{
         else if($question->type == "App\Models\QuestionSource\Match"){
             $question->type = "match";
             $answers = Match::where('questionId',$question->id)->get()->toArray();
-            shuffle($answers);
+            $tempContents = array();
+            $tempAnswers = array();
+            foreach ($answers as $key => $answer){
+                $tempContents[$key]['id'] = $answer['id'];
+                $tempContents[$key]['content'] = $answer['content'];
+                $tempAnswers[$key]['answer'] = $answer['answer'];
+            }
+            shuffle($tempContents);
+            shuffle($tempAnswers);
+            $answers['contents'] = $tempContents;
+            $answers['answers'] = $tempAnswers;
         }
         else if($question->type == "App\Models\QuestionSource\Order"){
             $question->type = "order";
