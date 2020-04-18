@@ -1600,27 +1600,27 @@ class CourseRepository implements IRepository{
         $answers = null;
 
         if($question->type == "App\Models\QuestionSource\SingleChoice"){
-            $answers = SingleChoice::where('questionId',$question->id)->get();
+            $answers = SingleChoice::where('questionId',$question->id)->get()->toArray();
             shuffle($answers);
         }
         else if($question->type == "App\Models\QuestionSource\MultiChoice"){
-            $answers = MultiChoice::where('questionId',$question->id)->get();
+            $answers = MultiChoice::where('questionId',$question->id)->get()->toArray();
             shuffle($answers);
         }
         else if($question->type == "App\Models\QuestionSource\GapFilling"){
-            $answers = GapFilling::where('questionId',$question->id)->get();
+            $answers = GapFilling::where('questionId',$question->id)->get()->toArray();
             shuffle($answers);
         }
         else if($question->type == "App\Models\QuestionSource\TrueFalse"){
-            $answers = TrueFalse::where('questionId',$question->id)->get();
+            $answers = TrueFalse::where('questionId',$question->id)->get()->toArray();
             shuffle($answers);
         }
         else if($question->type == "App\Models\QuestionSource\Match"){
-            $answers = Match::where('questionId',$question->id)->get();
+            $answers = Match::where('questionId',$question->id)->get()->toArray();
             shuffle($answers);
         }
         else if($question->type == "App\Models\QuestionSource\Order"){
-            $answers = Order::where('questionId',$question->id)->get();
+            $answers = Order::where('questionId',$question->id)->get()->toArray();
             shuffle($answers);
         }
 
