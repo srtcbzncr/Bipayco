@@ -1601,26 +1601,44 @@ class CourseRepository implements IRepository{
 
         if($question->type == "App\Models\QuestionSource\SingleChoice"){
             $answers = SingleChoice::where('questionId',$question->id)->get()->toArray();
+            foreach ($answers as $key => $answer){
+                $answers[$key]['type'] = "singleChoice";
+            }
             shuffle($answers);
         }
         else if($question->type == "App\Models\QuestionSource\MultiChoice"){
             $answers = MultiChoice::where('questionId',$question->id)->get()->toArray();
+            foreach ($answers as $key => $answer){
+                $answers[$key]['type'] = "singleChoice";
+            }
             shuffle($answers);
         }
         else if($question->type == "App\Models\QuestionSource\GapFilling"){
             $answers = GapFilling::where('questionId',$question->id)->get()->toArray();
+            foreach ($answers as $key => $answer){
+                $answers[$key]['type'] = "singleChoice";
+            }
             shuffle($answers);
         }
         else if($question->type == "App\Models\QuestionSource\TrueFalse"){
             $answers = TrueFalse::where('questionId',$question->id)->get()->toArray();
+            foreach ($answers as $key => $answer){
+                $answers[$key]['type'] = "singleChoice";
+            }
             shuffle($answers);
         }
         else if($question->type == "App\Models\QuestionSource\Match"){
             $answers = Match::where('questionId',$question->id)->get()->toArray();
+            foreach ($answers as $key => $answer){
+                $answers[$key]['type'] = "singleChoice";
+            }
             shuffle($answers);
         }
         else if($question->type == "App\Models\QuestionSource\Order"){
             $answers = Order::where('questionId',$question->id)->get()->toArray();
+            foreach ($answers as $key => $answer){
+                $answers[$key]['type'] = "singleChoice";
+            }
             shuffle($answers);
         }
 
