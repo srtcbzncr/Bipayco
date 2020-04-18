@@ -1558,7 +1558,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getRandomQuestions($data){
+    public function getRandomQuestions($crLessonId,$crSubjectId){
         // Response variables
         $result = true;
         $error = null;
@@ -1568,19 +1568,19 @@ class CourseRepository implements IRepository{
         try{
             $i = 0;
             $object['questions'] = array();
-            $questions1 = Question::where('level',1)->where('crLessonId',$data['crLessonId'])->where('crSubjectId',$data['crSubjectId'])->take(3)->get();
+            $questions1 = Question::where('level',1)->where('crLessonId',$crLessonId)->where('crSubjectId',$crSubjectId)->take(3)->get();
             foreach ($questions1 as $question){
                 $object['questions'][$i] = $question;
                 $object['questions'][$i]['answers'] = $this->getAnswers($question);
                 $i++;
             }
-            $questions2 = Question::where('level',2)->where('crLessonId',$data['crLessonId'])->where('crSubjectId',$data['crSubjectId'])->take(4)->get();
+            $questions2 = Question::where('level',2)->where('crLessonId',$crLessonId)->where('crSubjectId',$crSubjectId)->take(4)->get();
             foreach ($questions2 as $question){
                 $object['questions'][$i] = $question;
                 $object['questions'][$i]['answers'] = $this->getAnswers($question);
                 $i++;
             }
-            $questions3 = Question::where('level',3)->where('crLessonId',$data['crLessonId'])->where('crSubjectId',$data['crSubjectId'])->take(3)->get();
+            $questions3 = Question::where('level',3)->where('crLessonId',$crLessonId)->where('crSubjectId',$crSubjectId)->take(3)->get();
             foreach ($questions3 as $question){
                 $object['questions'][$i] = $question;
                 $object['questions'][$i]['answers'] = $this->getAnswers($question);

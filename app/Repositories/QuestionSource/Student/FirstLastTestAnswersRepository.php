@@ -37,12 +37,13 @@ class FirstLastTestAnswersRepository implements IRepository
             $userId = Auth::id();
             $student = Student::where('user_id',$userId)->first();
 
-            $object = new FirstLastTestAnswers();
-            $object->studentId = $student->id;
-            $object->questionId = $data['questionId'];
-            $object->result = $data['result'];
-            $object->save();
-
+            foreach ($data as $item){
+                $object = new FirstLastTestAnswers();
+                $object->studentId = $student->id;
+                $object->questionId = $item['questionId'];
+                $object->result = $item['result'];
+                $object->save();
+            }
             DB::commit();
         }
         catch(\Exception $e){
