@@ -655,7 +655,8 @@ class CourseController extends Controller
         else{
             return response()->json([
                 'error' => true,
-                'message' => 'Sorular getirilirken hata oluştu.Tekrar deneyin.'
+                'message' => 'Sorular getirilirken hata oluştu.Tekrar deneyin.',
+                'errorMessage' => $resp->getError()
             ],400);
         }
     }
