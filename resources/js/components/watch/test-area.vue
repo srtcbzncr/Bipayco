@@ -242,7 +242,7 @@
                         case 'match':{
                             var items=[];
                             for(var j=0; j<data[i].answers.contents.length; j++){
-                                items.push({'content':data[i].answers.contents[j], 'id':''});
+                                items.push({'content':data[i].answers.contents[j].content, 'id':''});
                             }
                             this.data.push({'questionId':data[i].id, 'answer':items});
                             break;
