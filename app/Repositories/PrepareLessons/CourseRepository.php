@@ -1578,7 +1578,7 @@ class CourseRepository implements IRepository{
             }
             $questions2 = Question::where('level',2)->where('crLessonId',$crLessonId)->where('crSubjectId',$crSubjectId)->get();
             if(count($questions2) > 3)
-                $questions2 = $questions2->random(3);
+                $questions2 = $questions2->random(4);
             foreach ($questions2 as $question){
                 $object['questions'][$i] = $question;
                 $object['questions'][$i]['answers'] = $this->getAnswers($question);
