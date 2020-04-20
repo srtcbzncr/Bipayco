@@ -105,22 +105,26 @@
                 <div v-for="(answer,index) in question.answers.answers" class="uk-flex align-items-center justify-content-between">
                     <!--first-->
                     <div v-if="answer.answer.type=='text'" class="uk-flex align-items-center uk-margin-bottom uk-margin-right">
-                        <input class="uk-input number uk-margin-remove" type="text" disabled :value="(index+1)">
+                        <input class="uk-input number uk-margin-remove text-center" type="text" disabled :value="(index+1)">
                         <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">{{answer.answer.answer}}</p>
                     </div>
                     <!--second-->
                     <div v-if="answer.answer.type=='text'" class="uk-flex align-items-center uk-margin-bottom">
-                        <p class="uk-margin-small-right uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">{{question.answers.contents[index].content.content}}</p>
-                        <input class="uk-input number uk-margin-remove" type="text">
+                        <p class="uk-margin-small-right uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-left">{{question.answers.contents[index].content.content}}</p>
+                        <select v-model="data[questionIndex].answer[index].id" class="uk-select number">
+                            <option v-for="(content,index) in question.answers.answers" :value="content.answer.id">{{index+1}}</option>
+                        </select>
                     </div>
                     <div v-if="answer.answer.type=='image'" class="uk-flex align-items-center uk-margin-bottom uk-margin-right uk-width">
-                        <input class="uk-input number uk-margin-remove" type="text" disabled :value="(index+1)">
+                        <input class="uk-input number uk-margin-remove text-center" type="text" disabled :value="(index+1)">
                         <div class="uk-background-center-center uk-margin-small-left uk-background-cover uk-width uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :style="{'background-image': 'url('+answer.answer.answer+')'}"></div>
                     </div>
                     <!--second-->
                     <div v-if="answer.answer.type=='image'" class="uk-flex align-items-center uk-margin-bottom uk-width">
                         <div class="uk-background-center-center uk-margin-small-right uk-background-cover uk-width uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :style="{'background-image': 'url('+question.answers.contents[index].content.content+')'}"></div>
-                        <input class="uk-input number uk-margin-remove" type="text" >
+                        <select v-model="data[questionIndex].answer[index].id" class="uk-select number">
+                            <option v-for="(content,index) in question.answers.answers" :value="content.answer.id">{{index+1}}</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -151,7 +155,7 @@
         data(){
             return{
                 currentQuestion:0,
-                questions:[],
+                questions:[{}],
                 data:[]
             }
         },
@@ -176,6 +180,18 @@
                 type:String,
                 required:true,
             },
+            userId:{
+                type:String,
+                required:true,
+            },
+            courseId:{
+                type:String,
+                required:true,
+            },
+            nextLessonId:{
+                type:String,
+                default:"",
+            },
             trueText:{
                 type:String,
                 default:"Doğru"
@@ -197,15 +213,7 @@
                 default:"Boşlukları Doldur"
             }
         },
-        computed:{
-            ...mapState([
-
-            ]),
-        },
         methods:{
-            ...mapActions([
-
-            ]),
             loadData:function(data){
                 console.log(data);
                 this.questions=data;
@@ -232,7 +240,11 @@
                             break;
                         }
                         case 'match':{
-                            this.data.push({'questionId':data[i].id, 'answer':[]});
+                            var items=[];
+                            for(var j=0; j<data[i].answers.contents.length; j++){
+                                items.push({'content':data[i].answers.contents[j], 'id':''});
+                            }
+                            this.data.push({'questionId':data[i].id, 'answer':items});
                             break;
                         }
                         case 'order':{
@@ -294,7 +306,12 @@
             },
             postData:function () {
                 console.log(this.data);
-                Axios.post('/api/learn/prepareLessons/createFirstLastTestStatus/create',{'sectionType':this.moduleName, 'sectionId':this.sectionId, 'testType':this.testType, answers:this.data});
+                Axios.post('/api/learn/prepareLessons/createFirstLastTestStatus/create',{'userId':this.userId, 'sectionType':this.moduleName, 'sectionId':this.sectionId, 'testType':this.testType, 'answers':this.data})
+                    .then(response=>{
+                        if(!response.error){
+                            //setTimeout(()=>{window.location.replace('/learn/ge/course/'+this.courseId+'/lesson/'+this.nextLessonId);},3000);
+                        }
+                    });
             }
         },
         created(){
@@ -311,6 +328,6 @@
     }
     .number{
         padding:5px !important;
-        width: 35px;
+        width: 50px;
     }
 </style>

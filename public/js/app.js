@@ -9948,12 +9948,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+//
+//
+//
+//
 //
 //
 //
@@ -10106,7 +10104,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       currentQuestion: 0,
-      questions: [],
+      questions: [{}],
       data: []
     };
   },
@@ -10131,6 +10129,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       required: true
     },
+    userId: {
+      type: String,
+      required: true
+    },
+    courseId: {
+      type: String,
+      required: true
+    },
+    nextLessonId: {
+      type: String,
+      "default": ""
+    },
     trueText: {
       type: String,
       "default": "Doğru"
@@ -10152,8 +10162,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Boşlukları Doldur"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])([])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])([]), {
+  methods: {
     loadData: function loadData(data) {
       console.log(data);
       this.questions = data;
@@ -10207,9 +10216,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           case 'match':
             {
+              var items = [];
+
+              for (var j = 0; j < data[i].answers.contents.length; j++) {
+                items.push({
+                  'content': data[i].answers.contents[j],
+                  'id': ''
+                });
+              }
+
               this.data.push({
                 'questionId': data[i].id,
-                'answer': []
+                'answer': items
               });
               break;
             }
@@ -10296,13 +10314,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     postData: function postData() {
       console.log(this.data);
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/learn/prepareLessons/createFirstLastTestStatus/create', {
+        'userId': this.userId,
         'sectionType': this.moduleName,
         'sectionId': this.sectionId,
         'testType': this.testType,
-        answers: this.data
+        'answers': this.data
+      }).then(function (response) {
+        if (!response.error) {//setTimeout(()=>{window.location.replace('/learn/ge/course/'+this.courseId+'/lesson/'+this.nextLessonId);},3000);
+        }
       });
     }
-  }),
+  },
   created: function created() {
     var _this = this;
 
@@ -10327,6 +10349,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _test_area__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./test-area */ "./resources/js/components/watch/test-area.vue");
+//
+//
+//
 //
 //
 //
@@ -10473,6 +10498,15 @@ __webpack_require__.r(__webpack_exports__);
     nextLessonText: {
       type: String,
       "default": "Sonraki Ders"
+    }
+  },
+  computed: {
+    nextLessonId: function nextLessonId() {
+      if (this.course.nextLessonId != null) {
+        return this.course.nextLessonId;
+      } else {
+        return '';
+      }
     }
   },
   methods: {
@@ -10745,7 +10779,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\np[data-v-ceb007a6]{\n    margin:0;\n    margin-top:-5px;\n}\n.number[data-v-ceb007a6]{\n    padding:5px !important;\n    width: 35px;\n}\n", ""]);
+exports.push([module.i, "\np[data-v-ceb007a6]{\n    margin:0;\n    margin-top:-5px;\n}\n.number[data-v-ceb007a6]{\n    padding:5px !important;\n    width: 50px;\n}\n", ""]);
 
 // exports
 
@@ -24025,7 +24059,7 @@ var render = function() {
                               [
                                 _c("input", {
                                   staticClass:
-                                    "uk-input number uk-margin-remove",
+                                    "uk-input number uk-margin-remove text-center",
                                   attrs: { type: "text", disabled: "" },
                                   domProps: { value: index + 1 }
                                 }),
@@ -24054,7 +24088,7 @@ var render = function() {
                                   "p",
                                   {
                                     staticClass:
-                                      "uk-margin-small-right uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
+                                      "uk-margin-small-right uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-left"
                                   },
                                   [
                                     _vm._v(
@@ -24066,11 +24100,58 @@ var render = function() {
                                   ]
                                 ),
                                 _vm._v(" "),
-                                _c("input", {
-                                  staticClass:
-                                    "uk-input number uk-margin-remove",
-                                  attrs: { type: "text" }
-                                })
+                                _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value:
+                                          _vm.data[questionIndex].answer[index]
+                                            .id,
+                                        expression:
+                                          "data[questionIndex].answer[index].id"
+                                      }
+                                    ],
+                                    staticClass: "uk-select number",
+                                    on: {
+                                      change: function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          _vm.data[questionIndex].answer[index],
+                                          "id",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      }
+                                    }
+                                  },
+                                  _vm._l(question.answers.answers, function(
+                                    content,
+                                    index
+                                  ) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        domProps: { value: content.answer.id }
+                                      },
+                                      [_vm._v(_vm._s(index + 1))]
+                                    )
+                                  }),
+                                  0
+                                )
                               ]
                             )
                           : _vm._e(),
@@ -24085,7 +24166,7 @@ var render = function() {
                               [
                                 _c("input", {
                                   staticClass:
-                                    "uk-input number uk-margin-remove",
+                                    "uk-input number uk-margin-remove text-center",
                                   attrs: { type: "text", disabled: "" },
                                   domProps: { value: index + 1 }
                                 }),
@@ -24122,11 +24203,58 @@ var render = function() {
                                   }
                                 }),
                                 _vm._v(" "),
-                                _c("input", {
-                                  staticClass:
-                                    "uk-input number uk-margin-remove",
-                                  attrs: { type: "text" }
-                                })
+                                _c(
+                                  "select",
+                                  {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value:
+                                          _vm.data[questionIndex].answer[index]
+                                            .id,
+                                        expression:
+                                          "data[questionIndex].answer[index].id"
+                                      }
+                                    ],
+                                    staticClass: "uk-select number",
+                                    on: {
+                                      change: function($event) {
+                                        var $$selectedVal = Array.prototype.filter
+                                          .call($event.target.options, function(
+                                            o
+                                          ) {
+                                            return o.selected
+                                          })
+                                          .map(function(o) {
+                                            var val =
+                                              "_value" in o ? o._value : o.value
+                                            return val
+                                          })
+                                        _vm.$set(
+                                          _vm.data[questionIndex].answer[index],
+                                          "id",
+                                          $event.target.multiple
+                                            ? $$selectedVal
+                                            : $$selectedVal[0]
+                                        )
+                                      }
+                                    }
+                                  },
+                                  _vm._l(question.answers.answers, function(
+                                    content,
+                                    index
+                                  ) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        domProps: { value: content.answer.id }
+                                      },
+                                      [_vm._v(_vm._s(index + 1))]
+                                    )
+                                  }),
+                                  0
+                                )
                               ]
                             )
                           : _vm._e()
@@ -24257,7 +24385,7 @@ var render = function() {
         "div",
         {
           staticClass:
-            "uk-width-3-4@m uk-flex align-items-center justify-content-center"
+            "uk-width-3-4@m uk-flex align-items-center justify-content-center uk-overflow-auto"
         },
         [
           _c("test-area", {
@@ -24266,7 +24394,10 @@ var render = function() {
               "subject-id": "9",
               "test-type": "0",
               "section-id": _vm.selectedLesson.section_id,
-              "module-name": _vm.moduleName
+              "module-name": _vm.moduleName,
+              "user-id": _vm.userId,
+              "next-lesson-id": _vm.course.nextLessonId,
+              "course-id": _vm.courseId
             }
           })
         ],

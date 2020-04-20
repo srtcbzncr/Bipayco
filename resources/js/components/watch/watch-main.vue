@@ -1,7 +1,7 @@
 <template>
     <div class="uk-card uk-card-default uk-align-center">
         <div class="uk-card-body uk-grid uk-padding-remove">
-            <div class="uk-width-3-4@m uk-flex align-items-center justify-content-center">
+            <div class="uk-width-3-4@m uk-flex align-items-center justify-content-center uk-overflow-auto">
                 <!--<video v-if="selectedLesson.is_video" id="courseLessonVideo" @timeupdate="watched" width="400" controls controlsList="nodownload">
                     <source :src="selectedLesson.file_path" type="video/mp4">
                     <source :src="selectedLesson.file_path" type="video/ogg">
@@ -14,10 +14,13 @@
                 </div>-->
                 <test-area
                     lesson-id="1"
-                    subject-id="16"
+                    subject-id="9"
                     test-type="0"
                     :section-id="selectedLesson.section_id"
                     :module-name="moduleName"
+                    :user-id="userId"
+                    :next-lesson-id="course.nextLessonId"
+                    :course-id="courseId"
                 ></test-area>
             </div>
             <!-- side menu -->
@@ -143,6 +146,15 @@
             nextLessonText:{
                 type:String,
                 default:"Sonraki Ders"
+            }
+        },
+        computed:{
+            nextLessonId(){
+                if(this.course.nextLessonId!=null){
+                    return this.course.nextLessonId;
+                }else{
+                    return ''
+                }
             }
         },
         methods:{
