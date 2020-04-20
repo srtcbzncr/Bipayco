@@ -142,7 +142,7 @@
                     <button v-show="currentQuestion<questions.length-1" @click="currentQuestion++"> > </button>
                 </li>
             </ul>
-            <button v-show="currentQuestion>=questions.length-1" @click="postData" class="uk-button-success uk-button uk-float-right">{{endTestText}}</button>
+            <button v-show="currentQuestion>=questions.length-1 && questions.length!=0" @click="postData" class="uk-button-success uk-button uk-float-right">{{endTestText}}</button>
         </div>
     </div>
 </template>
@@ -155,7 +155,7 @@
         data(){
             return{
                 currentQuestion:0,
-                questions:[{}],
+                questions:[],
                 data:[]
             }
         },

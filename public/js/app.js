@@ -10104,7 +10104,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       currentQuestion: 0,
-      questions: [{}],
+      questions: [],
       data: []
     };
   },
@@ -24343,8 +24343,11 @@ var render = function() {
               {
                 name: "show",
                 rawName: "v-show",
-                value: _vm.currentQuestion >= _vm.questions.length - 1,
-                expression: "currentQuestion>=questions.length-1"
+                value:
+                  _vm.currentQuestion >= _vm.questions.length - 1 &&
+                  _vm.questions.length != 0,
+                expression:
+                  "currentQuestion>=questions.length-1 && questions.length!=0"
               }
             ],
             staticClass: "uk-button-success uk-button uk-float-right",
