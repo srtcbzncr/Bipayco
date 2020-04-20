@@ -57,7 +57,6 @@ class FirstLastTestStatusRepository implements IRepository
             $object->sectionId = $data['sectionId'];
             $object->sectionType = $sectionType;
             $object->testType = $data['testType'];
-            $object->score = $data['score'];
 
             // calculate result
             if($data['sectionType'] == "prepareLessons"){
@@ -82,6 +81,10 @@ class FirstLastTestStatusRepository implements IRepository
         // Response
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
+    }
+
+    public function calculateSingle($data){
+
     }
 
     public function update($id, array $data)
