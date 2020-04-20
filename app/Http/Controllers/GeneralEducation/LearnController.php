@@ -18,13 +18,13 @@ class LearnController extends Controller
         // course entry control
         $user = Auth::user();
         $course = Course::find($id);
-        if(!$user->can('entry',$course)){
+        if($user->can('entry',$course) == false){
             return redirect()->route('ge_course',$id);
         }
 
         // initialization
         $repo = new LearnRepository();
-        $user_id = Auth::user()->id;
+        $user_id = Auth::id();
         // Operations
         $resp = $repo->getCourse($id,$user_id);
         $data = $resp->getData();
