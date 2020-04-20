@@ -12,7 +12,13 @@
                     <button v-if="course.nextLessonId!=null" @click="selectLesson(course.nextLessonId)" class="uk-button uk-button-primary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right">{{nextLessonText}} <i class="fas fa-arrow-right uk-margin-small-left"></i></button>
                     <button @click="openNewTab" class="uk-button uk-button-secondary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right"><i class="fas fa-expand-arrows-alt uk-margin-small-right"></i> {{fullScreenText}}</button>
                 </div>-->
-                <test-area></test-area>
+                <test-area
+                    lesson-id="1"
+                    subject-id="9"
+                    test-type="0"
+                    :section-id="selectedLesson.section_id"
+                    :module-name="moduleName"
+                ></test-area>
             </div>
             <!-- side menu -->
             <div class="uk-width-1-4@m uk-container uk-grid-padding-remove@m" style="padding: 0;">

@@ -10080,6 +10080,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -10087,22 +10106,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       currentQuestion: 0,
-      questions: [{
-        type: "",
-        answers: {
-          type: "",
-          content: ""
-        }
-      }, {
-        type: "",
-        answers: {
-          type: "",
-          content: ""
-        }
-      }]
+      questions: [],
+      data: []
     };
   },
   props: {
+    subjectId: {
+      type: String,
+      required: true
+    },
+    lessonId: {
+      type: String,
+      required: true
+    },
+    testType: {
+      type: String,
+      required: true
+    },
+    sectionId: {
+      type: Number,
+      required: true
+    },
+    moduleName: {
+      type: String,
+      required: true
+    },
     trueText: {
       type: String,
       "default": "Doğru"
@@ -10110,6 +10138,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     falseText: {
       type: String,
       "default": "Yanlış"
+    },
+    questionText: {
+      type: String,
+      "default": "Soru"
+    },
+    endTestText: {
+      type: String,
+      "default": "Testi Sonlandır"
+    },
+    fillBlanksText: {
+      type: String,
+      "default": "Boşlukları Doldur"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])([])),
@@ -10117,11 +10157,158 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     loadData: function loadData(data) {
       console.log(data);
       this.questions = data;
+
+      for (var i = 0; i < data.length; i++) {
+        switch (data[i].type) {
+          case 'singleChoice':
+            {
+              this.data.push({
+                'questionId': data[i].id,
+                'answer': ''
+              });
+              break;
+            }
+
+          case 'multiChoice':
+            {
+              this.data.push({
+                'questionId': data[i].id,
+                'answer': []
+              });
+              break;
+            }
+
+          case 'trueFalse':
+            {
+              this.data.push({
+                'questionId': data[i].id,
+                'answer': ''
+              });
+              break;
+            }
+
+          case 'fillBlank':
+            {
+              var answer = [];
+
+              for (var j = 0; j < data[i].answers.length; j++) {
+                answer.push({
+                  'id': data[i].answers[j].id,
+                  'content': ''
+                });
+              }
+
+              this.data.push({
+                'questionId': data[i].id,
+                'answer': answer
+              });
+              break;
+            }
+
+          case 'match':
+            {
+              this.data.push({
+                'questionId': data[i].id,
+                'answer': []
+              });
+              break;
+            }
+
+          case 'order':
+            {
+              var items = [];
+
+              for (var j = 0; j < data[i].answers.length; j++) {
+                items.push(data[i].answers[j].id);
+              }
+
+              this.data.push({
+                'questionId': data[i].id,
+                'answer': items
+              });
+              break;
+            }
+        }
+      }
+    },
+    itemUp: function itemUp(questionIndex, answerIndex) {
+      var changedArray = [],
+          changedDataArray = [];
+
+      for (var i = 0; i < this.questions[questionIndex].answers.length; i++) {
+        switch (i) {
+          case answerIndex - 1:
+            {
+              changedArray.push(this.questions[questionIndex].answers[i + 1]);
+              changedDataArray.push(this.data[questionIndex].answer[i + 1]);
+              break;
+            }
+
+          case answerIndex:
+            {
+              changedArray.push(this.questions[questionIndex].answers[i - 1]);
+              changedDataArray.push(this.data[questionIndex].answer[i - 1]);
+              break;
+            }
+
+          default:
+            {
+              changedArray.push(this.questions[questionIndex].answers[i]);
+              changedDataArray.push(this.data[questionIndex].answer[i]);
+            }
+        }
+      }
+
+      this.questions[questionIndex].answers = changedArray;
+      this.data[questionIndex].answer = changedDataArray;
+    },
+    itemDown: function itemDown(questionIndex, answerIndex) {
+      var changedArray = [],
+          changedDataArray = [];
+
+      for (var i = 0; i < this.questions[questionIndex].answers.length; i++) {
+        switch (i) {
+          case answerIndex + 1:
+            {
+              changedArray.push(this.questions[questionIndex].answers[i - 1]);
+              changedDataArray.push(this.data[questionIndex].answer[i - 1]);
+              break;
+            }
+
+          case answerIndex:
+            {
+              changedArray.push(this.questions[questionIndex].answers[i + 1]);
+              changedDataArray.push(this.data[questionIndex].answer[i + 1]);
+              break;
+            }
+
+          default:
+            {
+              changedArray.push(this.questions[questionIndex].answers[i]);
+              changedDataArray.push(this.data[questionIndex].answer[i]);
+            }
+        }
+      }
+
+      this.questions[questionIndex].answers = changedArray;
+      this.data[questionIndex].answer = changedDataArray;
+    },
+    postData: function postData() {
+      console.log(this.data);
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/learn/prepareLessons/createFirstLastTestStatus/create', {
+        'sectionType': this.moduleName,
+        'sectionId': this.sectionId,
+        'testType': this.testType,
+        answers: this.data
+      });
     }
   }),
   created: function created() {
-    /* Axios.post('/api/learn/prepareLessons/createFirstLastTestStatus/create', {'courseId':this.courseId, 'sectionId':this.selectedSection.id, 'userId':this.userId})
-        .then(response=>this.loadData(response.data)) */
+    var _this = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/learn/prepareLessons/getRandomQuestions/' + this.lessonId + '/' + this.subjectId).then(function (response) {
+      return _this.loadData(response.data.data.questions);
+    });
   }
 });
 
@@ -10140,6 +10327,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _test_area__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./test-area */ "./resources/js/components/watch/test-area.vue");
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -10552,7 +10745,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\np[data-v-ceb007a6]{\n    margin:0;\n    margin-top:-5px;\n}\n\n", ""]);
+exports.push([module.i, "\np[data-v-ceb007a6]{\n    margin:0;\n    margin-top:-5px;\n}\n.number[data-v-ceb007a6]{\n    padding:5px !important;\n    width: 35px;\n}\n", ""]);
 
 // exports
 
@@ -23133,384 +23326,817 @@ var render = function() {
     "div",
     { staticClass: "uk-width uk-margin-remove-bottom uk-padding" },
     [
-      _vm.questions[_vm.currentQuestion].type == "singleChoice"
-        ? _c(
-            "div",
-            [
-              _vm.questions[_vm.currentQuestion].imgUrl
-                ? _c("div", {
-                    staticClass:
-                      "uk-background-center-center uk-background-cover uk-width-1-2 uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
-                    style: {
-                      "background-image":
-                        "url(" + _vm.questions[_vm.currentQuestion].imgUrl + ")"
+      _vm._l(_vm.questions, function(question, questionIndex) {
+        return _c("div", [
+          question.type == "singleChoice"
+            ? _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.currentQuestion == questionIndex,
+                      expression: "currentQuestion==questionIndex"
                     }
+                  ]
+                },
+                [
+                  question.imgUrl
+                    ? _c("div", {
+                        staticClass:
+                          "uk-background-center-center uk-margin-bottom uk-background-cover uk-width-1-2@m uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                        style: {
+                          "background-image": "url(" + question.imgUrl + ")"
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("h5", [
+                    _vm._v(
+                      _vm._s(_vm.questionText) +
+                        " " +
+                        _vm._s(questionIndex + 1) +
+                        ": " +
+                        _vm._s(question.text)
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "uk-margin-top uk-child-width-1-2@m uk-grid uk-width align-items-center"
+                    },
+                    _vm._l(question.answers, function(answer, answerIndex) {
+                      return _c("div", { staticClass: "uk-margin-top" }, [
+                        answer.type == "text"
+                          ? _c(
+                              "div",
+                              { staticClass: "uk-flex align-items-center" },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.data[questionIndex].answer,
+                                      expression: "data[questionIndex].answer"
+                                    }
+                                  ],
+                                  staticClass: "uk-radio uk-margin-small-right",
+                                  attrs: { type: "radio" },
+                                  domProps: {
+                                    value: answer.id,
+                                    checked: _vm._q(
+                                      _vm.data[questionIndex].answer,
+                                      answer.id
+                                    )
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.$set(
+                                        _vm.data[questionIndex],
+                                        "answer",
+                                        answer.id
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("p", [_vm._v(_vm._s(answer.content))])
+                              ]
+                            )
+                          : _c(
+                              "div",
+                              { staticClass: "uk-flex align-items-center" },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.data[questionIndex].answer,
+                                      expression: "data[questionIndex].answer"
+                                    }
+                                  ],
+                                  staticClass: "uk-radio uk-margin-small-right",
+                                  attrs: { type: "radio" },
+                                  domProps: {
+                                    value: answer.id,
+                                    checked: _vm._q(
+                                      _vm.data[questionIndex].answer,
+                                      answer.id
+                                    )
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      return _vm.$set(
+                                        _vm.data[questionIndex],
+                                        "answer",
+                                        answer.id
+                                      )
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("div", {
+                                  staticClass:
+                                    "uk-background-center-center uk-background-cover uk-width uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                  style: {
+                                    "background-image":
+                                      "url(" + answer.content + ")"
+                                  }
+                                })
+                              ]
+                            )
+                      ])
+                    }),
+                    0
+                  )
+                ]
+              )
+            : question.type == "multiChoice"
+            ? _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.currentQuestion == questionIndex,
+                      expression: "currentQuestion==questionIndex"
+                    }
+                  ]
+                },
+                [
+                  question.imgUrl
+                    ? _c("div", {
+                        staticClass:
+                          "uk-background-center-center uk-margin-bottom uk-background-cover uk-width-1-2@m uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                        style: {
+                          "background-image": "url(" + question.imgUrl + ")"
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("h5", [
+                    _vm._v(
+                      _vm._s(_vm.questionText) +
+                        " " +
+                        _vm._s(questionIndex + 1) +
+                        ": " +
+                        _vm._s(question.text)
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "uk-margin-top uk-child-width-1-2@m uk-grid align-items-center"
+                    },
+                    _vm._l(question.answers, function(answer, answerIndex) {
+                      return _c("div", { staticClass: "uk-margin-top" }, [
+                        answer.type == "text"
+                          ? _c(
+                              "div",
+                              { staticClass: "uk-flex align-items-center" },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.data[questionIndex].answer,
+                                      expression: "data[questionIndex].answer"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "uk-checkbox uk-margin-small-right",
+                                  attrs: { type: "checkbox" },
+                                  domProps: {
+                                    value: answer.id,
+                                    checked: Array.isArray(
+                                      _vm.data[questionIndex].answer
+                                    )
+                                      ? _vm._i(
+                                          _vm.data[questionIndex].answer,
+                                          answer.id
+                                        ) > -1
+                                      : _vm.data[questionIndex].answer
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$a = _vm.data[questionIndex].answer,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = answer.id,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.data[questionIndex],
+                                              "answer",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.data[questionIndex],
+                                              "answer",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
+                                      } else {
+                                        _vm.$set(
+                                          _vm.data[questionIndex],
+                                          "answer",
+                                          $$c
+                                        )
+                                      }
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("p", [_vm._v(_vm._s(answer.content))])
+                              ]
+                            )
+                          : _c(
+                              "div",
+                              { staticClass: "uk-flex align-items-center" },
+                              [
+                                _c("input", {
+                                  directives: [
+                                    {
+                                      name: "model",
+                                      rawName: "v-model",
+                                      value: _vm.data[questionIndex].answer,
+                                      expression: "data[questionIndex].answer"
+                                    }
+                                  ],
+                                  staticClass:
+                                    "uk-checkbox uk-margin-small-right",
+                                  attrs: { type: "checkbox" },
+                                  domProps: {
+                                    value: answer.id,
+                                    checked: Array.isArray(
+                                      _vm.data[questionIndex].answer
+                                    )
+                                      ? _vm._i(
+                                          _vm.data[questionIndex].answer,
+                                          answer.id
+                                        ) > -1
+                                      : _vm.data[questionIndex].answer
+                                  },
+                                  on: {
+                                    change: function($event) {
+                                      var $$a = _vm.data[questionIndex].answer,
+                                        $$el = $event.target,
+                                        $$c = $$el.checked ? true : false
+                                      if (Array.isArray($$a)) {
+                                        var $$v = answer.id,
+                                          $$i = _vm._i($$a, $$v)
+                                        if ($$el.checked) {
+                                          $$i < 0 &&
+                                            _vm.$set(
+                                              _vm.data[questionIndex],
+                                              "answer",
+                                              $$a.concat([$$v])
+                                            )
+                                        } else {
+                                          $$i > -1 &&
+                                            _vm.$set(
+                                              _vm.data[questionIndex],
+                                              "answer",
+                                              $$a
+                                                .slice(0, $$i)
+                                                .concat($$a.slice($$i + 1))
+                                            )
+                                        }
+                                      } else {
+                                        _vm.$set(
+                                          _vm.data[questionIndex],
+                                          "answer",
+                                          $$c
+                                        )
+                                      }
+                                    }
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("div", {
+                                  staticClass:
+                                    "uk-background-center-center uk-background-cover uk-width uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                  style: {
+                                    "background-image":
+                                      "url(" + answer.content + ")"
+                                  }
+                                })
+                              ]
+                            )
+                      ])
+                    }),
+                    0
+                  )
+                ]
+              )
+            : question.type == "fillBlank"
+            ? _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.currentQuestion == questionIndex,
+                      expression: "currentQuestion==questionIndex"
+                    }
+                  ]
+                },
+                [
+                  question.imgUrl
+                    ? _c("div", {
+                        staticClass:
+                          "uk-background-center-center uk-margin-bottom uk-background-cover uk-width-1-2 uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                        style: {
+                          "background-image": "url(" + question.imgUrl + ")"
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("h5", [
+                    _vm._v(
+                      _vm._s(_vm.questionText) +
+                        " " +
+                        _vm._s(questionIndex + 1) +
+                        ": " +
+                        _vm._s(_vm.fillBlanksText)
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(question.answers, function(answer, index) {
+                    return _c(
+                      "div",
+                      {
+                        staticClass: "uk-flex uk-flex-wrap align-items-center"
+                      },
+                      [
+                        index == 0
+                          ? _c("p", [_vm._v(_vm._s(question.text))])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.trim",
+                              value:
+                                _vm.data[questionIndex].answer[index].content,
+                              expression:
+                                "data[questionIndex].answer[index].content",
+                              modifiers: { trim: true }
+                            }
+                          ],
+                          staticClass:
+                            "uk-input uk-width-1-4@m uk-margin-small-left uk-margin-small-right",
+                          domProps: {
+                            value: _vm.data[questionIndex].answer[index].content
+                          },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.data[questionIndex].answer[index],
+                                "content",
+                                $event.target.value.trim()
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(answer.after))])
+                      ]
+                    )
                   })
-                : _vm._e(),
-              _vm._v(" "),
-              _c("p", [
-                _vm._v(_vm._s(_vm.questions[_vm.currentQuestion].text))
-              ]),
-              _vm._v(" "),
-              _vm._l(_vm.questions[_vm.currentQuestion].answers, function(
-                answer,
-                index
-              ) {
-                return _c(
-                  "div",
-                  {
-                    staticClass:
-                      "uk-margin-top uk-child-width-1-2@m uk-grid align-items-center"
-                  },
-                  [
-                    answer.type == "text"
-                      ? _c(
-                          "div",
-                          { staticClass: "uk-flex align-items-center" },
-                          [
-                            _c("input", {
-                              staticClass: "uk-radio uk-margin-small-right",
-                              attrs: {
-                                type: "radio",
-                                name:
-                                  "singleAnswer" +
-                                  _vm.questions[_vm.currentQuestion].id
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("p", [_vm._v(_vm._s(answer.content))])
-                          ]
-                        )
-                      : _c(
-                          "div",
-                          { staticClass: "uk-flex align-items-center" },
-                          [
-                            _c("input", {
-                              staticClass: "uk-radio uk-margin-small-right",
-                              attrs: {
-                                type: "radio",
-                                name:
-                                  "singleAnswer" +
-                                  _vm.questions[_vm.currentQuestion].id
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("div", {
-                              staticClass:
-                                "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
-                              style: {
-                                "background-image":
-                                  "url(" + answer.content + ")"
-                              }
-                            })
-                          ]
-                        )
+                ],
+                2
+              )
+            : question.type == "trueFalse"
+            ? _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: questionIndex == _vm.currentQuestion,
+                      expression: "questionIndex==currentQuestion"
+                    }
                   ]
-                )
-              })
-            ],
-            2
-          )
-        : _vm.questions[_vm.currentQuestion].type == "multiChoice"
-        ? _c("div", [
-            _vm.questions[_vm.currentQuestion].imgUrl
-              ? _c("div", {
-                  staticClass:
-                    "uk-background-center-center uk-background-cover uk-width-1-2 uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
-                  style: {
-                    "background-image":
-                      "url(" + _vm.questions[_vm.currentQuestion].imgUrl + ")"
-                  }
-                })
-              : _vm._e(),
-            _vm._v(" "),
-            _c("p", [_vm._v(_vm._s(_vm.questions[_vm.currentQuestion].text))]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "uk-margin-top uk-child-width-1-2@m uk-grid align-items-center"
-              },
-              _vm._l(_vm.questions[_vm.currentQuestion].answers, function(
-                answer,
-                index
-              ) {
-                return _c(
-                  "div",
-                  { staticClass: "uk-flex align-items-center" },
-                  [
-                    _c("input", {
-                      staticClass: "uk-checkbox uk-margin-small-right",
-                      attrs: {
-                        type: "checkbox",
-                        name:
-                          "multiAnswer" + _vm.questions[_vm.currentQuestion].id
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("p", [_vm._v(_vm._s(answer.content))])
-                  ]
-                )
-              }),
-              0
-            )
-          ])
-        : _vm.questions[_vm.currentQuestion].type == "fillBlanks"
-        ? _c("div", [
-            _vm.questions[_vm.currentQuestion].imgUrl
-              ? _c("div", {
-                  staticClass:
-                    "uk-background-center-center uk-background-cover uk-width-1-2 uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
-                  style: {
-                    "background-image":
-                      "url(" + _vm.questions[_vm.currentQuestion].imgUrl + ")"
-                  }
-                })
-              : _vm._e(),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "uk-flex uk-flex-wrap align-items-center" },
-              [
-                _c("p", [
-                  _vm._v(_vm._s(_vm.questions[_vm.currentQuestion].text))
-                ]),
-                _vm._v(" "),
-                _vm._l(_vm.questions[_vm.currentQuestion].answers, function(
-                  answer,
-                  index
-                ) {
-                  return _c("div", [
-                    _c("input", {
-                      staticClass:
-                        "uk-input uk-width-1-2@m uk-margin-small-left uk-margin-small-right"
-                    }),
-                    _vm._v(" "),
-                    _c("p", [_vm._v(_vm._s(answer.after))])
-                  ])
-                })
-              ],
-              2
-            )
-          ])
-        : _vm.questions[_vm.currentQuestion].type == "trueFalse"
-        ? _c("div", [
-            _vm.questions[_vm.currentQuestion].imgUrl
-              ? _c("div", {
-                  staticClass:
-                    "uk-background-center-center uk-background-cover uk-width-1-2 uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
-                  style: {
-                    "background-image":
-                      "url(" + _vm.questions[_vm.currentQuestion].imgUrl + ")"
-                  }
-                })
-              : _vm._e(),
-            _vm._v(" "),
-            _c("p", [_vm._v(_vm._s(_vm.questions[_vm.currentQuestion].text))]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass:
-                  "uk-flex align-items-center justify-content-around uk-margin-top"
-              },
-              [
-                _c("div", { staticClass: "uk-flex align-items-center" }, [
-                  _c("input", {
-                    staticClass: "uk-radio uk-margin-remove",
-                    attrs: { type: "radio", name: "isCorrect", value: "1" }
-                  }),
+                },
+                [
+                  question.imgUrl
+                    ? _c("div", {
+                        staticClass:
+                          "uk-background-center-center uk-margin-bottom uk-background-cover uk-width-1-2 uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                        style: {
+                          "background-image": "url(" + question.imgUrl + ")"
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("h5", [
+                    _vm._v(
+                      _vm._s(_vm.questionText) +
+                        " " +
+                        _vm._s(questionIndex + 1) +
+                        ": " +
+                        _vm._s(question.text)
+                    )
+                  ]),
                   _vm._v(" "),
                   _c(
-                    "p",
+                    "div",
                     {
                       staticClass:
-                        "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
-                    },
-                    [_vm._v(_vm._s(_vm.trueText))]
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-flex align-items-center" }, [
-                  _c("input", {
-                    staticClass: "uk-radio uk-margin-remove",
-                    attrs: { type: "radio", name: "isCorrect", value: "0" }
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "p",
-                    {
-                      staticClass:
-                        "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
-                    },
-                    [_vm._v(_vm._s(_vm.falseText))]
-                  )
-                ])
-              ]
-            )
-          ])
-        : _vm.questions[_vm.currentQuestion].type == "order"
-        ? _c("div", [
-            _vm.questions[_vm.currentQuestion].imgUrl
-              ? _c("div", {
-                  staticClass:
-                    "uk-background-center-center uk-background-cover uk-width-1-2 uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
-                  style: {
-                    "background-image":
-                      "url(" + _vm.questions[_vm.currentQuestion].imgUrl + ")"
-                  }
-                })
-              : _vm._e(),
-            _vm._v(" "),
-            _c("p", [_vm._v(_vm._s(_vm.questions[_vm.currentQuestion].text))]),
-            _vm._v(" "),
-            _c("div", { staticClass: "tm-course-section-list" }, [
-              _c(
-                "ul",
-                _vm._l(_vm.questions[_vm.currentQuestion].answers, function(
-                  answer,
-                  index
-                ) {
-                  return _c(
-                    "li",
-                    {
-                      staticClass:
-                        "uk-card uk-card-default uk-padding-small uk-flex align-items-center justify-content-between"
+                        "uk-flex align-items-center justify-content-around uk-margin-top"
                     },
                     [
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "uk-grid uk-margin-remove uk-padding-remove"
-                        },
-                        [
-                          _c(
-                            "p",
+                      _c("div", { staticClass: "uk-flex align-items-center" }, [
+                        _c("input", {
+                          directives: [
                             {
-                              staticClass:
-                                "uk-text-truncate uk-margin-small-right uk-margin-remove-left uk-margin-remove-top uk-margin-remove-bottom"
-                            },
-                            [_vm._v(_vm._s(answer.content))]
-                          )
-                        ]
-                      ),
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.data[questionIndex].answer,
+                              expression: "data[questionIndex].answer"
+                            }
+                          ],
+                          staticClass: "uk-radio uk-margin-remove",
+                          attrs: { type: "radio" },
+                          domProps: {
+                            value: 1,
+                            checked: _vm._q(_vm.data[questionIndex].answer, 1)
+                          },
+                          on: {
+                            change: function($event) {
+                              return _vm.$set(
+                                _vm.data[questionIndex],
+                                "answer",
+                                1
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "p",
+                          {
+                            staticClass:
+                              "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
+                          },
+                          [_vm._v(_vm._s(_vm.trueText))]
+                        )
+                      ]),
                       _vm._v(" "),
-                      _c(
-                        "div",
-                        {
-                          staticClass:
-                            "uk-margin-small-left uk-padding-remove uk-flex uk-flex-column uk-width-1-4"
-                        },
-                        [
-                          index > 1
-                            ? _c("a", { on: { click: function($event) {} } }, [
-                                _c("i", { staticClass: "fas fa-sort-up" })
-                              ])
-                            : _vm._e(),
-                          _vm._v(" "),
-                          index < _vm.questions[_vm.currentQuestion].length
-                            ? _c("a", { on: { click: function($event) {} } }, [
-                                _c("i", { staticClass: "fas fa-sort-down" })
-                              ])
-                            : _vm._e()
-                        ]
-                      )
+                      _c("div", { staticClass: "uk-flex align-items-center" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.data[questionIndex].answer,
+                              expression: "data[questionIndex].answer"
+                            }
+                          ],
+                          staticClass: "uk-radio uk-margin-remove",
+                          attrs: { type: "radio" },
+                          domProps: {
+                            value: 0,
+                            checked: _vm._q(_vm.data[questionIndex].answer, 0)
+                          },
+                          on: {
+                            change: function($event) {
+                              return _vm.$set(
+                                _vm.data[questionIndex],
+                                "answer",
+                                0
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "p",
+                          {
+                            staticClass:
+                              "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
+                          },
+                          [_vm._v(_vm._s(_vm.falseText))]
+                        )
+                      ])
                     ]
                   )
-                }),
-                0
+                ]
               )
-            ])
-          ])
-        : _vm.questions[_vm.currentQuestion].type == "match"
-        ? _c(
-            "div",
-            [
-              _vm.questions[_vm.currentQuestion].imgUrl
-                ? _c("div", {
-                    staticClass:
-                      "uk-background-center-center uk-background-cover uk-width-1-2 uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
-                    style: {
-                      "background-image":
-                        "url(" + _vm.questions[_vm.currentQuestion].imgUrl + ")"
+            : question.type == "order"
+            ? _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.currentQuestion == questionIndex,
+                      expression: "currentQuestion==questionIndex"
                     }
-                  })
-                : _vm._e(),
-              _vm._v(" "),
-              _c("p", [
-                _vm._v(_vm._s(_vm.questions[_vm.currentQuestion].text))
-              ]),
-              _vm._v(" "),
-              _vm._l(_vm.questions[_vm.currentQuestion].answers, function(
-                answer,
-                index
-              ) {
-                return _c(
-                  "div",
-                  {
-                    staticClass:
-                      "uk-grid uk-child-width-1-2@m align-items-center"
-                  },
-                  [
-                    answer.type == "text"
-                      ? _c(
-                          "div",
-                          { staticClass: "uk-flex align-items-center" },
+                  ]
+                },
+                [
+                  question.imgUrl
+                    ? _c("div", {
+                        staticClass:
+                          "uk-background-center-center uk-margin-bottom uk-background-cover uk-width-1-2 uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                        style: {
+                          "background-image": "url(" + question.imgUrl + ")"
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("h5", [
+                    _vm._v(
+                      _vm._s(_vm.questionText) +
+                        " " +
+                        _vm._s(questionIndex + 1) +
+                        ": " +
+                        _vm._s(question.text)
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "tm-course-section-list" }, [
+                    _c(
+                      "ul",
+                      _vm._l(question.answers, function(answer, index) {
+                        return _c(
+                          "li",
+                          {
+                            staticClass:
+                              "uk-card uk-card-default uk-padding-small uk-flex align-items-center justify-content-between"
+                          },
                           [
-                            _c("input", {
-                              staticClass: "uk-input uk-margin-remove",
-                              attrs: {
-                                type: "text",
-                                name: "isCorrect",
-                                disabled: ""
-                              },
-                              domProps: { value: index + 1 }
-                            }),
-                            _vm._v(" "),
                             _c(
-                              "p",
+                              "div",
                               {
                                 staticClass:
-                                  "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
+                                  "uk-margin-remove uk-padding-remove"
                               },
-                              [_vm._v(_vm._s(answer.content))]
+                              [
+                                _c(
+                                  "p",
+                                  {
+                                    staticClass:
+                                      "uk-text-truncate uk-margin-small-right uk-margin-remove-left uk-margin-remove-top uk-margin-remove-bottom"
+                                  },
+                                  [_vm._v(_vm._s(answer.content))]
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  " uk-padding-remove uk-flex uk-flex-column"
+                              },
+                              [
+                                index > 0
+                                  ? _c(
+                                      "button",
+                                      {
+                                        staticClass: "uk-button uk-icon-button",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.itemUp(
+                                              questionIndex,
+                                              index
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-sort-up"
+                                        })
+                                      ]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                index < question.answers.length - 1
+                                  ? _c(
+                                      "button",
+                                      {
+                                        staticClass: "uk-button uk-icon-button",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.itemDown(
+                                              questionIndex,
+                                              index
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass: "fas fa-sort-down"
+                                        })
+                                      ]
+                                    )
+                                  : _vm._e()
+                              ]
                             )
                           ]
                         )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    answer.type == "text"
-                      ? _c(
-                          "div",
-                          { staticClass: "uk-flex align-items-center" },
-                          [
-                            _c(
-                              "p",
+                      }),
+                      0
+                    )
+                  ])
+                ]
+              )
+            : question.type == "match"
+            ? _c(
+                "div",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.currentQuestion == questionIndex,
+                      expression: "currentQuestion==questionIndex"
+                    }
+                  ]
+                },
+                [
+                  question.imgUrl
+                    ? _c("div", {
+                        staticClass:
+                          "uk-background-center-center uk-margin-bottom uk-background-cover uk-width-1-2 uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                        style: {
+                          "background-image": "url(" + question.imgUrl + ")"
+                        }
+                      })
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("h5", [
+                    _vm._v(
+                      _vm._s(_vm.questionText) +
+                        " " +
+                        _vm._s(questionIndex + 1) +
+                        ": " +
+                        _vm._s(question.text)
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(question.answers.answers, function(answer, index) {
+                    return _c(
+                      "div",
+                      {
+                        staticClass:
+                          "uk-flex align-items-center justify-content-between"
+                      },
+                      [
+                        question.answers[0].type == "text"
+                          ? _c(
+                              "div",
                               {
                                 staticClass:
-                                  "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
+                                  "uk-flex align-items-center uk-margin-bottom uk-margin-right"
                               },
-                              [_vm._v(_vm._s(_vm.falseText))]
-                            ),
-                            _vm._v(" "),
-                            _c("input", {
-                              staticClass: "uk-input uk-margin-remove",
-                              attrs: { type: "text", name: "isCorrect" }
-                            })
-                          ]
-                        )
-                      : _vm._e()
-                  ]
-                )
-              })
-            ],
-            2
-          )
-        : _vm._e(),
+                              [
+                                _c("input", {
+                                  staticClass:
+                                    "uk-input number uk-margin-remove",
+                                  attrs: { type: "text", disabled: "" },
+                                  domProps: { value: index + 1 }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  {
+                                    staticClass:
+                                      "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
+                                  },
+                                  [_vm._v(_vm._s(answer.answer))]
+                                )
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        question.answers[0].type == "text"
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "uk-flex align-items-center uk-margin-bottom"
+                              },
+                              [
+                                _c(
+                                  "p",
+                                  {
+                                    staticClass:
+                                      "uk-margin-small-right uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
+                                  },
+                                  [
+                                    _vm._v(
+                                      _vm._s(
+                                        question.answers.contents[index].content
+                                      )
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass:
+                                    "uk-input number uk-margin-remove",
+                                  attrs: { type: "text" }
+                                })
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        question.answers[0].type == "image"
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "uk-flex align-items-center uk-margin-bottom uk-margin-right uk-width"
+                              },
+                              [
+                                _c("input", {
+                                  staticClass:
+                                    "uk-input number uk-margin-remove",
+                                  attrs: { type: "text", disabled: "" },
+                                  domProps: { value: index + 1 }
+                                }),
+                                _vm._v(" "),
+                                _c("div", {
+                                  staticClass:
+                                    "uk-background-center-center uk-margin-small-left uk-background-cover uk-width uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                  style: {
+                                    "background-image":
+                                      "url(" + answer.answer + ")"
+                                  }
+                                })
+                              ]
+                            )
+                          : _vm._e(),
+                        _vm._v(" "),
+                        question.answers[0].type == "image"
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "uk-flex align-items-center uk-margin-bottom uk-width"
+                              },
+                              [
+                                _c("div", {
+                                  staticClass:
+                                    "uk-background-center-center uk-margin-small-right uk-background-cover uk-width uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                  style: {
+                                    "background-image":
+                                      "url(" +
+                                      question.answers.contents[index].content +
+                                      ")"
+                                  }
+                                }),
+                                _vm._v(" "),
+                                _c("input", {
+                                  staticClass:
+                                    "uk-input number uk-margin-remove",
+                                  attrs: { type: "text" }
+                                })
+                              ]
+                            )
+                          : _vm._e()
+                      ]
+                    )
+                  })
+                ],
+                2
+              )
+            : _vm._e()
+        ])
+      }),
       _vm._v(" "),
-      _c("div", [
+      _c("div", { staticClass: "uk-margin-medium-top" }, [
         _c(
           "ul",
           {
@@ -23544,7 +24170,13 @@ var render = function() {
               _c(
                 "button",
                 { staticClass: "uk-disabled", attrs: { disabled: "" } },
-                [_vm._v("soru " + _vm._s(_vm.currentQuestion + 1))]
+                [
+                  _vm._v(
+                    _vm._s(_vm.questionText) +
+                      " " +
+                      _vm._s(_vm.currentQuestion + 1)
+                  )
+                ]
               )
             ]),
             _vm._v(" "),
@@ -23570,9 +24202,27 @@ var render = function() {
               )
             ])
           ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.currentQuestion >= _vm.questions.length - 1,
+                expression: "currentQuestion>=questions.length-1"
+              }
+            ],
+            staticClass: "uk-button-success uk-button uk-float-right",
+            on: { click: _vm.postData }
+          },
+          [_vm._v(_vm._s(_vm.endTestText))]
         )
       ])
-    ]
+    ],
+    2
   )
 }
 var staticRenderFns = []
@@ -23605,7 +24255,17 @@ var render = function() {
           staticClass:
             "uk-width-3-4@m uk-flex align-items-center justify-content-center"
         },
-        [_c("test-area")],
+        [
+          _c("test-area", {
+            attrs: {
+              "lesson-id": "1",
+              "subject-id": "9",
+              "test-type": "0",
+              "section-id": _vm.selectedLesson.section_id,
+              "module-name": _vm.moduleName
+            }
+          })
+        ],
         1
       ),
       _vm._v(" "),
