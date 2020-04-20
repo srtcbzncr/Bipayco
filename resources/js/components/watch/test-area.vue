@@ -88,8 +88,8 @@
                                 <p class="uk-text-truncate uk-margin-small-right uk-margin-remove-left uk-margin-remove-top uk-margin-remove-bottom">{{answer.content}}</p>
                             </div>
                             <div class=" uk-padding-remove uk-flex uk-flex-column">
-                                <button @click="itemUp(questionIndex,index)" class="uk-button uk-icon-button" v-if="index>0"><i class="fas fa-sort-up"></i></button>
-                                <button @click="itemDown(questionIndex,index)" class="uk-button uk-icon-button" v-if="index<question.answers.length-1"><i class="fas fa-sort-down"></i></button>
+                                <button @click="itemUp(questionIndex,index)" class="uk-button uk-icon-button uk-padding-remove align-item-center" v-if="index>0"><i class="fas fa-sort-up"></i></button>
+                                <button @click="itemDown(questionIndex,index)" class="uk-button uk-icon-button uk-padding-remove align-item-center" v-if="index<question.answers.length-1"><i class="fas fa-sort-down"></i></button>
                             </div>
                         </li>
                     </ul>
@@ -104,22 +104,22 @@
                 <!--elements*-->
                 <div v-for="(answer,index) in question.answers.answers" class="uk-flex align-items-center justify-content-between">
                     <!--first-->
-                    <div v-if="question.answers[0].type=='text'" class="uk-flex align-items-center uk-margin-bottom uk-margin-right">
+                    <div v-if="answer.answer.type=='text'" class="uk-flex align-items-center uk-margin-bottom uk-margin-right">
                         <input class="uk-input number uk-margin-remove" type="text" disabled :value="(index+1)">
-                        <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">{{answer.answer}}</p>
+                        <p class="uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">{{answer.answer.answer}}</p>
                     </div>
                     <!--second-->
-                    <div v-if="question.answers[0].type=='text'" class="uk-flex align-items-center uk-margin-bottom">
-                        <p class="uk-margin-small-right uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">{{question.answers.contents[index].content}}</p>
+                    <div v-if="answer.answer.type=='text'" class="uk-flex align-items-center uk-margin-bottom">
+                        <p class="uk-margin-small-right uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right">{{question.answers.contents[index].content.content}}</p>
                         <input class="uk-input number uk-margin-remove" type="text">
                     </div>
-                    <div v-if="question.answers[0].type=='image'" class="uk-flex align-items-center uk-margin-bottom uk-margin-right uk-width">
+                    <div v-if="answer.answer.type=='image'" class="uk-flex align-items-center uk-margin-bottom uk-margin-right uk-width">
                         <input class="uk-input number uk-margin-remove" type="text" disabled :value="(index+1)">
-                        <div class="uk-background-center-center uk-margin-small-left uk-background-cover uk-width uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :style="{'background-image': 'url('+answer.answer+')'}"></div>
+                        <div class="uk-background-center-center uk-margin-small-left uk-background-cover uk-width uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :style="{'background-image': 'url('+answer.answer.answer+')'}"></div>
                     </div>
                     <!--second-->
-                    <div v-if="question.answers[0].type=='image'" class="uk-flex align-items-center uk-margin-bottom uk-width">
-                        <div class="uk-background-center-center uk-margin-small-right uk-background-cover uk-width uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :style="{'background-image': 'url('+question.answers.contents[index].content+')'}"></div>
+                    <div v-if="answer.answer.type=='image'" class="uk-flex align-items-center uk-margin-bottom uk-width">
+                        <div class="uk-background-center-center uk-margin-small-right uk-background-cover uk-width uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :style="{'background-image': 'url('+question.answers.contents[index].content.content+')'}"></div>
                         <input class="uk-input number uk-margin-remove" type="text" >
                     </div>
                 </div>

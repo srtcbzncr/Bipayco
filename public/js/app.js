@@ -23922,7 +23922,8 @@ var render = function() {
                                   ? _c(
                                       "button",
                                       {
-                                        staticClass: "uk-button uk-icon-button",
+                                        staticClass:
+                                          "uk-button uk-icon-button uk-padding-remove align-item-center",
                                         on: {
                                           click: function($event) {
                                             return _vm.itemUp(
@@ -23944,7 +23945,8 @@ var render = function() {
                                   ? _c(
                                       "button",
                                       {
-                                        staticClass: "uk-button uk-icon-button",
+                                        staticClass:
+                                          "uk-button uk-icon-button uk-padding-remove align-item-center",
                                         on: {
                                           click: function($event) {
                                             return _vm.itemDown(
@@ -24013,7 +24015,7 @@ var render = function() {
                           "uk-flex align-items-center justify-content-between"
                       },
                       [
-                        question.answers[0].type == "text"
+                        answer.answer.type == "text"
                           ? _c(
                               "div",
                               {
@@ -24034,13 +24036,13 @@ var render = function() {
                                     staticClass:
                                       "uk-margin-small-left uk-margin-remove-top uk-margin-remove-bottom uk-margin-remove-right"
                                   },
-                                  [_vm._v(_vm._s(answer.answer))]
+                                  [_vm._v(_vm._s(answer.answer.answer))]
                                 )
                               ]
                             )
                           : _vm._e(),
                         _vm._v(" "),
-                        question.answers[0].type == "text"
+                        answer.answer.type == "text"
                           ? _c(
                               "div",
                               {
@@ -24058,6 +24060,7 @@ var render = function() {
                                     _vm._v(
                                       _vm._s(
                                         question.answers.contents[index].content
+                                          .content
                                       )
                                     )
                                   ]
@@ -24072,7 +24075,7 @@ var render = function() {
                             )
                           : _vm._e(),
                         _vm._v(" "),
-                        question.answers[0].type == "image"
+                        answer.answer.type == "image"
                           ? _c(
                               "div",
                               {
@@ -24092,14 +24095,14 @@ var render = function() {
                                     "uk-background-center-center uk-margin-small-left uk-background-cover uk-width uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle",
                                   style: {
                                     "background-image":
-                                      "url(" + answer.answer + ")"
+                                      "url(" + answer.answer.answer + ")"
                                   }
                                 })
                               ]
                             )
                           : _vm._e(),
                         _vm._v(" "),
-                        question.answers[0].type == "image"
+                        answer.answer.type == "image"
                           ? _c(
                               "div",
                               {
@@ -24113,7 +24116,8 @@ var render = function() {
                                   style: {
                                     "background-image":
                                       "url(" +
-                                      question.answers.contents[index].content +
+                                      question.answers.contents[index].content
+                                        .content +
                                       ")"
                                   }
                                 }),
