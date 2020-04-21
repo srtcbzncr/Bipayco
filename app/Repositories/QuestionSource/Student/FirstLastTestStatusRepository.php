@@ -48,7 +48,7 @@ class FirstLastTestStatusRepository implements IRepository
 
             // var olan eski status verilerini sil
             $sectionType = null;
-            if($data['sectionType'] == "prepareLessons"){
+            if($data['sectionType'] == "generalEducation"){ // bura
                 $sectionType = Section::class;
             }
             $flTestStatus = FirstLastTestStatus::where('studentId',$student->id)
@@ -90,7 +90,9 @@ class FirstLastTestStatusRepository implements IRepository
                     }
                 }
                 else if($que->type == "App\Models\QuestionSource\Match"){
-
+                    if($this->calculateMatch($student->id,$answer)){
+                        $correctCount++;
+                    }
                 }
                 else if($que->type == "App\Models\QuestionSource\Order"){
                     if($this->calculateOrder($student->id,$answer)){
@@ -102,8 +104,8 @@ class FirstLastTestStatusRepository implements IRepository
             $point = ($correctCount/count($data['answers']))*100;
             $point = intval($point);
 
-            if($data['sectionType'] == "prepareLessons"){
-                $section = Section::find($data['sectionId']);
+            if($data['sectionType'] == "generalEducation"){ // bura
+                $section = Section::find(301); // bura
                 $course = Course::find($section->course_id);
                 if($point >= $course->score){
                     $object->result = true;
@@ -144,15 +146,29 @@ class FirstLastTestStatusRepository implements IRepository
     }
     public function calculateMulti($studentId,$data){
         $isCorrect = false;
-        foreach ($data['answer'] as $item){
-            $control = MultiChoice::find($item);
-            if($control->isTrue == true){
-                $isCorrect = true;
-            }
-            else{
+
+        $dbAnswers = MultiChoice::where('questionId',$data['questionId'])->get()->toArray();
+        $correctAnswers = array();
+        foreach ($dbAnswers as $key => $answer){
+            if($answer['isTrue'] == true)
+                $correctAnswers[$key] = $answer['id'];
+        }
+        if(count($correctAnswers) == count($data['answer'])){
+            foreach ($data['answer'] as $item){
                 $isCorrect = false;
-                break;
+                foreach ($correctAnswers as $answer){
+                    if($answer == $item){
+                        $isCorrect = true;
+                        break;
+                    }
+                }
+                if($isCorrect == false){
+                    break;
+                }
             }
+        }
+        else{
+            $isCorrect  = false;
         }
         // flTestAnswer tablosuna ekle
         $flTestAnswer = new FirstLastTestAnswers();
@@ -166,7 +182,7 @@ class FirstLastTestStatusRepository implements IRepository
         $isCorrect = false;
         $answers = GapFilling::where('questionId',$data['questionId'])->get()->toArray();
         foreach ($answers as $key => $answer){
-            if($answer['content'] != $data['answer'][$key]['content']){
+            if($data['answer'][$key]['content'] == null or $answer['content'] != $data['answer'][$key]['content']){
                 $isCorrect = false;
                 break;
             }
@@ -199,8 +215,24 @@ class FirstLastTestStatusRepository implements IRepository
         $flTestAnswer->save();
         return $isTrue;
     }
-    public function calculateMatch($data){
-
+    public function calculateMatch($studentId,$data){
+        $isCorrect = false;
+        foreach ($data['answer'] as $item){
+            if($item['id'] != null and $item['id'] == $item['content']['id']){
+                $isCorrect = true;
+            }
+            else{
+                $isCorrect = false;
+                break;
+            }
+        }
+        // flTestAnswer tablosuna ekle
+        $flTestAnswer = new FirstLastTestAnswers();
+        $flTestAnswer->result = $isCorrect;
+        $flTestAnswer->questionId = $data['questionId'];
+        $flTestAnswer->studentId = $studentId;
+        $flTestAnswer->save();
+        return $isCorrect;
     }
     public function calculateOrder($studentId,$data){
         $isCorrect = false;
