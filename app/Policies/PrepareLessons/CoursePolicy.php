@@ -83,4 +83,16 @@ class CoursePolicy
             return true;
         }
     }
+
+    public function entry(User $user, Course $course){
+        dd("sss");
+        $now = date('Y-m-d', time());
+        $entry = Entry::where('student_id', $user->student->id)->where('course_type','App\Models\PrepareLessons\Course')->where('course_id', $course->id)->where('active', true)->first();
+        if($entry != null and date('Y-m-d',strtotime($entry->access_start))<=$now and date('Y-m-d',strtotime($entry->access_finish))>=$now){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

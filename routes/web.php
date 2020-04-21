@@ -104,8 +104,12 @@ Route::group(['prefix' => 'learn'],function (){
    });
 
    Route::group(['prefix' => 'pl'],function (){
-      // Route::get('/course/{course_id}','GeneralEducation\LearnController@getCourse')->name('learn_ge_course_get');
-
+       Route::get('/course/{course_id}','PrepareLesson\LearnController@getCourse')->name('learn_pl_course_get');
+       Route::get('/course/{course_id}/lesson/{lesson_id}','PrepareLesson\LearnController@getLesson')->name('learn_pl_lesson_get');
+       Route::group(['prefix' => 'test'],function (){
+          Route::get('/firstTest/{courseId}/{sectionId}','PrepareLesson\LearnController@getFirstTest')->name('learn_pl_get_first_test');
+          Route::get('/lastTest/{courseId}/{sectionId}','PrepareLesson\LearnController@getLastTest')->name('learn_pl_get_last_test');
+       });
    });
 });
 
