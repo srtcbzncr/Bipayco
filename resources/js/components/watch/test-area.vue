@@ -161,11 +161,11 @@
         },
         props:{
             subjectId:{
-                type:String,
+                type:Number,
                 required:true
             },
             lessonId:{
-                type:String,
+                type:Number,
                 required:true
             },
             testType:{
@@ -189,8 +189,8 @@
                 required:true,
             },
             nextLessonId:{
-                type:String,
-                default:"",
+                type:Number,
+                default:'',
             },
             trueText:{
                 type:String,
@@ -306,7 +306,7 @@
             },
             postData:function () {
                 console.log(this.data);
-                Axios.post('/api/learn/prepareLessons/createFirstLastTestStatus/create',{'userId':this.userId, 'sectionType':this.moduleName, 'sectionId':this.sectionId, 'testType':this.testType, 'answers':this.data})
+                Axios.post('/api/learn/prepareLessons/createFirstLastTestStatus/create',{'userId':this.userId, 'sectionType':this.moduleName, 'sectionId':this.sectionId, 'testType':this.testType, 'courseId':this.courseId, 'answers':this.data})
                     .then(response=>{
                         if(!response.error){
                             //setTimeout(()=>{window.location.replace('/learn/ge/course/'+this.courseId+'/lesson/'+this.nextLessonId);},3000);

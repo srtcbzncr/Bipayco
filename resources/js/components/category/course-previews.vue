@@ -2,6 +2,7 @@
     <div id="Course-Videos" class="tabcontent  animation: uk-animation-slide-right-medium">
         <ul uk-accordion="" class="uk-accordion">
             <li v-if="sections.length>0" v-for="section in sections" class="tm-course-lesson-section uk-background-default">
+                {{section}}
                 <a class="uk-accordion-title uk-padding-small" href="#"><h6> {{sectionText}}  {{section.no}}</h6> <h4 class="uk-margin-remove"> {{section.name}}</h4> </a>
                 <div class="uk-accordion-content uk-margin-remove-top">
                     <div class="tm-course-section-list">

@@ -26,10 +26,11 @@
                     @endforeach
                     <span class="uk-text-bold uk-light"> {{$student_count}} @lang('front/auth.enrolled_student')</span>
                 </div>
-                @if(Auth::check() && Auth::user()->can('entry', $course))
+
+                @if(Auth::check() && Auth::user()->can('entryControl', $course))
                     <div class="uk-grid-small" uk-grid>
                         <div class="uk-width-auto">
-                            <a class="uk-button uk-button-white uk-float-left" href="" uk-tooltip="title: Star This course now  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"> @lang('front/auth.continue')</a>
+                            <a class="uk-button uk-button-white uk-float-left" href="{{route('learn_pl_course_get', $course->id)}}" uk-tooltip="title: Star This course now  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"> @lang('front/auth.continue')</a>
                         </div>
                         <div class="uk-width-expand">
                             <span class="uk-light uk-text-small uk-text-bold"> @lang('front/auth.my_progress') </span>
@@ -146,7 +147,6 @@
             </div>
 
             <!-- side contant -->
-            <div>
                 <similar-course-card
                     @if(Auth::check())
                     auth-check
@@ -157,7 +157,6 @@
                     module="pl"
                     related-courses-text="@lang('front/auth.related_courses')"
                 > </similar-course-card>
-            </div>
         </div>
     </div>
 @endsection

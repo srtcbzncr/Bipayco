@@ -245,7 +245,8 @@ const actions={
     },
     loadLessonDiscussion({commit}, [moduleName, courseId, lessonId]){
         Axios.get('/api/learn/'+moduleName+'/'+courseId+'/lesson/'+lessonId+'/discussion')
-            .then(response=>commit('setLessonDiscussion',response.data)).then(console.log(lessonId))
+            .then(response=>commit('setLessonDiscussion',response.data))
+
     },
     loadPlLessonType({commit}){
         Axios.get('/api/curriculum/index')

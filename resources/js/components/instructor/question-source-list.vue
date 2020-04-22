@@ -6,7 +6,7 @@
                 <tr>
                     <th>{{questionText}}</th>
                     <th>{{lessonText}}</th>
-                    <th>{{difficultyText}}</th>
+                    <th>{{subjectText}}</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -14,7 +14,7 @@
                 <tr v-for="question in questionSource[currentPage-1]">
                     <td class="uk-width-2-5"><p> {{question.text}}</p></td>
                     <td class="uk-width-1-5"><p>{{question.lesson.name}}</p></td>
-                    <td class="uk-width-1-5"><p>{{question.level}}</p></td>
+                    <td class="uk-width-1-5"><p>{{question.subject.name}}</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-around">
                         <a @click="editPageRoute(question.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
                         <a @click="deleteQuestion(question.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>

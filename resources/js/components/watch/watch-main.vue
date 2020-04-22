@@ -2,7 +2,17 @@
     <div class="uk-card uk-card-default uk-align-center">
         <div class="uk-card-body uk-grid uk-padding-remove">
             <div class="uk-width-3-4@m uk-flex align-items-center justify-content-center uk-overflow-auto">
-                <!--<video v-if="selectedLesson.is_video" id="courseLessonVideo" @timeupdate="watched" width="400" controls controlsList="nodownload">
+                <test-area v-if="moduleName=='prepareLessons'&&isTest"
+                    :lesson-id="course.lesson_id"
+                    :subject-id="selectedSection.subject_id"
+                    test-type="0"
+                    :section-id="selectedLesson.section_id"
+                    :module-name="moduleName"
+                    :user-id="userId"
+                    :next-lesson-id="course.nextLessonId"
+                    :course-id="courseId"
+                ></test-area>
+                <video v-else-if="selectedLesson.is_video" id="courseLessonVideo" @timeupdate="watched" width="400" controls controlsList="nodownload">
                     <source :src="selectedLesson.file_path" type="video/mp4">
                     <source :src="selectedLesson.file_path" type="video/ogg">
                     Your browser does not support HTML5 video.
@@ -11,17 +21,7 @@
                     <iframe :src="selectedLesson.file_path" @load="completed" class="uk-width" style="height: 550px" frameborder="0"></iframe>
                     <button v-if="course.nextLessonId!=null" @click="selectLesson(course.nextLessonId)" class="uk-button uk-button-primary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right">{{nextLessonText}} <i class="fas fa-arrow-right uk-margin-small-left"></i></button>
                     <button @click="openNewTab" class="uk-button uk-button-secondary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right"><i class="fas fa-expand-arrows-alt uk-margin-small-right"></i> {{fullScreenText}}</button>
-                </div>-->
-                <test-area
-                    lesson-id="1"
-                    subject-id="9"
-                    test-type="0"
-                    :section-id="selectedLesson.section_id"
-                    :module-name="moduleName"
-                    :user-id="userId"
-                    :next-lesson-id="course.nextLessonId"
-                    :course-id="courseId"
-                ></test-area>
+                </div>
             </div>
             <!-- side menu -->
             <div class="uk-width-1-4@m uk-container uk-grid-padding-remove@m" style="padding: 0;">
@@ -47,8 +47,14 @@
                                             <div class="uk-accordion-content uk-margin-remove-top">
                                                 <div class="tm-course-section-list">
                                                     <ul>
+                                                        <a v-if="moduleName=='prepareLessons'" :href="'/learn/pl/test/firstTest/'+courseId+'/'+section.id" class="uk-link-reset">
+                                                            <li class="uk-background-default align-items-center">
+                                                                <span class="uk-icon-button icon-play"> <i class="fas fa-file-alt icon-small uk-margin-remove"></i> </span>
+                                                                <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">Ön Test</div>
+                                                            </li>
+                                                        </a>
                                                         <a v-for="(lesson, lessonIndex) in section.lessons" @click="selectLesson(lesson.id)" class="uk-link-reset">
-                                                            <li v-if="lesson.id==selectedLesson.id" class="currentLesson uk-background-primary align-items-center">
+                                                            <li v-if="lesson.id==selectedLesson.id&&!isTest" class="currentLesson uk-background-primary align-items-center">
                                                                 <span v-if="lesson.is_video" class="uk-icon-button icon-play currentLesson uk-button-primary"> <i class="fas fa-play icon-small"></i> </span>
                                                                 <span v-else class="uk-icon-button icon-play currentLesson uk-button-primary"> <i class="fas fa-file-alt icon-small uk-margin-remove"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">{{lessonIndex+1}}. {{lesson.name}}</div>
@@ -64,6 +70,12 @@
                                                                 <span v-else class="uk-icon-button icon-play"> <i class="fas fa-file-alt icon-small uk-margin-remove"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">{{lessonIndex+1}}. {{lesson.name}}</div>
                                                                 <span v-if="lesson.is_video" class="uk-position-center-right time uk-margin-medium-right">  {{lesson.long}}</span>
+                                                            </li>
+                                                        </a>
+                                                        <a v-if="moduleName=='prepareLessons'" :href="'/learn/pl/test/lastTest/'+courseId+'/'+section.id" class="uk-link-reset">
+                                                            <li class="uk-background-default align-items-center">
+                                                                <span class="uk-icon-button icon-play   "> <i class="fas fa-file-alt icon-small uk-margin-remove"></i> </span>
+                                                                <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">Son Test</div>
                                                             </li>
                                                         </a>
                                                     </ul>
@@ -127,6 +139,10 @@
                 type:Object,
                 required:true,
             },
+            selectedSection:{
+                type:Object,
+
+            },
             lessonsText:{
                 type:String,
                 default:"Dersler"
@@ -146,6 +162,10 @@
             nextLessonText:{
                 type:String,
                 default:"Sonraki Ders"
+            },
+            isTest:{
+                type:Boolean,
+                default:false
             }
         },
         computed:{
@@ -171,7 +191,16 @@
                     .catch(console.error)
             },
             selectLesson:function (lessonId) {
-                window.location.replace('/learn/ge/course/'+this.courseId+'/lesson/'+lessonId);
+                switch(this.moduleName){
+                    case 'generalEducation':{
+                        window.location.replace('/learn/ge/course/'+this.courseId+'/lesson/'+lessonId);
+                        break;
+                    }
+                    case 'prepareLessons':{
+                        window.location.replace('/learn/pl/course/'+this.courseId+'/lesson/'+lessonId);
+                        break;
+                    }
+                }
             },
             watched:function () {
                 var videoPlayer=document.getElementById('courseLessonVideo');
@@ -179,7 +208,16 @@
                     this.triggerTruePosted();
                     this.completed();
                 }else if( videoPlayer.currentTime==videoPlayer.duration && this.course.nextLessonId!=null){
-                    setTimeout(()=>{window.location.replace('/learn/ge/course/'+this.courseId+'/lesson/'+this.course.nextLessonId);},3000);
+                    switch(this.moduleName){
+                        case 'generalEducation':{
+                            setTimeout(()=>{window.location.replace('/learn/ge/course/'+this.courseId+'/lesson/'+this.course.nextLessonId);},3000);
+                            break;
+                        }
+                        case 'prepareLessons':{
+                            setTimeout(()=>{window.location.replace('/learn/pl/course/'+this.courseId+'/lesson/'+this.course.nextLessonId);},3000);
+                            break;
+                        }
+                    }
                 }
             },
             triggerTruePosted(){

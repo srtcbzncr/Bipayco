@@ -94,7 +94,7 @@
                                 </div>
                             </div>
                             <div>
-                                <div class="uk-form-label"> @lang('front/auth.course_name')</div>
+                                <div class="uk-form-label"> @lang('front/auth.passing_test_point')</div>
                                 <input class="uk-input form-control @error('name') is-invalid @enderror" type="text" id="score"  @if(isset($course)) value="{{$course->score}}" @endif required>
                                 @error('name')
                                 <span class="invalid-feedback" role="alert">

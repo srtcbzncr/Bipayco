@@ -211,5 +211,6 @@ return [
     'select_lesson'=>'Ders Seçiniz',
     'edit_subject'=>'Konu Düzenle',
     'subject_name'=>'Konu Adı',
-    'course_content'=>'Müfredat'
+    'course_content'=>'Müfredat',
+    'passing_test_note'=>'Test Geçme Notu'
 ];
