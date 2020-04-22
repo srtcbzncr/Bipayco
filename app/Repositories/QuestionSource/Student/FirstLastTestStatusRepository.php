@@ -49,7 +49,7 @@ class FirstLastTestStatusRepository implements IRepository
 
             // var olan eski status verilerini sil
             $sectionType = null;
-            if($data['sectionType'] == "prepareLesson"){
+            if($data['sectionType'] == "prepareLessons"){
                 $sectionType = Section::class;
             }
             $flTestStatus = FirstLastTestStatus::where('studentId',$student->id)
@@ -105,7 +105,7 @@ class FirstLastTestStatusRepository implements IRepository
             $point = ($correctCount/count($data['answers']))*100;
             $point = intval($point);
 
-            if($data['sectionType'] == "prepareLesson"){
+            if($data['sectionType'] == "prepareLessons"){
                 $section = Section::find($data['sectionId']);
                 $course = Course::find($section->course_id);
                 if($point >= $course->score){
