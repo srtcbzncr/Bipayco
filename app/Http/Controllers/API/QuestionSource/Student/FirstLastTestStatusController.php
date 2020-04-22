@@ -18,7 +18,7 @@ class FirstLastTestStatusController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getError(),
+                'data' => $resp->getData(),
                 'message' => 'Test sonucu veritabanına başarıyla eklendi.'
             ]);
         }
