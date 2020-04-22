@@ -619,7 +619,7 @@ class CourseController extends Controller
         $repo = new CourseRepository();
 
         // Operations
-        $resp =  $repo->getSubjects($id);
+        $resp =  $repo->getSubjectsForLesson($id);
 
         // Response
         if($resp->getResult()){

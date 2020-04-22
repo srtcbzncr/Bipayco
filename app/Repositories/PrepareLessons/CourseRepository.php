@@ -1525,7 +1525,8 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $subjects = Subject::where('lesson_id',$id)->get();
+            $plCourse = Course::find($id);
+            $subjects = Subject::where('lesson_id',$plCourse->lesson_id)->get();
             $object = $subjects;
         }
         catch(\Exception $e){
