@@ -85,6 +85,17 @@ class CoursePolicy
     }
 
     public function entry(User $user, Course $course){
+        /*$now = date('Y-m-d', time());
+        $entry = Entry::where('student_id', $user->student->id)->where('course_type',Course::class)->where('course_id', $course->id)->where('active', true)->first();
+        if($entry != null and date('Y-m-d',strtotime($entry->access_start))<=$now and date('Y-m-d',strtotime($entry->access_finish))>=$now){
+            return true;
+        }
+        else{
+            return true;
+        }*/
+    }
+
+    public function entryControl(User $user, Course $course){
         $now = date('Y-m-d', time());
         $entry = Entry::where('student_id', $user->student->id)->where('course_type',Course::class)->where('course_id', $course->id)->where('active', true)->first();
         if($entry != null and date('Y-m-d',strtotime($entry->access_start))<=$now and date('Y-m-d',strtotime($entry->access_finish))>=$now){
