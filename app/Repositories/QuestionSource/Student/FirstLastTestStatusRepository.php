@@ -116,6 +116,7 @@ class FirstLastTestStatusRepository implements IRepository
                 }
                 $object->score = $point;
             }
+
             $object->save();
 
             // bir sonraki lesson id'yi gönder(eğer varsa ve bu test geçilmişş)
@@ -133,7 +134,7 @@ class FirstLastTestStatusRepository implements IRepository
                     }
                 }
                 if($nextSection!=null){
-                    $lessons = Lesson::where('section_id',$nextSection->id)->where('active',true)->orderBy('no', 'asc')->get()->toArray();
+                    $lessons = Lesson::where('section_id',$nextSection['id'])->where('active',true)->orderBy('no', 'asc')->get()->toArray();
                     $nextLessonId = $lessons[0]['id'];
                 }
             }
