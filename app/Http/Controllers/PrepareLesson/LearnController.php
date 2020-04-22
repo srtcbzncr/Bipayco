@@ -27,7 +27,7 @@ class LearnController extends Controller
         // Operations
         $resp = $repo->getCourse($id,$user_id);
         $data = $resp->getData();
-        return view('prepare_for_lesson.watch')->with('course',$data);
+        return view('prepare_for_lesson.watch')->with('course',$data)->with('isTest',false);
     }
 
     private function entry(User $user, Course $course){
@@ -66,7 +66,7 @@ class LearnController extends Controller
         // Operations
         $resp = $repo->getCourse($courseId,$user_id);
         $data = $resp->getData();
-        return view('prepare_for_lesson.watch')->with('courseId',$courseId)->with('sectionId',$sectionId)->with('course',$data);
+        return view('prepare_for_lesson.watch')->with('courseId',$courseId)->with('sectionId',$sectionId)->with('course',$data)->with('isTest',true);
     }
     public function getLastTest($courseId,$sectionId){
         // initialization
@@ -75,6 +75,6 @@ class LearnController extends Controller
         // Operations
         $resp = $repo->getCourse($courseId,$user_id);
         $data = $resp->getData();
-        return view('prepare_for_lesson.watch')->with('courseId',$courseId)->with('sectionId',$sectionId)->with('course',$data);
+        return view('prepare_for_lesson.watch')->with('courseId',$courseId)->with('sectionId',$sectionId)->with('course',$data)->with('isTest',true);
     }
 }
