@@ -174,9 +174,9 @@ class LearnRepository implements IRepository
                             $object['nextLessonId'] = null;
                     }
                 }
-                if($object['selectedLesson']!=null){
-                    $object['selectedSection'] = Section::find($object['selectedLesson']->section_id);
-                }
+            }
+            if($object['selectedLesson']!=null){
+                $object['selectedSection'] = Section::find($object['selectedLesson']->section_id);
             }
 
             DB::commit();
