@@ -275,4 +275,29 @@ class LearnRepository implements IRepository
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+
+    public function getSources($lesson_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        try{
+            DB::beginTransaction();
+
+            $lesson = Lesson::find($lesson_id);
+            $sources = Source::where('lesson_id',$lesson->id)->where('lesson_type','App\Models\PrepareLessons\Lesson')->where('active',true)->get();
+            $object = $sources;
+
+            DB::commit();
+        }
+        catch (\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
 }
