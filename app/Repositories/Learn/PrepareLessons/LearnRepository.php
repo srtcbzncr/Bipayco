@@ -240,6 +240,9 @@ class LearnRepository implements IRepository
 
             $sources = $selectedLesson->sources;
             $object['selectedLesson']['sources'] = $sources;
+            if($object['selectedLesson']!=null){
+                $object['selectedSection'] = Section::find($object['selectedLesson']->section_id);
+            }
 
             $nextLesson = null;
             $flag = false;

@@ -60,9 +60,21 @@ class LearnController extends Controller
     }
 
     public function getFirstTest($courseId,$sectionId){
-        return view('prepare_for_lesson.watch')->with('courseId',$courseId)->with('sectionId',$sectionId);
+        // initialization
+        $repo = new LearnRepository();
+        $user_id = Auth::id();
+        // Operations
+        $resp = $repo->getCourse($courseId,$user_id);
+        $data = $resp->getData();
+        return view('prepare_for_lesson.watch')->with('courseId',$courseId)->with('sectionId',$sectionId)->with('course',$data);
     }
     public function getLastTest($courseId,$sectionId){
-        return view('prepare_for_lesson.watch')->with('courseId',$courseId)->with('sectionId',$sectionId);
+        // initialization
+        $repo = new LearnRepository();
+        $user_id = Auth::id();
+        // Operations
+        $resp = $repo->getCourse($courseId,$user_id);
+        $data = $resp->getData();
+        return view('prepare_for_lesson.watch')->with('courseId',$courseId)->with('sectionId',$sectionId)->with('course',$data);
     }
 }
