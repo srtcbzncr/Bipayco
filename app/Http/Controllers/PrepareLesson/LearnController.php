@@ -57,6 +57,12 @@ class LearnController extends Controller
             return redirect()->route('pl_course',$course_id);
         }
 
+    }
 
+    public function getFirstTest($courseId,$sectionId){
+        return view('prepare_for_lesson.watch')->with('courseId',$courseId)->with('sectionId',$sectionId);
+    }
+    public function getLastTest($courseId,$sectionId){
+        return view('prepare_for_lesson.watch')->with('courseId',$courseId)->with('sectionId',$sectionId);
     }
 }

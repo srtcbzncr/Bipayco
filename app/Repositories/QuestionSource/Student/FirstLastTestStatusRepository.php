@@ -6,6 +6,7 @@ namespace App\Repositories\QuestionSource\Student;
 
 use App\Models\Auth\Student;
 use App\Models\PrepareLessons\Course;
+use App\Models\PrepareLessons\Lesson;
 use App\Models\PrepareLessons\Section;
 use App\Models\QuestionSource\GapFilling;
 use App\Models\QuestionSource\MultiChoice;
@@ -48,7 +49,7 @@ class FirstLastTestStatusRepository implements IRepository
 
             // var olan eski status verilerini sil
             $sectionType = null;
-            if($data['sectionType'] == "generalEducation"){ // bura
+            if($data['sectionType'] == "prepareLesson"){
                 $sectionType = Section::class;
             }
             $flTestStatus = FirstLastTestStatus::where('studentId',$student->id)
@@ -104,8 +105,8 @@ class FirstLastTestStatusRepository implements IRepository
             $point = ($correctCount/count($data['answers']))*100;
             $point = intval($point);
 
-            if($data['sectionType'] == "generalEducation"){ // bura
-                $section = Section::find(301); // bura
+            if($data['sectionType'] == "prepareLesson"){
+                $section = Section::find($data['sectionId']);
                 $course = Course::find($section->course_id);
                 if($point >= $course->score){
                     $object->result = true;
@@ -116,6 +117,27 @@ class FirstLastTestStatusRepository implements IRepository
                 $object->score = $point;
             }
             $object->save();
+
+            // bir sonraki lesson id'yi gönder(eğer varsa ve bu test geçilmişş)
+            if($point >= $course->score){
+                $nextSection= null;
+                $nextLessonId = null;
+                $section = Section::find($data['sectionId']);
+                $sections = Section::where('course_id',$section->course_id)->where('active',true)->orderBy('no', 'asc')->get()->toArray();
+                foreach ($sections as $key => $item){
+                    if($item['id'] == $section->id){
+                        if(isset($sections[$key+1])){
+                            $nextSection = $sections[$key+1];
+                        }
+                        break;
+                    }
+                }
+                if($nextSection!=null){
+                    $lessons = Lesson::where('section_id',$nextSection->id)->where('active',true)->orderBy('no', 'asc')->get()->toArray();
+                    $nextLessonId = $lessons[0]['id'];
+                }
+            }
+            $object['nextLessonId'] = $nextLessonId;
             DB::commit();
         }
         catch(\Exception $e){
