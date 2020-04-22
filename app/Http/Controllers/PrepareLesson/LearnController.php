@@ -51,7 +51,7 @@ class LearnController extends Controller
         if($this->entry($user,$course)){
             $resp = $repo->getLesson($course_id,$lesson_id);
             $data = $resp->getData();
-            return view('prepare_for_lesson.watch')->with('course',$data);
+            return view('prepare_for_lesson.watch')->with('course',$data)->with('isTest',false);
         }
         else{
             return redirect()->route('pl_course',$course_id);
