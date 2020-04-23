@@ -478,11 +478,10 @@ class LearnRepository implements IRepository
         try{
             DB::beginTransaction();
 
-            $user = auth('api')->user();
             $answer = new Answer();
             $answer->question_id = $question_id;
-            $answer->user_id = $user->id;
-            $answer->content = $data->content;
+            $answer->user_id = Auth::id();
+            $answer->content = $data['content'];
             $answer->save();
 
             DB::commit();

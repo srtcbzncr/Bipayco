@@ -201,7 +201,6 @@ class LearnRepository implements IRepository
         $object = null;
 
         try{
-
             $user_id = Auth::id();
             $course = Course::find($course_id);
             $student = Student::where('user_id',$user_id)->first();
@@ -408,12 +407,10 @@ class LearnRepository implements IRepository
 
         try{
             DB::beginTransaction();
-
-            $user = auth('api')->user();
             $answer = new Answer();
             $answer->question_id = $question_id;
-            $answer->user_id = $user->id;
-            $answer->content = $data->content;
+            $answer->user_id = Auth::id();
+            $answer->content = $data['content'];
             $answer->save();
 
             DB::commit();
