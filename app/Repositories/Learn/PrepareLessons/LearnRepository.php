@@ -70,6 +70,7 @@ class LearnRepository implements IRepository
             $object = $course;
             $object['sections'] = $sections;
             foreach ($sections as $key => $section){
+                $sections[0]['canAccess'] = true;
                 $lessons = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
                 $object['sections'][$key]['lessons'] = $lessons;
                 $controlTestStatus = FirstLastTestStatus::where('studentId',$student->id)
@@ -93,8 +94,6 @@ class LearnRepository implements IRepository
                         $sections[$key+1]['canAccess'] = false;
                     }
                 }
-                if(count($sections) == 1)
-                    $sections[$key]['canAccess'] = true;
 
                 foreach ($lessons as $keyLesson => $lesson){
                     $sources = $lesson->sources;
