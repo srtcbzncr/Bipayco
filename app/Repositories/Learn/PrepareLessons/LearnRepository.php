@@ -63,25 +63,21 @@ class LearnRepository implements IRepository
         $object = null;
 
         try{
-            DB::beginTransaction();
-
             $course = Course::find($id);
             $student = Student::where('user_id',$user_id)->first();
             $sections = Section::where('course_id',$id)->where('active',true)->orderBy('no','asc')->get();
-
             // sections,lessons ve source verileri
             $object = $course;
             $object['sections'] = $sections;
             foreach ($sections as $key => $section){
                 $lessons = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
                 $object['sections'][$key]['lessons'] = $lessons;
-
                 $controlTestStatus = FirstLastTestStatus::where('studentId',$student->id)
                     ->where('sectionId',$section->id)
                     ->where('sectionType','App\Models\PrepareLessons\Section')->get()->toArray();
                 $b = false;
                 foreach ($controlTestStatus as $status){
-                    if($status->result == true){
+                    if($status['result'] == true){
                         $b=true;
                         break;
                     }
@@ -113,7 +109,6 @@ class LearnRepository implements IRepository
                     }
                 }
             }
-
 
             // tamamlanmamış ilk dersi al.Bir sonraki dersi getir.
             # 1. derslerin hepsinin tamamlanıp tamamlanmadığını kontrol et.
@@ -183,8 +178,6 @@ class LearnRepository implements IRepository
             if($object['selectedLesson']!=null){
                 $object['selectedSection'] = Section::find($object['selectedLesson']->section_id);
             }
-
-            DB::commit();
         }
         catch(\Exception $e){
             $error = $e->getMessage();

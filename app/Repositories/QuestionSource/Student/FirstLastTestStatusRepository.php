@@ -119,10 +119,10 @@ class FirstLastTestStatusRepository implements IRepository
 
             $object->save();
 
+            $nextSection= null;
+            $nextLessonId = null;
             // bir sonraki lesson id'yi gönder(eğer varsa ve bu test geçilmişş)
             if($point >= $course->score){
-                $nextSection= null;
-                $nextLessonId = null;
                 $section = Section::find($data['sectionId']);
                 $sections = Section::where('course_id',$section->course_id)->where('active',true)->orderBy('no', 'asc')->get()->toArray();
                 foreach ($sections as $key => $item){
