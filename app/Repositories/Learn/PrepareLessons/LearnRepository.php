@@ -204,6 +204,7 @@ class LearnRepository implements IRepository
             $object = $course;
             $object['sections'] = $sections;
             foreach ($sections as $key => $section){
+                $sections[0]['canAccess'] = true;
                 $lessons = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
                 $object['sections'][$key]['lessons'] = $lessons;
                 foreach ($lessons as $keyLesson => $lesson){
@@ -216,6 +217,28 @@ class LearnRepository implements IRepository
                     }
                     else{
                         $object['sections'][$key]['lessons'][$keyLesson]['is_completed'] = true;
+                    }
+                }
+
+                $controlTestStatus = FirstLastTestStatus::where('studentId',$student->id)
+                    ->where('sectionId',$section->id)
+                    ->where('sectionType','App\Models\PrepareLessons\Section')->get()->toArray();
+                $b = false;
+                foreach ($controlTestStatus as $status){
+                    if($status['result'] == true){
+                        $b=true;
+                        break;
+                    }
+                }
+                if($b){
+                    // bir sonraki sectiona geçebilir.
+                    if(isset($sections[$key+1])){
+                        $sections[$key+1]['canAccess'] = true;
+                    }
+                }
+                else{
+                    if(isset($sections[$key+1])){
+                        $sections[$key+1]['canAccess'] = false;
                     }
                 }
             }
