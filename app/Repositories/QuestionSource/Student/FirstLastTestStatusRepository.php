@@ -123,10 +123,10 @@ class FirstLastTestStatusRepository implements IRepository
             $nextLessonId = null;
             // bir sonraki lesson id'yi gönder(eğer varsa ve bu test geçilmişş)
             if($point >= $course->score){
-                $section = Section::find($data['sectionId']);
-                $sections = Section::where('course_id',$section->course_id)->where('active',true)->orderBy('no', 'asc')->get()->toArray();
+                $tempsection = Section::find($data['sectionId']);
+                $sections = Section::where('course_id',$tempsection->course_id)->where('active',true)->orderBy('no', 'asc')->get();
                 foreach ($sections as $key => $item){
-                    if($item['id'] == $section->id){
+                    if($item->id == $tempsection->id){
                         if(isset($sections[$key+1])){
                             $nextSection = $sections[$key+1];
                         }
@@ -134,11 +134,20 @@ class FirstLastTestStatusRepository implements IRepository
                     }
                 }
                 if($nextSection!=null){
-                    $lessons = Lesson::where('section_id',$nextSection['id'])->where('active',true)->orderBy('no', 'asc')->get()->toArray();
-                    $nextLessonId = $lessons[0]['id'];
+                    $object['nextSectionId'] = $nextSection->id;
+                    $lessons = Lesson::where('section_id',$nextSection->id)->where('active',true)->orderBy('no', 'asc')->get();
+                    $object['nextLessonId'] = $lessons[0]->id;
+                }
+                else{
+                    $object['nextLessonId'] = null;
+                    $object['nextSectionId'] = null;
                 }
             }
-            $object['nextLessonId'] = $nextLessonId;
+            else{
+                $object['nextLessonId'] = null;
+                $object['nextSectionId'] = null;
+            }
+
             DB::commit();
         }
         catch(\Exception $e){
