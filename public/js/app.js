@@ -10481,6 +10481,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -24684,7 +24685,12 @@ var render = function() {
                                               "tm-course-section-list"
                                           },
                                           [
-                                            section.canAccess
+                                            _vm._v(
+                                              "\n                                                " +
+                                                _vm._s(section) +
+                                                "\n                                                "
+                                            ),
+                                            !section.canAccess
                                               ? _c(
                                                   "ul",
                                                   [
