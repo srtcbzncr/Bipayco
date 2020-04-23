@@ -108,4 +108,24 @@ class LearnController extends Controller
             'errorMessage' => $resp->getError()
         ]);
     }
+
+    public function defaultLesson($course_id,$user_id){
+        // initialization
+        $repo = new LessonRepository();
+
+        // Operations
+        $resp = $repo->getDefaultLesson($course_id,$user_id,'App\Models\PrepareLessons\Lesson');
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Varsayılan ders başarıyla getirildi.',
+                'data' => $resp->getData()
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Varsayılan ders getirilirken hata oluştu.Tekrar Deneyin',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
 }

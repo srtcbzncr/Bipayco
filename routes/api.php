@@ -190,6 +190,7 @@ Route::prefix('learn')->group(function (){
     Route::post('prepareLessons/{course_id}/lesson/{lesson_id}/discussion/ask','API\Learn\PrepareLessons\LearnController@askQuestion')->name('api_pl_discussion_ask');
     Route::post('prepareLessons/{course_id}/lesson/{lesson_id}/discussion/answer/{question_id}','API\Learn\PrepareLessons\LearnController@answerQuestion')->name('api_pl_discussion_answer');
     Route::post('prepareLessons/{course_id}/lesson/{lesson_id}/complete','API\Learn\PrepareLessons\LearnController@completeLesson')->name('api_pl_complete_lesson');
+    Route::get('prepareLessons/{course_id}/user/{user_id}/defaultLesson','API\Learn\PrepareLessons\LearnController@defaultLesson')->name('api_pl_default_lesson');
 
 
 });
