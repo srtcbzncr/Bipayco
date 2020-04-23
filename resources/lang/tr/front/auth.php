@@ -212,5 +212,5 @@ return [
     'edit_subject'=>'Konu Düzenle',
     'subject_name'=>'Konu Adı',
     'course_content'=>'Müfredat',
-    'passing_test_note'=>'Test Geçme Notu'
+    'passing_test_point'=>'Test Geçme Notu'
 ];
