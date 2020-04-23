@@ -72,6 +72,7 @@ class LearnRepository implements IRepository
             $object = $course;
             $object['sections'] = $sections;
             foreach ($sections as $key => $section){
+                $sections[$key]['canAccess'] = true;
                 $lessons = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
                 $object['sections'][$key]['lessons'] = $lessons;
                 foreach ($lessons as $keyLesson => $lesson){
