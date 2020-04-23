@@ -265,7 +265,6 @@
                 }).show();
             },
             setSelected:function(selectedData){
-                console.log(selectedData);
                 this.image=selectedData.image;
                 this.name=selectedData.name;
                 this.icon=selectedData.symbol;

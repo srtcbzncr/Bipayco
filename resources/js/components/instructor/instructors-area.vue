@@ -139,7 +139,6 @@
                 }
                 Axios.post('/api/instructor/'+this.moduleName+'/course/'+courseId+'/instructors',instructors)
                     .then(response=>{
-                        console.log(response);
                         if(response.data.error){
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }else{
@@ -152,7 +151,6 @@
             Axios.get('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/instructors')
                 .then(response=>response.data.data)
                 .then(response=>{
-                    console.log(response.instructor);
                     for(var i=0;i<response.instructor.length;i++){
                         this.addInstructor({instructor:response.instructor[i], percent:response.instructor[i].percent})
                     }

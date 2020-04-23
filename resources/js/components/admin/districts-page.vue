@@ -228,7 +228,6 @@
                 this.selectedDistrictId="";
             },
             setSelected:function(selectedData){
-                console.log(selectedData);
                 this.name=selectedData.name;
                 this.hasItem=true;
                 UIkit.modal('#addDistrictArea', {

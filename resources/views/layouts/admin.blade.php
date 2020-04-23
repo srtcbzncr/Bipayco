@@ -132,7 +132,6 @@
                 })
                 .catch((error) => {
                     UIkit.notification({message:error.message, status: 'danger'});
-                    console.log(error)
                 });
         }else{
             var courseId=document.querySelector('#courseCreateId').value;
@@ -146,7 +145,6 @@
                 })
                 .catch((error) => {
                     UIkit.notification({message:error.message, status: 'danger'});
-                    console.log(error.message)
                 });
         }
     }
@@ -182,7 +180,7 @@
         formData.append('tags', tagList);
         formData.append('instructor_id', document.getElementById('instructorId').value);
         axios.post('/api/instructor/'+moduleName+'/course/'+courseId+'/goals', formData)
-            .then(response=>{console.log(response);
+            .then(response=>{
                 UIkit.notification({message:response.data.result, status: 'success'});
             })
             .catch((error) => {

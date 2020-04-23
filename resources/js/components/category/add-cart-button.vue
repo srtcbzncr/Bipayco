@@ -67,7 +67,6 @@
                     .then(response => {
                         this.$store.dispatch('loadShoppingCart', this.userId);
                         this.$store.dispatch('loadIsInCart', [this.module, this.userId, this.courseId]);
-                        console.log(response)
                     })
             },
             removeCart: function () {
@@ -79,7 +78,6 @@
                     .then(response => {
                         this.$store.dispatch('loadShoppingCart', this.userId);
                         this.$store.dispatch('loadIsInCart', [this.module, this.userId, this.courseId]);
-                        console.log(response)
                     })
             },
         },

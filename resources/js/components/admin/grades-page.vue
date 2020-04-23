@@ -203,7 +203,6 @@
                 }).show();
             },
             setSelected:function(selectedData){
-                console.log(selectedData);
                 this.icon=selectedData.symbol;
                 this.name=selectedData.name;
                 this.hasItem=true;
@@ -219,8 +218,6 @@
                 this.selectedGradeId="";
             },
             saveItem:function () {
-                console.log(this.name);
-                console.log(this.icon);
                 if(this.hasItem){
                     Axios.post('/api/admin/cr/grade/update/'+this.selectedGradeId, {
                         symbol: this.icon,

@@ -157,11 +157,11 @@
                     })
             },
             lessonUp:function (lessonId) {
-                axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/section/'+this.sections[this.selectedSectionIndex].id+'/lesson/'+lessonId+"/up").then(response=>console.log(response.data))
+                axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/section/'+this.sections[this.selectedSectionIndex].id+'/lesson/'+lessonId+"/up")
                     .then(this.$store.dispatch('loadSections',[this.moduleName, this.courseId]))
             },
             lessonDown:function (lessonId) {
-                axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/section/'+this.sections[this.selectedSectionIndex].id+'/lesson/'+lessonId+'/down').then(response=>console.log(response.data))
+                axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/section/'+this.sections[this.selectedSectionIndex].id+'/lesson/'+lessonId+'/down')
                     .then(this.$store.dispatch('loadSections',[this.moduleName, this.courseId]))
             }
         },

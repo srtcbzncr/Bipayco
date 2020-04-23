@@ -159,12 +159,10 @@
             },
             sectionUp:function () {
                 axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/section/'+this.section.id+'/up')
-                    .then(response=>console.log(response.data))
                     .then(this.$store.dispatch('loadSections',[this.moduleName, this.courseId]))
             },
             sectionDown:function(){
                 axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/section/'+this.section.id+'/down')
-                    .then(response=>console.log(response.data))
                     .then(this.$store.dispatch('loadSections',[this.moduleName, this.courseId]))
             }
         }

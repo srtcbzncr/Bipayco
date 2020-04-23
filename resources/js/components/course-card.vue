@@ -103,7 +103,6 @@ export default {
                 this.$store.dispatch('loadShoppingCart',this.userId);
                 this.$store.dispatch('loadCourseCard');
                 this.$store.dispatch('loadIsInCart', [this.module, this.userId, this.courseId]);
-                console.log(response)
             })
         },
         removeCart:function () {
@@ -116,7 +115,6 @@ export default {
                 this.$store.dispatch('loadShoppingCart',this.userId);
                 this.$store.dispatch('loadCourseCard');
                 this.$store.dispatch('loadIsInCart', [this.module, this.userId, this.courseId]);
-                console.log(response)
             })
         },
         addFav:function () {
@@ -127,7 +125,6 @@ export default {
             })
                 .then(response=>{
                     this.$store.dispatch('loadCourseCard');
-                    console.log(response)
                 })
         },
         removeFav:function () {
@@ -138,7 +135,6 @@ export default {
             })
                 .then(response=>{
                     this.$store.dispatch('loadCourseCard');
-                    console.log(response)
                 })
         }
     },

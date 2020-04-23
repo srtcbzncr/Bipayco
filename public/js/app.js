@@ -2136,7 +2136,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).show();
     },
     setSelected: function setSelected(selectedData) {
-      console.log(selectedData);
       this.image = selectedData.image;
       this.name = selectedData.name;
       this.icon = selectedData.symbol;
@@ -2487,7 +2486,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).show();
     },
     setSelected: function setSelected(selectedData) {
-      console.log(selectedData);
       this.name = selectedData.name;
       this.code = selectedData.code;
       this.hasItem = true;
@@ -2857,7 +2855,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.selectedDistrictId = "";
     },
     setSelected: function setSelected(selectedData) {
-      console.log(selectedData);
       this.name = selectedData.name;
       this.hasItem = true;
       UIkit.modal('#addDistrictArea', {
@@ -3168,7 +3165,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).show();
     },
     setSelected: function setSelected(selectedData) {
-      console.log(selectedData);
       this.icon = selectedData.symbol;
       this.name = selectedData.name;
       this.hasItem = true;
@@ -3185,9 +3181,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     saveItem: function saveItem() {
       var _this5 = this;
-
-      console.log(this.name);
-      console.log(this.icon);
 
       if (this.hasItem) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/update/' + this.selectedGradeId, {
@@ -3933,7 +3926,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).show();
     },
     setSelected: function setSelected(selectedData) {
-      console.log(selectedData);
       this.image = selectedData.image;
       this.description = selectedData.description;
       this.color = selectedData.color;
@@ -4665,8 +4657,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.$store.dispatch('loadShoppingCart', _this.userId);
 
         _this.$store.dispatch('loadIsInCart', [_this.module, _this.userId, _this.courseId]);
-
-        console.log(response);
       });
     },
     removeCart: function removeCart() {
@@ -4680,8 +4670,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this2.$store.dispatch('loadShoppingCart', _this2.userId);
 
         _this2.$store.dispatch('loadIsInCart', [_this2.module, _this2.userId, _this2.courseId]);
-
-        console.log(response);
       });
     }
   }),
@@ -4987,7 +4975,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -5621,8 +5608,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.$store.dispatch('loadCourseCard');
 
         _this.$store.dispatch('loadIsInCart', [_this.module, _this.userId, _this.courseId]);
-
-        console.log(response);
       });
     },
     removeCart: function removeCart() {
@@ -5638,8 +5623,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this2.$store.dispatch('loadCourseCard');
 
         _this2.$store.dispatch('loadIsInCart', [_this2.module, _this2.userId, _this2.courseId]);
-
-        console.log(response);
       });
     },
     addFav: function addFav() {
@@ -5651,8 +5634,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         user_id: this.userId
       }).then(function (response) {
         _this3.$store.dispatch('loadCourseCard');
-
-        console.log(response);
       });
     },
     removeFav: function removeFav() {
@@ -5664,8 +5645,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         user_id: this.userId
       }).then(function (response) {
         _this4.$store.dispatch('loadCourseCard');
-
-        console.log(response);
       });
     }
   })
@@ -6054,31 +6033,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       formData.append('courseId', this.courseId);
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = formData[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var pair = _step.value;
-          console.log(pair[0]);
-          console.log(pair[1]);
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-            _iterator["return"]();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/' + this.sections[this.selectedSectionIndex].id + '/lessons/create', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -7913,14 +7867,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }).toggle();
     },
     sectionUp: function sectionUp() {
-      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.section.id + '/up').then(function (response) {
-        return console.log(response.data);
-      }).then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.section.id + '/up').then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
     },
     sectionDown: function sectionDown() {
-      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.section.id + '/down').then(function (response) {
-        return console.log(response.data);
-      }).then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.section.id + '/down').then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
     }
   })
 });
@@ -8094,8 +8044,6 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/instructor/' + this.moduleName + '/course/' + courseId + '/instructors', instructors).then(function (response) {
-        console.log(response);
-
         if (response.data.error) {
           UIkit.notification({
             message: response.data.message,
@@ -8116,8 +8064,6 @@ __webpack_require__.r(__webpack_exports__);
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/instructors').then(function (response) {
       return response.data.data;
     }).then(function (response) {
-      console.log(response.instructor);
-
       for (var i = 0; i < response.instructor.length; i++) {
         _this2.addInstructor({
           instructor: response.instructor[i],
@@ -8877,14 +8823,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     lessonUp: function lessonUp(lessonId) {
-      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.sections[this.selectedSectionIndex].id + '/lesson/' + lessonId + "/up").then(function (response) {
-        return console.log(response.data);
-      }).then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.sections[this.selectedSectionIndex].id + '/lesson/' + lessonId + "/up").then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
     },
     lessonDown: function lessonDown(lessonId) {
-      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.sections[this.selectedSectionIndex].id + '/lesson/' + lessonId + '/down').then(function (response) {
-        return console.log(response.data);
-      }).then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
+      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.sections[this.selectedSectionIndex].id + '/lesson/' + lessonId + '/down').then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
     }
   }),
   mounted: function mounted() {
@@ -9363,8 +9305,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/basket/deleteAll/' + this.userId).then(function (response) {
-        console.log(response);
-
         _this.$store.dispatch('loadIsInCart', [module, _this.userId, _this.shoppingCart[0].id]);
 
         _this.$store.dispatch('loadShoppingCart', _this.userId);
@@ -9414,8 +9354,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         module_name: moduleName,
         user_id: this.userId
       }).then(function (response) {
-        console.log(response);
-
         _this2.$store.dispatch('loadIsInCart', [module, _this2.userId, courseId]);
 
         _this2.$store.dispatch('loadShoppingCart', _this2.userId);
@@ -16690,7 +16628,6 @@ var render = function() {
                   staticClass: "tm-course-lesson-section uk-background-default"
                 },
                 [
-                  _vm._v("\n            " + _vm._s(section) + "\n            "),
                   _c(
                     "a",
                     {

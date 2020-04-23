@@ -292,7 +292,6 @@
                 }).show();
             },
             setSelected:function(selectedData){
-                console.log(selectedData);
                 this.image=selectedData.image;
                 this.description=selectedData.description;
                 this.color=selectedData.color;

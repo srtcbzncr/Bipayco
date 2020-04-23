@@ -73,7 +73,6 @@
                 }
                 Axios.post('/api/basket/deleteAll/'+this.userId)
                     .then(response=>{
-                        console.log(response);
                         this.$store.dispatch('loadIsInCart', [module, this.userId, this.shoppingCart[0].id]);
                         this.$store.dispatch('loadShoppingCart', this.userId);
                         this.$store.dispatch('loadCourseCard');
@@ -109,7 +108,6 @@
                     user_id:this.userId,
                 })
                 .then(response=>{
-                    console.log(response);
                     this.$store.dispatch('loadIsInCart', [module, this.userId, courseId]);
                     this.$store.dispatch('loadShoppingCart', this.userId);
                     this.$store.dispatch('loadCourseCard');
