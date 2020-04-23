@@ -176,6 +176,49 @@ class LearnRepository implements IRepository
             }
             if($object['selectedLesson']!=null){
                 $object['selectedSection'] = Section::find($object['selectedLesson']->section_id);
+                $tempSections = Section::where('course_id',$id)->orderBy('no', 'asc')->get();
+                $flag = false;
+                foreach ($tempSections as $key => $item){
+                    if($item->id == $object['selectedSection']->id){
+                        if(isset($item[$key-1])){
+                            $beforeSection = $item[$key-1];
+                            $controlStatus = FirstLastTestStatus::where('sectionId',$beforeSection->id)
+                                ->where('sectionType','App\Models\PrepareLessons\Section')
+                                ->where('result',true)
+                                ->where('studentId',$student->id)->get();
+                            if($controlStatus == null or count($controlStatus) == 0){
+                                $flag = false;
+                                break;
+                            }
+                            else{
+                                $flag = true;
+                                break;
+                            }
+                        }
+                        else{
+                            $flag = true;
+                            break;
+                        }
+                    }
+                }
+                if($flag == false){
+                    $object['selectedSection'] = $tempSections[0];
+                    $tempLessons = Lesson::where('section_id',$object['selectedSection']->id)->orderBy('no', 'asc')->get();
+                    $object['selectedLesson'] = $tempLessons[0];
+                    if(isset($tempLessons[1])){
+                        $object['nextLessonId'] = $tempLessons[1]->id;
+                    }
+                    else{
+                        if(isset($tempSections[1])){
+                            $tempLessons = null;
+                            $tempLessons = Lesson::where('section_id',$tempSections[1]->id)->orderBy('no', 'asc')->get();
+                            $object['nextLessonId'] = $tempLessons[0]->id;
+                        }
+                        else{
+                            $object['nextLessonId'] = null;
+                        }
+                    }
+                }
             }
         }
         catch(\Exception $e){
@@ -286,10 +329,16 @@ class LearnRepository implements IRepository
                     break;
                 }
             }
-            if($nextLesson != null)
+            if($nextLesson != null){
                 $object['nextLessonId'] = $nextLesson->id;
+                $tempAfterLesson = Lesson::find($nextLesson->id);
+                if($object['selectedLesson']->section_id != $tempAfterLesson->section_id){
+                    $object['nextLessonId'] = "lastTest";
+                }
+            }
             else
                 $object['nextLessonId'] = null;
+
         }
         catch (\Exception $e){
             $error = $e->getMessage();

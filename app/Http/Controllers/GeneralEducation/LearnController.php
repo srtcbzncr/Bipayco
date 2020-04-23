@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Auth\User;
 use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\Entry;
+use App\Models\GeneralEducation\Lesson;
+use App\Models\GeneralEducation\Section;
 use App\Repositories\Learn\GeneralEducation\LearnRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +34,22 @@ class LearnController extends Controller
     }
     // Video veya pdf verisini al.
     public function getLesson($course_id,$lesson_id){
+        // kurs tutarlılık ve erişim kontrol
+        $lesson = Lesson::find($lesson_id);
+        if($lesson==null){
+            return redirect()->back();
+        }
+
+        $section = Section::find($lesson->section_id);
+        if($section==null){
+            return redirect()->back();
+        }
+
+        if($section->course_id != $course_id){
+            return redirect()->back();
+        }
+
+
         // initialization
         $repo = new LearnRepository();
 
