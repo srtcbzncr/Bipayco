@@ -97,6 +97,8 @@ class LearnRepository implements IRepository
                         $sections[$key+1]['canAccess'] = false;
                     }
                 }
+                if(count($sections) == 1)
+                    $sections[$key]['canAccess'] = true;
 
                 foreach ($lessons as $keyLesson => $lesson){
                     $sources = $lesson->sources;
