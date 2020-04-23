@@ -188,10 +188,6 @@
                 type:String,
                 required:true,
             },
-            nextLessonId:{
-                type:Number,
-                default:'',
-            },
             trueText:{
                 type:String,
                 default:"Doğru"
@@ -306,8 +302,9 @@
             postData:function () {
                 Axios.post('/api/learn/prepareLessons/createFirstLastTestStatus/create',{'userId':this.userId, 'sectionType':this.moduleName, 'sectionId':this.sectionId, 'testType':this.testType, 'courseId':this.courseId, 'answers':this.data})
                     .then(response=>{
+                        console.log(response.data);
                         if(!response.error){
-                            //setTimeout(()=>{window.location.replace('/learn/ge/course/'+this.courseId+'/lesson/'+this.nextLessonId);},3000);
+                            //setTimeout(()=>{window.location.replace('/learn/ge/course/'+this.courseId+'/lesson/'+response.data.error);},3000);
                         }
                     });
             }

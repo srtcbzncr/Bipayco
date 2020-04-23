@@ -5,11 +5,10 @@
                 <test-area v-if="moduleName=='prepareLessons'&&isTest"
                     :lesson-id="course.lesson_id"
                     :subject-id="selectedSection.subject_id"
-                    test-type="0"
+                    :test-type="testType"
                     :section-id="selectedLesson.section_id"
                     :module-name="moduleName"
                     :user-id="userId"
-                    :next-lesson-id="course.nextLessonId"
                     :course-id="courseId"
                 ></test-area>
                 <video v-else-if="selectedLesson.is_video" id="courseLessonVideo" @timeupdate="watched" width="400" controls controlsList="nodownload">
@@ -185,6 +184,10 @@
                 type:String,
                 default:"Sonraki Ders"
             },
+            testType:{
+                type:String,
+                default:""
+            },
             isTest:{
                 type:Boolean,
                 default:false
@@ -219,7 +222,11 @@
                         break;
                     }
                     case 'prepareLessons':{
-                        window.location.replace('/learn/pl/course/'+this.courseId+'/lesson/'+lessonId);
+                        if(lessonId=='lastTest'){
+                            window.location.replace('/learn/pl/test/lastTest/'+this.courseId+'/'+this.selectedLesson.section_id);
+                        }else{
+                            window.location.replace('/learn/pl/course/'+this.courseId+'/lesson/'+lessonId);
+                        }
                         break;
                     }
                 }
@@ -236,7 +243,11 @@
                             break;
                         }
                         case 'prepareLessons':{
-                            setTimeout(()=>{window.location.replace('/learn/pl/course/'+this.courseId+'/lesson/'+this.course.nextLessonId);},3000);
+                            if(this.course.nextLessonId=='lastTest'){
+                                setTimeout(()=>{window.location.replace('/learn/pl/test/lastTest/'+this.courseId+'/'+this.selectedLesson.section_id)},3000);
+                            }else{
+                                setTimeout(()=>{window.location.replace('/learn/pl/course/'+this.courseId+'/lesson/'+this.course.nextLessonId);},3000);
+                            }
                             break;
                         }
                     }

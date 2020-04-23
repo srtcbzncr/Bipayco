@@ -17,8 +17,12 @@
                 lesson-text="@lang('front/auth.lessons')"
                 sources-text="@lang('front/auth.sources')"
                 module-name="prepareLessons"
+                @if(isset($testType))
+                    test-type="{{$testType}}"
+                @endif
             > </watch>
         </div>
+
         @if(!$isTest)
             <!-- Q & A area -->
             <h3 class="uk-heading-line uk-text-center"><span>@lang('front/auth.question_answer')</span></h3>

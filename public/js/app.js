@@ -9937,10 +9937,6 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       required: true
     },
-    nextLessonId: {
-      type: Number,
-      "default": ''
-    },
     trueText: {
       type: String,
       "default": "Doğru"
@@ -10119,7 +10115,9 @@ __webpack_require__.r(__webpack_exports__);
         'courseId': this.courseId,
         'answers': this.data
       }).then(function (response) {
-        if (!response.error) {//setTimeout(()=>{window.location.replace('/learn/ge/course/'+this.courseId+'/lesson/'+this.nextLessonId);},3000);
+        console.log(response.data);
+
+        if (!response.error) {//setTimeout(()=>{window.location.replace('/learn/ge/course/'+this.courseId+'/lesson/'+response.data.error);},3000);
         }
       });
     }
@@ -10148,7 +10146,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _test_area__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./test-area */ "./resources/js/components/watch/test-area.vue");
-//
 //
 //
 //
@@ -10335,6 +10332,10 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       "default": "Sonraki Ders"
     },
+    testType: {
+      type: String,
+      "default": ""
+    },
     isTest: {
       type: Boolean,
       "default": false
@@ -10372,7 +10373,12 @@ __webpack_require__.r(__webpack_exports__);
 
         case 'prepareLessons':
           {
-            window.location.replace('/learn/pl/course/' + this.courseId + '/lesson/' + lessonId);
+            if (lessonId == 'lastTest') {
+              window.location.replace('/learn/pl/test/lastTest/' + this.courseId + '/' + this.selectedLesson.section_id);
+            } else {
+              window.location.replace('/learn/pl/course/' + this.courseId + '/lesson/' + lessonId);
+            }
+
             break;
           }
       }
@@ -10397,9 +10403,16 @@ __webpack_require__.r(__webpack_exports__);
 
           case 'prepareLessons':
             {
-              setTimeout(function () {
-                window.location.replace('/learn/pl/course/' + _this.courseId + '/lesson/' + _this.course.nextLessonId);
-              }, 3000);
+              if (this.course.nextLessonId == 'lastTest') {
+                setTimeout(function () {
+                  window.location.replace('/learn/pl/test/lastTest/' + _this.courseId + '/' + _this.selectedLesson.section_id);
+                }, 3000);
+              } else {
+                setTimeout(function () {
+                  window.location.replace('/learn/pl/course/' + _this.courseId + '/lesson/' + _this.course.nextLessonId);
+                }, 3000);
+              }
+
               break;
             }
         }
@@ -24262,11 +24275,10 @@ var render = function() {
                 attrs: {
                   "lesson-id": _vm.course.lesson_id,
                   "subject-id": _vm.selectedSection.subject_id,
-                  "test-type": "0",
+                  "test-type": _vm.testType,
                   "section-id": _vm.selectedLesson.section_id,
                   "module-name": _vm.moduleName,
                   "user-id": _vm.userId,
-                  "next-lesson-id": _vm.course.nextLessonId,
                   "course-id": _vm.courseId
                 }
               })
