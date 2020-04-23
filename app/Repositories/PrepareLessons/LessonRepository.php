@@ -4,6 +4,7 @@ namespace App\Repositories\PrepareLessons;
 
 use App\Events\Instructor\CourseActiveEvent;
 use App\Events\Instructor\SectionActiveEvent;
+use App\Models\Auth\Student;
 use App\Models\GeneralEducation\Source;
 use App\Models\PrepareLessons\Course;
 use App\Models\PrepareLessons\Lesson;
@@ -295,6 +296,34 @@ class LessonRepository implements IRepository{
         }
         catch(\Exception $e){
             $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function completeLesson($lesson_id,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $student = Student::where('user_id',$data['user_id'])->first();
+            DB::table('ge_students_completed_lessons')->insert([
+                'student_id' => $student->id,
+                'lesson_id' => $lesson_id,
+                'lesson_type' => 'App\Models\PrepareLessons\Lesson',
+                'is_completed' => true
+            ]);
+
+            $object = DB::table('ge_students_completed_lessons')->where('lesson_id',$lesson_id)->get();
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
             $result = false;
         }
 

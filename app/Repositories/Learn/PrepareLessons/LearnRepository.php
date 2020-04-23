@@ -5,6 +5,9 @@ namespace App\Repositories\Learn\PrepareLessons;
 
 
 use App\Models\Auth\Student;
+use App\Models\Auth\User;
+use App\Models\GeneralEducation\Answer;
+use App\Models\GeneralEducation\Question;
 use App\Models\GeneralEducation\Source;
 use App\Models\PrepareLessons\Course;
 use App\Models\PrepareLessons\Lesson;
@@ -294,6 +297,124 @@ class LearnRepository implements IRepository
             $lesson = Lesson::find($lesson_id);
             $sources = Source::where('lesson_id',$lesson->id)->where('lesson_type','App\Models\PrepareLessons\Lesson')->where('active',true)->get();
             $object = $sources;
+
+            DB::commit();
+        }
+        catch (\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getDiscussion($lesson_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+
+            $questions = Question::where('lesson_id',$lesson_id)->where('lesson_type','App\Models\PrepareLessons\Lesson')->get();
+            $object['questions'] = $questions;
+            // 10'ar 10'ar bölme işlemi yapmamız gerekiyor.
+            if(count($questions) > 10){
+                $myQuestions = array();
+                $counter = 0;
+                $index = 0;
+                foreach ($questions as $key => $item){
+                    $myQuestions[$index][$counter] = $item;
+                    $counter++;
+                    if($counter == 10){
+                        $counter = 0;
+                        $index++;
+                    }
+                }
+                $object['questions'] = $myQuestions;
+                foreach ($myQuestions as $key1=> $item){
+                    foreach ($item as $key2 => $value){
+                        $user = User::find($value->user_id);
+                        $object['questions'][$key1][$key2]['user'] = $user;
+                        $answers = $value->answers;
+                        $object['questions'][$key1][$key2]['answers'] = $answers;
+                    }
+                }
+            }
+            else{
+                $object['questions'] = array();
+                foreach ($questions as $key => $question){
+                    $object['questions'][0][$key]['question'] = $question;
+                    $user = User::find($question->user_id);
+                    $object['questions'][0][$key]['user'] = $user;
+                    $answers = $question->answers;
+                    $object['questions'][0][$key]['answers'] = $answers;
+                }
+            }
+            DB::commit();
+        }
+        catch (\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function askQuestion($lesson_id,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+
+        try{
+            DB::beginTransaction();
+
+            $question = new Question();
+            $question->lesson_id = $lesson_id;
+            $question->lesson_type = 'App\Models\PrepareLessons\Lesson';
+            $question->user_id = $data['userId'];
+            $question->title = $data['title'];
+            $question->content = $data['content'];
+            $question->save();
+
+            DB::commit();
+        }
+        catch (\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function answerQuestion($question_id,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+
+        try{
+            DB::beginTransaction();
+
+            $user = auth('api')->user();
+            $answer = new Answer();
+            $answer->question_id = $question_id;
+            $answer->user_id = $user->id;
+            $answer->content = $data->content;
+            $answer->save();
 
             DB::commit();
         }
