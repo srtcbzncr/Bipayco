@@ -121,7 +121,6 @@ const mutations={
         state.courseSources=sources.data;
     },
     setLessonDiscussion(state, messages){
-        console.log(messages);
         state.lessonDiscussion=messages.data;
     },
     setPlLessonType(state,response){
@@ -129,56 +128,44 @@ const mutations={
     },
     setPreviewLessons(state,response){
         state.previewLessons=response.previewLessons;
-        console.log(response.previewLessons);
     },
     setCourseSubjects(state,subject){
         state.courseSubjects=subject.data;
     },
     setQuestionSource(state,question){
-        console.log(question.data);
         state.questionSource=question.data;
     },
     setShoppingCart(state,item){
-        console.log(item);
         state.shoppingCart=item.data;
     },
     setCourseCard(state,course){
-        console.log(course);
         state.courseCard=course.data;
     },
     setUrlForCourseCard(state, url){
         state.urlForCourseCard=url;
     },
     setIsInCart(state, bool){
-        console.log(bool);
         state.isInCart=bool.inBasket;
     },
     setAdminCity(state, city){
-        console.log(city);
         state.adminCity=city.data;
     },
     setAdminDistrict(state, district){
-        console.log(district);
         state.adminDistrict=district.data;
     },
     setAdminLesson(state, lesson){
-        console.log(lesson);
         state.adminLesson=lesson.data;
     },
     setAdminSubject(state, subject){
-        console.log(subject);
         state.adminSubject=subject.data;
     },
     setAdminGrade(state, grade){
-        console.log(grade);
         state.adminGrade=grade.data;
     },
     setAdminCategory(state, category){
-        console.log(category);
         state.adminCategory=category.data;
     },
     setAdminSubCategory(state, subCategory){
-        console.log(subCategory);
         state.adminSubCategory=subCategory.data;
     },
 };

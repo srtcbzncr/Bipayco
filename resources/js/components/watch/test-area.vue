@@ -215,7 +215,6 @@
         },
         methods:{
             loadData:function(data){
-                console.log(data);
                 this.questions=data;
                 for(var i=0; i<data.length; i++){
                     switch(data[i].type){
@@ -305,7 +304,6 @@
                 this.data[questionIndex].answer=changedDataArray;
             },
             postData:function () {
-                console.log(this.data);
                 Axios.post('/api/learn/prepareLessons/createFirstLastTestStatus/create',{'userId':this.userId, 'sectionType':this.moduleName, 'sectionId':this.sectionId, 'testType':this.testType, 'courseId':this.courseId, 'answers':this.data})
                     .then(response=>{
                         if(!response.error){

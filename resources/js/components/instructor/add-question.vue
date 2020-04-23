@@ -592,7 +592,6 @@
                 }
             },
             addSingleChoiceTextQuestion:function () {
-                console.log(this.imgUrl);
                 var i;
                 var formData=new FormData();
                 var image=document.querySelector('#singleQuestionImg');
@@ -611,11 +610,6 @@
                 }
                 formData.append('answers['+i+']', JSON.stringify({'content':document.getElementById('singleCorrectAnswer').value, 'type':'text', 'isCorrect':'true'}));
                 formData.append('type', 'singleChoice');
-                for(var pair of formData){
-                    console.log(pair[0]);
-                    console.log(pair[1]);
-                }
-                console.log(this.singleAnswers);
                 Axios.post(this.url, formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
@@ -655,11 +649,6 @@
                     formData.append('answers['+i+']', JSON.stringify({content:this.correctAnswerImage, type:'image', isCorrect:'true'}));
                 }
                 formData.append('type', 'singleChoice');
-                for(var pair of formData){
-                    console.log(pair[0]);
-                    console.log(pair[1]);
-                }
-                console.log(this.singleAnswersImg);
                 Axios.post(this.url, formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
@@ -689,11 +678,6 @@
                     formData.append('answers['+i+']', JSON.stringify(this.multiAnswers[i]));
                 }
                 formData.append('type', 'multiChoice');
-                for(var pair of formData){
-                    console.log(pair[0]);
-                    console.log(pair[1]);
-                }
-                console.log(this.multiAnswers);
                 Axios.post(this.url, formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
@@ -724,11 +708,6 @@
                     formData.append('answers['+i+']', JSON.stringify(this.multiAnswersImg[i]));
                 }
                 formData.append('type', 'multiChoice');
-                for(var pair of formData){
-                    console.log(pair[0]);
-                    console.log(pair[1]);
-                }
-                console.log(this.multiAnswersImg);
                 Axios.post(this.url, formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
@@ -758,11 +737,6 @@
                     formData.append('answers['+i+']', JSON.stringify(this.blanks[i]));
                 }
                 formData.append('type', 'fillBlank');
-                for(var pair of formData){
-                    console.log(pair[0]);
-                    console.log(pair[1]);
-                }
-                console.log(this.blanks);
                 Axios.post(this.url, formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
@@ -899,29 +873,24 @@
                 switch (answerType) {
                     case 'multiQuestion':{
                         this.multiAnswersImg[index].content=image.files[0];
-                        console.log(this.multiAnswersImg[index].content);
                         break;
                     }
                     case 'singleQuestion':{
                         this.singleAnswersImg[index].content=image.files[0];
-                        console.log(this.singleAnswersImg[index].content);
                         break;
                     }
                     case 'matchingQuestionFirst':{
                         this.matchingAnswersImg[index].first=image.files[0];
-                        console.log(this.matchingAnswersImg[index].content);
                         break;
                     }
                     case 'matchingQuestionSecond':{
                         this.matchingAnswersImg[index].second=image.files[0];
-                        console.log(this.matchingAnswersImg[index].content);
                         break;
                     }
                 }
                 this.previewImage(inputId,previewId);
             },
             loadData:function(data){
-                console.log(data);
                 this.text=data.text;
                 this.selectedLessonId=data.crLessonId;
                 this.$store.dispatch('loadLessonSubjects', data.crLessonId);
@@ -929,7 +898,6 @@
                 this.questionLevel=data.level;
                 this.questionType=data.type;
                 this.imgUrl=data.imgUrl;
-                console.log(this.imgUrl);
                 switch (data.type) {
                     case 'singleChoice':{
                         if(data.answers[0].type==='text'){
@@ -989,7 +957,6 @@
                             this.matchingAnswerType='withImage';
                             for(var i=0; i<data.answers.length; i++){
                                 this.matchingAnswersImg.push({first:data.answers[i].content, second:data.answers[i].answer, type:data.answers[i].type});
-                                console.log(this.matchingAnswers)
                             }
                         }
                         break;
@@ -1005,7 +972,6 @@
             previewImageForUpdate:function (questionType) {
                 switch (questionType) {
                     case 'singleChoice':{
-                        console.log('calisti');
                         document.querySelector('#singleQuestionImgPreview').setAttribute('style', 'background-image:url('+this.imgUrl+')');
                         break;
                     }

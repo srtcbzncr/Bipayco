@@ -6908,7 +6908,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     addSingleChoiceTextQuestion: function addSingleChoiceTextQuestion() {
-      console.log(this.imgUrl);
       var i;
       var formData = new FormData();
       var image = document.querySelector('#singleQuestionImg');
@@ -6935,32 +6934,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         'isCorrect': 'true'
       }));
       formData.append('type', 'singleChoice');
-      var _iteratorNormalCompletion = true;
-      var _didIteratorError = false;
-      var _iteratorError = undefined;
-
-      try {
-        for (var _iterator = formData[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-          var pair = _step.value;
-          console.log(pair[0]);
-          console.log(pair[1]);
-        }
-      } catch (err) {
-        _didIteratorError = true;
-        _iteratorError = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
-            _iterator["return"]();
-          }
-        } finally {
-          if (_didIteratorError) {
-            throw _iteratorError;
-          }
-        }
-      }
-
-      console.log(this.singleAnswers);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -7021,32 +6994,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       formData.append('type', 'singleChoice');
-      var _iteratorNormalCompletion2 = true;
-      var _didIteratorError2 = false;
-      var _iteratorError2 = undefined;
-
-      try {
-        for (var _iterator2 = formData[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-          var pair = _step2.value;
-          console.log(pair[0]);
-          console.log(pair[1]);
-        }
-      } catch (err) {
-        _didIteratorError2 = true;
-        _iteratorError2 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion2 && _iterator2["return"] != null) {
-            _iterator2["return"]();
-          }
-        } finally {
-          if (_didIteratorError2) {
-            throw _iteratorError2;
-          }
-        }
-      }
-
-      console.log(this.singleAnswersImg);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -7089,32 +7036,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       formData.append('type', 'multiChoice');
-      var _iteratorNormalCompletion3 = true;
-      var _didIteratorError3 = false;
-      var _iteratorError3 = undefined;
-
-      try {
-        for (var _iterator3 = formData[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-          var pair = _step3.value;
-          console.log(pair[0]);
-          console.log(pair[1]);
-        }
-      } catch (err) {
-        _didIteratorError3 = true;
-        _iteratorError3 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion3 && _iterator3["return"] != null) {
-            _iterator3["return"]();
-          }
-        } finally {
-          if (_didIteratorError3) {
-            throw _iteratorError3;
-          }
-        }
-      }
-
-      console.log(this.multiAnswers);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -7158,32 +7079,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       formData.append('type', 'multiChoice');
-      var _iteratorNormalCompletion4 = true;
-      var _didIteratorError4 = false;
-      var _iteratorError4 = undefined;
-
-      try {
-        for (var _iterator4 = formData[Symbol.iterator](), _step4; !(_iteratorNormalCompletion4 = (_step4 = _iterator4.next()).done); _iteratorNormalCompletion4 = true) {
-          var pair = _step4.value;
-          console.log(pair[0]);
-          console.log(pair[1]);
-        }
-      } catch (err) {
-        _didIteratorError4 = true;
-        _iteratorError4 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion4 && _iterator4["return"] != null) {
-            _iterator4["return"]();
-          }
-        } finally {
-          if (_didIteratorError4) {
-            throw _iteratorError4;
-          }
-        }
-      }
-
-      console.log(this.multiAnswersImg);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -7226,32 +7121,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       formData.append('type', 'fillBlank');
-      var _iteratorNormalCompletion5 = true;
-      var _didIteratorError5 = false;
-      var _iteratorError5 = undefined;
-
-      try {
-        for (var _iterator5 = formData[Symbol.iterator](), _step5; !(_iteratorNormalCompletion5 = (_step5 = _iterator5.next()).done); _iteratorNormalCompletion5 = true) {
-          var pair = _step5.value;
-          console.log(pair[0]);
-          console.log(pair[1]);
-        }
-      } catch (err) {
-        _didIteratorError5 = true;
-        _iteratorError5 = err;
-      } finally {
-        try {
-          if (!_iteratorNormalCompletion5 && _iterator5["return"] != null) {
-            _iterator5["return"]();
-          }
-        } finally {
-          if (_didIteratorError5) {
-            throw _iteratorError5;
-          }
-        }
-      }
-
-      console.log(this.blanks);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -7449,28 +7318,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         case 'multiQuestion':
           {
             this.multiAnswersImg[index].content = image.files[0];
-            console.log(this.multiAnswersImg[index].content);
             break;
           }
 
         case 'singleQuestion':
           {
             this.singleAnswersImg[index].content = image.files[0];
-            console.log(this.singleAnswersImg[index].content);
             break;
           }
 
         case 'matchingQuestionFirst':
           {
             this.matchingAnswersImg[index].first = image.files[0];
-            console.log(this.matchingAnswersImg[index].content);
             break;
           }
 
         case 'matchingQuestionSecond':
           {
             this.matchingAnswersImg[index].second = image.files[0];
-            console.log(this.matchingAnswersImg[index].content);
             break;
           }
       }
@@ -7478,7 +7343,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.previewImage(inputId, previewId);
     },
     loadData: function loadData(data) {
-      console.log(data);
       this.text = data.text;
       this.selectedLessonId = data.crLessonId;
       this.$store.dispatch('loadLessonSubjects', data.crLessonId);
@@ -7486,7 +7350,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.questionLevel = data.level;
       this.questionType = data.type;
       this.imgUrl = data.imgUrl;
-      console.log(this.imgUrl);
 
       switch (data.type) {
         case 'singleChoice':
@@ -7593,7 +7456,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                   second: data.answers[i].answer,
                   type: data.answers[i].type
                 });
-                console.log(this.matchingAnswers);
               }
             }
 
@@ -7614,7 +7476,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       switch (questionType) {
         case 'singleChoice':
           {
-            console.log('calisti');
             document.querySelector('#singleQuestionImgPreview').setAttribute('style', 'background-image:url(' + this.imgUrl + ')');
             break;
           }
@@ -10165,7 +10026,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     loadData: function loadData(data) {
-      console.log(data);
       this.questions = data;
 
       for (var i = 0; i < data.length; i++) {
@@ -10313,7 +10173,6 @@ __webpack_require__.r(__webpack_exports__);
       this.data[questionIndex].answer = changedDataArray;
     },
     postData: function postData() {
-      console.log(this.data);
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/learn/prepareLessons/createFirstLastTestStatus/create', {
         'userId': this.userId,
         'sectionType': this.moduleName,
@@ -10351,7 +10210,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _test_area__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./test-area */ "./resources/js/components/watch/test-area.vue");
-//
 //
 //
 //
@@ -10564,7 +10422,7 @@ __webpack_require__.r(__webpack_exports__);
         link.download = label;
         link.click();
         URL.revokeObjectURL(link.href);
-      })["catch"](console.error);
+      })["catch"]();
     },
     selectLesson: function selectLesson(lessonId) {
       switch (this.moduleName) {
@@ -24685,12 +24543,7 @@ var render = function() {
                                               "tm-course-section-list"
                                           },
                                           [
-                                            _vm._v(
-                                              "\n                                                " +
-                                                _vm._s(section) +
-                                                "\n                                                "
-                                            ),
-                                            !section.canAccess
+                                            section.canAccess
                                               ? _c(
                                                   "ul",
                                                   [
@@ -41846,7 +41699,6 @@ var mutations = {
     state.courseSources = sources.data;
   },
   setLessonDiscussion: function setLessonDiscussion(state, messages) {
-    console.log(messages);
     state.lessonDiscussion = messages.data;
   },
   setPlLessonType: function setPlLessonType(state, response) {
@@ -41854,56 +41706,44 @@ var mutations = {
   },
   setPreviewLessons: function setPreviewLessons(state, response) {
     state.previewLessons = response.previewLessons;
-    console.log(response.previewLessons);
   },
   setCourseSubjects: function setCourseSubjects(state, subject) {
     state.courseSubjects = subject.data;
   },
   setQuestionSource: function setQuestionSource(state, question) {
-    console.log(question.data);
     state.questionSource = question.data;
   },
   setShoppingCart: function setShoppingCart(state, item) {
-    console.log(item);
     state.shoppingCart = item.data;
   },
   setCourseCard: function setCourseCard(state, course) {
-    console.log(course);
     state.courseCard = course.data;
   },
   setUrlForCourseCard: function setUrlForCourseCard(state, url) {
     state.urlForCourseCard = url;
   },
   setIsInCart: function setIsInCart(state, bool) {
-    console.log(bool);
     state.isInCart = bool.inBasket;
   },
   setAdminCity: function setAdminCity(state, city) {
-    console.log(city);
     state.adminCity = city.data;
   },
   setAdminDistrict: function setAdminDistrict(state, district) {
-    console.log(district);
     state.adminDistrict = district.data;
   },
   setAdminLesson: function setAdminLesson(state, lesson) {
-    console.log(lesson);
     state.adminLesson = lesson.data;
   },
   setAdminSubject: function setAdminSubject(state, subject) {
-    console.log(subject);
     state.adminSubject = subject.data;
   },
   setAdminGrade: function setAdminGrade(state, grade) {
-    console.log(grade);
     state.adminGrade = grade.data;
   },
   setAdminCategory: function setAdminCategory(state, category) {
-    console.log(category);
     state.adminCategory = category.data;
   },
   setAdminSubCategory: function setAdminSubCategory(state, subCategory) {
-    console.log(subCategory);
     state.adminSubCategory = subCategory.data;
   }
 };

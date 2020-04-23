@@ -46,8 +46,7 @@
                                             <a class="uk-accordion-title  uk-padding-small"><h6> {{sectionText}} {{sectionIndex+1}}</h6> <h4 class="uk-margin-remove">{{section.name}}</h4> </a>
                                             <div class="uk-accordion-content uk-margin-remove-top">
                                                 <div class="tm-course-section-list">
-                                                    {{section}}
-                                                    <ul v-if="!section.canAccess">
+                                                    <ul v-if="section.canAccess">
                                                         <a v-if="moduleName=='prepareLessons'" :href="'/learn/pl/test/firstTest/'+courseId+'/'+section.id" class="uk-link-reset">
                                                             <li class="uk-background-default align-items-center">
                                                                 <span class="uk-icon-button icon-play"> <i class="fas fa-file-alt icon-small uk-margin-remove"></i> </span>
@@ -211,7 +210,7 @@
                         link.click();
                         URL.revokeObjectURL(link.href);
                     })
-                    .catch(console.error)
+                    .catch()
             },
             selectLesson:function (lessonId) {
                 switch(this.moduleName){
