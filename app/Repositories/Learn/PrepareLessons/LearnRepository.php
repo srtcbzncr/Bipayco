@@ -86,15 +86,22 @@ class LearnRepository implements IRepository
                         break;
                     }
                 }
+                dd($b);
                 if($b){
                     // bir sonraki sectiona geçebilir.
                     if(isset($sections[$key+1])){
                         $sections[$key+1]['canAccess'] = true;
                     }
+                    else{
+                        $sections[$key+1]['canAccess'] = null;
+                    }
                 }
                 else{
                     if(isset($sections[$key+1])){
                         $sections[$key+1]['canAccess'] = false;
+                    }
+                    else{
+                        $sections[$key+1]['canAccess'] = null;
                     }
                 }
 
