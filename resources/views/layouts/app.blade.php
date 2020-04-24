@@ -54,7 +54,7 @@
         <div class="spinner"></div>
     </div>
     <div class="app">
-        <main>
+        <main class="uk-height-viewport">
             <!--  Top bar nav -->
             <nav class="tm-mobile-header uk-navbar uk-padding-remove-top uk-padding-remove-bottom">
                 <!-- mobile icon for side nav on nav-mobile-->
