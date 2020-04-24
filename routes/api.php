@@ -84,6 +84,7 @@ Route::prefix('curriculum')->group(function (){
 });
 
 Route::prefix('course')->group(function(){
+    #general education
     Route::get('getPopularCourses/{user_id?}', 'API\GeneralEducation\CourseController@getPopularCourses')->name('api_course_get_popular_courses');
     Route::get('getByCategoryFilterByNewest/{category_id}/{user_id?}', 'API\GeneralEducation\CourseController@getByCategoryFilterByNewest')->name('api_course_get_by_category_filter_by_newest');
     Route::get('getByCategoryFilterByOldest/{category_id}/{user_id?}', 'API\GeneralEducation\CourseController@getByCategoryFilterByOldest')->name('api_course_get_by_category_filter_by_oldest');
@@ -99,11 +100,23 @@ Route::prefix('course')->group(function(){
     Route::get('getBySubCategoryFilterByPoint/{sub_category_id}/{user_id?}', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByPoint')->name('api_course_get_by_sub_category_filter_by_point');
     Route::get('getBySubCategoryFilterByPurchases/{sub_category_id}/{user_id?}', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByPurchases')->name('api_course_get_by_sub_category_filter_by_purchases');
     Route::get('getBySubCategoryFilterByTrending/{sub_category_id}/{user_id?}', 'API\GeneralEducation\CourseController@getBySubCategoryFilterByTrending')->name('api_course_get_by_sub_category_filter_by_trending');
+
+    #mix and common api
     Route::get('{id}/comments', 'API\GeneralEducation\CourseController@getComments')->name('api_course_get_comments');
     Route::get('{id}/canEntry/{user_id}', 'API\GeneralEducation\CourseController@canEntry')->name('api_course_can_entry');
     Route::get('{id}/canComment/{user_id}', 'API\GeneralEducation\CourseController@canComment')->name('api_course_can_comment');
     Route::get('{id}/generalEducation/previewLessons','API\GeneralEducation\CourseController@getPreviewLessons')->name('api_ge_preview_lessons');
     Route::get('{id}/prepareLessons/previewLessons','API\PrepareLessons\CourseController@getPreviewLessons')->name('api_pl_preview_lessons');
+
+    #prepare lessons
+    Route::get('getByLessonsFilterByNewest/{lesson_id}/{user_id?}', 'API\PrepareLessons\CourseController@getByLessonFilterByNewest')->name('api_course_get_lesson_filter_by_newest');
+    Route::get('getByLessonsFilterByOldest/{lesson_id}/{user_id?}', 'API\PrepareLessons\CourseController@getByLessonFilterByOldest')->name('api_course_get_by_lesson_filter_by_oldest');
+    Route::get('getByLessonsFilterByPriceASC/{lesson_id}/{user_id?}', 'API\PrepareLessons\CourseController@getByLessonFilterByPriceASC')->name('api_course_get_by_lesson_filter_by_price_asc');
+    Route::get('getByLessonsFilterByPriceDESC/{lesson_id}/{user_id?}', 'API\PrepareLessons\CourseController@getByLessonFilterByPriceDESC')->name('api_course_get_by_lesson_filter_by_price_desc');
+    Route::get('getByLessonsFilterByPoint/{lesson_id}/{user_id?}', 'API\PrepareLessons\CourseController@getByLessonFilterByPoint')->name('api_course_get_by_lesson_filter_by_point');
+    Route::get('getByLessonsFilterByPurchases/{lesson_id}/{user_id?}', 'API\PrepareLessons\CourseController@getByLessonFilterByPurchases')->name('api_course_get_by_lesson_filter_by_purchases');
+    Route::get('getByLessonsFilterByTrending/{lesson_id}/{user_id?}', 'API\PrepareLessons\CourseController@getByLessonFilterByTrending')->name('api_course_get_by_lesson_filter_by_trending');
+
 
 });
 

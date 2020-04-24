@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\PrepareLessons;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\GE_CourseResource;
 use App\Models\Auth\Instructor;
 use App\Models\Auth\User;
 use App\Models\PrepareLessons\Course;
@@ -699,4 +700,131 @@ class CourseController extends Controller
         ]);
     }
 
+    public function getByLessonFilterByNewest($lesson_id,$user_id=null){
+        // Repo initialization
+        $repo = new CourseRepository;
+
+        // Operations
+        $resp = $repo->getBySubCategoryFilterByNewest($lesson_id,$user_id);
+
+        // Response
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+            //return GE_CourseResource::collection($resp->getData());
+        }
+        else{
+            return response()->json(['error' => true, 'message' => $resp->getError()],400);
+        }
+    }
+    public function getByLessonFilterByOldest($lesson_id,$user_id=null){
+        // Repo initialization
+        $repo = new CourseRepository;
+
+        // Operations
+        $resp = $repo->getBySubCategoryFilterByOldest($lesson_id,$user_id);
+
+        // Response
+        if($resp->getResult()){
+            return response()->json([
+               'error' => false,
+               'data' => $resp->getData()
+            ]);
+        }
+        else{
+            return response()->json(['error' => true, 'message' => $resp->getError()],400);
+        }
+    }
+    public function getByLessonFilterByPriceASC($lesson_id,$user_id=null){
+        // Repo initialization
+        $repo = new CourseRepository;
+
+        // Operations
+        $resp = $repo->getBySubCategoryFilterByPriceASC($lesson_id,$user_id);
+
+        // Response
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+        else{
+            return response()->json(['error' => true, 'message' => $resp->getError()],400);
+        }
+    }
+    public function getByLessonFilterByPriceDESC($lesson_id,$user_id=null){
+        // Repo initialization
+        $repo = new CourseRepository;
+
+        // Operations
+        $resp = $repo->getBySubCategoryFilterByPriceDESC($lesson_id,$user_id);
+
+        // Response
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+        else{
+            return response()->json(['error' => true, 'message' => $resp->getError()],400);
+        }
+    }
+    public function getByLessonFilterByPoint($lesson_id,$user_id=null){
+        // Repo initialization
+        $repo = new CourseRepository;
+
+        // Operations
+        $resp = $repo->getBySubCategoryFilterByPoint($lesson_id,$user_id);
+
+        // Response
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+        else{
+            return response()->json(['error' => true, 'message' => $resp->getError()],400);
+        }
+    }
+    public function getByLessonFilterByPurchases($lesson_id,$user_id=null){
+        // Repo initialization
+        $repo = new CourseRepository;
+
+        // Operations
+        $resp = $repo->getBySubCategoryFilterByPurchases($lesson_id,$user_id);
+
+        // Response
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+        else{
+            return response()->json(['error' => true, 'message' => $resp->getError()],400);
+        }
+    }
+    public function getByLessonFilterByTrending($lesson_id,$user_id=null){
+        // Repo initialization
+        $repo = new CourseRepository;
+
+        // Operations
+        $resp = $repo->getBySubCategoryFilterByTrending($lesson_id,$user_id);
+
+        // Response
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+        else{
+            return response()->json(['error' => true, 'message' => $resp->getError()],400);
+        }
+    }
 }
