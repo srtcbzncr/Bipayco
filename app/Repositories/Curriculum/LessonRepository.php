@@ -3,6 +3,7 @@
 namespace App\Repositories\Curriculum;
 
 use App\Models\Curriculum\Lesson;
+use App\Models\Curriculum\Subject;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\DB;
@@ -158,6 +159,30 @@ class LessonRepository implements IRepository{
         // Operations
         try{
 
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getLessons(){ // lesson and subject
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = Lesson::all();
+            foreach ($object as $key => $item){
+                $subjects = Subject::where('lesson_id',$item->id)->get();
+                $object[$key]['subjects'] = $subjects;
+            }
         }
         catch(\Exception $e){
             $error = $e;

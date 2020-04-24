@@ -61,6 +61,12 @@ Route::group(['prefix' => 'pl'],function (){
 
     Route::get('/inBasket/{user_id}/{course_id}','API\PrepareLessons\CourseController@inBasket')->name('pl_in_basket');
     Route::get('/similarCourses/{course_id}/{user_id?}','API\PrepareLessons\CourseController@simularCourses')->name('pl_simularCourses');
+
+    # lessonları ve buna bağlı subjectleri getirir.
+    Route::get('/lessons','API\HomeController@getCrLessons')->name('pl_lessons');
+    Route::get('/lesson/{id}','API\PrepareLessons\CurriculumController@showLessonCourses')->name('pl_lesson_courses');
+    Route::get('/subject/{id}','API\PrepareLessons\CurriculumController@showSubjectCourses')->name('pl_lesson_courses');
+    Route::get('/course/{id}','API\PrepareLessons\CourseController@getCourse')->name('pl_get_course');
 });
 
 
