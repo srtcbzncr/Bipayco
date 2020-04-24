@@ -128,7 +128,8 @@ class LearnController extends Controller
         // Operations
         $resp = $repo->getCourse($courseId,$user_id);
         $data = $resp->getData();
-        $data['selectedSection'] = $sectionId;
+        $section = Section::find($sectionId);
+        $data['selectedSection'] = $section;
         return view('prepare_for_lesson.watch')->with('courseId',$courseId)->with('course',$data)->with('isTest',true)->with('testType',1);
     }
 }
