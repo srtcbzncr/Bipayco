@@ -139,13 +139,16 @@ class FirstLastTestStatusRepository implements IRepository
                     $object['nextLessonId'] = $lessons[0]->id;
                 }
                 else{
-                    $object['nextLessonId'] = null;
-                    $object['nextSectionId'] = null;
+                    $sections = Section::where('course_id',$tempsection->course_id)->where('active',true)->orderBy('no', 'asc')->get();
+                    $lessons = Lesson::where('section_id',$sections[0]->id)->where('active',true)->orderBy('no', 'asc')->get();
+                    $object['nextLessonId'] = $lessons[0]->id;
+                    $object['nextSectionId'] = $sections[0]->id;
                 }
             }
             else{
-                $object['nextLessonId'] = null;
-                $object['nextSectionId'] = null;
+                $lessons = Lesson::where('section_id',$data['sectionId'])->where('active',true)->orderBy('no', 'asc')->get();
+                $object['nextLessonId'] = $lessons[0]->id;
+                $object['nextSectionId'] = $data['sectionId'];
             }
 
             DB::commit();
