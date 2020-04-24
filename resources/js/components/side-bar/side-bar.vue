@@ -13,10 +13,11 @@
                             <a class="uk-background-grey uk-margin-remove general-title" style=":hover" :href="generalEducationRoute"><b>{{generalEducationText}}</b></a>
                             <ul uk-accordion>
                                 <li v-for="category in categories" class=" uk-margin-remove-top">
-                                    <a class="uk-accordion-title" :id="'category'+category.id"> <i class="fas fa-layer-group"> </i>{{category.name}}</a>
+                                    <a class="uk-accordion-title" :id="'category'+category.id"> <i class="fas" :class="category.symbol"> </i>{{category.name}}</a>
                                     <div class="uk-accordion-content uk-margin-remove-top">
                                         <a :href="'/ge/category/'+category.id">{{allOfCategory}}</a>
                                         <a v-for="subCategory in category.sub_categories.data" :href="'/ge/subCategory/'+subCategory.id" :id="'subCategory'+subCategory.id">
+                                            <i class="fas" :class="subCategory.symbol"> </i>
                                             {{subCategory.name}}
                                         </a>
                                     </div>
@@ -33,7 +34,7 @@
                         <a class="uk-background-grey uk-margin-remove general-title" style=":hover" :href="prepareLessonsRoute"><b>{{prepareLessonsText}}</b></a>
                         <ul data-simplebar>
                             <li v-for="lesson in crLessons">
-                                <a :href="'/pl/category/'+lesson.id" :id="'lesson'+lesson.id"> <i class="fas" :class="lesson.symbol"> </i>{{lesson.name}}</a>
+                                <a :href="'/pl/lessons/'+lesson.id" :id="'lesson'+lesson.id"> <i class="fas" :class="lesson.symbol"> </i>{{lesson.name}}</a>
                             </li>
                         </ul>
                     </div>

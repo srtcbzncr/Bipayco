@@ -39,6 +39,7 @@
         <span class="uk-animation-fade tm-mobile-close-icon" uk-toggle="target: #side-nav; cls: side-nav-active"> <i class="fas fa-times icon-large"></i></span>
         <side-bar
             general-education-route="{{route('ge_index')}}"
+            prepare-lessons-route="{{route('pl_index')}}"
             home-route="{{route('home')}}"
             logo="{{asset('images/logo.png')}}"
             general-education-text="@lang('front/auth.general_education')"

@@ -8942,6 +8942,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "side-bar",
@@ -22113,7 +22114,7 @@ var render = function() {
                         attrs: { id: "category" + category.id }
                       },
                       [
-                        _c("i", { staticClass: "fas fa-layer-group" }),
+                        _c("i", { staticClass: "fas", class: category.symbol }),
                         _vm._v(_vm._s(category.name))
                       ]
                     ),
@@ -22142,6 +22143,10 @@ var render = function() {
                               }
                             },
                             [
+                              _c("i", {
+                                staticClass: "fas",
+                                class: subCategory.symbol
+                              }),
                               _vm._v(
                                 "\n                                        " +
                                   _vm._s(subCategory.name) +
@@ -22205,7 +22210,7 @@ var render = function() {
                       "a",
                       {
                         attrs: {
-                          href: "/pl/category/" + lesson.id,
+                          href: "/pl/lessons/" + lesson.id,
                           id: "lesson" + lesson.id
                         }
                       },
