@@ -65,4 +65,25 @@ class CurriculumRepository implements IRepository
     {
         // TODO: Implement setPassive() method.
     }
+
+    public function showLessonCourses($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $lesson = Lesson::find($id);
+            $object = $lesson->courses->where('active',true);
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
 }

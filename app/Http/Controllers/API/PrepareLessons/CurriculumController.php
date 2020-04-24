@@ -28,4 +28,25 @@ class CurriculumController extends Controller
         }
     }
 
+    public function showLessonCourses($id){
+        // Repo initialization
+        $repo = new CurriculumRepository();
+
+        // Operations
+        $resp = $repo->showLessonCourses($id);
+
+        // Response
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+        else{
+            return response()->json(['error' => true, 'message' => $resp->getError()]);
+        }
+    }
+
+
+
 }

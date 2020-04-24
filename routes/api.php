@@ -44,14 +44,14 @@ Route::group(['prefix' => 'ge'], function(){
 });
 
 Route::group(['prefix' => 'pl'],function (){
-    Route::group(['prefix' => 'category'],function (){
+    /*Route::group(['prefix' => 'category'],function (){
         # pl de burası yok.
         Route::get('{id}','API\PrepareLessons\CategoryController@show')->name('pl_category_courses');
     });
     Route::group(['prefix' => 'subCategory'], function(){
         # pl de burası yok.
         Route::get('{id}', 'API\PrepareLessons\SubCategoryController@show')->name('pl_sub_category_courses');
-    });
+    });*/
     Route::group(['prefix' => 'course'], function(){
         Route::get('{id}', 'API\PrepareLessons\CourseController@show')->name('pl_course');
     });
@@ -65,8 +65,6 @@ Route::group(['prefix' => 'pl'],function (){
     # lessonları ve buna bağlı subjectleri getirir.
     Route::get('/lessons','API\HomeController@getCrLessons')->name('pl_lessons');
     Route::get('/lesson/{id}','API\PrepareLessons\CurriculumController@showLessonCourses')->name('pl_lesson_courses');
-    Route::get('/subject/{id}','API\PrepareLessons\CurriculumController@showSubjectCourses')->name('pl_lesson_courses');
-    Route::get('/course/{id}','API\PrepareLessons\CourseController@getCourse')->name('pl_get_course');
 });
 
 
