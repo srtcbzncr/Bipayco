@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Curriculum\LessonRepository;
 use App\Repositories\GeneralEducation\CategoryRepository;
 use App\Repositories\GeneralEducation\CourseRepository;
 use Illuminate\Http\Request;
@@ -97,6 +98,27 @@ class HomeController extends Controller
         return response()->json([
             'error' => true,
             'message' => 'Bir hata oluştu.'
+        ]);
+    }
+
+    public function getCrLessons(){
+        // Repo initializations
+        $repo = new LessonRepository();
+
+        // Operations
+        $resp = $repo->getLessons();
+        // Response
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Bir hata oluştu.',
+            'errorMessage' => $resp->getError()
         ]);
     }
 }
