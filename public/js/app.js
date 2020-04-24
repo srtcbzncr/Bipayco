@@ -8942,12 +8942,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "side-bar",
@@ -22202,7 +22196,28 @@ var render = function() {
                 [_c("b", [_vm._v(_vm._s(_vm.prepareLessonsText))])]
               ),
               _vm._v(" "),
-              _c("ul", { attrs: { "uk-accordion": "" } })
+              _c(
+                "ul",
+                { attrs: { "data-simplebar": "" } },
+                _vm._l(_vm.crLessons, function(lesson) {
+                  return _c("li", [
+                    _c(
+                      "a",
+                      {
+                        attrs: {
+                          href: "/pl/category/" + lesson.id,
+                          id: "lesson" + lesson.id
+                        }
+                      },
+                      [
+                        _c("i", { staticClass: "fas", class: lesson.symbol }),
+                        _vm._v(_vm._s(lesson.name))
+                      ]
+                    )
+                  ])
+                }),
+                0
+              )
             ])
           ]
         )
@@ -42130,7 +42145,7 @@ var actions = {
   },
   loadCrLessons: function loadCrLessons(_ref52) {
     var commit = _ref52.commit;
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get().then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/pl/lessons').then(function (response) {
       return commit('setCrLessons', response.data);
     });
   }

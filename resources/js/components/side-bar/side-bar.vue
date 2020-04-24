@@ -31,16 +31,10 @@
                 <div class="side-menu-slide" style="overflow-y: auto">
                     <div class="side-menu-slide-content">
                         <a class="uk-background-grey uk-margin-remove general-title" style=":hover" :href="prepareLessonsRoute"><b>{{prepareLessonsText}}</b></a>
-                        <ul uk-accordion>
-                            <!--<li v-for="lesson in crLessons" class=" uk-margin-remove-top">
-                                <a class="uk-accordion-title" :id="'lesson'+lesson.id"> <i class="fas fa-layer-group"> </i>{{lesson.name}}</a>
-                                <div class="uk-accordion-content uk-margin-remove-top">
-                                    <a :href="'/ge/category/'+lesson.id">{{allOfCategory}}</a>
-                                    <a v-for="subject in lesson.subject" :href="'/ge/subCategory/'+subject.id" :id="'subject'+subject.id">
-                                        {{subject.name}}
-                                    </a>
-                                </div>
-                            </li>-->
+                        <ul data-simplebar>
+                            <li v-for="lesson in crLessons">
+                                <a :href="'/pl/category/'+lesson.id" :id="'lesson'+lesson.id"> <i class="fas" :class="lesson.symbol"> </i>{{lesson.name}}</a>
+                            </li>
                         </ul>
                     </div>
                 </div>

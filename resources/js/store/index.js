@@ -308,7 +308,7 @@ const actions={
         Axios.get(url).then(response=>commit(mutationName, response.data));
     },
     loadCrLessons({commit}){
-        Axios.get()
+        Axios.get('/api/pl/lessons')
             .then(response=>commit('setCrLessons',response.data))
     }
 };
