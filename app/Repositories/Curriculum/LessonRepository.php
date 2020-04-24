@@ -52,7 +52,7 @@ class LessonRepository implements IRepository{
             $object = Lesson::find($id);
         }
         catch(\Exception $e){
-            $error = $e;
+            $error = $e->getMessage();
             $result = false;
         }
 

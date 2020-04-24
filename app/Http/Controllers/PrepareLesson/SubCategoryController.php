@@ -3,11 +3,28 @@
 namespace App\Http\Controllers\PrepareLesson;
 
 use App\Http\Controllers\Controller;
+use App\Models\PrepareLessons\Course;
+use App\Repositories\Curriculum\LessonRepository;
+use App\Repositories\PrepareLessons\CurriculumRepository;
 use Illuminate\Http\Request;
 
 class SubCategoryController extends Controller
 {
-    public function show(){
-        return view('prepare_for_lesson.lesson');
+    public function show($id){
+        // initializing
+        $repo = new LessonRepository();
+
+        // operations
+        $resp = $repo->get($id);
+        if($resp->getResult()){
+            $data = $resp->getData();
+            $courses = Course::where('lesson_id',$id)->get();
+            $data['courseCount'] = count($courses);
+            return view('prepare_for_lesson.lesson',$data);
+        }
+        else{
+            return redirect()->back();
+        }
+
     }
 }
