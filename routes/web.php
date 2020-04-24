@@ -81,7 +81,7 @@ Route::group(['prefix' => 'pl'],function (){
     Route::group(['prefix' => 'category'],function (){
         Route::get('{id}','PrepareLesson\CategoryController@show')->name('pl_category_courses');
     });
-    Route::group(['prefix' => 'subCategory'], function(){
+    Route::group(['prefix' => 'lessons'], function(){
         Route::get('{id}', 'PrepareLesson\SubCategoryController@show')->name('pl_sub_category_courses');
     });
     Route::group(['prefix' => 'course'], function(){
