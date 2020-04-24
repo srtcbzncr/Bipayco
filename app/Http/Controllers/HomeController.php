@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Curriculum\LessonRepository;
 use App\Repositories\GeneralEducation\CategoryRepository;
 use App\Repositories\GeneralEducation\CourseRepository;
 use Illuminate\Http\Request;
@@ -60,5 +61,24 @@ class HomeController extends Controller
 
     public function error(){
         return view('error');
+    }
+
+    public function pl_index(){
+        // Repo initializations
+        $repo = new LessonRepository();
+
+        // Operations
+        $resp = $repo->all();
+        $data = [
+            'lessons' => $resp->getData(),
+        ];
+
+        // Response
+        if($resp->getResult()){
+            return view('prepare_for_lesson.index', $data);
+        }
+        else{
+            return view('error');
+        }
     }
 }
