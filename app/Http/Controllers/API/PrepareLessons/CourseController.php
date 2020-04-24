@@ -698,4 +698,5 @@ class CourseController extends Controller
             'message' => 'Bir hata oluştu.Tekrar deneyin.'
         ]);
     }
+    
 }

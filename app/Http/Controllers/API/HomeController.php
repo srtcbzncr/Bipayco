@@ -106,7 +106,7 @@ class HomeController extends Controller
         $repo = new LessonRepository();
 
         // Operations
-        $resp = $repo->getLessons();
+        $resp = $repo->all();
         // Response
         if($resp->getResult()){
             return response()->json([
