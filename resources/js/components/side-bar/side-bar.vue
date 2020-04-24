@@ -9,14 +9,14 @@
                 <li>
                     <a :href="generalEducationRoute" :uk-tooltip="'title:'+ generalEducationText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-laptop-code icon-medium"> </i> </a>
                     <div class="side-menu-slide" style="overflow-y: auto">
-                        <div class="side-menu-slide-content">
+                        <div class="side-menu-slide-content uk-width">
                             <a class="uk-background-grey uk-margin-remove general-title" style=":hover" :href="generalEducationRoute"><b>{{generalEducationText}}</b></a>
                             <ul uk-accordion>
                                 <li v-for="category in categories" class=" uk-margin-remove-top">
-                                    <a class="uk-accordion-title" :id="category.id"> <i class="fas fa-layer-group"> </i>{{category.name}}</a>
+                                    <a class="uk-accordion-title" :id="'category'+category.id"> <i class="fas fa-layer-group"> </i>{{category.name}}</a>
                                     <div class="uk-accordion-content uk-margin-remove-top">
                                         <a :href="'/ge/category/'+category.id">{{allOfCategory}}</a>
-                                        <a v-for="subCategory in category.sub_categories.data" :href="'/ge/subCategory/'+subCategory.id" :id="subCategory.id">
+                                        <a v-for="subCategory in category.sub_categories.data" :href="'/ge/subCategory/'+subCategory.id" :id="'subCategory'+subCategory.id">
                                             {{subCategory.name}}
                                         </a>
                                     </div>
@@ -28,7 +28,22 @@
             <li>
                 <!-- scripts -->
                 <a href="#" :uk-tooltip="'title:'+ prepareLessonsText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-school icon-medium"/> </a>
-
+                <div class="side-menu-slide" style="overflow-y: auto">
+                    <div class="side-menu-slide-content">
+                        <a class="uk-background-grey uk-margin-remove general-title" style=":hover" :href="prepareLessonsRoute"><b>{{prepareLessonsText}}</b></a>
+                        <ul uk-accordion>
+                            <!--<li v-for="lesson in crLessons" class=" uk-margin-remove-top">
+                                <a class="uk-accordion-title" :id="'lesson'+lesson.id"> <i class="fas fa-layer-group"> </i>{{lesson.name}}</a>
+                                <div class="uk-accordion-content uk-margin-remove-top">
+                                    <a :href="'/ge/category/'+lesson.id">{{allOfCategory}}</a>
+                                    <a v-for="subject in lesson.subject" :href="'/ge/subCategory/'+subject.id" :id="'subject'+subject.id">
+                                        {{subject.name}}
+                                    </a>
+                                </div>
+                            </li>-->
+                        </ul>
+                    </div>
+                </div>
             </li>
             <li>
                 <a href="#" class="active" :uk-tooltip="'title:'+ prepareExamsText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-user-graduate icon-medium"></i> </a>
@@ -109,19 +124,23 @@ export default {
         },
         allOfCategory:String,
         generalEducationRoute:String,
+        prepareLessonsRoute:String,
     },
     computed:{
         ...mapState([
             'categories',
+            'crLessons'
         ]),
     },
     methods: {
         ...mapActions([
-            'loadCategories'
+            'loadCategories',
+            'loadCrLessons'
         ]),
     },
     created() {
         this.$store.dispatch('loadCategories');
+        this.$store.dispatch('loadCrLessons');
         this.closeIcon = true;
     },
     mounted() {
@@ -157,7 +176,7 @@ export default {
         background: white;
         color:#3F4850;
     }
-    .logo{
-
+    .side-menu-slide{
+        width:300px !important;
     }
 </style>

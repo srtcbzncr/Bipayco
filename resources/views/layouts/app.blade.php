@@ -191,7 +191,7 @@
                                     <a href="{{route('ge_index')}}">Genel Eğitim Modülü </a>
                                 </li>
                                 <li>
-                                    <a href="#"> Derslere Hazırlık Modülü </a>
+                                    <a> Derslere Hazırlık Modülü </a>
                                 </li>
                                 <li>
                                     <a href="#">Sınavlara Hazırlık Modülü  </a>

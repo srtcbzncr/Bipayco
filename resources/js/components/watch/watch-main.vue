@@ -6,7 +6,7 @@
                     :lesson-id="course.lesson_id"
                     :subject-id="selectedSection.subject_id"
                     :test-type="testType"
-                    :section-id="selectedLesson.section_id"
+                    :section-id="selectedSection.id"
                     :module-name="moduleName"
                     :user-id="userId"
                     :course-id="courseId"
@@ -46,14 +46,13 @@
                                             <div class="uk-accordion-content uk-margin-remove-top">
                                                 <div class="tm-course-section-list">
                                                     <ul v-if="section.canAccess">
-                                                        {{selectedLesson.section_id==section.id}}
                                                         <a v-if="moduleName=='prepareLessons'" :href="'/learn/pl/test/firstTest/'+courseId+'/'+section.id" class="uk-link-reset">
-                                                            <li v-if="isTest&&testType=='0'&&selectedLesson.section_id==section.id" class="uk-background-primary currentLesson align-items-center">
-                                                                <span class="uk-icon-button currentLesson icon-play uk-button-primary"> <i class="fas fa-file-alt icon-small uk-margin-remove"></i> </span>
+                                                            <li v-if="isTest&&testType=='0'&&selectedSection.id==section.id" class="uk-background-primary currentLesson align-items-center">
+                                                                <span class="uk-icon-button currentLesson icon-play uk-button-primary"> <i class="fas fa-star icon-small uk-margin-remove"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">Ön Test</div>
                                                             </li>
                                                             <li v-else class="uk-background-default align-items-center">
-                                                                <span class="uk-icon-button icon-play"> <i class="fas fa-file-alt icon-small uk-margin-remove"></i> </span>
+                                                                <span class="uk-icon-button icon-play"> <i class="fas fa-star icon-small uk-margin-remove"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">Ön Test</div>
                                                             </li>
                                                         </a>
@@ -77,12 +76,12 @@
                                                             </li>
                                                         </a>
                                                         <a v-if="moduleName=='prepareLessons'" :href="'/learn/pl/test/lastTest/'+courseId+'/'+section.id" class="uk-link-reset">
-                                                            <li v-if="isTest&&testType=='1'&&selectedLesson.section_id==section.id" class="uk-background-default currentLesson align-items-center">
-                                                                <span class="uk-icon-button icon-play uk-button-primary currentLesson "> <i class="fas fa-file-alt icon-small uk-margin-remove"></i> </span>
+                                                            <li v-if="isTest&&testType=='1'&&selectedSection.id==section.id" class="uk-background-default currentLesson align-items-center">
+                                                                <span class="uk-icon-button icon-play uk-button-primary currentLesson "> <i class="fas fa-star icon-small uk-margin-remove"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">Son Test</div>
                                                             </li>
                                                             <li v-else class="uk-background-default align-items-center">
-                                                                <span class="uk-icon-button icon-play"> <i class="fas fa-file-alt icon-small uk-margin-remove"></i> </span>
+                                                                <span class="uk-icon-button icon-play"> <i class="fas fa-star icon-small uk-margin-remove"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">Son Test</div>
                                                             </li>
                                                         </a>
@@ -90,7 +89,7 @@
                                                     <ul v-else>
                                                         <a v-if="moduleName=='prepareLessons'" class="uk-link-reset">
                                                             <li class="uk-background-default align-items-center">
-                                                                <span class="uk-icon-button icon-play"> <i class="fas fa-file-alt icon-small uk-margin-remove"></i> </span>
+                                                                <span class="uk-icon-button icon-play"> <i class="fas fa-star icon-small uk-margin-remove"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">Ön Test</div>
                                                             </li>
                                                         </a>
@@ -104,7 +103,7 @@
                                                         </a>
                                                         <a v-if="moduleName=='prepareLessons'" class="uk-link-reset">
                                                             <li class="uk-background-default align-items-center">
-                                                                <span class="uk-icon-button icon-play"> <i class="fas fa-file-alt icon-small uk-margin-remove"></i> </span>
+                                                                <span class="uk-icon-button icon-play"> <i class="fas fa-star icon-small uk-margin-remove"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">Son Test</div>
                                                             </li>
                                                         </a>
@@ -271,7 +270,11 @@
                 window.open(this.selectedLesson.file_path);
             },
             isOpen:function (sectionId) {
-                return sectionId==this.selectedLesson.section_id;
+                if(this.moduleName=='generalEducation'){
+                    return sectionId==this.selectedLesson.section_id;
+                }else{
+                    return sectionId==this.selectedSection.id;
+                }
             }
         },
     }

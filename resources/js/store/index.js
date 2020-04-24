@@ -75,6 +75,7 @@ const state={
     adminGrade:{},
     adminCategory:{},
     adminSubCategory:{},
+    crLessons:{},
 };
 const getters={};
 const mutations={
@@ -167,6 +168,10 @@ const mutations={
     },
     setAdminSubCategory(state, subCategory){
         state.adminSubCategory=subCategory.data;
+    },
+    setCrLessons(state, lessons){
+        console.log(lessons);
+        state.crLessons=lessons.data;
     },
 };
 const actions={
@@ -301,6 +306,10 @@ const actions={
     },
     loadAdminNewPage({commit}, [url, mutationName]){
         Axios.get(url).then(response=>commit(mutationName, response.data));
+    },
+    loadCrLessons({commit}){
+        Axios.get()
+            .then(response=>commit('setCrLessons',response.data))
     }
 };
 

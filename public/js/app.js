@@ -8933,6 +8933,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "side-bar",
@@ -8963,12 +8978,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       required: true
     },
     allOfCategory: String,
-    generalEducationRoute: String
+    generalEducationRoute: String,
+    prepareLessonsRoute: String
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categories'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCategories'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categories', 'crLessons'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCategories', 'loadCrLessons'])),
   created: function created() {
     this.$store.dispatch('loadCategories');
+    this.$store.dispatch('loadCrLessons');
     this.closeIcon = true;
   },
   mounted: function mounted() {
@@ -9956,6 +9973,14 @@ __webpack_require__.r(__webpack_exports__);
     fillBlanksText: {
       type: String,
       "default": "Boşlukları Doldur"
+    },
+    successMessage: {
+      type: String,
+      "default": "Tebrikler sınavı başarıyla geçtin."
+    },
+    failedMessage: {
+      type: String,
+      "default": "Maalesef Sınavı geçemedin. Tekrar denemelisin."
     }
   },
   methods: {
@@ -10107,6 +10132,8 @@ __webpack_require__.r(__webpack_exports__);
       this.data[questionIndex].answer = changedDataArray;
     },
     postData: function postData() {
+      var _this = this;
+
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/learn/prepareLessons/createFirstLastTestStatus/create', {
         'userId': this.userId,
         'sectionType': this.moduleName,
@@ -10115,18 +10142,33 @@ __webpack_require__.r(__webpack_exports__);
         'courseId': this.courseId,
         'answers': this.data
       }).then(function (response) {
-        console.log(response.data);
-
-        if (!response.error) {//setTimeout(()=>{window.location.replace('/learn/ge/course/'+this.courseId+'/lesson/'+response.data.error);},3000);
+        if (!response.error) {
+          if (response.data.data.result) {
+            UIkit.notification({
+              message: _this.successMessage,
+              status: 'success'
+            });
+            setTimeout(function () {
+              window.location.replace('/learn/pl/course/' + _this.courseId + '/lesson/' + response.data.data.nextLessonId);
+            }, 3000);
+          } else {
+            UIkit.notification({
+              message: _this.failedMessage,
+              status: 'danger'
+            });
+            setTimeout(function () {
+              window.location.replace('/learn/pl/course/' + _this.courseId + '/lesson/' + response.data.data.nextLessonId);
+            }, 3000);
+          }
         }
       });
     }
   },
   created: function created() {
-    var _this = this;
+    var _this2 = this;
 
     axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/learn/prepareLessons/getRandomQuestions/' + this.lessonId + '/' + this.subjectId).then(function (response) {
-      return _this.loadData(response.data.data.questions);
+      return _this2.loadData(response.data.data.questions);
     });
   }
 });
@@ -10146,7 +10188,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _test_area__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./test-area */ "./resources/js/components/watch/test-area.vue");
-//
 //
 //
 //
@@ -10439,7 +10480,11 @@ __webpack_require__.r(__webpack_exports__);
       window.open(this.selectedLesson.file_path);
     },
     isOpen: function isOpen(sectionId) {
-      return sectionId == this.selectedLesson.section_id;
+      if (this.moduleName == 'generalEducation') {
+        return sectionId == this.selectedLesson.section_id;
+      } else {
+        return sectionId == this.selectedSection.id;
+      }
     }
   }
 });
@@ -10629,7 +10674,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.general-title[data-v-cf1400d8]:hover{\n    background: white;\n    color:#3F4850;\n}\n.logo[data-v-cf1400d8]{\n}\n", ""]);
+exports.push([module.i, "\n.general-title[data-v-cf1400d8]:hover{\n    background: white;\n    color:#3F4850;\n}\n.side-menu-slide[data-v-cf1400d8]{\n    width:300px !important;\n}\n", ""]);
 
 // exports
 
@@ -22050,7 +22095,7 @@ var render = function() {
             staticStyle: { "overflow-y": "auto" }
           },
           [
-            _c("div", { staticClass: "side-menu-slide-content" }, [
+            _c("div", { staticClass: "side-menu-slide-content uk-width" }, [
               _c(
                 "a",
                 {
@@ -22071,7 +22116,7 @@ var render = function() {
                       "a",
                       {
                         staticClass: "uk-accordion-title",
-                        attrs: { id: category.id }
+                        attrs: { id: "category" + category.id }
                       },
                       [
                         _c("i", { staticClass: "fas fa-layer-group" }),
@@ -22099,7 +22144,7 @@ var render = function() {
                             {
                               attrs: {
                                 href: "/ge/subCategory/" + subCategory.id,
-                                id: subCategory.id
+                                id: "subCategory" + subCategory.id
                               }
                             },
                             [
@@ -22136,6 +22181,30 @@ var render = function() {
             }
           },
           [_c("i", { staticClass: "fas fa-school icon-medium" })]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "side-menu-slide",
+            staticStyle: { "overflow-y": "auto" }
+          },
+          [
+            _c("div", { staticClass: "side-menu-slide-content" }, [
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "uk-background-grey uk-margin-remove general-title",
+                  staticStyle: { "": "hover" },
+                  attrs: { href: _vm.prepareLessonsRoute }
+                },
+                [_c("b", [_vm._v(_vm._s(_vm.prepareLessonsText))])]
+              ),
+              _vm._v(" "),
+              _c("ul", { attrs: { "uk-accordion": "" } })
+            ])
+          ]
         )
       ]),
       _vm._v(" "),
@@ -24285,7 +24354,7 @@ var render = function() {
                   "lesson-id": _vm.course.lesson_id,
                   "subject-id": _vm.selectedSection.subject_id,
                   "test-type": _vm.testType,
-                  "section-id": _vm.selectedLesson.section_id,
+                  "section-id": _vm.selectedSection.id,
                   "module-name": _vm.moduleName,
                   "user-id": _vm.userId,
                   "course-id": _vm.courseId
@@ -24505,15 +24574,6 @@ var render = function() {
                                               ? _c(
                                                   "ul",
                                                   [
-                                                    _vm._v(
-                                                      "\n                                                    " +
-                                                        _vm._s(
-                                                          _vm.selectedLesson
-                                                            .section_id ==
-                                                            section.id
-                                                        ) +
-                                                        "\n                                                    "
-                                                    ),
                                                     _vm.moduleName ==
                                                     "prepareLessons"
                                                       ? _c(
@@ -24533,9 +24593,8 @@ var render = function() {
                                                             _vm.isTest &&
                                                             _vm.testType ==
                                                               "0" &&
-                                                            _vm.selectedLesson
-                                                              .section_id ==
-                                                              section.id
+                                                            _vm.selectedSection
+                                                              .id == section.id
                                                               ? _c(
                                                                   "li",
                                                                   {
@@ -24854,9 +24913,8 @@ var render = function() {
                                                             _vm.isTest &&
                                                             _vm.testType ==
                                                               "1" &&
-                                                            _vm.selectedLesson
-                                                              .section_id ==
-                                                              section.id
+                                                            _vm.selectedSection
+                                                              .id == section.id
                                                               ? _c(
                                                                   "li",
                                                                   {
@@ -25134,7 +25192,7 @@ var staticRenderFns = [
       {
         staticClass: "uk-icon-button currentLesson icon-play uk-button-primary"
       },
-      [_c("i", { staticClass: "fas fa-file-alt icon-small uk-margin-remove" })]
+      [_c("i", { staticClass: "fas fa-star icon-small uk-margin-remove" })]
     )
   },
   function() {
@@ -25142,7 +25200,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "uk-icon-button icon-play" }, [
-      _c("i", { staticClass: "fas fa-file-alt icon-small uk-margin-remove" })
+      _c("i", { staticClass: "fas fa-star icon-small uk-margin-remove" })
     ])
   },
   function() {
@@ -25171,7 +25229,7 @@ var staticRenderFns = [
       {
         staticClass: "uk-icon-button icon-play uk-button-primary currentLesson "
       },
-      [_c("i", { staticClass: "fas fa-file-alt icon-small uk-margin-remove" })]
+      [_c("i", { staticClass: "fas fa-star icon-small uk-margin-remove" })]
     )
   },
   function() {
@@ -25179,7 +25237,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "uk-icon-button icon-play" }, [
-      _c("i", { staticClass: "fas fa-file-alt icon-small uk-margin-remove" })
+      _c("i", { staticClass: "fas fa-star icon-small uk-margin-remove" })
     ])
   },
   function() {
@@ -25191,9 +25249,7 @@ var staticRenderFns = [
       { staticClass: "uk-background-default align-items-center" },
       [
         _c("span", { staticClass: "uk-icon-button icon-play" }, [
-          _c("i", {
-            staticClass: "fas fa-file-alt icon-small uk-margin-remove"
-          })
+          _c("i", { staticClass: "fas fa-star icon-small uk-margin-remove" })
         ]),
         _vm._v(" "),
         _c(
@@ -25216,9 +25272,7 @@ var staticRenderFns = [
       { staticClass: "uk-background-default align-items-center" },
       [
         _c("span", { staticClass: "uk-icon-button icon-play" }, [
-          _c("i", {
-            staticClass: "fas fa-file-alt icon-small uk-margin-remove"
-          })
+          _c("i", { staticClass: "fas fa-star icon-small uk-margin-remove" })
         ]),
         _vm._v(" "),
         _c(
@@ -41725,7 +41779,8 @@ var state = {
   adminSubject: {},
   adminGrade: {},
   adminCategory: {},
-  adminSubCategory: {}
+  adminSubCategory: {},
+  crLessons: {}
 };
 var getters = {};
 var mutations = {
@@ -41820,6 +41875,10 @@ var mutations = {
   },
   setAdminSubCategory: function setAdminSubCategory(state, subCategory) {
     state.adminSubCategory = subCategory.data;
+  },
+  setCrLessons: function setCrLessons(state, lessons) {
+    console.log(lessons);
+    state.crLessons = lessons.data;
   }
 };
 var actions = {
@@ -42067,6 +42126,12 @@ var actions = {
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
       return commit(mutationName, response.data);
+    });
+  },
+  loadCrLessons: function loadCrLessons(_ref52) {
+    var commit = _ref52.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get().then(function (response) {
+      return commit('setCrLessons', response.data);
     });
   }
 };

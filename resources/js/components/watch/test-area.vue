@@ -207,6 +207,14 @@
             fillBlanksText:{
                 type:String,
                 default:"Boşlukları Doldur"
+            },
+            successMessage:{
+                type:String,
+                default:"Tebrikler sınavı başarıyla geçtin."
+            },
+            failedMessage:{
+                type:String,
+                default:"Maalesef Sınavı geçemedin. Tekrar denemelisin."
             }
         },
         methods:{
@@ -302,9 +310,14 @@
             postData:function () {
                 Axios.post('/api/learn/prepareLessons/createFirstLastTestStatus/create',{'userId':this.userId, 'sectionType':this.moduleName, 'sectionId':this.sectionId, 'testType':this.testType, 'courseId':this.courseId, 'answers':this.data})
                     .then(response=>{
-                        console.log(response.data);
                         if(!response.error){
-                            //setTimeout(()=>{window.location.replace('/learn/ge/course/'+this.courseId+'/lesson/'+response.data.error);},3000);
+                            if(response.data.data.result){
+                                UIkit.notification({message:this.successMessage, status: 'success'});
+                                setTimeout(()=>{window.location.replace('/learn/pl/course/'+this.courseId+'/lesson/'+response.data.data.nextLessonId);},3000);
+                            }else{
+                                UIkit.notification({message:this.failedMessage, status: 'danger'});
+                                setTimeout(()=>{window.location.replace('/learn/pl/course/'+this.courseId+'/lesson/'+response.data.data.nextLessonId);},3000);
+                            }
                         }
                     });
             }
