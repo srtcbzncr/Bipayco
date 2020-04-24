@@ -117,7 +117,8 @@ class LearnController extends Controller
         // Operations
         $resp = $repo->getCourse($courseId,$user_id);
         $data = $resp->getData();
-        return view('prepare_for_lesson.watch')->with('courseId',$courseId)->with('sectionId',$sectionId)->with('course',$data)->with('isTest',true)->with('testType',0);
+        $data['selectedSection'] = $sectionId;
+        return view('prepare_for_lesson.watch')->with('courseId',$courseId)->with('course',$data)->with('isTest',true)->with('testType',0);
     }
     public function getLastTest($courseId,$sectionId){
         // initialization
@@ -126,6 +127,7 @@ class LearnController extends Controller
         // Operations
         $resp = $repo->getCourse($courseId,$user_id);
         $data = $resp->getData();
-        return view('prepare_for_lesson.watch')->with('courseId',$courseId)->with('sectionId',$sectionId)->with('course',$data)->with('isTest',true)->with('testType',1);
+        $data['selectedSection'] = $sectionId;
+        return view('prepare_for_lesson.watch')->with('courseId',$courseId)->with('course',$data)->with('isTest',true)->with('testType',1);
     }
 }
