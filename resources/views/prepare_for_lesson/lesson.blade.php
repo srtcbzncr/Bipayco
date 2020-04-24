@@ -1,19 +1,17 @@
 @extends('layouts.app')
 @section('content')
-    <div class="hero-bg" style="background: {{$sub_category->color}}; margin-top: -80px">
+    <div class="hero-bg" style="background-color: #3b8895; margin-top: -80px">
         <div uk-grid>
             <div class="uk-width-1-2@m">
-                <h1 class="uk-animation-fade">{{$sub_category->name}}</h1>
-                <p> {{$sub_category->description}} </p>
+                <h1 class="uk-animation-fade">{{$name}}</h1>
                 <div class="uk-visible@m uk-animation-slide-bottom-small uk-margin-medium-top" uk-grid>
                     <div class="uk-width-1-3@m uk-flex align-items-center">
                         <i class="fas fa-book-open icon-xxlarge text-white uk-margin-small-right"></i>
-                        <span class="uk-text-middle uk-text-white">{{$course_count}} @lang('front/auth.course') </span>
+                        <span class="uk-text-middle uk-text-white">{{$courseCount}} @lang('front/auth.course') </span>
                     </div>
                 </div>
             </div>
             <div class="uk-width-1-2@m uk-visible@m">
-                <img src="{{asset($sub_category->image)}}" alt="" class="uk-align-right img-xxlarge">
             </div>
         </div>
     </div>
@@ -26,12 +24,11 @@
         oldest="@lang('front/auth.oldest')"
         by-trending="@lang('front/auth.by_trending')"
         by-point="@lang('front/auth.by_point')"
-        category-desc="{{$sub_category->description}}"
-        category-name="{{$sub_category->name}}"
-        :course-count = "{{$course_count}}"
-        category-id="{{$sub_category->id}}"
+        category-name="{{$name}}"
+        :course-count = "{{$courseCount}}"
+        id="{{$id}}"
         :paginate-course = "9"
-        sub-category
+        name="Lessons"
         has-no-content="@lang('front/auth.not_found_content')"
         module-name="prepareLessons"
         module="pl"

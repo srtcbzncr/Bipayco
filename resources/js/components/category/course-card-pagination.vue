@@ -7,30 +7,20 @@
                     <p>{{categoryDesc}}</p>
                 </div>
                 <div class="uk-float-right uk-margin-small-top">
-                    <select v-if='!subCategory' class="uk-select uk-width uk-overflow-auto" id="sortBy" @change="loadCourseList">
-                        <option selected disabled value="getByCategoryFilterByTrending">{{sort}} </option>
-                        <option value="getByCategoryFilterByTrending">{{byTrending}} </option>
-                        <option value="getByCategoryFilterByPurchases">{{byPurchases}} </option>
-                        <option value="getByCategoryFilterByPoint">{{byPoint}} </option>
-                        <option value="getByCategoryFilterByPriceDESC">{{byDesc}} </option>
-                        <option value="getByCategoryFilterByPriceASC">{{byInc}} </option>
-                        <option value="getByCategoryFilterByNewest">{{newest}} </option>
-                        <option value="getByCategoryFilterByOldest">{{oldest}} </option>
-                    </select>
-                    <select v-if='subCategory' class="uk-select uk-width uk-overflow-auto" id="sortBy" @change="loadCourseList">
-                        <option selected disabled value="getBySubCategoryFilterByTrending">{{sort}} </option>
-                        <option value="getBySubCategoryFilterByTrending">{{byTrending}} </option>
-                        <option value="getBySubCategoryFilterByPurchases">{{byPurchases}} </option>
-                        <option value="getBySubCategoryFilterByPoint">{{byPoint}} </option>
-                        <option value="getBySubCategoryFilterByPriceASC">{{byInc}} </option>
-                        <option value="getBySubCategoryFilterByPriceDESC">{{byDesc}} </option>
-                        <option value="getBySubCategoryFilterByNewest">{{newest}} </option>
-                        <option value="getBySubCategoryFilterByOldest">{{oldest}} </option>
+                    <select class="uk-select uk-width uk-overflow-auto" id="sortBy" @change="loadCourseList">
+                        <option selected disabled :value="'getBy'+name+'FilterByTrending'">{{sort}} </option>
+                        <option :value="'getBy'+name+'FilterByTrending'">{{byTrending}} </option>
+                        <option :value="'getBy'+name+'FilterByPurchases'">{{byPurchases}} </option>
+                        <option :value="'getBy'+name+'FilterByPoint'">{{byPoint}} </option>
+                        <option :value="'getBy'+name+'FilterByPriceDESC'">{{byDesc}} </option>
+                        <option :value="'getBy'+name+'FilterByPriceASC'">{{byInc}} </option>
+                        <option :value="'getBy'+name+'FilterByNewest'">{{newest}} </option>
+                        <option :value="'getBy'+name+'FilterByOldest'">{{oldest}} </option>
                     </select>
                 </div>
             </div>
             <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-margin" uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div ; delay: 200" uk-grid>
-                <div v-for="course in courseCard">
+                <div v-for="course in courseCard.data">
                     <course-card
                         :course="course"
                         style-full-star-color="#F4C150"
@@ -45,14 +35,15 @@
             </div>
             <ul class="uk-pagination uk-flex-center uk-margin-medium">
                 <li>
-                    <button v-show="currentPage>1" @click="loadNewPage(categoryCourses.links.prev,--currentPage)"> < </button>
+                    <button v-show="courseCard.current_page>1" @click="loadNewPage(courseCard.prev_page_url)"> < </button>
                 </li>
                 <li v-for="page in pageNumber">
                     <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
-                    <button v-else @click="loadNewPage('/api/course/'+selectedSortOption+'/'+categoryId+'?page='+page,page)">{{page}}</button>
+                    <button v-else-if="page==courseCard.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/admin/bs/city/'+selectedCityId+'/districts?page='+page)">{{page}}</button>
+                    <button v-else @click="loadNewPage('/api/admin/bs/city/'+selectedCityId+'/districts?page='+page)">{{page}}</button>
                 </li>
                 <li>
-                    <button v-show="currentPage<(this.courseCount/this.paginateCourse)" @click="loadNewPage(categoryCourses.links.next,++currentPage)"> > </button>
+                    <button v-show="courseCard.current_page<courseCard.last_page" @click="loadNewPage(courseCard.next_page_url)"> > </button>
                 </li>
             </ul>
         </div>
@@ -69,16 +60,10 @@
         name: "course-card-pagination",
         created() {
             if (this.courseCount>0) {
-                var sort;
-                if(!this.subCategory){
-                    sort='getByCategoryFilterByTrending'
-                }
-                else{
-                    sort='getBySubCategoryFilterByTrending'
-                }
-                var url='/api/course/'+sort+'/'+this.categoryId+'/'+this.userId;
+                var sort='getBy'+this.name+'FilterByTrending';
+                var url='/api/course/'+sort+'/'+this.id+'/'+this.userId;
                 this.$store.dispatch('loadUrlForCourseCard', url);
-                this.$store.dispatch('loadCategoryCourses',[sort, this.categoryId, this.userId]);
+                this.$store.dispatch('loadCategoryCourses',[sort, this.id, this.userId]);
             }
         },
         data(){
@@ -87,6 +72,10 @@
             }
         },
         props:{
+            name:{
+                type:String,
+                required:true,
+            },
             newest:String,
             byDesc:String,
             byInc:String,
@@ -98,13 +87,9 @@
             categoryName:String,
             categoryDesc:String,
             hasNoContent:String,
-            categoryId:{
+            id:{
                 type: String,
                 required: true,
-            },
-            subCategory:{
-                type:Boolean,
-                default:false,
             },
             courseCount:{
               type: Number,
@@ -139,30 +124,23 @@
             pageNumber(){
                 var pages=['1'];
                 var index=2;
-                for(var i=2; index<=this.lastPage; i++){
-                    if(i==2 && this.currentPage-2>3){
+                for(var i=2; index<=this.courseCard.last_page; i++){
+                    if(i==2 && this.courseCard.current_page-2>3){
                         pages.push('...');
-                        if(this.currentPage+3>this.lastPage){
-                            index=this.lastPage-6;
+                        if(this.courseCard.current_page+3>this.courseCard.last_page){
+                            index=this.courseCard.last_page-6;
                         }else{
-                            index=this.currentPage-2;
+                            index=this.courseCard.current_page-2;
                         }
-                    }else if(i==8 && this.currentPage+2<this.lastPage-2){
+                    }else if(i==8 && this.courseCard.current_page+2<this.courseCard.last_page-2){
                         pages.push('...');
-                        index=this.lastPage;
+                        index=this.courseCard.last_page;
                     }else{
                         pages.push(index);
                         index++;
                     }
                 }
                 return pages;
-            },
-            lastPage(){
-                if(this.categoryCourses.meta!=null) {
-                    return this.categoryCourses.meta.last_page;
-                }else{
-                    return 20;
-                }
             },
             selectedSortOption(){
                 return document.getElementById("sortBy").value;
@@ -176,8 +154,8 @@
             ]),
             loadCourseList: function(){
                 var sort=document.getElementById('sortBy').value;
-                this.$store.dispatch('loadCategoryCourses',[sort, this.categoryId, this.userId]);
-                this.$store.dispatch('loadUrlForCourseCard', '/api/course/'+sort+'/'+this.categoryId+'/'+this.userId);
+                this.$store.dispatch('loadCategoryCourses',[sort, this.id, this.userId]);
+                this.$store.dispatch('loadUrlForCourseCard', '/api/course/'+sort+'/'+this.id+'/'+this.userId);
             },
             loadNewPage: function(name,newPageNumber){
                 this.$store.dispatch('loadNewPageCourses',name);

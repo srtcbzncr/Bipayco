@@ -170,7 +170,6 @@ const mutations={
         state.adminSubCategory=subCategory.data;
     },
     setCrLessons(state, lessons){
-        console.log(lessons);
         state.crLessons=lessons.data;
     },
 };

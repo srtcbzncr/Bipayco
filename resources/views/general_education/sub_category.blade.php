@@ -29,9 +29,9 @@
         category-desc="{{$sub_category->description}}"
         category-name="{{$sub_category->name}}"
         :course-count = "{{$course_count}}"
-        category-id="{{$sub_category->id}}"
+        id="{{$sub_category->id}}"
+        name="SubCategory"
         :paginate-course = "9"
-        sub-category
         has-no-content="@lang('front/auth.not_found_content')"
         module-name="generalEducation"
         module="ge"

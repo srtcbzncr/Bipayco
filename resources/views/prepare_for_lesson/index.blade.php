@@ -5,7 +5,7 @@
             @foreach($lessons as $lesson)
                 <div>
                     <category-card
-                        background-color="#3e474f"
+                        background-color="#3b8895"
                         sub-category-name="{{$lesson->name}}"
                         explore="@lang('front/auth.explore')"
                         sub-category-route="{{route('pl_sub_category_courses', $lesson->id)}}"

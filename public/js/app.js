@@ -4830,31 +4830,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-card-pagination",
   created: function created() {
     if (this.courseCount > 0) {
-      var sort;
-
-      if (!this.subCategory) {
-        sort = 'getByCategoryFilterByTrending';
-      } else {
-        sort = 'getBySubCategoryFilterByTrending';
-      }
-
-      var url = '/api/course/' + sort + '/' + this.categoryId + '/' + this.userId;
+      var sort = 'getBy' + this.name + 'FilterByTrending';
+      var url = '/api/course/' + sort + '/' + this.id + '/' + this.userId;
       this.$store.dispatch('loadUrlForCourseCard', url);
-      this.$store.dispatch('loadCategoryCourses', [sort, this.categoryId, this.userId]);
+      this.$store.dispatch('loadCategoryCourses', [sort, this.id, this.userId]);
     }
   },
   data: function data() {
@@ -4863,6 +4847,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   props: {
+    name: {
+      type: String,
+      required: true
+    },
     newest: String,
     byDesc: String,
     byInc: String,
@@ -4874,13 +4862,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     categoryName: String,
     categoryDesc: String,
     hasNoContent: String,
-    categoryId: {
+    id: {
       type: String,
       required: true
-    },
-    subCategory: {
-      type: Boolean,
-      "default": false
     },
     courseCount: {
       type: Number,
@@ -4912,18 +4896,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var pages = ['1'];
       var index = 2;
 
-      for (var i = 2; index <= this.lastPage; i++) {
-        if (i == 2 && this.currentPage - 2 > 3) {
+      for (var i = 2; index <= this.courseCard.last_page; i++) {
+        if (i == 2 && this.courseCard.current_page - 2 > 3) {
           pages.push('...');
 
-          if (this.currentPage + 3 > this.lastPage) {
-            index = this.lastPage - 6;
+          if (this.courseCard.current_page + 3 > this.courseCard.last_page) {
+            index = this.courseCard.last_page - 6;
           } else {
-            index = this.currentPage - 2;
+            index = this.courseCard.current_page - 2;
           }
-        } else if (i == 8 && this.currentPage + 2 < this.lastPage - 2) {
+        } else if (i == 8 && this.courseCard.current_page + 2 < this.courseCard.last_page - 2) {
           pages.push('...');
-          index = this.lastPage;
+          index = this.courseCard.last_page;
         } else {
           pages.push(index);
           index++;
@@ -4932,13 +4916,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       return pages;
     },
-    lastPage: function lastPage() {
-      if (this.categoryCourses.meta != null) {
-        return this.categoryCourses.meta.last_page;
-      } else {
-        return 20;
-      }
-    },
     selectedSortOption: function selectedSortOption() {
       return document.getElementById("sortBy").value;
     }
@@ -4946,8 +4923,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCategoryCourses', 'loadUrlForCourseCard', 'loadNewPageCourses']), {
     loadCourseList: function loadCourseList() {
       var sort = document.getElementById('sortBy').value;
-      this.$store.dispatch('loadCategoryCourses', [sort, this.categoryId, this.userId]);
-      this.$store.dispatch('loadUrlForCourseCard', '/api/course/' + sort + '/' + this.categoryId + '/' + this.userId);
+      this.$store.dispatch('loadCategoryCourses', [sort, this.id, this.userId]);
+      this.$store.dispatch('loadUrlForCourseCard', '/api/course/' + sort + '/' + this.id + '/' + this.userId);
     },
     loadNewPage: function loadNewPage(name, newPageNumber) {
       this.$store.dispatch('loadNewPageCourses', name);
@@ -16359,157 +16336,96 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("div", { staticClass: "uk-float-right uk-margin-small-top" }, [
-                !_vm.subCategory
-                  ? _c(
-                      "select",
+                _c(
+                  "select",
+                  {
+                    staticClass: "uk-select uk-width uk-overflow-auto",
+                    attrs: { id: "sortBy" },
+                    on: { change: _vm.loadCourseList }
+                  },
+                  [
+                    _c(
+                      "option",
                       {
-                        staticClass: "uk-select uk-width uk-overflow-auto",
-                        attrs: { id: "sortBy" },
-                        on: { change: _vm.loadCourseList }
+                        attrs: { selected: "", disabled: "" },
+                        domProps: {
+                          value: "getBy" + _vm.name + "FilterByTrending"
+                        }
                       },
-                      [
-                        _c(
-                          "option",
-                          {
-                            attrs: {
-                              selected: "",
-                              disabled: "",
-                              value: "getByCategoryFilterByTrending"
-                            }
-                          },
-                          [_vm._v(_vm._s(_vm.sort) + " ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          { attrs: { value: "getByCategoryFilterByTrending" } },
-                          [_vm._v(_vm._s(_vm.byTrending) + " ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          {
-                            attrs: { value: "getByCategoryFilterByPurchases" }
-                          },
-                          [_vm._v(_vm._s(_vm.byPurchases) + " ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          { attrs: { value: "getByCategoryFilterByPoint" } },
-                          [_vm._v(_vm._s(_vm.byPoint) + " ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          {
-                            attrs: { value: "getByCategoryFilterByPriceDESC" }
-                          },
-                          [_vm._v(_vm._s(_vm.byDesc) + " ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          { attrs: { value: "getByCategoryFilterByPriceASC" } },
-                          [_vm._v(_vm._s(_vm.byInc) + " ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          { attrs: { value: "getByCategoryFilterByNewest" } },
-                          [_vm._v(_vm._s(_vm.newest) + " ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          { attrs: { value: "getByCategoryFilterByOldest" } },
-                          [_vm._v(_vm._s(_vm.oldest) + " ")]
-                        )
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm.subCategory
-                  ? _c(
-                      "select",
+                      [_vm._v(_vm._s(_vm.sort) + " ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "option",
                       {
-                        staticClass: "uk-select uk-width uk-overflow-auto",
-                        attrs: { id: "sortBy" },
-                        on: { change: _vm.loadCourseList }
+                        domProps: {
+                          value: "getBy" + _vm.name + "FilterByTrending"
+                        }
                       },
-                      [
-                        _c(
-                          "option",
-                          {
-                            attrs: {
-                              selected: "",
-                              disabled: "",
-                              value: "getBySubCategoryFilterByTrending"
-                            }
-                          },
-                          [_vm._v(_vm._s(_vm.sort) + " ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          {
-                            attrs: { value: "getBySubCategoryFilterByTrending" }
-                          },
-                          [_vm._v(_vm._s(_vm.byTrending) + " ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          {
-                            attrs: {
-                              value: "getBySubCategoryFilterByPurchases"
-                            }
-                          },
-                          [_vm._v(_vm._s(_vm.byPurchases) + " ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          { attrs: { value: "getBySubCategoryFilterByPoint" } },
-                          [_vm._v(_vm._s(_vm.byPoint) + " ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          {
-                            attrs: { value: "getBySubCategoryFilterByPriceASC" }
-                          },
-                          [_vm._v(_vm._s(_vm.byInc) + " ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          {
-                            attrs: {
-                              value: "getBySubCategoryFilterByPriceDESC"
-                            }
-                          },
-                          [_vm._v(_vm._s(_vm.byDesc) + " ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          {
-                            attrs: { value: "getBySubCategoryFilterByNewest" }
-                          },
-                          [_vm._v(_vm._s(_vm.newest) + " ")]
-                        ),
-                        _vm._v(" "),
-                        _c(
-                          "option",
-                          {
-                            attrs: { value: "getBySubCategoryFilterByOldest" }
-                          },
-                          [_vm._v(_vm._s(_vm.oldest) + " ")]
-                        )
-                      ]
+                      [_vm._v(_vm._s(_vm.byTrending) + " ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      {
+                        domProps: {
+                          value: "getBy" + _vm.name + "FilterByPurchases"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.byPurchases) + " ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      {
+                        domProps: {
+                          value: "getBy" + _vm.name + "FilterByPoint"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.byPoint) + " ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      {
+                        domProps: {
+                          value: "getBy" + _vm.name + "FilterByPriceDESC"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.byDesc) + " ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      {
+                        domProps: {
+                          value: "getBy" + _vm.name + "FilterByPriceASC"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.byInc) + " ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      {
+                        domProps: {
+                          value: "getBy" + _vm.name + "FilterByNewest"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.newest) + " ")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "option",
+                      {
+                        domProps: {
+                          value: "getBy" + _vm.name + "FilterByOldest"
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.oldest) + " ")]
                     )
-                  : _vm._e()
+                  ]
+                )
               ])
             ]
           ),
@@ -16525,7 +16441,7 @@ var render = function() {
                 "uk-grid": ""
               }
             },
-            _vm._l(_vm.courseCard, function(course) {
+            _vm._l(_vm.courseCard.data, function(course) {
               return _c(
                 "div",
                 [
@@ -16560,16 +16476,13 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.currentPage > 1,
-                        expression: "currentPage>1"
+                        value: _vm.courseCard.current_page > 1,
+                        expression: "courseCard.current_page>1"
                       }
                     ],
                     on: {
                       click: function($event) {
-                        return _vm.loadNewPage(
-                          _vm.categoryCourses.links.prev,
-                          --_vm.currentPage
-                        )
+                        return _vm.loadNewPage(_vm.courseCard.prev_page_url)
                       }
                     }
                   },
@@ -16583,19 +16496,34 @@ var render = function() {
                     ? _c("button", { staticClass: "uk-disabled" }, [
                         _vm._v(_vm._s(page))
                       ])
+                    : page == _vm.courseCard.current_page
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "uk-background-default uk-disabled",
+                          on: {
+                            click: function($event) {
+                              return _vm.loadNewPage(
+                                "/api/admin/bs/city/" +
+                                  _vm.selectedCityId +
+                                  "/districts?page=" +
+                                  page
+                              )
+                            }
+                          }
+                        },
+                        [_vm._v(_vm._s(page))]
+                      )
                     : _c(
                         "button",
                         {
                           on: {
                             click: function($event) {
                               return _vm.loadNewPage(
-                                "/api/course/" +
-                                  _vm.selectedSortOption +
-                                  "/" +
-                                  _vm.categoryId +
-                                  "?page=" +
-                                  page,
-                                page
+                                "/api/admin/bs/city/" +
+                                  _vm.selectedCityId +
+                                  "/districts?page=" +
+                                  page
                               )
                             }
                           }
@@ -16614,18 +16542,15 @@ var render = function() {
                         name: "show",
                         rawName: "v-show",
                         value:
-                          _vm.currentPage <
-                          this.courseCount / this.paginateCourse,
+                          _vm.courseCard.current_page <
+                          _vm.courseCard.last_page,
                         expression:
-                          "currentPage<(this.courseCount/this.paginateCourse)"
+                          "courseCard.current_page<courseCard.last_page"
                       }
                     ],
                     on: {
                       click: function($event) {
-                        return _vm.loadNewPage(
-                          _vm.categoryCourses.links.next,
-                          ++_vm.currentPage
-                        )
+                        return _vm.loadNewPage(_vm.courseCard.next_page_url)
                       }
                     }
                   },
@@ -41897,7 +41822,6 @@ var mutations = {
     state.adminSubCategory = subCategory.data;
   },
   setCrLessons: function setCrLessons(state, lessons) {
-    console.log(lessons);
     state.crLessons = lessons.data;
   }
 };
