@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\Curriculum\LessonRepository;
 use App\Repositories\GeneralEducation\CategoryRepository;
 use App\Repositories\GeneralEducation\CourseRepository;
+use App\Repositories\PrepareLessons\CurriculumRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Pbmedia\LaravelFFMpeg\FFMpegFacade as FFMpeg;

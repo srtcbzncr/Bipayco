@@ -5,6 +5,7 @@ namespace App\Repositories\Curriculum;
 use App\Models\Curriculum\Lesson;
 use App\Models\Curriculum\Subject;
 use App\Repositories\IRepository;
+use App\Repositories\PrepareLessons\CurriculumRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -21,6 +22,13 @@ class LessonRepository implements IRepository{
         // Operations
         try{
             $object = Lesson::all();
+            $repoCourse = new CurriculumRepository();
+            foreach ($object as $key => $item){
+                $resp = $repoCourse->showLessonCourses($item->id);
+                $data = $resp->getData();
+                $object[$key]['courseCount'] = count($data);
+            }
+
         }
         catch(\Exception $e){
             $error = $e;
