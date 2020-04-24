@@ -10275,6 +10275,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -24496,6 +24505,15 @@ var render = function() {
                                               ? _c(
                                                   "ul",
                                                   [
+                                                    _vm._v(
+                                                      "\n                                                    " +
+                                                        _vm._s(
+                                                          _vm.selectedLesson
+                                                            .section_id ==
+                                                            section.id
+                                                        ) +
+                                                        "\n                                                    "
+                                                    ),
                                                     _vm.moduleName ==
                                                     "prepareLessons"
                                                       ? _c(
@@ -24511,7 +24529,66 @@ var render = function() {
                                                                 section.id
                                                             }
                                                           },
-                                                          [_vm._m(0, true)]
+                                                          [
+                                                            _vm.isTest &&
+                                                            _vm.testType ==
+                                                              "0" &&
+                                                            _vm.selectedLesson
+                                                              .section_id ==
+                                                              section.id
+                                                              ? _c(
+                                                                  "li",
+                                                                  {
+                                                                    staticClass:
+                                                                      "uk-background-primary currentLesson align-items-center"
+                                                                  },
+                                                                  [
+                                                                    _vm._m(
+                                                                      0,
+                                                                      true
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "div",
+                                                                      {
+                                                                        staticClass:
+                                                                          "uk-panel uk-panel-box uk-text-truncate uk-margin-large-right"
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          "Ön Test"
+                                                                        )
+                                                                      ]
+                                                                    )
+                                                                  ]
+                                                                )
+                                                              : _c(
+                                                                  "li",
+                                                                  {
+                                                                    staticClass:
+                                                                      "uk-background-default align-items-center"
+                                                                  },
+                                                                  [
+                                                                    _vm._m(
+                                                                      1,
+                                                                      true
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "div",
+                                                                      {
+                                                                        staticClass:
+                                                                          "uk-panel uk-panel-box uk-text-truncate uk-margin-large-right"
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          "Ön Test"
+                                                                        )
+                                                                      ]
+                                                                    )
+                                                                  ]
+                                                                )
+                                                          ]
                                                         )
                                                       : _vm._e(),
                                                     _vm._v(" "),
@@ -24630,7 +24707,7 @@ var render = function() {
                                                                   },
                                                                   [
                                                                     _vm._m(
-                                                                      1,
+                                                                      2,
                                                                       true
                                                                     ),
                                                                     _vm._v(" "),
@@ -24773,7 +24850,66 @@ var render = function() {
                                                                 section.id
                                                             }
                                                           },
-                                                          [_vm._m(2, true)]
+                                                          [
+                                                            _vm.isTest &&
+                                                            _vm.testType ==
+                                                              "1" &&
+                                                            _vm.selectedLesson
+                                                              .section_id ==
+                                                              section.id
+                                                              ? _c(
+                                                                  "li",
+                                                                  {
+                                                                    staticClass:
+                                                                      "uk-background-default currentLesson align-items-center"
+                                                                  },
+                                                                  [
+                                                                    _vm._m(
+                                                                      3,
+                                                                      true
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "div",
+                                                                      {
+                                                                        staticClass:
+                                                                          "uk-panel uk-panel-box uk-text-truncate uk-margin-large-right"
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          "Son Test"
+                                                                        )
+                                                                      ]
+                                                                    )
+                                                                  ]
+                                                                )
+                                                              : _c(
+                                                                  "li",
+                                                                  {
+                                                                    staticClass:
+                                                                      "uk-background-default align-items-center"
+                                                                  },
+                                                                  [
+                                                                    _vm._m(
+                                                                      4,
+                                                                      true
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "div",
+                                                                      {
+                                                                        staticClass:
+                                                                          "uk-panel uk-panel-box uk-text-truncate uk-margin-large-right"
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          "Son Test"
+                                                                        )
+                                                                      ]
+                                                                    )
+                                                                  ]
+                                                                )
+                                                          ]
                                                         )
                                                       : _vm._e()
                                                   ],
@@ -24790,7 +24926,7 @@ var render = function() {
                                                             staticClass:
                                                               "uk-link-reset"
                                                           },
-                                                          [_vm._m(3, true)]
+                                                          [_vm._m(5, true)]
                                                         )
                                                       : _vm._e(),
                                                     _vm._v(" "),
@@ -24900,7 +25036,7 @@ var render = function() {
                                                             staticClass:
                                                               "uk-link-reset"
                                                           },
-                                                          [_vm._m(4, true)]
+                                                          [_vm._m(6, true)]
                                                         )
                                                       : _vm._e()
                                                   ],
@@ -24994,25 +25130,20 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "li",
-      { staticClass: "uk-background-default align-items-center" },
-      [
-        _c("span", { staticClass: "uk-icon-button icon-play" }, [
-          _c("i", {
-            staticClass: "fas fa-file-alt icon-small uk-margin-remove"
-          })
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "uk-panel uk-panel-box uk-text-truncate uk-margin-large-right"
-          },
-          [_vm._v("Ön Test")]
-        )
-      ]
+      "span",
+      {
+        staticClass: "uk-icon-button currentLesson icon-play uk-button-primary"
+      },
+      [_c("i", { staticClass: "fas fa-file-alt icon-small uk-margin-remove" })]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "uk-icon-button icon-play" }, [
+      _c("i", { staticClass: "fas fa-file-alt icon-small uk-margin-remove" })
+    ])
   },
   function() {
     var _vm = this
@@ -25036,25 +25167,20 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c(
-      "li",
-      { staticClass: "uk-background-default align-items-center" },
-      [
-        _c("span", { staticClass: "uk-icon-button icon-play   " }, [
-          _c("i", {
-            staticClass: "fas fa-file-alt icon-small uk-margin-remove"
-          })
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          {
-            staticClass:
-              "uk-panel uk-panel-box uk-text-truncate uk-margin-large-right"
-          },
-          [_vm._v("Son Test")]
-        )
-      ]
+      "span",
+      {
+        staticClass: "uk-icon-button icon-play uk-button-primary currentLesson "
+      },
+      [_c("i", { staticClass: "fas fa-file-alt icon-small uk-margin-remove" })]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "uk-icon-button icon-play" }, [
+      _c("i", { staticClass: "fas fa-file-alt icon-small uk-margin-remove" })
+    ])
   },
   function() {
     var _vm = this
@@ -25089,7 +25215,7 @@ var staticRenderFns = [
       "li",
       { staticClass: "uk-background-default align-items-center" },
       [
-        _c("span", { staticClass: "uk-icon-button icon-play   " }, [
+        _c("span", { staticClass: "uk-icon-button icon-play" }, [
           _c("i", {
             staticClass: "fas fa-file-alt icon-small uk-margin-remove"
           })
