@@ -186,29 +186,47 @@
 
                             </ul>
                         </div>
-                        <div class="uk-width-expand@m uk-width-1-2@s">
+                        <div class="uk-width-expand@m uk-width-1-3@s">
                             <ul class="uk-list tm-footer-list">
+                                <li>
+                                    <h5>Bölümler</h5>
+                                </li>
                                 <li>
                                     <a href="{{route('ge_index')}}">Genel Eğitim Modülü </a>
                                 </li>
                                 <li>
-                                    <a> Derslere Hazırlık Modülü </a>
+                                    <a href="{{route('pl_index')}}"> Derslere Hazırlık Modülü </a>
                                 </li>
                                 <li>
                                     <a href="#">Sınavlara Hazırlık Modülü  </a>
                                 </li>
-                            </ul>
-                        </div>
-                        <div class="uk-width-expand@m uk-width-1-2@s">
-                            <ul class="uk-list  tm-footer-list">
                                 <li>
                                     <a href="#"> Soru Bankaları </a>
                                 </li>
                                 <li>
                                     <a href="#"> Deneme Sınavları </a>
                                 </li>
+                            </ul>
+                        </div>
+                        <div class="uk-width-expand@m uk-width-1-3@s">
+                            <ul class="uk-list  tm-footer-list">
                                 <li>
-                                    <a href="#"> İletişim </a>
+                                    <h5>Hakkımızda </h5>
+                                </li>
+                                <li>
+                                    <a href="{{asset('/contracts/whoWeAre.pdf')}}"> Biz Kimiz? </a>
+                                </li>
+                                <li>
+                                    <a href="{{asset('/contracts/preInformationForm.pdf')}}"> Ön Bilgilendirme Formu </a>
+                                </li>
+                                <li>
+                                    <a href="{{asset('/contracts/subscription.pdf')}}"> Abonelik Sözleşmesi </a>
+                                </li>
+                                <li>
+                                    <a href="{{asset('/contracts/salesContract.pdf')}}"> Satış Sözleşmesi </a>
+                                </li>
+                                <li>
+                                    <a href="{{asset('/contracts/cookiesPolicy.pdf')}}"> Çerez Politikamız </a>
                                 </li>
                             </ul>
                         </div>
