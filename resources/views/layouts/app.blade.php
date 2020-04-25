@@ -214,19 +214,19 @@
                                     <h5>Hakkımızda </h5>
                                 </li>
                                 <li>
-                                    <a href="{{asset('/contracts/whoWeAre.pdf')}}"> Biz Kimiz? </a>
+                                    <a href="{{asset('/contracts/whoWeAre.pdf')}}" target="_blank"> Biz Kimiz? </a>
                                 </li>
                                 <li>
-                                    <a href="{{asset('/contracts/preInformationForm.pdf')}}"> Ön Bilgilendirme Formu </a>
+                                    <a href="{{asset('/contracts/preInformationForm.pdf')}}" target="_blank"> Ön Bilgilendirme Formu </a>
                                 </li>
                                 <li>
-                                    <a href="{{asset('/contracts/subscription.pdf')}}"> Abonelik Sözleşmesi </a>
+                                    <a href="{{asset('/contracts/subscription.pdf')}}" target="_blank"> Abonelik Sözleşmesi </a>
                                 </li>
                                 <li>
-                                    <a href="{{asset('/contracts/salesContract.pdf')}}"> Satış Sözleşmesi </a>
+                                    <a href="{{asset('/contracts/salesContract.pdf')}}" target="_blank"> Satış Sözleşmesi </a>
                                 </li>
                                 <li>
-                                    <a href="{{asset('/contracts/cookiesPolicy.pdf')}}"> Çerez Politikamız </a>
+                                    <a href="{{asset('/contracts/cookiesPolicy.pdf')}}" target="_blank"> Çerez Politikamız </a>
                                 </li>
                             </ul>
                         </div>
