@@ -114,20 +114,48 @@ class LearnRepository implements IRepository
                         ->where('sectionType','App\Models\PrepareLessons\Section')
                         ->where('studentId',$student->id)->get();
                     if($ctrlStatus != null and count($ctrlStatus)>0){
-                        foreach ($ctrlStatus as $status){
-                            if($status->testType == 0 and $status->result == true){
-                                $object['sections'][$keySection]['firstTestComplete'] = true;
-                            }
-                            else if($status->testType == 0 and $status->result == false){
-                                $object['sections'][$keySection]['firstTestComplete'] = false;
-                            }
-                            else if($status->testType == 1 and $status->result == true){
-                                $object['sections'][$keySection]['lastTestComplete'] = true;
-                            }
-                            else if($status->testType == 1 and $status->result == false){
-                                $object['sections'][$keySection]['lastTestComplete'] = false;
+                        if(count($ctrlStatus) == 1){
+                            foreach ($ctrlStatus as $status){
+                                if($status->testType == 0){
+                                    if($status->result == true){
+                                        $object['sections'][$keySection]['firstTestComplete'] = true;
+                                    }
+                                    else{
+                                        $object['sections'][$keySection]['firstTestComplete'] = false;
+                                    }
+                                    $object['sections'][$keySection]['lastTestComplete'] = false;
+                                }
+                                else{
+                                    if($status->result == true){
+                                        $object['sections'][$keySection]['lastTestComplete'] = true;
+                                    }
+                                    else{
+                                        $object['sections'][$keySection]['lastTestComplete'] = false;
+                                    }
+                                    $object['sections'][$keySection]['firstTestComplete'] = false;
+                                }
                             }
                         }
+                        else{
+                            foreach ($ctrlStatus as $status){
+                                if($status->testType == 0 and $status->result == true){
+                                    $object['sections'][$keySection]['firstTestComplete'] = true;
+                                }
+                                else if($status->testType == 0 and $status->result == false){
+                                    $object['sections'][$keySection]['firstTestComplete'] = false;
+                                }
+                                else if($status->testType == 1 and $status->result == true){
+                                    $object['sections'][$keySection]['lastTestComplete'] = true;
+                                }
+                                else if($status->testType == 1 and $status->result == false){
+                                    $object['sections'][$keySection]['lastTestComplete'] = false;
+                                }
+                            }
+                        }
+                    }
+                    else{
+                        $object['sections'][$keySection]['firstTestComplete'] = false;
+                        $object['sections'][$keySection]['lastTestComplete'] = false;
                     }
                 }
             }
