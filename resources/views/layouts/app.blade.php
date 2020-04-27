@@ -116,24 +116,7 @@
                                 <div class="uk-text-left uk-height-medium">
                                     <div data-simplebar style="overflow-y:auto">
                                         <div class="uk-padding-small"  uk-scrollspy="target: > div; cls:uk-animation-slide-bottom-small; delay: 100">
-                                            <notification-card> </notification-card>
-                                            <hr class="uk-margin-remove">
-                                            <notification-card> </notification-card>
-                                            <hr class="uk-margin-remove">
-                                            <notification-card> </notification-card>
-                                            <hr class="uk-margin-remove">
-                                            <notification-card> </notification-card>
-                                            <hr class="uk-margin-remove">
-                                            <notification-card> </notification-card>
-                                            <hr class="uk-margin-remove">
-                                            <notification-card> </notification-card>
-                                            <hr class="uk-margin-remove">
-                                            <notification-card> </notification-card>
-                                            <hr class="uk-margin-remove">
-                                            <notification-card> </notification-card>
-                                            <hr class="uk-margin-remove">
-                                            <notification-card> </notification-card>
-                                            <hr class="uk-margin-remove">
+
                                         </div>
                                     </div>
                                 </div>

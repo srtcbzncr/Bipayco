@@ -42,26 +42,30 @@
             </li>
         @endif
     </ul>
-    <course-card-pagination
-        newest="@lang('front/auth.newest')"
-        by-inc="@lang('front/auth.by_inc')"
-        by-desc="@lang('front/auth.by_dec')"
-        by-purchases="@lang('front/auth.by_purchases')"
-        sort="@lang('front/auth.sort_by')"
-        oldest="@lang('front/auth.oldest')"
-        by-trending="@lang('front/auth.by_trending')"
-        by-point="@lang('front/auth.by_point')"
-        category-name="{{$name}}"
-        :course-count = "{{$courseCount}}"
-        id="{{$id}}"
-        :paginate-course = "9"
-        name="Lessons"
-        has-no-content="@lang('front/auth.not_found_content')"
-        module-name="prepareLessons"
-        module="pl"
-        @if(Auth::check())
-            is-login
-            user-id="{{Auth::user()->id}}"
-        @endif
-    ></course-card-pagination>
+    <ul class="uk-switcher uk-margin-medium-top" id="lessons">
+        <li>
+            <course-card-pagination
+                newest="@lang('front/auth.newest')"
+                by-inc="@lang('front/auth.by_inc')"
+                by-desc="@lang('front/auth.by_dec')"
+                by-purchases="@lang('front/auth.by_purchases')"
+                sort="@lang('front/auth.sort_by')"
+                oldest="@lang('front/auth.oldest')"
+                by-trending="@lang('front/auth.by_trending')"
+                by-point="@lang('front/auth.by_point')"
+                category-name="{{$name}}"
+                :course-count = "{{$courseCount}}"
+                id="{{$id}}"
+                :paginate-course = "9"
+                name="Lessons"
+                has-no-content="@lang('front/auth.not_found_content')"
+                module-name="prepareLessons"
+                module="pl"
+                @if(Auth::check())
+                is-login
+                user-id="{{Auth::user()->id}}"
+                @endif
+            ></course-card-pagination>
+        </li>
+    </ul>
 @endsection
