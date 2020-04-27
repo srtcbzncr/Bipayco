@@ -7,7 +7,7 @@
                     <p>{{categoryDesc}}</p>
                 </div>
                 <div class="uk-float-right uk-margin-small-top">
-                    <select class="uk-select uk-width uk-overflow-auto" id="sortBy" @change="loadCourseList">
+                    <select class="uk-select uk-width uk-overflow-auto" v-model="sortBy" id="sortBy" @change="loadCourseList">
                         <option selected disabled :value="'getBy'+name+'FilterByTrending'">{{sort}} </option>
                         <option :value="'getBy'+name+'FilterByTrending'">{{byTrending}} </option>
                         <option :value="'getBy'+name+'FilterByPurchases'">{{byPurchases}} </option>
@@ -39,8 +39,8 @@
                 </li>
                 <li v-for="page in pageNumber">
                     <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
-                    <button v-else-if="page==courseCard.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/admin/bs/city/'+selectedCityId+'/districts?page='+page)">{{page}}</button>
-                    <button v-else @click="loadNewPage('/api/admin/bs/city/'+selectedCityId+'/districts?page='+page)">{{page}}</button>
+                    <button v-else-if="page==courseCard.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/course/'+sortBy+'/'+id+'/'+userId+'?page='+page)">{{page}}</button>
+                    <button v-else @click="loadNewPage('/api/course/'+sortBy+'/'+id+'/'+userId+'?page='+page)">{{page}}</button>
                 </li>
                 <li>
                     <button v-show="courseCard.current_page<courseCard.last_page" @click="loadNewPage(courseCard.next_page_url)"> > </button>
@@ -69,6 +69,7 @@
         data(){
             return {
                 currentPage:1,
+                sortBy:'getBy'+this.name+'FilterByTrending'
             }
         },
         props:{

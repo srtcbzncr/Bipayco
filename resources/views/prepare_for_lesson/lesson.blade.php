@@ -15,7 +15,7 @@
             </div>
         </div>
     </div>
-    <ul uk-switcher="connect: #courses" class="uk-flex-center uk-margin-medium-top uk-subnav uk-subnav-pill uk-margin-remove-bottom">
+    <ul uk-switcher="connect: #lessons" class="uk-flex-center uk-margin-medium-top uk-subnav uk-subnav-pill uk-margin-remove-bottom">
         @if(count($grades)< 7)
             @foreach($grades as $grade)
                 <li><a href="#">{{$grade->name}}</a></li>
@@ -29,7 +29,7 @@
             <li>
                 <a href="#">@lang('front/auth.more') <span class="fas fa-angle-down uk-margin-small-left icon-small"></span></a>
                 <div uk-dropdown="mode: click">
-                    <ul class="uk-nav uk-dropdown-nav" uk-switcher="connect: #courses">
+                    <ul class="uk-nav uk-dropdown-nav" uk-switcher="connect: #lessons">
                         @foreach($grades as $grade)
                             @if($loop->index >= 5)
                                 <li><a href="#">{{$grade->name}}</a></li>
@@ -66,6 +66,9 @@
                 user-id="{{Auth::user()->id}}"
                 @endif
             ></course-card-pagination>
+        </li>
+        <li>
+            a
         </li>
     </ul>
 @endsection

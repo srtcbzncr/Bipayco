@@ -4843,7 +4843,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      currentPage: 1
+      currentPage: 1,
+      sortBy: 'getBy' + this.name + 'FilterByTrending'
     };
   },
   props: {
@@ -10305,7 +10306,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 
@@ -10617,7 +10617,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nli[data-v-0c09ca36]{\r\n    list-style-type: none;\n}\r\n", ""]);
+exports.push([module.i, "\nli[data-v-0c09ca36]{\n    list-style-type: none;\n}\n", ""]);
 
 // exports
 
@@ -16360,9 +16360,34 @@ var render = function() {
                 _c(
                   "select",
                   {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.sortBy,
+                        expression: "sortBy"
+                      }
+                    ],
                     staticClass: "uk-select uk-width uk-overflow-auto",
                     attrs: { id: "sortBy" },
-                    on: { change: _vm.loadCourseList }
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function(o) {
+                              return o.selected
+                            })
+                            .map(function(o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.sortBy = $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        },
+                        _vm.loadCourseList
+                      ]
+                    }
                   },
                   [
                     _c(
@@ -16525,9 +16550,13 @@ var render = function() {
                           on: {
                             click: function($event) {
                               return _vm.loadNewPage(
-                                "/api/admin/bs/city/" +
-                                  _vm.selectedCityId +
-                                  "/districts?page=" +
+                                "/api/course/" +
+                                  _vm.sortBy +
+                                  "/" +
+                                  _vm.id +
+                                  "/" +
+                                  _vm.userId +
+                                  "?page=" +
                                   page
                               )
                             }
@@ -16541,9 +16570,13 @@ var render = function() {
                           on: {
                             click: function($event) {
                               return _vm.loadNewPage(
-                                "/api/admin/bs/city/" +
-                                  _vm.selectedCityId +
-                                  "/districts?page=" +
+                                "/api/course/" +
+                                  _vm.sortBy +
+                                  "/" +
+                                  _vm.id +
+                                  "/" +
+                                  _vm.userId +
+                                  "?page=" +
                                   page
                               )
                             }
@@ -24989,39 +25022,7 @@ var render = function() {
                                                                   "uk-background-default"
                                                               },
                                                               [
-                                                                lesson.is_video
-                                                                  ? _c(
-                                                                      "span",
-                                                                      {
-                                                                        staticClass:
-                                                                          "uk-icon-button icon-play"
-                                                                      },
-                                                                      [
-                                                                        _c(
-                                                                          "i",
-                                                                          {
-                                                                            staticClass:
-                                                                              "fas fa-play icon-small"
-                                                                          }
-                                                                        )
-                                                                      ]
-                                                                    )
-                                                                  : _c(
-                                                                      "span",
-                                                                      {
-                                                                        staticClass:
-                                                                          "uk-icon-button icon-play"
-                                                                      },
-                                                                      [
-                                                                        _c(
-                                                                          "i",
-                                                                          {
-                                                                            staticClass:
-                                                                              "fas fa-file-alt icon-small uk-margin-remove"
-                                                                          }
-                                                                        )
-                                                                      ]
-                                                                    ),
+                                                                _vm._m(6, true),
                                                                 _vm._v(" "),
                                                                 _c(
                                                                   "div",
@@ -25075,7 +25076,7 @@ var render = function() {
                                                             staticClass:
                                                               "uk-link-reset"
                                                           },
-                                                          [_vm._m(6, true)]
+                                                          [_vm._m(7, true)]
                                                         )
                                                       : _vm._e()
                                                   ],
@@ -25230,7 +25231,7 @@ var staticRenderFns = [
       { staticClass: "uk-background-default align-items-center" },
       [
         _c("span", { staticClass: "uk-icon-button icon-play" }, [
-          _c("i", { staticClass: "fas fa-star icon-small uk-margin-remove" })
+          _c("i", { staticClass: "fas fa-lock icon-small uk-margin-remove" })
         ]),
         _vm._v(" "),
         _c(
@@ -25248,12 +25249,20 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "uk-icon-button icon-play" }, [
+      _c("i", { staticClass: "fas fa-lock icon-small uk-margin-remove" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c(
       "li",
       { staticClass: "uk-background-default align-items-center" },
       [
         _c("span", { staticClass: "uk-icon-button icon-play" }, [
-          _c("i", { staticClass: "fas fa-star icon-small uk-margin-remove" })
+          _c("i", { staticClass: "fas fa-lock icon-small uk-margin-remove" })
         ]),
         _vm._v(" "),
         _c(
@@ -42143,8 +42152,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\Bipayco\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\bedri\Documents\GitHub\Bipayco\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\bedri\Documents\GitHub\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
