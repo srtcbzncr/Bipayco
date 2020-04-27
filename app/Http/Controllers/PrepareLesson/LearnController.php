@@ -31,7 +31,6 @@ class LearnController extends Controller
         // Operations
         $resp = $repo->getCourse($id,$user_id);
         $data = $resp->getData();
-dd($data);
         return view('prepare_for_lesson.watch')->with('course',$data)->with('isTest',false);
     }
 
