@@ -18535,7 +18535,7 @@ var render = function() {
                             "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
                           style: {
                             "background-image":
-                              "url(" + _vm.correctAnswerImage + ")"
+                              "url(" + _vm.correctAnswerImageUrl + ")"
                           },
                           attrs: { id: "singleCorrectAnswerImgPreview" }
                         })

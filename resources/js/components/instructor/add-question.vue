@@ -57,7 +57,7 @@
                     <div class="uk-margin">
                         <div class="uk-form-label"> {{correctAnswerText}} </div>
                         <div>
-                            <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" id="singleCorrectAnswerImgPreview" :style="{'background-image': 'url('+ correctAnswerImage+')'}"></div>
+                            <div class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" id="singleCorrectAnswerImgPreview" :style="{'background-image': 'url('+ correctAnswerImageUrl +')'}"></div>
                         </div>
                         <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
                             <input name="image" type="file" accept="image/*" id="singleCorrectAnswerImg" @change="previewImage('singleCorrectAnswerImg', 'singleCorrectAnswerImgPreview')" >
