@@ -45,7 +45,7 @@
                     > </course-card>
                 </div>
             </div>
-            <div v-if="courseCard.data.length<=0" class="uk-flex uk-flex-center align-items-center justify-content-center ">
+            <div v-if="courseCard.data.length<=0" class="uk-flex uk-flex-center align-items-center justify-content-center">
                 <h2>{{hasNoContent}}</h2>
             </div>
             <ul class="uk-pagination uk-flex-center uk-margin-medium">

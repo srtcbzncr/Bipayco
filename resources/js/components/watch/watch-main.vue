@@ -230,6 +230,8 @@
                     case 'prepareLessons':{
                         if(lessonId=='lastTest'){
                             window.location.replace('/learn/pl/test/lastTest/'+this.courseId+'/'+this.selectedLesson.section_id);
+                        }else if(lessonId=='firstTest'){
+                            window.location.replace('/learn/pl/test/firstTest/'+this.courseId+'/'+this.selectedLesson.section_id);
                         }else{
                             window.location.replace('/learn/pl/course/'+this.courseId+'/lesson/'+lessonId);
                         }
@@ -249,10 +251,18 @@
                             break;
                         }
                         case 'prepareLessons':{
-                            if(this.course.nextLessonId=='lastTest'){
-                                setTimeout(()=>{window.location.replace('/learn/pl/test/lastTest/'+this.courseId+'/'+this.selectedLesson.section_id)},3000);
-                            }else{
-                                setTimeout(()=>{window.location.replace('/learn/pl/course/'+this.courseId+'/lesson/'+this.course.nextLessonId);},3000);
+                            if(this.course.nextLessonId=='lastTest') {
+                                setTimeout(() => {
+                                    window.location.replace('/learn/pl/test/lastTest/' + this.courseId + '/' + this.selectedLesson.section_id)
+                                }, 3000);
+                            }else if(this.course.nextLessonId=='firstTest'){
+                                setTimeout(() => {
+                                    window.location.replace('/learn/pl/test/firstTest/' + this.courseId + '/' + this.selectedLesson.section_id)
+                                }, 3000);
+                            }else {
+                                setTimeout(() => {
+                                    window.location.replace('/learn/pl/course/' + this.courseId + '/lesson/' + this.course.nextLessonId);
+                                }, 3000);
                             }
                             break;
                         }

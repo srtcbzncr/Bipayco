@@ -10613,6 +10613,8 @@ __webpack_require__.r(__webpack_exports__);
           {
             if (lessonId == 'lastTest') {
               window.location.replace('/learn/pl/test/lastTest/' + this.courseId + '/' + this.selectedLesson.section_id);
+            } else if (lessonId == 'firstTest') {
+              window.location.replace('/learn/pl/test/firstTest/' + this.courseId + '/' + this.selectedLesson.section_id);
             } else {
               window.location.replace('/learn/pl/course/' + this.courseId + '/lesson/' + lessonId);
             }
@@ -10644,6 +10646,10 @@ __webpack_require__.r(__webpack_exports__);
               if (this.course.nextLessonId == 'lastTest') {
                 setTimeout(function () {
                   window.location.replace('/learn/pl/test/lastTest/' + _this.courseId + '/' + _this.selectedLesson.section_id);
+                }, 3000);
+              } else if (this.course.nextLessonId == 'firstTest') {
+                setTimeout(function () {
+                  window.location.replace('/learn/pl/test/firstTest/' + _this.courseId + '/' + _this.selectedLesson.section_id);
                 }, 3000);
               } else {
                 setTimeout(function () {
@@ -10824,7 +10830,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nli[data-v-0c09ca36]{\r\n    list-style-type: none;\n}\r\n", ""]);
+exports.push([module.i, "\nli[data-v-0c09ca36]{\n    list-style-type: none;\n}\n", ""]);
 
 // exports
 
@@ -17495,7 +17501,7 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "uk-flex uk-flex-center align-items-center justify-content-center "
+                    "uk-flex uk-flex-center align-items-center justify-content-center"
                 },
                 [_c("h2", [_vm._v(_vm._s(_vm.hasNoContent))])]
               )
@@ -42804,8 +42810,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\Bipayco\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\bedri\Documents\GitHub\Bipayco\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\bedri\Documents\GitHub\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
