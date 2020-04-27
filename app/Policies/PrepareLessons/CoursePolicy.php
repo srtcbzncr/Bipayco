@@ -102,7 +102,7 @@ class CoursePolicy
             return true;
         }
         else{
-            return true;
+            return false;
         }
     }
 }
