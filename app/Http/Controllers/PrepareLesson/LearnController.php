@@ -32,9 +32,9 @@ class LearnController extends Controller
         $resp = $repo->getCourse($id,$user_id);
         $data = $resp->getData();
 
-      /*  if($data['selectedLesson'] == "firstTest"){
+        if($data['selectedLesson'] == "firstTest"){
             return redirect()->route('learn_pl_get_first_test',['courseId' => $id, 'sectionId' => $data['selectedSection']->id]);
-        }*/
+        }
         return view('prepare_for_lesson.watch')->with('course',$data)->with('isTest',false);
     }
 
