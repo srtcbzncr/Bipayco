@@ -1175,7 +1175,8 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $course = Course::find($id);
-            $courses = Course::where('lesson_id',$course->lesson_id)->where('grade_id',$course->grade_id)->get();
+            $courses = Course::where('lesson_id',$course->lesson_id)->where('grade_id',$course->grade_id)
+                ->where('active',true)->get();
             if(count($courses)>2){
                 $object = $courses->random(2);
             }

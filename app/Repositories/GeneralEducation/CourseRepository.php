@@ -111,13 +111,12 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $user = Auth::user();
-            $student = Student::where('user_id',$user->id)->first();
             if($user == null){
                 $object = Course::find($id);
             }
             else{
+                $student = Student::where('user_id',$user->id)->first();
                 $object = Course::find($id);
-                $course = Course::find($id);
                 $controlBasket = Basket::where('user_id',$user->id)->where('course_id',$id)->where('course_type','App\Models\GeneralEducation\Course')->get();
                 if($controlBasket != null and count($controlBasket) > 0){
                     $object['inBasket'] = true;
@@ -134,7 +133,7 @@ class CourseRepository implements IRepository{
                 }
 
                 // proggress verisi gönder.
-                $sections = $course->sections;
+                $sections = $object->sections;
                 $counter = 0;
                 $totalLesson = 0;
                 foreach ($sections as $section){
@@ -1708,7 +1707,8 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $course = Course::find($id);
-            $courses = Course::where('category_id',$course->category_id)->where('sub_category_id',$course->sub_category_id)->get();
+            $courses = Course::where('category_id',$course->category_id)->where('sub_category_id',$course->sub_category_id)
+                ->where('active',true)->get();
             if(count($courses)>2){
                 $object = $courses->random(2);
             }
@@ -2023,7 +2023,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function calculateProgress($course_id, $student_id){
+    public function calculateProgress($course_id, $user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -2031,10 +2031,11 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
+            $student = Student::where('user_id', $user_id)->first();
             $lessonsArray = array();
             $course = Course::find($course_id);
             $sections = $course->sections;
-            $student = Student::find($student_id);
+            $student = Student::find($student->id);
             $completedArray = array();
             foreach ($sections as $section){
                 $lessons = $section->lessons;

@@ -21,18 +21,24 @@ class AuthController extends Controller
         $user = User::find($id);
         $studentRepo = new StudentRepository;
         $geCourseRepo = new CourseRepository;
+        $plCourseRepo = new \App\Repositories\PrepareLessons\CourseRepository();
 
         // Operations
         $courses = $studentRepo->courses($user->student->id);
         if ($courses->getResult()){
             $geCourses = $courses->getData()['ge'];
+            $plCourses = $courses->getData()['pl'];
             $geCoursesResp = array();
+            $plCoursesResp = array();
             foreach($geCourses as $course){
                 array_push($geCoursesResp, ['course' => $course, 'progress' => $geCourseRepo->calculateProgress($course->id, $user->student->id)->getData()]);
             }
+            foreach($plCourses as $course){
+                array_push($plCoursesResp, ['course' => $course, 'progress' => $plCourseRepo->calculateProgress($course->id, $user->student->id)->getData()]);
+            }
             return response()->json(['error' => false, 'courses' => [
                 'ge' => $geCoursesResp,
-                'pl' => array(),
+                'pl' => $plCoursesResp,
                 'pe' => array(),
                 'books' => array(),
                 'exams' => array(),
