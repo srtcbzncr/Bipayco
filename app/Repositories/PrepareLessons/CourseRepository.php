@@ -1185,7 +1185,6 @@ class CourseRepository implements IRepository{
             else{
                 $object = array();
             }
-
             // lesson ve grade bilgilerini getir.
             if(count($object)>0){
                 foreach ($object as $key => $item){
