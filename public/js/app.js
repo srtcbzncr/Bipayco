@@ -15243,7 +15243,9 @@ var render = function() {
                                 }),
                                 _vm._v(" "),
                                 _c("img", {
-                                  attrs: { alt: "", src: myCourse.course.image }
+                                  staticClass:
+                                    "uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                  attrs: { src: myCourse.course.image }
                                 }),
                                 _vm._v(" "),
                                 _c(
@@ -15365,7 +15367,9 @@ var render = function() {
                                 }),
                                 _vm._v(" "),
                                 _c("img", {
-                                  attrs: { alt: "", src: myCourse.course.image }
+                                  staticClass:
+                                    "uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                  attrs: { src: myCourse.course.image }
                                 }),
                                 _vm._v(" "),
                                 _c(
@@ -15487,7 +15491,9 @@ var render = function() {
                                 }),
                                 _vm._v(" "),
                                 _c("img", {
-                                  attrs: { alt: "", src: myCourse.course.image }
+                                  staticClass:
+                                    "uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                  attrs: { src: myCourse.course.image }
                                 }),
                                 _vm._v(" "),
                                 _c(
@@ -15609,7 +15615,9 @@ var render = function() {
                                 }),
                                 _vm._v(" "),
                                 _c("img", {
-                                  attrs: { alt: "", src: myCourse.course.image }
+                                  staticClass:
+                                    "uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                  attrs: { src: myCourse.course.image }
                                 }),
                                 _vm._v(" "),
                                 _c(
@@ -15731,7 +15739,9 @@ var render = function() {
                                 }),
                                 _vm._v(" "),
                                 _c("img", {
-                                  attrs: { alt: "", src: myCourse.course.image }
+                                  staticClass:
+                                    "uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                  attrs: { src: myCourse.course.image }
                                 }),
                                 _vm._v(" "),
                                 _c(
@@ -15853,7 +15863,9 @@ var render = function() {
                                 }),
                                 _vm._v(" "),
                                 _c("img", {
-                                  attrs: { alt: "", src: myCourse.course.image }
+                                  staticClass:
+                                    "uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                  attrs: { src: myCourse.course.image }
                                 }),
                                 _vm._v(" "),
                                 _c(
