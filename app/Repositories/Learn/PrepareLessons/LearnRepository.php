@@ -107,6 +107,29 @@ class LearnRepository implements IRepository
                         $object['sections'][$key]['lessons'][$keyLesson]['is_completed'] = true;
                     }
                 }
+
+                // sectionların ön ve son testlerinin tamamlanıp tamamlanmadığını ver
+                foreach ($object['sections'] as $keySection => $section){
+                    $ctrlStatus = FirstLastTestStatus::where('sectionId',$section->id)
+                        ->where('sectionType','App\Models\PrepareLessons\Section')
+                        ->where('studentId',$student->id)->get();
+                    if($ctrlStatus != null and count($ctrlStatus)>0){
+                        foreach ($ctrlStatus as $status){
+                            if($status->testType == 0 and $status->result == true){
+                                $object['sections'][$keySection]['firstTestComplete'] = true;
+                            }
+                            else if($status->testType == 0 and $status->result == false){
+                                $object['sections'][$keySection]['firstTestComplete'] = false;
+                            }
+                            else if($status->testType == 1 and $status->result == true){
+                                $object['sections'][$keySection]['lastTestComplete'] = true;
+                            }
+                            else if($status->testType == 1 and $status->result == false){
+                                $object['sections'][$keySection]['lastTestComplete'] = false;
+                            }
+                        }
+                    }
+                }
             }
 
             // tamamlanmamış ilk dersi al.Bir sonraki dersi getir.
