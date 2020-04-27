@@ -5,6 +5,7 @@ namespace App\Repositories\PrepareLessons;
 use App\Models\Auth\Instructor;
 use App\Models\Auth\Student;
 use App\Models\Auth\User;
+use App\Models\Curriculum\Grade;
 use App\Models\Curriculum\Subject;
 use App\Models\GeneralEducation\Achievement;
 use App\Models\GeneralEducation\Comment;
@@ -260,6 +261,14 @@ class CourseRepository implements IRepository{
                 ->orderBy('point', 'desc')
                 ->take(12)
                 ->get();
+
+            // object ve lesson bilgisini ekle
+            foreach ($object as $key => $item){
+                $grade = Grade::find($item->grade_id);
+                $lesson = \App\Models\Curriculum\Lesson::find($item->lesson_id);
+                $object[$key]['grade'] = $grade;
+                $object[$key]['lesson'] = $lesson;
+            }
 
             if($user_id != null){
                 // bu kursların favori veya sepete eklenip eklenmediği bilgisini getir.
@@ -1175,6 +1184,15 @@ class CourseRepository implements IRepository{
             }
             else{
                 $object = array();
+            }
+            // lesson ve grade bilgilerini getir.
+            if(count($object)>0){
+                foreach ($object as $key => $item){
+                    $grade = Grade::find($item->grade_id);
+                    $lesson = \App\Models\Curriculum\Lesson::find($item->lesson_id);
+                    $object[$key]['grade'] = $grade;
+                    $object[$key]['lesson'] = $lesson;
+                }
             }
 
             if(count($object) > 0 and $user_id != null){
