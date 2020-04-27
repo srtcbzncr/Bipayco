@@ -26,7 +26,6 @@
                     @endforeach
                     <span class="uk-text-bold uk-light"> {{$student_count}} @lang('front/auth.enrolled_student')</span>
                 </div>
-                {{Auth::user()->can('entryControl', $course)}}
                 @if(Auth::check() && Auth::user()->can('entryControl', $course))
                     <div class="uk-grid-small" uk-grid>
                         <div class="uk-width-auto">

@@ -14,12 +14,6 @@
                 <a :href="profileRoute"> <i class="fas fa-user uk-margin-small-right"></i>{{profile}}</a>
             </li>
             <li>
-                <a href="#"> <i class="fas fa-envelope uk-margin-small-right"></i> Messages </a>
-            </li>
-            <li>
-                <a href="#"> <i class="fas fa-share uk-margin-small-right"></i> Invite freind</a>
-            </li>
-            <li>
                 <a :href="settingsRoute"> <i class="fas fa-cog uk-margin-small-right"></i>{{settings}}</a>
             </li>
             <li class="uk-nav-divider"></li>
