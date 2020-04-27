@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Curriculum;
 
+use App\Models\Curriculum\Grade;
 use App\Models\Curriculum\Lesson;
 use App\Models\Curriculum\Subject;
 use App\Repositories\IRepository;
@@ -50,6 +51,8 @@ class LessonRepository implements IRepository{
         // Operations
         try{
             $object = Lesson::find($id);
+            $grades = Grade::all();
+            $object['grades'] = $grades;
         }
         catch(\Exception $e){
             $error = $e->getMessage();
