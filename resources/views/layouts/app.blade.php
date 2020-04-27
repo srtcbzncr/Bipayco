@@ -180,10 +180,11 @@
                         <div class="uk-width-1-3@m uk-width-1-2@s uk-first-column">
                             <a class="" href="{{route('home')}}"> <img class="uk-logo uk-width-small@s uk-width-medium@m" src="{{asset('images/logo2.png')}}"/> </a>
                             <div class="uk-width-xlarge tm-footer-description">Bilgi paylaştıkça çoğalır.</div>
+                            <p class="uk-text-small"><i class="fas fa-at"></i> info@bipayco.com </p>
+
                         </div>
                         <div class="uk-width-expand@m uk-width-1-2@s">
                             <ul class="uk-list  tm-footer-list">
-
                             </ul>
                         </div>
                         <div class="uk-width-expand@m uk-width-1-3@s">

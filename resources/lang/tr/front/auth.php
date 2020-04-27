@@ -124,7 +124,7 @@ return [
     'saved_successful'=>'Başarıyla Kaydedildi',
     'more'=>'Dahası',
     'title_example'=>'Matematik Öğretmeni vb.',
-    'reference_code_explain'=>'Referans kodunuz yok ise ****** şirket referans kodunu giriniz',
+    'reference_code_explain'=>'Referans kodunuz yok ise alanı boş bırakınız',
     'cancel'=>'Vazgeç',
     'edit_lesson'=>'Ders Düzenle',
     'lesson_name'=>'Ders Adı',

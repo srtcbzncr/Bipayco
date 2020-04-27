@@ -112,8 +112,8 @@
                                 <div class="uk-margin">
                                     <label>
                                         <input class="uk-checkbox" type="checkbox" required>
-                                        <span class="checkmark uk-text-small"> I agree to the </span>
-                                        <a href="#modal-overflow" class="uk-text-bold uk-text-small" uk-toggle> Terms and Conditions </a>
+                                        <a href="{{asset('contracts/subscription.pdf')}}" target="blank_" class="uk-text-bold uk-text-small"> Abonelik Sözleşmesini </a>
+                                        <span class="checkmark uk-text-small"> kabul ediyorum </span>
                                     </label>
                                 </div>
                                 <div class=" uk-flex-middle" uk-grid>
