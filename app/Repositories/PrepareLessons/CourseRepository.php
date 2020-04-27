@@ -1698,7 +1698,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getBySubCategoryFilterByNewest($lesson_id,$user_id){
+    public function getBySubCategoryFilterByNewest($gradeId,$lesson_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -1708,6 +1708,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('lesson_id', $lesson_id)
                 ->where('active', true)
+                ->where('grade_id',$gradeId)
                 ->latest()
                 ->paginate(9);
 
@@ -1758,7 +1759,7 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
-    public function getBySubCategoryFilterByOldest($lesson_id,$user_id){
+    public function getBySubCategoryFilterByOldest($gradeId,$lesson_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -1769,6 +1770,7 @@ class CourseRepository implements IRepository{
             $object = Course::where('lesson_id', $lesson_id)
                 ->where('active', true)
                 ->oldest()
+                ->where('grade_id',$gradeId)
                 ->paginate(9);
 
             // lesson ve grade bilgisi
@@ -1817,7 +1819,7 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
-    public function getBySubCategoryFilterByPriceASC($lesson_id,$user_id){
+    public function getBySubCategoryFilterByPriceASC($gradeId,$lesson_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -1827,6 +1829,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('lesson_id', $lesson_id)
                 ->where('active', true)
+                ->where('grade_id',$gradeId)
                 ->orderBy('price_with_discount', 'asc')
                 ->paginate(9);
 
@@ -1876,7 +1879,7 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
-    public function getBySubCategoryFilterByPriceDESC($lesson_id,$user_id){
+    public function getBySubCategoryFilterByPriceDESC($gradeId,$lesson_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -1886,6 +1889,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('lesson_id', $lesson_id)
                 ->where('active', true)
+                ->where('grade_id',$gradeId)
                 ->orderBy('price_with_discount', 'desc')
                 ->paginate(9);
 
@@ -1935,7 +1939,7 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
-    public function getBySubCategoryFilterByPoint($lesson_id,$user_id){
+    public function getBySubCategoryFilterByPoint($gradeId,$lesson_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -1945,6 +1949,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('lesson_id', $lesson_id)
                 ->where('active', true)
+                ->where('grade_id',$gradeId)
                 ->orderBy('point', 'desc')
                 ->paginate(9);
 
@@ -1994,7 +1999,7 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
-    public function getBySubCategoryFilterByPurchases($lesson_id,$user_id){
+    public function getBySubCategoryFilterByPurchases($gradeId,$lesson_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -2004,6 +2009,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('lesson_id', $lesson_id)
                 ->where('active', true)
+                ->where('grade_id',$gradeId)
                 ->orderBy('purchase_count', 'desc')
                 ->paginate(9);
 
@@ -2053,7 +2059,7 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
-    public function getBySubCategoryFilterByTrending($lesson_id,$user_id){
+    public function getBySubCategoryFilterByTrending($gradeId,$lesson_id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -2063,6 +2069,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('lesson_id', $lesson_id)
                 ->where('active', true)
+                ->where('grade_id',$gradeId)
                 ->orderBy('purchase_count', 'desc')
                 ->orderBy('point','desc')
                 ->paginate(9);
