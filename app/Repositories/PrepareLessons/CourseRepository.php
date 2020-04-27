@@ -1435,7 +1435,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function calculateProgress($course_id, $student_id){
+    public function calculateProgress($course_id, $user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -1443,10 +1443,11 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
+            $student = Student::where('user_id', $user_id)->first();
             $lessonsArray = array();
             $course = Course::find($course_id);
             $sections = $course->sections;
-            $student = Student::find($student_id);
+            $student = Student::find($student->id);
             $completedArray = array();
             foreach ($sections as $section){
                 $lessons = $section->lessons;

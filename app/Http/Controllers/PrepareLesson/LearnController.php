@@ -21,7 +21,7 @@ class LearnController extends Controller
         // course entry control
         $user = Auth::user();
         $course = Course::find($id);
-        if($this->entry($user,$course) == false){
+        if($user->can('entryControl',$course)==false){
             return redirect()->route('pl_course',$id);
         }
 
