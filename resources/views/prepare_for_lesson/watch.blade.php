@@ -6,10 +6,11 @@
             <watch
                 @if($isTest)
                     is-test
+                    :selected="{{$course->selectedSection}}"
+                @else
+                    :selected="{{$course->selectedLesson}}"
                 @endif
                 :course="{{$course}}"
-                :selected-lesson="{{$course->selectedLesson}}"
-                :selected-section="{{$course->selectedSection}}"
                 user-id="{{Auth::user()->id}}"
                 course-id="{{$course->id}}"
                 section-text="@lang('front/auth.section')"

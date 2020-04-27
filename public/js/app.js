@@ -10513,6 +10513,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -10543,12 +10551,9 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       required: true
     },
-    selectedLesson: {
+    selected: {
       type: Object,
       required: true
-    },
-    selectedSection: {
-      type: Object
     },
     lessonsText: {
       type: String,
@@ -10612,9 +10617,9 @@ __webpack_require__.r(__webpack_exports__);
         case 'prepareLessons':
           {
             if (lessonId == 'lastTest') {
-              window.location.replace('/learn/pl/test/lastTest/' + this.courseId + '/' + this.selectedLesson.section_id);
+              window.location.replace('/learn/pl/test/lastTest/' + this.courseId + '/' + this.selected.section_id);
             } else if (lessonId == 'firstTest') {
-              window.location.replace('/learn/pl/test/firstTest/' + this.courseId + '/' + this.selectedLesson.section_id);
+              window.location.replace('/learn/pl/test/firstTest/' + this.courseId + '/' + this.selected.section_id);
             } else {
               window.location.replace('/learn/pl/course/' + this.courseId + '/lesson/' + lessonId);
             }
@@ -10628,7 +10633,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var videoPlayer = document.getElementById('courseLessonVideo');
 
-      if (!this.selectedLesson.is_completed && !this.posted && videoPlayer.currentTime >= videoPlayer.duration - 7) {
+      if (!this.selected.is_completed && !this.posted && videoPlayer.currentTime >= videoPlayer.duration - 7) {
         this.triggerTruePosted();
         this.completed();
       } else if (videoPlayer.currentTime == videoPlayer.duration && this.course.nextLessonId != null) {
@@ -10645,11 +10650,11 @@ __webpack_require__.r(__webpack_exports__);
             {
               if (this.course.nextLessonId == 'lastTest') {
                 setTimeout(function () {
-                  window.location.replace('/learn/pl/test/lastTest/' + _this.courseId + '/' + _this.selectedLesson.section_id);
+                  window.location.replace('/learn/pl/test/lastTest/' + _this.courseId + '/' + _this.selected.section_id);
                 }, 3000);
               } else if (this.course.nextLessonId == 'firstTest') {
                 setTimeout(function () {
-                  window.location.replace('/learn/pl/test/firstTest/' + _this.courseId + '/' + _this.selectedLesson.section_id);
+                  window.location.replace('/learn/pl/test/firstTest/' + _this.courseId + '/' + _this.selected.section_id);
                 }, 3000);
               } else {
                 setTimeout(function () {
@@ -10666,18 +10671,20 @@ __webpack_require__.r(__webpack_exports__);
       this.posted = true;
     },
     completed: function completed() {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/learn/' + this.moduleName + '/' + this.courseId + '/lesson/' + this.selectedLesson.id + '/complete', {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/learn/' + this.moduleName + '/' + this.courseId + '/lesson/' + this.selected.id + '/complete', {
         user_id: this.userId
       });
     },
     openNewTab: function openNewTab() {
-      window.open(this.selectedLesson.file_path);
+      window.open(this.selected.file_path);
     },
     isOpen: function isOpen(sectionId) {
       if (this.moduleName == 'generalEducation') {
-        return sectionId == this.selectedLesson.section_id;
+        return sectionId == this.selected.section_id;
+      } else if (this.isTest) {
+        return sectionId == this.selected.id;
       } else {
-        return sectionId == this.selectedSection.id;
+        return sectionId == this.selected.section_id;
       }
     }
   }
@@ -24954,15 +24961,15 @@ var render = function() {
             ? _c("test-area", {
                 attrs: {
                   "lesson-id": _vm.course.lesson_id,
-                  "subject-id": _vm.selectedSection.subject_id,
+                  "subject-id": _vm.selected.subject_id,
                   "test-type": _vm.testType,
-                  "section-id": _vm.selectedSection.id,
+                  "section-id": _vm.selected.id,
                   "module-name": _vm.moduleName,
                   "user-id": _vm.userId,
                   "course-id": _vm.courseId
                 }
               })
-            : _vm.selectedLesson.is_video
+            : _vm.selected.is_video
             ? _c(
                 "video",
                 {
@@ -24976,17 +24983,11 @@ var render = function() {
                 },
                 [
                   _c("source", {
-                    attrs: {
-                      src: _vm.selectedLesson.file_path,
-                      type: "video/mp4"
-                    }
+                    attrs: { src: _vm.selected.file_path, type: "video/mp4" }
                   }),
                   _vm._v(" "),
                   _c("source", {
-                    attrs: {
-                      src: _vm.selectedLesson.file_path,
-                      type: "video/ogg"
-                    }
+                    attrs: { src: _vm.selected.file_path, type: "video/ogg" }
                   }),
                   _vm._v(
                     "\n                Your browser does not support HTML5 video.\n            "
@@ -25003,10 +25004,7 @@ var render = function() {
                   _c("iframe", {
                     staticClass: "uk-width",
                     staticStyle: { height: "550px" },
-                    attrs: {
-                      src: _vm.selectedLesson.file_path,
-                      frameborder: "0"
-                    },
+                    attrs: { src: _vm.selected.file_path, frameborder: "0" },
                     on: { load: _vm.completed }
                   }),
                   _vm._v(" "),
@@ -25195,8 +25193,8 @@ var render = function() {
                                                             _vm.isTest &&
                                                             _vm.testType ==
                                                               "0" &&
-                                                            _vm.selectedSection
-                                                              .id == section.id
+                                                            _vm.selected.id ==
+                                                              section.id
                                                               ? _c(
                                                                   "li",
                                                                   {
@@ -25223,6 +25221,33 @@ var render = function() {
                                                                     )
                                                                   ]
                                                                 )
+                                                              : section.firstTestComplete
+                                                              ? _c(
+                                                                  "li",
+                                                                  {
+                                                                    staticClass:
+                                                                      "completedLesson uk-background-success align-items-center"
+                                                                  },
+                                                                  [
+                                                                    _vm._m(
+                                                                      1,
+                                                                      true
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "div",
+                                                                      {
+                                                                        staticClass:
+                                                                          "uk-panel uk-panel-box uk-text-truncate uk-margin-large-right"
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          "Ön Test"
+                                                                        )
+                                                                      ]
+                                                                    )
+                                                                  ]
+                                                                )
                                                               : _c(
                                                                   "li",
                                                                   {
@@ -25231,7 +25256,7 @@ var render = function() {
                                                                   },
                                                                   [
                                                                     _vm._m(
-                                                                      1,
+                                                                      2,
                                                                       true
                                                                     ),
                                                                     _vm._v(" "),
@@ -25275,10 +25300,9 @@ var render = function() {
                                                             }
                                                           },
                                                           [
+                                                            !_vm.isTest &&
                                                             lesson.id ==
-                                                              _vm.selectedLesson
-                                                                .id &&
-                                                            !_vm.isTest
+                                                              _vm.selected.id
                                                               ? _c(
                                                                   "li",
                                                                   {
@@ -25368,7 +25392,7 @@ var render = function() {
                                                                   },
                                                                   [
                                                                     _vm._m(
-                                                                      2,
+                                                                      3,
                                                                       true
                                                                     ),
                                                                     _vm._v(" "),
@@ -25515,8 +25539,8 @@ var render = function() {
                                                             _vm.isTest &&
                                                             _vm.testType ==
                                                               "1" &&
-                                                            _vm.selectedSection
-                                                              .id == section.id
+                                                            _vm.selected.id ==
+                                                              section.id
                                                               ? _c(
                                                                   "li",
                                                                   {
@@ -25525,7 +25549,34 @@ var render = function() {
                                                                   },
                                                                   [
                                                                     _vm._m(
-                                                                      3,
+                                                                      4,
+                                                                      true
+                                                                    ),
+                                                                    _vm._v(" "),
+                                                                    _c(
+                                                                      "div",
+                                                                      {
+                                                                        staticClass:
+                                                                          "uk-panel uk-panel-box uk-text-truncate uk-margin-large-right"
+                                                                      },
+                                                                      [
+                                                                        _vm._v(
+                                                                          "Son Test"
+                                                                        )
+                                                                      ]
+                                                                    )
+                                                                  ]
+                                                                )
+                                                              : section.lastTestComplete
+                                                              ? _c(
+                                                                  "li",
+                                                                  {
+                                                                    staticClass:
+                                                                      "completedLesson uk-background-success align-items-center"
+                                                                  },
+                                                                  [
+                                                                    _vm._m(
+                                                                      5,
                                                                       true
                                                                     ),
                                                                     _vm._v(" "),
@@ -25551,7 +25602,7 @@ var render = function() {
                                                                   },
                                                                   [
                                                                     _vm._m(
-                                                                      4,
+                                                                      6,
                                                                       true
                                                                     ),
                                                                     _vm._v(" "),
@@ -25586,7 +25637,7 @@ var render = function() {
                                                             staticClass:
                                                               "uk-link-reset"
                                                           },
-                                                          [_vm._m(5, true)]
+                                                          [_vm._m(7, true)]
                                                         )
                                                       : _vm._e(),
                                                     _vm._v(" "),
@@ -25610,7 +25661,7 @@ var render = function() {
                                                                   "uk-background-default"
                                                               },
                                                               [
-                                                                _vm._m(6, true),
+                                                                _vm._m(8, true),
                                                                 _vm._v(" "),
                                                                 _c(
                                                                   "div",
@@ -25664,7 +25715,7 @@ var render = function() {
                                                             staticClass:
                                                               "uk-link-reset"
                                                           },
-                                                          [_vm._m(7, true)]
+                                                          [_vm._m(9, true)]
                                                         )
                                                       : _vm._e()
                                                   ],
@@ -25697,7 +25748,7 @@ var render = function() {
                               [
                                 _c(
                                   "ul",
-                                  _vm._l(_vm.selectedLesson.sources, function(
+                                  _vm._l(_vm.selected.sources, function(
                                     source
                                   ) {
                                     return _c("li", [
@@ -25769,6 +25820,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c(
+      "span",
+      {
+        staticClass:
+          "uk-icon-button icon-play completedLesson uk-button-success"
+      },
+      [_c("i", { staticClass: "fas fa-star icon-small uk-margin-remove" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("span", { staticClass: "uk-icon-button icon-play" }, [
       _c("i", { staticClass: "fas fa-star icon-small uk-margin-remove" })
     ])
@@ -25798,6 +25862,19 @@ var staticRenderFns = [
       "span",
       {
         staticClass: "uk-icon-button icon-play uk-button-primary currentLesson "
+      },
+      [_c("i", { staticClass: "fas fa-star icon-small uk-margin-remove" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "span",
+      {
+        staticClass:
+          "uk-icon-button icon-play completedLesson uk-button-success"
       },
       [_c("i", { staticClass: "fas fa-star icon-small uk-margin-remove" })]
     )
