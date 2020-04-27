@@ -15,6 +15,33 @@
             </div>
         </div>
     </div>
+    <ul uk-switcher="connect: #courses" class="uk-flex-center uk-margin-medium-top uk-subnav uk-subnav-pill uk-margin-remove-bottom">
+        @if(count($grades)< 7)
+            @foreach($grades as $grade)
+                <li><a href="#">{{$grade->name}}</a></li>
+            @endforeach
+        @else
+            @foreach($grades as $grade)
+                @if($loop->index < 5)
+                    <li><a href="#">{{$grade->name}}</a></li>
+                @endif
+            @endforeach
+            <li>
+                <a href="#">@lang('front/auth.more') <span class="fas fa-angle-down uk-margin-small-left icon-small"></span></a>
+                <div uk-dropdown="mode: click">
+                    <ul class="uk-nav uk-dropdown-nav" uk-switcher="connect: #courses">
+                        @foreach($grades as $grade)
+                            @if($loop->index >= 5)
+                                <li><a href="#">{{$grade->name}}</a></li>
+                            @else
+                                <li class="uk-hidden"></li>
+                            @endif
+                        @endforeach
+                    </ul>
+                </div>
+            </li>
+        @endif
+    </ul>
     <course-card-pagination
         newest="@lang('front/auth.newest')"
         by-inc="@lang('front/auth.by_inc')"

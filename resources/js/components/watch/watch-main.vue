@@ -89,21 +89,20 @@
                                                     <ul v-else>
                                                         <a v-if="moduleName=='prepareLessons'" class="uk-link-reset">
                                                             <li class="uk-background-default align-items-center">
-                                                                <span class="uk-icon-button icon-play"> <i class="fas fa-star icon-small uk-margin-remove"></i> </span>
+                                                                <span class="uk-icon-button icon-play"> <i class="fas fa-lock icon-small uk-margin-remove"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">Ön Test</div>
                                                             </li>
                                                         </a>
                                                         <a v-for="(lesson, lessonIndex) in section.lessons" class="uk-link-reset">
                                                             <li class="uk-background-default">
-                                                                <span v-if="lesson.is_video" class="uk-icon-button icon-play"> <i class="fas fa-play icon-small"></i> </span>
-                                                                <span v-else class="uk-icon-button icon-play"> <i class="fas fa-file-alt icon-small uk-margin-remove"></i> </span>
+                                                                <span class="uk-icon-button icon-play"> <i class="fas fa-lock icon-small uk-margin-remove"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">{{lessonIndex+1}}. {{lesson.name}}</div>
                                                                 <span v-if="lesson.is_video" class="uk-position-center-right time uk-margin-medium-right">  {{lesson.long}}</span>
                                                             </li>
                                                         </a>
                                                         <a v-if="moduleName=='prepareLessons'" class="uk-link-reset">
                                                             <li class="uk-background-default align-items-center">
-                                                                <span class="uk-icon-button icon-play"> <i class="fas fa-star icon-small uk-margin-remove"></i> </span>
+                                                                <span class="uk-icon-button icon-play"> <i class="fas fa-lock icon-small uk-margin-remove"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">Son Test</div>
                                                             </li>
                                                         </a>
