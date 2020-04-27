@@ -99,7 +99,7 @@ class LearnController extends Controller
         // Operations
         $user = Auth::user();
         $course = Course::find($course_id);
-        if($this->entry($user,$course)){
+        if($user->can('entryControl',$course)){
             $resp = $repo->getLesson($course_id,$lesson_id);
             $data = $resp->getData();
             return view('prepare_for_lesson.watch')->with('course',$data)->with('isTest',false);
