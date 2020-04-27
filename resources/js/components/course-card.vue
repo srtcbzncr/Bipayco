@@ -17,7 +17,13 @@
         <a :href="pageLink" class="uk-link-reset">
             <img :src="course.image" class="course-img uk-background-center-center uk-background-cover uk-height" :style="image">
             <div class="uk-card-body">
-                <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small">{{course.name}}</h4>
+                <div v-if="moduleName=='generalEducation'">
+                    <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small">{{course.name}}</h4>
+                </div>
+                <div v-if="moduleName=='prepareLessons'">
+                    <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{course.name}}</h4>
+                    <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{grade.name}}</p>
+                </div>
                 <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small"> {{course.description}} </p>
                 <div class="uk-width">
                     <stars-rating :rating="Number(course.point)" :style-full-star-color="styleFullStarColor" :style-empty-star-color="styleEmptyStarColor" > </stars-rating>
@@ -77,7 +83,7 @@ export default {
         module:{
             type:String,
             required:true,
-        }
+        },
     },
     computed:{
         image(){
@@ -85,6 +91,13 @@ export default {
         },
         pageLink(){
             return '/'+this.module+'/course/'+this.course.id;
+        },
+        grade(){
+            if(this.course.grade){
+                return this.course.grade
+            }else{
+                return {name:''}
+            }
         }
     },
     methods:{

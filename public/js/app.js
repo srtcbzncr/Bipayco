@@ -5522,6 +5522,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5569,6 +5575,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     pageLink: function pageLink() {
       return '/' + this.module + '/course/' + this.course.id;
+    },
+    grade: function grade() {
+      if (this.course.grade) {
+        return this.course.grade;
+      } else {
+        return {
+          name: ''
+        };
+      }
     }
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadShoppingCart', 'loadCourseCard', 'loadIsInCart']), {
@@ -17252,22 +17267,64 @@ var render = function() {
         }),
         _vm._v(" "),
         _c("div", { staticClass: "uk-card-body" }, [
-          _c(
-            "h4",
-            {
-              staticClass: "uk-height-small",
-              staticStyle: {
-                overflow: "hidden",
-                "text-overflow": "ellipsis",
-                display: "-webkit-box",
-                "line-height": "16px",
-                "max-height": "32px",
-                "-webkit-line-clamp": "2",
-                "-webkit-box-orient": "vertical"
-              }
-            },
-            [_vm._v(_vm._s(_vm.course.name))]
-          ),
+          _vm.moduleName == "generalEducation"
+            ? _c("div", [
+                _c(
+                  "h4",
+                  {
+                    staticClass: "uk-height-small",
+                    staticStyle: {
+                      overflow: "hidden",
+                      "text-overflow": "ellipsis",
+                      display: "-webkit-box",
+                      "line-height": "16px",
+                      "max-height": "32px",
+                      "-webkit-line-clamp": "2",
+                      "-webkit-box-orient": "vertical"
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.course.name))]
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.moduleName == "prepareLessons"
+            ? _c("div", [
+                _c(
+                  "h4",
+                  {
+                    staticClass: "uk-height-small",
+                    staticStyle: {
+                      overflow: "hidden",
+                      "text-overflow": "ellipsis",
+                      display: "-webkit-box",
+                      "line-height": "16px",
+                      "max-height": "16px",
+                      "-webkit-line-clamp": "1",
+                      "-webkit-box-orient": "vertical"
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.course.name))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "uk-height-small",
+                    staticStyle: {
+                      overflow: "hidden",
+                      "text-overflow": "ellipsis",
+                      display: "-webkit-box",
+                      "line-height": "16px",
+                      "max-height": "16px",
+                      "-webkit-line-clamp": "1",
+                      "-webkit-box-orient": "vertical"
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.grade.name))]
+                )
+              ])
+            : _vm._e(),
           _vm._v(" "),
           _c(
             "p",

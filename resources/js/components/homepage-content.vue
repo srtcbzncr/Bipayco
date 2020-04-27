@@ -1,4 +1,4 @@
-<template>
+ <template>
     <div class="uk-container">
         <ul uk-tab class="uk-margin-top uk-flex-center">
             <li><a @click="changeModule('generalEducation')">{{generalEducationText}}</a></li>
