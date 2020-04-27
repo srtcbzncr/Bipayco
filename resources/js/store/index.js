@@ -91,7 +91,7 @@ const mutations={
     },
     /*course*/
     setCategoryCourses(state,index){
-        state.categoryCourses=index.data;
+        state.categoryCourses=index.data.data;
     },
     setCourseReviews(state,index){
         state.courseReviews=index.data;

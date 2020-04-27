@@ -52,6 +52,7 @@ Vue.component('lesson-page', require('./components/admin/lessons-page.vue').defa
 Vue.component('grade-page', require('./components/admin/grades-page.vue').default);
 Vue.component('subject-page', require('./components/admin/subjects-page.vue').default);
 Vue.component('course-card-pagination', require('./components/category/course-card-pagination.vue').default);
+Vue.component('lesson-pagination', require('./components/category/lesson-pagination.vue').default);
 Vue.component('course-review', require('./components/category/course-review.vue').default);
 Vue.component('course-previews', require('./components/category/course-previews.vue').default);
 Vue.component('review', require('./components/category/review.vue').default);

@@ -15,60 +15,27 @@
             </div>
         </div>
     </div>
-    <ul uk-switcher="connect: #lessons" class="uk-flex-center uk-margin-medium-top uk-subnav uk-subnav-pill uk-margin-remove-bottom">
-        @if(count($grades)< 7)
-            @foreach($grades as $grade)
-                <li><a href="#">{{$grade->name}}</a></li>
-            @endforeach
-        @else
-            @foreach($grades as $grade)
-                @if($loop->index < 5)
-                    <li><a href="#">{{$grade->name}}</a></li>
-                @endif
-            @endforeach
-            <li>
-                <a href="#">@lang('front/auth.more') <span class="fas fa-angle-down uk-margin-small-left icon-small"></span></a>
-                <div uk-dropdown="mode: click">
-                    <ul class="uk-nav uk-dropdown-nav" uk-switcher="connect: #lessons">
-                        @foreach($grades as $grade)
-                            @if($loop->index >= 5)
-                                <li><a href="#">{{$grade->name}}</a></li>
-                            @else
-                                <li class="uk-hidden"></li>
-                            @endif
-                        @endforeach
-                    </ul>
-                </div>
-            </li>
+    <lesson-pagination
+        newest="@lang('front/auth.newest')"
+        by-inc="@lang('front/auth.by_inc')"
+        by-desc="@lang('front/auth.by_dec')"
+        by-purchases="@lang('front/auth.by_purchases')"
+        sort-text="@lang('front/auth.sort_by')"
+        oldest="@lang('front/auth.oldest')"
+        by-trending="@lang('front/auth.by_trending')"
+        by-point="@lang('front/auth.by_point')"
+        category-name="{{$name}}"
+        :course-count = "{{$courseCount}}"
+        id="{{$id}}"
+        :paginate-course = "9"
+        name="Lessons"
+        has-no-content="@lang('front/auth.not_found_content')"
+        module-name="prepareLessons"
+        module="pl"
+        :grades="{{$grades}}"
+        @if(Auth::check())
+        is-login
+        user-id="{{Auth::user()->id}}"
         @endif
-    </ul>
-    <ul class="uk-switcher uk-margin-medium-top" id="lessons">
-        <li>
-            <course-card-pagination
-                newest="@lang('front/auth.newest')"
-                by-inc="@lang('front/auth.by_inc')"
-                by-desc="@lang('front/auth.by_dec')"
-                by-purchases="@lang('front/auth.by_purchases')"
-                sort="@lang('front/auth.sort_by')"
-                oldest="@lang('front/auth.oldest')"
-                by-trending="@lang('front/auth.by_trending')"
-                by-point="@lang('front/auth.by_point')"
-                category-name="{{$name}}"
-                :course-count = "{{$courseCount}}"
-                id="{{$id}}"
-                :paginate-course = "9"
-                name="Lessons"
-                has-no-content="@lang('front/auth.not_found_content')"
-                module-name="prepareLessons"
-                module="pl"
-                @if(Auth::check())
-                is-login
-                user-id="{{Auth::user()->id}}"
-                @endif
-            ></course-card-pagination>
-        </li>
-        <li>
-            a
-        </li>
-    </ul>
+    ></lesson-pagination>
 @endsection
