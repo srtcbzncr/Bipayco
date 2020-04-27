@@ -4,6 +4,7 @@ namespace App\Repositories\Auth;
 
 use App\Models\Auth\User;
 use App\Models\GeneralEducation\Course;
+use App\Models\GeneralEducation\Entry;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use App\Models\Auth\Student;
@@ -329,11 +330,27 @@ class StudentRepository implements IRepository{
 
         // Operations
         try{
+            $student = Student::find($id);
+            $user = User::find($student->user_id);
             $geCourses = DB::select('SELECT * FROM ge_courses WHERE id IN(SELECT course_id FROM ge_entries WHERE student_id='.$id.' AND course_type="App\\\\Models\\\\GeneralEducation\\\\Course")');
             $plCourses = DB::select('SELECT * FROM pl_courses WHERE id IN(SELECT course_id FROM ge_entries WHERE student_id='.$id.' AND course_type="App\\\\Models\\\\PrepareLessons\\\\Course")');
+
+            $tempGeCourses = array();
+            $tempPlCourses = array();
+            foreach ($geCourses as $key=>$course){
+                if($this->entryGe($user,$course)){
+                    $tempGeCourses[$key] = $course;
+                }
+            }
+            foreach ($plCourses as $key=>$course){
+                if($this->entryPl($user,$course)){
+                    $tempPlCourses[$key] = $course;
+                }
+            }
+
             $object = [
-                'ge' => $geCourses,
-                'pl' => $plCourses,
+                'ge' => $tempGeCourses,
+                'pl' => $tempPlCourses,
             ];
         }
         catch(\Exception $e){
@@ -344,6 +361,27 @@ class StudentRepository implements IRepository{
         // Response
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
+    }
+
+    private function entryGe($user,$course){
+        $now = date('Y-m-d', time());
+        $entry = Entry::where('student_id', $user->student->id)->where('course_type','App\Models\GeneralEducation\Course')->where('course_id', $course->id)->where('active', true)->first();
+        if($entry != null and date('Y-m-d',strtotime($entry->access_start))<=$now and date('Y-m-d',strtotime($entry->access_finish))>=$now){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    private function entryPl($user,$course){
+        $now = date('Y-m-d', time());
+        $entry = Entry::where('student_id', $user->student->id)->where('course_type',\App\Models\PrepareLessons\Course::class)->where('course_id', $course->id)->where('active', true)->first();
+        if($entry != null and date('Y-m-d',strtotime($entry->access_start))<=$now and date('Y-m-d',strtotime($entry->access_finish))>=$now){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public function geEntries($id){
