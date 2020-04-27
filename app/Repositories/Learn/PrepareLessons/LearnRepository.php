@@ -178,10 +178,11 @@ class LearnRepository implements IRepository
                 $object['selectedSection'] = Section::find($object['selectedLesson']->section_id);
                 $tempSections = Section::where('course_id',$id)->orderBy('no', 'asc')->get();
                 $flag = false;
+                $beforeSection = null;
                 foreach ($tempSections as $key => $item){
                     if($item->id == $object['selectedSection']->id){
-                        if(isset($item[$key-1])){
-                            $beforeSection = $item[$key-1];
+                        if(isset($tempSections[$key-1])){
+                            $beforeSection = $tempSections[$key-1];
                             $controlStatus = FirstLastTestStatus::where('sectionId',$beforeSection->id)
                                 ->where('sectionType','App\Models\PrepareLessons\Section')
                                 ->where('result',true)
@@ -202,22 +203,26 @@ class LearnRepository implements IRepository
                     }
                 }
                 if($flag == false){
-                    $object['selectedSection'] = $tempSections[0];
+                    $object['selectedSection'] = $beforeSection;
                     $tempLessons = Lesson::where('section_id',$object['selectedSection']->id)->orderBy('no', 'asc')->get();
                     $object['selectedLesson'] = $tempLessons[0];
                     if(isset($tempLessons[1])){
                         $object['nextLessonId'] = $tempLessons[1]->id;
                     }
                     else{
-                        if(isset($tempSections[1])){
+                        $object['nextLessonId'] = "lastTest";
+                       /* if(isset($tempSections[1])){
                             $tempLessons = null;
                             $tempLessons = Lesson::where('section_id',$tempSections[1]->id)->orderBy('no', 'asc')->get();
                             $object['nextLessonId'] = $tempLessons[0]->id;
                         }
                         else{
                             $object['nextLessonId'] = null;
-                        }
+                        }*/
                     }
+                }
+                else{
+                    $object['selectedLesson'] = "firstTest";
                 }
             }
         }
