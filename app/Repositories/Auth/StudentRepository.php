@@ -330,7 +330,7 @@ class StudentRepository implements IRepository{
         // Operations
         try{
             $geCourses = DB::select('SELECT * FROM ge_courses WHERE id IN(SELECT course_id FROM ge_entries WHERE student_id='.$id.' AND course_type="App\\\\Models\\\\GeneralEducation\\\\Course")');
-            $plCourses = DB::select('SELECT * FROM pl_courses WHERE id IN(SELECT course_id FROM ge_entries WHERE student_id='.$id.' AND course_type="App\\\\Models\\\\GeneralEducation\\\\Course")');
+            $plCourses = DB::select('SELECT * FROM pl_courses WHERE id IN(SELECT course_id FROM ge_entries WHERE student_id='.$id.' AND course_type="App\\\\Models\\\\PrepareLessons\\\\Course")');
             $object = [
                 'ge' => $geCourses,
                 'pl' => $plCourses,
