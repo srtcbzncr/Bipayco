@@ -10,6 +10,7 @@ use App\Models\PrepareLessons\Course;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class LessonRepository implements IRepository
 {
@@ -71,6 +72,12 @@ class LessonRepository implements IRepository
             $object = new Lesson();
             $object->name = $data['name'];
             $object->symbol = $data['symbol'];
+            if(isset($data['image']) and file_exists($data['image'])){
+                $filePath = $data['image']->store('public/images');
+                $accessPath = Storage::url($filePath);
+                $object->image = $accessPath;
+            }
+
             $object->save();
             DB::commit();
         }
