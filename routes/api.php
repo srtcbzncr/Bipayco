@@ -36,6 +36,7 @@ Route::group(['prefix' => 'ge'], function(){
     });
     Route::group(['prefix' => 'course'], function(){
         Route::get('{id}', 'API\GeneralEducation\CourseController@show')->name('ge_course');
+        Route::post('{id}/buy','API\GeneralEducation\CourseController@buy')->name('ge_course_buy');
     });
     Route::get('index', 'API\HomeController@ge_index')->name('ge_index');
 
@@ -54,6 +55,7 @@ Route::group(['prefix' => 'pl'],function (){
     });*/
     Route::group(['prefix' => 'course'], function(){
         Route::get('{id}', 'API\PrepareLessons\CourseController@show')->name('pl_course');
+        Route::post('{id}/buy','API\PrepareLessons\CourseController@buy')->name('pl_course_buy');
     });
 
     # pl de burası yok.
@@ -65,6 +67,7 @@ Route::group(['prefix' => 'pl'],function (){
     # lessonları ve buna bağlı subjectleri getirir.
     Route::get('/lessons','API\HomeController@getCrLessons')->name('pl_lessons');
     Route::get('/lesson/{id}','API\PrepareLessons\CurriculumController@showLessonCourses')->name('pl_lesson_courses');
+
 });
 
 
