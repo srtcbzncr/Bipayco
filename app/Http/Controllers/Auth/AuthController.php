@@ -316,4 +316,8 @@ class AuthController extends Controller
             return redirect()->back()->with('error', $resp->getError()->getMessage());
         }
     }
+
+    public function getBasketView(){
+        return view('cart');
+    }
 }

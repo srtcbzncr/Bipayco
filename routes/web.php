@@ -44,6 +44,7 @@ Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function(){
 Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function(){
     Route::get('student/{id}', 'Auth\AuthController@studentProfile')->name('student_profile');
     Route::get('instructor/{id}', 'Auth\AuthController@instructorProfile')->name('instructor_profile');
+    Route::get('/basket','Auth\AuthController@getBasketView')->name('get_basket');
 });
 
 Route::group(['prefix' => 'instructor', 'middleware' => 'auth'], function(){
@@ -91,13 +92,13 @@ Route::group(['prefix' => 'pl'],function (){
     Route::get('index', 'HomeController@pl_index')->name('pl_index');
 });
 
-Route::group(['prefix' => 'questionSource'],function (){
+Route::group(['prefix' => 'questionSource', 'middleware' => 'auth'],function (){
     Route::get('/','QuestionSource\QuestionSourceController@show')->name('questionSource_show');
     Route::get('/create','QuestionSource\QuestionSourceController@createGet')->name('questionSource_create');
     Route::get('/update/{questionId}','QuestionSource\QuestionSourceController@updateGet')->name('questionSource_update');
 });
 
-Route::group(['prefix' => 'learn'],function (){
+Route::group(['prefix' => 'learn', 'middleware' => 'auth'],function (){
    Route::group(['prefix' => 'ge'],function (){
        Route::get('/course/{course_id}','GeneralEducation\LearnController@getCourse')->name('learn_ge_course_get');
        Route::get('/course/{course_id}/lesson/{lesson_id}','GeneralEducation\LearnController@getLesson')->name('learn_ge_lesson_get');
