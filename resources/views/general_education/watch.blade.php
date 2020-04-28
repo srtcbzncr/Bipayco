@@ -5,7 +5,7 @@
         <div class="uk-margin-left uk-margin-right uk-margin-top uk-margin-bottom uk-margin-medium-bottom">
             <watch
                 :course="{{$course}}"
-                :selected-lesson="{{$course->selectedLesson}}"
+                :selected="{{$course->selectedLesson}}"
                 user-id="{{Auth::user()->id}}"
                 course-id="{{$course->id}}"
                 module-name="generalEducation"
