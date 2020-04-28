@@ -97,6 +97,22 @@ class BasketController extends Controller
     }
 
     public function buy($userId,Request $request){
-        
+        // initializing
+        $repo = new BasketRepository();
+        $data = $request->toArray();
+
+        // operations
+        $resp = $repo->buy($userId,$data);
+        if($resp->getResult()){
+            return response()->json([
+               'error' => false,
+               'data' => $resp->getData()
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Satın alma işlemi başarısız.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ]);
     }
 }
