@@ -22,6 +22,7 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 Vue.component('course-card', require('./components/course-card.vue').default);
+Vue.component('cart-page', require('./components/auth/cart-page.vue').default);
 Vue.component('homepage-content', require('./components/homepage-content.vue').default);
 Vue.component('stars-rating', require('./components/stars-rating.vue').default);
 Vue.component('category-select', require('./components/instructor/category-select.vue').default);
