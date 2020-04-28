@@ -9672,6 +9672,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -23572,23 +23578,46 @@ var render = function() {
                         "uk-flex uk-width-5-6 align-item-center justify-content-between"
                     },
                     [
-                      _c(
-                        "h5",
-                        {
-                          staticClass:
-                            "uk-margin-left uk-width-3-4 uk-margin-remove-vertical uk-margin-remove-right",
-                          staticStyle: {
-                            overflow: "hidden",
-                            "text-overflow": "ellipsis",
-                            display: "-webkit-box",
-                            "line-height": "16px",
-                            "max-height": "16px",
-                            "-webkit-line-clamp": "1",
-                            "-webkit-box-orient": "vertical"
-                          }
-                        },
-                        [_vm._v(_vm._s(item.course.name))]
-                      ),
+                      _c("div", { staticClass: "uk-width-3-4 uk-flex" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "uk-margin-small-left uk-card-media-left uk-cover-container uk-width-1-4"
+                          },
+                          [
+                            _c("img", {
+                              attrs: {
+                                src: item.course.image,
+                                alt: "",
+                                "uk-cover": ""
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("canvas", {
+                              attrs: { width: "600", height: "400" }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "h5",
+                          {
+                            staticClass:
+                              "uk-margin-left uk-width-3-4 uk-margin-remove-vertical uk-margin-remove-right",
+                            staticStyle: {
+                              overflow: "hidden",
+                              "text-overflow": "ellipsis",
+                              display: "-webkit-box",
+                              "line-height": "16px",
+                              "max-height": "32px",
+                              "-webkit-line-clamp": "2",
+                              "-webkit-box-orient": "vertical"
+                            }
+                          },
+                          [_vm._v(_vm._s(item.course.name))]
+                        )
+                      ]),
                       _vm._v(" "),
                       _c(
                         "p",
