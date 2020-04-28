@@ -4359,7 +4359,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var a = 0;
 
       for (var i = 0; i < this.shoppingCart.length; i++) {
-        a = a + this.shoppingCart[0].course.price_with_discount;
+        a = a + this.shoppingCart[i].course.price_with_discount;
       }
 
       return a;
