@@ -4,11 +4,12 @@
         <hr class=" uk-margin-remove">
         <div class="uk-text-left uk-height-medium">
             <div uk-scrollspy="target: > div; cls:uk-animation-slide-bottom-small; delay: 100"  style="overflow-y:auto" data-simplebar>
+                <hr>
                 <div v-for="item in shoppingCart">
                     <div class="uk-grid align-items-center shoppingItem">
-                        <div class="uk-flex uk-width-5-6 align-item-center justify-content-center">
-                            <p class="uk-width-3-4 align-items-center uk-margin-remove">{{item.course.name}}</p>
-                            <p class="uk-width-1-4 text-center">{{item.course.price_with_discount}}  <i class="fas fa-lira-sign icon-tiny"></i></p>
+                        <div class="uk-flex uk-width-5-6 align-item-center justify-content-between">
+                            <h5 class="uk-margin-left uk-width-3-4 uk-margin-remove-vertical uk-margin-remove-right"  style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{item.course.name}}</h5>
+                            <p class="uk-width-1-4 text-center uk-margin-remove">{{item.course.price_with_discount}}  <i class="fas fa-lira-sign icon-tiny"></i></p>
                         </div>
                         <div class="uk-width-1-6 text-left">
                             <i class="fas fa-trash-alt text-danger" @click="removeCourse(item.course_id, item.course_type)"></i>
@@ -122,7 +123,7 @@
 
 <style scoped>
     .shoppingItem{
-        height: 75px;
+        height: 50px;
     }
     .shoppingImg{
 

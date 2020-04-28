@@ -9671,6 +9671,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -11102,7 +11103,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.shoppingItem[data-v-3e4fb370]{\n    height: 75px;\n}\n.shoppingImg[data-v-3e4fb370]{\n}\n", ""]);
+exports.push([module.i, "\n.shoppingItem[data-v-3e4fb370]{\n    height: 50px;\n}\n.shoppingImg[data-v-3e4fb370]{\n}\n", ""]);
 
 // exports
 
@@ -23555,55 +23556,77 @@ var render = function() {
             "data-simplebar": ""
           }
         },
-        _vm._l(_vm.shoppingCart, function(item) {
-          return _c("div", [
-            _c(
-              "div",
-              { staticClass: "uk-grid align-items-center shoppingItem" },
-              [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "uk-flex uk-width-5-6 align-item-center justify-content-center"
-                  },
-                  [
-                    _c(
-                      "p",
-                      {
-                        staticClass:
-                          "uk-width-3-4 align-items-center uk-margin-remove"
-                      },
-                      [_vm._v(_vm._s(item.course.name))]
-                    ),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "uk-width-1-4 text-center" }, [
-                      _vm._v(_vm._s(item.course.price_with_discount) + "  "),
-                      _c("i", { staticClass: "fas fa-lira-sign icon-tiny" })
-                    ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-width-1-6 text-left" }, [
-                  _c("i", {
-                    staticClass: "fas fa-trash-alt text-danger",
-                    on: {
-                      click: function($event) {
-                        return _vm.removeCourse(
-                          item.course_id,
-                          item.course_type
-                        )
+        [
+          _c("hr"),
+          _vm._v(" "),
+          _vm._l(_vm.shoppingCart, function(item) {
+            return _c("div", [
+              _c(
+                "div",
+                { staticClass: "uk-grid align-items-center shoppingItem" },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "uk-flex uk-width-5-6 align-item-center justify-content-between"
+                    },
+                    [
+                      _c(
+                        "h5",
+                        {
+                          staticClass:
+                            "uk-margin-left uk-width-3-4 uk-margin-remove-vertical uk-margin-remove-right",
+                          staticStyle: {
+                            overflow: "hidden",
+                            "text-overflow": "ellipsis",
+                            display: "-webkit-box",
+                            "line-height": "16px",
+                            "max-height": "16px",
+                            "-webkit-line-clamp": "1",
+                            "-webkit-box-orient": "vertical"
+                          }
+                        },
+                        [_vm._v(_vm._s(item.course.name))]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "p",
+                        {
+                          staticClass:
+                            "uk-width-1-4 text-center uk-margin-remove"
+                        },
+                        [
+                          _vm._v(
+                            _vm._s(item.course.price_with_discount) + "  "
+                          ),
+                          _c("i", { staticClass: "fas fa-lira-sign icon-tiny" })
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-width-1-6 text-left" }, [
+                    _c("i", {
+                      staticClass: "fas fa-trash-alt text-danger",
+                      on: {
+                        click: function($event) {
+                          return _vm.removeCourse(
+                            item.course_id,
+                            item.course_type
+                          )
+                        }
                       }
-                    }
-                  })
-                ])
-              ]
-            ),
-            _vm._v(" "),
-            _c("hr")
-          ])
-        }),
-        0
+                    })
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("hr")
+            ])
+          })
+        ],
+        2
       )
     ])
   ])
