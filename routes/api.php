@@ -220,6 +220,7 @@ Route::prefix('basket')->group(function (){
     Route::post('/delete','API\Basket\BasketController@remove')->name('remove_basket');
     Route::post('/deleteAll/{user_id}','API\Basket\BasketController@removeAll')->name('remove_basket_all');
     Route::get('/show/{user_id}','API\Basket\BasketController@show')->name('show_basket');
+    Route::post('/buy/{userId}','API\Basket\BasketController@buy')->name('buy_courses');
 });
 Route::prefix('favorite')->group(function (){
     Route::post('/add','API\Favorite\FavoriteController@add')->name('add_basket');

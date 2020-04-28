@@ -95,4 +95,8 @@ class BasketController extends Controller
             ]);
         }
     }
+
+    public function buy($userId,Request $request){
+        
+    }
 }
