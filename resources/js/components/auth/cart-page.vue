@@ -1,16 +1,19 @@
 <template>
     <div>
+        <div class="uk-background-default border-radius-6 uk-padding uk-width">
+            <div class="uk-flex uk-flex-wrap align-item-center justify-content-around">
+                <h2 class="uk-margin-remove">Toplam Tutar: {{cartAmount}} <i class="fas fa-lira-sign icon-small"></i></h2>
+                <button class="uk-button uk-width-1-4@s uk-button-success" @click="buyAll">Satın Al</button>
+            </div>
+        </div>
+        <hr>
+        <h3> Sepetteki Ürünler </h3>
         <div v-for="item in shoppingCart">
             <cart-element
                 :course="item.course"
                 :user-id="userId"
                 :moduleName="item.course_type"
             ></cart-element>
-        </div>
-        <hr>
-        <div class="uk-flex align-item-center justify-content-around">
-            <h3 class="uk-margin-remove">Toplam: {{cartAmount}} <i class="fas fa-lira-sign icon-tiny"></i></h3>
-            <button class="uk-button uk-button-success" @click="buyAll"> Satın Al</button>
         </div>
     </div>
 </template>

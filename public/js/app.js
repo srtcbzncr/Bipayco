@@ -4336,6 +4336,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -15638,6 +15641,42 @@ var render = function() {
   return _c(
     "div",
     [
+      _c(
+        "div",
+        {
+          staticClass:
+            "uk-background-default border-radius-6 uk-padding uk-width"
+        },
+        [
+          _c(
+            "div",
+            {
+              staticClass:
+                "uk-flex uk-flex-wrap align-item-center justify-content-around"
+            },
+            [
+              _c("h2", { staticClass: "uk-margin-remove" }, [
+                _vm._v("Toplam Tutar: " + _vm._s(_vm.cartAmount) + " "),
+                _c("i", { staticClass: "fas fa-lira-sign icon-small" })
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "uk-button uk-width-1-4@s uk-button-success",
+                  on: { click: _vm.buyAll }
+                },
+                [_vm._v("Satın Al")]
+              )
+            ]
+          )
+        ]
+      ),
+      _vm._v(" "),
+      _c("hr"),
+      _vm._v(" "),
+      _c("h3", [_vm._v(" Sepetteki Ürünler ")]),
+      _vm._v(" "),
       _vm._l(_vm.shoppingCart, function(item) {
         return _c(
           "div",
@@ -15652,29 +15691,7 @@ var render = function() {
           ],
           1
         )
-      }),
-      _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "uk-flex align-item-center justify-content-around" },
-        [
-          _c("h3", { staticClass: "uk-margin-remove" }, [
-            _vm._v("Toplam: " + _vm._s(_vm.cartAmount) + " "),
-            _c("i", { staticClass: "fas fa-lira-sign icon-tiny" })
-          ]),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "uk-button uk-button-success",
-              on: { click: _vm.buyAll }
-            },
-            [_vm._v(" Satın Al")]
-          )
-        ]
-      )
+      })
     ],
     2
   )
@@ -16680,7 +16697,7 @@ var render = function() {
         "div",
         {
           staticClass:
-            "uk-card uk-card-default uk-card-small uk-grid-collapse uk-width-5-6 uk-margin",
+            "uk-card uk-card-default border-radius-6 uk-card-small uk-grid-collapse uk-width-5-6 uk-margin",
           attrs: { "uk-grid": "" }
         },
         [

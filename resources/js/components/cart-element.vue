@@ -1,6 +1,6 @@
 <template>
     <div class="uk-flex align-items-center uk-margin-medium-left">
-        <div class="uk-card uk-card-default uk-card-small uk-grid-collapse uk-width-5-6 uk-margin" uk-grid>
+        <div class="uk-card uk-card-default border-radius-6 uk-card-small uk-grid-collapse uk-width-5-6 uk-margin" uk-grid>
             <div class="uk-card-media-left uk-cover-container uk-width-1-4@s">
                 <img :src="course.image" alt="" uk-cover>
                 <canvas width="600" height="400"></canvas>
