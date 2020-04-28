@@ -240,6 +240,9 @@ class BasketRepository implements IRepository
                     $object->save();
                 }
             }
+
+            // delete all data that user has
+            DB::table('basket')->where('user_id',$userId)->delete();
             DB::commit();
         }catch(\Exception $e){
             DB::rollBack();
