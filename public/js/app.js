@@ -4930,6 +4930,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "categoryCard",
   props: {
@@ -16997,13 +17000,24 @@ var render = function() {
                 "div",
                 {
                   staticClass:
-                    "uk-width-2-5 uk-padding-remove uk-flex uk-flex-middle"
+                    "uk-width-2-5 uk-padding-small uk-flex uk-flex-middle"
                 },
                 [
-                  _c("img", {
-                    staticClass: "uk-align-right",
-                    attrs: { alt: "", src: _vm.subCategoryImg }
-                  })
+                  _c(
+                    "div",
+                    { staticClass: "uk-card-media-right uk-cover-container" },
+                    [
+                      _c("img", {
+                        attrs: {
+                          src: _vm.subCategoryImg,
+                          alt: "",
+                          "uk-cover": ""
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("canvas", { attrs: { width: "600", height: "400" } })
+                    ]
+                  )
                 ]
               )
             ])
