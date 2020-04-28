@@ -7,16 +7,18 @@
                 <hr>
                 <div v-for="item in shoppingCart">
                     <div class="uk-grid align-items-center shoppingItem">
-                        <div class="uk-flex uk-width-5-6 align-item-center justify-content-between">
-                            <div class="uk-width-3-4 uk-flex">
-                                <div class="uk-margin-small-left uk-card-media-left uk-cover-container uk-width-1-4">
-                                    <img :src="item.course.image" alt="" uk-cover>
-                                    <canvas width="600" height="400"></canvas>
+                        <a class="uk-width-5-6" :href="'/'+moduleNameTomModule(item.course_type)+'/course/'+item.course_id">
+                            <div class="uk-flex align-item-center justify-content-between">
+                                <div class="uk-width-3-4 uk-flex">
+                                    <div class="uk-margin-small-left uk-card-media-left uk-cover-container uk-width-1-4">
+                                        <img :src="item.course.image" alt="" uk-cover>
+                                        <canvas width="600" height="400"></canvas>
+                                    </div>
+                                    <h5 class="uk-margin-left uk-width-3-4 uk-margin-remove-vertical uk-margin-remove-right"  style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{item.course.name}}</h5>
                                 </div>
-                                <h5 class="uk-margin-left uk-width-3-4 uk-margin-remove-vertical uk-margin-remove-right"  style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{item.course.name}}</h5>
+                                <h6 class="uk-width-1-4 text-center uk-margin-remove">{{item.course.price_with_discount}}  <i class="fas fa-lira-sign icon-tiny"></i></h6>
                             </div>
-                            <p class="uk-width-1-4 text-center uk-margin-remove">{{item.course.price_with_discount}}  <i class="fas fa-lira-sign icon-tiny"></i></p>
-                        </div>
+                        </a>
                         <div class="uk-width-1-6 text-left">
                             <i class="fas fa-trash-alt text-danger" @click="removeCourse(item.course_id, item.course_type)"></i>
                         </div>
@@ -85,6 +87,25 @@
                         this.$store.dispatch('loadCourseCard');
                     })
             },
+            moduleNameTomModule:function(moduleName){
+                switch (moduleName) {
+                    case "prepareLessons":{
+                        return "pl";
+                    }
+                    case "prepareExams":{
+                        return "pe";
+                    }
+                    case "exams":{
+                        return "exams";
+                    }
+                    case "books":{
+                        return "books";
+                    }
+                    default:{
+                        return "ge";
+                    }
+                }
+            },
             removeCourse:function (courseId, moduleName) {
                 var module;
                 switch (moduleName) {
@@ -131,7 +152,12 @@
     .shoppingItem{
         height: 50px;
     }
+
     .shoppingImg{
 
+    }
+
+    a{
+        text-decoration:none
     }
 </style>
