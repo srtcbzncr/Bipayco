@@ -1,6 +1,6 @@
 body {
     background: #edeff0;
-    font-family: proxima, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Kodchasan', sans-serif;
 }
 
 @font-face{
@@ -38,7 +38,6 @@ body {
     format('woff2'),
     url(../fonts/proxima-soft-medium.woff) format('woff');
 }
-
 
 .app {
     margin-left: 63px;
