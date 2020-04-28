@@ -10,7 +10,7 @@
         <hr>
         <div class="uk-flex align-item-center justify-content-around">
             <h3 class="uk-margin-remove">Toplam: {{cartAmount}} <i class="fas fa-lira-sign icon-tiny"></i></h3>
-            <button class="uk-button uk-button-success"> Satın Al</button>
+            <button class="uk-button uk-button-success" @click="buyAll"> Satın Al</button>
         </div>
     </div>
 </template>
@@ -38,11 +38,11 @@
                 'shoppingCart'
             ]),
             cartAmount(){
-                var a=0;
+                var amount=0;
                 for(var i=0;i<this.shoppingCart.length;i++){
-                    a=a+this.shoppingCart[i].course.price_with_discount;
+                    amount+=this.shoppingCart[i].course.price_with_discount;
                 }
-                return a;
+                return amount;
             }
         },
         methods: {
@@ -56,6 +56,10 @@
                         this.$store.dispatch('loadShoppingCart', this.userId);
                         this.$store.dispatch('loadCourseCard');
                     })
+            },
+            buyAll:function(){
+                Axios.post('/api/basket/buy/'+this.userId, {'userId':this.userId, 'cart':this.shoppingCart})
+                    .then(response=>console.log(response));
             },
         },
         created() {

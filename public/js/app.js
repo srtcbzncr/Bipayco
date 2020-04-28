@@ -4356,13 +4356,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['shoppingCart']), {
     cartAmount: function cartAmount() {
-      var a = 0;
+      var amount = 0;
 
       for (var i = 0; i < this.shoppingCart.length; i++) {
-        a = a + this.shoppingCart[i].course.price_with_discount;
+        amount += this.shoppingCart[i].course.price_with_discount;
       }
 
-      return a;
+      return amount;
     }
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadShoppingCart', 'loadCourseCard']), {
@@ -4373,6 +4373,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.$store.dispatch('loadShoppingCart', _this.userId);
 
         _this.$store.dispatch('loadCourseCard');
+      });
+    },
+    buyAll: function buyAll() {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/basket/buy/' + this.userId, {
+        'userId': this.userId,
+        'cart': this.shoppingCart
+      }).then(function (response) {
+        return console.log(response);
       });
     }
   }),
@@ -15650,9 +15658,14 @@ var render = function() {
             _c("i", { staticClass: "fas fa-lira-sign icon-tiny" })
           ]),
           _vm._v(" "),
-          _c("button", { staticClass: "uk-button uk-button-success" }, [
-            _vm._v(" Satın Al")
-          ])
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-success",
+              on: { click: _vm.buyAll }
+            },
+            [_vm._v(" Satın Al")]
+          )
         ]
       )
     ],
@@ -16745,10 +16758,9 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("div", { staticClass: "uk-width-1-6 text-center" }, [
-        _c("i", {
-          staticClass: "fas fa-trash-alt text-danger",
-          on: { click: _vm.removeCourse }
-        })
+        _c("a", { on: { click: _vm.removeCourse } }, [
+          _c("i", { staticClass: "fas fa-trash-alt text-danger" })
+        ])
       ])
     ]
   )

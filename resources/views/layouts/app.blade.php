@@ -103,7 +103,7 @@
                                     user-id="{{Auth::user()->id}}"
                                 > </messages-small-card>
                                 <hr class=" uk-margin-remove">
-                                <h5 class="uk-padding-small uk-margin-remove uk-text-bold uk-text-center"><a class="uk-link-heading" href=""> Satın Al </a> </h5>
+                                <h5 class="uk-padding-small uk-margin-remove uk-text-bold uk-text-center"><a class="uk-link-heading" href="{{route('get_basket')}}"> Sepete Git </a> </h5>
                             </div>
                         </li>
                         <li>

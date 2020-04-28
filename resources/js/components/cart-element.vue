@@ -23,7 +23,7 @@
             </div>
         </div>
         <div class="uk-width-1-6 text-center">
-            <i class="fas fa-trash-alt text-danger" @click="removeCourse"></i>
+            <a @click="removeCourse"><i class="fas fa-trash-alt text-danger"></i></a>
         </div>
     </div>
 </template>
