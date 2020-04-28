@@ -10,6 +10,7 @@ use App\Models\Curriculum\Subject;
 use App\Models\GeneralEducation\Achievement;
 use App\Models\GeneralEducation\Comment;
 use App\Models\GeneralEducation\Entry;
+use App\Models\GeneralEducation\Purchase;
 use App\Models\GeneralEducation\Requirement;
 use App\Models\GeneralEducation\Tag;
 use App\Models\PrepareLessons\Course;
@@ -2112,6 +2113,52 @@ class CourseRepository implements IRepository{
             }
         }
         catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function buy($courseId,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            // öğrenciyi purchase tablosuna kaydet.
+            $object = new Purchase();
+            $object->user_id =  $data['userId'];
+            $user = User::find($data['userId']);
+            $object->student_id = $user->student->id;
+            $object->course_id = $courseId;
+            $object->course_type = 'App\Models\PrepareLessons\Course';
+            $object->price = $data['price'];
+            $object->confirmation = true;
+            $object->save();
+
+            //  öğrenciyi entry tablosuna kaydet.
+            $object = null;
+            $object = new Entry();
+            $object->course_id = $courseId;
+            $object->course_type = 'App\Models\PrepareLessons\Course';
+            $object->student_id = $user->student->id;
+
+            $course = Course::find($courseId);
+            $today = date("Y/m/d");
+            $accessTime = $course->access_time;
+            $object->access_finish = date('Y-m-d', strtotime('+ '.$accessTime.' months', strtotime($today)));
+            $object->active = true;
+            $object->save();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
             $error = $e->getMessage();
             $result = false;
         }

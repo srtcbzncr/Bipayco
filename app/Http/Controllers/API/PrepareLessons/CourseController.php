@@ -827,4 +827,25 @@ class CourseController extends Controller
             return response()->json(['error' => true, 'message' => $resp->getError()],400);
         }
     }
+
+    public function buy($courseId,Request $request){
+        // initializing
+        $repo = new CourseRepository();
+        $data = $request->toArray();
+
+        // operations
+        $resp = $repo->buy($courseId,$data);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Satın alma başarısız.Tekrar deneyin',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
 }

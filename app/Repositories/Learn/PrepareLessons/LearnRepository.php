@@ -254,26 +254,7 @@ class LearnRepository implements IRepository
                     }
                 }
                 if($flag == false){
-                    $object['selectedSection'] = $beforeSection;
-                    $tempLessons = Lesson::where('section_id',$object['selectedSection']->id)->orderBy('no', 'asc')->get();
-                    $object['selectedLesson'] = $tempLessons[0];
-                    if(isset($tempLessons[1])){
-                        $object['nextLessonId'] = $tempLessons[1]->id;
-                    }
-                    else{
-                        $object['nextLessonId'] = "lastTest";
-                       /* if(isset($tempSections[1])){
-                            $tempLessons = null;
-                            $tempLessons = Lesson::where('section_id',$tempSections[1]->id)->orderBy('no', 'asc')->get();
-                            $object['nextLessonId'] = $tempLessons[0]->id;
-                        }
-                        else{
-                            $object['nextLessonId'] = null;
-                        }*/
-                    }
-                }
-                else{
-                    $object['selectedLesson'] = "firstTest";
+                    $object['selectedLesson'] = "lastTest";
                 }
             }
         }

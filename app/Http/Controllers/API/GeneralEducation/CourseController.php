@@ -20,6 +20,8 @@ use App\Repositories\GeneralEducation\RequirementRepository;
 use App\Repositories\GeneralEducation\SectionRepository;
 use App\Repositories\GeneralEducation\SourceRepository;
 use App\Repositories\GeneralEducation\TagRepository;
+use DateInterval;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -1048,6 +1050,27 @@ class CourseController extends Controller
         return response()->json([
             'error' => true,
             'message' => 'Bir hata oluştu.Tekrar deneyin.'
+        ]);
+    }
+
+    public function buy($courseId,Request $request){
+        // initializing
+        $repo = new CourseRepository();
+        $data = $request->toArray();
+
+        // operations
+        $resp = $repo->buy($courseId,$data);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Satın alma başarısız.Tekrar deneyin',
+            'errorMessage' => $resp->getError()
         ]);
     }
 
