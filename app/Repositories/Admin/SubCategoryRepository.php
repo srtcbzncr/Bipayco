@@ -68,6 +68,7 @@ class SubCategoryRepository implements IRepository
             DB::beginTransaction();
             $object = new SubCategory();
             $object->category_id = $data['categoryId'];
+            $object->description = $data['description'];
             $object->name = $data['name'];
             $object->color = $data['color'];
             $object->symbol = $data['symbol'];
@@ -100,6 +101,7 @@ class SubCategoryRepository implements IRepository
             DB::beginTransaction();
             $object = SubCategory::find($id);
             $object->category_id = $data['categoryId'];
+            $object->description = $data['description'];
             $object->name = $data['name'];
             $object->color = $data['color'];
             $object->symbol = $data['symbol'];
