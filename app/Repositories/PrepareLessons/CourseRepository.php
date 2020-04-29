@@ -1012,7 +1012,8 @@ class CourseRepository implements IRepository{
         // Operations
         $isManagers = array();
         foreach ($data as $key => $item){
-            $geCoursesInstructor = DB::table('ge_courses_instructors')->where('course_id',$course_id)->where('instructor_id',$item['instructor_id'])
+            $geCoursesInstructor = DB::table('ge_courses_instructors')->where('course_id',$course_id)
+                ->where('deleted_at',null)->where('instructor_id',$item['instructor_id'])
                 ->where('course_type','App\Models\PrepareLessons\Course')->get();
             try {
                 if($geCoursesInstructor[0]->is_manager == 1){
@@ -2235,6 +2236,7 @@ class CourseRepository implements IRepository{
             if($instructor != null){
                 $hasCourse = DB::table('ge_courses_instructors')->where('course_id',$courseId)
                     ->where('course_type','App\Models\PrepareLessons\Course')
+                    ->where('deleted_at',null)
                     ->where('instructor_id',$instructor->id)
                     ->where('is_manager',true)->get();
                 if($hasCourse != null and count($hasCourse)>0){
@@ -2308,6 +2310,7 @@ class CourseRepository implements IRepository{
             if($instructor != null){
                 $hasCourse = DB::table('ge_courses_instructors')->where('course_id',$courseId)
                     ->where('course_type','App\Models\PrepareLessons\Course')
+                    ->where('deleted_at',null)
                     ->where('instructor_id',$instructor->id)
                     ->where('is_manager',true)->get();
                 if($hasCourse != null and count($hasCourse)>0){
@@ -2351,6 +2354,7 @@ class CourseRepository implements IRepository{
             if($instructor != null){
                 $hasCourse = DB::table('ge_courses_instructors')->where('course_id',$courseId)
                     ->where('course_type','App\Models\PrepareLessons\Course')
+                    ->where('deleted_at',null)
                     ->where('instructor_id',$instructor->id)
                     ->where('is_manager',true)->get();
                 if($hasCourse != null and count($hasCourse)>0){
