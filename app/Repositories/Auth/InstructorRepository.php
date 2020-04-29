@@ -345,7 +345,7 @@ class InstructorRepository implements IRepository{
             }
         }
         catch (\Exception $e){
-            $error = $e;
+            $error = $e->getMessage();
             $result = false;
         }
 
@@ -369,7 +369,7 @@ class InstructorRepository implements IRepository{
             }
         }
         catch (\Exception $e){
-            $error = $e;
+            $error = $e->getMessage();
             $result = false;
         }
 
