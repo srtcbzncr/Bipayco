@@ -10,9 +10,9 @@
                                 <a class="uk-link-reset" @click="openPreview(lesson.file_path, lesson.is_video, lesson.preview, lesson.id)">
                                     <!-- Play icon  -->
                                     <span>
-                                        <i v-if="authCheck && lesson.is_completed" style="color:#2ED24A" class="fas fa-check-circle icon-medium" uk-tooltip="title: @lang('front/auth.watch_again')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>
-                                        <i v-else-if="lesson.is_video" style="color:#666666" class="fas fa-play-circle icon-medium" uk-tooltip="title: @lang('front/auth.watch')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>
-                                        <i v-else style="color:#666666" class="fas fa-file-alt icon-medium" uk-tooltip="title: @lang('front/auth.watch')  ; delay: 300 ; pos: top ;animation:	uk-animation-slide-bottom-small"></i>
+                                        <i v-if="authCheck && lesson.is_completed" style="color:#2ED24A" class="fas fa-check-circle icon-medium"></i>
+                                        <i v-else-if="lesson.is_video" style="color:#666666" class="fas fa-play-circle icon-medium"></i>
+                                        <i v-else style="color:#666666" class="fas fa-file-alt icon-medium"></i>
                                     </span>
                                     <!-- Course title  -->
                                     <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{lesson.name}}</div>

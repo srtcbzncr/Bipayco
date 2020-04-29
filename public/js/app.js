@@ -17688,30 +17688,18 @@ var render = function() {
                                           ? _c("i", {
                                               staticClass:
                                                 "fas fa-check-circle icon-medium",
-                                              staticStyle: { color: "#2ED24A" },
-                                              attrs: {
-                                                "uk-tooltip":
-                                                  "title: @lang('front/auth.watch_again')  ; delay: 300 ; pos: top ;animation:\tuk-animation-slide-bottom-small"
-                                              }
+                                              staticStyle: { color: "#2ED24A" }
                                             })
                                           : lesson.is_video
                                           ? _c("i", {
                                               staticClass:
                                                 "fas fa-play-circle icon-medium",
-                                              staticStyle: { color: "#666666" },
-                                              attrs: {
-                                                "uk-tooltip":
-                                                  "title: @lang('front/auth.watch')  ; delay: 300 ; pos: top ;animation:\tuk-animation-slide-bottom-small"
-                                              }
+                                              staticStyle: { color: "#666666" }
                                             })
                                           : _c("i", {
                                               staticClass:
                                                 "fas fa-file-alt icon-medium",
-                                              staticStyle: { color: "#666666" },
-                                              attrs: {
-                                                "uk-tooltip":
-                                                  "title: @lang('front/auth.watch')  ; delay: 300 ; pos: top ;animation:\tuk-animation-slide-bottom-small"
-                                              }
+                                              staticStyle: { color: "#666666" }
                                             })
                                       ]),
                                       _vm._v(" "),
