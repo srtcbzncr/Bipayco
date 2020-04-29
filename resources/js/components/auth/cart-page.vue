@@ -15,6 +15,9 @@
                 :moduleName="item.course_type"
             ></cart-element>
         </div>
+        <div v-if="shoppingCart.length<=0" class="uk-flex align-items-center justify-content-center">
+            <h2>{{noContentText}}</h2>
+        </div>
     </div>
 </template>
 
@@ -35,6 +38,10 @@
                 type: String,
                 default: "Hepsini Temizle"
             },
+            noContentText:{
+                type:String,
+                default:"İçerik Bulunmamaktadır"
+            }
         },
         computed: {
             ...mapState([
@@ -62,7 +69,14 @@
             },
             buyAll:function(){
                 Axios.post('/api/basket/buy/'+this.userId, {'userId':this.userId, 'cart':this.shoppingCart})
-                    .then(response=>console.log(response));
+                    .then(response=>{
+                        if(!response.data.error){
+                            UIkit.notification({message:'Satın Alım Başarıyla Gerçekleşti.', status:'success'})
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }
+                        this.$store.dispatch('loadShoppingCart', this.userId);
+                    });
             },
         },
         created() {

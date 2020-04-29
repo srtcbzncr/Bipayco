@@ -4339,6 +4339,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -4355,6 +4358,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     removeAllText: {
       type: String,
       "default": "Hepsini Temizle"
+    },
+    noContentText: {
+      type: String,
+      "default": "İçerik Bulunmamaktadır"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['shoppingCart']), {
@@ -4379,11 +4386,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     buyAll: function buyAll() {
+      var _this2 = this;
+
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/basket/buy/' + this.userId, {
         'userId': this.userId,
         'cart': this.shoppingCart
       }).then(function (response) {
-        return console.log(response);
+        if (!response.data.error) {
+          UIkit.notification({
+            message: 'Satın Alım Başarıyla Gerçekleşti.',
+            status: 'success'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        }
+
+        _this2.$store.dispatch('loadShoppingCart', _this2.userId);
       });
     }
   }),
@@ -15798,7 +15819,17 @@ var render = function() {
           ],
           1
         )
-      })
+      }),
+      _vm._v(" "),
+      _vm.shoppingCart.length <= 0
+        ? _c(
+            "div",
+            {
+              staticClass: "uk-flex align-items-center justify-content-center"
+            },
+            [_c("h2", [_vm._v(_vm._s(_vm.noContentText))])]
+          )
+        : _vm._e()
     ],
     2
   )
