@@ -31,7 +31,7 @@
         <div class="uk-width-2-3@m uk-width-1-2@s uk-margin-auto  border-radius-6 ">
             <div class="uk-child-width-1-2@m uk-background-grey uk-grid-collapse" uk-grid>
                 <div class="uk-text-middle uk-margin-auto-vertical uk-text-center uk-padding-small uk-animation-scale-up">
-                    <a class="" href="{{ route('home') }}"> <img class="uk-logo uk-width-small" src="{{asset('images/logo1.png')}}"/> </a>
+                    <a class="" href="{{ route('home') }}"> <img class="uk-logo uk-width-medium" src="{{asset('images/logo1.png')}}"/> </a>
                     <!--<h5 class="uk-margin-small uk-text-muted uk-text-bold uk-text-nowrap">'front/auth.bipayco_description'</h5>-->
                 </div>
                 <div>
