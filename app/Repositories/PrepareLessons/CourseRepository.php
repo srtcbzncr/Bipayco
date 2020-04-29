@@ -12,6 +12,7 @@ use App\Models\GeneralEducation\Comment;
 use App\Models\GeneralEducation\Entry;
 use App\Models\GeneralEducation\Purchase;
 use App\Models\GeneralEducation\Requirement;
+use App\Models\GeneralEducation\Source;
 use App\Models\GeneralEducation\Tag;
 use App\Models\PrepareLessons\Course;
 use App\Models\PrepareLessons\Lesson;
@@ -2185,6 +2186,76 @@ class CourseRepository implements IRepository{
             $object->access_finish = date('Y-m-d', strtotime('+ '.$accessTime.' months', strtotime($today)));
             $object->active = true;
             $object->save();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function deleteCourse($courseId,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $user = User::find($data['userId']);
+            $instructor = $user->instructor();
+            if($instructor != null){
+                $hasCourse = DB::table('ge_courses_instructors')->where('course_id',$courseId)
+                    ->where('course_type','App\Models\PrepareLessons\Course')
+                    ->where('instructor_id',$instructor->id)
+                    ->where('is_manager',true)->get();
+                if($hasCourse != null and count($hasCourse)>0){
+                    $now = date('Y-m-d', time());
+                    $flag = false;
+                    $entries = Entry::where('course_id',$courseId)->where('course_type','App\Models\PrepareLessons\Course')->where('active',true)->get();
+                    foreach ($entries as $entry){
+                        if(date('Y-m-d',strtotime($entry->access_start))<=$now and date('Y-m-d',strtotime($entry->access_finish))>=$now){
+                            $flag = true;
+                            break;
+                        }
+                    }
+                    if($flag == false){
+                        // kurs ve kursa ait tüm bilgileri sil
+                        $course = Course::find($courseId);
+                        $sections = Section::where('course_id',$courseId)->get();
+                        foreach ($sections as $section){
+                            $lessons = Lesson::where('section_id',$section->id)->get();
+                            foreach ($lessons as $lesson){
+                                $sources = Source::where('lesson_id',$lesson->id)->where('lesson_type','App\Models\PrepareLessons\Lesson')->get();
+                                foreach ($sources as $source){
+                                    $source->delete();
+                                }
+                                $lesson->delete();
+                            }
+                            $section->delete();
+                        }
+                        $course->delete();
+                    }
+                    else{
+                        $error = "Kursa sahip öğrenci bulunmaktadır.Bu yüzden kursu silemezsiniz.";
+                        $result = false;
+                    }
+                }
+                else{
+                    $error = "Bu kursun eğitmeni veya yönetici değilsiniz.Erişiminiz bulunmamaktadır.";
+                    $result = false;
+                }
+            }
+            else{
+                $error = "Eğitmen değilsiniz.Erişiminiz bulunmamaktadır.";
+                $result = false;
+            }
             DB::commit();
         }
         catch(\Exception $e){

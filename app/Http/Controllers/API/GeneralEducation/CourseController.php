@@ -1074,4 +1074,24 @@ class CourseController extends Controller
         ]);
     }
 
+    public function deleteCourse($id,Request $request){
+        // initializing
+        $repo = new CourseRepository();
+        $data = $request->toArray();
+
+        // operations
+        $resp = $repo->deleteCourse($id,$data);
+        if($resp->getResult()){
+            return response()->json([
+               'error' => false,
+               'message' => 'Kurs başarıyla silindi'
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Kurs Silme işlemi başarısız.Tekrar deneyin',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
+
 }
