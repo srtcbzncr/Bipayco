@@ -210,6 +210,28 @@
                                     <a href="{{asset('/contracts/salesContract.pdf')}}" target="_blank"> Satış Sözleşmesi </a>
                                 </li>
                                 <li>
+                                    <a href="{{asset('/contracts/kvkkAydinlatma.pdf')}}" target="_blank"> KVKK Aydınlatma Metni </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="uk-width-expand@m uk-width-1-3@s">
+                            <ul class="uk-list  tm-footer-list">
+                                <li>
+                                    <h5></h5>
+                                </li>
+                                <li>
+                                    <a href="{{asset('/contracts/fikriMulkiyetPolitikasi.pdf')}}" target="_blank"> Fikri Mülkiyet Politikası </a>
+                                </li>
+                                <li>
+                                    <a href="{{asset('/contracts/gizlilikPolitikasi.pdf')}}" target="_blank"> Gizlilik Politikası </a>
+                                </li>
+                                <li>
+                                    <a href="{{asset('/contracts/kullanimKosullari.pdf')}}" target="_blank"> Kullanım Koşulları </a>
+                                </li>
+                                <li>
+                                    <a href="{{asset('/contracts/uyeHukumleri.pdf')}}" target="_blank"> Üye Hükümleri ve Koşulları </a>
+                                </li>
+                                <li>
                                     <a href="{{asset('/contracts/cookiesPolicy.pdf')}}" target="_blank"> Çerez Politikamız </a>
                                 </li>
                             </ul>

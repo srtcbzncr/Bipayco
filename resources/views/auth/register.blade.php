@@ -110,10 +110,45 @@
                                     </div>
                                 </div>
                                 <div class="uk-margin">
-                                    <label>
+                                    <div class="uk-grid uk-child-width-1-2@m">
+                                        <ul class="uk-list">
+                                            <li>
+                                                <a href="{{asset('/contracts/kvkkAydinlatma.pdf')}}" target="_blank"> KVKK Aydınlatma Metni </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{asset('/contracts/fikriMulkiyetPolitikasi.pdf')}}" target="_blank"> Fikri Mülkiyet Politikası </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{asset('/contracts/gizlilikPolitikasi.pdf')}}" target="_blank"> Gizlilik Politikası </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{asset('/contracts/kullanimKosullari.pdf')}}" target="_blank"> Kullanım Koşulları </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{asset('/contracts/uyeHukumleri.pdf')}}" target="_blank"> Üye Hükümleri ve Koşulları </a>
+                                            </li>
+                                        </ul>
+                                        <ul class="uk-list">
+                                            <li>
+                                                <a href="{{asset('/contracts/cookiesPolicy.pdf')}}" target="_blank"> Çerez Politikamız </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{asset('/contracts/preInformationForm.pdf')}}" target="_blank"> Ön Bilgilendirme Formu </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{asset('/contracts/subscription.pdf')}}" target="_blank"> Abonelik Sözleşmesi </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{asset('/contracts/salesContract.pdf')}}" target="_blank"> Satış Sözleşmesi </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{asset('/contracts/kvkkAydinlatma.pdf')}}" target="_blank"> KVKK Aydınlatma Metni </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <label class="uk-margin-small-top">
                                         <input class="uk-checkbox" type="checkbox" required>
-                                        <a href="{{asset('contracts/subscription.pdf')}}" target="blank_" class="uk-text-bold uk-text-small"> Abonelik Sözleşmesini </a>
-                                        <span class="checkmark uk-text-small"> kabul ediyorum </span>
+                                        <span class="checkmark uk-text-small">Tüm sözleşmeleri okudum ve kabul ediyorum </span>
                                     </label>
                                 </div>
                                 <div class=" uk-flex-middle" uk-grid>
