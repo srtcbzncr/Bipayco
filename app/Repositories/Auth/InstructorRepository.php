@@ -82,7 +82,7 @@ class InstructorRepository implements IRepository{
         // Operations
         try{
             $user = User::where('email',$email)->first();
-            $object = Instructor::where('user_id', $user->id)->first();
+            $object = Instructor::where('user_id', $user->id)->where('deleted_at',null)->first();
         }
         catch (\Exception $e){
             $error = $e;
@@ -109,7 +109,7 @@ class InstructorRepository implements IRepository{
 
         // Operations
         try{
-            $object = Instructor::where('reference_code', $referenceCode)->first();
+            $object = Instructor::where('reference_code', $referenceCode)->where('deleted_at',null)->first();
         }
         catch (\Exception $e){
             $error = $e;
@@ -337,7 +337,8 @@ class InstructorRepository implements IRepository{
 
         // Operations
         try{
-            $data = DB::table('ge_courses_instructors')->where('instructor_id',Auth::user()->instructor->id)->where('course_type','App\Models\GeneralEducation\Course')
+            $data = DB::table('ge_courses_instructors')->where('instructor_id',Auth::user()->instructor->id)
+                ->where('deleted_at',null)->where('course_type','App\Models\GeneralEducation\Course')
                 ->orderBy('created_at','desc')->take(20)->get();
             foreach ($data as $key => $item){
                 $object[$key] = Course::find($item->course_id);
@@ -360,7 +361,8 @@ class InstructorRepository implements IRepository{
 
         // Operations
         try{
-            $data = DB::table('ge_courses_instructors')->where('instructor_id',Auth::user()->instructor->id)->where('course_type','App\Models\PrepareLessons\Course')
+            $data = DB::table('ge_courses_instructors')->where('instructor_id',Auth::user()->instructor->id)
+                ->where('deleted_at',null)->where('course_type','App\Models\PrepareLessons\Course')
                 ->orderBy('created_at','desc')->take(20)->get();
             foreach ($data as $key => $item){
                 $object[$key] = \App\Models\PrepareLessons\Course::find($item->course_id);
@@ -405,7 +407,8 @@ class InstructorRepository implements IRepository{
         try{
             $object = array();
             // eğitmen puanı
-            $courses = DB::table('ge_courses_instructors')->where('instructor_id',$instructorId)->where('active',true)->get();
+            $courses = DB::table('ge_courses_instructors')->where('instructor_id',$instructorId)
+                ->where('deleted_at',null)->where('active',true)->get();
             $toplam = 0;
             foreach ($courses as $item){
                 if($item->course_type == 'App\Models\GeneralEducation\Course'){
@@ -433,11 +436,11 @@ class InstructorRepository implements IRepository{
             $totalStudent = 0;
             foreach ($courses as $item){
                 if($item->course_type == 'App\Models\GeneralEducation\Course'){
-                    $course = Entry::where('course_id',$item->course_id)->where('course_type','App\Models\GeneralEducation\Course')->where('active',true)->get();
+                    $course = Entry::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\GeneralEducation\Course')->where('active',true)->get();
                     $totalStudent+=count($course);
                 }
                 else if($item->course_type == 'App\Models\PrepareLessons\Course'){
-                    $course = Entry::where('course_id',$item->course_id)->where('course_type','App\Models\PrepareLessons\Course')->where('active',true)->get();
+                    $course = Entry::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\PrepareLessons\Course')->where('active',true)->get();
                     $totalStudent+=count($course);
                 }
             }
@@ -469,7 +472,7 @@ class InstructorRepository implements IRepository{
             $totalPay = 0;
             foreach ($courses as $item){
                 if($item->course_type == 'App\Models\GeneralEducation\Course'){
-                    $purchases = Purchase::where('course_id',$item->course_id)->where('course_type','App\Models\GeneralEducation\Course')->where('confirmation',1)->get();
+                    $purchases = Purchase::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\GeneralEducation\Course')->where('confirmation',1)->get();
                     foreach ($purchases as $purchase){
                         $price=$purchase->price;
                         $pay = ($price*$item->percent)/100;
@@ -477,7 +480,7 @@ class InstructorRepository implements IRepository{
                     }
                 }
                 else if($item->course_type == 'App\Models\PrepareLessons\Course'){
-                    $purchases = Purchase::where('course_id',$item->course_id)->where('course_type','App\Models\PrepareLessons\Course')->where('confirmation',1)->get();
+                    $purchases = Purchase::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\PrepareLessons\Course')->where('confirmation',1)->get();
                     foreach ($purchases as $purchase){
                         $price=$purchase->price;
                         $pay = ($price*$item->percent)/100;
@@ -537,14 +540,14 @@ class InstructorRepository implements IRepository{
             $notAnsweredQuestions = 0;
             foreach ($courses as $item){
                 if($item->course_type == 'App\Models\GeneralEducation\Course'){
-                    $sections = Section::where('course_id',$item->course_id)->get();
+                    $sections = Section::where('course_id',$item->course_id)->where('deleted_at',null)->get();
                     foreach ($sections as $section){
-                        $lessons = Lesson::where('section_id',$section->id)->get();
+                        $lessons = Lesson::where('section_id',$section->id)->where('deleted_at',null)->get();
                         foreach ($lessons as $lesson){
-                            $questions = Question::where('lesson_id',$lesson->id)->where('lesson_type','App\Models\GeneralEducation\Lesson')->get();
+                            $questions = Question::where('lesson_id',$lesson->id)->where('deleted_at',null)->where('lesson_type','App\Models\GeneralEducation\Lesson')->get();
                             $totalQuestions+=count($questions);
                             foreach ($questions as $question){
-                                $answers = Answer::where('question_id',$question->id)->get();
+                                $answers = Answer::where('question_id',$question->id)->where('deleted_at',null)->get();
                                 if($answers==null or count($answers) == 0){
                                     $notAnsweredQuestions++;
                                 }
@@ -553,14 +556,14 @@ class InstructorRepository implements IRepository{
                     }
                 }
                 else if($item->course_type == 'App\Models\PrepareLessons\Course'){
-                    $sections = Section::where('course_id',$item->course_id)->get();
+                    $sections = Section::where('course_id',$item->course_id)->where('deleted_at',null)->get();
                     foreach ($sections as $section){
-                        $lessons = Lesson::where('section_id',$section->id)->get();
+                        $lessons = Lesson::where('section_id',$section->id)->where('deleted_at',null)->get();
                         foreach ($lessons as $lesson){
-                            $questions = Question::where('lesson_id',$lesson->id)->where('lesson_type','App\Models\PrepareLessons\Lesson')->get();
+                            $questions = Question::where('lesson_id',$lesson->id)->where('deleted_at',null)->where('lesson_type','App\Models\PrepareLessons\Lesson')->get();
                             $totalQuestions+=count($questions);
                             foreach ($questions as $question){
-                                $answers = Answer::where('question_id',$question->id)->get();
+                                $answers = Answer::where('question_id',$question->id)->where('deleted_at',null)->get();
                                 if($answers==null or count($answers) == 0){
                                     $notAnsweredQuestions++;
                                 }

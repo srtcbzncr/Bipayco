@@ -78,7 +78,7 @@ class ManagerRepository implements IRepository{
 
         // Operations
         try{
-            $object = Manager::where('reference_code', $referenceCode)->first();
+            $object = Manager::where('reference_code', $referenceCode)->where('deleted_at',null)->first();
         }
         catch (\Exception $e){
             $error = $e;

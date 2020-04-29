@@ -82,7 +82,7 @@ class StudentRepository implements IRepository{
 
         // Operations
         try{
-            $object = Student::where('reference_code', $referenceCode)->first();
+            $object = Student::where('reference_code', $referenceCode)->where('deleted_at',null)->first();
         }
         catch (\Exception $e){
             $error = $e;
@@ -365,7 +365,7 @@ class StudentRepository implements IRepository{
 
     private function entryGe($user,$course){
         $now = date('Y-m-d', time());
-        $entry = Entry::where('student_id', $user->student->id)->where('course_type','App\Models\GeneralEducation\Course')->where('course_id', $course->id)->where('active', true)->first();
+        $entry = Entry::where('student_id', $user->student->id)->where('deleted_at',null)->where('course_type','App\Models\GeneralEducation\Course')->where('course_id', $course->id)->where('active', true)->first();
         if($entry != null and date('Y-m-d',strtotime($entry->access_start))<=$now and date('Y-m-d',strtotime($entry->access_finish))>=$now){
             return true;
         }
@@ -375,7 +375,7 @@ class StudentRepository implements IRepository{
     }
     private function entryPl($user,$course){
         $now = date('Y-m-d', time());
-        $entry = Entry::where('student_id', $user->student->id)->where('course_type',\App\Models\PrepareLessons\Course::class)->where('course_id', $course->id)->where('active', true)->first();
+        $entry = Entry::where('student_id', $user->student->id)->where('deleted_at',null)->where('course_type',\App\Models\PrepareLessons\Course::class)->where('course_id', $course->id)->where('active', true)->first();
         if($entry != null and date('Y-m-d',strtotime($entry->access_start))<=$now and date('Y-m-d',strtotime($entry->access_finish))>=$now){
             return true;
         }
