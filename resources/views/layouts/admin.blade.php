@@ -44,7 +44,7 @@
 <body>
     <!-- sidebar -->
     <div class="admin-side overflow-auto" id="admin-side">
-        <div class="uk-flex uk-flex-center uk-margin-small-top">
+        <div class="uk-flex uk-flex-center  uk-margin-medium-top uk-margin-medium-bottom">
             <a class="" href="{{route('home')}}">
                 <img class="uk-logo uk-width-small" src="{{asset('images/logo1.png')}}"/>
             </a>
