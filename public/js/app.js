@@ -23269,7 +23269,6 @@ var render = function() {
           "a",
           {
             attrs: {
-              href: _vm.generalEducationRoute,
               "uk-tooltip":
                 "title:" +
                 _vm.generalEducationText +
@@ -23368,7 +23367,6 @@ var render = function() {
           "a",
           {
             attrs: {
-              href: "#",
               "uk-tooltip":
                 "title:" +
                 _vm.prepareLessonsText +
