@@ -7,17 +7,40 @@
         </div>
         <hr class=" uk-margin-remove">
         <div class="uk-padding-small uk-text-left uk-height-medium">
-            <div v-if="myCourses.courses != null && myCourses.courses.ge.length>0" class="demo1" data-simplebar style="overflow-y:auto">
+            <div v-if="myCourses.courses != null && myCourses.courses.ge.length+myCourses.courses.pl.length>0" class="demo1" data-simplebar style="overflow-y:auto">
                 <div class="uk-child-width-1-2@s  uk-grid-small uk-padding-small"  uk-scrollspy="target: > div; cls:uk-animation-slide-bottom-small; delay: 100 ;repeat: true" uk-grid>
                     <div  v-for="myCourse in myCourses.courses.ge">
                         <a :href="'/ge/course/'+myCourse.course.id" class="uk-link-reset">
-                            <div class="uk-padding-small uk-card-default">
-                                <progress id="js-progressbar" class="uk-progress progress-green uk-margin-small-bottom" :value="myCourse.progress" max="100" style="height: 7px;"></progress>
-                                <img :src="myCourse.course.image" class="uk-align-left  uk-margin-small-right uk-margin-small-bottom  uk-width-1-3  uk-visible@s" alt="">
-                                <p class="uk-text-bold uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{myCourse.course.name}} </p>
-                                <p class="uk-text-small uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"> {{myCourse.course.description}}</p>
-                                <div class="uk-margin-small">
-                                    <a class="Course-tags uk-margin-small-right   border-radius-6" href=""> <i class="fas fa-play"></i> Devam Et</a>
+                            <div class="uk-padding-small uk-card-default border-radius-6 uk-flex uk-flex-column">
+                                <progress id="js-progressbar" class="uk-progress progress-green uk-margin-small-bottom uk-width" :value="myCourse.progress" max="100" style="height: 7px;"></progress>
+                                <div class="uk-flex align-items-center justify-content-between uk-width">
+                                    <div class="uk-card-media-left uk-width-1-3 uk-cover-container uk-margin-small-right">
+                                        <img :src="myCourse.course.image" alt="" uk-cover>
+                                        <canvas width="600" height="400"></canvas>
+                                    </div>
+                                    <div class="uk-width-2-3">
+                                        <h5 class="uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{myCourse.course.name}} </h5>
+                                        <hr class="uk-margin-remove">
+                                        <p class="uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"> {{myCourse.course.description}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div  v-for="myCourse in myCourses.courses.pl">
+                        <a :href="'/ge/course/'+myCourse.course.id" class="uk-link-reset">
+                            <div class="uk-padding-small uk-card-default border-radius-6 uk-flex uk-flex-column">
+                                <progress id="js-progressbar" class="uk-progress progress-green uk-margin-small-bottom uk-width" :value="myCourse.progress" max="100" style="height: 7px;"></progress>
+                                <div class="uk-flex align-items-center justify-content-between uk-width">
+                                    <div class="uk-card-media-left uk-width-1-3 uk-cover-container uk-margin-small-right">
+                                        <img :src="myCourse.course.image" alt="" uk-cover>
+                                        <canvas width="600" height="400"></canvas>
+                                    </div>
+                                    <div class="uk-width-2-3">
+                                        <h5 class="uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{myCourse.course.name}} </h5>
+                                        <hr class="uk-margin-remove">
+                                        <p class="uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"> {{myCourse.course.description}}</p>
+                                    </div>
                                 </div>
                             </div>
                         </a>

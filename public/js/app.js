@@ -4595,7 +4595,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['myCourses'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadMyCourses'])),
-  mounted: function mounted() {
+  created: function created() {
     this.$store.dispatch('loadMyCourses', this.userId);
   }
 });
@@ -9954,6 +9954,29 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -24067,7 +24090,8 @@ var render = function() {
         "div",
         { staticClass: "uk-padding-small uk-text-left uk-height-medium" },
         [
-          _vm.myCourses.courses != null && _vm.myCourses.courses.ge.length > 0
+          _vm.myCourses.courses != null &&
+          _vm.myCourses.courses.ge.length + _vm.myCourses.courses.pl.length > 0
             ? _c(
                 "div",
                 {
@@ -24087,83 +24111,250 @@ var render = function() {
                         "uk-grid": ""
                       }
                     },
-                    _vm._l(_vm.myCourses.courses.ge, function(myCourse) {
-                      return _c("div", [
-                        _c(
-                          "a",
-                          {
-                            staticClass: "uk-link-reset",
-                            attrs: { href: "/ge/course/" + myCourse.course.id }
-                          },
-                          [
-                            _c(
-                              "div",
-                              {
-                                staticClass: "uk-padding-small uk-card-default"
-                              },
-                              [
-                                _c("progress", {
+                    [
+                      _vm._l(_vm.myCourses.courses.ge, function(myCourse) {
+                        return _c("div", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "uk-link-reset",
+                              attrs: {
+                                href: "/ge/course/" + myCourse.course.id
+                              }
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
                                   staticClass:
-                                    "uk-progress progress-green uk-margin-small-bottom",
-                                  staticStyle: { height: "7px" },
-                                  attrs: { id: "js-progressbar", max: "100" },
-                                  domProps: { value: myCourse.progress }
-                                }),
-                                _vm._v(" "),
-                                _c("img", {
+                                    "uk-padding-small uk-card-default border-radius-6 uk-flex uk-flex-column"
+                                },
+                                [
+                                  _c("progress", {
+                                    staticClass:
+                                      "uk-progress progress-green uk-margin-small-bottom uk-width",
+                                    staticStyle: { height: "7px" },
+                                    attrs: { id: "js-progressbar", max: "100" },
+                                    domProps: { value: myCourse.progress }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "uk-flex align-items-center justify-content-between uk-width"
+                                    },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "uk-card-media-left uk-width-1-3 uk-cover-container uk-margin-small-right"
+                                        },
+                                        [
+                                          _c("img", {
+                                            attrs: {
+                                              src: myCourse.course.image,
+                                              alt: "",
+                                              "uk-cover": ""
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("canvas", {
+                                            attrs: {
+                                              width: "600",
+                                              height: "400"
+                                            }
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "uk-width-2-3" },
+                                        [
+                                          _c(
+                                            "h5",
+                                            {
+                                              staticClass: "uk-margin-remove",
+                                              staticStyle: {
+                                                overflow: "hidden",
+                                                "text-overflow": "ellipsis",
+                                                display: "-webkit-box",
+                                                "line-height": "16px",
+                                                "max-height": "16px",
+                                                "-webkit-line-clamp": "1",
+                                                "-webkit-box-orient": "vertical"
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                _vm._s(myCourse.course.name) +
+                                                  " "
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("hr", {
+                                            staticClass: "uk-margin-remove"
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "p",
+                                            {
+                                              staticClass: "uk-margin-remove",
+                                              staticStyle: {
+                                                overflow: "hidden",
+                                                "text-overflow": "ellipsis",
+                                                display: "-webkit-box",
+                                                "line-height": "16px",
+                                                "max-height": "32px",
+                                                "-webkit-line-clamp": "2",
+                                                "-webkit-box-orient": "vertical"
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                " " +
+                                                  _vm._s(
+                                                    myCourse.course.description
+                                                  )
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ])
+                      }),
+                      _vm._v(" "),
+                      _vm._l(_vm.myCourses.courses.pl, function(myCourse) {
+                        return _c("div", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "uk-link-reset",
+                              attrs: {
+                                href: "/ge/course/" + myCourse.course.id
+                              }
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
                                   staticClass:
-                                    "uk-align-left  uk-margin-small-right uk-margin-small-bottom  uk-width-1-3  uk-visible@s",
-                                  attrs: { src: myCourse.course.image, alt: "" }
-                                }),
-                                _vm._v(" "),
-                                _c(
-                                  "p",
-                                  {
+                                    "uk-padding-small uk-card-default border-radius-6 uk-flex uk-flex-column"
+                                },
+                                [
+                                  _c("progress", {
                                     staticClass:
-                                      "uk-text-bold uk-margin-remove",
-                                    staticStyle: {
-                                      overflow: "hidden",
-                                      "text-overflow": "ellipsis",
-                                      display: "-webkit-box",
-                                      "line-height": "16px",
-                                      "max-height": "16px",
-                                      "-webkit-line-clamp": "1",
-                                      "-webkit-box-orient": "vertical"
-                                    }
-                                  },
-                                  [_vm._v(_vm._s(myCourse.course.name) + " ")]
-                                ),
-                                _vm._v(" "),
-                                _c(
-                                  "p",
-                                  {
-                                    staticClass:
-                                      "uk-text-small uk-margin-remove",
-                                    staticStyle: {
-                                      overflow: "hidden",
-                                      "text-overflow": "ellipsis",
-                                      display: "-webkit-box",
-                                      "line-height": "16px",
-                                      "max-height": "32px",
-                                      "-webkit-line-clamp": "2",
-                                      "-webkit-box-orient": "vertical"
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      " " + _vm._s(myCourse.course.description)
-                                    )
-                                  ]
-                                ),
-                                _vm._v(" "),
-                                _vm._m(0, true)
-                              ]
-                            )
-                          ]
-                        )
-                      ])
-                    }),
-                    0
+                                      "uk-progress progress-green uk-margin-small-bottom uk-width",
+                                    staticStyle: { height: "7px" },
+                                    attrs: { id: "js-progressbar", max: "100" },
+                                    domProps: { value: myCourse.progress }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "uk-flex align-items-center justify-content-between uk-width"
+                                    },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "uk-card-media-left uk-width-1-3 uk-cover-container uk-margin-small-right"
+                                        },
+                                        [
+                                          _c("img", {
+                                            attrs: {
+                                              src: myCourse.course.image,
+                                              alt: "",
+                                              "uk-cover": ""
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("canvas", {
+                                            attrs: {
+                                              width: "600",
+                                              height: "400"
+                                            }
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "uk-width-2-3" },
+                                        [
+                                          _c(
+                                            "h5",
+                                            {
+                                              staticClass: "uk-margin-remove",
+                                              staticStyle: {
+                                                overflow: "hidden",
+                                                "text-overflow": "ellipsis",
+                                                display: "-webkit-box",
+                                                "line-height": "16px",
+                                                "max-height": "16px",
+                                                "-webkit-line-clamp": "1",
+                                                "-webkit-box-orient": "vertical"
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                _vm._s(myCourse.course.name) +
+                                                  " "
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("hr", {
+                                            staticClass: "uk-margin-remove"
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "p",
+                                            {
+                                              staticClass: "uk-margin-remove",
+                                              staticStyle: {
+                                                overflow: "hidden",
+                                                "text-overflow": "ellipsis",
+                                                display: "-webkit-box",
+                                                "line-height": "16px",
+                                                "max-height": "32px",
+                                                "-webkit-line-clamp": "2",
+                                                "-webkit-box-orient": "vertical"
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                " " +
+                                                  _vm._s(
+                                                    myCourse.course.description
+                                                  )
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ])
+                      })
+                    ],
+                    2
                   )
                 ]
               )
@@ -24200,23 +24391,7 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-margin-small" }, [
-      _c(
-        "a",
-        {
-          staticClass: "Course-tags uk-margin-small-right   border-radius-6",
-          attrs: { href: "" }
-        },
-        [_c("i", { staticClass: "fas fa-play" }), _vm._v(" Devam Et")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

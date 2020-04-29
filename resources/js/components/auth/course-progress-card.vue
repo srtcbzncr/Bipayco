@@ -193,7 +193,7 @@
                 'loadMyCourses'
             ]),
         },
-        mounted () {
+        created() {
             this.$store.dispatch('loadMyCourses',this.userId);
         },
     }
