@@ -35,6 +35,7 @@ Vue.component('add-question', require('./components/instructor/add-question.vue'
 Vue.component('question-source-list', require('./components/instructor/question-source-list.vue').default);
 Vue.component('section-settings', require('./components/instructor/section-settings.vue').default);
 Vue.component('lesson-settings', require('./components/instructor/lesson-settings.vue').default);
+Vue.component('instructor-courses-card', require('./components/instructor/instructor-courses-card.vue').default);
 Vue.component('provinces', require('./components/auth/province.vue').default);
 Vue.component('course-progress-card', require('./components/auth/course-progress-card.vue').default);
 Vue.component('notification-card', require('./components/top-bar/notification-card.vue').default);

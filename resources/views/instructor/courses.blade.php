@@ -21,31 +21,14 @@
         <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
             @foreach($data['ge'] as $course)
             <li>
-                <div class="uk-card-default uk-card-hover uk-card-small uk-width Course-card uk-inline-clip uk-transition-toggle" tabindex="0">
-                    <a href="{{route('ge_course', $course->id)}}" class="uk-link-reset">
-                        <div class="course-img uk-background-center-center uk-background-cover uk-height-medium" style="background-image: url({{$course->image}})"></div>
-                        <div class="uk-card-body">
-                            <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{$course->name}}</h4>
-                            <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small">{{$course->description}}</p>
-                            <hr class="uk-margin-remove-top">
-                            <div class="uk-grid uk-child-width-1-2">
-                                <div>
-                                    <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-user-graduate uk-margin-small-right"></i>{{$course->studentCount()}} @lang('front/auth.student')</p>
-                                    <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-calendar-alt uk-margin-small-right"></i>{{date("d/m/Y", strtotime($course->created_at))}}</p>
-                                </div>
-                                <div class="uk-flex justify-content-between align-items-center ">
-                                    <a class="uk-button-text uk-button" href="{{route('ge_course_create_get',$course->id)}}"><i class="fas fa-cog"></i></a>
-                                    @if($course->active)
-                                        <a class="uk-button-text uk-button" href="#"><i class="fas fa-times-circle"></i></a>
-                                    @else
-                                        <a class="uk-button-text uk-button" href="#"><i class="fas fa-check-circle"></i></a>
-                                    @endif
-                                    <a class="uk-button uk-button-text" href="#"> <i class="fas fa-trash"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
+                <instructor-courses-card
+                    :course="{{$course}}"
+                    user-id="{{Auth::user()->id}}"
+                    module-name="generalEducation"
+                    student-count="{{$course->studentCount()}}"
+                    course-route="{{route('ge_course', $course->id)}}"
+                    edit-course-route="{{route('ge_course_create_get',$course->id)}}"
+                ></instructor-courses-card>
             </li>
             @endforeach
         </ul>
@@ -79,31 +62,14 @@
         <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
             @foreach($data['pl'] as $course)
                 <li>
-                    <div class="uk-card-default uk-card-hover uk-card-small uk-width Course-card uk-inline-clip uk-transition-toggle" tabindex="0">
-                        <a href="{{route('pl_course', $course->id)}}" class="uk-link-reset">
-                            <div class="course-img uk-background-center-center uk-background-cover uk-height-medium" style="background-image: url({{$course->image}})"></div>
-                            <div class="uk-card-body">
-                                <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{$course->name}}</h4>
-                                <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small">{{$course->description}}</p>
-                                <hr class="uk-margin-remove-top">
-                                <div class="uk-grid uk-child-width-1-2">
-                                    <div>
-                                        <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-user-graduate uk-margin-small-right"></i>{{$course->studentCount()}} @lang('front/auth.student')</p>
-                                        <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-calendar-alt uk-margin-small-right"></i>{{date("d/m/Y", strtotime($course->created_at))}}</p>
-                                    </div>
-                                    <div class="uk-flex justify-content-between align-items-center ">
-                                        <a class="uk-button-text uk-button" href="{{route('pl_course_create_get',$course->id)}}"><i class="fas fa-cog"></i></a>
-                                        @if($course->active)
-                                            <a class="uk-button-text uk-button" href="#"><i class="fas fa-times-circle"></i></a>
-                                        @else
-                                            <a class="uk-button-text uk-button" href="#"><i class="fas fa-check-circle"></i></a>
-                                        @endif
-                                        <a class="uk-button uk-button-text" href="#"> <i class="fas fa-trash"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                    <instructor-courses-card
+                        :course="{{$course}}"
+                        user-id="{{Auth::user()->id}}"
+                        module-name="prepareLessons"
+                        student-count="{{$course->studentCount()}}"
+                        course-route="{{route('pl_course', $course->id)}}"
+                        edit-course-route="{{route('pl_course_create_get',$course->id)}}"
+                    ></instructor-courses-card>
                 </li>
             @endforeach
         </ul>
@@ -137,31 +103,14 @@
         <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
             @foreach($data['pe'] as $course)
                 <li>
-                    <div class="uk-card-default uk-card-hover uk-card-small uk-width Course-card uk-inline-clip uk-transition-toggle" tabindex="0">
-                        <a href="{{route('ge_course', $course->id)}}" class="uk-link-reset">
-                            <div class="course-img uk-background-center-center uk-background-cover uk-height-medium" style="background-image: url({{$course->image}})"></div>
-                            <div class="uk-card-body">
-                                <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{$course->name}}</h4>
-                                <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small">{{$course->description}}</p>
-                                <hr class="uk-margin-remove-top">
-                                <div class="uk-grid uk-child-width-1-2">
-                                    <div>
-                                        <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-user-graduate uk-margin-small-right"></i>{{$course->studentCount()}} @lang('front/auth.student')</p>
-                                        <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right"><i class="fas fa-calendar-alt uk-margin-small-right"></i>{{date("d/m/Y", strtotime($course->created_at))}}</p>
-                                    </div>
-                                    <div class="uk-flex justify-content-between align-items-center ">
-                                        <a class="uk-button-text uk-button" href="#"><i class="fas fa-cog"></i></a>
-                                        @if($course->active)
-                                            <a class="uk-button-text uk-button" href="#"><i class="fas fa-times-circle"></i></a>
-                                        @else
-                                            <a class="uk-button-text uk-button" href="#"><i class="fas fa-check-circle"></i></a>
-                                        @endif
-                                        <a class="uk-button uk-button-text" href="#"> <i class="fas fa-trash"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                    <instructor-courses-card
+                        :course="{{$course}}"
+                        user-id="{{Auth::user()->id}}"
+                        module-name="prepareExams"
+                        student-count="{{$course->studentCount()}}"
+                        course-route="{{route('ge_course', $course->id)}}"
+                        edit-course-route="{{route('ge_course_create_get',$course->id)}}"
+                    ></instructor-courses-card>
                 </li>
             @endforeach
         </ul>
