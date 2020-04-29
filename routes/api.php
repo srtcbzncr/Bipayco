@@ -145,6 +145,9 @@ Route::prefix('district')->group(function(){
 Route::prefix('instructor')->group(function(){
     # General Education
     Route::post('generalEducation/course/create/{id?}', 'API\GeneralEducation\CourseController@createPost')->name('api_ge_course_create_post');
+    Route::post('generalEducation/course/create/{id}/delete', 'API\GeneralEducation\CourseController@deleteCourse')->name('api_ge_course_delete');
+    Route::post('generalEducation/course/create/{id}/active', 'API\GeneralEducation\CourseController@activeCourse')->name('api_ge_course_active');
+    Route::post('generalEducation/course/create/{id}/passive', 'API\GeneralEducation\CourseController@passiveCourse')->name('api_ge_course_passive');
     Route::post('generalEducation/course/{id}/goals', 'API\GeneralEducation\CourseController@goalsPost')->name('api_ge_course_goals_post');
     Route::get('generalEducation/course/{id}/goals','API\GeneralEducation\CourseController@goalsGet')->name('api_ge_course_goals_get');
     Route::post('generalEducation/course/{id}/sections/create/{section_id?}', 'API\GeneralEducation\CourseController@sectionsPost')->name('api_ge_course_sections_post');
