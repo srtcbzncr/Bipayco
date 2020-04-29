@@ -7,7 +7,7 @@
         </div>
             <ul>
                 <li>
-                    <a :uk-tooltip="'title:'+ generalEducationText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-laptop-code icon-medium"> </i> </a>
+                    <a :href="generalEducationRoute" :uk-tooltip="'title:'+ generalEducationText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-laptop-code icon-medium"> </i> </a>
                     <div class="side-menu-slide" style="overflow-y: auto">
                         <div class="side-menu-slide-content uk-width">
                             <a class="uk-background-grey uk-margin-remove general-title" style=":hover" :href="generalEducationRoute"><b>{{generalEducationText}}</b></a>
@@ -28,7 +28,7 @@
                 </li>
             <li>
                 <!-- scripts -->
-                <a :uk-tooltip="'title:'+ prepareLessonsText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-school icon-medium"/> </a>
+                <a href="/pl/index" :uk-tooltip="'title:'+ prepareLessonsText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-school icon-medium"/> </a>
                 <div class="side-menu-slide" style="overflow-y: auto">
                     <div class="side-menu-slide-content">
                         <a class="uk-background-grey uk-margin-remove general-title" style=":hover" :href="prepareLessonsRoute"><b>{{prepareLessonsText}}</b></a>
