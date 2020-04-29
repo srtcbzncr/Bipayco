@@ -2268,4 +2268,90 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+
+    public function activeCourse($courseId,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $user = User::find($data['userId']);
+            $instructor = $user->instructor();
+            if($instructor != null){
+                $hasCourse = DB::table('ge_courses_instructors')->where('course_id',$courseId)
+                    ->where('course_type','App\Models\PrepareLessons\Course')
+                    ->where('instructor_id',$instructor->id)
+                    ->where('is_manager',true)->get();
+                if($hasCourse != null and count($hasCourse)>0){
+                    $course = Course::find($courseId);
+                    $course->active = true;
+                    $course->save();
+                }
+                else{
+                    $error = "Bu kursun eğitmeni veya yönetici değilsiniz.Erişiminiz bulunmamaktadır.";
+                    $result = false;
+                }
+            }
+            else{
+                $error = "Eğitmen değilsiniz.Erişiminiz bulunmamaktadır.";
+                $result = false;
+            }
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function passiveCourse($courseId,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $user = User::find($data['userId']);
+            $instructor = $user->instructor();
+            if($instructor != null){
+                $hasCourse = DB::table('ge_courses_instructors')->where('course_id',$courseId)
+                    ->where('course_type','App\Models\PrepareLessons\Course')
+                    ->where('instructor_id',$instructor->id)
+                    ->where('is_manager',true)->get();
+                if($hasCourse != null and count($hasCourse)>0){
+                    $course = Course::find($courseId);
+                    $course->active = false;
+                    $course->save();
+                }
+                else{
+                    $error = "Bu kursun eğitmeni veya yönetici değilsiniz.Erişiminiz bulunmamaktadır.";
+                    $result = false;
+                }
+            }
+            else{
+                $error = "Eğitmen değilsiniz.Erişiminiz bulunmamaktadır.";
+                $result = false;
+            }
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
 }
