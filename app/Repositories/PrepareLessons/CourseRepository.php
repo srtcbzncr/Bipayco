@@ -2263,6 +2263,9 @@ class CourseRepository implements IRepository{
                             $section->delete();
                         }
                         $course->delete();
+                        DB::table('ge_courses_instructors')
+                            ->where('course_id',$courseId)
+                            ->where('course_type','App\Models\PrepareLessons\Course')->update(['deleted_at' => date('Y-m-d H:i:s')]);
                     }
                     else{
                         $error = "Kursa sahip öğrenci bulunmaktadır.Bu yüzden kursu silemezsiniz.";
