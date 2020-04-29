@@ -8423,7 +8423,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteCourse: function deleteCourse() {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/instructor/' + this.moduleName + '/course/' + this.course.id + '/delete', {
-        'id': this.userId
+        'userId': this.userId
       }).then(function (response) {
         console.log(response);
 
@@ -8434,10 +8434,10 @@ __webpack_require__.r(__webpack_exports__);
           });
           setTimeout(function () {
             window.location.reload();
-          }, 3000);
+          }, 1000);
         } else {
           UIkit.notification({
-            message: response.data.message,
+            message: response.data.errorMessage,
             status: 'danger'
           });
         }
@@ -8464,7 +8464,7 @@ __webpack_require__.r(__webpack_exports__);
           });
           setTimeout(function () {
             window.location.reload();
-          }, 3000);
+          }, 1000);
         } else {
           UIkit.notification({
             message: response.data.message,

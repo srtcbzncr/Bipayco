@@ -95,14 +95,14 @@
                 }
             },
             deleteCourse:function () {
-                Axios.post('/api/instructor/'+this.moduleName+'/course/'+this.course.id+'/delete', {'id': this.userId})
+                Axios.post('/api/instructor/'+this.moduleName+'/course/'+this.course.id+'/delete', {'userId': this.userId})
                     .then(response=>{
                         console.log(response);
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            setTimeout(()=>{window.location.reload();},3000);
+                            setTimeout(()=>{window.location.reload();},1000);
                         }else{
-                            UIkit.notification({message:response.data.message, status: 'danger'});
+                            UIkit.notification({message:response.data.errorMessage, status: 'danger'});
                         }
                     })
 
@@ -119,7 +119,7 @@
                         console.log(response);
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            setTimeout(()=>{window.location.reload();},3000);
+                            setTimeout(()=>{window.location.reload();},1000);
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
