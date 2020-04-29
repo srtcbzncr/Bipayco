@@ -848,4 +848,65 @@ class CourseController extends Controller
             'errorMessage' => $resp->getError()
         ]);
     }
+
+    public function deleteCourse($id,Request $request){
+        // initializing
+        $repo = new CourseRepository();
+        $data = $request->toArray();
+
+        // operations
+        $resp = $repo->deleteCourse($id,$data);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Kurs başarıyla silindi'
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Kurs Silme işlemi başarısız.Tekrar deneyin',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
+
+
+    public function activeCourse($id,Request $request){
+        // initializing
+        $repo = new CourseRepository();
+        $data = $request->toArray();
+
+        // operations
+        $resp = $repo->activeCourse($id,$data);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Kurs başarıyla aktifleştirildi'
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Kurs aktifleştirme işlemi başarısız.Tekrar deneyin',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
+
+    public function passiveCourse($id,Request $request){
+        // initializing
+        $repo = new CourseRepository();
+        $data = $request->toArray();
+
+        // operations
+        $resp = $repo->passiveCourse($id,$data);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Kurs başarıyla pasifleştirildi'
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Kurs pasifleştirme işlemi başarısız.Tekrar deneyin',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
 }

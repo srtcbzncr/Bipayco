@@ -145,9 +145,9 @@ Route::prefix('district')->group(function(){
 Route::prefix('instructor')->group(function(){
     # General Education
     Route::post('generalEducation/course/create/{id?}', 'API\GeneralEducation\CourseController@createPost')->name('api_ge_course_create_post');
-    Route::post('generalEducation/course/create/{id}/delete', 'API\GeneralEducation\CourseController@deleteCourse')->name('api_ge_course_delete');
-    Route::post('generalEducation/course/create/{id}/active', 'API\GeneralEducation\CourseController@activeCourse')->name('api_ge_course_active');
-    Route::post('generalEducation/course/create/{id}/passive', 'API\GeneralEducation\CourseController@passiveCourse')->name('api_ge_course_passive');
+    Route::post('generalEducation/course/{id}/delete', 'API\GeneralEducation\CourseController@deleteCourse')->name('api_ge_course_delete');
+    Route::post('generalEducation/course/{id}/active', 'API\GeneralEducation\CourseController@activeCourse')->name('api_ge_course_active');
+    Route::post('generalEducation/course/{id}/passive', 'API\GeneralEducation\CourseController@passiveCourse')->name('api_ge_course_passive');
     Route::post('generalEducation/course/{id}/goals', 'API\GeneralEducation\CourseController@goalsPost')->name('api_ge_course_goals_post');
     Route::get('generalEducation/course/{id}/goals','API\GeneralEducation\CourseController@goalsGet')->name('api_ge_course_goals_get');
     Route::post('generalEducation/course/{id}/sections/create/{section_id?}', 'API\GeneralEducation\CourseController@sectionsPost')->name('api_ge_course_sections_post');
@@ -169,6 +169,9 @@ Route::prefix('instructor')->group(function(){
 
     # Prepare Lessons
     Route::post('prepareLessons/course/create/{id?}', 'API\PrepareLessons\CourseController@createPost')->name('api_pl_course_create_post');
+    Route::post('prepareLessons/course/{id}/delete', 'API\PrepareLessons\CourseController@deleteCourse')->name('api_pl_course_delete');
+    Route::post('prepareLessons/course/{id}/active', 'API\PrepareLessons\CourseController@activeCourse')->name('api_pl_course_active');
+    Route::post('prepareLessons/course/{id}/passive', 'API\PrepareLessons\CourseController@passiveCourse')->name('api_pl_course_passive');
     Route::post('prepareLessons/course/{id}/goals', 'API\PrepareLessons\CourseController@goalsPost')->name('api_pl_course_goals_post');
     Route::get('prepareLessons/course/{id}/goals','API\PrepareLessons\CourseController@goalsGet')->name('api_pl_course_goals_get');
     Route::get('prepareLessons/course/{id}/subjects','API\PrepareLessons\CourseController@getSubjects')->name('api_pl_course_subjects'); // pl course
