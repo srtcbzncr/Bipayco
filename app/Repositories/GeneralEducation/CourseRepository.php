@@ -2234,7 +2234,7 @@ class CourseRepository implements IRepository{
         try{
             DB::beginTransaction();
             $user = User::find($data['userId']);
-            $instructor = $user->instructor();
+            $instructor = $user->instructor;
             if($instructor != null){
                 $hasCourse = DB::table('ge_courses_instructors')->where('course_id',$courseId)
                     ->where('course_type','App\Models\GeneralEducation\Course')
@@ -2304,7 +2304,7 @@ class CourseRepository implements IRepository{
         try{
             DB::beginTransaction();
             $user = User::find($data['userId']);
-            $instructor = $user->instructor();
+            $instructor = $user->instructor;
             if($instructor != null){
                 $hasCourse = DB::table('ge_courses_instructors')->where('course_id',$courseId)
                     ->where('course_type','App\Models\GeneralEducation\Course')
@@ -2347,7 +2347,7 @@ class CourseRepository implements IRepository{
         try{
             DB::beginTransaction();
             $user = User::find($data['userId']);
-            $instructor = $user->instructor();
+            $instructor = $user->instructor;
             if($instructor != null){
                 $hasCourse = DB::table('ge_courses_instructors')->where('course_id',$courseId)
                     ->where('course_type','App\Models\GeneralEducation\Course')
