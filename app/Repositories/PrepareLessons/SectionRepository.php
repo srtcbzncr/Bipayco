@@ -31,7 +31,7 @@ class SectionRepository implements IRepository{
         // Operations
         try{
             $object = new Section;
-            $sections = Section::where('course_id',$data['courseId'])->orderBy('no','asc')->get();
+            $sections = Section::where('course_id',$data['courseId'])->where('deleted_at',null)->orderBy('no','asc')->get();
             $last_section = null;
             foreach ($sections as $item){
                 $last_section = $item;
@@ -96,7 +96,7 @@ class SectionRepository implements IRepository{
             DB::beginTransaction();
             $section = Section::find($id);
             $course_id = $section->course_id;
-            $lessons = Lesson::where('section_id',$id);
+            $lessons = Lesson::where('section_id',$id)->where('deleted_at',null)->get();
             foreach ($lessons as $lesson){
                 $lesson->sources()->delete();
                 $lesson->sources()->delete();
@@ -109,7 +109,7 @@ class SectionRepository implements IRepository{
             // bu kursa ait aktif kurs olup olmadığını kontrol et.
             $flag = false;
             $counter = 0;
-            $sections = Section::where('course_id',$course_id)->get();
+            $sections = Section::where('course_id',$course_id)->where('deleted_at',null)->get();
             if($sections == null or count($sections) == 0){
                 $course = Course::find($course_id);
                 $course->active = false;
@@ -171,7 +171,7 @@ class SectionRepository implements IRepository{
 
         // Operations
         try{
-            $sections = Section::where('course_id',$course_id)->orderBy('no','asc')->get();
+            $sections = Section::where('course_id',$course_id)->where('deleted_at',null)->orderBy('no','asc')->get();
             $before_section = null;
             foreach ($sections as $section){
                 if($section->id == $section_id){
@@ -205,7 +205,7 @@ class SectionRepository implements IRepository{
 
         // Operations
         try{
-            $sections = Section::where('course_id',$course_id)->orderBy('no','asc')->get();
+            $sections = Section::where('course_id',$course_id)->where('deleted_at',null)->orderBy('no','asc')->get();
             $after_section = null;
             foreach ($sections as $key => $section){
                 if($section->id == $section_id){

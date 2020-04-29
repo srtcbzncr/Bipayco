@@ -134,7 +134,7 @@ class CategoryRepository implements IRepository
         // Operations
         try{
             $object = Category::find($id);
-            $courses = Course::where('category_id',$id)->get();
+            $courses = Course::where('category_id',$id)->where('deleted_at',null)->get();
 
             $control = false;
             if($courses == null or count($courses) == 0){

@@ -57,6 +57,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('active', true)
                 ->where('point', '>=', 0.0)
+                ->where('deleted_at',null)
                 ->orderBy('purchase_count', 'desc')
                 ->orderBy('point', 'desc')
                 ->take(12)
@@ -251,6 +252,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('category_id', $category_id)
                 ->where('active', true)
+                ->where('deleted_at',null)
                 ->latest()
                 ->paginate(9);
 
@@ -304,6 +306,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('category_id', $category_id)
                 ->where('active', true)
+                ->where('deleted_at',null)
                 ->oldest()
                 ->paginate(9);
 
@@ -356,6 +359,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('category_id', $category_id)
                 ->where('active', true)
+                ->where('deleted_at',null)
                 ->orderBy('price_with_discount', 'asc')
                 ->paginate(9);
 
@@ -408,6 +412,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('category_id', $category_id)
                 ->where('active', true)
+                ->where('deleted_at',null)
                 ->orderBy('price_with_discount', 'desc')
                 ->paginate(9);
 
@@ -460,6 +465,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('category_id', $category_id)
                 ->where('active', true)
+                ->where('deleted_at',null)
                 ->orderBy('point', 'desc')
                 ->paginate(9);
 
@@ -512,6 +518,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('category_id', $category_id)
                 ->where('active', true)
+                ->where('deleted_at',null)
                 ->orderBy('purchase_count', 'desc')
                 ->paginate(9);
 
@@ -564,6 +571,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('category_id', $category_id)
                 ->where('active', true)
+                ->where('deleted_at',null)
                 ->orderBy('purchase_count', 'desc')
                 ->orderBy('point','desc')
                 ->paginate(9);
@@ -617,6 +625,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
+                ->where('deleted_at',null)
                 ->latest()
                 ->paginate(9);
 
@@ -670,6 +679,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
+                ->where('deleted_at',null)
                 ->oldest()
                 ->paginate(9);
 
@@ -722,6 +732,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
+                ->where('deleted_at',null)
                 ->orderBy('price_with_discount', 'asc')
                 ->paginate(9);
 
@@ -774,6 +785,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
+                ->where('deleted_at',null)
                 ->orderBy('price_with_discount', 'desc')
                 ->paginate(9);
 
@@ -826,6 +838,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
+                ->where('deleted_at',null)
                 ->orderBy('point', 'desc')
                 ->paginate(9);
 
@@ -878,6 +891,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
+                ->where('deleted_at',null)
                 ->orderBy('purchase_count', 'desc')
                 ->paginate(9);
 
@@ -930,6 +944,7 @@ class CourseRepository implements IRepository{
         try{
             $object = Course::where('sub_category_id', $sub_category_id)
                 ->where('active', true)
+                ->where('deleted_at',null)
                 ->orderBy('purchase_count', 'desc')
                 ->orderBy('point','desc')
                 ->paginate(9);
@@ -1262,10 +1277,10 @@ class CourseRepository implements IRepository{
         try{
             DB::beginTransaction();
             $course = Course::find($id);
-            $sections = Section::where('course_id',$id)->get();
+            $sections = Section::where('course_id',$id)->where('deleted_at',null)->get();
             // var olan sectionları ve lessonsları sil
             foreach ($sections as $item){
-                $lessons = Lesson::where('section_id',$item->id)->get();
+                $lessons = Lesson::where('section_id',$item->id)->where('deleted_at',null)->get();
                 foreach ($lessons as $lesson){
                     $lesson->delete();
                 }
@@ -1388,15 +1403,15 @@ class CourseRepository implements IRepository{
 
             $object = array();
             $course = Course::find($id);
-            $sections = Section::where('course_id',$id)->orderBy('no','asc')->get();
+            $sections = Section::where('course_id',$id)->where('deleted_at',null)->orderBy('no','asc')->get();
            // $sections = $course->sections->getQuery()->where('active', true)->sortBy('no');
             $object['sections'] = $sections;
             foreach ($sections as $key => $section){
-                $lessons = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
+                $lessons = Lesson::where('section_id',$section->id)->where('deleted_at',null)->where('active',true)->orderBy('no','asc')->get();
                 //$lessons = $section->lessons->sortBy('no');
                 $object['sections'][$key]['lessons'] = $lessons;
                 foreach ($lessons as $keyLesson => $lesson){
-                    $sources = Source::where('lesson_id',$lesson->id)->where('active',true)->get();
+                    $sources = Source::where('lesson_id',$lesson->id)->where('deleted_at',null)->where('active',true)->get();
                     //$sources = $lesson->sources->where('active',true);
                     $object['sections'][$key]['lessons'][$keyLesson]['sources'] = $sources;
                 }
@@ -1708,7 +1723,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $course = Course::find($id);
-            $courses = Course::where('category_id',$course->category_id)->where('sub_category_id',$course->sub_category_id)
+            $courses = Course::where('category_id',$course->category_id)->where('deleted_at',null)->where('sub_category_id',$course->sub_category_id)
                 ->where('active',true)->get();
             if(count($courses)>2){
                 $object = $courses->random(2);
@@ -2033,11 +2048,11 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $student = Student::find($student_id);
-            $sections = Section::where('course_id',$course_id)->where('active',true)->get()->toArray();
+            $sections = Section::where('course_id',$course_id)->where('deleted_at',null)->where('active',true)->get()->toArray();
 
             $lessons = array();
             foreach ($sections as $section){
-                $tempLessons = Lesson::where('section_id',$section['id'])->where('active',true)->get()->toArray();
+                $tempLessons = Lesson::where('section_id',$section['id'])->where('deleted_at',null)->where('active',true)->get()->toArray();
                 foreach ($tempLessons as $lesson){
                     array_push($lessons,$lesson);
                 }
@@ -2253,11 +2268,11 @@ class CourseRepository implements IRepository{
                     if($flag == false){
                         // kurs ve kursa ait tüm bilgileri sil
                         $course = Course::find($courseId);
-                        $sections = Section::where('course_id',$courseId)->get();
+                        $sections = Section::where('course_id',$courseId)->where('deleted_at',null)->get();
                         foreach ($sections as $section){
-                            $lessons = Lesson::where('section_id',$section->id)->get();
+                            $lessons = Lesson::where('section_id',$section->id)->where('deleted_at',null)->get();
                             foreach ($lessons as $lesson){
-                                $sources = Source::where('lesson_id',$lesson->id)->where('lesson_type','App\Models\GeneralEducation\Lesson')->get();
+                                $sources = Source::where('lesson_id',$lesson->id)->where('deleted_at',null)->where('lesson_type','App\Models\GeneralEducation\Lesson')->get();
                                 foreach ($sources as $source){
                                     $source->delete();
                                 }

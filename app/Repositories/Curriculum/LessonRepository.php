@@ -191,7 +191,7 @@ class LessonRepository implements IRepository{
         try{
             $object = Lesson::all();
             foreach ($object as $key => $item){
-                $subjects = Subject::where('lesson_id',$item->id)->get();
+                $subjects = Subject::where('lesson_id',$item->id)->where('deleted_at',null)->get();
                 $object[$key]['subjects'] = $subjects;
             }
         }

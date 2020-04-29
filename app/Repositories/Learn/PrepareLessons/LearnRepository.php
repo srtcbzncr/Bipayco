@@ -65,7 +65,7 @@ class LearnRepository implements IRepository
         try{
             $course = Course::find($id);
             $student = Student::where('user_id',$user_id)->first();
-            $sections = Section::where('course_id',$id)->where('active',true)->orderBy('no','asc')->get();
+            $sections = Section::where('course_id',$id)->where('deleted_at',null)->where('active',true)->orderBy('no','asc')->get();
             // sections,lessons ve source verileri
             $object = $course;
             $object['sections'] = $sections;
@@ -203,7 +203,7 @@ class LearnRepository implements IRepository
                         $object['nextLessonId'] = null;
                     $object['selectedLesson']['is_completed'] = false;
                     $sources = null;
-                    $sources = Source::where('lesson_id',$object['selectedLesson']->id)->where('lesson_type','App\Models\PrepareLessons\Lesson')->where('active',true)->get();
+                    $sources = Source::where('lesson_id',$object['selectedLesson']->id)->where('deleted_at',null)->where('lesson_type','App\Models\PrepareLessons\Lesson')->where('active',true)->get();
                     $object['selectedLesson']['sources'] = $sources;
                     break;
                 }
@@ -211,7 +211,7 @@ class LearnRepository implements IRepository
                     $object['selectedLesson'] = $sections[0]['lessons'][0];
                     $object['selectedLesson']['is_completed'] = true;
                     $sources = null;
-                    $sources = Source::where('lesson_id',$object['selectedLesson']->id)->where('lesson_type','App\Models\PrepareLessons\Lesson')->where('active',true)->get();
+                    $sources = Source::where('lesson_id',$object['selectedLesson']->id)->where('deleted_at',null)->where('lesson_type','App\Models\PrepareLessons\Lesson')->where('active',true)->get();
                     $object['selectedLesson']['sources'] = $sources;
                     if(isset($sections[0]['lessons'][1])){
                         $object['nextLessonId'] = $sections[0]['lessons'][1]->id;
@@ -227,7 +227,7 @@ class LearnRepository implements IRepository
             }
             if($object['selectedLesson']!=null){
                 $object['selectedSection'] = Section::find($object['selectedLesson']->section_id);
-                $tempSections = Section::where('course_id',$id)->orderBy('no', 'asc')->get();
+                $tempSections = Section::where('course_id',$id)->where('deleted_at',null)->orderBy('no', 'asc')->get();
                 $flag = false;
                 $beforeSection = null;
                 foreach ($tempSections as $key => $item){
@@ -278,7 +278,7 @@ class LearnRepository implements IRepository
             $user_id = Auth::id();
             $course = Course::find($course_id);
             $student = Student::where('user_id',$user_id)->first();
-            $sections = Section::where('course_id',$course_id)->where('active',true)->orderBy('no','asc')->get();
+            $sections = Section::where('course_id',$course_id)->where('deleted_at',null)->where('active',true)->orderBy('no','asc')->get();
 
             // course,sections,lesson ve source verileri
             $object = $course;
@@ -448,7 +448,7 @@ class LearnRepository implements IRepository
             DB::beginTransaction();
 
             $lesson = Lesson::find($lesson_id);
-            $sources = Source::where('lesson_id',$lesson->id)->where('lesson_type','App\Models\PrepareLessons\Lesson')->where('active',true)->get();
+            $sources = Source::where('lesson_id',$lesson->id)->where('deleted_at',null)->where('lesson_type','App\Models\PrepareLessons\Lesson')->where('active',true)->get();
             $object = $sources;
 
             DB::commit();

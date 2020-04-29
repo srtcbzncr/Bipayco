@@ -124,7 +124,7 @@ class FirstLastTestStatusRepository implements IRepository
             // bir sonraki lesson id'yi gönder(eğer varsa ve bu test geçilmişş)
             if($point >= $course->score){
                 $tempsection = Section::find($data['sectionId']);
-                $sections = Section::where('course_id',$tempsection->course_id)->where('active',true)->orderBy('no', 'asc')->get();
+                $sections = Section::where('course_id',$tempsection->course_id)->where('deleted_at',null)->where('active',true)->orderBy('no', 'asc')->get();
                 foreach ($sections as $key => $item){
                     if($item->id == $tempsection->id){
                         if(isset($sections[$key+1])){
@@ -135,18 +135,18 @@ class FirstLastTestStatusRepository implements IRepository
                 }
                 if($nextSection!=null){
                     $object['nextSectionId'] = $nextSection->id;
-                    $lessons = Lesson::where('section_id',$nextSection->id)->where('active',true)->orderBy('no', 'asc')->get();
+                    $lessons = Lesson::where('section_id',$nextSection->id)->where('deleted_at',null)->where('active',true)->orderBy('no', 'asc')->get();
                     $object['nextLessonId'] = $lessons[0]->id;
                 }
                 else{
-                    $sections = Section::where('course_id',$tempsection->course_id)->where('active',true)->orderBy('no', 'asc')->get();
-                    $lessons = Lesson::where('section_id',$sections[0]->id)->where('active',true)->orderBy('no', 'asc')->get();
+                    $sections = Section::where('course_id',$tempsection->course_id)->where('deleted_at',null)->where('active',true)->orderBy('no', 'asc')->get();
+                    $lessons = Lesson::where('section_id',$sections[0]->id)->where('active',true)->where('deleted_at',null)->orderBy('no', 'asc')->get();
                     $object['nextLessonId'] = $lessons[0]->id;
                     $object['nextSectionId'] = $sections[0]->id;
                 }
             }
             else{
-                $lessons = Lesson::where('section_id',$data['sectionId'])->where('active',true)->orderBy('no', 'asc')->get();
+                $lessons = Lesson::where('section_id',$data['sectionId'])->where('active',true)->where('deleted_at',null)->orderBy('no', 'asc')->get();
                 $object['nextLessonId'] = $lessons[0]->id;
                 $object['nextSectionId'] = $data['sectionId'];
             }

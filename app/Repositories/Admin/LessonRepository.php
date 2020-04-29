@@ -46,7 +46,7 @@ class LessonRepository implements IRepository
         // Operations
         try{
             $object = Lesson::find($id);
-            $subjects = Subject::where('lesson_id',$id)->get();
+            $subjects = Subject::where('lesson_id',$id)->where('deleted_at',null)->get();
             $object['subjects'] = $subjects;
         }
         catch(\Exception $e){
@@ -135,9 +135,9 @@ class LessonRepository implements IRepository
         try{
             DB::beginTransaction();
             $object = Lesson::find($id);
-            $courses = Course::where('lesson_id',$id)->get();
+            $courses = Course::where('lesson_id',$id)->where('deleted_at',null)->get();
             if($courses == null or count($courses) == 0){
-                $subjects = Subject::where('lesson_id',$id)->get();
+                $subjects = Subject::where('lesson_id',$id)->where('deleted_at',null)->get();
                 foreach ($subjects as $subject){
                     $tempSubject = Subject::find($subject->id);
                     $tempSubject->delete();

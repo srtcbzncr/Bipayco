@@ -135,7 +135,7 @@ class SubCategoryRepository implements IRepository
         try{
             $object = SubCategory::find($id);
             $control = false;
-            $courses = Course::where('sub_category_id',$id)->get();
+            $courses = Course::where('sub_category_id',$id)->where('deleted_at',null)->get();
             if($courses == null or count($courses) == 0){
                 $control = true;
             }

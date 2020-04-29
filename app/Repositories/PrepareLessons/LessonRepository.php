@@ -38,7 +38,7 @@ class LessonRepository implements IRepository{
             DB::beginTransaction();
             $tempSection = Section::find($data['section_id']);
             $course_id = $tempSection->course_id;
-            $my_lessons = Lesson::where('section_id',$data['section_id'])->get();
+            $my_lessons = Lesson::where('section_id',$data['section_id'])->where('deleted_at',null)->get();
             $last_lesson = null;
             foreach ($my_lessons as $item){
                 $last_lesson = $item;
@@ -65,7 +65,7 @@ class LessonRepository implements IRepository{
 
             if($data['sources']!=null){
                 // add sources
-                $lessons = Lesson::where('section_id',$data['section_id'])->get();
+                $lessons = Lesson::where('section_id',$data['section_id'])->where('deleted_at',null)->get();
                 $lesson = null;
                 foreach ($lessons as $item){
                     $lesson = $item;
@@ -184,7 +184,7 @@ class LessonRepository implements IRepository{
             }
 
             // bu kursa ait aktif section olup olmadığını kontrol et.
-            $sections = Section::where('course_id',$course_id)->get();
+            $sections = Section::where('course_id',$course_id)->where('deleted_at',null)->get();
             $flag = false;
             $counter = 0;
             if($sections == null or count($sections) == 0){
@@ -243,7 +243,7 @@ class LessonRepository implements IRepository{
 
         // Operations
         try{
-            $lessons = Lesson::where('section_id',$section_id)->orderBy('no','asc')->get();
+            $lessons = Lesson::where('section_id',$section_id)->where('deleted_at',null)->orderBy('no','asc')->get();
             $before_lesson = null;
             foreach ($lessons as $key=> $lesson){
                 if($lesson->id == $lesson_id){
@@ -277,7 +277,7 @@ class LessonRepository implements IRepository{
 
         // Operations
         try{
-            $lessons = Lesson::where('section_id',$section_id)->orderBy('no','asc')->get();
+            $lessons = Lesson::where('section_id',$section_id)->where('deleted_at',null)->orderBy('no','asc')->get();
             $after_lesson = null;
             foreach ($lessons as $key=> $lesson){
                 if($lesson->id == $lesson_id){
@@ -345,11 +345,11 @@ class LessonRepository implements IRepository{
             $student = Student::where('user_id',$user_id)->first();
             $student_id = $student->id;
 
-            $sections = Section::where('course_id',$course_id)->where('active',true)->orderBy('no','asc')->get();
+            $sections = Section::where('course_id',$course_id)->where('deleted_at',null)->where('active',true)->orderBy('no','asc')->get();
             $myLessons = array();
             $i=0;
             foreach ($sections as $key => $section){
-                $lessons = Lesson::where('section_id',$section->id)->where('active',true)->orderBy('no','asc')->get();
+                $lessons = Lesson::where('section_id',$section->id)->where('deleted_at',null)->where('active',true)->orderBy('no','asc')->get();
                 foreach ($lessons as $lesson){
                     $myLessons[$i] = $lesson;
                     $i++;

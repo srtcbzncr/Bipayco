@@ -119,7 +119,7 @@ class GradeRepository implements IRepository
         // Operations
         try{
             $object = Grade::find($id);
-            $courses = Course::where('grade_id',$id)->get();
+            $courses = Course::where('grade_id',$id)->where('deleted_at',null)->get();
             if($courses == null or count($courses) == 0){
                 $object->delete();
             }
