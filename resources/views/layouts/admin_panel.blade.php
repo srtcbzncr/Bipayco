@@ -46,8 +46,8 @@
         <!-- sidebar -->
         <div class="admin-side overflow-auto" id="admin-side">
             <div class="uk-flex uk-flex-center uk-margin-medium-top uk-margin-medium-bottom">
-                <a class="" href="{{route('home')}}">
-                    <img class="uk-logo uk-width-small" src="{{asset('images/logo1.png')}}"/>
+                <a class="uk-flex align-items-center justify-content-center" href="{{route('home')}}">
+                    <img class="uk-logo uk-width-5-6" src="{{asset('images/logo1.png')}}"/>
                 </a>
             </div>
             <ul>
@@ -80,7 +80,7 @@
         <!-- mobile  header -->
         <div class="admin-mobile-headder uk-hidden@m">
             <span uk-toggle="target: #admin-side; cls: admin-side-active" class="uk-padding-small uk-text-white uk-float-right"><i class="fas fa-bars"></i></span>
-            <a class="" href="{{route('home')}}"> <img class="uk-width-small" src="{{asset('images/logo2.png')}}"/> </a>
+            <a class="" href="{{route('home')}}"> <img class="uk-width-small" src="{{asset('images/logo1.png')}}"/> </a>
         </div>
         <div class="admin-content uk-height-viewport">
             <div id="app1" class="admin-panel-inner">
