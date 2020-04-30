@@ -28,7 +28,7 @@
                         </a>
                     </div>
                     <div  v-for="myCourse in myCourses.courses.pl">
-                        <a :href="'/ge/course/'+myCourse.course.id" class="uk-link-reset">
+                        <a :href="'/pl/course/'+myCourse.course.id" class="uk-link-reset">
                             <div class="uk-padding-small uk-card-default border-radius-6 uk-flex uk-flex-column">
                                 <progress id="js-progressbar" class="uk-progress progress-green uk-margin-small-bottom uk-width" :value="myCourse.progress" max="100" style="height: 7px;"></progress>
                                 <div class="uk-flex align-items-center justify-content-between uk-width">

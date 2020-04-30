@@ -207,7 +207,7 @@ class BasketRepository implements IRepository
                     $object->course_type = 'App\Models\GeneralEducation\Course';
                     $object->student_id = $user->student->id;
 
-                    $course = \App\Models\PrepareLessons\Course::find($item['course_id']);
+                    $course = \App\Models\GeneralEducation\Course::find($item['course_id']);
                     $today = date("Y/m/d");
                     $accessTime = $course->access_time;
                     $object->access_finish = date('Y-m-d', strtotime('+ '.$accessTime.' months', strtotime($today)));
