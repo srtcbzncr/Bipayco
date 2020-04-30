@@ -210,6 +210,7 @@ class BasketRepository implements IRepository
                     $course = \App\Models\GeneralEducation\Course::find($item['course_id']);
                     $today = date("Y/m/d");
                     $accessTime = $course->access_time;
+                    $object->access_start = $today;
                     $object->access_finish = date('Y-m-d', strtotime('+ '.$accessTime.' months', strtotime($today)));
                     $object->active = true;
                     $object->save();
@@ -235,6 +236,7 @@ class BasketRepository implements IRepository
                     $course = \App\Models\PrepareLessons\Course::find($item['course_id']);
                     $today = date("Y/m/d");
                     $accessTime = $course->access_time;
+                    $object->access_start = $today;
                     $object->access_finish = date('Y-m-d', strtotime('+ '.$accessTime.' months', strtotime($today)));
                     $object->active = true;
                     $object->save();
