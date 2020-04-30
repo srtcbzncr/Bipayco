@@ -2224,6 +2224,7 @@ class CourseRepository implements IRepository{
             $course = Course::find($courseId);
             $today = date("Y/m/d");
             $accessTime = $course->access_time;
+            $object->access_start = $today;
             $object->access_finish = date('Y-m-d', strtotime('+ '.$accessTime.' months', strtotime($today)));
             $object->active = true;
             $object->save();

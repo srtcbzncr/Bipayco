@@ -258,7 +258,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $object = Course::where('active', true)
-                ->where('point', '>=', 2.0)
+                ->where('point', '>=', 0.0)
                 ->where('deleted_at',null)
                 ->orderBy('purchase_count', 'desc')
                 ->orderBy('point', 'desc')
