@@ -1628,7 +1628,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getRandomQuestions($crLessonId,$crSubjectId){
+    public function getRandomQuestions($courseId,$crLessonId,$crSubjectId){
         // Response variables
         $result = true;
         $error = null;
@@ -1636,9 +1636,16 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
+            $insructorsCourses = DB::table('ge_courses_instructors')->where('course_type','App\Models\PrepareLessons\Course')
+                ->where('course_id',$courseId)->get();
+            $instructorsId = array();
+            foreach ($insructorsCourses as $course){
+                array_push($instructorsId,$course->instructor_id);
+            }
+
             $i = 0;
             $object['questions'] = array();
-            $questions1 = Question::where('level',1)->where('crLessonId',$crLessonId)->where('crSubjectId',$crSubjectId)->where('isConfirm',true)->get();
+            $questions1 = Question::where('level',1)->where('crLessonId',$crLessonId)->where('crSubjectId',$crSubjectId)->whereIn('instructorId',$instructorsId)->where('isConfirm',true)->get();
             if(count($questions1) > 3)
                 $questions1 = $questions1->random(3);
             foreach ($questions1 as $question){
@@ -1646,7 +1653,7 @@ class CourseRepository implements IRepository{
                 $object['questions'][$i]['answers'] = $this->getAnswers($question);
                 $i++;
             }
-            $questions2 = Question::where('level',2)->where('crLessonId',$crLessonId)->where('crSubjectId',$crSubjectId)->where('isConfirm',true)->get();
+            $questions2 = Question::where('level',2)->where('crLessonId',$crLessonId)->where('crSubjectId',$crSubjectId)->whereIn('instructorId',$instructorsId)->where('isConfirm',true)->get();
             if(count($questions2) > 3)
                 $questions2 = $questions2->random(4);
             foreach ($questions2 as $question){
@@ -1654,7 +1661,7 @@ class CourseRepository implements IRepository{
                 $object['questions'][$i]['answers'] = $this->getAnswers($question);
                 $i++;
             }
-            $questions3 = Question::where('level',3)->where('crLessonId',$crLessonId)->where('crSubjectId',$crSubjectId)->where('isConfirm',true)->get();
+            $questions3 = Question::where('level',3)->where('crLessonId',$crLessonId)->where('crSubjectId',$crSubjectId)->whereIn('instructorId',$instructorsId)->where('isConfirm',true)->get();
             if(count($questions3) > 3)
                 $questions3 = $questions3->random(3);
             foreach ($questions3 as $question){
