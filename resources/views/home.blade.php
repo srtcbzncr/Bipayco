@@ -5,15 +5,27 @@
         <ul class="uk-slideshow-items">
             <li>
                 <img src="{{asset("/images/homepage-slider/1.jpg")}}" alt="" uk-cover>
+                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left uk-text-center">
+                    <h2 class="uk-margin-remove">Türkiye'nin en büyük <br>  online eğitim platformu</h2>
+                </div>
             </li>
             <li>
                 <img src="{{asset("/images/homepage-slider/2.jpg")}}" alt="" uk-cover>
+                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left uk-text-center">
+                    <h2 class="uk-margin-remove">Türkiye'nin en büyük <br>  online eğitim platformu</h2>
+                </div>
             </li>
             <li>
                 <img src="{{asset("/images/homepage-slider/3.jpg")}}" alt="" uk-cover>
+                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left uk-text-center">
+                    <h2 class="uk-margin-remove">Türkiye'nin en büyük <br>  online eğitim platformu</h2>
+                </div>
             </li>
             <li>
                 <img src="{{asset("/images/homepage-slider/4.jpg")}}" alt="" uk-cover>
+                <div class="uk-overlay uk-overlay-primary uk-position-bottom-left uk-text-center">
+                    <h2 class="uk-margin-remove">Türkiye'nin en büyük <br>  online eğitim platformu</h2>
+                </div>
             </li>
         </ul>
 
