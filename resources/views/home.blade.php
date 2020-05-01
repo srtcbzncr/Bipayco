@@ -1,14 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-    <div src="/images/slider_bg.jpg" style="background-image: url(../images/slider_bg.jpg); margin-top:-80px" uk-img class="uk-height-large uk-background-norepeat  uk-background-center-center uk-section uk-flex uk-flex-bottom uk-background-cover">
-        <div class="uk-width-1-1 uk-container uk-margin-large-top uk-margin-large-left ">
-            <h1 class="uk-text-bold uk-text-white uk-margin-small-bottom"> Türkiye'nin en büyük <br>  online eğitim platformu</h1>
-            <h4 class="uk-text-bold uk-light uk-margin-remove-top"></h4>
-            <a class="uk-button tm-button-grey" uk-scroll>
-                Keşfet </a>
-        </div>
+    <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="autoplay:true; autoplay-interval: 4000; min-height: 250; max-height: 500">
+        <ul class="uk-slideshow-items">
+            <li>
+                <img src="{{asset("/images/homepage-slider/1.jpg")}}" alt="" uk-cover>
+            </li>
+            <li>
+                <img src="{{asset("/images/homepage-slider/2.jpg")}}" alt="" uk-cover>
+            </li>
+            <li>
+                <img src="{{asset("/images/homepage-slider/3.jpg")}}" alt="" uk-cover>
+            </li>
+            <li>
+                <img src="{{asset("/images/homepage-slider/4.jpg")}}" alt="" uk-cover>
+            </li>
+        </ul>
+
+        <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+        <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
     </div>
+ <!--<div src="/images/slider_bg.jpg" style="background-image: url(../images/slider_bg.jpg); margin-top:-80px" uk-img class="uk-height-large uk-background-norepeat  uk-background-center-center uk-section uk-flex uk-flex-bottom uk-background-cover">
+     <div class="uk-width-1-1 uk-container uk-margin-large-top uk-margin-large-left ">
+         <h1 class="uk-text-bold uk-text-white uk-margin-small-bottom"> Türkiye'nin en büyük <br>  online eğitim platformu</h1>
+         <h4 class="uk-text-bold uk-light uk-margin-remove-top"></h4>
+         <a class="uk-button tm-button-grey" uk-scroll>
+             Keşfet </a>
+     </div>
+ </div>-->
     <homepage-content
         @if(Auth::check())
             auth-check
