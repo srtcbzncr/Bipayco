@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="autoplay:true; autoplay-interval: 4000; min-height: 250; max-height: 500">
+    <div class="uk-position-relative uk-visible-toggle uk-light"     tabindex="-1" uk-slideshow="autoplay:true; autoplay-interval: 6000; finite: true; pause-on-hover: true; min-height: 250; max-height: 500; animation:fade">
         <ul class="uk-slideshow-items">
             <li>
                 <img src="{{asset("/images/homepage-slider/1.jpg")}}" alt="" uk-cover>
