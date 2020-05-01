@@ -210,7 +210,7 @@ Route::prefix('learn')->group(function (){
         # prepare lessons
     Route::post('prepareLessons/createFirstLastTestStatus/create','API\QuestionSource\Student\FirstLastTestStatusController@create')->name('api_prepareLessons_create_flTestStatus');
     Route::post('prepareLessons/createFirstLastTestAnswers/create','API\QuestionSource\Student\FirstLastTestAnswersController@create')->name('api_prepareLessons_create_flTestAnswers');
-    Route::get('prepareLessons/getRandomQuestions/{crLessonId}/{crSubjectId}','API\PrepareLessons\CourseController@getRandomQuestions')->name('api_pl_course_getRandomQuestions');
+    Route::get('prepareLessons/getRandomQuestions/{courseId}/{crLessonId}/{crSubjectId}','API\PrepareLessons\CourseController@getRandomQuestions')->name('api_pl_course_getRandomQuestions');
     Route::get('prepareLessons/{course_id}/lesson/{lesson_id}/sources','API\Learn\PrepareLessons\LearnController@getSources')->name('api_get_pl_sources');
     Route::get('prepareLessons/{course_id}/lesson/{lesson_id}/discussion','API\Learn\PrepareLessons\LearnController@getDiscussions')->name('api_get_pl_discussion');
     Route::post('prepareLessons/{course_id}/lesson/{lesson_id}/discussion/ask','API\Learn\PrepareLessons\LearnController@askQuestion')->name('api_pl_discussion_ask');
