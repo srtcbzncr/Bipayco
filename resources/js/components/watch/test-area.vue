@@ -323,7 +323,7 @@
             }
         },
         created(){
-            Axios.get('/api/learn/prepareLessons/getRandomQuestions/'+this.lessonId+'/'+this.subjectId)
+            Axios.get('/api/learn/prepareLessons/getRandomQuestions/'+this.courseId+'/'+this.lessonId+'/'+this.subjectId)
                 .then(response=>this.loadData(response.data.data.questions))
         },
     }
