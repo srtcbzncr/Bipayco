@@ -638,12 +638,12 @@ class CourseController extends Controller
         }
     }
 
-    public function getRandomQuestions($crLessonId,$crSubjectId){
+    public function getRandomQuestions($courseId,$crLessonId,$crSubjectId){
         // Initializing
         $repo = new CourseRepository();
 
         // Operations
-        $resp =  $repo->getRandomQuestions($crLessonId,$crSubjectId);
+        $resp =  $repo->getRandomQuestions($courseId,$crLessonId,$crSubjectId);
 
         // Response
         if($resp->getResult()){
