@@ -388,7 +388,7 @@ header .uk-navbar {
 }
 
 .Course-card .course-img {
-    max-height: 190px;
+    height: 190px;
     width: 100%;
 }
 

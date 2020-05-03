@@ -10817,7 +10817,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this2 = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/learn/prepareLessons/getRandomQuestions/' + this.lessonId + '/' + this.subjectId).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/learn/prepareLessons/getRandomQuestions/' + this.courseId + '/' + this.lessonId + '/' + this.subjectId).then(function (response) {
       return _this2.loadData(response.data.data.questions);
     });
   }
@@ -18625,11 +18625,10 @@ var render = function() {
         : _vm._e(),
       _vm._v(" "),
       _c("a", { staticClass: "uk-link-reset", attrs: { href: _vm.pageLink } }, [
-        _c("img", {
+        _c("div", {
           staticClass:
-            "course-img uk-background-center-center uk-background-cover uk-height",
-          style: _vm.image,
-          attrs: { src: _vm.course.image }
+            "course-img uk-background-center-center uk-background-cover uk-panel uk-flex uk-flex-center uk-flex-middle",
+          style: "background-image: url(" + _vm.course.image + ")"
         }),
         _vm._v(" "),
         _c("div", { staticClass: "uk-card-body" }, [
@@ -24587,7 +24586,7 @@ var render = function() {
                             {
                               staticClass: "uk-link-reset",
                               attrs: {
-                                href: "/ge/course/" + myCourse.course.id
+                                href: "/pl/course/" + myCourse.course.id
                               }
                             },
                             [
