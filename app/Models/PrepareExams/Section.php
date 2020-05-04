@@ -13,7 +13,7 @@ class Section extends Model
     public $timestamps = true;
     protected $fillable = [
       'course_id',
-      'exam_id',  // cr_exam tablosundaki
+      'lesson_id',  // cr_lesson tablosundan
       'no',
       'name',
       'active',

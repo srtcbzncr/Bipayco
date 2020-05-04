@@ -16,7 +16,7 @@ class CreatePeSectionsTable extends Migration
         Schema::create('pe_sections', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('course_id');
-            $table->unsignedBigInteger('exam_id');
+            $table->unsignedBigInteger('lesson_id');
             $table->unsignedInteger('no');
             $table->string('name', 100);
             $table->boolean('active')->default(false);
