@@ -14,6 +14,7 @@ class Section extends Model
     protected $fillable = [
       'course_id',
       'lesson_id',  // cr_lesson tablosundan
+      'subject_id', // cr_subject tablosundan
       'no',
       'name',
       'active',
