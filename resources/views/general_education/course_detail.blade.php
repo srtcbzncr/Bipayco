@@ -88,7 +88,7 @@
                         @forelse($course->achievements as $achievement)
                             <li>{{$achievement->content}}</li>
                         @empty
-                            <p>@lang('front/auth.have_no_requirement')</p>
+                            <p>@lang('front/auth.have_no_achievement')</p>
                         @endforelse
                     </ul>
                 </div>

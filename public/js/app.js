@@ -26505,7 +26505,7 @@ var render = function() {
                                                                           "span",
                                                                           {
                                                                             staticClass:
-                                                                              "uk-position-center-right uk-margin-medium-right"
+                                                                              "uk-visible@l uk-position-center-right time uk-margin-small-right"
                                                                           },
                                                                           [
                                                                             _vm._v(
@@ -26557,7 +26557,7 @@ var render = function() {
                                                                           "span",
                                                                           {
                                                                             staticClass:
-                                                                              "uk-position-center-right time uk-margin-medium-right"
+                                                                              "uk-visible@l uk-position-center-right time uk-margin-small-right"
                                                                           },
                                                                           [
                                                                             _vm._v(
@@ -26637,7 +26637,7 @@ var render = function() {
                                                                           "span",
                                                                           {
                                                                             staticClass:
-                                                                              "uk-position-center-right time uk-margin-medium-right"
+                                                                              "uk-visible@l uk-position-center-right time uk-margin-small-right"
                                                                           },
                                                                           [
                                                                             _vm._v(
@@ -26824,7 +26824,7 @@ var render = function() {
                                                                       "span",
                                                                       {
                                                                         staticClass:
-                                                                          "uk-position-center-right time uk-margin-medium-right"
+                                                                          "uk-visible@m uk-position-center-right time uk-margin-small-right"
                                                                       },
                                                                       [
                                                                         _vm._v(
