@@ -194,12 +194,27 @@ Route::prefix('instructor')->group(function(){
     Route::get('subjects/lesson/{id}','API\PrepareLessons\CourseController@getSubjectsForLesson')->name('api_pl_course_subjects_get'); // soru havuzu
 
     # prepare exams
-    Route::post('prepareLessons/course/create/{id?}', 'API\PrepareLessons\CourseController@createPost')->name('api_pl_course_create_post');
-    Route::post('prepareLessons/course/{id}/delete', 'API\PrepareLessons\CourseController@deleteCourse')->name('api_pl_course_delete');
-    Route::post('prepareLessons/course/{id}/active', 'API\PrepareLessons\CourseController@activeCourse')->name('api_pl_course_active');
-    Route::post('prepareLessons/course/{id}/passive', 'API\PrepareLessons\CourseController@passiveCourse')->name('api_pl_course_passive');
-    Route::post('prepareLessons/course/{id}/goals', 'API\PrepareLessons\CourseController@goalsPost')->name('api_pl_course_goals_post');
-    Route::get('prepareLessons/course/{id}/goals','API\PrepareLessons\CourseController@goalsGet')->name('api_pl_course_goals_get');
+    Route::post('prepareExams/course/create/{id?}', 'API\PrepareExams\CourseController@createPost')->name('api_pl_course_create_post'); // ok
+    Route::post('prepareExams/course/{id}/delete', 'API\PrepareExams\CourseController@deleteCourse')->name('api_pl_course_delete'); // ok
+    Route::post('prepareExams/course/{id}/active', 'API\PrepareExams\CourseController@activeCourse')->name('api_pl_course_active'); // ok
+    Route::post('prepareExams/course/{id}/passive', 'API\PrepareExams\CourseController@passiveCourse')->name('api_pl_course_passive'); // ok
+    Route::post('prepareExams/course/{id}/goals', 'API\PrepareExams\CourseController@goalsPost')->name('api_pl_course_goals_post'); // ok
+    Route::get('prepareExams/course/{id}/goals','API\PrepareExams\CourseController@goalsGet')->name('api_pl_course_goals_get'); //
+    Route::get('prepareExams/course/{id}/subjects','API\PrepareExams\CourseController@getSubjects')->name('api_pl_course_subjects'); // pe course
+    Route::post('prepareExams/course/{id}/sections/create/{section_id?}', 'API\PrepareExams\CourseController@sectionsPost')->name('api_pl_course_sections_post');
+    Route::post('prepareExams/course/{id}/sections/delete/{section_id}', 'API\PrepareExams\CourseController@sectionsDelete')->name('api_pl_course_sections_delete');
+    Route::get('prepareExams/course/{id}/sections/get','API\PrepareExams\CourseController@sectionsGet')->name('api_pl_course_sections_get');
+    Route::post('prepareExams/course/{id}/sections/{section_id}/lessons/create/{lesson_id?}','API\PrepareExams\CourseController@lessonsPost')->name('api_pl_course_sections_lessons_post');
+    Route::post('prepareExams/course/{id}/sections/{section_id}/lessons/delete/{lesson_id}','API\PrepareExams\CourseController@lessonsDelete')->name('api_pl_course_sections_lessons_delete');
+    Route::post('prepareExams/course/{id}/sections/{section_id}/lessons/{lesson_id}/source/delete/{source_id}','API\PrepareExams\CourseController@sourceDelete')->name('api_pl_course_sections_lessons_sources_delete');
+    Route::post('prepareExams/course/{id}/sections/{section_id}/lessons/{lesson_id}/source/cancel','API\PrepareExams\CourseController@sourceDeleteCancel')->name('api_pl_course_sections_lessons_sources_delete_cancel');
+
+    Route::post('prepareExams/course/{id}/instructors', 'API\PrepareExams\CourseController@instructorsPost')->name('api_pl_course_instructors_post');
+    Route::get('prepareExams/course/{id}/instructors','API\PrepareExams\CourseController@instructorsGet')->name('api_pl_course_instructors_get');
+    Route::post('prepareExams/course/{id}/section/{section_id}/up','API\PrepareExams\CourseController@sectionUp')->name('api_pl_course_section_up');
+    Route::post('prepareExams/course/{id}/section/{section_id}/down','API\PrepareExams\CourseController@sectionDown')->name('api_pl_course_section_down');
+    Route::post('prepareExams/course/{id}/section/{section_id}/lesson/{lesson_id}/up','API\PrepareExams\CourseController@lessonUp')->name('api_gl_course_lesson_up');
+    Route::post('prepareExams/course/{id}/section/{section_id}/lesson/{lesson_id}/down','API\PrepareExams\CourseController@lessonDown')->name('api_pl_course_lesson_down');
 });
 
 # Kurs İzleme Bölümü İçin Routes
