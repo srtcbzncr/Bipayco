@@ -16204,7 +16204,7 @@ var render = function() {
                           "a",
                           {
                             staticClass: "uk-link-reset",
-                            attrs: { href: "#" }
+                            attrs: { href: "/pl/course/" + myCourse.course.id }
                           },
                           [
                             _c(
@@ -16328,7 +16328,7 @@ var render = function() {
                           "a",
                           {
                             staticClass: "uk-link-reset",
-                            attrs: { href: "#" }
+                            attrs: { href: "/pe/course/" + myCourse.course.id }
                           },
                           [
                             _c(

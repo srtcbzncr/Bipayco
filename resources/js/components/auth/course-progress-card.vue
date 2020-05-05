@@ -27,7 +27,7 @@
             <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
                 <li v-for="myCourse in myCourses.courses.pl">
                     <div class="uk-grid-margin">
-                        <a href="#" class="uk-link-reset">
+                        <a :href="'/pl/course/'+myCourse.course.id" class="uk-link-reset">
                             <div class="uk-card-default uk-padding-small border-radius-6 scale-up">
                                 <progress id="js-progressbar" class="uk-progress uk-margin-small-bottom" :value="myCourse.progress" max="100" style=" height: 7px;"> </progress>
                                 <img class="uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :src="myCourse.course.image">
@@ -50,7 +50,7 @@
             <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
                 <li v-for="myCourse in myCourses.courses.pe">
                     <div class="uk-grid-margin">
-                        <a href="#" class="uk-link-reset">
+                        <a :href="'/pe/course/'+myCourse.course.id" class="uk-link-reset">
                             <div class="uk-card-default uk-padding-small border-radius-6 scale-up">
                                 <progress id="js-progressbar" class="uk-progress uk-margin-small-bottom" :value="myCourse.progress" max="100" style=" height: 7px;"> </progress>
                                 <img class="uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :src="myCourse.course.image">
