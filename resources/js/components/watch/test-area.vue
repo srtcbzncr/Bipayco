@@ -1,5 +1,5 @@
 <template>
-    <div class="uk-width uk-margin-remove-bottom uk-padding">
+    <div class="uk-width uk-padding-medium overflow-auto max-height-600">
         <!--question area-->
         <div v-for="(question, questionIndex) in questions">
             <!--single choice-->
@@ -129,7 +129,7 @@
                 </div>
             </div>
         </div>
-        <div class="uk-margin-medium-top">
+        <div class="uk-margin-medium-top uk-margin-medium-bottom">
             <!--question paginate-->
             <ul class="uk-pagination uk-flex-center align-item-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
                 <li>
@@ -337,5 +337,9 @@
     .number{
         padding:5px !important;
         width: 50px;
+    }
+
+    .max-height-600{
+        max-height: 600px;
     }
 </style>

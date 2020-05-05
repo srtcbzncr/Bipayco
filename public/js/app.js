@@ -11429,7 +11429,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\np[data-v-ceb007a6]{\n    margin:0;\n    margin-top:-5px;\n}\n.number[data-v-ceb007a6]{\n    padding:5px !important;\n    width: 50px;\n}\n", ""]);
+exports.push([module.i, "\np[data-v-ceb007a6]{\n    margin:0;\n    margin-top:-5px;\n}\n.number[data-v-ceb007a6]{\n    padding:5px !important;\n    width: 50px;\n}\n.max-height-600[data-v-ceb007a6]{\n    max-height: 600px;\n}\n", ""]);
 
 // exports
 
@@ -25060,7 +25060,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "uk-width uk-margin-remove-bottom uk-padding" },
+    { staticClass: "uk-width uk-padding-medium overflow-auto max-height-600" },
     [
       _vm._l(_vm.questions, function(question, questionIndex) {
         return _c("div", [
@@ -25970,94 +25970,98 @@ var render = function() {
         ])
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "uk-margin-medium-top" }, [
-        _c(
-          "ul",
-          {
-            staticClass:
-              "uk-pagination uk-flex-center align-item-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
-          },
-          [
-            _c("li", [
-              _c(
-                "button",
+      _c(
+        "div",
+        { staticClass: "uk-margin-medium-top uk-margin-medium-bottom" },
+        [
+          _c(
+            "ul",
+            {
+              staticClass:
+                "uk-pagination uk-flex-center align-item-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+            },
+            [
+              _c("li", [
+                _c(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.currentQuestion > 0,
+                        expression: "currentQuestion>0"
+                      }
+                    ],
+                    on: {
+                      click: function($event) {
+                        _vm.currentQuestion--
+                      }
+                    }
+                  },
+                  [_vm._v(" < ")]
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c(
+                  "button",
+                  { staticClass: "uk-disabled", attrs: { disabled: "" } },
+                  [
+                    _vm._v(
+                      _vm._s(_vm.questionText) +
+                        " " +
+                        _vm._s(_vm.currentQuestion + 1)
+                    )
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", [
+                _c(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.currentQuestion < _vm.questions.length - 1,
+                        expression: "currentQuestion<questions.length-1"
+                      }
+                    ],
+                    on: {
+                      click: function($event) {
+                        _vm.currentQuestion++
+                      }
+                    }
+                  },
+                  [_vm._v(" > ")]
+                )
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              directives: [
                 {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.currentQuestion > 0,
-                      expression: "currentQuestion>0"
-                    }
-                  ],
-                  on: {
-                    click: function($event) {
-                      _vm.currentQuestion--
-                    }
-                  }
-                },
-                [_vm._v(" < ")]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c(
-                "button",
-                { staticClass: "uk-disabled", attrs: { disabled: "" } },
-                [
-                  _vm._v(
-                    _vm._s(_vm.questionText) +
-                      " " +
-                      _vm._s(_vm.currentQuestion + 1)
-                  )
-                ]
-              )
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c(
-                "button",
-                {
-                  directives: [
-                    {
-                      name: "show",
-                      rawName: "v-show",
-                      value: _vm.currentQuestion < _vm.questions.length - 1,
-                      expression: "currentQuestion<questions.length-1"
-                    }
-                  ],
-                  on: {
-                    click: function($event) {
-                      _vm.currentQuestion++
-                    }
-                  }
-                },
-                [_vm._v(" > ")]
-              )
-            ])
-          ]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value:
-                  _vm.currentQuestion >= _vm.questions.length - 1 &&
-                  _vm.questions.length != 0,
-                expression:
-                  "currentQuestion>=questions.length-1 && questions.length!=0"
-              }
-            ],
-            staticClass: "uk-button-success uk-button uk-float-right",
-            on: { click: _vm.postData }
-          },
-          [_vm._v(_vm._s(_vm.endTestText))]
-        )
-      ])
+                  name: "show",
+                  rawName: "v-show",
+                  value:
+                    _vm.currentQuestion >= _vm.questions.length - 1 &&
+                    _vm.questions.length != 0,
+                  expression:
+                    "currentQuestion>=questions.length-1 && questions.length!=0"
+                }
+              ],
+              staticClass: "uk-button-success uk-button uk-float-right",
+              on: { click: _vm.postData }
+            },
+            [_vm._v(_vm._s(_vm.endTestText))]
+          )
+        ]
+      )
     ],
     2
   )

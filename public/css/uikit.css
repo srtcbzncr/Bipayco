@@ -3143,6 +3143,8 @@ select.uk-form-width-xsmall {
 .uk-grid-match > * > :not([class*='uk-width']),
 .uk-grid-item-match > :not([class*='uk-width']) {
     /* 2 */
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
     box-sizing: border-box;
     width: 100%;
 
@@ -7888,10 +7890,12 @@ ul.uk-nav-sub {
  * 1. `max-width` is needed for the pixel-based classes
  */
 [class*='uk-width'] {
-  box-sizing: border-box;
-  width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
   /* 1 */
-  max-width: 100%;
+    max-width: 100%;
 }
 /* Halves */
 .uk-width-1-2 {
@@ -9633,6 +9637,9 @@ iframe.uk-cover {
    Component: Flex
  ========================================================================== */
 .uk-flex {
+    display: -webkit-box;   /* OLD - iOS 6-, Safari 3.1-6, BB7 */
+    display: -ms-flexbox;  /* TWEENER - IE 10 */
+    display: -webkit-flex; /* NEW - Safari 6.1+. iOS 7.1+, BB10 */
     display: flex;
 }
 
