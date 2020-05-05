@@ -105,7 +105,7 @@
                                                             <li class="uk-background-default">
                                                                 <span class="uk-icon-button icon-play"> <i class="fas fa-lock icon-small uk-margin-remove"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">{{lessonIndex+1}}. {{lesson.name}}</div>
-                                                                <span v-if="lesson.is_video" class="uk-visible@m uk-position-center-right time uk-margin-small-right">  {{lesson.long}}</span>
+                                                                <span v-if="lesson.is_video" class="uk-visible@l uk-position-center-right time uk-margin-small-right">  {{lesson.long}}</span>
                                                             </li>
                                                         </a>
                                                         <a v-if="moduleName=='prepareLessons'" class="uk-link-reset">
