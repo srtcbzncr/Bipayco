@@ -17809,7 +17809,10 @@ var render = function() {
           [
             _c(
               "div",
-              { staticClass: "uk-modal-dialog uk-margin-auto-vertical" },
+              {
+                staticClass:
+                  "uk-modal-dialog uk-margin-auto-vertical uk-width-auto"
+              },
               [
                 _c("button", {
                   staticClass: "uk-modal-close-outside",
@@ -17821,9 +17824,10 @@ var render = function() {
                       "video",
                       {
                         attrs: {
-                          id: "courseLessonVideo",
                           controls: "",
-                          controlsList: "nodownload"
+                          playsinline: "",
+                          controlsList: "nodownload",
+                          "uk-video": ""
                         }
                       },
                       [
