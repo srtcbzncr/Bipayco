@@ -193,6 +193,13 @@ Route::prefix('instructor')->group(function(){
     # getSubjects
     Route::get('subjects/lesson/{id}','API\PrepareLessons\CourseController@getSubjectsForLesson')->name('api_pl_course_subjects_get'); // soru havuzu
 
+    # prepare exams
+    Route::post('prepareLessons/course/create/{id?}', 'API\PrepareLessons\CourseController@createPost')->name('api_pl_course_create_post');
+    Route::post('prepareLessons/course/{id}/delete', 'API\PrepareLessons\CourseController@deleteCourse')->name('api_pl_course_delete');
+    Route::post('prepareLessons/course/{id}/active', 'API\PrepareLessons\CourseController@activeCourse')->name('api_pl_course_active');
+    Route::post('prepareLessons/course/{id}/passive', 'API\PrepareLessons\CourseController@passiveCourse')->name('api_pl_course_passive');
+    Route::post('prepareLessons/course/{id}/goals', 'API\PrepareLessons\CourseController@goalsPost')->name('api_pl_course_goals_post');
+    Route::get('prepareLessons/course/{id}/goals','API\PrepareLessons\CourseController@goalsGet')->name('api_pl_course_goals_get');
 });
 
 # Kurs İzleme Bölümü İçin Routes
