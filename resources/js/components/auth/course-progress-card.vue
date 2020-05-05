@@ -8,8 +8,8 @@
                             <div class="uk-card-default uk-padding-small border-radius-6 scale-up">
                                 <progress id="js-progressbar" class="uk-progress uk-margin-small-bottom" :value="myCourse.progress" max="100" style=" height: 7px;"> </progress>
                                 <img class="uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :src="myCourse.course.image">
-                                <p class="uk-margin-small-top uk-margin-remove-bottom uk-text-bold" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"> {{myCourse.course.name}} </p>
-                                <p class="uk-text-small uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"> {{myCourse.course.description}} </p>
+                                <p class="uk-margin-small-top uk-height-small uk-margin-remove-bottom uk-text-bold" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"> {{myCourse.course.name}} </p>
+                                <p class="uk-text-small uk-height-small uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"> {{myCourse.course.description}} </p>
                             </div>
                         </a>
                     </div>
@@ -31,8 +31,8 @@
                             <div class="uk-card-default uk-padding-small border-radius-6 scale-up">
                                 <progress id="js-progressbar" class="uk-progress uk-margin-small-bottom" :value="myCourse.progress" max="100" style=" height: 7px;"> </progress>
                                 <img class="uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :src="myCourse.course.image">
-                                <p class="uk-margin-small-top uk-margin-remove-bottom uk-text-bold" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"> {{myCourse.course.name}} </p>
-                                <p class="uk-text-small uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"> {{myCourse.course.description}} </p>
+                                <p class="uk-margin-small-top uk-height-small uk-margin-remove-bottom uk-text-bold" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"> {{myCourse.course.name}} </p>
+                                <p class="uk-text-small uk-height-small uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"> {{myCourse.course.description}} </p>
                             </div>
                         </a>
                     </div>
@@ -54,8 +54,8 @@
                             <div class="uk-card-default uk-padding-small border-radius-6 scale-up">
                                 <progress id="js-progressbar" class="uk-progress uk-margin-small-bottom" :value="myCourse.progress" max="100" style=" height: 7px;"> </progress>
                                 <img class="uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :src="myCourse.course.image">
-                                <p class="uk-margin-small-top uk-margin-remove-bottom uk-text-bold" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"> {{myCourse.course.name}} </p>
-                                <p class="uk-text-small uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"> {{myCourse.course.description}} </p>
+                                <p class="uk-margin-small-top uk-height-small uk-margin-remove-bottom uk-text-bold" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"> {{myCourse.course.name}} </p>
+                                <p class="uk-text-small uk-height-small uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"> {{myCourse.course.description}} </p>
                             </div>
                         </a>
                     </div>
@@ -77,8 +77,8 @@
                             <div class="uk-card-default uk-padding-small border-radius-6 scale-up">
                                 <progress id="js-progressbar" class="uk-progress uk-margin-small-bottom" :value="myCourse.progress" max="100" style=" height: 7px;"> </progress>
                                 <img class="uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :src="myCourse.course.image">
-                                <p class="uk-margin-small-top uk-margin-remove-bottom uk-text-bold" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"> {{myCourse.course.name}} </p>
-                                <p class="uk-text-small uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"> {{myCourse.course.description}} </p>
+                                <p class="uk-margin-small-top uk-height-small uk-margin-remove-bottom uk-text-bold" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"> {{myCourse.course.name}} </p>
+                                <p class="uk-text-small uk-height-small uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"> {{myCourse.course.description}} </p>
                             </div>
                         </a>
                     </div>
@@ -100,8 +100,8 @@
                             <div class="uk-card-default uk-padding-small border-radius-6 scale-up">
                                 <progress id="js-progressbar" class="uk-progress uk-margin-small-bottom" :value="myCourse.progress" max="100" style=" height: 7px;"> </progress>
                                 <img class="uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :src="myCourse.course.image">
-                                <p class="uk-margin-small-top uk-margin-remove-bottom uk-text-bold" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"> {{myCourse.course.name}} </p>
-                                <p class="uk-text-small uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"> {{myCourse.course.description}} </p>
+                                <p class="uk-margin-small-top uk-height-small uk-margin-remove-bottom uk-text-bold" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"> {{myCourse.course.name}} </p>
+                                <p class="uk-text-small uk-height-small uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"> {{myCourse.course.description}} </p>
                             </div>
                         </a>
                     </div>
@@ -123,8 +123,8 @@
                             <div class="uk-card-default uk-padding-small border-radius-6 scale-up">
                                 <progress id="js-progressbar" class="uk-progress uk-margin-small-bottom" :value="myCourse.progress" max="100" style=" height: 7px;"> </progress>
                                 <img class="uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :src="myCourse.course.image">
-                                <p class="uk-margin-small-top uk-margin-remove-bottom uk-text-bold" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"> {{myCourse.course.name}} </p>
-                                <p class="uk-text-small uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"> {{myCourse.course.description}} </p>
+                                <p class="uk-margin-small-top uk-height-small uk-margin-remove-bottom uk-text-bold" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;"> {{myCourse.course.name}} </p>
+                                <p class="uk-text-small uk-height-small uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"> {{myCourse.course.description}} </p>
                             </div>
                         </a>
                     </div>

@@ -11201,7 +11201,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".star-rating[data-v-6dab0ce4] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.star-rating .star-container[data-v-6dab0ce4] {\n  display: -webkit-box;\n  display: flex;\n}\n.star-rating .star-container[data-v-6dab0ce4]:not(:last-child) {\n  margin-right: 5px;\n}\n.star-button[data-v-6dab0ce4] {\n  background-color: white;\n}\n.star-button[data-v-6dab0ce4]:focus {\n  background-color: white;\n}", ""]);
+exports.push([module.i, ".star-rating[data-v-6dab0ce4] {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-align: center;\n          align-items: center;\n}\n.star-rating .star-container[data-v-6dab0ce4] {\n  display: -webkit-box;\n  display: flex;\n}\n.star-rating .star-container .star-svg[data-v-6dab0ce4] {\n  max-height: 20px;\n  max-width: 25px;\n}\n.star-rating .star-container[data-v-6dab0ce4]:not(:last-child) {\n  margin-right: 5px;\n}\n.star-button[data-v-6dab0ce4] {\n  background-color: white;\n}\n.star-button[data-v-6dab0ce4]:focus {\n  background-color: white;\n}", ""]);
 
 // exports
 
@@ -16108,7 +16108,7 @@ var render = function() {
                                   "p",
                                   {
                                     staticClass:
-                                      "uk-margin-small-top uk-margin-remove-bottom uk-text-bold",
+                                      "uk-margin-small-top uk-height-small uk-margin-remove-bottom uk-text-bold",
                                     staticStyle: {
                                       overflow: "hidden",
                                       "text-overflow": "ellipsis",
@@ -16130,7 +16130,7 @@ var render = function() {
                                   "p",
                                   {
                                     staticClass:
-                                      "uk-text-small uk-margin-remove",
+                                      "uk-text-small uk-height-small uk-margin-remove",
                                     staticStyle: {
                                       overflow: "hidden",
                                       "text-overflow": "ellipsis",
@@ -16232,7 +16232,7 @@ var render = function() {
                                   "p",
                                   {
                                     staticClass:
-                                      "uk-margin-small-top uk-margin-remove-bottom uk-text-bold",
+                                      "uk-margin-small-top uk-height-small uk-margin-remove-bottom uk-text-bold",
                                     staticStyle: {
                                       overflow: "hidden",
                                       "text-overflow": "ellipsis",
@@ -16254,7 +16254,7 @@ var render = function() {
                                   "p",
                                   {
                                     staticClass:
-                                      "uk-text-small uk-margin-remove",
+                                      "uk-text-small uk-height-small uk-margin-remove",
                                     staticStyle: {
                                       overflow: "hidden",
                                       "text-overflow": "ellipsis",
@@ -16356,7 +16356,7 @@ var render = function() {
                                   "p",
                                   {
                                     staticClass:
-                                      "uk-margin-small-top uk-margin-remove-bottom uk-text-bold",
+                                      "uk-margin-small-top uk-height-small uk-margin-remove-bottom uk-text-bold",
                                     staticStyle: {
                                       overflow: "hidden",
                                       "text-overflow": "ellipsis",
@@ -16378,7 +16378,7 @@ var render = function() {
                                   "p",
                                   {
                                     staticClass:
-                                      "uk-text-small uk-margin-remove",
+                                      "uk-text-small uk-height-small uk-margin-remove",
                                     staticStyle: {
                                       overflow: "hidden",
                                       "text-overflow": "ellipsis",
@@ -16480,7 +16480,7 @@ var render = function() {
                                   "p",
                                   {
                                     staticClass:
-                                      "uk-margin-small-top uk-margin-remove-bottom uk-text-bold",
+                                      "uk-margin-small-top uk-height-small uk-margin-remove-bottom uk-text-bold",
                                     staticStyle: {
                                       overflow: "hidden",
                                       "text-overflow": "ellipsis",
@@ -16502,7 +16502,7 @@ var render = function() {
                                   "p",
                                   {
                                     staticClass:
-                                      "uk-text-small uk-margin-remove",
+                                      "uk-text-small uk-height-small uk-margin-remove",
                                     staticStyle: {
                                       overflow: "hidden",
                                       "text-overflow": "ellipsis",
@@ -16604,7 +16604,7 @@ var render = function() {
                                   "p",
                                   {
                                     staticClass:
-                                      "uk-margin-small-top uk-margin-remove-bottom uk-text-bold",
+                                      "uk-margin-small-top uk-height-small uk-margin-remove-bottom uk-text-bold",
                                     staticStyle: {
                                       overflow: "hidden",
                                       "text-overflow": "ellipsis",
@@ -16626,7 +16626,7 @@ var render = function() {
                                   "p",
                                   {
                                     staticClass:
-                                      "uk-text-small uk-margin-remove",
+                                      "uk-text-small uk-height-small uk-margin-remove",
                                     staticStyle: {
                                       overflow: "hidden",
                                       "text-overflow": "ellipsis",
@@ -16728,7 +16728,7 @@ var render = function() {
                                   "p",
                                   {
                                     staticClass:
-                                      "uk-margin-small-top uk-margin-remove-bottom uk-text-bold",
+                                      "uk-margin-small-top uk-height-small uk-margin-remove-bottom uk-text-bold",
                                     staticStyle: {
                                       overflow: "hidden",
                                       "text-overflow": "ellipsis",
@@ -16750,7 +16750,7 @@ var render = function() {
                                   "p",
                                   {
                                     staticClass:
-                                      "uk-text-small uk-margin-remove",
+                                      "uk-text-small uk-height-small uk-margin-remove",
                                     staticStyle: {
                                       overflow: "hidden",
                                       "text-overflow": "ellipsis",

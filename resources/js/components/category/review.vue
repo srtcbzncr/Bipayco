@@ -231,6 +231,8 @@
         .star-container {
             display: flex;
             .star-svg {
+                max-height: 20px;
+                max-width:25px;
             }
         }
         .indicator {

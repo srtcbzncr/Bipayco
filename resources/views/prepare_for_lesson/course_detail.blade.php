@@ -5,7 +5,10 @@
             <div class="uk-width-1-2@m uk-padding-remove-left uk-visible@m">
                 <div class="course-video-demo uk-position-relative">
                     <div class="video-responsive">
-                        <img src="{{$course->image}}" alt="">
+                        <div class="uk-cover-container">
+                            <img src="{{$course->image}}" alt="" uk-cover>
+                            <canvas width="600" height="400"></canvas>
+                        </div>
                         <!--<iframe src="#" class="uk-padding-remove" uk-video="automute: true" frameborder="0" allowfullscreen uk-responsive></iframe>-->
                     </div>
                     <!--  Local video
@@ -109,10 +112,12 @@
                 <div id="Reviews" class="tabcontent animation: uk-animation-slide-right-medium">
                     <h3 style="tab-index: 1">@lang('front/auth.reviews')</h3>
                     @if(Auth::check() && Auth::user()->can('comment', $course))
-                        <review course-id="{{$course->id}}"
-                                user-id="{{Auth::user()->id}}"
-                                send-text="@lang('front/auth.send')"
-                                comment-text="@lang('front/auth.comment')"
+                        <review
+
+                            course-id="{{$course->id}}"
+                            user-id="{{Auth::user()->id}}"
+                            send-text="@lang('front/auth.send')"
+                            comment-text="@lang('front/auth.comment')"
                         > </review>
                     @endif
                     <div class="uk-margin-medium-top">
