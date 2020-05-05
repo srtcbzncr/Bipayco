@@ -1,23 +1,23 @@
 <template>
     <div class="uk-card uk-card-default uk-align-center">
         <div class="uk-card-body uk-grid uk-padding-remove">
-            <div class="uk-width-3-4@m uk-flex align-items-center justify-content-center uk-overflow-auto">
+            <div class="uk-width-3-4@m uk-flex align-items-center justify-content-center watch-panel uk-overflow-auto">
                 <test-area v-if="moduleName=='prepareLessons'&&isTest"
-                    :lesson-id="course.lesson_id"
-                    :subject-id="selected.subject_id"
-                    :test-type="testType"
-                    :section-id="selected.id"
-                    :module-name="moduleName"
-                    :user-id="userId"
-                    :course-id="courseId"
+                           :lesson-id="course.lesson_id"
+                           :subject-id="selected.subject_id"
+                           :test-type="testType"
+                           :section-id="selected.id"
+                           :module-name="moduleName"
+                           :user-id="userId"
+                           :course-id="courseId"
                 ></test-area>
-                <video v-else-if="selected.is_video" id="courseLessonVideo" @timeupdate="watched" width="400" controls controlsList="nodownload">
+                <video v-else-if="selected.is_video" id="courseLessonVideo" @timeupdate="watched" style="max-height: 600px" height="400" controls controlsList="nodownload">
                     <source :src="selected.file_path" type="video/mp4">
                     <source :src="selected.file_path" type="video/ogg">
                     Your browser does not support HTML5 video.
                 </video>
                 <div v-else class="uk-width uk-margin-remove-bottom uk-padding-remove">
-                    <iframe :src="selected.file_path" @load="completed" class="uk-width" style="height: 550px" frameborder="0"></iframe>
+                    <iframe :src="selected.file_path" @load="completed" class="uk-width" style="height: 540px" frameborder="0"></iframe>
                     <button v-if="course.nextLessonId!=null" @click="selectLesson(course.nextLessonId)" class="uk-button uk-button-primary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right">{{nextLessonText}} <i class="fas fa-arrow-right uk-margin-small-left"></i></button>
                     <button @click="openNewTab" class="uk-button uk-button-secondary uk-margin-small-top uk-margin-small-bottom uk-margin-small-right uk-margin-small-left float-right"><i class="fas fa-expand-arrows-alt uk-margin-small-right"></i> {{fullScreenText}}</button>
                 </div>
@@ -36,7 +36,7 @@
                             </li>
                         </ul>
                         <!-- Sidebar contents -->
-                        <ul class="uk-switcher uk-height-max-large uk-overflow-auto">
+                        <ul class="uk-switcher menu-panel uk-overflow-auto">
                             <li>
                                 <div class="demo1 tab-video" data-simplebar>
                                     <ul uk-accordion>
@@ -303,5 +303,13 @@
 
     .completedLesson{
         background-color: #4cd964;
+    }
+
+    .watch-panel{
+        max-height: 600px;
+    }
+
+    .menu-panel{
+        max-height: 540px;
     }
 </style>

@@ -11448,7 +11448,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.currentLesson[data-v-1d0b87fc]{\n    background-color: #1e87f0;\n}\n.completedLesson[data-v-1d0b87fc]{\n    background-color: #4cd964;\n}\n", ""]);
+exports.push([module.i, "\n.currentLesson[data-v-1d0b87fc]{\n    background-color: #1e87f0;\n}\n.completedLesson[data-v-1d0b87fc]{\n    background-color: #4cd964;\n}\n.watch-panel[data-v-1d0b87fc]{\n    max-height: 600px;\n}\n.menu-panel[data-v-1d0b87fc]{\n    max-height: 540px;\n}\n", ""]);
 
 // exports
 
@@ -26090,7 +26090,7 @@ var render = function() {
         "div",
         {
           staticClass:
-            "uk-width-3-4@m uk-flex align-items-center justify-content-center uk-overflow-auto"
+            "uk-width-3-4@m uk-flex align-items-center justify-content-center watch-panel uk-overflow-auto"
         },
         [
           _vm.moduleName == "prepareLessons" && _vm.isTest
@@ -26109,9 +26109,10 @@ var render = function() {
             ? _c(
                 "video",
                 {
+                  staticStyle: { "max-height": "600px" },
                   attrs: {
                     id: "courseLessonVideo",
-                    width: "400",
+                    height: "400",
                     controls: "",
                     controlsList: "nodownload"
                   },
@@ -26139,7 +26140,7 @@ var render = function() {
                 [
                   _c("iframe", {
                     staticClass: "uk-width",
-                    staticStyle: { height: "550px" },
+                    staticStyle: { height: "540px" },
                     attrs: { src: _vm.selected.file_path, frameborder: "0" },
                     on: { load: _vm.completed }
                   }),
@@ -26240,10 +26241,7 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "ul",
-                    {
-                      staticClass:
-                        "uk-switcher uk-height-max-large uk-overflow-auto"
-                    },
+                    { staticClass: "uk-switcher menu-panel uk-overflow-auto" },
                     [
                       _c("li", [
                         _c(
