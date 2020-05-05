@@ -15,4 +15,5 @@ class Subject extends Model
     public function sections(){
         return $this->hasMany('App\Models\PrepareLessons\Section');
     }
+
 }

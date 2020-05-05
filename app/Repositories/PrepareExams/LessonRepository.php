@@ -245,6 +245,7 @@ class LessonRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $lessons = Lesson::where('section_id',$section_id)->where('deleted_at',null)->orderBy('no','asc')->get();
             $before_lesson = null;
             foreach ($lessons as $key=> $lesson){
@@ -259,10 +260,12 @@ class LessonRepository implements IRepository{
                 }
                 $before_lesson = $lesson;
             }
+            DB::commit();
             // $object = Lesson::where('section_id',$section_id)->orderBy('no','asc')->get();
         }
         catch(\Exception $e){
-            $error = $e;
+            DB::rollBack();
+            $error = $e->getMessage();
             $result = false;
         }
 
@@ -279,6 +282,7 @@ class LessonRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $lessons = Lesson::where('section_id',$section_id)->where('deleted_at',null)->orderBy('no','asc')->get();
             $after_lesson = null;
             foreach ($lessons as $key=> $lesson){
@@ -294,10 +298,12 @@ class LessonRepository implements IRepository{
                     break;
                 }
             }
+            DB::commit();
             //$object = Lesson::where('section_id',$section_id)->orderBy('no','asc')->get();
         }
         catch(\Exception $e){
-            $error = $e;
+            DB::rollBack();
+            $error = $e->getMessage();
             $result = false;
         }
 

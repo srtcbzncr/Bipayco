@@ -1014,7 +1014,7 @@ class CourseRepository implements IRepository{
         foreach ($data as $key => $item){
             $geCoursesInstructor = DB::table('ge_courses_instructors')->where('course_id',$course_id)
                 ->where('deleted_at',null)->where('instructor_id',$item['instructor_id'])
-                ->where('course_type','App\Models\PrepareLessons\Course')->get();
+                ->where('course_type','App\Models\PrepareExams\Course')->get();
             try {
                 if($geCoursesInstructor[0]->is_manager == 1){
                     $isManagers[$key] = 1;
@@ -1031,11 +1031,11 @@ class CourseRepository implements IRepository{
             DB::beginTransaction();
             $course = Course::find($course_id);
             DB::table("ge_courses_instructors")->where('course_id',$course_id)
-                ->where('course_type','App\Models\PrepareLessons\Course')->delete();
+                ->where('course_type','App\Models\PrepareExams\Course')->delete();
             foreach ($data as $key => $item){
                 DB::table("ge_courses_instructors")->insert(array(
                     'course_id' => $course_id,
-                    'course_type' => 'App\Models\PrepareLessons\Course',
+                    'course_type' => 'App\Models\PrepareExams\Course',
                     'instructor_id' => $item['instructor_id'],
                     'is_manager' => $isManagers[$key],
                     'percent' => $item['percent'],
@@ -1047,7 +1047,7 @@ class CourseRepository implements IRepository{
         }
         catch(\Exception $e){
             DB::rollBack();
-            $error = $e;
+            $error = $e->getMessage();
             $result = false;
         }
 
@@ -1063,7 +1063,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $geCourseInstructor =  DB::table("ge_courses_instructors")->where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->where('active',true)->get();
+            $geCourseInstructor =  DB::table("ge_courses_instructors")->where('course_id',$id)->where('course_type','App\Models\PrepareExams\Course')->where('active',true)->get();
             foreach ($geCourseInstructor as $key => $item){
                 if($item->is_manager == true){
                     $temp = $geCourseInstructor[0];

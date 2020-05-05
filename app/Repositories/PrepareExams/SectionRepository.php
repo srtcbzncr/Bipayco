@@ -178,6 +178,7 @@ class SectionRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $sections = Section::where('course_id',$course_id)->where('deleted_at',null)->orderBy('no','asc')->get();
             $before_section = null;
             foreach ($sections as $section){
@@ -192,10 +193,12 @@ class SectionRepository implements IRepository{
                 }
                 $before_section = $section;
             }
+            DB::commit();
             //$object = Section::where('course_id',$course_id)->where('active',true)->get();
         }
         catch(\Exception $e){
-            $error = $e;
+            DB::rollBack();
+            $error = $e->getMessage();
             $result = false;
         }
 
@@ -212,6 +215,7 @@ class SectionRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $sections = Section::where('course_id',$course_id)->where('deleted_at',null)->orderBy('no','asc')->get();
             $after_section = null;
             foreach ($sections as $key => $section){
@@ -227,9 +231,11 @@ class SectionRepository implements IRepository{
                     break;
                 }
             }
+            DB::commit();
             //$object =  Section::where('course_id',$course_id)->where('active',true)->get();
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }

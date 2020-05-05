@@ -392,7 +392,7 @@ class CourseController extends Controller
     public function instructorsPost($id,Request $request){
         $user = null;
         $data = $request->toArray();
-        $geCoursesInstructor =  DB::table('ge_courses_instructors')->where('course_type','App\Models\PrepareLessons\Course')
+        $geCoursesInstructor =  DB::table('ge_courses_instructors')->where('course_type','App\Models\PrepareExams\Course')
             ->where('course_id',$id)->get();
         foreach ($geCoursesInstructor as $item){
             if($item->is_manager == true){
@@ -462,7 +462,7 @@ class CourseController extends Controller
         $instructor = Instructor::where('user_id',$user->id)->first();
         if($instructor != null){
             $geCourseInstructor = DB::table("ge_courses_instructors")->where('course_id',$course->id)
-                ->where('instructor_id',$instructor->id)->where('course_type','App\Models\PrepareLessons\Course')->first();
+                ->where('instructor_id',$instructor->id)->where('course_type','App\Models\PrepareExams\Course')->first();
             if($geCourseInstructor != null){
                 if($geCourseInstructor->is_manager == 1){
                     return true;
