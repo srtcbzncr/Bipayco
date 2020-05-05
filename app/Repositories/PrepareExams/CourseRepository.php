@@ -209,8 +209,7 @@ class CourseRepository implements IRepository{
                 Storage::delete($object->image);
                 $object->image = $imagePath;
             }
-            $object->lesson_id = $data['lesson_id'];
-            $object->grade_id = $data['grade_id'];
+            $object->exam_id = $data['exam_id'];
             $object->name = $data['name'];
             $object->description = $data['description'];
             $object->access_time = $data['access_time'];
