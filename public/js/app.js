@@ -5355,6 +5355,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     reviewCount: {
       type: Number,
       requirement: true
+    },
+    minuteBeforeText: {
+      type: String,
+      "default": "dakika önce"
+    },
+    hourBeforeText: {
+      type: String,
+      "default": "saat önce"
+    },
+    dayBeforeText: {
+      type: String,
+      "default": "gün önce"
+    },
+    monthBeforeText: {
+      type: String,
+      "default": "ay önce"
+    },
+    yearBeforeText: {
+      type: String,
+      "default": "yıl önce"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseReviews']), {
@@ -5367,6 +5387,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCourseReviews', 'loadNewPageReviews']), {
+    dateFormat: function dateFormat(date) {
+      var created = new Date(date);
+      var today = new Date();
+
+      if (today.getFullYear() - created.getFullYear() > 1) {
+        return today.getFullYear() - created.getFullYear() + " " + this.yearBeforeText;
+      } else if (today.getMonth() - created.getMonth() > 1) {
+        return today.getMonth() - created.getMonth() + " " + this.monthBeforeText;
+      } else if (today.getDate() - created.getDate() > 1) {
+        return today.getDate() - created.getDate() + " " + this.dayBeforeText;
+      } else if (today.getHours() - created.getHours() > 1) {
+        return today.getHours() - created.getHours() + " " + this.hourBeforeText;
+      } else {
+        return today.getMinutes() - created.getMinutes() + " " + this.minuteBeforeText;
+      }
+    },
     loadNewPages: function loadNewPages(name, newPageNumber) {
       this.$store.dispatch('loadNewPageReviews', name);
       this.currentPage = newPageNumber;
@@ -17876,16 +17912,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("span", { staticClass: "uk-text-small" }, [
-                          _vm._v(
-                            _vm._s(
-                              Math.ceil(
-                                Math.abs(
-                                  new Date() - new Date(review.created_at)
-                                ) /
-                                  (1000 * 60 * 60 * 24)
-                              )
-                            ) + " days before"
-                          )
+                          _vm._v(_vm._s(_vm.dateFormat(review.created_at)))
                         ])
                       ]),
                       _vm._v(" "),

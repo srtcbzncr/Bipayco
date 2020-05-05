@@ -9,7 +9,7 @@
                     <div class="uk-flex justify-content-between">
                         <div class="uk-width-3-4">
                             <h4 class="uk-margin-remove">{{review.user.first_name}} {{review.user.last_name}}</h4>
-                            <span class="uk-text-small">{{Math.ceil(Math.abs(new Date()-new Date(review.created_at))/ (1000 * 60 * 60 * 24))}} days before</span>
+                            <span class="uk-text-small">{{dateFormat(review.created_at)}}</span>
                         </div>
                         <stars-rating :rating="Number(review.point)" style-full-star-color="#F4C150" style-empty-star-color="#C1C1C1" :style-star-width="14" :style-star-height="14"> </stars-rating>
 
@@ -53,6 +53,26 @@
                 type:Number,
                 requirement:true,
             },
+            minuteBeforeText:{
+                type:String,
+                default:"dakika önce"
+            },
+            hourBeforeText:{
+                type:String,
+                default:"saat önce"
+            },
+            dayBeforeText:{
+                type:String,
+                default:"gün önce"
+            },
+            monthBeforeText:{
+                type:String,
+                default:"ay önce"
+            },
+            yearBeforeText:{
+                type:String,
+                default:"yıl önce"
+            }
         },
         computed:{
             ...mapState([
@@ -71,6 +91,21 @@
                 'loadCourseReviews',
                 'loadNewPageReviews'
             ]),
+            dateFormat:function (date) {
+                let created=new Date(date);
+                let today=new Date();
+                if(today.getFullYear()-created.getFullYear()>1){
+                    return (today.getFullYear()-created.getFullYear())+" "+this.yearBeforeText;
+                }else if(today.getMonth()-created.getMonth()>1){
+                    return (today.getMonth()-created.getMonth())+" "+this.monthBeforeText;
+                }else if(today.getDate()-created.getDate()>1) {
+                    return (today.getDate() - created.getDate()) + " " + this.dayBeforeText;
+                }else if(today.getHours()-created.getHours()>1) {
+                    return (today.getHours() - created.getHours()) + " " + this.hourBeforeText;
+                }else{
+                    return (today.getMinutes() - created.getMinutes()) + " " + this.minuteBeforeText;
+                }
+            },
             loadNewPages: function(name,newPageNumber){
                 this.$store.dispatch('loadNewPageReviews',name);
                 this.currentPage=newPageNumber;
