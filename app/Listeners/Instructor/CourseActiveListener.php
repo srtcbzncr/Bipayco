@@ -49,5 +49,16 @@ class CourseActiveListener
                 }
             }
         }
+        else if($event->education == 3){
+            $course = \App\Models\PrepareExams\Course::find($event->course_id);
+            $sections = $course->sections;
+            foreach ($sections as $section) {
+                if ($section->active == true) {
+                    $course->active = true;
+                    $course->save();
+                    break;
+                }
+            }
+        }
     }
 }

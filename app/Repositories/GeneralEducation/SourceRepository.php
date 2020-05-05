@@ -150,7 +150,7 @@ class SourceRepository implements IRepository{
         }
         catch(\Exception $e){
             DB::rollBack();
-            $error = $e;
+            $error = $e->getMessage();
             $result = false;
         }
 

@@ -49,5 +49,16 @@ class SectionActiveListener
                 }
             }
         }
+        else if($event->education == 3){
+            $section = \App\Models\PrepareExams\Section::find($event->section_id);
+            $lessons = $section->lessons;
+            foreach ($lessons as $lesson){
+                if($lesson->active == true){
+                    $section->active = true;
+                    $section->save();
+                    break;
+                }
+            }
+        }
     }
 }

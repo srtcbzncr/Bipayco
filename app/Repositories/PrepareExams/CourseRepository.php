@@ -17,8 +17,8 @@ use App\Models\GeneralEducation\Requirement;
 use App\Models\GeneralEducation\Source;
 use App\Models\GeneralEducation\Tag;
 use App\Models\PrepareExams\Course;
-use App\Models\PrepareLessons\Lesson;
-use App\Models\PrepareLessons\Section;
+use App\Models\PrepareExams\Lesson;
+use App\Models\PrepareExams\Section;
 use App\Models\QuestionSource\GapFilling;
 use App\Models\QuestionSource\Match;
 use App\Models\QuestionSource\MultiChoice;
@@ -995,7 +995,7 @@ class CourseRepository implements IRepository{
         }
         catch(\Exception $e){
             DB::rollBack();
-            $error = $e;
+            $error = $e->getMessage();
             $result = false;
         }
 

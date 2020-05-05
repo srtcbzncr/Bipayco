@@ -8,6 +8,8 @@ use App\Models\Auth\User;
 use App\Models\PrepareExams\Course;
 use App\Repositories\GeneralEducation\SourceRepository;
 use App\Repositories\PrepareExams\CourseRepository;
+use App\Repositories\PrepareExams\LessonRepository;
+use App\Repositories\PrepareExams\SectionRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -367,7 +369,7 @@ class CourseController extends Controller
     }
     public function sourceDeleteCancel($course_id,$section_id,$lesson_id){
         // Initializing
-        $repo = new \App\Repositories\PrepareLessons\SourceRepository();
+        $repo = new \App\Repositories\PrepareExams\SourceRepository();
 
         // Operations
         $resp =  $repo->setActive($lesson_id);

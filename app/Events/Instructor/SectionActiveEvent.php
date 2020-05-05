@@ -13,7 +13,7 @@ use Illuminate\Queue\SerializesModels;
 class SectionActiveEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $section_id,$education; // ecucation 1: ge, 2: pl
+    public $section_id,$education; // ecucation 1: ge, 2: pl, 3: pe
 
     /**
      * Create a new event instance.
