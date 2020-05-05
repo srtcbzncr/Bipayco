@@ -65,7 +65,8 @@ class FavoriteRepository implements IRepository
             else if($data['module_name'] == 'prepareLessons'){
                 $favorite->course_type = 'App\Models\PrepareLessons\Course';
             }
-            else if($data['module_name'] == 'pe'){
+            else if($data['module_name'] == 'prepareExams'){
+                $favorite->course_type = 'App\Models\PrepareExams\Course';
             }
             else if($data['module_name'] == 'pre'){
             }
@@ -102,6 +103,8 @@ class FavoriteRepository implements IRepository
                 $type = "App\Models\GeneralEducation\Course";
             else if($data['module_name'] == 'prepareLessons')
                 $type = "App\Models\PrepareLessons\Course";
+            else if($data['module_name'] == 'prepareExams')
+                $type = "App\Models\PrepareExams\Course";
 
             DB::table('favorite')->where('user_id',$data['user_id'])
                 ->where('course_id',$data['course_id'])
