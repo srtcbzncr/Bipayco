@@ -65,7 +65,7 @@
                                                                 <span v-if="lesson.is_video" class="uk-icon-button icon-play currentLesson uk-button-primary"> <i class="fas fa-play icon-small"></i> </span>
                                                                 <span v-else class="uk-icon-button icon-play currentLesson uk-button-primary"> <i class="fas fa-file-alt icon-small uk-margin-remove"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">{{lessonIndex+1}}. {{lesson.name}}</div>
-                                                                <span v-if="lesson.is_video" class="uk-visible@l uk-position-center-right time uk-margin-small-right">  {{lesson.long}}</span>
+                                                                <span v-if="lesson.is_video" class="uk-visible@l uk-position-center-right uk-margin-small-right">  {{lesson.long}}</span>
                                                             </li>
                                                             <li v-else-if="lesson.is_completed" class="completedLesson uk-background-success">
                                                                 <span class="uk-icon-button icon-play completedLesson uk-button-success"><i class="fas fa-check-circle icon-medium uk-margin-remove"></i></span>
