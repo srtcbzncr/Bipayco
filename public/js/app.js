@@ -6009,6 +6009,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -18674,12 +18675,29 @@ var render = function() {
                       "text-overflow": "ellipsis",
                       display: "-webkit-box",
                       "line-height": "16px",
-                      "max-height": "32px",
-                      "-webkit-line-clamp": "2",
+                      "max-height": "20px",
+                      "-webkit-line-clamp": "1",
                       "-webkit-box-orient": "vertical"
                     }
                   },
                   [_vm._v(_vm._s(_vm.course.name))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "uk-height-small",
+                    staticStyle: {
+                      overflow: "hidden",
+                      "text-overflow": "ellipsis",
+                      display: "-webkit-box",
+                      "line-height": "16px",
+                      "max-height": "16px",
+                      "-webkit-line-clamp": "1",
+                      "-webkit-box-orient": "vertical"
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.course.category_id))]
                 )
               ])
             : _vm._e(),
@@ -18695,7 +18713,7 @@ var render = function() {
                       "text-overflow": "ellipsis",
                       display: "-webkit-box",
                       "line-height": "16px",
-                      "max-height": "16px",
+                      "max-height": "20px",
                       "-webkit-line-clamp": "1",
                       "-webkit-box-orient": "vertical"
                     }
