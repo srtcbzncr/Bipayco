@@ -239,6 +239,17 @@ Route::prefix('learn')->group(function (){
     Route::post('prepareLessons/{course_id}/lesson/{lesson_id}/complete','API\Learn\PrepareLessons\LearnController@completeLesson')->name('api_pl_complete_lesson');
     Route::get('prepareLessons/{course_id}/user/{user_id}/defaultLesson','API\Learn\PrepareLessons\LearnController@defaultLesson')->name('api_pl_default_lesson');
 
+        # prepare exams
+    Route::post('prepareExams/createFirstLastTestStatus/create','API\QuestionSource\Student\FirstLastTestStatusController@create')->name('api_prepareLessons_create_flTestStatus'); // ok
+   // Route::post('prepareExams/createFirstLastTestAnswers/create','API\QuestionSource\Student\FirstLastTestAnswersController@create')->name('api_prepareLessons_create_flTestAnswers');
+    Route::get('prepareExams/getRandomQuestions/{courseId}/{crLessonId}/{crSubjectId}','API\PrepareExams\CourseController@getRandomQuestions')->name('api_pl_course_getRandomQuestions'); // ok
+    Route::get('prepareExams/{course_id}/lesson/{lesson_id}/sources','API\Learn\PrepareExams\LearnController@getSources')->name('api_get_pl_sources'); // ok
+    Route::get('prepareExams/{course_id}/lesson/{lesson_id}/discussion','API\Learn\PrepareExams\LearnController@getDiscussions')->name('api_get_pl_discussion'); // ok
+    Route::post('prepareExams/{course_id}/lesson/{lesson_id}/discussion/ask','API\Learn\PrepareExams\LearnController@askQuestion')->name('api_pl_discussion_ask'); // ok
+    Route::post('prepareExams/{course_id}/lesson/{lesson_id}/discussion/answer/{question_id}','API\Learn\PrepareExams\LearnController@answerQuestion')->name('api_pl_discussion_answer'); // ok
+    Route::post('prepareExams/{course_id}/lesson/{lesson_id}/complete','API\Learn\PrepareExams\LearnController@completeLesson')->name('api_pl_complete_lesson'); // ok
+    Route::get('prepareExams/{course_id}/user/{user_id}/defaultLesson','API\Learn\PrepareExams\LearnController@defaultLesson')->name('api_pl_default_lesson'); // ok
+
 
 });
 

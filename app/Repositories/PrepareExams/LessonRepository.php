@@ -324,7 +324,7 @@ class LessonRepository implements IRepository{
             DB::table('ge_students_completed_lessons')->insert([
                 'student_id' => $student->id,
                 'lesson_id' => $lesson_id,
-                'lesson_type' => 'App\Models\PrepareLessons\Lesson',
+                'lesson_type' => 'App\Models\PrepareExams\Lesson',
                 'is_completed' => true
             ]);
 
@@ -370,7 +370,9 @@ class LessonRepository implements IRepository{
             }
             else if($lesson_type == "App\Models\PrepareLessons\Lesson"){
                 $completedLessons = DB::table('ge_students_completed_lessons')->where('student_id',$student_id)->where('lesson_type','App\Models\PrepareLessons\Lesson')->get();
-
+            }
+            else if($lesson_type == "App\Models\PrepareExams\Lesson"){
+                $completedLessons = DB::table('ge_students_completed_lessons')->where('student_id',$student_id)->where('lesson_type','App\Models\PrepareExams\Lesson')->get();
             }
             $b = false;
             $default_lesson = null;

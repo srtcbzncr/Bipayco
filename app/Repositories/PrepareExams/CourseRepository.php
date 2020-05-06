@@ -1636,7 +1636,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $insructorsCourses = DB::table('ge_courses_instructors')->where('course_type','App\Models\PrepareLessons\Course')
+            $insructorsCourses = DB::table('ge_courses_instructors')->where('course_type','App\Models\PrepareExams\Course')
                 ->where('course_id',$courseId)->get();
             $instructorsId = array();
             foreach ($insructorsCourses as $course){

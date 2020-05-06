@@ -52,6 +52,9 @@ class FirstLastTestStatusRepository implements IRepository
             if($data['sectionType'] == "prepareLessons"){
                 $sectionType = Section::class;
             }
+            else if($data['sectionType'] == "prepareExams"){
+                $sectionType = \App\Models\PrepareExams\Section::class;
+            }
             $flTestStatus = FirstLastTestStatus::where('studentId',$student->id)
                 ->where('sectionId',$data['sectionId'])
                 ->where('sectionType',$sectionType)
