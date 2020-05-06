@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Curriculum\ExamRepository;
 use App\Repositories\Curriculum\LessonRepository;
 use App\Repositories\GeneralEducation\CategoryRepository;
 use App\Repositories\GeneralEducation\CourseRepository;
@@ -104,6 +105,27 @@ class HomeController extends Controller
     public function getCrLessons(){
         // Repo initializations
         $repo = new LessonRepository();
+
+        // Operations
+        $resp = $repo->all();
+        // Response
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Bir hata oluştu.',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
+
+    public function getCrExams(){
+        // Repo initializations
+        $repo = new ExamRepository();
 
         // Operations
         $resp = $repo->all();

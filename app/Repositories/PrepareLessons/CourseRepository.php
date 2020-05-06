@@ -1537,7 +1537,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $student = Student::where('user_id', $user_id)->first();
-            $lessons = DB::select('SELECT lesson_id FROM ge_students_completed_lessons WHERE is_completed=1 AND student_id='.$student->id.' AND lesson_id IN (SELECT id FROM ge_lessons WHERE section_id IN (SELECT id FROM ge_sections WHERE course_id='.$course_id.'))');
+            $lessons = DB::select('SELECT lesson_id FROM ge_students_completed_lessons WHERE is_completed=1 AND student_id='.$student->id.' AND lesson_id IN (SELECT id FROM pl_lessons WHERE section_id IN (SELECT id FROM pl_sections WHERE course_id='.$course_id.'))');
             $object = array();
             foreach ($lessons as $lesson){
                 array_push($object, $lesson->lesson_id);

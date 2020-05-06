@@ -103,14 +103,14 @@ class CourseRepository implements IRepository{
             }
             else{
                 $object = Course::find($id);
-                $controlBasket = Basket::where('user_id',$user->id)->where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->get();
+                $controlBasket = Basket::where('user_id',$user->id)->where('course_id',$id)->where('course_type','App\Models\PrepareExams\Course')->get();
                 if($controlBasket != null and count($controlBasket) > 0){
                     $object['inBasket'] = true;
                 }
                 else{
                     $object['inBasket'] = false;
                 }
-                $controlFav = Favorite::where('user_id',$user->id)->where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->get();
+                $controlFav = Favorite::where('user_id',$user->id)->where('course_id',$id)->where('course_type','App\Models\PrepareExams\Course')->get();
                 if($controlFav != null and count($controlFav) > 0){
                     $object['inFavorite'] = true;
                 }
@@ -129,7 +129,7 @@ class CourseRepository implements IRepository{
                         $controlComplete = DB::table('ge_students_completed_lessons')
                             ->where('student_id',$student->id)
                             ->where('lesson_id',$lesson->id)
-                            ->where('lesson_type','App\Models\PrepareLessons\Lesson')->get();
+                            ->where('lesson_type','App\Models\PrepareExams\Lesson')->get();
                         if($controlComplete != null and count($controlComplete) > 0){
                             $counter++;
                         }
@@ -145,7 +145,7 @@ class CourseRepository implements IRepository{
             }
         }
         catch(\Exception $e){
-            $error = $e;
+            $error = $e->getMessage();
             $result = false;
         }
 
@@ -1193,7 +1193,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $course = Course::find($id);
-            $courses = Course::where('lesson_id',$course->lesson_id)->where('deleted_at',null)->where('grade_id',$course->grade_id)
+            $courses = Course::where('lesson_id',$course->lesson_id)->where('deleted_at',null)->where('exam_id',$course->exam_id)
                 ->where('active',true)->get();
             if(count($courses)>2){
                 $object = $courses->random(2);
@@ -1207,16 +1207,14 @@ class CourseRepository implements IRepository{
             // lesson ve grade bilgilerini getir.
             if(count($object)>0){
                 foreach ($object as $key => $item){
-                    $grade = Exam::find($item->grade_id);
-                    $lesson = \App\Models\Curriculum\Lesson::find($item->lesson_id);
-                    $object[$key]['grade'] = $grade;
-                    $object[$key]['lesson'] = $lesson;
+                    $exam = Exam::find($item->exam_id);
+                    $object[$key]['exam'] = $exam;
                 }
             }
 
             if(count($object) > 0 and $user_id != null){
                 foreach ($object as $key => $item){
-                    $contorlBasket = DB::table('basket')->where('user_id',$user_id)->where('course_id',$item->id)->where('course_type','App\Models\PrepareLessons\Course')->get();
+                    $contorlBasket = DB::table('basket')->where('user_id',$user_id)->where('course_id',$item->id)->where('course_type','App\Models\PrepareExams\Course')->get();
                     if($contorlBasket !=  null and count($contorlBasket) > 0){
                         $object[$key]['inBasket'] = true;
                     }
@@ -1224,7 +1222,7 @@ class CourseRepository implements IRepository{
                         $object[$key]['inBasket'] = false;
                     }
 
-                    $contorlFav = DB::table('favorite')->where('user_id',$user_id)->where('course_id',$item->id)->where('course_type','App\Models\PrepareLessons\Course')->get();
+                    $contorlFav = DB::table('favorite')->where('user_id',$user_id)->where('course_id',$item->id)->where('course_type','App\Models\PrepareExams\Course')->get();
                     if($contorlFav !=  null and count($contorlFav) > 0){
                         $object[$key]['inFavorite'] = true;
                     }
@@ -1399,7 +1397,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = Entry::where('course_id', $id)->where('course_type', 'App\Models\PrepareLessons\Course')->where('active', true)->orderBy('created_at', 'desc')->take(3)->get();
+            $object = Entry::where('course_id', $id)->where('course_type', 'App\Models\PrepareExams\Course')->where('active', true)->orderBy('created_at', 'desc')->take(3)->get();
         }
         catch(\Exception $e){
             $error = $e;
@@ -1476,7 +1474,7 @@ class CourseRepository implements IRepository{
             // tamamlanmış dersleri al
             $completedLessons = DB::table('ge_students_completed_lessons')
                 ->where('student_id',$student->id)
-                ->where('lesson_type','App\Models\GeneralEducation\Lesson')->get();
+                ->where('lesson_type','App\Models\PrepareExams\Lesson')->get();
             $completeCount = 0;
             foreach ($lessons as $lesson){
                 foreach ($completedLessons as $completedLessonn){
@@ -1537,7 +1535,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $student = Student::where('user_id', $user_id)->first();
-            $lessons = DB::select('SELECT lesson_id FROM ge_students_completed_lessons WHERE is_completed=1 AND student_id='.$student->id.' AND lesson_id IN (SELECT id FROM ge_lessons WHERE section_id IN (SELECT id FROM ge_sections WHERE course_id='.$course_id.'))');
+            $lessons = DB::select('SELECT lesson_id FROM ge_students_completed_lessons WHERE is_completed=1 AND student_id='.$student->id.' AND lesson_id IN (SELECT id FROM pe_lessons WHERE section_id IN (SELECT id FROM pe_sections WHERE course_id='.$course_id.'))');
             $object = array();
             foreach ($lessons as $lesson){
                 array_push($object, $lesson->lesson_id);
@@ -1740,7 +1738,7 @@ class CourseRepository implements IRepository{
         // Operations
         $control = DB::table('basket')->where('user_id',$user_id)
             ->where('course_id',$course_id)
-            ->where('course_type','App\Models\PrepareLessons\Course')->get();
+            ->where('course_type','App\Models\PrepareExams\Course')->get();
         if($control!=null and count($control)>0){
             $object = true;
         }
@@ -2191,7 +2189,7 @@ class CourseRepository implements IRepository{
             $user = User::find($data['userId']);
             $object->student_id = $user->student->id;
             $object->course_id = $courseId;
-            $object->course_type = 'App\Models\PrepareLessons\Course';
+            $object->course_type = 'App\Models\PrepareExams\Course';
             $object->price = $data['price'];
             $object->confirmation = true;
             $object->save();
@@ -2200,7 +2198,7 @@ class CourseRepository implements IRepository{
             $object = null;
             $object = new Entry();
             $object->course_id = $courseId;
-            $object->course_type = 'App\Models\PrepareLessons\Course';
+            $object->course_type = 'App\Models\PrepareExams\Course';
             $object->student_id = $user->student->id;
 
             $course = Course::find($courseId);

@@ -4,6 +4,7 @@
 namespace App\Repositories\PrepareLessons;
 
 
+use App\Models\Curriculum\Exam;
 use App\Models\Curriculum\Grade;
 use App\Models\Curriculum\Lesson;
 use App\Models\Curriculum\Subject;
@@ -76,6 +77,27 @@ class CurriculumRepository implements IRepository
         try{
             $lesson = Lesson::find($id);
             $object = $lesson->courses->where('active',true);
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function showExamCourses($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $exam = Exam::find($id);
+            $object = $exam->courses->where('active',true);
         }
         catch(\Exception $e){
             $error = $e->getMessage();

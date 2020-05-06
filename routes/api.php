@@ -70,6 +70,32 @@ Route::group(['prefix' => 'pl'],function (){
 
 });
 
+Route::group(['prefix' => 'pe'],function (){
+    /*Route::group(['prefix' => 'category'],function (){
+        # pl de burası yok.
+        Route::get('{id}','API\PrepareLessons\CategoryController@show')->name('pl_category_courses');
+    });
+    Route::group(['prefix' => 'subCategory'], function(){
+        # pl de burası yok.
+        Route::get('{id}', 'API\PrepareLessons\SubCategoryController@show')->name('pl_sub_category_courses');
+    });*/
+    Route::group(['prefix' => 'course'], function(){
+        Route::get('{id}', 'API\PrepareExams\CourseController@show')->name('pe_course'); // ok
+        Route::post('{id}/buy','API\PrepareExams\CourseController@buy')->name('pe_course_buy'); // ok
+    });
+
+    # pe de burası yok.
+    Route::get('index', 'API\HomeController@pl_index')->name('pe_index');
+
+    Route::get('/inBasket/{user_id}/{course_id}','API\PrepareExams\CourseController@inBasket')->name('pe_in_basket'); // ok
+    Route::get('/similarCourses/{course_id}/{user_id?}','API\PrepareExams\CourseController@simularCourses')->name('pe_simularCourses'); // ok
+
+    # sınavları getirir.
+    Route::get('/exams','API\HomeController@getCrExams')->name('pe_lessons'); // ok
+    Route::get('/exam/{id}','API\PrepareExams\CurriculumController@showExamCourses')->name('pe_lesson_courses'); // ok
+
+});
+
 
 Route::prefix('country')->group(function(){
     Route::get('index', 'API\Base\CountryController@index')->name('api_country_index');
