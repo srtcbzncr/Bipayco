@@ -1753,7 +1753,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getBySubCategoryFilterByNewest($gradeId,$lesson_id,$user_id){
+    public function getBySubCategoryFilterByNewest($examId,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -1761,25 +1761,24 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = Course::where('lesson_id', $lesson_id)
+            $object = Course::where('exam_id', $examId)
                 ->where('active', true)
                 ->where('deleted_at',null)
-                ->where('grade_id',$gradeId)
                 ->latest()
                 ->paginate(9);
 
-            // lesson ve grade bilgisi
+            /*// lesson ve grade bilgisi
             foreach ($object as $key => $course){
                 $grade = Grade::find($course->grade_id);
                 $lesson = \App\Models\Curriculum\Lesson::find($course->lesson_id);
                 $object[$key]['grade'] = $grade;
                 $object[$key]['lesson'] = $lesson;
-            }
+            }*/
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
-                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareExams\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlBasket != null and count($controlBasket) > 0){
                         $object[$key]['inBasket'] = true;
@@ -1788,7 +1787,7 @@ class CourseRepository implements IRepository{
                         $object[$key]['inBasket'] = false;
                     }
 
-                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\PrepareExams\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlFavorite != null and count($controlFavorite) > 0){
                         $object[$key]['inFavorite'] = true;
@@ -1815,7 +1814,7 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
-    public function getBySubCategoryFilterByOldest($gradeId,$lesson_id,$user_id){
+    public function getBySubCategoryFilterByOldest($examId,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -1823,25 +1822,24 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = Course::where('lesson_id', $lesson_id)
+            $object = Course::where('exam_id', $examId)
                 ->where('active', true)
                 ->where('deleted_at',null)
                 ->oldest()
-                ->where('grade_id',$gradeId)
                 ->paginate(9);
 
-            // lesson ve grade bilgisi
+          /*  // lesson ve grade bilgisi
             foreach ($object as $key => $course){
                 $grade = Grade::find($course->grade_id);
                 $lesson = \App\Models\Curriculum\Lesson::find($course->lesson_id);
                 $object[$key]['grade'] = $grade;
                 $object[$key]['lesson'] = $lesson;
-            }
+            }*/
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
-                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareExams\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlBasket != null and count($controlBasket) > 0){
                         $object[$key]['inBasket'] = true;
@@ -1850,7 +1848,7 @@ class CourseRepository implements IRepository{
                         $object[$key]['inBasket'] = false;
                     }
 
-                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\PrepareExams\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlFavorite != null and count($controlFavorite) > 0){
                         $object[$key]['inFavorite'] = true;
@@ -1876,7 +1874,7 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
-    public function getBySubCategoryFilterByPriceASC($gradeId,$lesson_id,$user_id){
+    public function getBySubCategoryFilterByPriceASC($examId,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -1884,25 +1882,24 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = Course::where('lesson_id', $lesson_id)
+            $object = Course::where('exam_id', $examId)
                 ->where('active', true)
                 ->where('deleted_at',null)
-                ->where('grade_id',$gradeId)
                 ->orderBy('price_with_discount', 'asc')
                 ->paginate(9);
 
-            // lesson ve grade bilgisi
+          /*  // lesson ve grade bilgisi
             foreach ($object as $key => $course){
                 $grade = Grade::find($course->grade_id);
                 $lesson = \App\Models\Curriculum\Lesson::find($course->lesson_id);
                 $object[$key]['grade'] = $grade;
                 $object[$key]['lesson'] = $lesson;
-            }
+            }*/
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
-                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareExams\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlBasket != null and count($controlBasket) > 0){
                         $object[$key]['inBasket'] = true;
@@ -1911,7 +1908,7 @@ class CourseRepository implements IRepository{
                         $object[$key]['inBasket'] = false;
                     }
 
-                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\PrepareExams\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlFavorite != null and count($controlFavorite) > 0){
                         $object[$key]['inFavorite'] = true;
@@ -1937,7 +1934,7 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
-    public function getBySubCategoryFilterByPriceDESC($gradeId,$lesson_id,$user_id){
+    public function getBySubCategoryFilterByPriceDESC($examId,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -1945,25 +1942,24 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = Course::where('lesson_id', $lesson_id)
+            $object = Course::where('exam_id', $examId)
                 ->where('active', true)
                 ->where('deleted_at',null)
-                ->where('grade_id',$gradeId)
                 ->orderBy('price_with_discount', 'desc')
                 ->paginate(9);
 
-            // lesson ve grade bilgisi
+            /*// lesson ve grade bilgisi
             foreach ($object as $key => $course){
                 $grade = Grade::find($course->grade_id);
                 $lesson = \App\Models\Curriculum\Lesson::find($course->lesson_id);
                 $object[$key]['grade'] = $grade;
                 $object[$key]['lesson'] = $lesson;
-            }
+            }*/
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
-                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareExams\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlBasket != null and count($controlBasket) > 0){
                         $object[$key]['inBasket'] = true;
@@ -1972,7 +1968,7 @@ class CourseRepository implements IRepository{
                         $object[$key]['inBasket'] = false;
                     }
 
-                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\PrepareExams\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlFavorite != null and count($controlFavorite) > 0){
                         $object[$key]['inFavorite'] = true;
@@ -1998,7 +1994,7 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
-    public function getBySubCategoryFilterByPoint($gradeId,$lesson_id,$user_id){
+    public function getBySubCategoryFilterByPoint($examId,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -2006,25 +2002,24 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = Course::where('lesson_id', $lesson_id)
+            $object = Course::where('exam_id', $examId)
                 ->where('active', true)
                 ->where('deleted_at',null)
-                ->where('grade_id',$gradeId)
                 ->orderBy('point', 'desc')
                 ->paginate(9);
 
-            // lesson ve grade bilgisi
+           /* // lesson ve grade bilgisi
             foreach ($object as $key => $course){
                 $grade = Grade::find($course->grade_id);
                 $lesson = \App\Models\Curriculum\Lesson::find($course->lesson_id);
                 $object[$key]['grade'] = $grade;
                 $object[$key]['lesson'] = $lesson;
-            }
+            }*/
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
-                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareExams\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlBasket != null and count($controlBasket) > 0){
                         $object[$key]['inBasket'] = true;
@@ -2033,7 +2028,7 @@ class CourseRepository implements IRepository{
                         $object[$key]['inBasket'] = false;
                     }
 
-                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\PrepareExams\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlFavorite != null and count($controlFavorite) > 0){
                         $object[$key]['inFavorite'] = true;
@@ -2059,7 +2054,7 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
-    public function getBySubCategoryFilterByPurchases($gradeId,$lesson_id,$user_id){
+    public function getBySubCategoryFilterByPurchases($examId,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -2067,25 +2062,24 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = Course::where('lesson_id', $lesson_id)
+            $object = Course::where('exam_id', $examId)
                 ->where('active', true)
                 ->where('deleted_at',null)
-                ->where('grade_id',$gradeId)
                 ->orderBy('purchase_count', 'desc')
                 ->paginate(9);
 
-            // lesson ve grade bilgisi
+            /*// lesson ve grade bilgisi
             foreach ($object as $key => $course){
                 $grade = Grade::find($course->grade_id);
                 $lesson = \App\Models\Curriculum\Lesson::find($course->lesson_id);
                 $object[$key]['grade'] = $grade;
                 $object[$key]['lesson'] = $lesson;
-            }
+            }*/
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
-                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareExams\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlBasket != null and count($controlBasket) > 0){
                         $object[$key]['inBasket'] = true;
@@ -2094,7 +2088,7 @@ class CourseRepository implements IRepository{
                         $object[$key]['inBasket'] = false;
                     }
 
-                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\PrepareExams\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlFavorite != null and count($controlFavorite) > 0){
                         $object[$key]['inFavorite'] = true;
@@ -2120,7 +2114,7 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
-    public function getBySubCategoryFilterByTrending($gradeId,$lesson_id,$user_id){
+    public function getBySubCategoryFilterByTrending($examId,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -2128,26 +2122,25 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = Course::where('lesson_id', $lesson_id)
+            $object = Course::where('exam_id', $examId)
                 ->where('active', true)
                 ->where('deleted_at',null)
-                ->where('grade_id',$gradeId)
                 ->orderBy('purchase_count', 'desc')
                 ->orderBy('point','desc')
                 ->paginate(9);
 
-            // lesson ve grade bilgisi
+         /*   // lesson ve grade bilgisi
             foreach ($object as $key => $course){
                 $grade = Grade::find($course->grade_id);
                 $lesson = \App\Models\Curriculum\Lesson::find($course->lesson_id);
                 $object[$key]['grade'] = $grade;
                 $object[$key]['lesson'] = $lesson;
-            }
+            }*/
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
-                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
+                    $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareExams\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlBasket != null and count($controlBasket) > 0){
                         $object[$key]['inBasket'] = true;
@@ -2156,7 +2149,7 @@ class CourseRepository implements IRepository{
                         $object[$key]['inBasket'] = false;
                     }
 
-                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
+                    $controlFavorite = Favorite::where('user_id',$user_id)->where('course_type','App\Models\PrepareExams\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlFavorite != null and count($controlFavorite) > 0){
                         $object[$key]['inFavorite'] = true;

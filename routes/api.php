@@ -120,6 +120,15 @@ Route::prefix('course')->group(function(){
     Route::get('getByLessonsFilterByPurchases/{gradeId}/{lesson_id}/{user_id?}', 'API\PrepareLessons\CourseController@getByLessonFilterByPurchases')->name('api_course_get_by_lesson_filter_by_purchases');
     Route::get('getByLessonsFilterByTrending/{gradeId}/{lesson_id}/{user_id?}', 'API\PrepareLessons\CourseController@getByLessonFilterByTrending')->name('api_course_get_by_lesson_filter_by_trending');
 
+    #prepare exams
+    Route::get('getByLessonsFilterByNewest/{examId}/{user_id?}', 'API\PrepareExams\CourseController@getByLessonFilterByNewest')->name('api_course_get_lesson_filter_by_newest'); // ok
+    Route::get('getByLessonsFilterByOldest/{examId}/{user_id?}', 'API\PrepareExams\CourseController@getByLessonFilterByOldest')->name('api_course_get_by_lesson_filter_by_oldest'); // ok
+    Route::get('getByLessonsFilterByPriceASC/{examId}/{user_id?}', 'API\PrepareExams\CourseController@getByLessonFilterByPriceASC')->name('api_course_get_by_lesson_filter_by_price_asc'); // ok
+    Route::get('getByLessonsFilterByPriceDESC/{examId}/{user_id?}', 'API\PrepareExams\CourseController@getByLessonFilterByPriceDESC')->name('api_course_get_by_lesson_filter_by_price_desc'); // ok
+    Route::get('getByLessonsFilterByPoint/{examId}/{user_id?}', 'API\PrepareExams\CourseController@getByLessonFilterByPoint')->name('api_course_get_by_lesson_filter_by_point'); // ok
+    Route::get('getByLessonsFilterByPurchases/{examId}/{user_id?}', 'API\PrepareExams\CourseController@getByLessonFilterByPurchases')->name('api_course_get_by_lesson_filter_by_purchases'); // ok
+    Route::get('getByLessonsFilterByTrending/{examId}/{user_id?}', 'API\PrepareExams\CourseController@getByLessonFilterByTrending')->name('api_course_get_by_lesson_filter_by_trending'); // ok
+
 
 });
 

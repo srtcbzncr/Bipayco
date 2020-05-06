@@ -699,12 +699,12 @@ class CourseController extends Controller
         ]);
     }
 
-    public function getByLessonFilterByNewest($gradeId,$lesson_id,$user_id=null){
+    public function getByLessonFilterByNewest($examId,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getBySubCategoryFilterByNewest($gradeId,$lesson_id,$user_id);
+        $resp = $repo->getBySubCategoryFilterByNewest($examId,$user_id);
 
         // Response
         if($resp->getResult()){
@@ -718,12 +718,12 @@ class CourseController extends Controller
             return response()->json(['error' => true, 'message' => $resp->getError()],400);
         }
     }
-    public function getByLessonFilterByOldest($gradeId,$lesson_id,$user_id=null){
+    public function getByLessonFilterByOldest($examId,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getBySubCategoryFilterByOldest($gradeId,$lesson_id,$user_id);
+        $resp = $repo->getBySubCategoryFilterByOldest($examId,$user_id);
 
         // Response
         if($resp->getResult()){
@@ -736,12 +736,12 @@ class CourseController extends Controller
             return response()->json(['error' => true, 'message' => $resp->getError()],400);
         }
     }
-    public function getByLessonFilterByPriceASC($gradeId,$lesson_id,$user_id=null){
+    public function getByLessonFilterByPriceASC($examId,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getBySubCategoryFilterByPriceASC($gradeId,$lesson_id,$user_id);
+        $resp = $repo->getBySubCategoryFilterByPriceASC($examId,$user_id);
 
         // Response
         if($resp->getResult()){
@@ -754,12 +754,12 @@ class CourseController extends Controller
             return response()->json(['error' => true, 'message' => $resp->getError()],400);
         }
     }
-    public function getByLessonFilterByPriceDESC($gradeId,$lesson_id,$user_id=null){
+    public function getByLessonFilterByPriceDESC($examId,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getBySubCategoryFilterByPriceDESC($gradeId,$lesson_id,$user_id);
+        $resp = $repo->getBySubCategoryFilterByPriceDESC($examId,$user_id);
 
         // Response
         if($resp->getResult()){
@@ -772,12 +772,12 @@ class CourseController extends Controller
             return response()->json(['error' => true, 'message' => $resp->getError()],400);
         }
     }
-    public function getByLessonFilterByPoint($gradeId,$lesson_id,$user_id=null){
+    public function getByLessonFilterByPoint($examId,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getBySubCategoryFilterByPoint($gradeId,$lesson_id,$user_id);
+        $resp = $repo->getBySubCategoryFilterByPoint($examId,$user_id);
 
         // Response
         if($resp->getResult()){
@@ -790,12 +790,12 @@ class CourseController extends Controller
             return response()->json(['error' => true, 'message' => $resp->getError()],400);
         }
     }
-    public function getByLessonFilterByPurchases($gradeId,$lesson_id,$user_id=null){
+    public function getByLessonFilterByPurchases($examId,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getBySubCategoryFilterByPurchases($gradeId,$lesson_id,$user_id);
+        $resp = $repo->getBySubCategoryFilterByPurchases($examId,$user_id);
 
         // Response
         if($resp->getResult()){
@@ -808,12 +808,12 @@ class CourseController extends Controller
             return response()->json(['error' => true, 'message' => $resp->getError()],400);
         }
     }
-    public function getByLessonFilterByTrending($gradeId,$lesson_id,$user_id=null){
+    public function getByLessonFilterByTrending($examId,$user_id=null){
         // Repo initialization
         $repo = new CourseRepository;
 
         // Operations
-        $resp = $repo->getBySubCategoryFilterByTrending($gradeId,$lesson_id,$user_id);
+        $resp = $repo->getBySubCategoryFilterByTrending($examId,$user_id);
 
         // Response
         if($resp->getResult()){
