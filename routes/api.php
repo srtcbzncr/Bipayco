@@ -214,6 +214,7 @@ Route::prefix('instructor')->group(function(){
     Route::post('prepareExams/course/{id}/section/{section_id}/down','API\PrepareExams\CourseController@sectionDown')->name('api_pl_course_section_down'); // ok
     Route::post('prepareExams/course/{id}/section/{section_id}/lesson/{lesson_id}/up','API\PrepareExams\CourseController@lessonUp')->name('api_gl_course_lesson_up'); // ok
     Route::post('prepareExams/course/{id}/section/{section_id}/lesson/{lesson_id}/down','API\PrepareExams\CourseController@lessonDown')->name('api_pl_course_lesson_down'); // ok
+    Route::get('prepareExams/exams','API\PrepareExams\CourseController@getExams')->name('api_pl_course_get_exams');
 });
 
 # Kurs İzleme Bölümü İçin Routes

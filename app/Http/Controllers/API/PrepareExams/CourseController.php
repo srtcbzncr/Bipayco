@@ -908,4 +908,23 @@ class CourseController extends Controller
             'errorMessage' => $resp->getError()
         ]);
     }
+
+    public function getExams(){
+        // initializing
+        $repo = new CourseRepository();
+
+        // operations
+        $resp = $repo->getExams();
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Sınavlar başarıyla getirildi.'
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Sınavlar getirilirken bir hata meydana geldi.Tekrar deneyin',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
 }
