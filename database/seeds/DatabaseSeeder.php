@@ -66,7 +66,6 @@ class DatabaseSeeder extends Seeder
         });
         factory(\App\Models\Curriculum\Lesson::class, 10)->create();
         factory(\App\Models\Curriculum\Grade::class, 12)->create();
-        factory(\App\Models\Curriculum\Exam::class, 12)->create();
         factory(\App\Models\Curriculum\Subject::class, 50)->create();
         factory(\App\Models\PrepareLessons\Course::class, 100)->create()->each(function($course){
             $random = rand(1,5);
