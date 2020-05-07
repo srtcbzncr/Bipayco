@@ -7982,6 +7982,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -8048,8 +8050,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Konu"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['sections', 'courseSubjects'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections', 'loadCourseSubjects']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['sections', 'courseSubjects', 'crLessons'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections', 'loadCourseSubjects', 'loadCrLessons']), {
     addSection: function addSection() {
       var _this = this;
 
@@ -8081,11 +8083,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.clearForm();
     },
     clearForm: function clearForm() {
+      document.getElementById('addSectionForm').reset();
       document.getElementById('sectionInput').value = "";
-
-      if (this.moduleName == 'prepareLessons') {
-        document.getElementById('courseSubject').value = "";
-      }
     }
   }),
   created: function created() {
@@ -21982,73 +21981,80 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "div",
-      {},
-      [
-        _vm.moduleName == "prepareLessons"
-          ? _c(
-              "select",
-              {
-                staticClass: "uk-width uk-select",
-                attrs: { id: "courseSubject" }
-              },
-              [
-                _c(
-                  "option",
-                  {
-                    attrs: { disabled: "", hidden: "", selected: "", value: "" }
-                  },
-                  [_vm._v(" " + _vm._s(_vm.subjectNameText) + " ")]
-                ),
-                _vm._v(" "),
-                _vm._l(_vm.courseSubjects, function(subject) {
-                  return _c("option", { domProps: { value: subject.id } }, [
-                    _vm._v(" " + _vm._s(subject.name))
-                  ])
-                })
-              ],
-              2
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.moduleName == "prepareExams"
-          ? _c("cr-lesson-select", {
-              attrs: {
-                "lesson-default-text": _vm.addDefaultLessonText,
-                "subject-default-text": _vm.addDefaultSectionText
-              }
-            })
-          : _vm._e(),
-        _vm._v(" "),
-        _c("input", {
+    _c("div", {}, [
+      _c(
+        "form",
+        { attrs: { id: "addSectionForm" } },
+        [
+          _vm.moduleName == "prepareLessons"
+            ? _c(
+                "select",
+                {
+                  staticClass: "uk-width uk-select",
+                  attrs: { id: "courseSubject" }
+                },
+                [
+                  _c(
+                    "option",
+                    {
+                      attrs: {
+                        disabled: "",
+                        hidden: "",
+                        selected: "",
+                        value: ""
+                      }
+                    },
+                    [_vm._v(" " + _vm._s(_vm.subjectNameText) + " ")]
+                  ),
+                  _vm._v(" "),
+                  _vm._l(_vm.courseSubjects, function(subject) {
+                    return _c("option", { domProps: { value: subject.id } }, [
+                      _vm._v(" " + _vm._s(subject.name))
+                    ])
+                  })
+                ],
+                2
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.moduleName == "prepareExams"
+            ? _c("cr-lesson-select", {
+                attrs: {
+                  "lesson-default-text": _vm.addDefaultLessonText,
+                  "subject-default-text": _vm.addDefaultSectionText
+                }
+              })
+            : _vm._e()
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("input", {
+        staticClass:
+          "uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m",
+        attrs: {
+          type: "text",
+          id: "sectionInput",
+          placeholder: _vm.addDefaultSectionText
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
           staticClass:
-            "uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m",
-          attrs: {
-            type: "text",
-            id: "sectionInput",
-            placeholder: _vm.addDefaultSectionText
-          }
-        }),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass:
-              "uk-button uk-button-success uk-margin-small-top uk-width-1-6@m",
-            on: { click: _vm.addSection }
-          },
-          [
-            _c("i", { staticClass: "fas fa-plus" }),
-            _vm._v(" "),
-            _c("span", { staticClass: "uk-hidden@m" }, [
-              _vm._v(_vm._s(_vm.addText))
-            ])
-          ]
-        )
-      ],
-      1
-    ),
+            "uk-button uk-button-success uk-margin-small-top uk-width-1-6@m",
+          on: { click: _vm.addSection }
+        },
+        [
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v(" "),
+          _c("span", { staticClass: "uk-hidden@m" }, [
+            _vm._v(_vm._s(_vm.addText))
+          ])
+        ]
+      )
+    ]),
     _vm._v(" "),
     _c(
       "div",

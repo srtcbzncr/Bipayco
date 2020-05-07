@@ -1,15 +1,17 @@
 <template>
     <div>
         <div class="">
-            <select v-if="moduleName=='prepareLessons'" id="courseSubject" class="uk-width uk-select">
-                <option disabled hidden selected value=""> {{subjectNameText}} </option>
-                <option v-for="subject in courseSubjects" :value="subject.id" > {{subject.name}}</option>
-            </select>
-            <cr-lesson-select
-                v-if="moduleName=='prepareExams'"
-                :lesson-default-text="addDefaultLessonText"
-                :subject-default-text="addDefaultSectionText"
-            ></cr-lesson-select>
+            <form id="addSectionForm">
+                <select v-if="moduleName=='prepareLessons'" id="courseSubject" class="uk-width uk-select">
+                    <option disabled hidden selected value=""> {{subjectNameText}} </option>
+                    <option v-for="subject in courseSubjects" :value="subject.id" > {{subject.name}}</option>
+                </select>
+                <cr-lesson-select
+                    v-if="moduleName=='prepareExams'"
+                    :lesson-default-text="addDefaultLessonText"
+                    :subject-default-text="addDefaultSectionText"
+                ></cr-lesson-select>
+            </form>
             <input class="uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m" type="text" id="sectionInput" :placeholder="addDefaultSectionText">
             <button class="uk-button uk-button-success uk-margin-small-top uk-width-1-6@m" @click="addSection"><i class="fas fa-plus"></i> <span class="uk-hidden@m">{{addText}}</span></button>
         </div>
@@ -105,13 +107,15 @@
         computed:{
             ...mapState([
                 'sections',
-                'courseSubjects'
+                'courseSubjects',
+                'crLessons',
             ]),
         },
         methods:{
             ...mapActions([
                 'loadSections',
-                'loadCourseSubjects'
+                'loadCourseSubjects',
+                'loadCrLessons',
             ]),
             addSection:function () {
                 var formData=new FormData();
@@ -133,10 +137,8 @@
                 this.clearForm();
             },
             clearForm:function () {
+                document.getElementById('addSectionForm').reset();
                 document.getElementById('sectionInput').value="";
-                if(this.moduleName=='prepareLessons'){
-                    document.getElementById('courseSubject').value="";
-                }
             }
         },
         created() {

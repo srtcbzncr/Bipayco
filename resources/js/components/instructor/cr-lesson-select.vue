@@ -67,7 +67,7 @@
             ]),
             loadSubCategoryList: function(){
                 Axios.get('/api/pl/lesson/'+this.selectedId)
-                .then((res)=>{this.subjects=res.data.data });
+                .then((res)=>{this.subjects=res.data.data});
                 this.changing=document.getElementById('lesson').value===this.selectedLessonId;
             },
         },
