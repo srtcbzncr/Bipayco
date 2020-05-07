@@ -59,10 +59,7 @@ const state={
     previewLessons:{
         prepareLessons:{}
     },
-    courseSubjects:[{
-        id:"",
-        name:"",
-    }],
+    courseSubjects:[],
     questionSource:{},
     shoppingCart:{},
     courseCard:{},
@@ -77,6 +74,8 @@ const state={
     adminSubCategory:{},
     crLessons:{},
     crExams:{},
+    selectedSubjectId:"",
+    selectedLessonId:"",
 };
 const getters={};
 const mutations={
@@ -177,6 +176,12 @@ const mutations={
         console.log(exams);
         state.crExams=exams.data;
     },
+    setSelectedLessonId(state, lesson){
+        state.selectedLessonId=lesson;
+    },
+    setSelectedSubjectId(state, subject){
+        state.selectedSubjectId=subject;
+    }
 };
 const actions={
     /*province.vue*/

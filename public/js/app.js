@@ -8336,11 +8336,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return 'target: .' + this.sectionName;
     }
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadSections', 'loadSelectedSectionIndex']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadSections', 'loadSelectedSectionIndex']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapMutations"])(['setSelectedLessonId', 'setSelectedSubjectId']), {
     removeSection: function removeSection() {
       axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/delete/' + this.section.id).then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
     },
     sendInfo: function sendInfo(index) {
+      if (this.moduleName == 'prepareExams') {
+        this.$store.commit('setSelectedLessonId', this.section.lesson_id);
+        this.$store.commit('setSelectedSubjectId', this.section.subject_id);
+      }
+
       this.$store.dispatch('loadSelectedSectionIndex', index);
       UIkit.toggle({
         target: ".toggleByAxios",
@@ -8397,16 +8402,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'categorySelect',
   data: function data() {
     return {
-      selected: this.selectedLessonId,
-      changing: Boolean,
+      selectedSubject: "",
+      selectedLesson: "",
       subjects: []
     };
   },
@@ -8422,36 +8425,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     hasSelectedOption: {
       type: Boolean,
       "default": false
-    },
-    selectedSubject: String,
-    selectedLessonName: String,
-    selectedSubjectId: String,
-    selectedLessonId: {
-      type: String,
-      "default": ""
     }
   },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['crLessons', 'selectedLessonId', 'selectedSubjectId', 'courseSubjects'])),
   watch: {
     selectedLessonId: function selectedLessonId() {
-      this.selected = this.selectedLessonId;
+      this.selectedLesson = this.selectedLessonId;
+
+      if (this.selectedLessonId != "") {
+        this.$store.dispatch('loadLessonSubjects', this.selectedLessonId);
+      } else {
+        this.$store.commit('setCourseSubjects', []);
+      }
+    },
+    selectedSubjectId: function selectedSubjectId() {
+      this.selectedSubject = this.selectedSubjectId;
     }
   },
-  computed: _objectSpread({
-    hasChange: function hasChange() {
-      return this.changing;
-    },
-    selectedId: function selectedId() {
-      return this.selected;
-    }
-  }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['crLessons'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCrLessons']), {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCrLessons', 'loadLessonSubjects']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapMutations"])(['setSelectedLessonId', 'setSelectedSubjectId', 'setCourseSubjects']), {
     loadSubjectsList: function loadSubjectsList() {
-      var _this = this;
-
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/instructor/subjects/lesson/' + this.selectedId).then(function (res) {
-        _this.subjects = res.data.data;
-      });
-      this.changing = document.getElementById('crLessonId').value === this.selectedLessonId;
+      this.$store.commit('setSelectedLessonId', this.selectedLesson);
+      this.$store.commit('setSelectedSubjectId', "");
     }
   }),
   created: function created() {
@@ -9408,8 +9402,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _lesson_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./lesson.vue */ "./resources/js/components/instructor/lesson.vue");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _cr_lesson_select_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cr-lesson-select.vue */ "./resources/js/components/instructor/cr-lesson-select.vue");
+/* harmony import */ var _lesson_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lesson.vue */ "./resources/js/components/instructor/lesson.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -9480,17 +9475,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "section-settings",
   components: {
-    lesson: _lesson_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    lesson: _lesson_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   },
   props: {
     editSectionText: {
@@ -9558,8 +9549,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Ders"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['sections', 'selectedSectionIndex', 'courseSubjects'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadSections', 'loadSelectedSectionIndex', 'loadCourseSubjects']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapState"])(['sections', 'selectedSectionIndex', 'courseSubjects', 'selectedLessonId', 'selectedSubjectId'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(['loadSections', 'loadSelectedSectionIndex', 'loadCourseSubjects']), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapMutations"])(['setSelectedLessonId', 'setSelectedSubjectId']), {
     updateSection: function updateSection() {
       var _this = this;
 
@@ -9570,8 +9561,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.moduleName == 'prepareLessons') {
         formData.append('subjectId', document.getElementById('courseSubject').value);
       } else if (this.moduleName == 'prepareExams') {
-        formData.append('subjectId', document.getElementById('crSubjectId').value);
-        formData.append('lessonId', document.getElementById('crLessonId').value);
+        formData.append('lessonId', this.selectedLessonId);
+        formData.append('subjectId', this.selectedSubjectId);
       }
 
       axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/create/' + this.sections[this.selectedSectionIndex].id, formData).then(function (response) {
@@ -9589,6 +9580,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
         }
       });
+      this.clear();
     },
     lessonUp: function lessonUp(lessonId) {
       axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.sections[this.selectedSectionIndex].id + '/lesson/' + lessonId + "/up").then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
@@ -9597,7 +9589,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.sections[this.selectedSectionIndex].id + '/lesson/' + lessonId + '/down').then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
     },
     clear: function clear() {
-      document.getElementById("crLessonSettingForm").reset();
+      this.$store.commit('setSelectedSubjectId', "");
+      this.$store.commit('setSelectedLessonId', "");
     }
   }),
   mounted: function mounted() {
@@ -22453,12 +22446,12 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.selected,
-              expression: "selected"
+              value: _vm.selectedLesson,
+              expression: "selectedLesson"
             }
           ],
           staticClass: "uk-select uk-margin-small-bottom",
-          attrs: { name: "lesson", id: "crLessonId", required: "" },
+          attrs: { id: "crLessonId", required: "" },
           on: {
             change: [
               function($event) {
@@ -22470,7 +22463,7 @@ var render = function() {
                     var val = "_value" in o ? o._value : o.value
                     return val
                   })
-                _vm.selected = $event.target.multiple
+                _vm.selectedLesson = $event.target.multiple
                   ? $$selectedVal
                   : $$selectedVal[0]
               },
@@ -22479,26 +22472,11 @@ var render = function() {
           }
         },
         [
-          _vm.hasSelectedOption
-            ? _c(
-                "option",
-                {
-                  attrs: { hidden: "", selected: "" },
-                  domProps: { value: _vm.selectedLessonId }
-                },
-                [_vm._v(_vm._s(_vm.selectedLessonName))]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          !_vm.hasSelectedOption
-            ? _c(
-                "option",
-                {
-                  attrs: { disabled: "", hidden: "", selected: "", value: "" }
-                },
-                [_vm._v(_vm._s(_vm.lessonDefaultText))]
-              )
-            : _vm._e(),
+          _c(
+            "option",
+            { attrs: { disabled: "", hidden: "", selected: "", value: "" } },
+            [_vm._v(_vm._s(_vm.lessonDefaultText))]
+          ),
           _vm._v(" "),
           _vm._l(_vm.crLessons, function(lesson) {
             return _c("option", { domProps: { value: lesson.id } }, [
@@ -22514,32 +22492,48 @@ var render = function() {
       _c(
         "select",
         {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.selectedSubject,
+              expression: "selectedSubject"
+            }
+          ],
           staticClass: "uk-select",
-          attrs: { name: "subject", id: "crSubjectId", required: "" }
+          attrs: { id: "crSubjectId", required: "" },
+          on: {
+            change: [
+              function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.selectedSubject = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              },
+              function($event) {
+                return _vm.$store.commit(
+                  "setSelectedSubjectId",
+                  _vm.selectedSubject
+                )
+              }
+            ]
+          }
         },
         [
-          _vm.hasSelectedOption && _vm.hasChange
-            ? _c(
-                "option",
-                {
-                  attrs: { selected: "", hidden: "" },
-                  domProps: { value: _vm.selectedSubjectId }
-                },
-                [_vm._v(_vm._s(_vm.selectedSubject) + " ")]
-              )
-            : _vm._e(),
+          _c(
+            "option",
+            { attrs: { disabled: "", hidden: "", selected: "", value: "" } },
+            [_vm._v(_vm._s(_vm.subjectDefaultText))]
+          ),
           _vm._v(" "),
-          !_vm.hasSelectedOption || !_vm.hasChange
-            ? _c(
-                "option",
-                {
-                  attrs: { disabled: "", hidden: "", selected: "", value: "" }
-                },
-                [_vm._v(_vm._s(_vm.subjectDefaultText))]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _vm._l(_vm.subjects, function(subject) {
+          _vm._l(_vm.courseSubjects, function(subject) {
             return _c("option", { domProps: { value: subject.id } }, [
               _vm._v(_vm._s(subject.name))
             ])
@@ -23690,18 +23684,7 @@ var render = function() {
                   _c("cr-lesson-select", {
                     attrs: {
                       "lesson-default-text": _vm.lessonText,
-                      "subject-default-text": _vm.subjectText,
-                      "has-selected-option": "",
-                      "selected-lesson-name":
-                        _vm.sections[_vm.selectedSectionIndex].lesson_name,
-                      "selected-lesson-id": String(
-                        _vm.sections[_vm.selectedSectionIndex].lesson_id
-                      ),
-                      "selected-subject":
-                        _vm.sections[_vm.selectedSectionIndex].subject_name,
-                      "selected-subject-id": String(
-                        _vm.sections[_vm.selectedSectionIndex].subject_id
-                      )
+                      "subject-default-text": _vm.subjectText
                     }
                   })
                 ],
@@ -44312,10 +44295,7 @@ var state = {
   previewLessons: {
     prepareLessons: {}
   },
-  courseSubjects: [{
-    id: "",
-    name: ""
-  }],
+  courseSubjects: [],
   questionSource: {},
   shoppingCart: {},
   courseCard: {},
@@ -44329,7 +44309,9 @@ var state = {
   adminCategory: {},
   adminSubCategory: {},
   crLessons: {},
-  crExams: {}
+  crExams: {},
+  selectedSubjectId: "",
+  selectedLessonId: ""
 };
 var getters = {};
 var mutations = {
@@ -44431,6 +44413,12 @@ var mutations = {
   setCrExams: function setCrExams(state, exams) {
     console.log(exams);
     state.crExams = exams.data;
+  },
+  setSelectedLessonId: function setSelectedLessonId(state, lesson) {
+    state.selectedLessonId = lesson;
+  },
+  setSelectedSubjectId: function setSelectedSubjectId(state, subject) {
+    state.selectedSubjectId = subject;
   }
 };
 var actions = {

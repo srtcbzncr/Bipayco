@@ -1,31 +1,29 @@
 <template>
     <div class="uk-grid">
         <div class="uk-width-1-2@l">
-            <select class='uk-select uk-margin-small-bottom' name="lesson" id="crLessonId" v-model="selected" @change="loadSubjectsList" required>
-                <option v-if="hasSelectedOption" hidden selected :value="selectedLessonId">{{selectedLessonName}}</option>
-                <option v-if="!(hasSelectedOption)" disabled hidden selected value="">{{lessonDefaultText}}</option>
+            <select class='uk-select uk-margin-small-bottom' id="crLessonId" v-model="selectedLesson" @change="loadSubjectsList" required>
+                <option disabled hidden selected value="">{{lessonDefaultText}}</option>
                 <option v-for='lesson in crLessons' :value='lesson.id'>{{lesson.name}}</option>
             </select>
         </div>
         <div class="uk-width-1-2@l">
-            <select class="uk-select" name="subject" id="crSubjectId" required>
-                <option v-if="hasSelectedOption && hasChange" selected hidden :value="selectedSubjectId">{{selectedSubject}} </option>
-                <option v-if="!(hasSelectedOption)|| !hasChange" disabled hidden selected value="">{{subjectDefaultText}}</option>
-                <option v-for='subject in subjects' :value='subject.id'>{{subject.name}}</option>
+            <select class="uk-select" id="crSubjectId" v-model="selectedSubject" @change="$store.commit('setSelectedSubjectId', selectedSubject)" required>
+                <option disabled hidden selected value="">{{subjectDefaultText}}</option>
+                <option v-for='subject in courseSubjects' :value='subject.id'>{{subject.name}}</option>
             </select>
         </div>
     </div>
 </template>
 
 <script>
-    import {mapState,mapActions} from 'vuex';
+    import {mapState,mapActions, mapMutations} from 'vuex';
     import Axios from 'axios'
     export default {
         name:'categorySelect',
         data(){
           return{
-              selected: this.selectedLessonId,
-              changing:Boolean,
+              selectedSubject:"",
+              selectedLesson:"",
               subjects:[],
           }
         },
@@ -42,38 +40,42 @@
                 type:Boolean,
                 default:false,
             },
-            selectedSubject:String,
-            selectedLessonName:String,
-            selectedSubjectId:String,
-            selectedLessonId:{
-                type:String,
-                default: "",
-            },
+        },
+        computed:{
+            ...mapState([
+                'crLessons',
+                'selectedLessonId',
+                'selectedSubjectId',
+                'courseSubjects',
+            ]),
         },
         watch:{
             selectedLessonId(){
-                this.selected=this.selectedLessonId
-            }
-        },
-        computed:{
-            hasChange:function () {
-                return this.changing;
+                this.selectedLesson=this.selectedLessonId;
+                if(this.selectedLessonId!=""){
+                    this.$store.dispatch('loadLessonSubjects', this.selectedLessonId);
+                }else{
+                    this.$store.commit('setCourseSubjects',[]);
+                }
             },
-            selectedId: function () {
-                return this.selected;
+            selectedSubjectId(){
+                this.selectedSubject=this.selectedSubjectId;
             },
-            ...mapState([
-                'crLessons',
-            ]),
         },
         methods:{
             ...mapActions([
                 'loadCrLessons',
+                'loadLessonSubjects'
             ]),
+            ...mapMutations([
+                'setSelectedLessonId',
+                'setSelectedSubjectId',
+                'setCourseSubjects'
+            ]),
+
             loadSubjectsList: function(){
-                Axios.get('/api/instructor/subjects/lesson/'+this.selectedId)
-                .then((res)=>{this.subjects=res.data.data});
-                this.changing=document.getElementById('crLessonId').value===this.selectedLessonId;
+                this.$store.commit('setSelectedLessonId',this.selectedLesson);
+                this.$store.commit('setSelectedSubjectId', "");
             },
         },
         created() {

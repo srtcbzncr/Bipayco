@@ -16,11 +16,6 @@
                 <cr-lesson-select
                     :lesson-default-text="lessonText"
                     :subject-default-text="subjectText"
-                    has-selected-option
-                    :selected-lesson-name="sections[selectedSectionIndex].lesson_name"
-                    :selected-lesson-id="String(sections[selectedSectionIndex].lesson_id)"
-                    :selected-subject="sections[selectedSectionIndex].subject_name"
-                    :selected-subject-id="String(sections[selectedSectionIndex].subject_id)"
                 ></cr-lesson-select>
             </form>
         </div>
@@ -68,8 +63,9 @@
 </template>
 
 <script>
+    import crLessonSelect from'./cr-lesson-select.vue';
     import lesson from'./lesson.vue';
-    import {mapActions, mapState} from "vuex";
+    import {mapActions, mapState, mapMutations} from "vuex";
 
     export default {
         name: "section-settings",
@@ -146,7 +142,9 @@
             ...mapState([
                 'sections',
                 'selectedSectionIndex',
-                'courseSubjects'
+                'courseSubjects',
+                'selectedLessonId',
+                'selectedSubjectId',
             ]),
 
         },
@@ -156,6 +154,10 @@
                 'loadSelectedSectionIndex',
                 'loadCourseSubjects'
             ]),
+            ...mapMutations([
+                'setSelectedLessonId',
+                'setSelectedSubjectId',
+            ]),
             updateSection:function(){
                 var formData=new FormData();
                 formData.append('name', document.getElementById('sectionSettingsName').value);
@@ -163,8 +165,8 @@
                 if(this.moduleName=='prepareLessons') {
                     formData.append('subjectId', document.getElementById('courseSubject').value);
                 }else if(this.moduleName=='prepareExams'){
-                    formData.append('subjectId', document.getElementById('crSubjectId').value);
-                    formData.append('lessonId', document.getElementById('crLessonId').value);
+                    formData.append('lessonId', this.selectedLessonId);
+                    formData.append('subjectId', this.selectedSubjectId);
                 }
                 axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/sections/create/'+this.sections[this.selectedSectionIndex].id, formData)
                     .then(response=>{
@@ -175,6 +177,7 @@
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
                     })
+                this.clear();
             },
             lessonUp:function (lessonId) {
                 axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/section/'+this.sections[this.selectedSectionIndex].id+'/lesson/'+lessonId+"/up")
@@ -185,7 +188,8 @@
                     .then(this.$store.dispatch('loadSections',[this.moduleName, this.courseId]))
             },
             clear:function () {
-                document.getElementById("crLessonSettingForm").reset();
+                this.$store.commit('setSelectedSubjectId',"");
+                this.$store.commit('setSelectedLessonId',"");
             }
         },
         mounted() {

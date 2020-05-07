@@ -51,7 +51,7 @@
 
 <script>
     import lesson from'./lesson.vue'
-    import {mapActions} from "vuex";
+    import {mapActions,mapMutations} from "vuex";
     export default {
         name: "courseSection",
         components:{
@@ -142,11 +142,19 @@
                 'loadSections',
                 'loadSelectedSectionIndex',
             ]),
+            ...mapMutations([
+                'setSelectedLessonId',
+                'setSelectedSubjectId'
+            ]),
             removeSection:function () {
                 axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/sections/delete/'+this.section.id)
                     .then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]))
             },
             sendInfo:function (index) {
+                if(this.moduleName=='prepareExams'){
+                    this.$store.commit('setSelectedLessonId', this.section.lesson_id);
+                    this.$store.commit('setSelectedSubjectId', this.section.subject_id);
+                }
                 this.$store.dispatch('loadSelectedSectionIndex', index);
                 UIkit.toggle( {
                     target:".toggleByAxios",
