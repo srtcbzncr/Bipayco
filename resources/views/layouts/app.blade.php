@@ -41,6 +41,7 @@
         <side-bar
             general-education-route="{{route('ge_index')}}"
             prepare-lessons-route="{{route('pl_index')}}"
+            prepare-exams-route="{{route('pl_index')}}"
             home-route="{{route('home')}}"
             logo="{{asset('images/logo.png')}}"
             general-education-text="@lang('front/auth.general_education')"

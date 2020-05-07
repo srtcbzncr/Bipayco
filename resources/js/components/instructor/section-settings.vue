@@ -11,6 +11,13 @@
                 <option v-for="subject in courseSubjects" :value="subject.id" > {{subject.name}}</option>
             </select>
         </div>
+        <div class="uk-margin-small-top" v-if="moduleName=='prepareExams'">
+            <div class="uk-form-label">{{subjectNameText}}</div>
+            <select class="uk-width uk-select">
+                <option disabled hidden selected :value="sections[selectedSectionIndex].subject_id"> {{sections[selectedSectionIndex].subject_name}} </option>
+                <option v-for="subject in courseSubjects" :value="subject.id" > {{subject.name}}</option>
+            </select>
+        </div>
         <div class="uk-margin-small-top">
             <div class="uk-form-label">{{sectionNameText}}</div>
             <input class="uk-padding-small uk-margin-small-top uk-input uk-width" id="sectionSettingsName" type="text" :value="sections[selectedSectionIndex].name">

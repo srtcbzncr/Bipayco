@@ -28,7 +28,7 @@
                 </li>
             <li>
                 <!-- scripts -->
-                <a href="/pl/index" :uk-tooltip="'title:'+ prepareLessonsText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-school icon-medium"/> </a>
+                <a :href="prepareLessonsRoute" :uk-tooltip="'title:'+ prepareLessonsText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-school icon-medium"/> </a>
                 <div class="side-menu-slide" style="overflow-y: auto">
                     <div class="side-menu-slide-content">
                         <a class="uk-background-grey uk-margin-remove general-title" style=":hover" :href="prepareLessonsRoute"><b>{{prepareLessonsText}}</b></a>
@@ -41,7 +41,17 @@
                 </div>
             </li>
             <li>
-                <a href="#" class="active" :uk-tooltip="'title:'+ prepareExamsText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-user-graduate icon-medium"></i> </a>
+                <a :href="prepareExamsRoute" :uk-tooltip="'title:'+ prepareExamsText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-user-graduate icon-medium"></i> </a>
+                <div class="side-menu-slide" style="overflow-y: auto">
+                    <div class="side-menu-slide-content">
+                        <a class="uk-background-grey uk-margin-remove general-title" style=":hover" :href="prepareExamsRoute"><b>{{prepareExamsText}}</b></a>
+                        <ul data-simplebar>
+                            <li v-for="exam in crExams">
+                                <a :href="'/pe/lessons/'+exam.id" :id="'exam'+exam.id"> <i class="fas" :class="exam.symbol"> </i>{{exam.name}}</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </li>
             <li>
                 <!-- blog -->
@@ -120,22 +130,26 @@ export default {
         allOfCategory:String,
         generalEducationRoute:String,
         prepareLessonsRoute:String,
+        prepareExamsRoute:String,
     },
     computed:{
         ...mapState([
             'categories',
-            'crLessons'
+            'crLessons',
+            'crExams',
         ]),
     },
     methods: {
         ...mapActions([
             'loadCategories',
-            'loadCrLessons'
+            'loadCrLessons',
+            'loadCrExams',
         ]),
     },
     created() {
         this.$store.dispatch('loadCategories');
         this.$store.dispatch('loadCrLessons');
+        this.$store.dispatch('loadCrExams');
         this.closeIcon = true;
     },
     mounted() {

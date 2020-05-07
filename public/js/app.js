@@ -7977,6 +7977,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -8001,6 +8006,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     addDefaultLessonText: {
       type: String,
       "default": 'Ders Ekle'
+    },
+    addDefaultSubjectText: {
+      type: String,
+      "default": 'Konu Ekle'
     },
     sectionText: {
       type: String,
@@ -8347,6 +8356,100 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.section.id + '/down').then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
     }
   })
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/cr-lesson-select.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/instructor/cr-lesson-select.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'categorySelect',
+  data: function data() {
+    return {
+      selected: this.selectedLessonId,
+      changing: Boolean,
+      subjects: []
+    };
+  },
+  props: {
+    lessonDefaultText: {
+      type: String,
+      "default": "Ders Seçiniz"
+    },
+    subjectDefaultText: {
+      type: String,
+      "default": "Konu Seçiniz"
+    },
+    hasSelectedOption: {
+      type: Boolean,
+      "default": false
+    },
+    selectedSubject: String,
+    selectedLesson: String,
+    selectedSubjectId: String,
+    selectedLessonId: {
+      type: String,
+      "default": ""
+    }
+  },
+  computed: _objectSpread({
+    hasChange: function hasChange() {
+      return this.changing;
+    },
+    selectedId: function selectedId() {
+      return this.selected;
+    }
+  }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['crLessons'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCrLessons']), {
+    loadSubCategoryList: function loadSubCategoryList() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/pl/lesson/' + this.selectedId).then(function (res) {
+        _this.subjects = res.data.data;
+      });
+      this.changing = document.getElementById('lesson').value === this.selectedLessonId;
+    }
+  }),
+  mounted: function mounted() {
+    this.$store.dispatch('loadCrLessons');
+  }
 });
 
 /***/ }),
@@ -9362,6 +9465,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -9581,6 +9691,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "side-bar",
@@ -9612,13 +9732,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     allOfCategory: String,
     generalEducationRoute: String,
-    prepareLessonsRoute: String
+    prepareLessonsRoute: String,
+    prepareExamsRoute: String
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categories', 'crLessons'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCategories', 'loadCrLessons'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categories', 'crLessons', 'crExams'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCategories', 'loadCrLessons', 'loadCrExams'])),
   created: function created() {
     this.$store.dispatch('loadCategories');
     this.$store.dispatch('loadCrLessons');
+    this.$store.dispatch('loadCrExams');
     this.closeIcon = true;
   },
   mounted: function mounted() {
@@ -21860,59 +21982,73 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", {}, [
-      _vm.moduleName == "prepareLessons"
-        ? _c(
-            "select",
-            {
-              staticClass: "uk-width uk-select",
-              attrs: { id: "courseSubject" }
-            },
-            [
-              _c(
-                "option",
-                {
-                  attrs: { disabled: "", hidden: "", selected: "", value: "" }
-                },
-                [_vm._v(" " + _vm._s(_vm.subjectNameText) + " ")]
-              ),
-              _vm._v(" "),
-              _vm._l(_vm.courseSubjects, function(subject) {
-                return _c("option", { domProps: { value: subject.id } }, [
-                  _vm._v(" " + _vm._s(subject.name))
-                ])
-              })
-            ],
-            2
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c("input", {
-        staticClass:
-          "uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m",
-        attrs: {
-          type: "text",
-          id: "sectionInput",
-          placeholder: _vm.addDefaultSectionText
-        }
-      }),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
+    _c(
+      "div",
+      {},
+      [
+        _vm.moduleName == "prepareLessons"
+          ? _c(
+              "select",
+              {
+                staticClass: "uk-width uk-select",
+                attrs: { id: "courseSubject" }
+              },
+              [
+                _c(
+                  "option",
+                  {
+                    attrs: { disabled: "", hidden: "", selected: "", value: "" }
+                  },
+                  [_vm._v(" " + _vm._s(_vm.subjectNameText) + " ")]
+                ),
+                _vm._v(" "),
+                _vm._l(_vm.courseSubjects, function(subject) {
+                  return _c("option", { domProps: { value: subject.id } }, [
+                    _vm._v(" " + _vm._s(subject.name))
+                  ])
+                })
+              ],
+              2
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.moduleName == "prepareExams"
+          ? _c("cr-lesson-select", {
+              attrs: {
+                "lesson-default-text": _vm.addDefaultLessonText,
+                "subject-default-text": _vm.addDefaultSectionText
+              }
+            })
+          : _vm._e(),
+        _vm._v(" "),
+        _c("input", {
           staticClass:
-            "uk-button uk-button-success uk-margin-small-top uk-width-1-6@m",
-          on: { click: _vm.addSection }
-        },
-        [
-          _c("i", { staticClass: "fas fa-plus" }),
-          _vm._v(" "),
-          _c("span", { staticClass: "uk-hidden@m" }, [
-            _vm._v(_vm._s(_vm.addText))
-          ])
-        ]
-      )
-    ]),
+            "uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m",
+          attrs: {
+            type: "text",
+            id: "sectionInput",
+            placeholder: _vm.addDefaultSectionText
+          }
+        }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass:
+              "uk-button uk-button-success uk-margin-small-top uk-width-1-6@m",
+            on: { click: _vm.addSection }
+          },
+          [
+            _c("i", { staticClass: "fas fa-plus" }),
+            _vm._v(" "),
+            _c("span", { staticClass: "uk-hidden@m" }, [
+              _vm._v(_vm._s(_vm.addText))
+            ])
+          ]
+        )
+      ],
+      1
+    ),
     _vm._v(" "),
     _c(
       "div",
@@ -22255,6 +22391,134 @@ var render = function() {
       ])
     ]
   )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/cr-lesson-select.vue?vue&type=template&id=699c900a&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/instructor/cr-lesson-select.vue?vue&type=template&id=699c900a& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "uk-grid" }, [
+    _c("div", { staticClass: "uk-width-1-2@l" }, [
+      _c(
+        "select",
+        {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.selected,
+              expression: "selected"
+            }
+          ],
+          staticClass: "uk-select uk-margin-small-bottom",
+          attrs: { name: "lesson", id: "lesson", required: "" },
+          on: {
+            change: [
+              function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.selected = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              },
+              _vm.loadSubCategoryList
+            ]
+          }
+        },
+        [
+          _vm.hasSelectedOption
+            ? _c(
+                "option",
+                {
+                  attrs: { hidden: "", selected: "" },
+                  domProps: { value: _vm.selectedLessonId }
+                },
+                [_vm._v(_vm._s(_vm.selectedLesson) + " ")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.hasSelectedOption
+            ? _c(
+                "option",
+                {
+                  attrs: { disabled: "", hidden: "", selected: "", value: "" }
+                },
+                [_vm._v(_vm._s(_vm.lessonDefaultText))]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._l(_vm.crLessons, function(lesson) {
+            return _c("option", { domProps: { value: lesson.id } }, [
+              _vm._v(_vm._s(lesson.name))
+            ])
+          })
+        ],
+        2
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "uk-width-1-2@l" }, [
+      _c(
+        "select",
+        {
+          staticClass: "uk-select",
+          attrs: { name: "subject", id: "subject", required: "" }
+        },
+        [
+          _vm.hasSelectedOption && _vm.hasChange
+            ? _c(
+                "option",
+                {
+                  attrs: { selected: "", hidden: "" },
+                  domProps: { value: _vm.selectedSubCategoryId }
+                },
+                [_vm._v(_vm._s(_vm.selectedSubject) + " ")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          !_vm.hasSelectedOption || !_vm.hasChange
+            ? _c(
+                "option",
+                {
+                  attrs: { disabled: "", hidden: "", selected: "", value: "" }
+                },
+                [_vm._v(_vm._s(_vm.subjectDefaultText))]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._l(_vm.subjects, function(subject) {
+            return _c("option", { domProps: { value: subject.id } }, [
+              _vm._v(_vm._s(subject.name))
+            ])
+          })
+        ],
+        2
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -23389,6 +23653,46 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
+        _vm.moduleName == "prepareExams"
+          ? _c("div", { staticClass: "uk-margin-small-top" }, [
+              _c("div", { staticClass: "uk-form-label" }, [
+                _vm._v(_vm._s(_vm.subjectNameText))
+              ]),
+              _vm._v(" "),
+              _c(
+                "select",
+                { staticClass: "uk-width uk-select" },
+                [
+                  _c(
+                    "option",
+                    {
+                      attrs: { disabled: "", hidden: "", selected: "" },
+                      domProps: {
+                        value: _vm.sections[_vm.selectedSectionIndex].subject_id
+                      }
+                    },
+                    [
+                      _vm._v(
+                        " " +
+                          _vm._s(
+                            _vm.sections[_vm.selectedSectionIndex].subject_name
+                          ) +
+                          " "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._l(_vm.courseSubjects, function(subject) {
+                    return _c("option", { domProps: { value: subject.id } }, [
+                      _vm._v(" " + _vm._s(subject.name))
+                    ])
+                  })
+                ],
+                2
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
         _c("div", { staticClass: "uk-margin-small-top" }, [
           _c("div", { staticClass: "uk-form-label" }, [
             _vm._v(_vm._s(_vm.sectionNameText))
@@ -23732,7 +24036,7 @@ var render = function() {
           "a",
           {
             attrs: {
-              href: "/pl/index",
+              href: _vm.prepareLessonsRoute,
               "uk-tooltip":
                 "title:" +
                 _vm.prepareLessonsText +
@@ -23792,9 +24096,8 @@ var render = function() {
         _c(
           "a",
           {
-            staticClass: "active",
             attrs: {
-              href: "#",
+              href: _vm.prepareExamsRoute,
               "uk-tooltip":
                 "title:" +
                 _vm.prepareExamsText +
@@ -23802,6 +24105,51 @@ var render = function() {
             }
           },
           [_c("i", { staticClass: "fas fa-user-graduate icon-medium" })]
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "side-menu-slide",
+            staticStyle: { "overflow-y": "auto" }
+          },
+          [
+            _c("div", { staticClass: "side-menu-slide-content" }, [
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "uk-background-grey uk-margin-remove general-title",
+                  staticStyle: { "": "hover" },
+                  attrs: { href: _vm.prepareExamsRoute }
+                },
+                [_c("b", [_vm._v(_vm._s(_vm.prepareExamsText))])]
+              ),
+              _vm._v(" "),
+              _c(
+                "ul",
+                { attrs: { "data-simplebar": "" } },
+                _vm._l(_vm.crExams, function(exam) {
+                  return _c("li", [
+                    _c(
+                      "a",
+                      {
+                        attrs: {
+                          href: "/pe/lessons/" + exam.id,
+                          id: "exam" + exam.id
+                        }
+                      },
+                      [
+                        _c("i", { staticClass: "fas", class: exam.symbol }),
+                        _vm._v(_vm._s(exam.name))
+                      ]
+                    )
+                  ])
+                }),
+                0
+              )
+            ])
+          ]
         )
       ]),
       _vm._v(" "),
@@ -40317,6 +40665,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('cart-page', __webpack_requ
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('homepage-content', __webpack_require__(/*! ./components/homepage-content.vue */ "./resources/js/components/homepage-content.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('stars-rating', __webpack_require__(/*! ./components/stars-rating.vue */ "./resources/js/components/stars-rating.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('category-select', __webpack_require__(/*! ./components/instructor/category-select.vue */ "./resources/js/components/instructor/category-select.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('cr-lesson-select', __webpack_require__(/*! ./components/instructor/cr-lesson-select.vue */ "./resources/js/components/instructor/cr-lesson-select.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('lesson-type-select', __webpack_require__(/*! ./components/instructor/lesson-type-select.vue */ "./resources/js/components/instructor/lesson-type-select.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('instructor-area', __webpack_require__(/*! ./components/instructor/instructors-area.vue */ "./resources/js/components/instructor/instructors-area.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('add-list', __webpack_require__(/*! ./components/instructor/add-list.vue */ "./resources/js/components/instructor/add-list.vue")["default"]);
@@ -42532,6 +42881,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/instructor/cr-lesson-select.vue":
+/*!*****************************************************************!*\
+  !*** ./resources/js/components/instructor/cr-lesson-select.vue ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _cr_lesson_select_vue_vue_type_template_id_699c900a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cr-lesson-select.vue?vue&type=template&id=699c900a& */ "./resources/js/components/instructor/cr-lesson-select.vue?vue&type=template&id=699c900a&");
+/* harmony import */ var _cr_lesson_select_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./cr-lesson-select.vue?vue&type=script&lang=js& */ "./resources/js/components/instructor/cr-lesson-select.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _cr_lesson_select_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _cr_lesson_select_vue_vue_type_template_id_699c900a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _cr_lesson_select_vue_vue_type_template_id_699c900a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/instructor/cr-lesson-select.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/instructor/cr-lesson-select.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/components/instructor/cr-lesson-select.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_cr_lesson_select_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./cr-lesson-select.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/cr-lesson-select.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_cr_lesson_select_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/instructor/cr-lesson-select.vue?vue&type=template&id=699c900a&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/instructor/cr-lesson-select.vue?vue&type=template&id=699c900a& ***!
+  \************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_cr_lesson_select_vue_vue_type_template_id_699c900a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./cr-lesson-select.vue?vue&type=template&id=699c900a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/instructor/cr-lesson-select.vue?vue&type=template&id=699c900a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_cr_lesson_select_vue_vue_type_template_id_699c900a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_cr_lesson_select_vue_vue_type_template_id_699c900a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/instructor/instructor-courses-card.vue":
 /*!************************************************************************!*\
   !*** ./resources/js/components/instructor/instructor-courses-card.vue ***!
@@ -43892,7 +44310,8 @@ var state = {
   adminGrade: {},
   adminCategory: {},
   adminSubCategory: {},
-  crLessons: {}
+  crLessons: {},
+  crExams: {}
 };
 var getters = {};
 var mutations = {
@@ -43990,6 +44409,10 @@ var mutations = {
   },
   setCrLessons: function setCrLessons(state, lessons) {
     state.crLessons = lessons.data;
+  },
+  setCrExams: function setCrExams(state, exams) {
+    console.log(exams);
+    state.crExams = exams.data;
   }
 };
 var actions = {
@@ -44243,6 +44666,12 @@ var actions = {
     var commit = _ref52.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/pl/lessons').then(function (response) {
       return commit('setCrLessons', response.data);
+    });
+  },
+  loadCrExams: function loadCrExams(_ref53) {
+    var commit = _ref53.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/pe/exams').then(function (response) {
+      return commit('setCrExams', response.data);
     });
   }
 };

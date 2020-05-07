@@ -26,6 +26,7 @@ Vue.component('cart-page', require('./components/auth/cart-page.vue').default);
 Vue.component('homepage-content', require('./components/homepage-content.vue').default);
 Vue.component('stars-rating', require('./components/stars-rating.vue').default);
 Vue.component('category-select', require('./components/instructor/category-select.vue').default);
+Vue.component('cr-lesson-select', require('./components/instructor/cr-lesson-select.vue').default);
 Vue.component('lesson-type-select', require('./components/instructor/lesson-type-select.vue').default);
 Vue.component('instructor-area', require('./components/instructor/instructors-area.vue').default);
 Vue.component('add-list', require('./components/instructor/add-list.vue').default);

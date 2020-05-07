@@ -21,18 +21,8 @@
                             </div>
                             <hr>
                             @if(isset($course))
-                                <lesson-type-select
-                                    selected-grade="{{$course->grade->name}}"
-                                    selected-grade-id="{{$course->grade->id}}"
-                                    selected-lesson="{{$course->lesson->name}}"
-                                    selected-lesson-id="{{$course->lesson->id}}"
-                                    has-selected-option
-                                ></lesson-type-select>
+
                             @else
-                                <lesson-type-select
-                                    grade-default-text="@lang('front/auth.grade')"
-                                    lesson-default-text="@lang('front/auth.lesson')"
-                                ></lesson-type-select>
                             @endif
                             <div class="uk-margin-remove-bottom uk-margin-remove-top">
                                 <input type="text" value="{{Auth::user()->instructor->id}}" id="instructorId" hidden disabled>

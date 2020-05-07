@@ -5,6 +5,11 @@
                 <option disabled hidden selected value=""> {{subjectNameText}} </option>
                 <option v-for="subject in courseSubjects" :value="subject.id" > {{subject.name}}</option>
             </select>
+            <cr-lesson-select
+                v-if="moduleName=='prepareExams'"
+                :lesson-default-text="addDefaultLessonText"
+                :subject-default-text="addDefaultSectionText"
+            ></cr-lesson-select>
             <input class="uk-padding-small uk-margin-small-top uk-input uk-width-4-5@m" type="text" id="sectionInput" :placeholder="addDefaultSectionText">
             <button class="uk-button uk-button-success uk-margin-small-top uk-width-1-6@m" @click="addSection"><i class="fas fa-plus"></i> <span class="uk-hidden@m">{{addText}}</span></button>
         </div>
@@ -55,6 +60,10 @@
             addDefaultLessonText:{
                 type:String,
                 default:'Ders Ekle'
+            },
+            addDefaultSubjectText:{
+                type:String,
+                default:'Konu Ekle'
             },
             sectionText:{
                 type:String,

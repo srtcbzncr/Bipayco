@@ -76,6 +76,7 @@ const state={
     adminCategory:{},
     adminSubCategory:{},
     crLessons:{},
+    crExams:{},
 };
 const getters={};
 const mutations={
@@ -171,6 +172,10 @@ const mutations={
     },
     setCrLessons(state, lessons){
         state.crLessons=lessons.data;
+    },
+    setCrExams(state, exams){
+        console.log(exams);
+        state.crExams=exams.data;
     },
 };
 const actions={
@@ -309,7 +314,11 @@ const actions={
     loadCrLessons({commit}){
         Axios.get('/api/pl/lessons')
             .then(response=>commit('setCrLessons',response.data))
-    }
+    },
+    loadCrExams({commit}){
+        Axios.get('/api/pe/exams')
+            .then(response=>commit('setCrExams',response.data))
+    },
 };
 
 const store=new Vuex.Store({
