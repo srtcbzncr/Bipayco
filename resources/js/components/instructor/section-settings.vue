@@ -11,7 +11,7 @@
                 <option v-for="subject in courseSubjects" :value="subject.id" > {{subject.name}}</option>
             </select>
         </div>
-        <div class="uk-margin-small-top" v-if="moduleName=='prepareExams'">
+        <div class="uk-margin-small-top" v-else-if="moduleName=='prepareExams'">
             <cr-lesson-select
                 :lesson-default-text="lessonText"
                 :subject-default-text="subjectText"
@@ -158,8 +158,11 @@
                 var formData=new FormData();
                 formData.append('name', document.getElementById('sectionSettingsName').value);
                 formData.append('courseId', this.courseId);
-                if(this.moduleName=='prepareLessons'){
+                if(this.moduleName=='prepareLessons') {
                     formData.append('subjectId', document.getElementById('courseSubject').value);
+                }else if(this.moduleName=='prepareExams'){
+                    formData.append('subjectId', document.getElementById('subjectId').value);
+                    formData.append('lessonId', document.getElementById('lessonId').value);
                 }
                 axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/sections/create/'+this.sections[this.selectedSectionIndex].id, formData)
                     .then(response=>{

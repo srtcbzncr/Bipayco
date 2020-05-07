@@ -1,14 +1,14 @@
 <template>
     <div class="uk-grid">
         <div class="uk-width-1-2@l">
-            <select class='uk-select uk-margin-small-bottom' name="lesson" id="lesson" v-model="selected" @change="loadSubjectsList" required>
+            <select class='uk-select uk-margin-small-bottom' name="lesson" id="lessonId" v-model="selected" @change="loadSubjectsList" required>
                 <option v-if="hasSelectedOption" hidden selected :value="selectedLessonId">{{selectedLesson}} </option>
                 <option v-if="!(hasSelectedOption)" disabled hidden selected value="">{{lessonDefaultText}}</option>
                 <option v-for='lesson in crLessons' :value='lesson.id'>{{lesson.name}}</option>
             </select>
         </div>
         <div class="uk-width-1-2@l">
-            <select class="uk-select" name="subject" id="subject" required>
+            <select class="uk-select" name="subject" id="subjectId" required>
                 <option v-if="hasSelectedOption && hasChange" selected hidden :value="selectedSubCategoryId">{{selectedSubject}} </option>
                 <option v-if="!(hasSelectedOption)|| !hasChange" disabled hidden selected value="">{{subjectDefaultText}}</option>
                 <option v-for='subject in subjects' :value='subject.id'>{{subject.name}}</option>

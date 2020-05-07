@@ -9559,6 +9559,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (this.moduleName == 'prepareLessons') {
         formData.append('subjectId', document.getElementById('courseSubject').value);
+      } else if (this.moduleName == 'prepareExams') {
+        formData.append('subjectId', document.getElementById('subjectId').value);
+        formData.append('lessonId', document.getElementById('lessonId').value);
       }
 
       axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/create/' + this.sections[this.selectedSectionIndex].id, formData).then(function (response) {
@@ -22442,7 +22445,7 @@ var render = function() {
             }
           ],
           staticClass: "uk-select uk-margin-small-bottom",
-          attrs: { name: "lesson", id: "lesson", required: "" },
+          attrs: { name: "lesson", id: "lessonId", required: "" },
           on: {
             change: [
               function($event) {
@@ -22499,7 +22502,7 @@ var render = function() {
         "select",
         {
           staticClass: "uk-select",
-          attrs: { name: "subject", id: "subject", required: "" }
+          attrs: { name: "subject", id: "subjectId", required: "" }
         },
         [
           _vm.hasSelectedOption && _vm.hasChange
@@ -23665,9 +23668,7 @@ var render = function() {
                 2
               )
             ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.moduleName == "prepareExams"
+          : _vm.moduleName == "prepareExams"
           ? _c(
               "div",
               { staticClass: "uk-margin-small-top" },
