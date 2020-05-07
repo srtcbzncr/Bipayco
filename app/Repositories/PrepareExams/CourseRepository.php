@@ -265,12 +265,9 @@ class CourseRepository implements IRepository{
                 ->take(12)
                 ->get();
 
-            // object ve lesson bilgisini ekle
             foreach ($object as $key => $item){
-                $grade = Exam::find($item->grade_id);
-                $lesson = \App\Models\Curriculum\Lesson::find($item->lesson_id);
-                $object[$key]['grade'] = $grade;
-                $object[$key]['lesson'] = $lesson;
+                $exam = Exam::find($item->exam_id);
+                $object[$key]['exam'] = $exam;
             }
 
             if($user_id != null){
@@ -1765,7 +1762,6 @@ class CourseRepository implements IRepository{
                 ->latest()
                 ->paginate(9);
 
-            // grade bilgisi
             foreach ($object as $key => $course){
                 $exam = Exam::find($course->exam_id);
                 $object[$key]['exam'] = $exam;
@@ -1824,13 +1820,10 @@ class CourseRepository implements IRepository{
                 ->oldest()
                 ->paginate(9);
 
-          /*  // lesson ve grade bilgisi
             foreach ($object as $key => $course){
-                $grade = Grade::find($course->grade_id);
-                $lesson = \App\Models\Curriculum\Lesson::find($course->lesson_id);
-                $object[$key]['grade'] = $grade;
-                $object[$key]['lesson'] = $lesson;
-            }*/
+                $exam = Exam::find($course->exam_id);
+                $object[$key]['exam'] = $exam;
+            }
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
@@ -1884,13 +1877,11 @@ class CourseRepository implements IRepository{
                 ->orderBy('price_with_discount', 'asc')
                 ->paginate(9);
 
-          /*  // lesson ve grade bilgisi
+
             foreach ($object as $key => $course){
-                $grade = Grade::find($course->grade_id);
-                $lesson = \App\Models\Curriculum\Lesson::find($course->lesson_id);
-                $object[$key]['grade'] = $grade;
-                $object[$key]['lesson'] = $lesson;
-            }*/
+                $exam = Exam::find($course->exam_id);
+                $object[$key]['exam'] = $exam;
+            }
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
@@ -1944,13 +1935,10 @@ class CourseRepository implements IRepository{
                 ->orderBy('price_with_discount', 'desc')
                 ->paginate(9);
 
-            /*// lesson ve grade bilgisi
             foreach ($object as $key => $course){
-                $grade = Grade::find($course->grade_id);
-                $lesson = \App\Models\Curriculum\Lesson::find($course->lesson_id);
-                $object[$key]['grade'] = $grade;
-                $object[$key]['lesson'] = $lesson;
-            }*/
+                $exam = Exam::find($course->exam_id);
+                $object[$key]['exam'] = $exam;
+            }
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
@@ -2004,13 +1992,10 @@ class CourseRepository implements IRepository{
                 ->orderBy('point', 'desc')
                 ->paginate(9);
 
-           /* // lesson ve grade bilgisi
             foreach ($object as $key => $course){
-                $grade = Grade::find($course->grade_id);
-                $lesson = \App\Models\Curriculum\Lesson::find($course->lesson_id);
-                $object[$key]['grade'] = $grade;
-                $object[$key]['lesson'] = $lesson;
-            }*/
+                $exam = Exam::find($course->exam_id);
+                $object[$key]['exam'] = $exam;
+            }
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
@@ -2064,13 +2049,10 @@ class CourseRepository implements IRepository{
                 ->orderBy('purchase_count', 'desc')
                 ->paginate(9);
 
-            /*// lesson ve grade bilgisi
             foreach ($object as $key => $course){
-                $grade = Grade::find($course->grade_id);
-                $lesson = \App\Models\Curriculum\Lesson::find($course->lesson_id);
-                $object[$key]['grade'] = $grade;
-                $object[$key]['lesson'] = $lesson;
-            }*/
+                $exam = Exam::find($course->exam_id);
+                $object[$key]['exam'] = $exam;
+            }
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
@@ -2125,13 +2107,10 @@ class CourseRepository implements IRepository{
                 ->orderBy('point','desc')
                 ->paginate(9);
 
-         /*   // lesson ve grade bilgisi
             foreach ($object as $key => $course){
-                $grade = Grade::find($course->grade_id);
-                $lesson = \App\Models\Curriculum\Lesson::find($course->lesson_id);
-                $object[$key]['grade'] = $grade;
-                $object[$key]['lesson'] = $lesson;
-            }*/
+                $exam = Exam::find($course->exam_id);
+                $object[$key]['exam'] = $exam;
+            }
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){

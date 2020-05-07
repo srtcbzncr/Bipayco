@@ -9,7 +9,7 @@ class Lesson extends Model
 {
     use SoftDeletes;
 
-    protected $table = 'pl_lessons';
+    protected $table = 'pe_lessons';
     public $timestamps = true;
     protected $fillable = [
         'section_id',
