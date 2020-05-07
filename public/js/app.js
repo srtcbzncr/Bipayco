@@ -8050,8 +8050,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Konu"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['sections', 'courseSubjects', 'crLessons'])),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections', 'loadCourseSubjects', 'loadCrLessons']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['sections', 'courseSubjects'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadSections', 'loadCourseSubjects']), {
     addSection: function addSection() {
       var _this = this;
 
@@ -8437,10 +8437,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['crLessons'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCrLessons']), {
-    loadSubCategoryList: function loadSubCategoryList() {
+    loadSubjectsList: function loadSubjectsList() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/pl/lesson/' + this.selectedId).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/instructor/subjects/lesson/' + this.selectedId).then(function (res) {
         _this.subjects = res.data.data;
       });
       this.changing = document.getElementById('lesson').value === this.selectedLessonId;
@@ -22450,7 +22450,7 @@ var render = function() {
                   ? $$selectedVal
                   : $$selectedVal[0]
               },
-              _vm.loadSubCategoryList
+              _vm.loadSubjectsList
             ]
           }
         },

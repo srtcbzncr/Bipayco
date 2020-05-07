@@ -108,14 +108,12 @@
             ...mapState([
                 'sections',
                 'courseSubjects',
-                'crLessons',
             ]),
         },
         methods:{
             ...mapActions([
                 'loadSections',
                 'loadCourseSubjects',
-                'loadCrLessons',
             ]),
             addSection:function () {
                 var formData=new FormData();

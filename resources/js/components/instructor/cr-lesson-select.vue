@@ -1,7 +1,7 @@
 <template>
     <div class="uk-grid">
         <div class="uk-width-1-2@l">
-            <select class='uk-select uk-margin-small-bottom' name="lesson" id="lesson" v-model="selected" @change="loadSubCategoryList" required>
+            <select class='uk-select uk-margin-small-bottom' name="lesson" id="lesson" v-model="selected" @change="loadSubjectsList" required>
                 <option v-if="hasSelectedOption" hidden selected :value="selectedLessonId">{{selectedLesson}} </option>
                 <option v-if="!(hasSelectedOption)" disabled hidden selected value="">{{lessonDefaultText}}</option>
                 <option v-for='lesson in crLessons' :value='lesson.id'>{{lesson.name}}</option>
@@ -65,8 +65,8 @@
             ...mapActions([
                 'loadCrLessons',
             ]),
-            loadSubCategoryList: function(){
-                Axios.get('/api/pl/lesson/'+this.selectedId)
+            loadSubjectsList: function(){
+                Axios.get('/api/instructor/subjects/lesson/'+this.selectedId)
                 .then((res)=>{this.subjects=res.data.data});
                 this.changing=document.getElementById('lesson').value===this.selectedLessonId;
             },
