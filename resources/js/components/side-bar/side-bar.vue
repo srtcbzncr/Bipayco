@@ -47,7 +47,7 @@
                         <a class="uk-background-grey uk-margin-remove general-title" style=":hover" :href="prepareExamsRoute"><b>{{prepareExamsText}}</b></a>
                         <ul data-simplebar>
                             <li v-for="exam in crExams">
-                                <a :href="'/pe/lessons/'+exam.id" :id="'exam'+exam.id"> <i class="fas" :class="exam.symbol"> </i>{{exam.name}}</a>
+                                <a :href="'/pe/exams/'+exam.id" :id="'exam'+exam.id"> <i class="fas" :class="exam.symbol"> </i>{{exam.name}}</a>
                             </li>
                         </ul>
                     </div>

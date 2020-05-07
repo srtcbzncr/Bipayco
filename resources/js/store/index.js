@@ -173,7 +173,6 @@ const mutations={
         state.crLessons=lessons.data;
     },
     setCrExams(state, exams){
-        console.log(exams);
         state.crExams=exams.data;
     },
     setSelectedLessonId(state, lesson){

@@ -24136,7 +24136,7 @@ var render = function() {
                       "a",
                       {
                         attrs: {
-                          href: "/pe/lessons/" + exam.id,
+                          href: "/pe/exams/" + exam.id,
                           id: "exam" + exam.id
                         }
                       },
@@ -44411,7 +44411,6 @@ var mutations = {
     state.crLessons = lessons.data;
   },
   setCrExams: function setCrExams(state, exams) {
-    console.log(exams);
     state.crExams = exams.data;
   },
   setSelectedLessonId: function setSelectedLessonId(state, lesson) {
