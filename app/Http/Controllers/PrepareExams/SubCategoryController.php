@@ -14,7 +14,7 @@ class SubCategoryController extends Controller
         $repo = new ExamRepository();
 
         // operations
-        $resp = $repo->all();
+        $resp = $repo->get($id);
         if($resp->getResult()){
             $data = $resp->getData();
             return view('prepare_for_exams.exam',$data);
