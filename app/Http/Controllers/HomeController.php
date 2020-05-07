@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\Curriculum\ExamRepository;
 use App\Repositories\Curriculum\LessonRepository;
 use App\Repositories\GeneralEducation\CategoryRepository;
 use App\Repositories\GeneralEducation\CourseRepository;
@@ -23,16 +24,19 @@ class HomeController extends Controller
         // Repo initializations
         $geCourseRepo = new CourseRepository;
         $plCourseRepo = new \App\Repositories\PrepareLessons\CourseRepository();
+        $peCourseRepo = new \App\Repositories\PrepareExams\CourseRepository();
+
 
         // Operations
         $user_id = Auth::id();
         $gePopularCoursesResp = $geCourseRepo->getPopularCourses($user_id);
         $plPopularCoursesResp = $plCourseRepo->getPopularCourses($user_id);
+        $pePopularCoursesResp = $peCourseRepo->getPopularCourses($user_id);
 
         $data = [
             'general_education' => $gePopularCoursesResp->getData(),
             'prepare_for_lessons' => $plPopularCoursesResp->getData(),
-            'prepare_for_exams' => [],
+            'prepare_for_exams' => $pePopularCoursesResp->getData(),
             'books' => [],
             'exams' => [],
         ];
@@ -77,6 +81,25 @@ class HomeController extends Controller
         // Response
         if($resp->getResult()){
             return view('prepare_for_lesson.index', $data);
+        }
+        else{
+            return view('error');
+        }
+    }
+
+    public function pe_index(){
+        // Repo initializations
+        $repo = new ExamRepository();
+
+        // Operations
+        $resp = $repo->all();
+        $data = [
+            'exams' => $resp->getData(),
+        ];
+
+        // Response
+        if($resp->getResult()){
+            return view('prepare_for_exams.index', $data);
         }
         else{
             return view('error');
