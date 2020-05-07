@@ -57,14 +57,14 @@ class CourseRepository implements IRepository{
             }
             else{
                 $object = Course::find($id);
-                $controlBasket = Basket::where('user_id',$user->id)->where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->get();
+                $controlBasket = Basket::where('user_id',$user->id)->where('course_id',$id)->where('course_type','App\Models\PrepareExams\Course')->get();
                 if($controlBasket != null and count($controlBasket) > 0){
                     $object['inBasket'] = true;
                 }
                 else{
                     $object['inBasket'] = false;
                 }
-                $controlFav = Favorite::where('user_id',$user->id)->where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->get();
+                $controlFav = Favorite::where('user_id',$user->id)->where('course_id',$id)->where('course_type','App\Models\PrepareExams\Course')->get();
                 if($controlFav != null and count($controlFav) > 0){
                     $object['inFavorite'] = true;
                 }
@@ -276,13 +276,13 @@ class CourseRepository implements IRepository{
             if($user_id != null){
                 // bu kursların favori veya sepete eklenip eklenmediği bilgisini getir.
                 foreach ($object as $key=> $course){
-                    $controlBasket = Basket::where('course_id',$course->id)->where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')->first();
+                    $controlBasket = Basket::where('course_id',$course->id)->where('user_id',$user_id)->where('course_type','App\Models\PrepareExams\Course')->first();
                     if($controlBasket != null)
                         $object[$key]['inBasket'] = true;
                     else
                         $object[$key]['inBasket'] = false;
 
-                    $controlFavorite = Favorite::where('course_id',$course->id)->where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')->first();
+                    $controlFavorite = Favorite::where('course_id',$course->id)->where('user_id',$user_id)->where('course_type','App\Models\PrepareExams\Course')->first();
                     if($controlFavorite != null)
                         $object[$key]['inFavorite'] = true;
                     else
@@ -470,7 +470,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getByGradeFilterByNewest($grade_id){
+    public function getByExamFilterByNewest($exam_id){
         // Response variables
         $result = true;
         $error = null;
@@ -478,7 +478,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = Course::where('grade_id', $grade_id)
+            $object = Course::where('exam_id', $exam_id)
                 ->where('active', true)
                 ->where('deleted_at',null)
                 ->latest()
@@ -494,7 +494,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getByGradeFilterByOldest($grade_id){
+    public function getByExamFilterByOldest($exam_id){
         // Response variables
         $result = true;
         $error = null;
@@ -502,7 +502,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = Course::where('grade_id', $grade_id)
+            $object = Course::where('exam_id', $exam_id)
                 ->where('active', true)
                 ->where('deleted_at',null)
                 ->oldest()
@@ -518,7 +518,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getByGradeFilterByPriceASC($grade_id){
+    public function getByExamFilterByPriceASC($exam_id){
         // Response variables
         $result = true;
         $error = null;
@@ -526,7 +526,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = Course::where('grade_id', $grade_id)
+            $object = Course::where('exam_id', $exam_id)
                 ->where('active', true)
                 ->where('deleted_at',null)
                 ->orderBy('price_with_discount', 'asc')
@@ -542,7 +542,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getByGradeFilterByPriceDESC($grade_id){
+    public function getByExamFilterByPriceDESC($exam_id){
         // Response variables
         $result = true;
         $error = null;
@@ -550,7 +550,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = Course::where('grade_id', $grade_id)
+            $object = Course::where('exam_id', $exam_id)
                 ->where('active', true)
                 ->where('deleted_at',null)
                 ->orderBy('price_with_discount', 'desc')
@@ -566,7 +566,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getByGradeFilterByPoint($grade_id){
+    public function getByExamFilterByPoint($exam_id){
         // Response variables
         $result = true;
         $error = null;
@@ -574,7 +574,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = Course::where('grade_id', $grade_id)
+            $object = Course::where('exam_id', $exam_id)
                 ->where('active', true)
                 ->where('deleted_at',null)
                 ->orderBy('point', 'desc')
@@ -590,7 +590,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getByGradeFilterByPurchases($grade_id){
+    public function getByExamFilterByPurchases($exam_id){
         // Response variables
         $result = true;
         $error = null;
@@ -598,7 +598,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = Course::where('grade_id', $grade_id)
+            $object = Course::where('exam_id', $exam_id)
                 ->where('active', true)
                 ->where('deleted_at',null)
                 ->orderBy('purchase_count', 'desc')
@@ -614,7 +614,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getByGradeFilterByTrending($grade_id){
+    public function getByExamFilterByTrending($exam_id){
         // Response variables
         $result = true;
         $error = null;
@@ -622,7 +622,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = Course::where('grade_id', $grade_id)
+            $object = Course::where('exam_id', $exam_id)
                 ->where('active', true)
                 ->where('deleted_at',null)
                 ->orderBy('purchase_count', 'desc')
@@ -1765,13 +1765,11 @@ class CourseRepository implements IRepository{
                 ->latest()
                 ->paginate(9);
 
-            /*// lesson ve grade bilgisi
+            // grade bilgisi
             foreach ($object as $key => $course){
-                $grade = Grade::find($course->grade_id);
-                $lesson = \App\Models\Curriculum\Lesson::find($course->lesson_id);
-                $object[$key]['grade'] = $grade;
-                $object[$key]['lesson'] = $lesson;
-            }*/
+                $exam = Exam::find($course->exam_id);
+                $object[$key]['exam'] = $exam;
+            }
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){

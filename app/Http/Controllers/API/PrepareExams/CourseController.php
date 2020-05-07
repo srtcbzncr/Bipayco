@@ -230,7 +230,8 @@ class CourseController extends Controller
         else{
             return response()->json([
                 'error' => true,
-                'message' => 'Bölüm eklenirken hata oluştu.Tekrar deneyin.'
+                'message' => 'Bölüm eklenirken hata oluştu.Tekrar deneyin.',
+                'errorMessage' => $resp->getError()
             ],400);
         }
     }
