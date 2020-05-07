@@ -11175,6 +11175,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -26660,10 +26669,24 @@ var render = function() {
             "uk-width-3-4@m uk-flex align-items-center justify-content-center watch-panel uk-overflow-auto"
         },
         [
-          _vm.moduleName != "generalEducation" && _vm.isTest
+          _vm.moduleName == "prepareLesson" && _vm.isTest
             ? _c("test-area", {
                 attrs: {
                   "lesson-id": _vm.course.lesson_id,
+                  "subject-id": _vm.selected.subject_id,
+                  "test-type": _vm.testType,
+                  "section-id": _vm.selected.id,
+                  "module-name": _vm.moduleName,
+                  "user-id": _vm.userId,
+                  "course-id": _vm.courseId
+                }
+              })
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.moduleName == "prepareExams" && _vm.isTest
+            ? _c("test-area", {
+                attrs: {
+                  "lesson-id": _vm.selected.lesson_id,
                   "subject-id": _vm.selected.subject_id,
                   "test-type": _vm.testType,
                   "section-id": _vm.selected.id,
