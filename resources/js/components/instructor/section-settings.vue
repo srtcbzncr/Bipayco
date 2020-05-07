@@ -16,10 +16,10 @@
                 :lesson-default-text="lessonText"
                 :subject-default-text="subjectText"
                 has-selected-option
-                :selected-lesson="sections[selectedSectionIndex].lesson_name"
-                :selected-lesson-id="sections[selectedSectionIndex].lesson_id"
-                :selected-subject="sections[selectedSectionIndex].subject_name"
-                :selected-subject-id="sections[selectedSectionIndex].subject_id"
+                :selected-lesson="String(sections[selectedSectionIndex].lesson_name)"
+                :selected-lesson-id="String(sections[selectedSectionIndex].lesson_id)"
+                :selected-subject="String(sections[selectedSectionIndex].subject_name)"
+                :selected-subject-id="String(sections[selectedSectionIndex].subject_id)"
             ></cr-lesson-select>
         </div>
         <div class="uk-margin-small-top">

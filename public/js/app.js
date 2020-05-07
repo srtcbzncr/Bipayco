@@ -22474,7 +22474,7 @@ var render = function() {
                 "option",
                 {
                   attrs: { hidden: "", selected: "" },
-                  domProps: { value: _vm.selectedLessonId }
+                  domProps: { value: String(_vm.selectedLessonId) }
                 },
                 [_vm._v(_vm._s(_vm.selectedLesson) + " ")]
               )
@@ -22513,7 +22513,7 @@ var render = function() {
                 "option",
                 {
                   attrs: { selected: "", hidden: "" },
-                  domProps: { value: _vm.selectedSubjectId }
+                  domProps: { value: String(_vm.selectedSubjectId) }
                 },
                 [_vm._v(_vm._s(_vm.selectedSubject) + " ")]
               )
@@ -23681,14 +23681,18 @@ var render = function() {
                     "lesson-default-text": _vm.lessonText,
                     "subject-default-text": _vm.subjectText,
                     "has-selected-option": "",
-                    "selected-lesson":
-                      _vm.sections[_vm.selectedSectionIndex].lesson_name,
-                    "selected-lesson-id":
-                      _vm.sections[_vm.selectedSectionIndex].lesson_id,
-                    "selected-subject":
-                      _vm.sections[_vm.selectedSectionIndex].subject_name,
-                    "selected-subject-id":
+                    "selected-lesson": String(
+                      _vm.sections[_vm.selectedSectionIndex].lesson_name
+                    ),
+                    "selected-lesson-id": String(
+                      _vm.sections[_vm.selectedSectionIndex].lesson_id
+                    ),
+                    "selected-subject": String(
+                      _vm.sections[_vm.selectedSectionIndex].subject_name
+                    ),
+                    "selected-subject-id": String(
                       _vm.sections[_vm.selectedSectionIndex].subject_id
+                    )
                   }
                 })
               ],
