@@ -26660,7 +26660,7 @@ var render = function() {
             "uk-width-3-4@m uk-flex align-items-center justify-content-center watch-panel uk-overflow-auto"
         },
         [
-          _vm.moduleName == "prepareLessons" && _vm.isTest
+          _vm.moduleName != "generalEducation" && _vm.isTest
             ? _c("test-area", {
                 attrs: {
                   "lesson-id": _vm.course.lesson_id,

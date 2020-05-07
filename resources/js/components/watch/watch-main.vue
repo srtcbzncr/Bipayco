@@ -2,7 +2,7 @@
     <div class="uk-card uk-card-default uk-align-center">
         <div class="uk-card-body uk-grid uk-padding-remove">
             <div class="uk-width-3-4@m uk-flex align-items-center justify-content-center watch-panel uk-overflow-auto">
-                <test-area v-if="moduleName=='prepareLessons'&&isTest"
+                <test-area v-if="moduleName!='generalEducation'&&isTest"
                            :lesson-id="course.lesson_id"
                            :subject-id="selected.subject_id"
                            :test-type="testType"
