@@ -101,8 +101,8 @@ Route::group(['prefix' => 'pl'],function (){
         Route::get('{id}','PrepareLesson\CategoryController@show')->name('pe_category_courses');
     });
     Route::group(['prefix' => 'exams'], function(){
-        //Route::get('{id}', 'PrepareExams\SubCategoryController@show')->name('pl_sub_category_courses');
-        Route::get('/', 'PrepareExams\SubCategoryController@show')->name('pe_sub_category_courses'); // pe_ok
+        Route::get('{id}', 'PrepareExams\SubCategoryController@show')->name('pl_sub_category_courses');
+        //Route::get('/', 'PrepareExams\SubCategoryController@show')->name('pe_sub_category_courses'); // pe_ok
     });
     Route::group(['prefix' => 'course'], function(){
         Route::get('{id}', 'PrepareExams\CourseController@show')->name('pe_course'); // pe_ok
@@ -131,7 +131,7 @@ Route::group(['prefix' => 'learn', 'middleware' => 'auth'],function (){
           Route::get('/lastTest/{courseId}/{sectionId}','PrepareLesson\LearnController@getLastTest')->name('learn_pl_get_last_test');
        });
    });
-   
+
    Route::group(['prefix' => 'pe'],function (){
        Route::get('/course/{course_id}','PrepareExams\LearnController@getCourse')->name('learn_pe_course_get');
        Route::get('/course/{course_id}/lesson/{lesson_id}','PrepareExams\LearnController@getLesson')->name('learn_pe_lesson_get');
