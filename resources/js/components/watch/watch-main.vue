@@ -213,7 +213,7 @@
                 }
             },
             module(){
-                switch (moduleName) {
+                switch (this.moduleName) {
                     case 'prepareExams':{
                         return 'pe'
                     }

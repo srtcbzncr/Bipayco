@@ -11247,7 +11247,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     module: function module() {
-      switch (moduleName) {
+      switch (this.moduleName) {
         case 'prepareExams':
           {
             return 'pe';
