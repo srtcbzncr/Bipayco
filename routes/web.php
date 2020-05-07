@@ -95,13 +95,13 @@ Route::group(['prefix' => 'pl'],function (){
     Route::get('index', 'HomeController@pl_index')->name('pl_index');
 });
 
-Route::group(['prefix' => 'pl'],function (){
+Route::group(['prefix' => 'pe'],function (){
     #buna gerek yok.
     Route::group(['prefix' => 'category'],function (){
         Route::get('{id}','PrepareLesson\CategoryController@show')->name('pe_category_courses');
     });
     Route::group(['prefix' => 'exams'], function(){
-        Route::get('{id}', 'PrepareExams\SubCategoryController@show')->name('pl_sub_category_courses');
+        Route::get('{id}', 'PrepareExams\SubCategoryController@show')->name('pe_sub_category_courses');
         //Route::get('/', 'PrepareExams\SubCategoryController@show')->name('pe_sub_category_courses'); // pe_ok
     });
     Route::group(['prefix' => 'course'], function(){
