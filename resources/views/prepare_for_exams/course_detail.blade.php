@@ -146,16 +146,16 @@
             </div>
 
             <!-- side contant -->
-                <similar-course-card
-                    @if(Auth::check())
-                    auth-check
-                    user-id="{{Auth::user()->id}}"
-                    @endif
-                    course-id="{{$course->id}}"
-                    module-name="prepareExams"
-                    module="pe"
-                    related-courses-text="@lang('front/auth.related_courses')"
-                > </similar-course-card>
+            <similar-course-card
+                @if(Auth::check())
+                auth-check
+                user-id="{{Auth::user()->id}}"
+                @endif
+                course-id="{{$course->id}}"
+                module-name="prepareExams"
+                module="pe"
+                related-courses-text="@lang('front/auth.related_courses')"
+            > </similar-course-card>
         </div>
     </div>
 @endsection

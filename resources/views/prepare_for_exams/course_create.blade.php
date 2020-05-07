@@ -194,7 +194,6 @@
                                     lesson-name-text="@lang('front/auth.lesson_name')"
                                     module-name="prepareExams"
                                 > </add-lesson>
-
                                 <lesson-settings
                                     course-id="{{$course->id}}"
                                     edit-lesson-text="@lang('front/auth.edit_lesson')"

@@ -235,7 +235,7 @@
                             this.clearForm();
                         }
                     })
-                    .catch(response=>{
+                    .catch(()=>{
                         this.changeMessage(this.notAddedLessonText);
                         UIkit.toggle( {
                             target:".toggleByAxios",

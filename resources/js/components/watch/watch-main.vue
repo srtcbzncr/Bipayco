@@ -242,6 +242,16 @@
                         }
                         break;
                     }
+                    case 'prepareExams':{
+                        if(lessonId=='lastTest'){
+                            window.location.replace('/learn/pe/test/lastTest/'+this.courseId+'/'+this.selected.section_id);
+                        }else if(lessonId=='firstTest'){
+                            window.location.replace('/learn/pe/test/firstTest/'+this.courseId+'/'+this.selected.section_id);
+                        }else{
+                            window.location.replace('/learn/pe/course/'+this.courseId+'/lesson/'+lessonId);
+                        }
+                        break;
+                    }
                 }
             },
             watched:function () {
@@ -267,6 +277,22 @@
                             }else {
                                 setTimeout(() => {
                                     window.location.replace('/learn/pl/course/' + this.courseId + '/lesson/' + this.course.nextLessonId);
+                                }, 3000);
+                            }
+                            break;
+                        }
+                        case 'prepareExams':{
+                            if(this.course.nextLessonId=='lastTest') {
+                                setTimeout(() => {
+                                    window.location.replace('/learn/pe/test/lastTest/' + this.courseId + '/' + this.selected.section_id)
+                                }, 3000);
+                            }else if(this.course.nextLessonId=='firstTest'){
+                                setTimeout(() => {
+                                    window.location.replace('/learn/pe/test/firstTest/' + this.courseId + '/' + this.selected.section_id)
+                                }, 3000);
+                            }else {
+                                setTimeout(() => {
+                                    window.location.replace('/learn/pe/course/' + this.courseId + '/lesson/' + this.course.nextLessonId);
                                 }, 3000);
                             }
                             break;

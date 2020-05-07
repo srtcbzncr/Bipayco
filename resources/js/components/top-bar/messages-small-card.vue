@@ -7,7 +7,7 @@
                 <hr>
                 <div v-for="item in shoppingCart">
                     <div class="uk-grid align-items-center shoppingItem">
-                        <a class="uk-width-5-6" :href="'/'+moduleNameTomModule(item.course_type)+'/course/'+item.course_id">
+                        <a class="uk-width-5-6" :href="'/'+moduleNameToModule(item.course_type)+'/course/'+item.course_id">
                             <div class="uk-flex align-item-center justify-content-between">
                                 <div class="uk-width-3-4 uk-flex">
                                     <div class="uk-margin-small-left uk-card-media-left uk-cover-container uk-width-1-4">
@@ -87,7 +87,7 @@
                         this.$store.dispatch('loadCourseCard');
                     })
             },
-            moduleNameTomModule:function(moduleName){
+            moduleNameToModule:function(moduleName){
                 switch (moduleName) {
                     case "prepareLessons":{
                         return "pl";
