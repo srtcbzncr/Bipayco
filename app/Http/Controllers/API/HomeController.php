@@ -55,11 +55,24 @@ class HomeController extends Controller
     }
 
     public function indexPe($user_id=null){
-        $data = [];
+        $peCourseRepo = new \App\Repositories\PrepareExams\CourseRepository();
+
+        // Operations
+        $pePopularCoursesResp = $peCourseRepo->getPopularCourses($user_id);
+
+        $data =  $pePopularCoursesResp->getData();
+
+        if( $pePopularCoursesResp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $data,
+            ]);
+        }
+
         return response()->json([
-           'error' => false,
-           'data' => $data
-        ]);
+            'error' => true,
+            'errorMessage' => $pePopularCoursesResp->getError()
+        ],400);
     }
 
     public function indexBooks($user_id=null){
