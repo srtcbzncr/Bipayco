@@ -22,24 +22,30 @@ class AuthController extends Controller
         $studentRepo = new StudentRepository;
         $geCourseRepo = new CourseRepository;
         $plCourseRepo = new \App\Repositories\PrepareLessons\CourseRepository();
+        $peCourseRepo = new \App\Repositories\PrepareExams\CourseRepository();
 
         // Operations
         $courses = $studentRepo->courses($user->student->id);
         if ($courses->getResult()){
             $geCourses = $courses->getData()['ge'];
             $plCourses = $courses->getData()['pl'];
+            $peCourses = $courses->getData()['pe'];
             $geCoursesResp = array();
             $plCoursesResp = array();
+            $peCoursesResp = array();
             foreach($geCourses as $course){
                 array_push($geCoursesResp, ['course' => $course, 'progress' => $geCourseRepo->calculateProgress($course->id, $user->student->id)->getData()]);
             }
             foreach($plCourses as $course){
                 array_push($plCoursesResp, ['course' => $course, 'progress' => $plCourseRepo->calculateProgress($course->id, $user->student->id)->getData()]);
             }
+            foreach($peCourses as $course){
+                array_push($peCoursesResp, ['course' => $course, 'progress' => $peCourseRepo->calculateProgress($course->id, $user->student->id)->getData()]);
+            }
             return response()->json(['error' => false, 'courses' => [
                 'ge' => $geCoursesResp,
                 'pl' => $plCoursesResp,
-                'pe' => array(),
+                'pe' => $peCoursesResp,
                 'books' => array(),
                 'exams' => array(),
                 'homeworks' => array(),
