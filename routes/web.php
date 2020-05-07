@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home'); // pe_ok
 Route::get('register', 'Auth\AuthController@registerGet')->name('registerGet');
 Route::post('register', 'Auth\AuthController@registerPost')->name('registerPost');
 Route::get('login', 'Auth\AuthController@loginGet')->name('loginGet');
@@ -63,7 +63,7 @@ Route::group(['prefix' => 'instructor', 'middleware' => 'auth'], function(){
         Route::get('course/create/{id?}', 'PrepareLesson\CourseController@createGet')->name('pl_course_create_get');
     });
     Route::group(['prefix' => 'pe', 'middleware' => 'hasInstructorProfile'], function(){
-        Route::get('course/create/{id?}', 'PrepareExams\CourseController@createGet')->name('pe_course_create_get');
+        Route::get('course/create/{id?}', 'PrepareExams\CourseController@createGet')->name('pe_course_create_get'); // pe_ok
     });
 });
 
@@ -95,6 +95,22 @@ Route::group(['prefix' => 'pl'],function (){
     Route::get('index', 'HomeController@pl_index')->name('pl_index');
 });
 
+Route::group(['prefix' => 'pe'],function (){
+    #buna gerek yok.
+    Route::group(['prefix' => 'category'],function (){
+        Route::get('{id}','PrepareLesson\CategoryController@show')->name('pe_category_courses');
+    });
+    Route::group(['prefix' => 'exams'], function(){
+        Route::get('{id}', 'PrepareExams\SubCategoryController@show')->name('pe_sub_category_courses');
+        //Route::get('/', 'PrepareExams\SubCategoryController@show')->name('pe_sub_category_courses'); // pe_ok
+    });
+    Route::group(['prefix' => 'course'], function(){
+        Route::get('{id}', 'PrepareExams\CourseController@show')->name('pe_course'); // pe_ok
+        //Route::get('{id}/watch', 'PrepareLesson\CourseController@watch')->name('pl_watch');
+    });
+    Route::get('index', 'HomeController@pe_index')->name('pe_index'); // pe_ok
+});
+
 Route::group(['prefix' => 'questionSource', 'middleware' => 'auth'],function (){
     Route::get('/','QuestionSource\QuestionSourceController@show')->name('questionSource_show');
     Route::get('/create','QuestionSource\QuestionSourceController@createGet')->name('questionSource_create');
@@ -115,6 +131,17 @@ Route::group(['prefix' => 'learn', 'middleware' => 'auth'],function (){
           Route::get('/lastTest/{courseId}/{sectionId}','PrepareLesson\LearnController@getLastTest')->name('learn_pl_get_last_test');
        });
    });
+
+   Route::group(['prefix' => 'pe'],function (){
+       Route::get('/course/{course_id}','PrepareExams\LearnController@getCourse')->name('learn_pe_course_get');
+       Route::get('/course/{course_id}/lesson/{lesson_id}','PrepareExams\LearnController@getLesson')->name('learn_pe_lesson_get');
+       Route::group(['prefix' => 'test'],function (){
+          Route::get('/firstTest/{courseId}/{sectionId}','PrepareExams\LearnController@getFirstTest')->name('learn_pe_get_first_test');
+          Route::get('/lastTest/{courseId}/{sectionId}','PrepareExams\LearnController@getLastTest')->name('learn_pe_get_last_test');
+       });
+   });
+
+
 });
 
 

@@ -75,7 +75,7 @@ class LearnRepository implements IRepository
                 $object['sections'][$key]['lessons'] = $lessons;
                 $controlTestStatus = FirstLastTestStatus::where('studentId',$student->id)
                     ->where('sectionId',$section->id)
-                    ->where('sectionType','App\Models\PrepareLessons\Section')->get()->toArray();
+                    ->where('sectionType','App\Models\PrepareExams\Section')->get()->toArray();
                 $b = false;
                 foreach ($controlTestStatus as $status){
                     if($status['result'] == true){
@@ -99,7 +99,7 @@ class LearnRepository implements IRepository
                     $sources = $lesson->sources;
                     $object['sections'][$key]['lessons'][$keyLesson]['sources'] = $sources;
                     $control = DB::table("ge_students_completed_lessons")->where('student_id',$student->id)->where('lesson_id',$lesson->id)
-                        ->where('lesson_type','App\Models\PrepareLessons\Lesson')->get();
+                        ->where('lesson_type','App\Models\PrepareExams\Lesson')->get();
                     if($control == null or count($control) == 0){
                         $object['sections'][$key]['lessons'][$keyLesson]['is_completed'] = false;
                     }
@@ -111,7 +111,7 @@ class LearnRepository implements IRepository
                 // sectionların ön ve son testlerinin tamamlanıp tamamlanmadığını ver
                 foreach ($object['sections'] as $keySection => $section){
                     $ctrlStatus = FirstLastTestStatus::where('sectionId',$section->id)
-                        ->where('sectionType','App\Models\PrepareLessons\Section')
+                        ->where('sectionType','App\Models\PrepareExams\Section')
                         ->where('studentId',$student->id)->get();
                     if($ctrlStatus != null and count($ctrlStatus)>0){
                         if(count($ctrlStatus) == 1){
@@ -174,7 +174,7 @@ class LearnRepository implements IRepository
                     $control = DB::table('ge_students_completed_lessons')
                         ->where('student_id',$student->id)
                         ->where('lesson_id',$lesson->id)
-                        ->where('lesson_type','App\Models\PrepareLessons\Lesson')->get();
+                        ->where('lesson_type','App\Models\PrepareExams\Lesson')->get();
                     if($control == null or count($control)==0){
                         $flag = true;
                         $notCompletedLesson = $lesson;
@@ -203,7 +203,7 @@ class LearnRepository implements IRepository
                         $object['nextLessonId'] = null;
                     $object['selectedLesson']['is_completed'] = false;
                     $sources = null;
-                    $sources = Source::where('lesson_id',$object['selectedLesson']->id)->where('deleted_at',null)->where('lesson_type','App\Models\PrepareLessons\Lesson')->where('active',true)->get();
+                    $sources = Source::where('lesson_id',$object['selectedLesson']->id)->where('deleted_at',null)->where('lesson_type','App\Models\PrepareExams\Lesson')->where('active',true)->get();
                     $object['selectedLesson']['sources'] = $sources;
                     break;
                 }
@@ -211,7 +211,7 @@ class LearnRepository implements IRepository
                     $object['selectedLesson'] = $sections[0]['lessons'][0];
                     $object['selectedLesson']['is_completed'] = true;
                     $sources = null;
-                    $sources = Source::where('lesson_id',$object['selectedLesson']->id)->where('deleted_at',null)->where('lesson_type','App\Models\PrepareLessons\Lesson')->where('active',true)->get();
+                    $sources = Source::where('lesson_id',$object['selectedLesson']->id)->where('deleted_at',null)->where('lesson_type','App\Models\PrepareExams\Lesson')->where('active',true)->get();
                     $object['selectedLesson']['sources'] = $sources;
                     if(isset($sections[0]['lessons'][1])){
                         $object['nextLessonId'] = $sections[0]['lessons'][1]->id;
@@ -235,7 +235,7 @@ class LearnRepository implements IRepository
                         if(isset($tempSections[$key-1])){
                             $beforeSection = $tempSections[$key-1];
                             $controlStatus = FirstLastTestStatus::where('sectionId',$beforeSection->id)
-                                ->where('sectionType','App\Models\PrepareLessons\Section')
+                                ->where('sectionType','App\Models\PrepareExams\Section')
                                 ->where('result',true)
                                 ->where('studentId',$student->id)->get();
                             if($controlStatus == null or count($controlStatus) == 0){
@@ -291,7 +291,7 @@ class LearnRepository implements IRepository
                     $sources = $lesson->sources;
                     $object['sections'][$key]['lessons'][$keyLesson]['sources'] = $sources;
                     $control = DB::table("ge_students_completed_lessons")->where('student_id',$student->id)->where('lesson_id',$lesson->id)
-                        ->where('lesson_type','App\Models\PrepareLessons\Lesson')->first();
+                        ->where('lesson_type','App\Models\PrepareExams\Lesson')->first();
                     if($control == null){
                         $object['sections'][$key]['lessons'][$keyLesson]['is_completed'] = false;
                     }
@@ -302,7 +302,7 @@ class LearnRepository implements IRepository
 
                 $controlTestStatus = FirstLastTestStatus::where('studentId',$student->id)
                     ->where('sectionId',$section->id)
-                    ->where('sectionType','App\Models\PrepareLessons\Section')->get()->toArray();
+                    ->where('sectionType','App\Models\PrepareExams\Section')->get()->toArray();
                 $b = false;
                 foreach ($controlTestStatus as $status){
                     if($status['result'] == true){
@@ -325,7 +325,7 @@ class LearnRepository implements IRepository
                 // sectionların ön ve son testlerinin tamamlanıp tamamlanmadığını ver
                 foreach ($object['sections'] as $keySection => $section){
                     $ctrlStatus = FirstLastTestStatus::where('sectionId',$section->id)
-                        ->where('sectionType','App\Models\PrepareLessons\Section')
+                        ->where('sectionType','App\Models\PrepareExams\Section')
                         ->where('studentId',$student->id)->get();
                     if($ctrlStatus != null and count($ctrlStatus)>0){
                         if(count($ctrlStatus) == 1){
@@ -380,7 +380,7 @@ class LearnRepository implements IRepository
             $object['selectedLesson'] = $selectedLesson;
             $object['nextLessonId'] = null;
             $control = DB::table("ge_students_completed_lessons")->where('student_id',$student->id)->where('lesson_id',$selectedLesson->id)
-                ->where('lesson_type','App\Models\PrepareLessons\Lesson')->get();
+                ->where('lesson_type','App\Models\PrepareExams\Lesson')->get();
             if($control == null or count($control) == 0){
                 $object['selectedLesson']['is_completed'] = false;
             }
