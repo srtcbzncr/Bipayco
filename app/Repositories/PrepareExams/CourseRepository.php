@@ -1450,7 +1450,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function calculateProgress($course_id, $student_id){
+    public function calculateProgress($course_id, $user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -1458,37 +1458,37 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $student = Student::find($student_id);
-            $sections = Section::where('course_id',$course_id)->where('deleted_at',null)->where('active',true)->get()->toArray();
+            if($user_id != null){
+                $student = Student::where('user_id',$user_id)->first();
+                $sections = Section::where('course_id',$course_id)->where('deleted_at',null)->where('active',true)->get()->toArray();
 
-            $lessons = array();
-            foreach ($sections as $section){
-                $tempLessons = Lesson::where('section_id',$section['id'])->where('deleted_at',null)->where('active',true)->get()->toArray();
-                foreach ($tempLessons as $lesson){
-                    array_push($lessons,$lesson);
+                $lessons = array();
+                foreach ($sections as $section){
+                    $tempLessons = Lesson::where('section_id',$section['id'])->where('deleted_at',null)->where('active',true)->get()->toArray();
+                    foreach ($tempLessons as $lesson){
+                        array_push($lessons,$lesson);
+                    }
+
                 }
 
-            }
-
-            // tamamlanmış dersleri al
-            $completedLessons = DB::table('ge_students_completed_lessons')
-                ->where('student_id',$student->id)
-                ->where('lesson_type','App\Models\PrepareExams\Lesson')->get();
-            $completeCount = 0;
-            foreach ($lessons as $lesson){
-                foreach ($completedLessons as $completedLessonn){
-                    if($lesson['id'] == $completedLessonn->lesson_id){;
-                        $completeCount = $completeCount + 1;
-                        break;
+                // tamamlanmış dersleri al
+                $completedLessons = DB::table('ge_students_completed_lessons')
+                    ->where('student_id',$student->id)
+                    ->where('lesson_type','App\Models\PrepareExams\Lesson')->get();
+                $completeCount = 0;
+                foreach ($lessons as $lesson){
+                    foreach ($completedLessons as $completedLessonn){
+                        if($lesson['id'] == $completedLessonn->lesson_id){;
+                            $completeCount = $completeCount + 1;
+                            break;
+                        }
                     }
                 }
+
+                $progress = 0;
+                $progress = ($completeCount/count($lessons))*100;
+                $object = $progress;
             }
-
-            $progress = 0;
-            $progress = ($completeCount/count($lessons))*100;
-            $object = $progress;
-
-
         }
         catch(\Exception $e){
             $error = $e;
