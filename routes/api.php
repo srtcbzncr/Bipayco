@@ -136,6 +136,7 @@ Route::prefix('course')->group(function(){
     Route::get('{id}/canComment/{user_id}', 'API\GeneralEducation\CourseController@canComment')->name('api_course_can_comment');
     Route::get('{id}/generalEducation/previewLessons','API\GeneralEducation\CourseController@getPreviewLessons')->name('api_ge_preview_lessons');
     Route::get('{id}/prepareLessons/previewLessons','API\PrepareLessons\CourseController@getPreviewLessons')->name('api_pl_preview_lessons');
+    Route::get('{id}/prepareExams/previewLessons','API\PrepareExams\CourseController@getPreviewLessons')->name('api_pe_preview_lessons');
 
     #prepare lessons
     Route::get('getByLessonsFilterByNewest/{gradeId}/{lesson_id}/{user_id?}', 'API\PrepareLessons\CourseController@getByLessonFilterByNewest')->name('api_course_get_lesson_filter_by_newest');
