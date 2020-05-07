@@ -1488,32 +1488,7 @@ class CourseRepository implements IRepository{
             $progress = ($completeCount/count($lessons))*100;
             $object = $progress;
 
-            /* $student = Student::where('user_id', $user_id)->first();
-             $lessonsArray = array();
-             $course = Course::find($course_id);
-             $sections = $course->sections;
-             $student = Student::find($student->id);
-             $completedArray = array();
-             foreach ($sections as $section){
-                 $lessons = $section->lessons;
-                 foreach ($lessons as $lesson){
-                     array_push($lessonsArray, $lesson->id);
-                 }
-             }
-             $lessonCount = count($lessonsArray);
-             $completedCount = 0;
-             foreach ($student->geCompleted as $completed){
-                 if($completed->pivot->is_completed == true){
-                     array_push($completedArray, $completed->id);
-                 }
-             }
-             foreach ($lessonsArray as $lesson_id){
-                 if(in_array($lesson_id, $completedArray)){
-                     $completedCount = $completedCount + 1;
-                 }
-             }
-             $progressPercent = number_format($completedCount * (100/$lessonCount), 0);
-             $object = $progressPercent;*/
+
         }
         catch(\Exception $e){
             $error = $e;

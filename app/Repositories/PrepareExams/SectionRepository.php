@@ -75,7 +75,7 @@ class SectionRepository implements IRepository{
             $object = Section::find($id);
             $object->name = $data['name'];
             $object->subject_id = $data['subjectId'];
-            $object->lesson_id = $data['lesson_id'];
+            $object->lesson_id = $data['lessonId'];
             $object->save();
             DB::commit();
         }
