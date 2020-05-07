@@ -18,7 +18,12 @@
                 </div>
             </div>
             <div class="uk-width-1-2@m uk-visible@m">
-                <img src="{{asset($category->image)}}" alt="" class="uk-align-right img-xxlarge">
+                <div class="video-responsive">
+                    <div class="uk-cover-container">
+                        <img src="{{$category->image}}" alt="" uk-cover>
+                        <canvas style="max-height: 400px; max-width:600px;" width="600" height="400"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

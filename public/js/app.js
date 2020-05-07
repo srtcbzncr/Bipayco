@@ -6010,6 +6010,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -11569,7 +11573,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nli[data-v-0c09ca36]{\r\n    list-style-type: none;\n}\r\n", ""]);
+exports.push([module.i, "\nli[data-v-0c09ca36]{\n    list-style-type: none;\n}\n", ""]);
 
 // exports
 
@@ -18912,7 +18916,7 @@ var render = function() {
                       "-webkit-box-orient": "vertical"
                     }
                   },
-                  [_vm._v(_vm._s(_vm.course.category_id))]
+                  [_vm._v(_vm._s(_vm.course.category))]
                 )
               ])
             : _vm._e(),
@@ -18951,6 +18955,44 @@ var render = function() {
                     }
                   },
                   [_vm._v(_vm._s(_vm.grade.name))]
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.moduleName == "prepareExams"
+            ? _c("div", [
+                _c(
+                  "h4",
+                  {
+                    staticClass: "uk-height-small",
+                    staticStyle: {
+                      overflow: "hidden",
+                      "text-overflow": "ellipsis",
+                      display: "-webkit-box",
+                      "line-height": "16px",
+                      "max-height": "20px",
+                      "-webkit-line-clamp": "1",
+                      "-webkit-box-orient": "vertical"
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.course.name))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "uk-height-small",
+                    staticStyle: {
+                      overflow: "hidden",
+                      "text-overflow": "ellipsis",
+                      display: "-webkit-box",
+                      "line-height": "16px",
+                      "max-height": "16px",
+                      "-webkit-line-clamp": "1",
+                      "-webkit-box-orient": "vertical"
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.course.exam.name))]
                 )
               ])
             : _vm._e(),
@@ -44925,8 +44967,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\Bipayco\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\bedri\Documents\GitHub\Bipayco\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\bedri\Documents\GitHub\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
