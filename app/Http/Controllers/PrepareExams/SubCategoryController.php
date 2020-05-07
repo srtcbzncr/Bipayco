@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 class SubCategoryController extends Controller
 {
-    public function show(){
+    public function show($id){
         // initializing
         $repo = new ExamRepository();
 

@@ -41,7 +41,27 @@ class ExamRepository implements IRepository{
 
     public function get($id)
     {
-        // TODO: Implement get() method.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = Exam::find($id);
+            $repoCourse = new CurriculumRepository();
+            $resp = $repoCourse->showExamCourses($id);
+            $data = $resp->getData();
+            $object['courseCount'] = count($data);
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 
     public function create(array $data)
