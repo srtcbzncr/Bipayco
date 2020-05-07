@@ -26681,9 +26681,7 @@ var render = function() {
                   "course-id": _vm.courseId
                 }
               })
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.moduleName == "prepareExams" && _vm.isTest
+            : _vm.moduleName == "prepareExams" && _vm.isTest
             ? _c("test-area", {
                 attrs: {
                   "lesson-id": _vm.selected.lesson_id,

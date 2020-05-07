@@ -11,7 +11,7 @@
                            :user-id="userId"
                            :course-id="courseId"
                 ></test-area>
-                <test-area v-if="moduleName=='prepareExams'&&isTest"
+                <test-area v-else-if="moduleName=='prepareExams'&&isTest"
                            :lesson-id="selected.lesson_id"
                            :subject-id="selected.subject_id"
                            :test-type="testType"
