@@ -308,7 +308,7 @@
                 this.data[questionIndex].answer=changedDataArray;
             },
             postData:function () {
-                Axios.post('/api/learn/'+moduleName+'/createFirstLastTestStatus/create',{'userId':this.userId, 'sectionType':this.moduleName, 'sectionId':this.sectionId, 'testType':this.testType, 'courseId':this.courseId, 'answers':this.data})
+                Axios.post('/api/learn/'+this.moduleName+'/createFirstLastTestStatus/create',{'userId':this.userId, 'sectionType':this.moduleName, 'sectionId':this.sectionId, 'testType':this.testType, 'courseId':this.courseId, 'answers':this.data})
                     .then(response=>{
                         if(!response.error){
                             if(response.data.data.result){
@@ -323,7 +323,7 @@
             }
         },
         created(){
-            Axios.get('/api/learn/'+moduleName+'/getRandomQuestions/'+this.courseId+'/'+this.lessonId+'/'+this.subjectId)
+            Axios.get('/api/learn/'+this.moduleName+'/getRandomQuestions/'+this.courseId+'/'+this.lessonId+'/'+this.subjectId)
                 .then(response=>this.loadData(response.data.data.questions))
         },
     }

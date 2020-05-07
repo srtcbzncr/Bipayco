@@ -10977,7 +10977,7 @@ __webpack_require__.r(__webpack_exports__);
     postData: function postData() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/learn/' + moduleName + '/createFirstLastTestStatus/create', {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/learn/' + this.moduleName + '/createFirstLastTestStatus/create', {
         'userId': this.userId,
         'sectionType': this.moduleName,
         'sectionId': this.sectionId,
@@ -11010,7 +11010,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this2 = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/learn/' + moduleName + '/getRandomQuestions/' + this.courseId + '/' + this.lessonId + '/' + this.subjectId).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/learn/' + this.moduleName + '/getRandomQuestions/' + this.courseId + '/' + this.lessonId + '/' + this.subjectId).then(function (response) {
       return _this2.loadData(response.data.data.questions);
     });
   }
