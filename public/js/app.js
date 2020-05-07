@@ -11245,6 +11245,24 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         return '';
       }
+    },
+    module: function module() {
+      switch (moduleName) {
+        case 'prepareExams':
+          {
+            return 'pe';
+          }
+
+        case 'prepareLessons':
+          {
+            return 'pl';
+          }
+
+        default:
+          {
+            return 'ge';
+          }
+      }
     }
   },
   methods: {
@@ -26857,8 +26875,8 @@ var render = function() {
                                               ? _c(
                                                   "ul",
                                                   [
-                                                    _vm.moduleName ==
-                                                    "prepareLessons"
+                                                    _vm.moduleName !=
+                                                    "generalEducation"
                                                       ? _c(
                                                           "a",
                                                           {
@@ -26866,7 +26884,9 @@ var render = function() {
                                                               "uk-link-reset",
                                                             attrs: {
                                                               href:
-                                                                "/learn/pl/test/firstTest/" +
+                                                                "/learn/" +
+                                                                _vm.module +
+                                                                "/test/firstTest/" +
                                                                 _vm.courseId +
                                                                 "/" +
                                                                 section.id
@@ -27203,8 +27223,8 @@ var render = function() {
                                                       }
                                                     ),
                                                     _vm._v(" "),
-                                                    _vm.moduleName ==
-                                                    "prepareLessons"
+                                                    _vm.moduleName !=
+                                                    "generalEducation"
                                                       ? _c(
                                                           "a",
                                                           {
@@ -27212,7 +27232,9 @@ var render = function() {
                                                               "uk-link-reset",
                                                             attrs: {
                                                               href:
-                                                                "/learn/pl/test/lastTest/" +
+                                                                "/learn/" +
+                                                                _vm.module +
+                                                                "/test/lastTest/" +
                                                                 _vm.courseId +
                                                                 "/" +
                                                                 section.id
@@ -27312,8 +27334,8 @@ var render = function() {
                                               : _c(
                                                   "ul",
                                                   [
-                                                    _vm.moduleName ==
-                                                    "prepareLessons"
+                                                    _vm.moduleName !=
+                                                    "generalEducation"
                                                       ? _c(
                                                           "a",
                                                           {
@@ -27390,8 +27412,8 @@ var render = function() {
                                                       }
                                                     ),
                                                     _vm._v(" "),
-                                                    _vm.moduleName ==
-                                                    "prepareLessons"
+                                                    _vm.moduleName !=
+                                                    "generalEducation"
                                                       ? _c(
                                                           "a",
                                                           {

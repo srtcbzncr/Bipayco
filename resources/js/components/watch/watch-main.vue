@@ -46,7 +46,7 @@
                                             <div class="uk-accordion-content uk-margin-remove-top">
                                                 <div class="tm-course-section-list">
                                                     <ul v-if="section.canAccess">
-                                                        <a v-if="moduleName=='prepareLessons'" :href="'/learn/pl/test/firstTest/'+courseId+'/'+section.id" class="uk-link-reset">
+                                                        <a v-if="moduleName!='generalEducation'" :href="'/learn/'+module+'/test/firstTest/'+courseId+'/'+section.id" class="uk-link-reset">
                                                             <li v-if="isTest&&testType=='0'&&selected.id==section.id" class="uk-background-primary currentLesson align-items-center">
                                                                 <span class="uk-icon-button currentLesson icon-play uk-button-primary"> <i class="fas fa-star icon-small uk-margin-remove"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">Ön Test</div>
@@ -79,7 +79,7 @@
                                                                 <span v-if="lesson.is_video" class="uk-visible@l uk-position-center-right time uk-margin-small-right">  {{lesson.long}}</span>
                                                             </li>
                                                         </a>
-                                                        <a v-if="moduleName=='prepareLessons'" :href="'/learn/pl/test/lastTest/'+courseId+'/'+section.id" class="uk-link-reset">
+                                                        <a v-if="moduleName!='generalEducation'" :href="'/learn/'+module+'/test/lastTest/'+courseId+'/'+section.id" class="uk-link-reset">
                                                             <li v-if="isTest&&testType=='1'&&selected.id==section.id" class="uk-background-default currentLesson align-items-center">
                                                                 <span class="uk-icon-button icon-play uk-button-primary currentLesson "> <i class="fas fa-star icon-small uk-margin-remove"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">Son Test</div>
@@ -95,7 +95,7 @@
                                                         </a>
                                                     </ul>
                                                     <ul v-else>
-                                                        <a v-if="moduleName=='prepareLessons'" class="uk-link-reset">
+                                                        <a v-if="moduleName!='generalEducation'" class="uk-link-reset">
                                                             <li class="uk-background-default align-items-center">
                                                                 <span class="uk-icon-button icon-play"> <i class="fas fa-lock icon-small uk-margin-remove"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">Ön Test</div>
@@ -108,7 +108,7 @@
                                                                 <span v-if="lesson.is_video" class="uk-visible@l uk-position-center-right time uk-margin-small-right">  {{lesson.long}}</span>
                                                             </li>
                                                         </a>
-                                                        <a v-if="moduleName=='prepareLessons'" class="uk-link-reset">
+                                                        <a v-if="moduleName!='generalEducation'" class="uk-link-reset">
                                                             <li class="uk-background-default align-items-center">
                                                                 <span class="uk-icon-button icon-play"> <i class="fas fa-lock icon-small uk-margin-remove"></i> </span>
                                                                 <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-large-right">Son Test</div>
@@ -210,6 +210,19 @@
                     return this.course.nextLessonId;
                 }else{
                     return ''
+                }
+            },
+            module(){
+                switch (moduleName) {
+                    case 'prepareExams':{
+                        return 'pe'
+                    }
+                    case 'prepareLessons':{
+                        return 'pl'
+                    }
+                    default:{
+                        return 'ge'
+                    }
                 }
             }
         },
