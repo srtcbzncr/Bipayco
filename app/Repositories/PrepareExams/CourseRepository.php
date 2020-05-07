@@ -975,7 +975,9 @@ class CourseRepository implements IRepository{
             $sections = Section::where('course_id',$id)->where('deleted_at',null)->orderBy('no','asc')->get();
             foreach ($sections as $keySection=>$section){
                 $subject = Subject::find($section->subject_id);
+                $crLesson = \App\Models\Curriculum\Lesson::find($section->lesson_id);
                 $sections[$keySection]['subject_name'] = $subject->name;
+                $sections[$keySection]['lesson_name'] = $crLesson->name;
             }
 
             $object['sections'] = $sections;
@@ -1190,7 +1192,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $course = Course::find($id);
-            $courses = Course::where('lesson_id',$course->lesson_id)->where('deleted_at',null)->where('exam_id',$course->exam_id)
+            $courses = Course::where('exam_id',$course->exam_id)->where('deleted_at',null)
                 ->where('active',true)->get();
             if(count($courses)>2){
                 $object = $courses->random(2);
