@@ -15,6 +15,8 @@ class CourseController extends Controller
 {
     public function createGet($id = null){
         if($id==null){
+            $exams = Exam::all();
+            View::share('exams',$exams);
             return view("prepare_for_exams.course_create");
         }
         else{

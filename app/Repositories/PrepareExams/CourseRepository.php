@@ -1204,7 +1204,7 @@ class CourseRepository implements IRepository{
             else{
                 $object = array();
             }
-            // lesson ve grade bilgilerini getir.
+            // exam bilgisini ver
             if(count($object)>0){
                 foreach ($object as $key => $item){
                     $exam = Exam::find($item->exam_id);
@@ -1409,7 +1409,7 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
-    public function getGrade($id){
+    public function getExam($id){
         // Response variables
         $result = true;
         $error = null;
@@ -1418,7 +1418,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $course = Course::find($id);
-            $object = $course->grade;
+            $object = $course->exam;
         }
         catch(\Exception $e){
             $error = $e;
