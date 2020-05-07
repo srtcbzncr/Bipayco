@@ -9471,6 +9471,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -9535,9 +9539,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       required: true
     },
-    subjectNameText: {
+    subjectText: {
       type: String,
       "default": "Konu"
+    },
+    lessonText: {
+      type: String,
+      "default": "Ders"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['sections', 'selectedSectionIndex', 'courseSubjects'])),
@@ -23619,7 +23627,7 @@ var render = function() {
         _vm.moduleName == "prepareLessons"
           ? _c("div", { staticClass: "uk-margin-small-top" }, [
               _c("div", { staticClass: "uk-form-label" }, [
-                _vm._v(_vm._s(_vm.subjectNameText))
+                _vm._v(_vm._s(_vm.subjectText))
               ]),
               _vm._v(" "),
               _c(
@@ -23660,43 +23668,28 @@ var render = function() {
           : _vm._e(),
         _vm._v(" "),
         _vm.moduleName == "prepareExams"
-          ? _c("div", { staticClass: "uk-margin-small-top" }, [
-              _c("div", { staticClass: "uk-form-label" }, [
-                _vm._v(_vm._s(_vm.subjectNameText))
-              ]),
-              _vm._v(" "),
-              _c(
-                "select",
-                { staticClass: "uk-width uk-select" },
-                [
-                  _c(
-                    "option",
-                    {
-                      attrs: { disabled: "", hidden: "", selected: "" },
-                      domProps: {
-                        value: _vm.sections[_vm.selectedSectionIndex].subject_id
-                      }
-                    },
-                    [
-                      _vm._v(
-                        " " +
-                          _vm._s(
-                            _vm.sections[_vm.selectedSectionIndex].subject_name
-                          ) +
-                          " "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm._l(_vm.courseSubjects, function(subject) {
-                    return _c("option", { domProps: { value: subject.id } }, [
-                      _vm._v(" " + _vm._s(subject.name))
-                    ])
-                  })
-                ],
-                2
-              )
-            ])
+          ? _c(
+              "div",
+              { staticClass: "uk-margin-small-top" },
+              [
+                _c("cr-lesson-select", {
+                  attrs: {
+                    "lesson-default-text": _vm.lessonText,
+                    "subject-default-text": _vm.subjectText,
+                    "has-selected-option": "",
+                    "selected-lesson":
+                      _vm.sections[_vm.selectedSectionIndex].lesson_name,
+                    "selected-lesson-id":
+                      _vm.sections[_vm.selectedSectionIndex].lesson_id,
+                    "selected-subject":
+                      _vm.sections[_vm.selectedSectionIndex].subject_name,
+                    "selected-subject-id":
+                      _vm.sections[_vm.selectedSectionIndex].subject_id
+                  }
+                })
+              ],
+              1
+            )
           : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "uk-margin-small-top" }, [
