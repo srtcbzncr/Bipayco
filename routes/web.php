@@ -131,6 +131,17 @@ Route::group(['prefix' => 'learn', 'middleware' => 'auth'],function (){
           Route::get('/lastTest/{courseId}/{sectionId}','PrepareLesson\LearnController@getLastTest')->name('learn_pl_get_last_test');
        });
    });
+   
+   Route::group(['prefix' => 'pe'],function (){
+       Route::get('/course/{course_id}','PrepareExams\LearnController@getCourse')->name('learn_pe_course_get');
+       Route::get('/course/{course_id}/lesson/{lesson_id}','PrepareExams\LearnController@getLesson')->name('learn_pe_lesson_get');
+       Route::group(['prefix' => 'test'],function (){
+          Route::get('/firstTest/{courseId}/{sectionId}','PrepareExams\LearnController@getFirstTest')->name('learn_pe_get_first_test');
+          Route::get('/lastTest/{courseId}/{sectionId}','PrepareExams\LearnController@getLastTest')->name('learn_pe_get_last_test');
+       });
+   });
+
+
 });
 
 
