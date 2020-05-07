@@ -12,15 +12,17 @@
             </select>
         </div>
         <div class="uk-margin-small-top" v-else-if="moduleName=='prepareExams'">
-            <cr-lesson-select
-                :lesson-default-text="lessonText"
-                :subject-default-text="subjectText"
-                has-selected-option
-                :selected-lesson="String(sections[selectedSectionIndex].lesson_name)"
-                :selected-lesson-id="String(sections[selectedSectionIndex].lesson_id)"
-                :selected-subject="String(sections[selectedSectionIndex].subject_name)"
-                :selected-subject-id="String(sections[selectedSectionIndex].subject_id)"
-            ></cr-lesson-select>
+            <form id="crLessonSettingForm">
+                <cr-lesson-select
+                    :lesson-default-text="lessonText"
+                    :subject-default-text="subjectText"
+                    has-selected-option
+                    :selected-lesson-name="sections[selectedSectionIndex].lesson_name"
+                    :selected-lesson-id="String(sections[selectedSectionIndex].lesson_id)"
+                    :selected-subject="sections[selectedSectionIndex].subject_name"
+                    :selected-subject-id="String(sections[selectedSectionIndex].subject_id)"
+                ></cr-lesson-select>
+            </form>
         </div>
         <div class="uk-margin-small-top">
             <div class="uk-form-label">{{sectionNameText}}</div>
@@ -59,7 +61,7 @@
                 <button class="uk-button uk-button-grey uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="updateSection" uk-toggle="target: .sectionSettings">{{saveText}}</button>
             </div>
             <div class="uk-width-1-2@m">
-                <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" uk-toggle="target: .sectionSettings"> {{cancelText}} </button>
+                <button class="uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right" @click="clear" uk-toggle="target: .sectionSettings"> {{cancelText}} </button>
             </div>
         </div>
     </div>
@@ -181,6 +183,9 @@
             lessonDown:function (lessonId) {
                 axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/section/'+this.sections[this.selectedSectionIndex].id+'/lesson/'+lessonId+'/down')
                     .then(this.$store.dispatch('loadSections',[this.moduleName, this.courseId]))
+            },
+            clear:function () {
+                document.getElementById("crLessonSettingForm").reset();
             }
         },
         mounted() {

@@ -8424,11 +8424,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": false
     },
     selectedSubject: String,
-    selectedLesson: String,
+    selectedLessonName: String,
     selectedSubjectId: String,
     selectedLessonId: {
       type: String,
       "default": ""
+    }
+  },
+  watch: {
+    selectedLessonId: function selectedLessonId() {
+      this.selected = this.selectedLessonId;
     }
   },
   computed: _objectSpread({
@@ -8449,7 +8454,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.changing = document.getElementById('crLessonId').value === this.selectedLessonId;
     }
   }),
-  mounted: function mounted() {
+  created: function created() {
     this.$store.dispatch('loadCrLessons');
   }
 });
@@ -9478,6 +9483,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -9588,6 +9595,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     lessonDown: function lessonDown(lessonId) {
       axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.sections[this.selectedSectionIndex].id + '/lesson/' + lessonId + '/down').then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
+    },
+    clear: function clear() {
+      document.getElementById("crLessonSettingForm").reset();
     }
   }),
   mounted: function mounted() {
@@ -22474,9 +22484,9 @@ var render = function() {
                 "option",
                 {
                   attrs: { hidden: "", selected: "" },
-                  domProps: { value: String(_vm.selectedLessonId) }
+                  domProps: { value: _vm.selectedLessonId }
                 },
-                [_vm._v(_vm._s(_vm.selectedLesson) + " ")]
+                [_vm._v(_vm._s(_vm.selectedLessonName))]
               )
             : _vm._e(),
           _vm._v(" "),
@@ -22513,7 +22523,7 @@ var render = function() {
                 "option",
                 {
                   attrs: { selected: "", hidden: "" },
-                  domProps: { value: String(_vm.selectedSubjectId) }
+                  domProps: { value: _vm.selectedSubjectId }
                 },
                 [_vm._v(_vm._s(_vm.selectedSubject) + " ")]
               )
@@ -23672,32 +23682,32 @@ var render = function() {
               )
             ])
           : _vm.moduleName == "prepareExams"
-          ? _c(
-              "div",
-              { staticClass: "uk-margin-small-top" },
-              [
-                _c("cr-lesson-select", {
-                  attrs: {
-                    "lesson-default-text": _vm.lessonText,
-                    "subject-default-text": _vm.subjectText,
-                    "has-selected-option": "",
-                    "selected-lesson": String(
-                      _vm.sections[_vm.selectedSectionIndex].lesson_name
-                    ),
-                    "selected-lesson-id": String(
-                      _vm.sections[_vm.selectedSectionIndex].lesson_id
-                    ),
-                    "selected-subject": String(
-                      _vm.sections[_vm.selectedSectionIndex].subject_name
-                    ),
-                    "selected-subject-id": String(
-                      _vm.sections[_vm.selectedSectionIndex].subject_id
-                    )
-                  }
-                })
-              ],
-              1
-            )
+          ? _c("div", { staticClass: "uk-margin-small-top" }, [
+              _c(
+                "form",
+                { attrs: { id: "crLessonSettingForm" } },
+                [
+                  _c("cr-lesson-select", {
+                    attrs: {
+                      "lesson-default-text": _vm.lessonText,
+                      "subject-default-text": _vm.subjectText,
+                      "has-selected-option": "",
+                      "selected-lesson-name":
+                        _vm.sections[_vm.selectedSectionIndex].lesson_name,
+                      "selected-lesson-id": String(
+                        _vm.sections[_vm.selectedSectionIndex].lesson_id
+                      ),
+                      "selected-subject":
+                        _vm.sections[_vm.selectedSectionIndex].subject_name,
+                      "selected-subject-id": String(
+                        _vm.sections[_vm.selectedSectionIndex].subject_id
+                      )
+                    }
+                  })
+                ],
+                1
+              )
+            ])
           : _vm._e(),
         _vm._v(" "),
         _c("div", { staticClass: "uk-margin-small-top" }, [
@@ -23898,7 +23908,8 @@ var render = function() {
               {
                 staticClass:
                   "uk-button uk-button-default uk-width uk-margin-small-top uk-margin-small-left uk-margin-small-right",
-                attrs: { "uk-toggle": "target: .sectionSettings" }
+                attrs: { "uk-toggle": "target: .sectionSettings" },
+                on: { click: _vm.clear }
               },
               [_vm._v(" " + _vm._s(_vm.cancelText) + " ")]
             )
