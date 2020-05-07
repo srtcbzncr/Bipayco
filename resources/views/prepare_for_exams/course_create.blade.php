@@ -20,9 +20,20 @@
                                 <h4>@lang('front/auth.course_detail')</h4>
                             </div>
                             <hr>
+                            <div class="uk-form-label">@lang('front/auth.exam')</div>
                             @if(isset($course))
-
+                                <select id="courseExam" class="uk-select uk-width" value="{{$course->exam->id}}">
+                                    @foreach($exams as $exam)
+                                        <option value="{{$exam->id}}">{{$exam->name}}</option>
+                                    @endforeach
+                                </select>
                             @else
+                                <select id="courseExam" class="uk-select uk-width">
+                                    <option selected disabled hidden>@lang('front/auth.exam')</option>
+                                    @foreach($exams as $exam)
+                                        <option value="{{$exam->id}}">{{$exam->name}}</option>
+                                    @endforeach
+                                </select>
                             @endif
                             <div class="uk-margin-remove-bottom uk-margin-remove-top">
                                 <input type="text" value="{{Auth::user()->instructor->id}}" id="instructorId" hidden disabled>
