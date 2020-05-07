@@ -161,8 +161,8 @@
                 if(this.moduleName=='prepareLessons') {
                     formData.append('subjectId', document.getElementById('courseSubject').value);
                 }else if(this.moduleName=='prepareExams'){
-                    formData.append('subjectId', document.getElementById('subjectId').value);
-                    formData.append('lessonId', document.getElementById('lessonId').value);
+                    formData.append('subjectId', document.getElementById('crSubjectId').value);
+                    formData.append('lessonId', document.getElementById('crLessonId').value);
                 }
                 axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/sections/create/'+this.sections[this.selectedSectionIndex].id, formData)
                     .then(response=>{

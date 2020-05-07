@@ -121,6 +121,9 @@
                 formData.append('courseId', this.courseId);
                 if(this.moduleName=='prepareLessons'){
                     formData.append('subjectId', document.getElementById('courseSubject').value);
+                }else if(this.moduleName=='prepareExams'){
+                    formData.append('subjectId', document.getElementById('crSubjectId').value);
+                    formData.append('lessonId', document.getElementById('crLessonId').value);
                 }
                 axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/sections/create', formData)
                     .then(response=>response.data)

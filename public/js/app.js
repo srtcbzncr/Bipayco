@@ -8061,6 +8061,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       if (this.moduleName == 'prepareLessons') {
         formData.append('subjectId', document.getElementById('courseSubject').value);
+      } else if (this.moduleName == 'prepareExams') {
+        formData.append('subjectId', document.getElementById('crSubjectId').value);
+        formData.append('lessonId', document.getElementById('crLessonId').value);
       }
 
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/create', formData).then(function (response) {
@@ -9560,8 +9563,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.moduleName == 'prepareLessons') {
         formData.append('subjectId', document.getElementById('courseSubject').value);
       } else if (this.moduleName == 'prepareExams') {
-        formData.append('subjectId', document.getElementById('subjectId').value);
-        formData.append('lessonId', document.getElementById('lessonId').value);
+        formData.append('subjectId', document.getElementById('crSubjectId').value);
+        formData.append('lessonId', document.getElementById('crLessonId').value);
       }
 
       axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/create/' + this.sections[this.selectedSectionIndex].id, formData).then(function (response) {
@@ -22445,7 +22448,7 @@ var render = function() {
             }
           ],
           staticClass: "uk-select uk-margin-small-bottom",
-          attrs: { name: "lesson", id: "lessonId", required: "" },
+          attrs: { name: "lesson", id: "crLessonId", required: "" },
           on: {
             change: [
               function($event) {
@@ -22502,7 +22505,7 @@ var render = function() {
         "select",
         {
           staticClass: "uk-select",
-          attrs: { name: "subject", id: "subjectId", required: "" }
+          attrs: { name: "subject", id: "crSubjectId", required: "" }
         },
         [
           _vm.hasSelectedOption && _vm.hasChange
