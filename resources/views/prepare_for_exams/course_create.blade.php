@@ -110,7 +110,7 @@
                                 </label>
                             </div>
                             <div class="uk-margin">
-                                <input class="uk-button uk-button-grey button uk-margin uk-width-small@m" type="button" @if(isset($course)) onclick="coursePost('prepareLessons',false)" @else onclick="coursePost('prepareLessons',true)" @endif  value="@lang('front/auth.save')">
+                                <input class="uk-button uk-button-grey button uk-margin uk-width-small@m" type="button" @if(isset($course)) onclick="coursePost('prepareExams',false)" @else onclick="coursePost('prepareExams',true)" @endif  value="@lang('front/auth.save')">
                             </div>
                             </form>
                         </div>

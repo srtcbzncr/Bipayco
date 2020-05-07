@@ -9,7 +9,7 @@
         </div>
         <div class="uk-width-1-2@l">
             <select class="uk-select" name="subject" id="crSubjectId" required>
-                <option v-if="hasSelectedOption && hasChange" selected hidden :value="selectedSubCategoryId">{{selectedSubject}} </option>
+                <option v-if="hasSelectedOption && hasChange" selected hidden :value="selectedSubjectId">{{selectedSubject}} </option>
                 <option v-if="!(hasSelectedOption)|| !hasChange" disabled hidden selected value="">{{subjectDefaultText}}</option>
                 <option v-for='subject in subjects' :value='subject.id'>{{subject.name}}</option>
             </select>
@@ -68,7 +68,7 @@
             loadSubjectsList: function(){
                 Axios.get('/api/instructor/subjects/lesson/'+this.selectedId)
                 .then((res)=>{this.subjects=res.data.data});
-                this.changing=document.getElementById('lesson').value===this.selectedLessonId;
+                this.changing=document.getElementById('crLessonId').value===this.selectedLessonId;
             },
         },
         mounted () {

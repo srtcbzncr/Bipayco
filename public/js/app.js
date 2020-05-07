@@ -8446,7 +8446,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/instructor/subjects/lesson/' + this.selectedId).then(function (res) {
         _this.subjects = res.data.data;
       });
-      this.changing = document.getElementById('lesson').value === this.selectedLessonId;
+      this.changing = document.getElementById('crLessonId').value === this.selectedLessonId;
     }
   }),
   mounted: function mounted() {
@@ -22513,7 +22513,7 @@ var render = function() {
                 "option",
                 {
                   attrs: { selected: "", hidden: "" },
-                  domProps: { value: _vm.selectedSubCategoryId }
+                  domProps: { value: _vm.selectedSubjectId }
                 },
                 [_vm._v(_vm._s(_vm.selectedSubject) + " ")]
               )

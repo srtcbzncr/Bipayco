@@ -114,6 +114,10 @@
             formData.append('grade_id',document.querySelector('#gradeType').value);
             formData.append('lesson_id',document.querySelector('#lessonType').value);
             url="pl";
+        }else if(moduleName=="prepareExams"){
+            formData.append('score',document.querySelector('#score').value);
+            formData.append('exam_id',document.querySelector('#courseExam').value);
+            url="pe";
         }
         if(document.querySelector('#certificate').checked){
             formData.append('certificate',1);
