@@ -4,6 +4,7 @@ namespace App\Http\Controllers\PrepareExams;
 
 use App\Http\Controllers\Controller;
 use App\Models\Auth\Instructor;
+use App\Models\Curriculum\Exam;
 use App\Models\PrepareExams\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,9 +27,13 @@ class CourseController extends Controller
                 if($geCourseInstructor != null){
                     if($geCourseInstructor->is_manager == 1){
                         if($course==null){
+                            $exams = Exam::all();
+                            View::share('exams',$exams);
                             return view("prepare_for_exams.course_create");
                         }
                         else{
+                            $exams = Exam::all();
+                            View::share('exams',$exams);
                             View::share('course',$course);
                             return view("prepare_for_exams.course_create");
                         }
