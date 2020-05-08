@@ -6,6 +6,7 @@ use App\Models\Auth\Instructor;
 use App\Models\Auth\Student;
 use App\Models\Auth\User;
 use App\Models\GeneralEducation\Achievement;
+use App\Models\GeneralEducation\Category;
 use App\Models\GeneralEducation\Comment;
 use App\Models\GeneralEducation\Entry;
 use App\Models\GeneralEducation\Lesson;
@@ -13,6 +14,7 @@ use App\Models\GeneralEducation\Purchase;
 use App\Models\GeneralEducation\Requirement;
 use App\Models\GeneralEducation\Section;
 use App\Models\GeneralEducation\Source;
+use App\Models\GeneralEducation\SubCategory;
 use App\Models\GeneralEducation\Tag;
 use App\Models\UsersOperations\Basket;
 use App\Models\UsersOperations\Favorite;
@@ -62,6 +64,11 @@ class CourseRepository implements IRepository{
                 ->orderBy('point', 'desc')
                 ->take(12)
                 ->get();
+
+            foreach ($object as $key=>$item){
+                $subcategory = SubCategory::find($item->sub_category_id);
+                $object[$key]['subCategory'] = $subcategory;
+            }
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
@@ -256,6 +263,11 @@ class CourseRepository implements IRepository{
                 ->latest()
                 ->paginate(9);
 
+            foreach ($object as $key=>$item){
+                $subcategory = SubCategory::find($item->sub_category_id);
+                $object[$key]['subCategory'] = $subcategory;
+            }
+
              # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
@@ -310,6 +322,11 @@ class CourseRepository implements IRepository{
                 ->oldest()
                 ->paginate(9);
 
+            foreach ($object as $key=>$item){
+                $subcategory = SubCategory::find($item->sub_category_id);
+                $object[$key]['subCategory'] = $subcategory;
+            }
+
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
@@ -362,6 +379,11 @@ class CourseRepository implements IRepository{
                 ->where('deleted_at',null)
                 ->orderBy('price_with_discount', 'asc')
                 ->paginate(9);
+
+            foreach ($object as $key=>$item){
+                $subcategory = SubCategory::find($item->sub_category_id);
+                $object[$key]['subCategory'] = $subcategory;
+            }
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
@@ -416,6 +438,11 @@ class CourseRepository implements IRepository{
                 ->orderBy('price_with_discount', 'desc')
                 ->paginate(9);
 
+            foreach ($object as $key=>$item){
+                $subcategory = SubCategory::find($item->sub_category_id);
+                $object[$key]['subCategory'] = $subcategory;
+            }
+
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
@@ -469,6 +496,11 @@ class CourseRepository implements IRepository{
                 ->orderBy('point', 'desc')
                 ->paginate(9);
 
+            foreach ($object as $key=>$item){
+                $subcategory = SubCategory::find($item->sub_category_id);
+                $object[$key]['subCategory'] = $subcategory;
+            }
+
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
@@ -521,6 +553,11 @@ class CourseRepository implements IRepository{
                 ->where('deleted_at',null)
                 ->orderBy('purchase_count', 'desc')
                 ->paginate(9);
+
+            foreach ($object as $key=>$item){
+                $subcategory = SubCategory::find($item->sub_category_id);
+                $object[$key]['subCategory'] = $subcategory;
+            }
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
@@ -576,6 +613,11 @@ class CourseRepository implements IRepository{
                 ->orderBy('point','desc')
                 ->paginate(9);
 
+            foreach ($object as $key=>$item){
+                $subcategory = SubCategory::find($item->sub_category_id);
+                $object[$key]['subCategory'] = $subcategory;
+            }
+
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
@@ -628,6 +670,11 @@ class CourseRepository implements IRepository{
                 ->where('deleted_at',null)
                 ->latest()
                 ->paginate(9);
+
+            foreach ($object as $key=>$item){
+                $subcategory = SubCategory::find($item->sub_category_id);
+                $object[$key]['subCategory'] = $subcategory;
+            }
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
@@ -683,6 +730,11 @@ class CourseRepository implements IRepository{
                 ->oldest()
                 ->paginate(9);
 
+            foreach ($object as $key=>$item){
+                $subcategory = SubCategory::find($item->sub_category_id);
+                $object[$key]['subCategory'] = $subcategory;
+            }
+
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
@@ -735,6 +787,11 @@ class CourseRepository implements IRepository{
                 ->where('deleted_at',null)
                 ->orderBy('price_with_discount', 'asc')
                 ->paginate(9);
+
+            foreach ($object as $key=>$item){
+                $subcategory = SubCategory::find($item->sub_category_id);
+                $object[$key]['subCategory'] = $subcategory;
+            }
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
@@ -789,6 +846,11 @@ class CourseRepository implements IRepository{
                 ->orderBy('price_with_discount', 'desc')
                 ->paginate(9);
 
+            foreach ($object as $key=>$item){
+                $subcategory = SubCategory::find($item->sub_category_id);
+                $object[$key]['subCategory'] = $subcategory;
+            }
+
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
@@ -841,6 +903,11 @@ class CourseRepository implements IRepository{
                 ->where('deleted_at',null)
                 ->orderBy('point', 'desc')
                 ->paginate(9);
+
+            foreach ($object as $key=>$item){
+                $subcategory = SubCategory::find($item->sub_category_id);
+                $object[$key]['subCategory'] = $subcategory;
+            }
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
@@ -895,6 +962,11 @@ class CourseRepository implements IRepository{
                 ->orderBy('purchase_count', 'desc')
                 ->paginate(9);
 
+            foreach ($object as $key=>$item){
+                $subcategory = SubCategory::find($item->sub_category_id);
+                $object[$key]['subCategory'] = $subcategory;
+            }
+
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
@@ -948,6 +1020,11 @@ class CourseRepository implements IRepository{
                 ->orderBy('purchase_count', 'desc')
                 ->orderBy('point','desc')
                 ->paginate(9);
+
+            foreach ($object as $key=>$item){
+                $subcategory = SubCategory::find($item->sub_category_id);
+                $object[$key]['subCategory'] = $subcategory;
+            }
 
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
@@ -1736,6 +1813,7 @@ class CourseRepository implements IRepository{
                 $object = array();
             }
 
+
             if(count($object) > 0 and $user_id != null){
                 foreach ($object as $key => $item){
                     $contorlBasket = DB::table('basket')->where('user_id',$user_id)->where('course_id',$item->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
@@ -1753,6 +1831,11 @@ class CourseRepository implements IRepository{
                     else{
                         $object[$key]['inFavorite'] = false;
                     }
+                }
+
+                foreach ($object as $key=>$item){
+                    $subcategory = SubCategory::find($item->sub_category_id);
+                    $object[$key]['subCategory'] = $subcategory;
                 }
             }
         }
