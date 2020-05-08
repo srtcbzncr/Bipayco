@@ -31,6 +31,10 @@ class HomeController extends Controller
         return view('admin.grade');
     }
 
+    public function exam(){
+        return view('admin.exams');
+    }
+
     public function lesson(){
         return view('admin.lesson');
     }

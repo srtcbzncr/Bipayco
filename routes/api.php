@@ -388,5 +388,12 @@ Route::prefix('admin')->group(function (){
            Route::post('/delete/{subjectId}','API\Admin\SubjectController@deleteSubject')->name('admin_cr_subject_delete');
            Route::post('/update/{subjectId}','API\Admin\SubjectController@updateSubject')->name('admin_cr_subject_update');
        });
+       Route::prefix('exam')->group(function (){
+           Route::post('/create','API\Admin\ExamController@createExam')->name('admin_cr_exam_create');
+           Route::get('/show','API\Admin\ExamController@showExams')->name('admin_cr_exam_show');
+           Route::get('/show/{examId}','API\Admin\ExamController@showExam')->name('admin_cr_exam_show_exam');
+           Route::post('/delete/{examId}','API\Admin\ExamController@deleteExam')->name('admin_cr_exam_delete');
+           Route::post('/update/{examId}','API\Admin\ExamController@updateExam')->name('admin_cr_exam_update');
+       });
    });
 });
