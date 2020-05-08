@@ -1,3 +1,4 @@
+
 <template>
     <div class="uk-container">
         <ul uk-switcher="connect: #lessons" class="uk-flex-center uk-margin-medium-top uk-subnav uk-subnav-pill uk-margin-remove-bottom">
