@@ -4,6 +4,7 @@ namespace App\Repositories\GeneralEducation;
 
 use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\Lesson;
+use App\Models\GeneralEducation\SubCategory;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use App\Repositories\GeneralEducation\LessonRepository;
@@ -249,6 +250,9 @@ class SectionRepository implements IRepository{
         try{
             $section = Section::find($id);
             $object = $section->course;
+
+            $subcategory = SubCategory::find($object->sub_category_id);
+            $object['subCategory'] = $subcategory;
         }
         catch(\Exception $e){
             $error = $e;

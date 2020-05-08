@@ -247,10 +247,18 @@ class SubCategoryRepository implements IRepository{
             if($user == null){
                 $subCategory = SubCategory::find($id);
                 $object = $subCategory->courses->where('active',true);
+                foreach ($object as $key=>$item){
+                    $subcategory = SubCategory::find($item->sub_category_id);
+                    $object[$key]['subCategory'] = $subcategory;
+                }
             }
             else{
                 $subCategory = SubCategory::find($id);
                 $object = $subCategory->courses;
+                foreach ($object as $key=>$item){
+                    $subcategory = SubCategory::find($item->sub_category_id);
+                    $object[$key]['subCategory'] = $subcategory;
+                }
 
                 foreach ($object as $key => $course){
                     $controlBasket = Basket::where('user_id',$user->id)->where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
