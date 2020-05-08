@@ -385,10 +385,15 @@ class InstructorRepository implements IRepository{
 
         // Operations
         try{
-            $object = array();
+            $data = DB::table('ge_courses_instructors')->where('instructor_id',Auth::user()->instructor->id)
+                ->where('deleted_at',null)->where('course_type','App\Models\PrepareExams\Course')
+                ->orderBy('created_at','desc')->take(20)->get();
+            foreach ($data as $key => $item){
+                $object[$key] = \App\Models\PrepareExams\Course::find($item->course_id);
+            }
         }
         catch (\Exception $e){
-            $error = $e;
+            $error = $e->getMessage();
             $result = false;
         }
 
