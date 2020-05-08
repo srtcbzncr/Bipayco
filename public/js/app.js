@@ -18917,7 +18917,7 @@ var render = function() {
                       "-webkit-box-orient": "vertical"
                     }
                   },
-                  [_vm._v(_vm._s(_vm.course.category))]
+                  [_vm._v(_vm._s(_vm.course.subCategory.name))]
                 )
               ])
             : _vm._e(),
