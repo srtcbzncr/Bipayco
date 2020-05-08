@@ -215,4 +215,5 @@ return [
     'passing_test_point'=>'Test Geçme Notu',
     'have_no_achievement'=>'Herhangi bir kazanım bulunmamaktadır.',
     'exam'=>'Sınav',
+    'pe_exams'=>'Sınavlar',
 ];

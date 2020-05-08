@@ -13,6 +13,9 @@
             <li>
                 <a :href="profileRoute"> <i class="fas fa-user uk-margin-small-right"></i>{{profile}}</a>
             </li>
+            <li class="uk-hidden@m">
+                <a :href="instructorModeRoute"> <i class="fas fa-user-tie uk-margin-small-right"></i>{{instructorMode}}</a>
+            </li>
             <li>
                 <a :href="settingsRoute"> <i class="fas fa-cog uk-margin-small-right"></i>{{settings}}</a>
             </li>
@@ -37,6 +40,8 @@
             logOut:String,
             profile:String,
             profileRoute:String,
+            instructorMode:String,
+            instructorModeRoute:String
         }
     }
 </script>

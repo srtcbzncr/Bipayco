@@ -130,6 +130,13 @@
                                 <img src="{{asset(Auth::user()->avatar)}}" alt="" class="uk-border-circle user-profile-tiny">
                             </a>
                             <user-profile-dropdown-nav
+                                @if(!isSet(Auth::user()->instructor))
+                                instructor-mode-route="{{route('instructor_create_get')}}"
+                                instructor-mode="@lang('front/auth.be_instructor')"
+                                @else
+                                instructor-mode="@lang('front/auth.instructor_mode')"
+                                instructor-mode-route="{{route('instructor_courses')}}"
+                                @endif
                                 settings-route="{{route('settings')}}"
                                 logout-route="{{route('logout')}}"
                                 settings="@lang('front/auth.settings')"

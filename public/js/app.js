@@ -10603,6 +10603,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "user-profile-dropdown-nav",
   props: {
@@ -10614,7 +10617,9 @@ __webpack_require__.r(__webpack_exports__);
     settings: String,
     logOut: String,
     profile: String,
-    profileRoute: String
+    profileRoute: String,
+    instructorMode: String,
+    instructorModeRoute: String
   }
 });
 
@@ -25521,6 +25526,13 @@ var render = function() {
           _c("a", { attrs: { href: _vm.profileRoute } }, [
             _c("i", { staticClass: "fas fa-user uk-margin-small-right" }),
             _vm._v(_vm._s(_vm.profile))
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "uk-hidden@m" }, [
+          _c("a", { attrs: { href: _vm.instructorModeRoute } }, [
+            _c("i", { staticClass: "fas fa-user-tie uk-margin-small-right" }),
+            _vm._v(_vm._s(_vm.instructorMode))
           ])
         ]),
         _vm._v(" "),

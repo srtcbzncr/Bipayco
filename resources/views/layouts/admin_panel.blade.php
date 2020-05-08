@@ -56,7 +56,7 @@
                     <a href="{{route('adminDashboard')}}"> <i class="fas fa-chalkboard"></i>  @lang('front/auth.dashboard') </a>
                 </li>
                 <li>
-                    <a href="{{route('adminCities')}}"> <i class="fas fa-chalkboard"></i>  @lang('front/auth.cities') </a>
+                    <a href="{{route('adminCities')}}"> <i class="fas fa-city"></i>  @lang('front/auth.cities') </a>
                 </li>
                 <li>
                     <a href="{{route('adminCategories')}}"> <i class="fas fa-book"></i>@lang('front/auth.categories')</a>
@@ -66,6 +66,9 @@
                 </li>
                 <li>
                     <a href="{{route('adminLesson')}}"> <i class="fas fa-book-open"></i>@lang('front/auth.lessons')</a>
+                </li>
+                <li>
+                    <a href="{{route('admin_get_exam')}}"> <i class="fas fa-stream"></i>@lang('front/auth.pe_exams')</a>
                 </li>
                 <li>
                     <a href="{{route('student_profile', Auth::user()->id)}}"> <i class="fas fa-user"></i>@lang('front/auth.student_mode')</a>
