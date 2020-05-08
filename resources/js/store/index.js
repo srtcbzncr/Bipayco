@@ -70,6 +70,7 @@ const state={
     adminLesson:{},
     adminSubject:{},
     adminGrade:{},
+    adminExam:{},
     adminCategory:{},
     adminSubCategory:{},
     crLessons:{},
@@ -162,6 +163,9 @@ const mutations={
     },
     setAdminGrade(state, grade){
         state.adminGrade=grade.data;
+    },
+    setAdminExam(state, exam){
+        state.adminGrade=exam.data;
     },
     setAdminCategory(state, category){
         state.adminCategory=category.data;
@@ -307,6 +311,10 @@ const actions={
     loadAdminCity({commit}){
         Axios.get('/api/admin/bs/city/show')
             .then(response=>commit('setAdminCity', response.data));
+    },
+    loadAdminExam({commit}){
+        Axios.get('/api/admin/cr/exam/show')
+            .then(response=>commit('setAdminExam', response.data));
     },
     loadAdminDistrict({commit}, cityId){
         Axios.get('/api/admin/bs/city/'+cityId+'/districts')

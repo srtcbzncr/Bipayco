@@ -8410,7 +8410,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'categorySelect',
+  name: 'crLessonSelect',
   data: function data() {
     return {
       selectedSubject: "",
@@ -44566,6 +44566,7 @@ var state = {
   adminLesson: {},
   adminSubject: {},
   adminGrade: {},
+  adminExam: {},
   adminCategory: {},
   adminSubCategory: {},
   crLessons: {},
@@ -44660,6 +44661,9 @@ var mutations = {
   },
   setAdminGrade: function setAdminGrade(state, grade) {
     state.adminGrade = grade.data;
+  },
+  setAdminExam: function setAdminExam(state, exam) {
+    state.adminGrade = exam.data;
   },
   setAdminCategory: function setAdminCategory(state, category) {
     state.adminCategory = category.data;
@@ -44910,31 +44914,37 @@ var actions = {
       return commit('setAdminCity', response.data);
     });
   },
-  loadAdminDistrict: function loadAdminDistrict(_ref48, cityId) {
+  loadAdminExam: function loadAdminExam(_ref48) {
     var commit = _ref48.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/cr/exam/show').then(function (response) {
+      return commit('setAdminExam', response.data);
+    });
+  },
+  loadAdminDistrict: function loadAdminDistrict(_ref49, cityId) {
+    var commit = _ref49.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/bs/city/' + cityId + '/districts').then(function (response) {
       return commit('setAdminDistrict', response.data);
     });
   },
-  loadAdminNewPage: function loadAdminNewPage(_ref49, _ref50) {
-    var commit = _ref49.commit;
+  loadAdminNewPage: function loadAdminNewPage(_ref50, _ref51) {
+    var commit = _ref50.commit;
 
-    var _ref51 = _slicedToArray(_ref50, 2),
-        url = _ref51[0],
-        mutationName = _ref51[1];
+    var _ref52 = _slicedToArray(_ref51, 2),
+        url = _ref52[0],
+        mutationName = _ref52[1];
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
       return commit(mutationName, response.data);
     });
   },
-  loadCrLessons: function loadCrLessons(_ref52) {
-    var commit = _ref52.commit;
+  loadCrLessons: function loadCrLessons(_ref53) {
+    var commit = _ref53.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/pl/lessons').then(function (response) {
       return commit('setCrLessons', response.data);
     });
   },
-  loadCrExams: function loadCrExams(_ref53) {
-    var commit = _ref53.commit;
+  loadCrExams: function loadCrExams(_ref54) {
+    var commit = _ref54.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/pe/exams').then(function (response) {
       return commit('setCrExams', response.data);
     });

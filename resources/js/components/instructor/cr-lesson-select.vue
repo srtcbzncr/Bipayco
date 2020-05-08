@@ -19,7 +19,7 @@
     import {mapState,mapActions, mapMutations} from 'vuex';
     import Axios from 'axios'
     export default {
-        name:'categorySelect',
+        name:'crLessonSelect',
         data(){
           return{
               selectedSubject:"",
