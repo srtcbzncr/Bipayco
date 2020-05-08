@@ -165,7 +165,7 @@ const mutations={
         state.adminGrade=grade.data;
     },
     setAdminExam(state, exam){
-        state.adminGrade=exam.data;
+        state.adminExam=exam.data;
     },
     setAdminCategory(state, category){
         state.adminCategory=category.data;

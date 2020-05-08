@@ -48,6 +48,7 @@ Vue.component('side-bar', require('./components/side-bar/side-bar.vue').default)
 Vue.component('registered-profile', require('./components/admin/registered-profile.vue').default);
 Vue.component('comment', require('./components/admin/comment.vue').default);
 Vue.component('categories-page', require('./components/admin/categories-page.vue').default);
+Vue.component('exams-page', require('./components/admin/exams-page.vue').default);
 Vue.component('sub-categories-page', require('./components/admin/sub-categories-page.vue').default);
 Vue.component('cities-page', require('./components/admin/cities-page.vue').default);
 Vue.component('districts-page', require('./components/admin/districts-page.vue').default);

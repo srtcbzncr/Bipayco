@@ -2920,6 +2920,323 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/exams-page.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/exams-page.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "exams-page",
+  data: function data() {
+    return {
+      name: "",
+      icon: "",
+      hasItem: false,
+      selectedExamId: "",
+      selectedPage: "/api/admin/cr/exam/show?page=1"
+    };
+  },
+  props: {
+    addExamText: {
+      type: String,
+      "default": "Sınıf Ekle"
+    },
+    noContentText: {
+      type: String,
+      "default": "İçerik Bulunmuyor"
+    },
+    deleteText: {
+      type: String,
+      "default": "Sil"
+    },
+    activateText: {
+      type: String,
+      "default": "Aktifleştir"
+    },
+    deactivateText: {
+      type: String,
+      "default": "Pasifleştir"
+    },
+    editText: {
+      type: String,
+      "default": "Düzenle"
+    },
+    saveText: {
+      type: String,
+      "default": "Kaydet"
+    },
+    cancelText: {
+      type: String,
+      "default": "Vazgeç"
+    },
+    iconText: {
+      type: String,
+      "default": "İkon"
+    },
+    examNameText: {
+      type: String,
+      "default": "Sınıf Adı"
+    },
+    editExamText: {
+      type: String,
+      "default": "Sınıf Düzenle"
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminExam']), {
+    pageNumber: function pageNumber() {
+      var pages = ['1'];
+      var index = 2;
+
+      for (var i = 2; index <= this.adminExam.last_page; i++) {
+        if (i == 2 && this.adminExam.current_page - 2 > 3) {
+          pages.push('...');
+
+          if (this.adminExam.current_page + 3 > this.adminExam.last_page) {
+            index = this.adminExam.last_page - 6;
+          } else {
+            index = this.adminExam.current_page - 2;
+          }
+        } else if (i == 8 && this.adminExam.current_page + 2 < this.adminExam.last_page - 2) {
+          pages.push('...');
+          index = this.adminExam.last_page;
+        } else {
+          pages.push(index);
+          index++;
+        }
+      }
+
+      return pages;
+    }
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminExam', 'loadAdminNewPage']), {
+    deactivateItem: function deactivateItem(id) {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/exam/setPassive/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminExam']);
+        }
+      });
+    },
+    activateItem: function activateItem(id) {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/exam/setActive/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminExam']);
+        }
+      });
+    },
+    deleteItem: function deleteItem(id) {
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/exam/delete/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminExam']);
+        }
+      });
+    },
+    openSettings: function openSettings(id) {
+      var _this4 = this;
+
+      this.selectedExamId = id;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/cr/exam/show/' + id).then(function (response) {
+        return _this4.setSelected(response.data.data);
+      });
+    },
+    openForm: function openForm() {
+      UIkit.modal('#addExamArea', {
+        escClose: false,
+        bgClose: false
+      }).show();
+    },
+    setSelected: function setSelected(selectedData) {
+      this.icon = selectedData.symbol;
+      this.name = selectedData.name;
+      this.hasItem = true;
+      UIkit.modal('#addExamArea', {
+        escClose: false,
+        bgClose: false
+      }).show();
+    },
+    clearForm: function clearForm() {
+      this.icon = "";
+      this.name = "";
+      this.hasItem = false;
+      this.selectedExamId = "";
+    },
+    saveItem: function saveItem() {
+      var _this5 = this;
+
+      if (this.hasItem) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/exam/update/' + this.selectedExamId, {
+          symbol: this.icon,
+          name: this.name
+        }).then(function (response) {
+          if (response.data.error) {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'success'
+            });
+
+            _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminExam']);
+          }
+        });
+      } else {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/exam/create', {
+          symbol: this.icon,
+          name: this.name
+        }).then(function (response) {
+          if (response.data.error) {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: response.data.message,
+              status: 'success'
+            });
+
+            _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminExam']);
+          }
+        });
+      }
+
+      this.clearForm();
+      UIkit.modal('#addExamArea').hide();
+    },
+    loadNewPage: function loadNewPage(name) {
+      this.selectedPage = name;
+      this.$store.dispatch('loadAdminNewPage', [name, 'setAdminExam']);
+    }
+  }),
+  created: function created() {
+    this.$store.dispatch('loadAdminExam');
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/grades-page.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/grades-page.vue?vue&type=script&lang=js& ***!
@@ -14492,6 +14809,332 @@ var render = function() {
                   }
                 })
               ])
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-modal-footer uk-text-right" }, [
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-default uk-modal-close",
+              attrs: { type: "button" },
+              on: { click: _vm.clearForm }
+            },
+            [_vm._v(_vm._s(_vm.cancelText))]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-primary",
+              attrs: { type: "button" },
+              on: { click: _vm.saveItem }
+            },
+            [_vm._v(_vm._s(_vm.saveText))]
+          )
+        ])
+      ])
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/exams-page.vue?vue&type=template&id=846bacda&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/exams-page.vue?vue&type=template&id=846bacda&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "uk-margin-medium-top" }, [
+    _c("div", { staticClass: "text-right" }, [
+      _c(
+        "button",
+        {
+          staticClass: "uk-button uk-button-success",
+          on: { click: _vm.openForm }
+        },
+        [
+          _c("i", { staticClass: "fas fa-plus" }),
+          _vm._v(" " + _vm._s(_vm.addExamText) + " ")
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass:
+          "uk-background-default uk-padding-remove uk-margin-small-top border-radius-6"
+      },
+      [
+        _c(
+          "table",
+          {
+            staticClass:
+              "uk-table uk-table-hover uk-table-striped uk-width uk-height",
+            attrs: { id: "categoryTable", cellspacing: "0" }
+          },
+          [
+            true
+              ? _c("thead", [
+                  _c("tr", [
+                    _c("th", [_vm._v(_vm._s(_vm.examNameText))]),
+                    _vm._v(" "),
+                    _c("th")
+                  ])
+                ])
+              : undefined,
+            _vm._v(" "),
+            true
+              ? _c(
+                  "tbody",
+                  _vm._l(_vm.adminExam.data, function(item) {
+                    return _c("tr", [
+                      _c("td", { staticClass: "uk-width-3-4" }, [
+                        _c("p", [_vm._v(_vm._s(item.name))])
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        {
+                          staticClass:
+                            "uk-flex flex-wrap align-items-center justify-content-around"
+                        },
+                        [
+                          _c(
+                            "a",
+                            {
+                              attrs: { "uk-tooltip": _vm.editText },
+                              on: {
+                                click: function($event) {
+                                  return _vm.openSettings(item.id)
+                                }
+                              }
+                            },
+                            [_c("i", { staticClass: "fas fa-cog" })]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              attrs: { "uk-tooltip": _vm.deleteText },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deleteItem(item.id)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-trash text-danger"
+                              })
+                            ]
+                          )
+                        ]
+                      )
+                    ])
+                  }),
+                  0
+                )
+              : undefined
+          ]
+        )
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "ul",
+      {
+        staticClass:
+          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+      },
+      [
+        _c("li", [
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.adminExam.current_page > 1,
+                  expression: "adminExam.current_page>1"
+                }
+              ],
+              on: {
+                click: function($event) {
+                  return _vm.loadNewPage(_vm.adminExam.prev_page_url)
+                }
+              }
+            },
+            [_vm._v(" < ")]
+          )
+        ]),
+        _vm._v(" "),
+        _vm._l(_vm.pageNumber, function(page) {
+          return _c("li", [
+            page == "..."
+              ? _c("button", { staticClass: "uk-disabled" }, [
+                  _vm._v(_vm._s(page))
+                ])
+              : page == _vm.adminExam.current_page
+              ? _c(
+                  "button",
+                  {
+                    staticClass: "uk-background-default uk-disabled",
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(
+                          "/api/admin/cr/exam/show?page=" + page
+                        )
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(page))]
+                )
+              : _c(
+                  "button",
+                  {
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(
+                          "/api/admin/cr/exam/show?page=" + page
+                        )
+                      }
+                    }
+                  },
+                  [_vm._v(_vm._s(page))]
+                )
+          ])
+        }),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "button",
+            {
+              directives: [
+                {
+                  name: "show",
+                  rawName: "v-show",
+                  value: _vm.adminExam.current_page < _vm.adminExam.last_page,
+                  expression: "adminExam.current_page<adminExam.last_page"
+                }
+              ],
+              on: {
+                click: function($event) {
+                  return _vm.loadNewPage(_vm.adminExam.next_page_url)
+                }
+              }
+            },
+            [_vm._v(" > ")]
+          )
+        ])
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "addExamArea", "uk-modal": "" } }, [
+      _c("div", { staticClass: "uk-modal-dialog" }, [
+        _c("div", { staticClass: "uk-modal-header" }, [
+          !_vm.hasItem
+            ? _c("h2", { staticClass: "uk-modal-title" }, [
+                _vm._v(_vm._s(_vm.addExamText))
+              ])
+            : _c("h2", { staticClass: "uk-modal-title" }, [
+                _vm._v(_vm._s(_vm.editExamText))
+              ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
+          [
+            _c("div", { staticClass: "uk-margin-bottom" }, [
+              _c("div", { staticClass: "uk-form-label" }, [
+                _vm._v(_vm._s(_vm.iconText))
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-flex align-items-center justify-content-between"
+                },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.icon,
+                        expression: "icon"
+                      }
+                    ],
+                    staticClass: "uk-input uk-width-5-6 ",
+                    attrs: { placeholder: "fa-user" },
+                    domProps: { value: _vm.icon },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.icon = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.icon == ""
+                    ? _c("i", {
+                        staticClass:
+                          "fas icon-medium uk-width-1-6 text-center fa-user"
+                      })
+                    : _c("i", {
+                        staticClass: "fas icon-medium uk-width-1-6 text-center",
+                        class: _vm.icon
+                      })
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "uk-form-label" }, [
+                _vm._v(_vm._s(_vm.examNameText))
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.name,
+                    expression: "name"
+                  }
+                ],
+                staticClass: "uk-width uk-input",
+                attrs: { placeholder: _vm.examNameText },
+                domProps: { value: _vm.name },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.name = $event.target.value
+                  }
+                }
+              })
             ])
           ]
         ),
@@ -40948,6 +41591,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('side-bar', __webpack_requi
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('registered-profile', __webpack_require__(/*! ./components/admin/registered-profile.vue */ "./resources/js/components/admin/registered-profile.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('comment', __webpack_require__(/*! ./components/admin/comment.vue */ "./resources/js/components/admin/comment.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('categories-page', __webpack_require__(/*! ./components/admin/categories-page.vue */ "./resources/js/components/admin/categories-page.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('exams-page', __webpack_require__(/*! ./components/admin/exams-page.vue */ "./resources/js/components/admin/exams-page.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('sub-categories-page', __webpack_require__(/*! ./components/admin/sub-categories-page.vue */ "./resources/js/components/admin/sub-categories-page.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('cities-page', __webpack_require__(/*! ./components/admin/cities-page.vue */ "./resources/js/components/admin/cities-page.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('districts-page', __webpack_require__(/*! ./components/admin/districts-page.vue */ "./resources/js/components/admin/districts-page.vue")["default"]);
@@ -41304,6 +41948,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_districts_page_vue_vue_type_template_id_1dfa167c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_districts_page_vue_vue_type_template_id_1dfa167c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/exams-page.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/components/admin/exams-page.vue ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _exams_page_vue_vue_type_template_id_846bacda_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./exams-page.vue?vue&type=template&id=846bacda&scoped=true& */ "./resources/js/components/admin/exams-page.vue?vue&type=template&id=846bacda&scoped=true&");
+/* harmony import */ var _exams_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./exams-page.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/exams-page.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _exams_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _exams_page_vue_vue_type_template_id_846bacda_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _exams_page_vue_vue_type_template_id_846bacda_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "846bacda",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/exams-page.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/exams-page.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/admin/exams-page.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_exams_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./exams-page.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/exams-page.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_exams_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/exams-page.vue?vue&type=template&id=846bacda&scoped=true&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/admin/exams-page.vue?vue&type=template&id=846bacda&scoped=true& ***!
+  \*************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_exams_page_vue_vue_type_template_id_846bacda_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./exams-page.vue?vue&type=template&id=846bacda&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/exams-page.vue?vue&type=template&id=846bacda&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_exams_page_vue_vue_type_template_id_846bacda_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_exams_page_vue_vue_type_template_id_846bacda_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -44663,7 +45376,7 @@ var mutations = {
     state.adminGrade = grade.data;
   },
   setAdminExam: function setAdminExam(state, exam) {
-    state.adminGrade = exam.data;
+    state.adminExam = exam.data;
   },
   setAdminCategory: function setAdminCategory(state, category) {
     state.adminCategory = category.data;
