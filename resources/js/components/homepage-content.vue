@@ -139,7 +139,6 @@
         },
         created() {
             this.$store.dispatch('loadUrlForCourseCard', this.url);
-
         }
     }
 </script>

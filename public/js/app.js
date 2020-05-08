@@ -6388,6 +6388,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           name: ''
         };
       }
+    },
+    subCategory: function subCategory() {
+      if (this.course.subCategory) {
+        return this.course.subCategory;
+      } else {
+        return {
+          name: ''
+        };
+      }
+    },
+    exam: function exam() {
+      if (this.course.exam) {
+        return this.course.exam;
+      } else {
+        return {
+          name: ''
+        };
+      }
     }
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadShoppingCart', 'loadCourseCard', 'loadIsInCart']), {
@@ -19565,7 +19583,7 @@ var render = function() {
                       "-webkit-box-orient": "vertical"
                     }
                   },
-                  [_vm._v(_vm._s(_vm.course.subCategory.name))]
+                  [_vm._v(_vm._s(_vm.subCategory.name))]
                 )
               ])
             : _vm._e(),
@@ -19641,7 +19659,7 @@ var render = function() {
                       "-webkit-box-orient": "vertical"
                     }
                   },
-                  [_vm._v(_vm._s(_vm.course.exam.name))]
+                  [_vm._v(_vm._s(_vm.exam.name))]
                 )
               ])
             : _vm._e(),

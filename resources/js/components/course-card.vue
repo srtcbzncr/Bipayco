@@ -19,7 +19,7 @@
             <div class="uk-card-body">
                 <div v-if="moduleName=='generalEducation'">
                     <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 20px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{course.name}}</h4>
-                    <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{course.subCategory.name}}</p>
+                    <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{subCategory.name}}</p>
                 </div>
                 <div v-if="moduleName=='prepareLessons'">
                     <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 20px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{course.name}}</h4>
@@ -27,7 +27,7 @@
                 </div>
                 <div v-if="moduleName=='prepareExams'">
                     <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 20px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{course.name}}</h4>
-                    <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{course.exam.name}}</p>
+                    <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{exam.name}}</p>
                 </div>
                 <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small"> {{course.description}} </p>
                 <div class="uk-width">
@@ -103,7 +103,21 @@ export default {
             }else{
                 return {name:''}
             }
-        }
+        },
+        subCategory(){
+            if(this.course.subCategory){
+                return this.course.subCategory
+            }else{
+                return {name:''}
+            }
+        },
+        exam(){
+            if(this.course.exam){
+                return this.course.exam
+            }else{
+                return {name:''}
+            }
+        },
     },
     methods:{
         ...mapActions([
