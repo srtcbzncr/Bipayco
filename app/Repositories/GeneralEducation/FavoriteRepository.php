@@ -2,6 +2,7 @@
 
 namespace App\Repositories\GeneralEducation;
 
+use App\Models\GeneralEducation\SubCategory;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use App\Models\GeneralEducation\Favorite;
@@ -190,6 +191,9 @@ class FavoriteRepository implements IRepository{
         try{
             $favorite = Favorite::find($id);
             $object = $favorite->course;
+
+            $subcategory = SubCategory::find($object->sub_category_id);
+            $object['subCategory'] = $subcategory;
         }
         catch(\Exception $e){
             $error = $e;

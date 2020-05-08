@@ -3,6 +3,7 @@
 namespace App\Repositories\GeneralEducation;
 
 use App\Models\GeneralEducation\Entry;
+use App\Models\GeneralEducation\SubCategory;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 
@@ -201,6 +202,8 @@ class EntryRepository implements IRepository{
         try{
             $entry = Entry::find($id);
             $object = $entry->course;
+            $subcategory = SubCategory::find($object->sub_category_id);
+            $object['subCategory'] = $subcategory;
         }
         catch(\Exception $e){
             $error = $e;
