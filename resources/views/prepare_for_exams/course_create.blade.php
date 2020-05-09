@@ -77,7 +77,35 @@
                             <div class="uk-grid uk-margin-remove-top uk-child-width-1-2@m">
                                 <div>
                                     <div class="uk-form-label"> @lang('front/auth.price')  </div>
-                                    <input class="uk-input form-control @error('price') is-invalid @enderror" type="text" id="price"  @if(isset($course)) value="{{$course->price}}" @endif required>
+{{--                                    <input class="uk-input form-control @error('price') is-invalid @enderror" type="text" id="price"  @if(isset($course)) value="{{$course->price}}" @endif required>--}}
+                                    <select class="uk-select form-control @error('price') is-invalid @enderror" type="text" id="price" required>
+                                        @if(isset($course))
+                                            <option value="{{$course->price}}" selected hidden disabled>{{$course->price}}0</option>
+                                        @else
+                                            <option value="" selected hidden disabled>@lang('front/auth.price')</option>
+                                        @endif
+                                        <option value="9.90">9.90</option>
+                                        <option value="19.90">19.90</option>
+                                        <option value="29.90">29.90</option>
+                                        <option value="39.90">39.90</option>
+                                        <option value="49.90">49.90</option>
+                                        <option value="59.90">59.90</option>
+                                        <option value="69.90">69.90</option>
+                                        <option value="79.90">79.90</option>
+                                        <option value="89.90">89.90</option>
+                                        <option value="99.90">99.90</option>
+                                        <option value="149.90">149.90</option>
+                                        <option value="199.90">199.90</option>
+                                        <option value="249.90">249.90</option>
+                                        <option value="299.90">299.90</option>
+                                        <option value="399.90">399.90</option>
+                                        <option value="499.90">499.90</option>
+                                        <option value="599.90">599.90</option>
+                                        <option value="699.90">699.90</option>
+                                        <option value="799.90">799.90</option>
+                                        <option value="899.90">899.90</option>
+                                        <option value="999.90">999.90</option>
+                                    </select>
                                     @error('price')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
