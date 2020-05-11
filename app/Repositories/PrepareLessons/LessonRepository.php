@@ -185,8 +185,7 @@ class LessonRepository implements IRepository{
 
             // bu kursa ait aktif section olup olmadığını kontrol et.
             $sections = Section::where('course_id',$course_id)->where('deleted_at',null)->get();
-            $flag = false;
-            $counter = 0;
+            $flag = true;
             if($sections == null or count($sections) == 0){
                 $course = Course::find($course_id);
                 $course->active = false;
@@ -198,18 +197,13 @@ class LessonRepository implements IRepository{
                         $flag == false;
                         break;
                     }
-                    else{
-                        $counter++;
-                    }
-
-                    if($counter == count($sections))
-                        $flag = true;
                 }
-            }
-            if($flag == true){
-                $course = Course::find($course_id);
-                $course->active = false;
-                $course->save();
+
+                if($flag == true){
+                    $course = Course::find($course_id);
+                    $course->active = false;
+                    $course->save();
+                }
             }
 
             DB::commit();
