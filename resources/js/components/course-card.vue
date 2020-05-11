@@ -1,6 +1,6 @@
 <template>
     <div class="uk-card-default uk-card-hover uk-card-small uk-width Course-card uk-inline-clip uk-transition-toggle" tabindex="0">
-        <div v-if="isLogin" class="uk-transition-slide-right-small uk-position-top-right uk-padding-small uk-position-z-index">
+        <div v-if="isLogin&&!course.inEntry" class="uk-transition-slide-right-small uk-position-top-right uk-padding-small uk-position-z-index">
             <a v-if="course.inFavorite" @click="removeFav" class="uk-button uk-padding-remove-bottom uk-padding-remove-top course-badge">
                 <i class="fas fa-heart icon-medium" style="color: red"> </i>
             </a>

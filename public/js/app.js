@@ -19549,7 +19549,7 @@ var render = function() {
       attrs: { tabindex: "0" }
     },
     [
-      _vm.isLogin
+      _vm.isLogin && !_vm.course.inEntry
         ? _c(
             "div",
             {
