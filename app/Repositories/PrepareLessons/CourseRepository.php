@@ -55,6 +55,17 @@ class CourseRepository implements IRepository{
             }
             else{
                 $object = Course::find($id);
+
+                $student = Student::where('user_id',$user->id)->first();
+                $controlEntry = Entry::where('student_id',$student->id)->where('course_type','App\Models\PrepareLessons\Course')
+                    ->where('course_id',$object->id)->where('deleted_at',null)->get();
+                if($controlEntry != null and count($controlEntry)>0){
+                    $object['inEntry'] = true;
+                }
+                else{
+                    $object['inEntry'] = false;
+                }
+
                 $controlBasket = Basket::where('user_id',$user->id)->where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->get();
                 if($controlBasket != null and count($controlBasket) > 0){
                     $object['inBasket'] = true;
@@ -101,6 +112,17 @@ class CourseRepository implements IRepository{
             }
             else{
                 $object = Course::find($id);
+
+                $student = Student::where('user_id',$user_id)->first();
+                $controlEntry = Entry::where('student_id',$student->id)->where('course_type','App\Models\PrepareLessons\Course')
+                    ->where('course_id',$object->id)->where('deleted_at',null)->get();
+                if($controlEntry != null and count($controlEntry)>0){
+                    $object['inEntry'] = true;
+                }
+                else{
+                    $object['inEntry'] = false;
+                }
+
                 $controlBasket = Basket::where('user_id',$user->id)->where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->get();
                 if($controlBasket != null and count($controlBasket) > 0){
                     $object['inBasket'] = true;
@@ -279,8 +301,8 @@ class CourseRepository implements IRepository{
 
                     $student = Student::where('user_id',$user_id)->first();
                     $controlEntry = Entry::where('student_id',$student->id)->where('course_type','App\Models\PrepareLessons\Course')
-                        ->where('course_id',$item->id)->where('deleted_at',null)->get();
-                    if($controlEntry != null and count($controlEntry)){
+                        ->where('course_id',$course->id)->where('deleted_at',null)->get();
+                    if($controlEntry != null and count($controlEntry)>0){
                         $object[$key]['inEntry'] = true;
                     }
                     else{
@@ -1228,6 +1250,16 @@ class CourseRepository implements IRepository{
 
             if(count($object) > 0 and $user_id != null){
                 foreach ($object as $key => $item){
+                    $student = Student::where('user_id',$user_id)->first();
+                    $controlEntry = Entry::where('student_id',$student->id)->where('course_type','App\Models\PrepareLessons\Course')
+                        ->where('course_id',$course->id)->where('deleted_at',null)->get();
+                    if($controlEntry != null and count($controlEntry)>0){
+                        $object[$key]['inEntry'] = true;
+                    }
+                    else{
+                        $object[$key]['inEntry'] = false;
+                    }
+
                     $contorlBasket = DB::table('basket')->where('user_id',$user_id)->where('course_id',$item->id)->where('course_type','App\Models\PrepareLessons\Course')->get();
                     if($contorlBasket !=  null and count($contorlBasket) > 0){
                         $object[$key]['inBasket'] = true;
@@ -1794,6 +1826,17 @@ class CourseRepository implements IRepository{
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
+
+                    $student = Student::where('user_id',$user_id)->first();
+                    $controlEntry = Entry::where('student_id',$student->id)->where('course_type','App\Models\PrepareLessons\Course')
+                        ->where('course_id',$course->id)->where('deleted_at',null)->get();
+                    if($controlEntry != null and count($controlEntry)>0){
+                        $object[$key]['inEntry'] = true;
+                    }
+                    else{
+                        $object[$key]['inEntry'] = false;
+                    }
+
                     $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlBasket != null and count($controlBasket) > 0){
@@ -1817,6 +1860,7 @@ class CourseRepository implements IRepository{
                 foreach ($object as $key => $item){
                     $object[$key]['inBasket'] = null;
                     $object[$key]['inFavorite'] = null;
+                    $object[$key]['inEntry'] = null;
                 }
             }
 
@@ -1856,6 +1900,17 @@ class CourseRepository implements IRepository{
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
+
+                    $student = Student::where('user_id',$user_id)->first();
+                    $controlEntry = Entry::where('student_id',$student->id)->where('course_type','App\Models\PrepareLessons\Course')
+                        ->where('course_id',$course->id)->where('deleted_at',null)->get();
+                    if($controlEntry != null and count($controlEntry)>0){
+                        $object[$key]['inEntry'] = true;
+                    }
+                    else{
+                        $object[$key]['inEntry'] = false;
+                    }
+
                     $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlBasket != null and count($controlBasket) > 0){
@@ -1879,6 +1934,7 @@ class CourseRepository implements IRepository{
                 foreach ($object as $key => $item){
                     $object[$key]['inBasket'] = null;
                     $object[$key]['inFavorite'] = null;
+                    $object[$key]['inEntry'] = null;
                 }
             }
         }
@@ -1917,6 +1973,17 @@ class CourseRepository implements IRepository{
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
+
+                    $student = Student::where('user_id',$user_id)->first();
+                    $controlEntry = Entry::where('student_id',$student->id)->where('course_type','App\Models\PrepareLessons\Course')
+                        ->where('course_id',$course->id)->where('deleted_at',null)->get();
+                    if($controlEntry != null and count($controlEntry)>0){
+                        $object[$key]['inEntry'] = true;
+                    }
+                    else{
+                        $object[$key]['inEntry'] = false;
+                    }
+
                     $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlBasket != null and count($controlBasket) > 0){
@@ -1940,6 +2007,7 @@ class CourseRepository implements IRepository{
                 foreach ($object as $key => $item){
                     $object[$key]['inBasket'] = null;
                     $object[$key]['inFavorite'] = null;
+                    $object[$key]['inEntry'] = null;
                 }
             }
         }
@@ -1978,6 +2046,17 @@ class CourseRepository implements IRepository{
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
+
+                    $student = Student::where('user_id',$user_id)->first();
+                    $controlEntry = Entry::where('student_id',$student->id)->where('course_type','App\Models\PrepareLessons\Course')
+                        ->where('course_id',$course->id)->where('deleted_at',null)->get();
+                    if($controlEntry != null and count($controlEntry)>0){
+                        $object[$key]['inEntry'] = true;
+                    }
+                    else{
+                        $object[$key]['inEntry'] = false;
+                    }
+
                     $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlBasket != null and count($controlBasket) > 0){
@@ -2001,6 +2080,7 @@ class CourseRepository implements IRepository{
                 foreach ($object as $key => $item){
                     $object[$key]['inBasket'] = null;
                     $object[$key]['inFavorite'] = null;
+                    $object[$key]['inEntry'] = null;
                 }
             }
         }
@@ -2039,6 +2119,17 @@ class CourseRepository implements IRepository{
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
+
+                    $student = Student::where('user_id',$user_id)->first();
+                    $controlEntry = Entry::where('student_id',$student->id)->where('course_type','App\Models\PrepareLessons\Course')
+                        ->where('course_id',$course->id)->where('deleted_at',null)->get();
+                    if($controlEntry != null and count($controlEntry)>0){
+                        $object[$key]['inEntry'] = true;
+                    }
+                    else{
+                        $object[$key]['inEntry'] = false;
+                    }
+
                     $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlBasket != null and count($controlBasket) > 0){
@@ -2062,6 +2153,7 @@ class CourseRepository implements IRepository{
                 foreach ($object as $key => $item){
                     $object[$key]['inBasket'] = null;
                     $object[$key]['inFavorite'] = null;
+                    $object[$key]['inEntry'] = null;
                 }
             }
         }
@@ -2100,6 +2192,17 @@ class CourseRepository implements IRepository{
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
+
+                    $student = Student::where('user_id',$user_id)->first();
+                    $controlEntry = Entry::where('student_id',$student->id)->where('course_type','App\Models\PrepareLessons\Course')
+                        ->where('course_id',$course->id)->where('deleted_at',null)->get();
+                    if($controlEntry != null and count($controlEntry)>0){
+                        $object[$key]['inEntry'] = true;
+                    }
+                    else{
+                        $object[$key]['inEntry'] = false;
+                    }
+
                     $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlBasket != null and count($controlBasket) > 0){
@@ -2123,6 +2226,7 @@ class CourseRepository implements IRepository{
                 foreach ($object as $key => $item){
                     $object[$key]['inBasket'] = null;
                     $object[$key]['inFavorite'] = null;
+                    $object[$key]['inEntry'] = null;
                 }
             }
         }
@@ -2162,6 +2266,17 @@ class CourseRepository implements IRepository{
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
+
+                    $student = Student::where('user_id',$user_id)->first();
+                    $controlEntry = Entry::where('student_id',$student->id)->where('course_type','App\Models\PrepareLessons\Course')
+                        ->where('course_id',$course->id)->where('deleted_at',null)->get();
+                    if($controlEntry != null and count($controlEntry)>0){
+                        $object[$key]['inEntry'] = true;
+                    }
+                    else{
+                        $object[$key]['inEntry'] = false;
+                    }
+
                     $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\PrepareLessons\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlBasket != null and count($controlBasket) > 0){
@@ -2185,6 +2300,7 @@ class CourseRepository implements IRepository{
                 foreach ($object as $key => $item){
                     $object[$key]['inBasket'] = null;
                     $object[$key]['inFavorite'] = null;
+                    $object[$key]['inEntry'] = null;
                 }
             }
         }

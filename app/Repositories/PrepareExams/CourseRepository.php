@@ -298,7 +298,7 @@ class CourseRepository implements IRepository{
 
                     $student = Student::where('user_id',$user_id)->first();
                     $controlEntry = Entry::where('student_id',$student->id)->where('course_type','App\Models\PrepareExams\Course')
-                        ->where('course_id',$item->id)->where('deleted_at',null)->get();
+                        ->where('course_id',$course->id)->where('deleted_at',null)->get();
                     if($controlEntry != null and count($controlEntry)>0){
                         $object[$key]['inEntry'] = true;
                     }
