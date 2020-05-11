@@ -20,7 +20,7 @@ class CreateAuthInstructorsTable extends Migration
             $table->unsignedBigInteger('reference_instructor_id')->nullable();
             $table->string('identification_number', 11);
             $table->string('title', 200);
-            $table->string('bio', 500);
+            $table->string('bio', 1500);
             $table->string('iban', 50);
             $table->string('reference_code', 18);
             $table->boolean('active')->default(true);
