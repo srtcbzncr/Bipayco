@@ -1315,6 +1315,10 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $object = Comment::where('course_id', $id)->where('course_type','App\Models\PrepareExams\Course')->where('active', true)->orderBy('created_at', 'desc')->paginate(10);
+            foreach ($object as $key=>$comment){
+                $user = User::find($comment->user_id);
+                $object[$key] = $user;
+            }
         }
         catch(\Exception $e){
             $error = $e;
