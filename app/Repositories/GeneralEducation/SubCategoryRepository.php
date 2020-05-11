@@ -2,6 +2,8 @@
 
 namespace App\Repositories\GeneralEducation;
 
+use App\Models\Auth\Student;
+use App\Models\GeneralEducation\Entry;
 use App\Models\UsersOperations\Basket;
 use App\Models\UsersOperations\Favorite;
 use App\Repositories\IRepository;
@@ -261,6 +263,17 @@ class SubCategoryRepository implements IRepository{
                 }
 
                 foreach ($object as $key => $course){
+
+                    $student = Student::where('user_id',$user->id)->first();
+                    $controlEntry = Entry::where('student_id',$student->id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->where('deleted_at',null)->get();
+                    if($controlEntry != null and count($controlEntry)){
+                        $object[$key]['inEntry'] = true;
+                    }
+                    else{
+                        $object[$key]['inEntry'] = false;
+                    }
+
                     $controlBasket = Basket::where('user_id',$user->id)->where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
                     if($controlBasket != null and count($controlBasket)>0){
                         $object[$key]['inBasket'] = true;
