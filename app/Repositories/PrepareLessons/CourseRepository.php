@@ -1317,11 +1317,10 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $course = Course::find($id);
-            $object = Comment::where('course_id', $id)->where('active', true)->orderBy('created_at', 'desc')->paginate(10);
+            $object = Comment::where('course_id', $id)->where('course_type','App\Models\PrepareLessons\Course')->where('active', true)->orderBy('created_at', 'desc')->paginate(10);
         }
         catch(\Exception $e){
-            $error = $e;
+            $error = $e->getMessage();
             $result = false;
         }
 

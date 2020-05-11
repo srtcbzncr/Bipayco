@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\PrepareLessons;
 use App\Http\Controllers\Controller;
 use App\Models\PrepareLessons\Course;
 use App\Repositories\PrepareLessons\CommentRepository;
+use App\Repositories\PrepareLessons\CourseRepository;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -66,5 +67,25 @@ class CommentController extends Controller
             'error' => true,
             'errorMessage' => $resp->getError()
         ],400);
+    }
+
+    public function getComments($courseId){
+        // Repo initialization
+        $repo = new CourseRepository;
+
+        // Operations
+        $resp = $repo->getCommentsWithPaginate($courseId);
+
+        // Response
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+            // return GE_CommentResource::collection($resp->getData());
+        }
+        else{
+            return response()->json(['error' => true, 'message' => $resp->getError()],400);
+        }
     }
 }
