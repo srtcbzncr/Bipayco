@@ -109,14 +109,17 @@
                 <div id="Reviews" class="tabcontent animation: uk-animation-slide-right-medium">
                     <h3 style="tab-index: 1">@lang('front/auth.reviews')</h3>
                     @if(Auth::check() && Auth::user()->can('comment', $course))
-                        <review course-id="{{$course->id}}"
-                                user-id="{{Auth::user()->id}}"
-                                send-text="@lang('front/auth.send')"
-                                comment-text="@lang('front/auth.comment')"
+                        <review
+                            module-name="prepareExams"
+                            course-id="{{$course->id}}"
+                            user-id="{{Auth::user()->id}}"
+                            send-text="@lang('front/auth.send')"
+                            comment-text="@lang('front/auth.comment')"
                         > </review>
                     @endif
                     <div class="uk-margin-medium-top">
                         <course-review
+                            module-name="prepareExams"
                             course-id="{{$course->id}}"
                             :review-count="{{$course->commentCount()}}"
                             :paginate-review="10"

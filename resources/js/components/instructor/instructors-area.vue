@@ -115,19 +115,34 @@
                 this.instructorsInfo.push(info);
             },
             searchInstructor:function(){
+                let hasInstructorInArray=false;
                 Axios.get('/api/instructor/search?email='+this.instructorEmail)
                     .then(response=>response.data)
                     .then(response=>{
                         if(response.error){
                             UIkit.notification({message:response.message , status: 'danger'});
-                        }else{
-                            UIkit.notification({message:this.instructorAddedText, status: 'success'});
-                            this.addInstructor({instructor:response.data, percent:1});
-                        }
-                    });
+                        }else
+                            for(let i=0;i<this.instructorsInfo.length;i++) {
+                                if (this.instructorsInfo[i].instructor.id == response.data.id) {
+                                    hasInstructorInArray = true;
+                                    UIkit.notification({message: "Eğitmen zaten eklendi", status: 'danger'});
+                                    break;
+                                }
+                            }
+                            if(!hasInstructorInArray){
+                                UIkit.notification({message:this.instructorAddedText, status: 'success'});
+                                this.instructorsInfo[0].percent-=1;
+                                this.addInstructor({instructor:response.data, percent:1});
+                            }
+                        });
                 this.instructorEmail="";
             },
             removeInstructor:function (index) {
+                if(this.instructorsInfo[0].percent+this.instructorsInfo[index].percent>100){
+                    this.instructorsInfo[0].percent=100;
+                }else{
+                    this.instructorsInfo[0].percent+=this.instructorsInfo[index].percent;
+                }
                 this.instructorsInfo.splice(index,1);
             },
             instructorPost:function(courseId) {

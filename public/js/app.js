@@ -5636,6 +5636,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -5674,26 +5676,53 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-review",
   mounted: function mounted() {
-    this.$store.dispatch('loadCourseReviews', this.courseId);
+    this.$store.dispatch('loadCourseReviews', [this.module, this.courseId]);
   },
   data: function data() {
     return {
-      currentPage: 1,
-      isLoaded: false
+      apiUrl: '/api/comment/' + this.module + '/' + this.courseId + '/comments'
     };
   },
   props: {
     courseId: {
       type: String,
-      requirement: true
+      required: true
+    },
+    userId: {
+      type: String,
+      "default": ""
+    },
+    moduleName: {
+      type: String,
+      required: true
     },
     reviewCount: {
       type: Number,
-      requirement: true
+      required: true
     },
     minuteBeforeText: {
       type: String,
@@ -5714,14 +5743,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     yearBeforeText: {
       type: String,
       "default": "yıl önce"
+    },
+    editText: {
+      type: String,
+      "default": "Düzenle"
+    },
+    deleteText: {
+      type: String,
+      "default": "Sil"
+    },
+    cancelText: {
+      type: String,
+      "default": "Vazgeç"
+    },
+    commentText: {
+      type: String,
+      "default": "Yorum Yaz..."
+    },
+    updateText: {
+      type: String,
+      "default": "Güncelle"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseReviews']), {
-    lastPage: function lastPage() {
-      if (this.courseReviews.meta != null) {
-        return this.courseReviews.meta.last_page;
-      } else {
-        return 20;
+    module: function module() {
+      switch (this.moduleName) {
+        case 'prepareLessons':
+          return 'pl';
+
+        case 'prepareExams':
+          return 'pe';
+
+        default:
+          return 'ge';
       }
     }
   }),
@@ -5742,9 +5796,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return today.getMinutes() - created.getMinutes() + " " + this.minuteBeforeText;
       }
     },
-    loadNewPages: function loadNewPages(name, newPageNumber) {
+    loadNewPages: function loadNewPages(name) {
       this.$store.dispatch('loadNewPageReviews', name);
-      this.currentPage = newPageNumber;
+      this.apiUrl = name;
+    },
+    deleteReview: function deleteReview() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('api/comment/' + this.module + '/' + this.courseId + '/delete', {
+        'userId': this.userId
+      }).then(function () {
+        _this.loadNewPages(_this.apiUrl);
+      });
+    },
+    toggleEdit: function toggleEdit() {
+      UIkit.toggle();
     }
   })
 });
@@ -6004,12 +6070,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "stars-rating",
   props: {
     courseId: {
+      type: String,
+      required: true
+    },
+    moduleName: {
       type: String,
       required: true
     },
@@ -6032,6 +6103,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     rating: {
       type: Number,
       "default": 5
+    },
+    review: {
+      type: String,
+      "default": ""
+    },
+    apiStatus: {
+      type: String,
+      "default": 'create'
     },
     starStyle: {
       type: Object
@@ -6061,6 +6140,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         type: String,
         "default": '#212529'
       }
+    },
+    cancelText: {
+      type: String,
+      "default": "Vazgeç"
     }
   },
   data: function data() {
@@ -6071,8 +6154,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       totalStars: 5,
       rate: this.rating,
       ratingColor: [this.styleFullStarColor, this.styleFullStarColor, this.styleFullStarColor, this.styleFullStarColor, this.styleFullStarColor],
-      comment: true // Binded Nested Props registered as data/computed and not props
-
+      comment: true,
+      content: this.review
     };
   },
   directives: {},
@@ -6090,6 +6173,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     ratingFixed: function ratingFixed() {
       return this.rate.toFixed(1);
+    },
+    module: function module() {
+      switch (this.moduleName) {
+        case 'prepareLessons':
+          return 'pl';
+
+        case 'prepareExams':
+          return 'pe';
+
+        default:
+          return 'ge';
+      }
     }
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadCourseReviews']), {
@@ -6097,15 +6192,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.comment = can;
     },
     submitReview: function submitReview(setMethod) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/comment/create', {
-        content: document.getElementById('comment').value,
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/comment/' + this.module + '/' + this.apiStatus, {
+        content: this.content,
         point: this.ratingFixed,
         course_id: this.courseId,
         user_id: this.userId
       }).then(function (response) {
         if (response.data.error) {
           UIkit.notification({
-            message: response.data.message,
+            message: response.data.errorMessage,
             status: 'danger'
           });
         } else {
@@ -6185,6 +6280,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           this[newKey] = objToFlatten[i];
         }
       }
+    },
+    clearForm: function clearForm() {
+      this.rate = this.rating;
+      this.content = this.review;
     }
   }),
   mounted: function mounted() {
@@ -9110,6 +9209,7 @@ __webpack_require__.r(__webpack_exports__);
     searchInstructor: function searchInstructor() {
       var _this = this;
 
+      var hasInstructorInArray = false;
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/instructor/search?email=' + this.instructorEmail).then(function (response) {
         return response.data;
       }).then(function (response) {
@@ -9118,11 +9218,23 @@ __webpack_require__.r(__webpack_exports__);
             message: response.message,
             status: 'danger'
           });
-        } else {
+        } else for (var i = 0; i < _this.instructorsInfo.length; i++) {
+          if (_this.instructorsInfo[i].instructor.id == response.data.id) {
+            hasInstructorInArray = true;
+            UIkit.notification({
+              message: "Eğitmen zaten eklendi",
+              status: 'danger'
+            });
+            break;
+          }
+        }
+
+        if (!hasInstructorInArray) {
           UIkit.notification({
             message: _this.instructorAddedText,
             status: 'success'
           });
+          _this.instructorsInfo[0].percent -= 1;
 
           _this.addInstructor({
             instructor: response.data,
@@ -9133,6 +9245,12 @@ __webpack_require__.r(__webpack_exports__);
       this.instructorEmail = "";
     },
     removeInstructor: function removeInstructor(index) {
+      if (this.instructorsInfo[0].percent + this.instructorsInfo[index].percent > 100) {
+        this.instructorsInfo[0].percent = 100;
+      } else {
+        this.instructorsInfo[0].percent += this.instructorsInfo[index].percent;
+      }
+
       this.instructorsInfo.splice(index, 1);
     },
     instructorPost: function instructorPost(courseId) {
@@ -18846,6 +18964,7 @@ var render = function() {
             "div",
             {
               staticClass: "uk-grid-small  uk-margin-medium-top",
+              class: "comment" + review.user_id,
               attrs: { "uk-grid": "" }
             },
             [
@@ -18861,31 +18980,89 @@ var render = function() {
                 "div",
                 { staticClass: "uk-width-4-5@m uk-padding-remove-left" },
                 [
+                  review.user_id == _vm.userId
+                    ? _c("span", { staticClass: "uk-float-right" }, [
+                        _vm._m(0, true),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "uk-padding-small border-radius-6",
+                            attrs: { "uk-dropdown": "mode:click" }
+                          },
+                          [
+                            _c(
+                              "ul",
+                              { staticClass: "uk-nav uk-dropdown-nav" },
+                              [
+                                _c("li", [
+                                  _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        "uk-toggle":
+                                          "target: .review" + _vm.userId
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(_vm.editText))]
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c("li", [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "uk-text-danger",
+                                      on: { click: _vm.deleteReview }
+                                    },
+                                    [_vm._v(_vm._s(_vm.deleteText))]
+                                  )
+                                ])
+                              ]
+                            )
+                          ]
+                        )
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "h4",
+                    {
+                      staticClass:
+                        "uk-margin-remove-vertical uk-margin-small-right"
+                    },
+                    [
+                      _vm._v(
+                        _vm._s(review.user.first_name) +
+                          " " +
+                          _vm._s(review.user.last_name)
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
                   _c(
                     "div",
-                    { staticClass: "uk-flex justify-content-between" },
+                    {
+                      staticClass:
+                        "uk-width uk-flex uk-flex-wrap align-item-center justify-content-between uk-margin-small-top"
+                    },
                     [
-                      _c("div", { staticClass: "uk-width-3-4" }, [
-                        _c("h4", { staticClass: "uk-margin-remove" }, [
-                          _vm._v(
-                            _vm._s(review.user.first_name) +
-                              " " +
-                              _vm._s(review.user.last_name)
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("span", { staticClass: "uk-text-small" }, [
-                          _vm._v(_vm._s(_vm.dateFormat(review.created_at)))
-                        ])
-                      ]),
+                      _c(
+                        "p",
+                        {
+                          staticClass:
+                            "uk-margin-small-top uk-margin-small-bottom uk-text-justify uk-width-1-2@m"
+                        },
+                        [_vm._v(_vm._s(_vm.dateFormat(review.created_at)))]
+                      ),
                       _vm._v(" "),
                       _c("stars-rating", {
                         attrs: {
                           rating: Number(review.point),
                           "style-full-star-color": "#F4C150",
                           "style-empty-star-color": "#C1C1C1",
-                          "style-star-width": 14,
-                          "style-star-height": 14
+                          "style-star-width": 18,
+                          "style-star-height": 18
                         }
                       })
                     ],
@@ -18906,6 +19083,29 @@ var render = function() {
             ]
           ),
           _vm._v(" "),
+          _vm.userId == review.user_id
+            ? _c(
+                "div",
+                { class: "comment" + _vm.userId, attrs: { hidden: "" } },
+                [
+                  _c("review", {
+                    attrs: {
+                      review: review.content,
+                      rating: Number(review.point),
+                      "module-name": _vm.moduleName,
+                      "course-id": _vm.courseId.toString(),
+                      "user-id": _vm.userId.toString(),
+                      "send-text": _vm.updateText,
+                      "cancel-text": _vm.cancelText,
+                      "comment-text": _vm.commentText,
+                      "api-status": "update"
+                    }
+                  })
+                ],
+                1
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _c("hr")
         ])
       }),
@@ -18922,16 +19122,13 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value: _vm.currentPage !== 1,
-                    expression: "currentPage!==1"
+                    value: _vm.courseReviews.current_page !== 1,
+                    expression: "courseReviews.current_page!==1"
                   }
                 ],
                 on: {
                   click: function($event) {
-                    return _vm.loadNewPages(
-                      _vm.courseReviews.links.prev,
-                      --_vm.currentPage
-                    )
+                    return _vm.loadNewPages(_vm.courseReviews.prev_page_url)
                   }
                 }
               },
@@ -18947,14 +19144,17 @@ var render = function() {
                   {
                     name: "show",
                     rawName: "v-show",
-                    value: _vm.currentPage < _vm.lastPage,
-                    expression: "currentPage<lastPage"
+                    value:
+                      _vm.courseReviews.current_page <
+                      _vm.courseReviews.last_page,
+                    expression:
+                      "courseReviews.current_page<courseReviews.last_page"
                   }
                 ],
                 on: {
                   click: function($event) {
                     return _vm.loadNewPages(
-                      _vm.courseReviews.links.next,
+                      _vm.courseReviews.next_page_url,
                       ++_vm.currentPage
                     )
                   }
@@ -18969,7 +19169,18 @@ var render = function() {
     2
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "uk-button-default", attrs: { type: "button" } },
+      [_c("i", { staticClass: "fas fa-ellipsis-v" })]
+    )
+  }
+]
 render._withStripped = true
 
 
@@ -19366,92 +19577,111 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      directives: [
-        {
-          name: "show",
-          rawName: "v-show",
-          value: _vm.comment,
-          expression: "comment"
-        }
-      ],
-      staticClass: "uk-margin-xlarge-bottom"
-    },
-    [
-      _c(
-        "div",
-        { staticClass: "star-rating" },
-        [
-          _vm._l(_vm.stars, function(star, index) {
-            return _c("div", { key: index, staticClass: "star-container" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "uk-icon-button star-button",
-                  on: {
-                    click: function($event) {
-                      return _vm.setRate(index + 1)
+  return _vm.comment
+    ? _c("div", { staticClass: "uk-margin-xlarge-bottom" }, [
+        _c(
+          "div",
+          { staticClass: "star-rating" },
+          [
+            _vm._l(_vm.stars, function(star, index) {
+              return _c("div", { key: index, staticClass: "star-container" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "uk-icon-button star-button",
+                    on: {
+                      click: function($event) {
+                        return _vm.setRate(index + 1)
+                      }
                     }
-                  }
-                },
-                [
-                  _c(
-                    "svg",
-                    {
-                      staticClass: "star-svg",
-                      style: [
-                        { fill: _vm.ratingColor[index] },
-                        { width: _vm.styleStarWidth },
-                        { height: _vm.styleStarHeight }
-                      ],
-                      attrs: { id: index + 1 }
-                    },
-                    [
-                      _c("polygon", {
-                        staticStyle: { "fill-rule": "nonzero" },
-                        attrs: { points: _vm.getStarPoints }
-                      })
-                    ]
-                  )
-                ]
-              )
-            ])
-          }),
-          _vm._v(" "),
-          _c(
-            "div",
+                  },
+                  [
+                    _c(
+                      "svg",
+                      {
+                        staticClass: "star-svg",
+                        style: [
+                          { fill: _vm.ratingColor[index] },
+                          { width: _vm.styleStarWidth },
+                          { height: _vm.styleStarHeight }
+                        ],
+                        attrs: { id: index + 1 }
+                      },
+                      [
+                        _c("polygon", {
+                          staticStyle: { "fill-rule": "nonzero" },
+                          attrs: { points: _vm.getStarPoints }
+                        })
+                      ]
+                    )
+                  ]
+                )
+              ])
+            }),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-text-bold uk-margin-small-left uk-margin-small",
+                style: _vm.styleRateColor
+              },
+              [_vm._v(_vm._s(_vm.ratingFixed))]
+            )
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c("textarea", {
+          directives: [
             {
-              staticClass: "uk-text-bold uk-margin-small-left uk-margin-small",
-              style: _vm.styleRateColor
-            },
-            [_vm._v(_vm._s(_vm.ratingFixed))]
-          )
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _c("textarea", {
-        staticClass: "uk-textarea uk-width uk-height-small",
-        attrs: { placeholder: _vm.commentText, id: "comment" }
-      }),
-      _vm._v(" "),
-      _c(
-        "button",
-        {
-          staticClass:
-            "uk-button uk-button-primary uk-margin-small-top uk-float-right ",
+              name: "model",
+              rawName: "v-model",
+              value: _vm.content,
+              expression: "content"
+            }
+          ],
+          staticClass: "uk-textarea uk-width uk-height-small",
+          attrs: { placeholder: _vm.commentText, id: "comment" },
+          domProps: { value: _vm.content },
           on: {
-            click: function($event) {
-              return _vm.submitReview(_vm.setComment)
+            input: function($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.content = $event.target.value
             }
           }
-        },
-        [_vm._v(" " + _vm._s(_vm.sendText) + " ")]
-      )
-    ]
-  )
+        }),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass:
+              "uk-button uk-button-primary uk-margin-small-top uk-float-right ",
+            on: {
+              click: function($event) {
+                return _vm.submitReview(_vm.setComment)
+              }
+            }
+          },
+          [_vm._v(" " + _vm._s(_vm.sendText) + " ")]
+        ),
+        _vm._v(" "),
+        _vm.apiStatus == "update"
+          ? _c(
+              "button",
+              {
+                staticClass:
+                  "uk-button uk-button-default uk-margin-small-top uk-float-right ",
+                attrs: { "uk-toggle": "target: .review" + _vm.userId },
+                on: { click: _vm.clearForm }
+              },
+              [_vm._v(" " + _vm._s(_vm.cancelText) + " ")]
+            )
+          : _vm._e()
+      ])
+    : _vm._e()
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -19755,7 +19985,7 @@ var render = function() {
           _vm._v(" "),
           _c(
             "div",
-            { staticClass: "uk-width" },
+            { staticClass: " uk-width-2-3" },
             [
               _c("stars-rating", {
                 attrs: {
@@ -25158,7 +25388,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "star-rating uk-width-2-3" },
+    { staticClass: "star-rating" },
     [
       _vm._l(_vm.stars, function(star, index) {
         return _c("div", { key: index, staticClass: "star-container" }, [
@@ -45459,6 +45689,7 @@ var mutations = {
     state.categoryCourses = index.data.data;
   },
   setCourseReviews: function setCourseReviews(state, index) {
+    console.log(index.data);
     state.courseReviews = index.data;
   },
 
@@ -45590,228 +45821,233 @@ var actions = {
       return commit('setCategoryCourses', response);
     });
   },
-  loadCourseReviews: function loadCourseReviews(_ref8, id) {
+  loadCourseReviews: function loadCourseReviews(_ref8, _ref9) {
     var commit = _ref8.commit;
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/course/' + id + "/comments").then(function (response) {
-      return commit('setCourseReviews', response);
+
+    var _ref10 = _slicedToArray(_ref9, 2),
+        module = _ref10[0],
+        id = _ref10[1];
+
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/comment/' + module + '/' + id + "/comments").then(function (response) {
+      return commit('setCourseReviews', response.data);
     });
   },
-  loadNewPageReviews: function loadNewPageReviews(_ref9, id) {
-    var commit = _ref9.commit;
+  loadNewPageReviews: function loadNewPageReviews(_ref11, id) {
+    var commit = _ref11.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(id).then(function (response) {
       return commit('setCourseReviews', response);
     });
   },
-  loadMyCourses: function loadMyCourses(_ref10, userId) {
-    var commit = _ref10.commit;
+  loadMyCourses: function loadMyCourses(_ref12, userId) {
+    var commit = _ref12.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/myCourses/' + userId).then(function (response) {
       return commit('setMyCourses', response);
     });
   },
-  loadCanComment: function loadCanComment(_ref11, userId, courseId) {
-    var commit = _ref11.commit;
+  loadCanComment: function loadCanComment(_ref13, userId, courseId) {
+    var commit = _ref13.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/course/' + courseId + '/canComment/' + userId).then(function (response) {
       return commit('setCanComment', response);
     });
   },
-  loadSubCategories: function loadSubCategories(_ref12, id) {
-    var commit = _ref12.commit;
+  loadSubCategories: function loadSubCategories(_ref14, id) {
+    var commit = _ref14.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/category/' + id).then(function (response) {
       return commit('setSubCategory', response.data);
     });
   },
-  loadSections: function loadSections(_ref13, _ref14) {
-    var commit = _ref13.commit;
+  loadSections: function loadSections(_ref15, _ref16) {
+    var commit = _ref15.commit;
 
-    var _ref15 = _slicedToArray(_ref14, 2),
-        moduleName = _ref15[0],
-        courseId = _ref15[1];
+    var _ref17 = _slicedToArray(_ref16, 2),
+        moduleName = _ref17[0],
+        courseId = _ref17[1];
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/instructor/' + moduleName + '/course/' + courseId + '/sections/get').then(function (response) {
       return commit('setSections', response.data);
     });
   },
-  loadSelectedLessonIndex: function loadSelectedLessonIndex(_ref16, lessonIndex) {
-    var commit = _ref16.commit;
+  loadSelectedLessonIndex: function loadSelectedLessonIndex(_ref18, lessonIndex) {
+    var commit = _ref18.commit;
     commit('setSelectedLessonIndex', lessonIndex);
   },
-  loadSelectedSectionIndex: function loadSelectedSectionIndex(_ref17, sectionIndex) {
-    var commit = _ref17.commit;
+  loadSelectedSectionIndex: function loadSelectedSectionIndex(_ref19, sectionIndex) {
+    var commit = _ref19.commit;
     commit('setSelectedSectionIndex', sectionIndex);
   },
-  loadLearnCourse: function loadLearnCourse(_ref18, _ref19) {
-    var commit = _ref18.commit;
+  loadLearnCourse: function loadLearnCourse(_ref20, _ref21) {
+    var commit = _ref20.commit;
 
-    var _ref20 = _slicedToArray(_ref19, 3),
-        moduleName = _ref20[0],
-        courseId = _ref20[1],
-        userId = _ref20[2];
+    var _ref22 = _slicedToArray(_ref21, 3),
+        moduleName = _ref22[0],
+        courseId = _ref22[1],
+        userId = _ref22[2];
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/learn/' + moduleName + '/' + courseId + '/user/' + userId).then(function (response) {
       return commit('setLearnCourse', response.data);
     });
   },
-  loadCourseSources: function loadCourseSources(_ref21, _ref22) {
-    var commit = _ref21.commit;
+  loadCourseSources: function loadCourseSources(_ref23, _ref24) {
+    var commit = _ref23.commit;
 
-    var _ref23 = _slicedToArray(_ref22, 3),
-        moduleName = _ref23[0],
-        courseId = _ref23[1],
-        lessonId = _ref23[2];
+    var _ref25 = _slicedToArray(_ref24, 3),
+        moduleName = _ref25[0],
+        courseId = _ref25[1],
+        lessonId = _ref25[2];
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/learn/' + moduleName + '/' + courseId + '/lesson/' + lessonId + '/sources').then(function (response) {
       return commit('setCourseSources', response.data);
     });
   },
-  loadLessonDiscussion: function loadLessonDiscussion(_ref24, _ref25) {
-    var commit = _ref24.commit;
+  loadLessonDiscussion: function loadLessonDiscussion(_ref26, _ref27) {
+    var commit = _ref26.commit;
 
-    var _ref26 = _slicedToArray(_ref25, 3),
-        moduleName = _ref26[0],
-        courseId = _ref26[1],
-        lessonId = _ref26[2];
+    var _ref28 = _slicedToArray(_ref27, 3),
+        moduleName = _ref28[0],
+        courseId = _ref28[1],
+        lessonId = _ref28[2];
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/learn/' + moduleName + '/' + courseId + '/lesson/' + lessonId + '/discussion').then(function (response) {
       return commit('setLessonDiscussion', response.data);
     });
   },
-  loadPlLessonType: function loadPlLessonType(_ref27) {
-    var commit = _ref27.commit;
+  loadPlLessonType: function loadPlLessonType(_ref29) {
+    var commit = _ref29.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/curriculum/index').then(function (response) {
       return commit('setPlLessonType', response.data);
     });
   },
-  loadPreviewLessons: function loadPreviewLessons(_ref28, _ref29) {
-    var commit = _ref28.commit;
+  loadPreviewLessons: function loadPreviewLessons(_ref30, _ref31) {
+    var commit = _ref30.commit;
 
-    var _ref30 = _slicedToArray(_ref29, 2),
-        moduleName = _ref30[0],
-        courseId = _ref30[1];
+    var _ref32 = _slicedToArray(_ref31, 2),
+        moduleName = _ref32[0],
+        courseId = _ref32[1];
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/course/' + courseId + '/' + moduleName + '/previewLessons').then(function (response) {
       return commit('setPreviewLessons', response.data);
     });
   },
-  loadCourseSubjects: function loadCourseSubjects(_ref31, _ref32) {
-    var commit = _ref31.commit;
+  loadCourseSubjects: function loadCourseSubjects(_ref33, _ref34) {
+    var commit = _ref33.commit;
 
-    var _ref33 = _slicedToArray(_ref32, 2),
-        moduleName = _ref33[0],
-        courseId = _ref33[1];
+    var _ref35 = _slicedToArray(_ref34, 2),
+        moduleName = _ref35[0],
+        courseId = _ref35[1];
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/instructor/' + moduleName + '/course/' + courseId + '/subjects').then(function (response) {
       return commit('setCourseSubjects', response.data);
     });
   },
-  loadLessonSubjects: function loadLessonSubjects(_ref34, lessonId) {
-    var commit = _ref34.commit;
+  loadLessonSubjects: function loadLessonSubjects(_ref36, lessonId) {
+    var commit = _ref36.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/instructor/subjects/lesson/' + lessonId).then(function (response) {
       return commit('setCourseSubjects', response.data);
     });
   },
-  loadQuestionSource: function loadQuestionSource(_ref35, userId) {
-    var commit = _ref35.commit;
+  loadQuestionSource: function loadQuestionSource(_ref37, userId) {
+    var commit = _ref37.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/questionSource/getQuestions/' + userId).then(function (response) {
       return commit('setQuestionSource', response.data);
     });
   },
-  loadShoppingCart: function loadShoppingCart(_ref36, userId) {
-    var commit = _ref36.commit;
+  loadShoppingCart: function loadShoppingCart(_ref38, userId) {
+    var commit = _ref38.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/basket/show/' + userId).then(function (response) {
       return commit('setShoppingCart', response.data);
     });
   },
-  loadCourseCard: function loadCourseCard(_ref37) {
-    var commit = _ref37.commit;
+  loadCourseCard: function loadCourseCard(_ref39) {
+    var commit = _ref39.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(state.urlForCourseCard).then(function (response) {
       return commit('setCourseCard', response.data);
     });
   },
-  loadUrlForCourseCard: function loadUrlForCourseCard(_ref38, url) {
-    var commit = _ref38.commit,
-        dispatch = _ref38.dispatch;
+  loadUrlForCourseCard: function loadUrlForCourseCard(_ref40, url) {
+    var commit = _ref40.commit,
+        dispatch = _ref40.dispatch;
     commit('setUrlForCourseCard', url);
     dispatch('loadCourseCard');
   },
-  loadIsInCart: function loadIsInCart(_ref39, _ref40) {
-    var commit = _ref39.commit;
+  loadIsInCart: function loadIsInCart(_ref41, _ref42) {
+    var commit = _ref41.commit;
 
-    var _ref41 = _slicedToArray(_ref40, 3),
-        module = _ref41[0],
-        userId = _ref41[1],
-        courseId = _ref41[2];
+    var _ref43 = _slicedToArray(_ref42, 3),
+        module = _ref43[0],
+        userId = _ref43[1],
+        courseId = _ref43[2];
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/' + module + '/inBasket/' + userId + '/' + courseId).then(function (response) {
       return commit('setIsInCart', response.data);
     });
   },
-  loadAdminLesson: function loadAdminLesson(_ref42) {
-    var commit = _ref42.commit;
+  loadAdminLesson: function loadAdminLesson(_ref44) {
+    var commit = _ref44.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/cr/lesson/show').then(function (response) {
       return commit('setAdminLesson', response.data);
     });
   },
-  loadAdminSubject: function loadAdminSubject(_ref43, lessonId) {
-    var commit = _ref43.commit;
+  loadAdminSubject: function loadAdminSubject(_ref45, lessonId) {
+    var commit = _ref45.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/cr/lesson/' + lessonId + '/subjects').then(function (response) {
       return commit('setAdminSubject', response.data);
     });
   },
-  loadAdminGrade: function loadAdminGrade(_ref44) {
-    var commit = _ref44.commit;
+  loadAdminGrade: function loadAdminGrade(_ref46) {
+    var commit = _ref46.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/cr/grade/show').then(function (response) {
       return commit('setAdminGrade', response.data);
     });
   },
-  loadAdminCategory: function loadAdminCategory(_ref45) {
-    var commit = _ref45.commit;
+  loadAdminCategory: function loadAdminCategory(_ref47) {
+    var commit = _ref47.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/ge/category/show').then(function (response) {
       return commit('setAdminCategory', response.data);
     });
   },
-  loadAdminSubCategory: function loadAdminSubCategory(_ref46, categoryId) {
-    var commit = _ref46.commit;
+  loadAdminSubCategory: function loadAdminSubCategory(_ref48, categoryId) {
+    var commit = _ref48.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/ge/category/' + categoryId + '/subCategories').then(function (response) {
       return commit('setAdminSubCategory', response.data);
     });
   },
-  loadAdminCity: function loadAdminCity(_ref47) {
-    var commit = _ref47.commit;
+  loadAdminCity: function loadAdminCity(_ref49) {
+    var commit = _ref49.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/bs/city/show').then(function (response) {
       return commit('setAdminCity', response.data);
     });
   },
-  loadAdminExam: function loadAdminExam(_ref48) {
-    var commit = _ref48.commit;
+  loadAdminExam: function loadAdminExam(_ref50) {
+    var commit = _ref50.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/cr/exam/show').then(function (response) {
       return commit('setAdminExam', response.data);
     });
   },
-  loadAdminDistrict: function loadAdminDistrict(_ref49, cityId) {
-    var commit = _ref49.commit;
+  loadAdminDistrict: function loadAdminDistrict(_ref51, cityId) {
+    var commit = _ref51.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/bs/city/' + cityId + '/districts').then(function (response) {
       return commit('setAdminDistrict', response.data);
     });
   },
-  loadAdminNewPage: function loadAdminNewPage(_ref50, _ref51) {
-    var commit = _ref50.commit;
+  loadAdminNewPage: function loadAdminNewPage(_ref52, _ref53) {
+    var commit = _ref52.commit;
 
-    var _ref52 = _slicedToArray(_ref51, 2),
-        url = _ref52[0],
-        mutationName = _ref52[1];
+    var _ref54 = _slicedToArray(_ref53, 2),
+        url = _ref54[0],
+        mutationName = _ref54[1];
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
       return commit(mutationName, response.data);
     });
   },
-  loadCrLessons: function loadCrLessons(_ref53) {
-    var commit = _ref53.commit;
+  loadCrLessons: function loadCrLessons(_ref55) {
+    var commit = _ref55.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/pl/lessons').then(function (response) {
       return commit('setCrLessons', response.data);
     });
   },
-  loadCrExams: function loadCrExams(_ref54) {
-    var commit = _ref54.commit;
+  loadCrExams: function loadCrExams(_ref56) {
+    var commit = _ref56.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/pe/exams').then(function (response) {
       return commit('setCrExams', response.data);
     });

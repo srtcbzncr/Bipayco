@@ -95,6 +95,7 @@ const mutations={
         state.categoryCourses=index.data.data;
     },
     setCourseReviews(state,index){
+        console.log(index.data);
         state.courseReviews=index.data;
     },
     /*course-progress-card.vue*/
@@ -209,9 +210,9 @@ const actions={
         Axios.get(id)
             .then(response =>commit('setCategoryCourses',response))
     },
-    loadCourseReviews({commit},id){
-        Axios.get('/api/course/'+id+"/comments")
-            .then(response =>commit('setCourseReviews',response));
+    loadCourseReviews({commit},[module, id]){
+        Axios.get('/api/comment/'+module+'/'+id+"/comments")
+            .then(response =>commit('setCourseReviews',response.data));
     },
     loadNewPageReviews({commit}, id){
         Axios.get(id)

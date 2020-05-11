@@ -1,5 +1,5 @@
 <template>
-    <div class="star-rating uk-width-2-3">
+    <div class="star-rating">
         <div v-for="(star, index) in stars" :key="index" class="star-container">
             <svg
                 class="star-svg"

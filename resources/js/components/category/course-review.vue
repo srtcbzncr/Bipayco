@@ -1,57 +1,83 @@
 <template>
     <div>
         <div v-for="review in courseReviews.data">
-            <div class="uk-grid-small  uk-margin-medium-top" uk-grid>
+            <div :class="'comment'+review.user_id" class="uk-grid-small  uk-margin-medium-top" uk-grid>
                 <div class="uk-width-1-5@m uk-first-column">
                     <img alt="Image" class="uk-visible@m uk-width-1-2 uk-margin-small-top uk-margin-small-bottom uk-border-circle uk-align-center  uk-box-shadow-large" :src="review.user.avatar">
                 </div>
                 <div class="uk-width-4-5@m uk-padding-remove-left">
-                    <div class="uk-flex justify-content-between">
-                        <div class="uk-width-3-4">
-                            <h4 class="uk-margin-remove">{{review.user.first_name}} {{review.user.last_name}}</h4>
-                            <span class="uk-text-small">{{dateFormat(review.created_at)}}</span>
+                    <span v-if="review.user_id==userId" class="uk-float-right">
+                        <button class="uk-button-default" type="button"><i class="fas fa-ellipsis-v"></i></button>
+                        <div uk-dropdown="mode:click" class="uk-padding-small border-radius-6">
+                            <ul class="uk-nav uk-dropdown-nav">
+                                <li><a :uk-toggle="'target: .review'+userId">{{editText}}</a></li>
+                                <li><a @click="deleteReview" class="uk-text-danger">{{deleteText}}</a></li>
+                            </ul>
                         </div>
-                        <stars-rating :rating="Number(review.point)" style-full-star-color="#F4C150" style-empty-star-color="#C1C1C1" :style-star-width="14" :style-star-height="14"> </stars-rating>
-
+                    </span>
+                    <h4 class="uk-margin-remove-vertical uk-margin-small-right">{{review.user.first_name}} {{review.user.last_name}}</h4>
+                    <div class="uk-width uk-flex uk-flex-wrap align-item-center justify-content-between uk-margin-small-top">
+                        <p class="uk-margin-small-top uk-margin-small-bottom uk-text-justify uk-width-1-2@m">{{dateFormat(review.created_at)}}</p>
+                        <stars-rating :rating="Number(review.point)" style-full-star-color="#F4C150" style-empty-star-color="#C1C1C1" :style-star-width="18" :style-star-height="18"> </stars-rating>
                     </div>
                     <hr class="uk-margin-small">
                     <p class="uk-margin-remove-top uk-margin-small-bottom">{{review.content}}</p>
                 </div>
             </div>
+            <div v-if="userId==review.user_id" :class="'comment'+userId" hidden>
+                <review
+                    :review="review.content"
+                    :rating="Number(review.point)"
+                    :module-name="moduleName"
+                    :course-id="courseId.toString()"
+                    :user-id="userId.toString()"
+                    :send-text="updateText"
+                    :cancel-text="cancelText"
+                    :comment-text="commentText"
+                    api-status="update"
+                > </review>
+            </div>
             <hr>
         </div>
         <ul class="uk-pagination uk-flex-center uk-margin-medium">
             <li class="uk-float-left">
-                <button v-show="currentPage!==1" @click="loadNewPages(courseReviews.links.prev,--currentPage)"> < </button>
+                <button v-show="courseReviews.current_page!==1" @click="loadNewPages(courseReviews.prev_page_url)"> < </button>
             </li>
             <li class="uk-float-right">
-                <button v-show="currentPage<lastPage" @click="loadNewPages(courseReviews.links.next,++currentPage)"> > </button>
+                <button v-show="courseReviews.current_page<courseReviews.last_page" @click="loadNewPages(courseReviews.next_page_url,++currentPage)"> > </button>
             </li>
         </ul>
     </div>
 </template>
 <script>
     import {mapActions, mapState} from "vuex";
-
+    import Axios from 'axios';
     export default {
         name: "course-review",
         mounted() {
-            this.$store.dispatch('loadCourseReviews',this.courseId);
+            this.$store.dispatch('loadCourseReviews',[this.module,this.courseId]);
         },
         data(){
             return {
-                currentPage:1,
-                isLoaded:false,
+                apiUrl:'/api/comment/'+this.module+'/'+this.courseId+'/comments',
             }
         },
         props:{
             courseId:{
                 type:String,
-                requirement:true,
+                required:true,
+            },
+            userId:{
+                type:String,
+                default:""
+            },
+            moduleName:{
+                type:String,
+                required:true,
             },
             reviewCount:{
                 type:Number,
-                requirement:true,
+                required:true,
             },
             minuteBeforeText:{
                 type:String,
@@ -72,19 +98,39 @@
             yearBeforeText:{
                 type:String,
                 default:"yıl önce"
-            }
+            },
+            editText:{
+                type:String,
+                default:"Düzenle",
+            },
+            deleteText:{
+                type:String,
+                default:"Sil",
+            },
+            cancelText:{
+                type:String,
+                default:"Vazgeç",
+            },
+            commentText:{
+                type:String,
+                default:"Yorum Yaz...",
+            },
+            updateText:{
+                type:String,
+                default:"Güncelle",
+            },
         },
         computed:{
             ...mapState([
                 'courseReviews',
             ]),
-            lastPage(){
-                if(this.courseReviews.meta!=null) {
-                    return this.courseReviews.meta.last_page;
-                }else{
-                    return 20;
+            module(){
+                switch (this.moduleName) {
+                    case 'prepareLessons': return 'pl';
+                    case 'prepareExams': return 'pe';
+                    default: return 'ge';
                 }
-            },
+            }
         },
         methods:{
             ...mapActions([
@@ -106,9 +152,16 @@
                     return (today.getMinutes() - created.getMinutes()) + " " + this.minuteBeforeText;
                 }
             },
-            loadNewPages: function(name,newPageNumber){
+            loadNewPages: function(name){
                 this.$store.dispatch('loadNewPageReviews',name);
-                this.currentPage=newPageNumber;
+                this.apiUrl=name;
+            },
+            deleteReview:function () {
+                Axios.post('api/comment/'+this.module+'/'+this.courseId+'/delete', {'userId':this.userId})
+                    .then(()=>{this.loadNewPages(this.apiUrl);});
+            },
+            toggleEdit:function () {
+                UIkit.toggle()
             }
         },
     }

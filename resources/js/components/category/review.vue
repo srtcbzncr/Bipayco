@@ -1,5 +1,5 @@
 <template>
-    <div v-show="comment" class="uk-margin-xlarge-bottom">
+    <div v-if="comment" class="uk-margin-xlarge-bottom">
         <div class="star-rating">
             <div v-for="(star, index) in stars" :key="index" class="star-container">
                 <button @click="setRate(index+1)" class="uk-icon-button star-button">
@@ -18,8 +18,9 @@
             </div>
             <div class="uk-text-bold uk-margin-small-left uk-margin-small" :style="styleRateColor">{{ ratingFixed }}</div>
         </div>
-        <textarea class="uk-textarea uk-width uk-height-small" :placeholder="commentText" id="comment" > </textarea>
+        <textarea class="uk-textarea uk-width uk-height-small" :placeholder="commentText" id="comment" v-model="content" ></textarea>
         <button @click="submitReview(setComment)" class="uk-button uk-button-primary uk-margin-small-top uk-float-right "> {{sendText}} </button>
+        <button v-if="apiStatus=='update'" @click="clearForm" :uk-toggle="'target: .review'+userId" class="uk-button uk-button-default uk-margin-small-top uk-float-right "> {{cancelText}} </button>
     </div>
 </template>
 
@@ -30,6 +31,10 @@
         name: "stars-rating",
         props: {
             courseId:{
+                type:String,
+                required:true,
+            },
+            moduleName:{
                 type:String,
                 required:true,
             },
@@ -52,6 +57,14 @@
             rating: {
                 type: Number,
                 default: 5,
+            },
+            review:{
+                type:String,
+                default:"",
+            },
+            apiStatus:{
+                type:String,
+                default:'create',
             },
             starStyle: {
                 type: Object
@@ -81,6 +94,10 @@
                     type:String,
                     default:'#212529',
                 }
+            },
+            cancelText:{
+                type:String,
+                default:"Vazgeç"
             }
         },
         data: function () {
@@ -92,7 +109,7 @@
                 rate:this.rating,
                 ratingColor:[this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,this.styleFullStarColor,],
                 comment:true,
-                // Binded Nested Props registered as data/computed and not props
+                content:this.review,
             };
         },
         directives: {},
@@ -118,6 +135,13 @@
             ratingFixed:function () {
                 return this.rate.toFixed(1);
             },
+            module(){
+                switch (this.moduleName) {
+                    case 'prepareLessons': return 'pl';
+                    case 'prepareExams': return 'pe';
+                    default: return 'ge';
+                }
+            }
         },
         methods: {
             ...mapActions([
@@ -127,15 +151,15 @@
                 this.comment=can;
             },
             submitReview( setMethod ){
-                Axios.post('/api/comment/create', {
-                    content: document.getElementById('comment').value,
+                Axios.post('/api/comment/'+this.module+'/'+this.apiStatus, {
+                    content:this.content,
                     point:this.ratingFixed,
                     course_id:this.courseId,
                     user_id:this.userId
                 })
                 .then(function (response) {
                     if(response.data.error){
-                        UIkit.notification({message: response.data.message, status: 'danger'});
+                        UIkit.notification({message: response.data.errorMessage, status: 'danger'});
                     }else{
                         UIkit.notification({message: response.data.message, status: 'success'});
                     }
@@ -214,6 +238,10 @@
                         this[newKey] = objToFlatten[i];
                     }
                 }
+            },
+            clearForm:function () {
+                this.rate=this.rating;
+                this.content=this.review;
             }
         },
         mounted() {
