@@ -15,7 +15,7 @@ class SubCategoryController extends Controller
         // Operations
         $subCategoryResp = $repo->get($id);
         $coursesResp = $repo->getCourses($id);
-        $courseCount = count($coursesResp->getData());
+        $courseCount = count($coursesResp->getData()->where('active',true)->where('deleted_at',null));
 
         // Response
         if($subCategoryResp->getResult() and $coursesResp->getResult()){

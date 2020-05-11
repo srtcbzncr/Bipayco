@@ -25,7 +25,7 @@ class ExamRepository implements IRepository{
             foreach ($object as $key => $item){
                 $resp = $repoCourse->showExamCourses($item->id);
                 $data = $resp->getData();
-                $object[$key]['courseCount'] = count($data);
+                $object[$key]['courseCount'] = count($data->where('active',true)->where('deleted_at',null));
             }
 
         }
@@ -52,7 +52,7 @@ class ExamRepository implements IRepository{
             $repoCourse = new CurriculumRepository();
             $resp = $repoCourse->showExamCourses($id);
             $data = $resp->getData();
-            $object['courseCount'] = count($data);
+            $object['courseCount'] = count($data->where('active',true)->where('deleted_at',null));
         }
         catch(\Exception $e){
             $error = $e;

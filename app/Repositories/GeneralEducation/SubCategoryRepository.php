@@ -267,7 +267,7 @@ class SubCategoryRepository implements IRepository{
                     $student = Student::where('user_id',$user->id)->first();
                     $controlEntry = Entry::where('student_id',$student->id)->where('course_type','App\Models\GeneralEducation\Course')
                         ->where('course_id',$item->id)->where('deleted_at',null)->get();
-                    if($controlEntry != null and count($controlEntry)){
+                    if($controlEntry != null and count($controlEntry)>0){
                         $object[$key]['inEntry'] = true;
                     }
                     else{
