@@ -41,6 +41,7 @@ class HomeController extends Controller
             'exams' => [],
         ];
 
+
         // Response
         return view('home',$data);
     }

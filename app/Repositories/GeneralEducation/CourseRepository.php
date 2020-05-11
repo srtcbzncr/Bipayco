@@ -73,6 +73,16 @@ class CourseRepository implements IRepository{
             # inBasket ve inFavorite bilgileri
             if($user_id != null){
                 foreach ($object as $key=> $item){
+                    $student = Student::where('user_id',$user_id)->first();
+                    $controlEntry = Entry::where('student_id',$student->id)->where('course_type','App\Models\GeneralEducation\Course')
+                        ->where('course_id',$item->id)->where('deleted_at',null)->get();
+                    if($controlEntry != null and count($controlEntry)){
+                        $object[$key]['inEntry'] = true;
+                    }
+                    else{
+                        $object[$key]['inEntry'] = false;
+                    }
+
                     $controlBasket = Basket::where('user_id',$user_id)->where('course_type','App\Models\GeneralEducation\Course')
                         ->where('course_id',$item->id)->get();
                     if($controlBasket != null and count($controlBasket) > 0){
