@@ -15,7 +15,7 @@
                 </div>
             </li>
         </ul>
-        <div v-if="courseCount>0">
+        <div v-if="courseCount>0&&courseCard.data">
             <div class="uk-clearfix boundary-align uk-margin-medium-top">
                 <div class="uk-float-left section-heading none-border">
                     <h2>{{gradeName}}</h2>

@@ -14,7 +14,7 @@
                 @endif
                 <div class="uk-margin-small">
                     <div class="uk-inline uk-flex align-items-center">
-                        <input id="password" class="uk-input uk-form-width-large form-control @error('password') is-invalid @enderror" required autocomplete="password" placeholder="@lang('front/auth.new_password')" type="password">
+                        <input id="password" class="uk-input uk-form-width-large form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password" placeholder="@lang('front/auth.new_password')" type="password">
                         <a class="fas fa-eye" onclick="togglePassword('password')" style="margin-left: -30px;"></a>
                     </div>
                     @error('password')
@@ -25,7 +25,7 @@
                 </div>
                 <div class="uk-margin-small">
                     <div class="uk-inline uk-flex align-items-center">
-                        <input id="passwordAgain" class="uk-input uk-form-width-large form-control @error('passwordAgain') is-invalid @enderror" required autocomplete="password" placeholder="@lang('front/auth.new_password_repeat')" type="password">
+                        <input id="passwordAgain" class="uk-input uk-form-width-large form-control @error('passwordAgain') is-invalid @enderror" name="passwordAgain" required autocomplete="password" placeholder="@lang('front/auth.new_password_repeat')" type="password">
                         <a class="fas fa-eye" onclick="togglePassword('passwordAgain')" style="margin-left: -30px;"></a>
                     </div>
                     @error('password')

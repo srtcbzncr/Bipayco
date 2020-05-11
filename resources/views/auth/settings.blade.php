@@ -129,27 +129,26 @@
                 </div>
             </div>
         </div>
-{{--        @if($has_student_profile)--}}
-
-{{--            <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 90%">--}}
-{{--                <div class="uk-card-header uk-text-bold">--}}
-{{--                    <span class="fas icon-medium uk-margin-small-right fa-graduation-cap"></span>--}}
-{{--                    @lang('front/auth.student_infos')--}}
-{{--                </div>--}}
-{{--                <div class="uk-card-body">--}}
-{{--                    <div uk-grid class="uk-flex-center">--}}
-{{--                        <div class="uk-width-large@m uk-padding-remove-top">--}}
-{{--                            <fieldset class="uk-fieldset uk-margin-small-bottom">--}}
-{{--                                <div>--}}
-{{--                                    <div class="uk-form-label"> @lang('front/auth.reference_code')  </div>--}}
-{{--                                    <input class="uk-input" type="text" disabled name="reference_code" value="{{$student_profile->reference_code}}" required>--}}
-{{--                                </div>--}}
-{{--                            </fieldset>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        @endif--}}
+        @if($has_student_profile)
+            <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 90%">
+                <div class="uk-card-header uk-text-bold">
+                    <span class="fas icon-medium uk-margin-small-right fa-graduation-cap"></span>
+                    @lang('front/auth.student_infos')
+                </div>
+                <div class="uk-card-body">
+                    <div uk-grid class="uk-flex-center">
+                        <div class="uk-width-large@m uk-padding-remove-top">
+                            <fieldset class="uk-fieldset uk-margin-small-bottom">
+                                <div>
+                                    <div class="uk-form-label"> @lang('front/auth.reference_code')  </div>
+                                    <input class="uk-input" type="text" disabled name="reference_code" value="{{$student_profile->reference_code}}" required>
+                                </div>
+                            </fieldset>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
         @if($has_instructor_profile)
             <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 90%">
                 <div class="uk-card-header uk-text-bold">
@@ -217,6 +216,27 @@
                     </form>
                 </div>
             </div>
+        @endif
+{{--        @if($has_guardian_profile)--}}
+{{--            <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 90%">--}}
+{{--                <div class="uk-card-header uk-text-bold">--}}
+{{--                    <span class="fas icon-medium uk-margin-small-right fa-graduation-cap"></span>--}}
+{{--                    @lang('front/auth.guardian_infos')--}}
+{{--                </div>--}}
+{{--                <div class="uk-card-body">--}}
+{{--                    <div uk-grid class="uk-flex-center">--}}
+{{--                        <div class="uk-width-large@m uk-padding-remove-top">--}}
+{{--                            <div class="uk-fieldset uk-margin-small-bottom">--}}
+{{--                                <guardian-add-student></guardian-add-student>--}}
+{{--                                <div>--}}
+{{--                                    <div class="uk-form-label"> @lang('front/auth.reference_code')  </div>--}}
+{{--                                    <input class="uk-input" type="text" disabled name="reference_code" value="{{$guardian_profile->reference_code}}" required>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
         @endif
     </div>
 @endsection
