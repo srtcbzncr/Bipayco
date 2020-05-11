@@ -104,7 +104,7 @@ class QuestionSourceRepository implements IRepository
             $object->crLessonId = $data['crLessonId'];
             $object->crSubjectId = $data['crSubjectId'];
             $object->instructorId = $data['instructorId'];
-            $object->isConfirm = false;
+            $object->isConfirm = true;
             $object->save();
 
             // add answers
@@ -172,7 +172,7 @@ class QuestionSourceRepository implements IRepository
             $object->crLessonId = $data['crLessonId'];
             $object->crSubjectId = $data['crSubjectId'];
             $object->instructorId = $data['instructorId'];
-            $object->isConfirm = false;
+            $object->isConfirm = true;
             $object->save();
 
             // add answers
@@ -240,7 +240,7 @@ class QuestionSourceRepository implements IRepository
             $object->crLessonId = $data['crLessonId'];
             $object->crSubjectId = $data['crSubjectId'];
             $object->instructorId = $data['instructorId'];
-            $object->isConfirm = false;
+            $object->isConfirm = true;
             $object->save();
 
             // add answers
@@ -286,7 +286,7 @@ class QuestionSourceRepository implements IRepository
             $object->crLessonId = $data['crLessonId'];
             $object->crSubjectId = $data['crSubjectId'];
             $object->instructorId = $data['instructorId'];
-            $object->isConfirm = false;
+            $object->isConfirm = true;
             $object->save();
 
             // add answers
@@ -331,7 +331,7 @@ class QuestionSourceRepository implements IRepository
             $object->crLessonId = $data['crLessonId'];
             $object->crSubjectId = $data['crSubjectId'];
             $object->instructorId = $data['instructorId'];
-            $object->isConfirm = false;
+            $object->isConfirm = true;
             $object->save();
 
             // add answers
@@ -396,7 +396,7 @@ class QuestionSourceRepository implements IRepository
             $object->crLessonId = $data['crLessonId'];
             $object->crSubjectId = $data['crSubjectId'];
             $object->instructorId = $data['instructorId'];
-            $object->isConfirm = false;
+            $object->isConfirm = true;
             $object->save();
 
             // add answers
