@@ -6,8 +6,7 @@
         <hr>
         <div class="uk-margin-small-top" v-if="moduleName=='prepareLessons'">
             <div class="uk-form-label">{{subjectText}}</div>
-            <select id="courseSubject" class="uk-width uk-select">
-                <option disabled hidden selected :value="sections[selectedSectionIndex].subject_id"> {{sections[selectedSectionIndex].subject_name}} </option>
+            <select id="plSectionSubjectId" :value="sections[selectedSectionIndex].subject_id" class="uk-width uk-select">
                 <option v-for="subject in courseSubjects" :value="subject.id" > {{subject.name}}</option>
             </select>
         </div>
@@ -66,11 +65,17 @@
     import crLessonSelect from'./cr-lesson-select.vue';
     import lesson from'./lesson.vue';
     import {mapActions, mapState, mapMutations} from "vuex";
-
+    import Axios from 'axios';
     export default {
         name: "section-settings",
+        data(){
+            return{
+
+            }
+        },
         components:{
             lesson,
+            crLessonSelect,
         },
         props:{
             editSectionText:{
@@ -146,7 +151,6 @@
                 'selectedLessonId',
                 'selectedSubjectId',
             ]),
-
         },
         methods:{
             ...mapActions([
@@ -163,12 +167,12 @@
                 formData.append('name', document.getElementById('sectionSettingsName').value);
                 formData.append('courseId', this.courseId);
                 if(this.moduleName=='prepareLessons') {
-                    formData.append('subjectId', document.getElementById('courseSubject').value);
+                    formData.append('subjectId', document.getElementById('plSectionSubjectId').value);
                 }else if(this.moduleName=='prepareExams'){
                     formData.append('lessonId', this.selectedLessonId);
                     formData.append('subjectId', this.selectedSubjectId);
                 }
-                axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/sections/create/'+this.sections[this.selectedSectionIndex].id, formData)
+                Axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/sections/create/'+this.sections[this.selectedSectionIndex].id, formData)
                     .then(response=>{
                         if(!response.data.error){
                             this.$store.dispatch('loadSections',[this.moduleName, this.courseId]);
@@ -176,15 +180,15 @@
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
-                    })
+                    });
                 this.clear();
             },
             lessonUp:function (lessonId) {
-                axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/section/'+this.sections[this.selectedSectionIndex].id+'/lesson/'+lessonId+"/up")
+                Axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/section/'+this.sections[this.selectedSectionIndex].id+'/lesson/'+lessonId+"/up")
                     .then(this.$store.dispatch('loadSections',[this.moduleName, this.courseId]))
             },
             lessonDown:function (lessonId) {
-                axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/section/'+this.sections[this.selectedSectionIndex].id+'/lesson/'+lessonId+'/down')
+                Axios.post('/api/instructor/'+this.moduleName+'/course/'+this.courseId+'/section/'+this.sections[this.selectedSectionIndex].id+'/lesson/'+lessonId+'/down')
                     .then(this.$store.dispatch('loadSections',[this.moduleName, this.courseId]))
             },
             clear:function () {
@@ -196,6 +200,10 @@
             if(this.moduleName=='prepareLessons'){
                 this.$store.dispatch('loadCourseSubjects', [this.moduleName, this.courseId]);
             }
+        },
+        created() {
+            this.$store.dispatch('loadSections',[this.moduleName, this.courseId]);
+            this.$store.dispatch('loadSelectedSectionIndex', 0);
         }
     }
 </script>

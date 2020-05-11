@@ -9767,6 +9767,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _cr_lesson_select_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./cr-lesson-select.vue */ "./resources/js/components/instructor/cr-lesson-select.vue");
 /* harmony import */ var _lesson_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./lesson.vue */ "./resources/js/components/instructor/lesson.vue");
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -9836,14 +9838,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "section-settings",
+  data: function data() {
+    return {};
+  },
   components: {
-    lesson: _lesson_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    lesson: _lesson_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    crLessonSelect: _cr_lesson_select_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   props: {
     editSectionText: {
@@ -9921,13 +9927,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('courseId', this.courseId);
 
       if (this.moduleName == 'prepareLessons') {
-        formData.append('subjectId', document.getElementById('courseSubject').value);
+        formData.append('subjectId', document.getElementById('plSectionSubjectId').value);
       } else if (this.moduleName == 'prepareExams') {
         formData.append('lessonId', this.selectedLessonId);
         formData.append('subjectId', this.selectedSubjectId);
       }
 
-      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/create/' + this.sections[this.selectedSectionIndex].id, formData).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/sections/create/' + this.sections[this.selectedSectionIndex].id, formData).then(function (response) {
         if (!response.data.error) {
           _this.$store.dispatch('loadSections', [_this.moduleName, _this.courseId]);
 
@@ -9945,10 +9951,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.clear();
     },
     lessonUp: function lessonUp(lessonId) {
-      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.sections[this.selectedSectionIndex].id + '/lesson/' + lessonId + "/up").then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.sections[this.selectedSectionIndex].id + '/lesson/' + lessonId + "/up").then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
     },
     lessonDown: function lessonDown(lessonId) {
-      axios.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.sections[this.selectedSectionIndex].id + '/lesson/' + lessonId + '/down').then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
+      axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/api/instructor/' + this.moduleName + '/course/' + this.courseId + '/section/' + this.sections[this.selectedSectionIndex].id + '/lesson/' + lessonId + '/down').then(this.$store.dispatch('loadSections', [this.moduleName, this.courseId]));
     },
     clear: function clear() {
       this.$store.commit('setSelectedSubjectId', "");
@@ -9959,6 +9965,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     if (this.moduleName == 'prepareLessons') {
       this.$store.dispatch('loadCourseSubjects', [this.moduleName, this.courseId]);
     }
+  },
+  created: function created() {
+    this.$store.dispatch('loadSections', [this.moduleName, this.courseId]);
+    this.$store.dispatch('loadSelectedSectionIndex', 0);
   }
 });
 
@@ -24492,35 +24502,17 @@ var render = function() {
                 "select",
                 {
                   staticClass: "uk-width uk-select",
-                  attrs: { id: "courseSubject" }
+                  attrs: { id: "plSectionSubjectId" },
+                  domProps: {
+                    value: _vm.sections[_vm.selectedSectionIndex].subject_id
+                  }
                 },
-                [
-                  _c(
-                    "option",
-                    {
-                      attrs: { disabled: "", hidden: "", selected: "" },
-                      domProps: {
-                        value: _vm.sections[_vm.selectedSectionIndex].subject_id
-                      }
-                    },
-                    [
-                      _vm._v(
-                        " " +
-                          _vm._s(
-                            _vm.sections[_vm.selectedSectionIndex].subject_name
-                          ) +
-                          " "
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _vm._l(_vm.courseSubjects, function(subject) {
-                    return _c("option", { domProps: { value: subject.id } }, [
-                      _vm._v(" " + _vm._s(subject.name))
-                    ])
-                  })
-                ],
-                2
+                _vm._l(_vm.courseSubjects, function(subject) {
+                  return _c("option", { domProps: { value: subject.id } }, [
+                    _vm._v(" " + _vm._s(subject.name))
+                  ])
+                }),
+                0
               )
             ])
           : _vm.moduleName == "prepareExams"
