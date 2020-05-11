@@ -31,4 +31,40 @@ class CommentController extends Controller
             return response()->json(['error' => false, 'message' => 'Lütfen alanları eksiksiz doldurun.']);
         }
     }
+
+    public function delete($id){
+        // Repo initialization
+        $repo = new CommentRepository;
+
+        $resp = $repo->delete($id);
+        if($resp->getResult()){
+            return response()->json([
+               'error' => false,
+                'message' => 'Yorum silindi'
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function update($id,Request $request){
+        // Repo initialization
+        $repo = new CommentRepository;
+
+        $resp = $repo->update($id,$request->toArray());
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Yorum güncellendi'
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
 }

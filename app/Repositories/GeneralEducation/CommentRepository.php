@@ -92,13 +92,16 @@ class CommentRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $object = Comment::find($id);
             $object->content = $data['content'];
             $object->point = $data['point'];
             $object->save();
+            DB::commit();
         }
         catch(\Exception $e){
-            $error = $e;
+            DB::rollBack();
+            $error = $e->getMessage();
             $result = false;
         }
 
@@ -119,7 +122,7 @@ class CommentRepository implements IRepository{
             Comment::destroy($id);
         }
         catch(\Exception $e){
-            $error = $e;
+            $error = $e->getMessage();
             $result = false;
         }
 

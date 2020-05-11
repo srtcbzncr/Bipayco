@@ -160,7 +160,21 @@ Route::prefix('course')->group(function(){
 });
 
 Route::prefix('comment')->group(function(){
-   Route::post('create', 'API\GeneralEducation\CommentController@create')->name('api_comment_create');
+    Route::prefix('ge')->group(function (){
+        Route::post('create', 'API\GeneralEducation\CommentController@create')->name('api_comment_create');
+        Route::post('delete', 'API\GeneralEducation\CommentController@delete')->name('api_comment_delete');
+        Route::post('update', 'API\GeneralEducation\CommentController@update')->name('api_comment_update');
+    });
+    Route::prefix('pl')->group(function (){
+        Route::post('create', 'API\PrepareLessons\CommentController@create')->name('api_comment_create');
+        Route::post('delete', 'API\PrepareLessons\CommentController@delete')->name('api_comment_delete');
+        Route::post('update', 'API\PrepareLessons\CommentController@update')->name('api_comment_update');
+    });
+    Route::prefix('pe')->group(function (){
+        Route::post('create', 'API\PrepareExams\CommentController@create')->name('api_comment_create');
+        Route::post('delete', 'API\PrepareExams\CommentController@delete')->name('api_comment_delete');
+        Route::post('update', 'API\PrepareExams\CommentController@update')->name('api_comment_update');
+    });
 });
 
 Route::prefix('favorite')->group(function(){
