@@ -16,7 +16,7 @@ class CategoryController extends Controller
         $categoryResp = $repo->get($id);
         $coursesResp = $repo->getCourses($id);
         $subCategoriesResp = $repo->getSubCategories($id);
-        $courseCount = count($coursesResp->getData());
+        $courseCount = count($coursesResp->getData()->where('active',true)->where('deleted_at',null));
         $subCategoriesCount = count($subCategoriesResp->getData());
 
         // Response

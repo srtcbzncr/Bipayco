@@ -19,7 +19,7 @@ class SubCategoryController extends Controller
         if($resp->getResult()){
             $data = $resp->getData();
             $courses = Course::where('lesson_id',$id)->get();
-            $data['courseCount'] = count($courses);
+            $data['courseCount'] = count($courses->where('active',true)->where('deleted_at',null));
             return view('prepare_for_lesson.lesson',$data);
         }
         else{
