@@ -72,11 +72,11 @@ class LessonRepository implements IRepository
             $object = new Lesson();
             $object->name = $data['name'];
             $object->symbol = $data['symbol'];
-            if(isset($data['image']) and file_exists($data['image'])){
+            /*if(isset($data['image']) and file_exists($data['image'])){
                 $filePath = $data['image']->store('public/images');
                 $accessPath = Storage::url($filePath);
                 $object->image = $accessPath;
-            }
+            }*/
 
             $object->save();
             DB::commit();
@@ -105,11 +105,11 @@ class LessonRepository implements IRepository
             $object = Lesson::find($id);
             $object->name = $data['name'];
             $object->symbol = $data['symbol'];
-            if(isset($data['image']) and file_exists($data['image'])){
+           /* if(isset($data['image']) and file_exists($data['image'])){
                 $filePath = $data['image']->store('public/images');
                 $accessPath = Storage::url($filePath);
                 $object->image = $accessPath;
-            }
+            }*/
             $object->save();
             DB::commit();
         }
