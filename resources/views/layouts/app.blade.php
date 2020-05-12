@@ -250,6 +250,7 @@
                     <div class="uk-margin-medium uk-margin-remove-right" uk-grid>
                         <div class="uk-width-1-3@m uk-width-1-1@s uk-first-column">
                             <p class="uk-text-small"><i class="fas fa-copyright"></i> 2020 <span class="uk-text-bold">Bipayco</span>  Bütün hakları saklıdır.</p>
+                            <img class="uk-width-1-5@s uk-width-1-4@m uk-width-1-6" src="{{asset('/images/visa-master.png')}}">
                         </div>
                         <div class="uk-width-1-3@m uk-width-1-1@s">
                             <a href="#" class="uk-icon-button uk-link-reset"><i class="fab fa-youtube" style=" color: #fb7575  !important;"></i></a>
