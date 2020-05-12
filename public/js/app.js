@@ -45544,7 +45544,6 @@ var mutations = {
     state.categoryCourses = index.data.data;
   },
   setCourseReviews: function setCourseReviews(state, index) {
-    console.log(index.data);
     state.courseReviews = index.data;
   },
 

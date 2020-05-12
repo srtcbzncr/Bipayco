@@ -95,7 +95,6 @@ const mutations={
         state.categoryCourses=index.data.data;
     },
     setCourseReviews(state,index){
-        console.log(index.data);
         state.courseReviews=index.data;
     },
     /*course-progress-card.vue*/
