@@ -162,21 +162,21 @@ Route::prefix('course')->group(function(){
 Route::prefix('comment')->group(function(){
     Route::prefix('ge')->group(function (){
         Route::post('create', 'API\GeneralEducation\CommentController@create')->name('api_comment_create');
-        Route::post('delete', 'API\GeneralEducation\CommentController@delete')->name('api_comment_delete');
-        Route::post('update', 'API\GeneralEducation\CommentController@update')->name('api_comment_update');
+        Route::post('delete/{id}', 'API\GeneralEducation\CommentController@delete')->name('api_comment_delete');
+        Route::post('update/{id}', 'API\GeneralEducation\CommentController@update')->name('api_comment_update');
         Route::get('/{courseId}/comments', 'API\GeneralEducation\CommentController@getComments')->name('api_course_get_ge_comments');
 
     });
     Route::prefix('pl')->group(function (){
         Route::post('create', 'API\PrepareLessons\CommentController@create')->name('api_comment_create');
-        Route::post('delete', 'API\PrepareLessons\CommentController@delete')->name('api_comment_delete');
-        Route::post('update', 'API\PrepareLessons\CommentController@update')->name('api_comment_update');
+        Route::post('delete/{id}', 'API\PrepareLessons\CommentController@delete')->name('api_comment_delete');
+        Route::post('update/{id}', 'API\PrepareLessons\CommentController@update')->name('api_comment_update');
         Route::get('/{courseId}/comments', 'API\PrepareLessons\CommentController@getComments')->name('api_course_get_pl_comments');
     });
     Route::prefix('pe')->group(function (){
         Route::post('create', 'API\PrepareExams\CommentController@create')->name('api_comment_create');
-        Route::post('delete', 'API\PrepareExams\CommentController@delete')->name('api_comment_delete');
-        Route::post('update', 'API\PrepareExams\CommentController@update')->name('api_comment_update');
+        Route::post('delete/{id}', 'API\PrepareExams\CommentController@delete')->name('api_comment_delete');
+        Route::post('update/{id}', 'API\PrepareExams\CommentController@update')->name('api_comment_update');
         Route::get('/{courseId}/comments', 'API\PrepareExams\CommentController@getComments')->name('api_course_get_pe_comments');
     });
 });
