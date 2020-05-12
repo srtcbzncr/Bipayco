@@ -5683,6 +5683,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5785,22 +5786,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     loadNewPages: function loadNewPages(name) {
-      this.$store.dispatch('loadNewPageReviews', name);
       this.apiUrl = name;
+      this.$store.dispatch('loadNewPageReviews', name);
     },
     deleteReview: function deleteReview(id) {
-      var _this = this;
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/comment/' + this.module + '/delete/' + id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.errorMessage,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+        }
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/comment/' + this.module + '/delete', {
-        'userId': this.userId,
-        'courseId': this.courseId,
-        'id': this.id
-      }).then(function () {
-        _this.loadNewPages(_this.apiUrl);
+        document.location.reload();
       });
-    },
-    toggleEdit: function toggleEdit() {
-      UIkit.toggle();
     }
   })
 });
@@ -6070,6 +6074,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       required: true
     },
+    isUpdate: {
+      type: Boolean,
+      "default": false
+    },
     moduleName: {
       type: String,
       required: true
@@ -6201,8 +6209,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
 
         setMethod(response.data.error);
+        document.location.reload();
       });
-      this.$store.dispatch('loadCourseReviews', this.courseId);
     },
     setRate: function setRate(rating) {
       this.rate = rating;
@@ -6280,6 +6288,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.setNestedConfigStyles(this.starStyle);
     this.initStars();
     this.setStars();
+  },
+  created: function created() {
+    this.setRate(this.rating);
   }
 });
 
@@ -18944,7 +18955,8 @@ var render = function() {
                       "send-text": _vm.updateText,
                       "cancel-text": _vm.cancelText,
                       "comment-text": _vm.commentText,
-                      "api-status": "update"
+                      "api-status": "update/" + review.id,
+                      "is-update": ""
                     }
                   })
                 ],
@@ -18999,10 +19011,7 @@ var render = function() {
                 ],
                 on: {
                   click: function($event) {
-                    return _vm.loadNewPages(
-                      _vm.courseReviews.next_page_url,
-                      ++_vm.currentPage
-                    )
+                    return _vm.loadNewPages(_vm.courseReviews.next_page_url)
                   }
                 }
               },
@@ -19500,6 +19509,19 @@ var render = function() {
           }
         }),
         _vm._v(" "),
+        _vm.isUpdate
+          ? _c(
+              "button",
+              {
+                staticClass:
+                  "uk-button uk-margin-small-left uk-button-default uk-margin-small-top uk-float-right ",
+                attrs: { "uk-toggle": "target: .review" + _vm.userId },
+                on: { click: _vm.clearForm }
+              },
+              [_vm._v(" " + _vm._s(_vm.cancelText) + " ")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
         _c(
           "button",
           {
@@ -19512,20 +19534,7 @@ var render = function() {
             }
           },
           [_vm._v(" " + _vm._s(_vm.sendText) + " ")]
-        ),
-        _vm._v(" "),
-        _vm.apiStatus == "update"
-          ? _c(
-              "button",
-              {
-                staticClass:
-                  "uk-button uk-button-default uk-margin-small-top uk-float-right ",
-                attrs: { "uk-toggle": "target: .review" + _vm.userId },
-                on: { click: _vm.clearForm }
-              },
-              [_vm._v(" " + _vm._s(_vm.cancelText) + " ")]
-            )
-          : _vm._e()
+        )
       ])
     : _vm._e()
 }

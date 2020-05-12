@@ -19,8 +19,8 @@
             <div class="uk-text-bold uk-margin-small-left uk-margin-small" :style="styleRateColor">{{ ratingFixed }}</div>
         </div>
         <textarea class="uk-textarea uk-width uk-height-small" :placeholder="commentText" id="comment" v-model="content" ></textarea>
+        <button v-if="isUpdate" @click="clearForm" :uk-toggle="'target: .review'+userId" class="uk-button uk-margin-small-left uk-button-default uk-margin-small-top uk-float-right "> {{cancelText}} </button>
         <button @click="submitReview(setComment)" class="uk-button uk-button-primary uk-margin-small-top uk-float-right "> {{sendText}} </button>
-        <button v-if="apiStatus=='update'" @click="clearForm" :uk-toggle="'target: .review'+userId" class="uk-button uk-button-default uk-margin-small-top uk-float-right "> {{cancelText}} </button>
     </div>
 </template>
 
@@ -33,6 +33,10 @@
             courseId:{
                 type:String,
                 required:true,
+            },
+            isUpdate:{
+                type:Boolean,
+                default:false
             },
             moduleName:{
                 type:String,
@@ -164,8 +168,8 @@
                         UIkit.notification({message: response.data.message, status: 'success'});
                     }
                     setMethod(response.data.error);
+                    document.location.reload();
                 });
-                this.$store.dispatch('loadCourseReviews',this.courseId);
             },
             setRate(rating){
                 this.rate=rating;
@@ -249,6 +253,9 @@
             this.initStars();
             this.setStars();
         },
+        created() {
+            this.setRate(this.rating);
+        }
 
     };
 </script>

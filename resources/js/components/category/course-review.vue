@@ -34,7 +34,8 @@
                     :send-text="updateText"
                     :cancel-text="cancelText"
                     :comment-text="commentText"
-                    api-status="update"
+                    :api-status="'update/'+review.id"
+                    is-update
                 > </review>
             </div>
             <hr>
@@ -44,7 +45,7 @@
                 <button v-show="courseReviews.current_page!==1" @click="loadNewPages(courseReviews.prev_page_url)"> < </button>
             </li>
             <li class="uk-float-right">
-                <button v-show="courseReviews.current_page<courseReviews.last_page" @click="loadNewPages(courseReviews.next_page_url,++currentPage)"> > </button>
+                <button v-show="courseReviews.current_page<courseReviews.last_page" @click="loadNewPages(courseReviews.next_page_url)"> > </button>
             </li>
         </ul>
     </div>
@@ -153,16 +154,20 @@
                 }
             },
             loadNewPages: function(name){
-                this.$store.dispatch('loadNewPageReviews',name);
                 this.apiUrl=name;
+                this.$store.dispatch('loadNewPageReviews',name);
             },
             deleteReview:function (id) {
-                Axios.post('/api/comment/'+this.module+'/delete', {'userId':this.userId, 'courseId':this.courseId, 'id':this.id})
-                    .then(()=>{this.loadNewPages(this.apiUrl);});
+                Axios.post('/api/comment/'+this.module+'/delete/'+id)
+                    .then((response) => {
+                        if(response.data.error){
+                            UIkit.notification({message: response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: response.data.message, status: 'success'});
+                        }
+                        document.location.reload();
+                    });
             },
-            toggleEdit:function () {
-                UIkit.toggle()
-            }
         },
     }
 </script>
