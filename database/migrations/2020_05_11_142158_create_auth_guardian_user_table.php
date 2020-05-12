@@ -19,6 +19,7 @@ class CreateAuthGuardianUserTable extends Migration
             $table->integer('user_id');
             $table->boolean('active')->default(false);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

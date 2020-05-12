@@ -166,5 +166,9 @@ class GuardianRepository implements IRepository
         // TODO: Implement setPassive() method.
     }
 
+    public function addStudent(){
+
+    }
+
 
 }
