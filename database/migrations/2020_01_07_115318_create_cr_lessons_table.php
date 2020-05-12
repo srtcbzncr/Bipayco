@@ -17,7 +17,7 @@ class CreateCrLessonsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('symbol');
-            $table->string('image');
+           // $table->string('image');
             $table->timestamps();
             $table->softDeletes();
         });
