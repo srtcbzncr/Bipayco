@@ -3,7 +3,6 @@
     <div>
         <!-- lesson view area -->
         <div class="uk-margin-left uk-margin-right uk-margin-top uk-margin-bottom uk-margin-medium-bottom">
-                {{$isTest}}
             <watch
                 @if($isTest)
                     is-test
