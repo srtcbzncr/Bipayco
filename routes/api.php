@@ -430,8 +430,8 @@ Route::prefix('guardian')->group(function (){
 
     //todo:aşağısı kaldı
     // Hangi kursun hangi derslerini izlemiş bilgilerini getir
-    Route::get('/courseInfo/{userId}','API\Guardian\GuardianController@getCourseInfo')->name('guardian_courseInfo');
+    Route::get('/courseInfo/{userId}/{otherId}','API\Guardian\GuardianController@getCourseInfo')->name('guardian_courseInfo');
     // Hangi kursun sectionun ön/test sonuçları bilgilerini  getir
-    Route::get('/firtLastTestInfo/{userId}','API\Guardian\GuardianController@getflTestInfo')->name('guardian_flTestInfo');
+    Route::get('/firtLastTestInfo/{userId}/{otherId}','API\Guardian\GuardianController@getflTestInfo')->name('guardian_flTestInfo');
 
 });
