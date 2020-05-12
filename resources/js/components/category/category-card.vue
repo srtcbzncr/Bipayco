@@ -8,10 +8,10 @@
                         <h6 class="uk-light uk-margin-small-top">{{courseCount}} {{course}}</h6>
                     </div>
                     <div class="uk-width-2-5 uk-padding-small uk-flex uk-flex-middle">
-                        <div class="uk-card-media-right uk-cover-container">
-                            <img :src="subCategoryImg" alt="" uk-cover>
-                            <canvas width="600" height="400"></canvas>
-                        </div>
+<!--                        <div class="uk-card-media-right uk-cover-container">-->
+<!--                            <img :src="subCategoryImg" alt="" uk-cover>-->
+<!--                            <canvas width="600" height="400"></canvas>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -50,10 +50,10 @@
                 type:String,
                 required: true,
             },
-            subCategoryImg:{
-                type:String,
-                required:true,
-            },
+            // subCategoryImg:{
+            //     type:String,
+            //     required:true,
+            // },
             course: {
                 type:String,
                 default:'Kurs'

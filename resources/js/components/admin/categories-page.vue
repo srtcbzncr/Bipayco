@@ -52,15 +52,15 @@
                 <div class="uk-modal-body" uk-overflow-auto>
                     <div class="uk-form-label">{{categoryNameText}}</div>
                     <input class="uk-width uk-input" v-model="name" :placeholder="categoryNameText">
-                    <div class="uk-form-label">{{categoryImageText}}</div>
-                    <form class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove" id="uploadForm">
-                        <div v-if="hasItem" id="imagePreview" class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :style="{'background-image':'url('+image+')'}"></div>
-                        <div v-else id="imagePreview" class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :style="{'background-image': 'url('+ defaultImagePath+')'}"></div>
-                        <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
-                            <input name="image" type="file" accept="image/*" id="newCourseImage" @change="previewImage()" required>
-                            <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
-                        </div>
-                    </form>
+<!--                    <div class="uk-form-label">{{categoryImageText}}</div>-->
+<!--                    <form class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove" id="uploadForm">-->
+<!--                        <div v-if="hasItem" id="imagePreview" class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :style="{'background-image':'url('+image+')'}"></div>-->
+<!--                        <div v-else id="imagePreview" class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :style="{'background-image': 'url('+ defaultImagePath+')'}"></div>-->
+<!--                        <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">-->
+<!--                            <input name="image" type="file" accept="image/*" id="newCourseImage" @change="previewImage()" required>-->
+<!--                            <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">-->
+<!--                        </div>-->
+<!--                    </form>-->
                     <div class="uk-form-label">{{descriptionText}}</div>
                     <textarea class="uk-width uk-textarea uk-height-small" v-model="description" :placeholder="descriptionText"></textarea>
                     <div class="uk-form-label">{{iconText}}</div>
@@ -283,14 +283,14 @@
                 this.color="";
                 this.hasItem=false;
                 this.selectedCategoryId="";
-                document.getElementById('uploadForm').reset();
+                // document.getElementById('uploadForm').reset();
             },
             saveItem:function () {
                 var formData = new FormData();
-                var image=document.querySelector('#newCourseImage');
-                if(image.files[0]!=undefined){
-                    formData.append('image', image.files[0]);
-                }
+                // var image=document.querySelector('#newCourseImage');
+                // if(image.files[0]!=undefined){
+                //     formData.append('image', image.files[0]);
+                // }
                 formData.append('name', this.name);
                 formData.append('description', this.description);
                 formData.append('symbol', this.icon);
@@ -323,16 +323,16 @@
                 this.selectedPage=name;
                 this.$store.dispatch('loadAdminNewPage',[name,'setAdminCategory']);
             },
-            previewImage: function(){
-                var input=document.querySelector('#newCourseImage');
-                if (input.files && input.files[0]) {
-                    var reader = new FileReader();
-                    reader.onload = function (e) {
-                        document.querySelector('#imagePreview').setAttribute('style', 'background-image:url('+e.target.result+')');
-                    };
-                    reader.readAsDataURL(input.files[0]);
-                }
-            }
+            // previewImage: function(){
+            //     var input=document.querySelector('#newCourseImage');
+            //     if (input.files && input.files[0]) {
+            //         var reader = new FileReader();
+            //         reader.onload = function (e) {
+            //             document.querySelector('#imagePreview').setAttribute('style', 'background-image:url('+e.target.result+')');
+            //         };
+            //         reader.readAsDataURL(input.files[0]);
+            //     }
+            // }
         },
         created() {
             this.$store.dispatch('loadAdminCategory');

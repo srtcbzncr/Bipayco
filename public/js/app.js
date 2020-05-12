@@ -2153,18 +2153,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.description = "";
       this.color = "";
       this.hasItem = false;
-      this.selectedCategoryId = "";
-      document.getElementById('uploadForm').reset();
+      this.selectedCategoryId = ""; // document.getElementById('uploadForm').reset();
     },
     saveItem: function saveItem() {
       var _this5 = this;
 
-      var formData = new FormData();
-      var image = document.querySelector('#newCourseImage');
-
-      if (image.files[0] != undefined) {
-        formData.append('image', image.files[0]);
-      }
+      var formData = new FormData(); // var image=document.querySelector('#newCourseImage');
+      // if(image.files[0]!=undefined){
+      //     formData.append('image', image.files[0]);
+      // }
 
       formData.append('name', this.name);
       formData.append('description', this.description);
@@ -2211,20 +2208,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     loadNewPage: function loadNewPage(name) {
       this.selectedPage = name;
       this.$store.dispatch('loadAdminNewPage', [name, 'setAdminCategory']);
-    },
-    previewImage: function previewImage() {
-      var input = document.querySelector('#newCourseImage');
+    } // previewImage: function(){
+    //     var input=document.querySelector('#newCourseImage');
+    //     if (input.files && input.files[0]) {
+    //         var reader = new FileReader();
+    //         reader.onload = function (e) {
+    //             document.querySelector('#imagePreview').setAttribute('style', 'background-image:url('+e.target.result+')');
+    //         };
+    //         reader.readAsDataURL(input.files[0]);
+    //     }
+    // }
 
-      if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-          document.querySelector('#imagePreview').setAttribute('style', 'background-image:url(' + e.target.result + ')');
-        };
-
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
   }),
   created: function created() {
     this.$store.dispatch('loadAdminCategory');
@@ -3641,15 +3635,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4269,18 +4254,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.color = "";
       this.name = "";
       this.icon = "";
-      this.selectedSubCategoryId = "";
-      document.getElementById('uploadForm').reset();
+      this.selectedSubCategoryId = ""; // document.getElementById('uploadForm').reset();
     },
     saveItem: function saveItem() {
       var _this5 = this;
 
-      var formData = new FormData();
-      var image = document.querySelector('#newCourseImage');
-
-      if (image.files[0] != undefined) {
-        formData.append('image', image.files[0]);
-      }
+      var formData = new FormData(); // var image=document.querySelector('#newCourseImage');
+      // if(image.files[0]!=undefined){
+      //     formData.append('image', image.files[0]);
+      // }
 
       formData.append('name', this.name);
       formData.append('categoryId', this.selectedCategoryId);
@@ -4328,20 +4310,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     loadNewPage: function loadNewPage(name) {
       this.selectedPage = name;
       this.$store.dispatch('loadAdminNewPage', [name, 'setAdminSubCategory']);
-    },
-    previewImage: function previewImage() {
-      var input = document.querySelector('#newCourseImage');
+    } // previewImage: function(){
+    //     var input=document.querySelector('#newCourseImage');
+    //     if (input.files && input.files[0]) {
+    //         var reader = new FileReader();
+    //         reader.onload = function (e) {
+    //             document.querySelector('#imagePreview').setAttribute('style', 'background-image:url('+e.target.result+')');
+    //         };
+    //         reader.readAsDataURL(input.files[0]);
+    //     }
+    // }
 
-      if (input.files && input.files[0]) {
-        var reader = new FileReader();
-
-        reader.onload = function (e) {
-          document.querySelector('#imagePreview').setAttribute('style', 'background-image:url(' + e.target.result + ')');
-        };
-
-        reader.readAsDataURL(input.files[0]);
-      }
-    }
   }),
   created: function created() {
     this.$store.dispatch('loadAdminSubCategory', this.selectedCategoryId);
@@ -5322,10 +5301,10 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       required: true
     },
-    subCategoryImg: {
-      type: String,
-      required: true
-    },
+    // subCategoryImg:{
+    //     type:String,
+    //     required:true,
+    // },
     course: {
       type: String,
       "default": 'Kurs'
@@ -13990,70 +13969,6 @@ var render = function() {
             }),
             _vm._v(" "),
             _c("div", { staticClass: "uk-form-label" }, [
-              _vm._v(_vm._s(_vm.categoryImageText))
-            ]),
-            _vm._v(" "),
-            _c(
-              "form",
-              {
-                staticClass:
-                  "uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove",
-                attrs: { id: "uploadForm" }
-              },
-              [
-                _vm.hasItem
-                  ? _c("div", {
-                      staticClass:
-                        "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
-                      style: { "background-image": "url(" + _vm.image + ")" },
-                      attrs: { id: "imagePreview" }
-                    })
-                  : _c("div", {
-                      staticClass:
-                        "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
-                      style: {
-                        "background-image": "url(" + _vm.defaultImagePath + ")"
-                      },
-                      attrs: { id: "imagePreview" }
-                    }),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "uk-flex uk-flex-center uk-margin",
-                    attrs: { "uk-form-custom": "target: true" }
-                  },
-                  [
-                    _c("input", {
-                      attrs: {
-                        name: "image",
-                        type: "file",
-                        accept: "image/*",
-                        id: "newCourseImage",
-                        required: ""
-                      },
-                      on: {
-                        change: function($event) {
-                          return _vm.previewImage()
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "uk-input",
-                      attrs: {
-                        type: "text",
-                        tabindex: "-1",
-                        disabled: "",
-                        placeholder: _vm.selectFileText
-                      }
-                    })
-                  ]
-                )
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "uk-form-label" }, [
               _vm._v(_vm._s(_vm.descriptionText))
             ]),
             _vm._v(" "),
@@ -15957,71 +15872,6 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("div", { staticClass: "uk-form-label" }, [
-                _vm._v(_vm._s(_vm.lessonImageText))
-              ]),
-              _vm._v(" "),
-              _c(
-                "form",
-                {
-                  staticClass:
-                    "uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove",
-                  attrs: { id: "uploadForm" }
-                },
-                [
-                  _vm.hasItem
-                    ? _c("div", {
-                        staticClass:
-                          "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
-                        style: { "background-image": "url(" + _vm.image + ")" },
-                        attrs: { id: "imagePreview" }
-                      })
-                    : _c("div", {
-                        staticClass:
-                          "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
-                        style: {
-                          "background-image":
-                            "url(" + _vm.defaultImagePath + ")"
-                        },
-                        attrs: { id: "imagePreview" }
-                      }),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "uk-flex uk-flex-center uk-margin",
-                      attrs: { "uk-form-custom": "target: true" }
-                    },
-                    [
-                      _c("input", {
-                        attrs: {
-                          name: "image",
-                          type: "file",
-                          accept: "image/*",
-                          id: "newCourseImage",
-                          required: ""
-                        },
-                        on: {
-                          change: function($event) {
-                            return _vm.previewImage()
-                          }
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "uk-input",
-                        attrs: {
-                          type: "text",
-                          tabindex: "-1",
-                          disabled: "",
-                          placeholder: _vm.selectFileText
-                        }
-                      })
-                    ]
-                  )
-                ]
-              ),
-              _vm._v(" "),
-              _c("div", { staticClass: "uk-form-label" }, [
                 _vm._v(_vm._s(_vm.lessonNameText))
               ]),
               _vm._v(" "),
@@ -16445,70 +16295,6 @@ var render = function() {
                 }
               }
             }),
-            _vm._v(" "),
-            _c("div", { staticClass: "uk-form-label" }, [
-              _vm._v(_vm._s(_vm.subCategoryImageText))
-            ]),
-            _vm._v(" "),
-            _c(
-              "form",
-              {
-                staticClass:
-                  "uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove",
-                attrs: { id: "uploadForm" }
-              },
-              [
-                _vm.hasItem
-                  ? _c("div", {
-                      staticClass:
-                        "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
-                      style: { "background-image": "url(" + _vm.image + ")" },
-                      attrs: { id: "imagePreview" }
-                    })
-                  : _c("div", {
-                      staticClass:
-                        "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
-                      style: {
-                        "background-image": "url(" + _vm.defaultImagePath + ")"
-                      },
-                      attrs: { id: "imagePreview" }
-                    }),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass: "uk-flex uk-flex-center uk-margin",
-                    attrs: { "uk-form-custom": "target: true" }
-                  },
-                  [
-                    _c("input", {
-                      attrs: {
-                        name: "image",
-                        type: "file",
-                        accept: "image/*",
-                        id: "newCourseImage",
-                        required: ""
-                      },
-                      on: {
-                        change: function($event) {
-                          return _vm.previewImage()
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("input", {
-                      staticClass: "uk-input",
-                      attrs: {
-                        type: "text",
-                        tabindex: "-1",
-                        disabled: "",
-                        placeholder: _vm.selectFileText
-                      }
-                    })
-                  ]
-                )
-              ]
-            ),
             _vm._v(" "),
             _c("div", { staticClass: "uk-form-label" }, [
               _vm._v(_vm._s(_vm.descriptionText))
@@ -18403,30 +18189,10 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "uk-width-2-5 uk-padding-small uk-flex uk-flex-middle"
-                },
-                [
-                  _c(
-                    "div",
-                    { staticClass: "uk-card-media-right uk-cover-container" },
-                    [
-                      _c("img", {
-                        attrs: {
-                          src: _vm.subCategoryImg,
-                          alt: "",
-                          "uk-cover": ""
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("canvas", { attrs: { width: "600", height: "400" } })
-                    ]
-                  )
-                ]
-              )
+              _c("div", {
+                staticClass:
+                  "uk-width-2-5 uk-padding-small uk-flex uk-flex-middle"
+              })
             ])
           ]
         ),

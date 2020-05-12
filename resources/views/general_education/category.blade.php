@@ -18,12 +18,12 @@
                 </div>
             </div>
             <div class="uk-width-1-2@m uk-visible@m">
-                <div class="video-responsive">
-                    <div class="uk-cover-container">
-                        <img src="{{$category->image}}" alt="" uk-cover>
-                        <canvas style="max-height: 400px; max-width:600px;" width="600" height="400"></canvas>
-                    </div>
-                </div>
+{{--                <div class="video-responsive">--}}
+{{--                    <div class="uk-cover-container">--}}
+{{--                        <img src="{{$category->image}}" alt="" uk-cover>--}}
+{{--                        <canvas style="max-height: 400px; max-width:600px;" width="600" height="400"></canvas>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
                                 sub-category-desc="{{$sub_category->description}}"
                                 explore="@lang('front/auth.explore')"
                                 sub-category-route="{{route('ge_sub_category_courses', $sub_category->id)}}"
-                                sub-category-img="{{$sub_category->image}}"
+{{--                                sub-category-img="{{$sub_category->image}}"--}}
                                 course="@lang('front/auth.course')"
                                 course-count="{{$sub_category->courseCount()}}"
                             ></category-card>

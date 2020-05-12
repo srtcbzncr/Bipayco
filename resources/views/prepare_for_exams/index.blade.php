@@ -9,7 +9,7 @@
                         sub-category-name="{{$exam->name}}"
                         explore="@lang('front/auth.explore')"
                         sub-category-route="{{route('pe_sub_category_courses', $exam->id)}}"
-                        sub-category-img="{{$exam->symbol}}"
+{{--                        sub-category-img="{{$exam->symbol}}"--}}
                         course="@lang('front/auth.course')"
                         course-count="{{$exam->courseCount}}"
                     ></category-card>

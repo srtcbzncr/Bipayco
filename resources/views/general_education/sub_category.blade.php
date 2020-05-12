@@ -13,12 +13,12 @@
                 </div>
             </div>
             <div class="uk-width-1-2@m uk-visible@m">
-                <div class="video-responsive">
-                    <div class="uk-cover-container">
-                        <img src="{{$sub_category->image}}" alt="" uk-cover>
-                        <canvas style="max-height: 400px; max-width:600px;" width="600" height="400"></canvas>
-                    </div>
-                </div>
+{{--                <div class="video-responsive">--}}
+{{--                    <div class="uk-cover-container">--}}
+{{--                        <img src="{{$sub_category->image}}" alt="" uk-cover>--}}
+{{--                        <canvas style="max-height: 400px; max-width:600px;" width="600" height="400"></canvas>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
             </div>
         </div>
     </div>

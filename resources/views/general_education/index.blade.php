@@ -41,7 +41,7 @@
                                     sub-category-desc="{{$sub_category->description}}"
                                     explore="@lang('front/auth.explore')"
                                     sub-category-route="{{route('ge_sub_category_courses', $sub_category->id)}}"
-                                    sub-category-img="{{$sub_category->image}}"
+{{--                                    sub-category-img="{{$sub_category->image}}"--}}
                                     course="@lang('front/auth.course')"
                                     course-count="{{$sub_category->courseCount()}}"
                                 ></category-card>

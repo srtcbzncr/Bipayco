@@ -53,15 +53,6 @@
                             <i v-if="icon==''" class="fas icon-medium uk-width-1-6 text-center fa-user" ></i>
                             <i v-else class="fas icon-medium uk-width-1-6 text-center" :class="icon"></i>
                         </div>
-                        <div class="uk-form-label">{{lessonImageText}}</div>
-                        <form class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove" id="uploadForm">
-                            <div v-if="hasItem" id="imagePreview" class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :style="{'background-image':'url('+image+')'}"></div>
-                            <div v-else id="imagePreview" class="uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle" :style="{'background-image': 'url('+ defaultImagePath+')'}"></div>
-                            <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin">
-                                <input name="image" type="file" accept="image/*" id="newCourseImage" @change="previewImage()" required>
-                                <input class="uk-input" type="text" tabindex="-1" disabled :placeholder="selectFileText">
-                            </div>
-                        </form>
                         <div class="uk-form-label">{{lessonNameText}}</div>
                         <input class="uk-width uk-input" v-model="name" :placeholder="lessonNameText">
                     </div>
