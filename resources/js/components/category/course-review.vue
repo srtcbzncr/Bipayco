@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-for="review in courseReviews.data">
-            <div :class="'comment'+review.user_id" class="uk-grid-small  uk-margin-medium-top" uk-grid>
+            <div :class="'review'+review.user_id" class="uk-grid-small  uk-margin-medium-top" uk-grid>
                 <div class="uk-width-1-5@m uk-first-column">
                     <img alt="Image" class="uk-visible@m uk-width-1-2 uk-margin-small-top uk-margin-small-bottom uk-border-circle uk-align-center  uk-box-shadow-large" :src="review.user.avatar">
                 </div>
@@ -11,7 +11,7 @@
                         <div uk-dropdown="mode:click" class="uk-padding-small border-radius-6">
                             <ul class="uk-nav uk-dropdown-nav">
                                 <li><a :uk-toggle="'target: .review'+userId">{{editText}}</a></li>
-                                <li><a @click="deleteReview" class="uk-text-danger">{{deleteText}}</a></li>
+                                <li><a @click="deleteReview(review.id)" class="uk-text-danger">{{deleteText}}</a></li>
                             </ul>
                         </div>
                     </span>
@@ -24,7 +24,7 @@
                     <p class="uk-margin-remove-top uk-margin-small-bottom">{{review.content}}</p>
                 </div>
             </div>
-            <div v-if="userId==review.user_id" :class="'comment'+userId" hidden>
+            <div v-if="userId==review.user_id" :class="'review'+userId" hidden>
                 <review
                     :review="review.content"
                     :rating="Number(review.point)"
@@ -156,8 +156,8 @@
                 this.$store.dispatch('loadNewPageReviews',name);
                 this.apiUrl=name;
             },
-            deleteReview:function () {
-                Axios.post('api/comment/'+this.module+'/'+this.courseId+'/delete', {'userId':this.userId})
+            deleteReview:function (id) {
+                Axios.post('/api/comment/'+this.module+'/delete', {'userId':this.userId, 'courseId':this.courseId, 'id':this.id})
                     .then(()=>{this.loadNewPages(this.apiUrl);});
             },
             toggleEdit:function () {

@@ -240,7 +240,7 @@
                 }
             },
             clearForm:function () {
-                this.rate=this.rating;
+                this.setRate(this.rating);
                 this.content=this.review;
             }
         },

@@ -117,6 +117,9 @@
                         <course-review
                             module-name="generalEducation"
                             course-id="{{$course->id}}"
+                            @if(Auth::check())
+                                user-id="{{Auth::user()->id}}"
+                            @endif
                             :review-count="{{$course->commentCount()}}"
                             :paginate-review="10"
                         ></course-review>

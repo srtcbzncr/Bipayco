@@ -122,6 +122,9 @@
                     @endif
                     <div class="uk-margin-medium-top">
                         <course-review
+                            @if(Auth::check())
+                            user-id="{{Auth::user()->id}}"
+                            @endif
                             module-name="prepareLessons"
                             course-id="{{$course->id}}"
                             :review-count="{{$course->commentCount()}}"

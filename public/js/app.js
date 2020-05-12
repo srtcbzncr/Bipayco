@@ -3641,6 +3641,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5800,11 +5809,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch('loadNewPageReviews', name);
       this.apiUrl = name;
     },
-    deleteReview: function deleteReview() {
+    deleteReview: function deleteReview(id) {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('api/comment/' + this.module + '/' + this.courseId + '/delete', {
-        'userId': this.userId
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/comment/' + this.module + '/delete', {
+        'userId': this.userId,
+        'courseId': this.courseId,
+        'id': this.id
       }).then(function () {
         _this.loadNewPages(_this.apiUrl);
       });
@@ -6282,7 +6293,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     clearForm: function clearForm() {
-      this.rate = this.rating;
+      this.setRate(this.rating);
       this.content = this.review;
     }
   }),
@@ -15946,6 +15957,71 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("div", { staticClass: "uk-form-label" }, [
+                _vm._v(_vm._s(_vm.lessonImageText))
+              ]),
+              _vm._v(" "),
+              _c(
+                "form",
+                {
+                  staticClass:
+                    "uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-right uk-margin-top uk-padding-remove",
+                  attrs: { id: "uploadForm" }
+                },
+                [
+                  _vm.hasItem
+                    ? _c("div", {
+                        staticClass:
+                          "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                        style: { "background-image": "url(" + _vm.image + ")" },
+                        attrs: { id: "imagePreview" }
+                      })
+                    : _c("div", {
+                        staticClass:
+                          "uk-background-center-center uk-background-cover uk-height-medium uk-panel uk-flex uk-flex-center uk-flex-middle",
+                        style: {
+                          "background-image":
+                            "url(" + _vm.defaultImagePath + ")"
+                        },
+                        attrs: { id: "imagePreview" }
+                      }),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "uk-flex uk-flex-center uk-margin",
+                      attrs: { "uk-form-custom": "target: true" }
+                    },
+                    [
+                      _c("input", {
+                        attrs: {
+                          name: "image",
+                          type: "file",
+                          accept: "image/*",
+                          id: "newCourseImage",
+                          required: ""
+                        },
+                        on: {
+                          change: function($event) {
+                            return _vm.previewImage()
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "uk-input",
+                        attrs: {
+                          type: "text",
+                          tabindex: "-1",
+                          disabled: "",
+                          placeholder: _vm.selectFileText
+                        }
+                      })
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "uk-form-label" }, [
                 _vm._v(_vm._s(_vm.lessonNameText))
               ]),
               _vm._v(" "),
@@ -18964,7 +19040,7 @@ var render = function() {
             "div",
             {
               staticClass: "uk-grid-small  uk-margin-medium-top",
-              class: "comment" + review.user_id,
+              class: "review" + review.user_id,
               attrs: { "uk-grid": "" }
             },
             [
@@ -19013,7 +19089,11 @@ var render = function() {
                                     "a",
                                     {
                                       staticClass: "uk-text-danger",
-                                      on: { click: _vm.deleteReview }
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deleteReview(review.id)
+                                        }
+                                      }
                                     },
                                     [_vm._v(_vm._s(_vm.deleteText))]
                                   )
@@ -19086,7 +19166,7 @@ var render = function() {
           _vm.userId == review.user_id
             ? _c(
                 "div",
-                { class: "comment" + _vm.userId, attrs: { hidden: "" } },
+                { class: "review" + _vm.userId, attrs: { hidden: "" } },
                 [
                   _c("review", {
                     attrs: {
@@ -27669,7 +27749,7 @@ var render = function() {
             "uk-width-3-4@m uk-flex align-items-center justify-content-center watch-panel uk-overflow-auto"
         },
         [
-          _vm.moduleName == "prepareLesson" && _vm.isTest
+          _vm.moduleName == "prepareLessons" && _vm.isTest
             ? _c("test-area", {
                 attrs: {
                   "lesson-id": _vm.course.lesson_id,
