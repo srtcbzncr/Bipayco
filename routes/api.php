@@ -162,21 +162,21 @@ Route::prefix('course')->group(function(){
 Route::prefix('comment')->group(function(){
     Route::prefix('ge')->group(function (){
         Route::post('create', 'API\GeneralEducation\CommentController@create')->name('api_comment_create');
-        Route::post('delete', 'API\GeneralEducation\CommentController@delete')->name('api_comment_delete');
-        Route::post('update', 'API\GeneralEducation\CommentController@update')->name('api_comment_update');
+        Route::post('delete/{id}', 'API\GeneralEducation\CommentController@delete')->name('api_comment_delete');
+        Route::post('update/{id}', 'API\GeneralEducation\CommentController@update')->name('api_comment_update');
         Route::get('/{courseId}/comments', 'API\GeneralEducation\CommentController@getComments')->name('api_course_get_ge_comments');
 
     });
     Route::prefix('pl')->group(function (){
         Route::post('create', 'API\PrepareLessons\CommentController@create')->name('api_comment_create');
-        Route::post('delete', 'API\PrepareLessons\CommentController@delete')->name('api_comment_delete');
-        Route::post('update', 'API\PrepareLessons\CommentController@update')->name('api_comment_update');
+        Route::post('delete/{id}', 'API\PrepareLessons\CommentController@delete')->name('api_comment_delete');
+        Route::post('update/{id}', 'API\PrepareLessons\CommentController@update')->name('api_comment_update');
         Route::get('/{courseId}/comments', 'API\PrepareLessons\CommentController@getComments')->name('api_course_get_pl_comments');
     });
     Route::prefix('pe')->group(function (){
         Route::post('create', 'API\PrepareExams\CommentController@create')->name('api_comment_create');
-        Route::post('delete', 'API\PrepareExams\CommentController@delete')->name('api_comment_delete');
-        Route::post('update', 'API\PrepareExams\CommentController@update')->name('api_comment_update');
+        Route::post('delete/{id}', 'API\PrepareExams\CommentController@delete')->name('api_comment_delete');
+        Route::post('update/{id}', 'API\PrepareExams\CommentController@update')->name('api_comment_update');
         Route::get('/{courseId}/comments', 'API\PrepareExams\CommentController@getComments')->name('api_course_get_pe_comments');
     });
 });
@@ -417,21 +417,21 @@ Route::prefix('admin')->group(function (){
 });
 
 Route::prefix('guardian')->group(function (){
-    // userId: velinin user id'si - otherId: öğrencinin user id'si
-
     Route::post('/createGuardian','API\Guardian\GuardianController@create')->name('guardian_create');
     Route::post('/updateGuardian/{userId}','API\Guardian\GuardianController@update')->name('guardian_update');
     Route::post('/deleteGuardian/{userId}','API\Guardian\GuardianController@delete')->name('guardian_delete');
     Route::get('/getGuardian/{userId}','API\Guardian\GuardianController@get')->name('guardian_get');
 
+    // userId: velinin user id'si - otherId: öğrencinin user id'si
     Route::post('/addStudent','API\Guardian\GuardianController@addStudent')->name('guardian_add_student');
-    Route::post('/deleteStudent','API\Guardian\GuardianController@deleteStudent')->name('guardian_delete_student');
+    Route::post('/deleteStudent/{userId}/{otherId}','API\Guardian\GuardianController@deleteStudent')->name('guardian_delete_student');
     Route::get('/getStudents/{userId}','API\Guardian\GuardianController@getStudents')->name('guardian_get_students');
     Route::get('/getStudent/{userId}/{otherId}','API\Guardian\GuardianController@getStudent')->name('guardian_get_student');
 
+    //todo:aşağısı kaldı
     // Hangi kursun hangi derslerini izlemiş bilgilerini getir
-    Route::get('/courseInfo/{userId}','API\Guardian\GuardianController@getCourseInfo')->name('guardian_courseInfo');
+    Route::get('/courseInfo/{userId}/{otherId}','API\Guardian\GuardianController@getCourseInfo')->name('guardian_courseInfo');
     // Hangi kursun sectionun ön/test sonuçları bilgilerini  getir
-    Route::get('/firtLastTestInfo/{userId}','API\Guardian\GuardianController@getflTestInfo')->name('guardian_flTestInfo');
+    Route::get('/firtLastTestInfo/{userId}/{otherId}','API\Guardian\GuardianController@getflTestInfo')->name('guardian_flTestInfo');
 
 });
