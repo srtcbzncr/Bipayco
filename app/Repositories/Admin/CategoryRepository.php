@@ -73,9 +73,9 @@ class CategoryRepository implements IRepository
             $object->description = $data['description'];
             $object->symbol = $data['symbol'];
             $object->color = $data['color'];
-            $filePath = $data['image']->store('public/images');
+          /*  $filePath = $data['image']->store('public/images');
             $accessPath = Storage::url($filePath);
-            $object->image = $accessPath;
+            $object->image = $accessPath;*/
             $object->save();
             DB::commit();
         }
@@ -105,11 +105,11 @@ class CategoryRepository implements IRepository
             $object->description = $data['description'];
             $object->symbol = $data['symbol'];
             $object->color = $data['color'];
-            if(isset($data['image']) and $data['image'] != null){
+            /*if(isset($data['image']) and $data['image'] != null){
                 $filePath = $data['image']->store('public/images');
                 $accessPath = Storage::url($filePath);
                 $object->image = $accessPath;
-            }
+            }*/
             $object->save();
             DB::commit();
         }

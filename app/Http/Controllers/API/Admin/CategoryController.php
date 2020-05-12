@@ -20,7 +20,6 @@ class CategoryController extends Controller
                 'error' => false,
                 'data' => $resp->getData(),
                 'message' => 'Kategori başarıyla oluşturuldu.',
-                'data' => $resp->getData()
             ]);
         }
 
@@ -42,7 +41,6 @@ class CategoryController extends Controller
                 'error' => false,
                 'data' => $resp->getData(),
                 'message' => 'Kategoriler başarıyla getirildi.',
-                'data' => $resp->getData()
             ]);
         }
 
@@ -64,7 +62,6 @@ class CategoryController extends Controller
                 'error' => false,
                 'data' => $resp->getData(),
                 'message' => 'Kategori başarıyla getirildi.',
-                'data' => $resp->getData()
             ]);
         }
 
