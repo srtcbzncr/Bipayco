@@ -72,9 +72,9 @@ class GuardianController extends Controller
         ],400);
     }
 
-    public function addStudent(){
+    public function addStudent(Request $request){
         $repo = new GuardianRepository();
-        $resp=$repo->get($userId);
+        $resp=$repo->addStudent($request->toArray());
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
@@ -88,16 +88,52 @@ class GuardianController extends Controller
         ],400);
     }
 
-    public function deleteStudent(){
+    public function deleteStudent($userId,$otherId){
+        $repo = new GuardianRepository();
+        $resp=$repo->deleteStudent($userId,$otherId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
 
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
     }
 
-    public function getStudents(){
+    public function getStudents($userId){
+        $repo = new GuardianRepository();
+        $resp=$repo->getStudents($userId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
 
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
     }
 
-    public function getStudent(){
+    public function getStudent($userId,$otherId){
+        $repo = new GuardianRepository();
+        $resp=$repo->getStudent($userId,$otherId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
 
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
     }
 
     public function getCourseInfo(){

@@ -16,7 +16,7 @@ class CreateAuthGuardianUserTable extends Migration
         Schema::create('auth_guardian_user', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('guardian_id');
-            $table->integer('user_id');
+            $table->integer('student_id');
             $table->boolean('active')->default(false);
             $table->timestamps();
             $table->softDeletes();
