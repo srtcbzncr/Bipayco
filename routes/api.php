@@ -415,3 +415,23 @@ Route::prefix('admin')->group(function (){
        });
    });
 });
+
+Route::prefix('guardian')->group(function (){
+    // userId: velinin user id'si - otherId: öğrencinin user id'si
+
+    Route::post('/createGuardian','API\Guardian\GuardianController@create')->name('guardian_create');
+    Route::post('/updateGuardian/{userId}','API\Guardian\GuardianController@update')->name('guardian_update');
+    Route::post('/deleteGuardian/{userId}','API\Guardian\GuardianController@delete')->name('guardian_delete');
+    Route::get('/getGuardian/{userId}','API\Guardian\GuardianController@get')->name('guardian_get');
+
+    Route::post('/addStudent','API\Guardian\GuardianController@addStudent')->name('guardian_add_student');
+    Route::post('/deleteStudent','API\Guardian\GuardianController@deleteStudent')->name('guardian_delete_student');
+    Route::get('/getStudents/{userId}','API\Guardian\GuardianController@getStudents')->name('guardian_get_students');
+    Route::get('/getStudent/{userId}/{otherId}','API\Guardian\GuardianController@getStudent')->name('guardian_get_student');
+
+    // Hangi kursun hangi derslerini izlemiş bilgilerini getir
+    Route::get('/courseInfo/{userId}','API\Guardian\GuardianController@getCourseInfo')->name('guardian_courseInfo');
+    // Hangi kursun sectionun ön/test sonuçları bilgilerini  getir
+    Route::get('/firtLastTestInfo/{userId}','API\Guardian\GuardianController@getflTestInfo')->name('guardian_flTestInfo');
+
+});
