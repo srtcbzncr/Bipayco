@@ -136,11 +136,35 @@ class GuardianController extends Controller
         ],400);
     }
 
-    public function getCourseInfo(){
+    public function getCourseInfo($userId,$otherId){
+        $repo = new GuardianRepository();
+        $resp=$repo->getCourseInfo($userId,$otherId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
 
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
     }
 
-    public function getflTestInfo(){
+    public function getflTestInfo($userId,$otherId){
+        $repo = new GuardianRepository();
+        $resp=$repo->getCourseInfo($userId,$otherId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
 
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
     }
 }

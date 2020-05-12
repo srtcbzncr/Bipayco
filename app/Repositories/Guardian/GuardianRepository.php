@@ -8,6 +8,10 @@ use App\Models\Auth\Guardian;
 use App\Models\Auth\GuardianUser;
 use App\Models\Auth\Student;
 use App\Models\Auth\User;
+use App\Models\GeneralEducation\Course;
+use App\Models\GeneralEducation\Entry;
+use App\Models\GeneralEducation\Lesson;
+use App\Models\GeneralEducation\Section;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\DB;
@@ -266,6 +270,162 @@ class GuardianRepository implements IRepository
             $object = Student::where('user_id',$otherId)->first();
             $user = User::find($otherId);
             $object['user'] =  $user;
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getCourseInfo($userId,$otherId){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $student = Student::where('user_id',$otherId);
+            $entries = Entry::where('student_id',$student->id)->where('active',true)
+                ->where('deleted_at',null)->get();
+            $usersCompletedLessons = array();
+            foreach ($entries as $keyEntry => $entry){
+                if($entry->course_type == 'App\Models\GeneralEducation\Course'){
+                    $sections = Section::where('course_id',$entry->course_id)
+                        ->where('active',true)->where('deleted_at',null)->get();
+                    foreach ($sections as $keySection => $section){
+                        $lessons = Lesson::where('section_id',$section->id)->where('active',true)->where('deleted_at',null)->get();
+                        foreach ($lessons as $keyLesson => $lesson){
+                            $completedLesson = DB::table('ge_students_completed_lessons')
+                                ->where('student_id',$student->id)
+                                ->where('lesson_id',$lesson->id)
+                                ->where('lesson_type','App\Models\GeneralEducation\Lesson')
+                                ->where('deleted_at',null)->get()->toArray();
+                            if($completedLesson != null and count($completedLesson)>0){
+                                $lesson['course'] = Course::find($entry->course_id);
+                                $lesson['section'] = $section;
+                                array_push($usersCompletedLessons,$lesson);
+                            }
+                        }
+                    }
+                }
+                else if($entry->course_type == 'App\Models\PrepareLessons\Course'){
+                    $sections = \App\Models\PrepareLessons\Section::where('course_id',$entry->course_id)
+                        ->where('active',true)->where('deleted_at',null)->get();
+                    foreach ($sections as $keySection => $section){
+                        $lessons = \App\Models\PrepareLessons\Lesson::where('section_id',$section->id)->where('active',true)->where('deleted_at',null)->get();
+                        foreach ($lessons as $keyLesson => $lesson){
+                            $completedLesson = DB::table('ge_students_completed_lessons')
+                                ->where('student_id',$student->id)
+                                ->where('lesson_id',$lesson->id)
+                                ->where('lesson_type','App\Models\PrepareLessons\Lesson')
+                                ->where('deleted_at',null)->get()->toArray();
+                            if($completedLesson != null and count($completedLesson)>0){
+                                $lesson['course'] = \App\Models\PrepareLessons\Course::find($entry->course_id);
+                                $lesson['section'] = $section;
+                                array_push($usersCompletedLessons,$lesson);
+                            }
+                        }
+                    }
+                }
+                else if($entry->course_type == 'App\Models\PrepareExams\Course'){
+                    $sections = \App\Models\PrepareExams\Section::where('course_id',$entry->course_id)
+                        ->where('active',true)->where('deleted_at',null)->get();
+                    foreach ($sections as $keySection => $section){
+                        $lessons = \App\Models\PrepareExams\Lesson::where('section_id',$section->id)->where('active',true)->where('deleted_at',null)->get();
+                        foreach ($lessons as $keyLesson => $lesson){
+                            $completedLesson = DB::table('ge_students_completed_lessons')
+                                ->where('student_id',$student->id)
+                                ->where('lesson_id',$lesson->id)
+                                ->where('lesson_type','App\Models\PrepareExams\Lesson')
+                                ->where('deleted_at',null)->get()->toArray();
+                            if($completedLesson != null and count($completedLesson)>0){
+                                $lesson['course'] = \App\Models\PrepareExams\Course::find($entry->course_id);
+                                $lesson['section'] = $section;
+                                array_push($usersCompletedLessons,$lesson);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getflTestInfo($userId,$otherId){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $student = Student::where('user_id',$otherId);
+            $entries = Entry::where('student_id',$student->id)->where('active',true)
+                ->where('deleted_at',null)->get();
+            $usersFLTestStatus = array();
+            foreach ($entries as $keyEntry => $entry){
+                if($entry->course_type == 'App\Models\GeneralEducation\Course'){
+                    $sections = Section::where('course_id',$entry->course_id)
+                        ->where('active',true)->where('deleted_at',null)->get();
+                    foreach ($sections as $keySection => $section){
+                        $flTestStatus = DB::table('qs_student_first_last_test_status')
+                            ->where('studentId',$student->id)
+                            ->where('sectionId',$section->id)
+                            ->where('sectionType','App\Models\GeneralEducation\Section')->get()->toArray();
+                        if($flTestStatus != null and count($flTestStatus)>0){
+                            $flTestStatus['course'] = Course::find($entry->course_id)->get();
+                            $flTestStatus['section'] = $section;
+                            array_push($usersFLTestStatus,$flTestStatus);
+                        }
+                    }
+                }
+                else if($entry->course_type == 'App\Models\PrepareLessons\Course'){
+                    $sections = \App\Models\PrepareLessons\Section::where('course_id',$entry->course_id)
+                        ->where('active',true)->where('deleted_at',null)->get();
+                    foreach ($sections as $keySection => $section){
+                        $flTestStatus = DB::table('qs_student_first_last_test_status')
+                            ->where('studentId',$student->id)
+                            ->where('sectionId',$section->id)
+                            ->where('sectionType','App\Models\PrepareLessons\Section')->get()->toArray();
+                        if($flTestStatus != null and count($flTestStatus)>0){
+                            $flTestStatus['course'] = Course::find($entry->course_id)->get();
+                            $flTestStatus['section'] = $section;
+                            array_push($usersFLTestStatus,$flTestStatus);
+                        }
+                    }
+                }
+                else if($entry->course_type == 'App\Models\PrepareExams\Course'){
+                    $sections = \App\Models\PrepareExams\Section::where('course_id',$entry->course_id)
+                        ->where('active',true)->where('deleted_at',null)->get();
+                    foreach ($sections as $keySection => $section){
+                        $sections = \App\Models\PrepareLessons\Section::where('course_id',$entry->course_id)
+                            ->where('active',true)->where('deleted_at',null)->get();
+                        foreach ($sections as $keySection => $section){
+                            $flTestStatus = DB::table('qs_student_first_last_test_status')
+                                ->where('studentId',$student->id)
+                                ->where('sectionId',$section->id)
+                                ->where('sectionType','App\Models\PrepareExams\Section')->get()->toArray();
+                            if($flTestStatus != null and count($flTestStatus)>0){
+                                $flTestStatus['course'] = Course::find($entry->course_id)->get();
+                                $flTestStatus['section'] = $section;
+                                array_push($usersFLTestStatus,$flTestStatus);
+                            }
+                        }
+                    }
+                }
+            }
         }
         catch(\Exception $e){
             $error = $e->getMessage();

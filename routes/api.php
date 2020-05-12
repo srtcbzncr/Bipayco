@@ -428,7 +428,6 @@ Route::prefix('guardian')->group(function (){
     Route::get('/getStudents/{userId}','API\Guardian\GuardianController@getStudents')->name('guardian_get_students');
     Route::get('/getStudent/{userId}/{otherId}','API\Guardian\GuardianController@getStudent')->name('guardian_get_student');
 
-    //todo:aşağısı kaldı
     // Hangi kursun hangi derslerini izlemiş bilgilerini getir
     Route::get('/courseInfo/{userId}/{otherId}','API\Guardian\GuardianController@getCourseInfo')->name('guardian_courseInfo');
     // Hangi kursun sectionun ön/test sonuçları bilgilerini  getir
