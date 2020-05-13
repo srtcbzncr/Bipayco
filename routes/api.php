@@ -414,6 +414,32 @@ Route::prefix('admin')->group(function (){
            Route::post('/update/{examId}','API\Admin\ExamController@updateExam')->name('admin_cr_exam_update');
        });
    });
+   Route::prefix('auth')->group(function (){
+       Route::post('/admin/create','API\Admin\AuthController@createAdmin')->name('admin_auth_create_admin');
+       Route::post('/admin/delete/{adminId}','API\Admin\AuthController@deleteAdmin')->name('admin_auth_delete_admin');
+       Route::post('/admin/active/{adminId}','API\Admin\AuthController@activeAdmin')->name('admin_auth_active_admin');
+       Route::post('/admin/passive/{adminId}','API\Admin\AuthController@passiveAdmin')->name('admin_auth_passive_admin');
+       Route::get('/admin/show','API\Admin\AuthController@showAdmins')->name('admin_auth_show_admins');
+       Route::get('/admin/get/{adminId}','API\Admin\AuthController@getAdmin')->name('admin_auth_get_admin');
+
+       Route::get('/student/show','API\Admin\AuthController@showStudents')->name('admin_auth_show_students');
+       Route::get('/student/get/{studentId}','API\Admin\AuthController@getStudent')->name('admin_auth_get_student');
+       Route::post('/student/active/{studentId}','API\Admin\AuthController@activeStudent')->name('admin_auth_active_student');
+       Route::post('/student/passive/{studentId}','API\Admin\AuthController@passiveStudent')->name('admin_auth_passive_student');
+       Route::post('/student/delete/{studentId}','API\Admin\AuthController@deleteStudent')->name('admin_auth_delete_student');
+
+       Route::get('/instructor/show','API\Admin\AuthController@showInstructors')->name('admin_auth_show_instructors');
+       Route::get('/instructor/get/{instructorId}','API\Admin\AuthController@getInstructor')->name('admin_auth_get_instructor');
+       Route::post('/instructor/active/{instructorId}','API\Admin\AuthController@activeInstructor')->name('admin_auth_active_instructor');
+       Route::post('/instructor/passive/{instructorId}','API\Admin\AuthController@passiveInstructor')->name('admin_auth_passive_instructor');
+       Route::post('/instructor/delete/{instructorId}','API\Admin\AuthController@deleteInstructor')->name('admin_auth_delete_instructor');
+
+       Route::get('/guardian/show','API\Admin\AuthController@showGuardians')->name('admin_auth_show_guardians');
+       Route::get('/guardian/get/{guardianId}','API\Admin\AuthController@getGuardian')->name('admin_auth_get_guardian');
+       Route::post('/guardian/active/{guardianId}','API\Admin\AuthController@activeGuardian')->name('admin_auth_active_guardian');
+       Route::post('/guardian/passive/{guardianId}','API\Admin\AuthController@passiveGuardian')->name('admin_auth_passive_guardian');
+       Route::post('/guardian/delete/{guardianId}','API\Admin\AuthController@deleteGuardian')->name('admin_auth_delete_guardian');
+   });
 });
 
 Route::prefix('guardian')->group(function (){
