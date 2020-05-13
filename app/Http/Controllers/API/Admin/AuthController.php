@@ -280,4 +280,89 @@ class AuthController extends Controller
             'errorMessage' => $resp->getError()
         ],400);
     }
+
+    public function showGuardians(){
+        $repo = new AuthRepository();
+
+        $resp = $repo->showGuardians();
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function getGuardian($guardianId){
+        $repo = new AuthRepository();
+
+        $resp = $repo->getGuardian($guardianId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function activeGuardian($guardianId){
+        $repo = new AuthRepository();
+
+        $resp = $repo->activeGuardian($guardianId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function passiveGuardian($guardianId){
+        $repo = new AuthRepository();
+
+        $resp = $repo->passiveGuardian($guardianId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function deleteGuardian($guardianId){
+        $repo = new AuthRepository();
+
+        $resp = $repo->deleteGuardian($guardianId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
 }
