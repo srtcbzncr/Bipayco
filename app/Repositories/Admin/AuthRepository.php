@@ -5,6 +5,8 @@ namespace App\Repositories\Admin;
 
 
 use App\Models\Auth\Admin;
+use App\Models\Auth\Instructor;
+use App\Models\Auth\Student;
 use App\Models\Auth\User;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
@@ -100,8 +102,8 @@ class AuthRepository implements IRepository {
         // Operations
         try{
             DB::beginTransaction();
-            $admin = Admin::find($adminId);
-            $admin->delete();
+            $object = Admin::find($adminId);
+            $object->delete();
             DB::commit();
         }
         catch(\Exception $e){
@@ -124,8 +126,8 @@ class AuthRepository implements IRepository {
         // Operations
         try{
             DB::beginTransaction();
-            $admin = Admin::find($adminId);
-            $admin->active = true;
+            $object = Admin::find($adminId);
+            $object->active = true;
             DB::commit();
         }
         catch(\Exception $e){
@@ -148,8 +150,8 @@ class AuthRepository implements IRepository {
         // Operations
         try{
             DB::beginTransaction();
-            $admin = Admin::find($adminId);
-            $admin->active = false;
+            $object = Admin::find($adminId);
+            $object->active = false;
             DB::commit();
         }
         catch(\Exception $e){
@@ -171,7 +173,7 @@ class AuthRepository implements IRepository {
 
         // Operations
         try{
-            DB::table('auth_admins')->where('active',true)->where('deleted_at',null)
+            $object=DB::table('auth_admins')->where('active',true)->where('deleted_at',null)
                 ->paginate(10);
         }
         catch(\Exception $e){
@@ -192,11 +194,245 @@ class AuthRepository implements IRepository {
 
         // Operations
         try{
-            $admin = Admin::find($adminId);
-            $user = User::find($admin->user_id);
-            $admin['user'] = $user;
+            $object = Admin::find($adminId);
+            $user = User::find($object->user_id);
+            $object['user'] = $user;
         }
         catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function showStudents(){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object=DB::table('auth_students')->where('active',true)->where('deleted_at',null)
+                ->paginate(10);
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getStudent($studentId){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = Student::find($studentId);
+            $user = User::find($object->user_id);
+            $object['user'] = $user;
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function activeStudent($studentId){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $object = Student::find($studentId);
+            $object->active = true;
+            $object->save();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function passiveStudent($studentId){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $object = Student::find($studentId);
+            $object->active = false;
+            $object->save();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function deleteStudent($studentId){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $object = Student::find($studentId);
+            $object->delete();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function showInstructors(){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object=DB::table('auth_instructors')->where('active',true)->where('deleted_at',null)
+                ->paginate(10);
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getInstructor($instructorId){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = Instructor::find($instructorId);
+            $user = User::find($object->user_id);
+            $object['user'] = $user;
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function activeInstructor($instructorId){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $object = Instructor::find($instructorId);
+            $object->active = true;
+            $object->save();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function passiveInstructor($instructorId){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $object = Instructor::find($instructorId);
+            $object->active = false;
+            $object->save();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function deleteInstructor($instructorId){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $object = Instructor::find($instructorId);
+            $object->delete();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
             $error = $e->getMessage();
             $result = false;
         }

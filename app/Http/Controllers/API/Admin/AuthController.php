@@ -110,4 +110,174 @@ class AuthController extends Controller
             'errorMessage' => $resp->getError()
         ],400);
     }
+
+    public function showStudents(){
+        $repo = new AuthRepository();
+
+        $resp = $repo->showStudents();
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function getStudent($studentId){
+        $repo = new AuthRepository();
+
+        $resp = $repo->getStudent($studentId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function activeStudent($studentId){
+        $repo = new AuthRepository();
+
+        $resp = $repo->activeStudent($studentId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function passiveStudent($studentId){
+        $repo = new AuthRepository();
+
+        $resp = $repo->passiveStudent($studentId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function deleteStudent($studentId){
+        $repo = new AuthRepository();
+
+        $resp = $repo->deleteStudent($studentId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function showInstructors(){
+        $repo = new AuthRepository();
+
+        $resp = $repo->showInstructors();
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function getInstructor($instructorId){
+        $repo = new AuthRepository();
+
+        $resp = $repo->getInstructor($instructorId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function activeInstructor($instructorId){
+        $repo = new AuthRepository();
+
+        $resp = $repo->activeInstructor($instructorId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function passiveInstructor($instructorId){
+        $repo = new AuthRepository();
+
+        $resp = $repo->passiveInstructor($instructorId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function deleteInstructor($instructorId){
+        $repo = new AuthRepository();
+
+        $resp = $repo->deleteInstructor($instructorId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
 }
