@@ -216,4 +216,7 @@ return [
     'have_no_achievement'=>'Herhangi bir kazanım bulunmamaktadır.',
     'exam'=>'Sınav',
     'pe_exams'=>'Sınavlar',
+    'student_profiles'=>'Öğrenci Profilleri',
+    'students'=>'Öğrenciler',
+
 ];

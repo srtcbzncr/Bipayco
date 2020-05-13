@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 class GuardianRepository implements IRepository{
 
     /**
-     * Return all guardians.
+     * Return all guardian.
      *
      * @return App\Repositories\RepositoryResponse
      */

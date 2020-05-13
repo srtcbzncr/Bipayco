@@ -237,6 +237,6 @@
 {{--                    </div>--}}
 {{--                </div>--}}
 {{--            </div>--}}
-        @endif
+{{--        @endif--}}
     </div>
 @endsection
