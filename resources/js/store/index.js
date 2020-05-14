@@ -71,6 +71,10 @@ const state={
     adminSubject:{},
     adminGrade:{},
     adminExam:{},
+    adminAdmins:{},
+    adminInstructor:{},
+    adminGuardian:{},
+    adminUsers:{},
     adminCategory:{},
     adminSubCategory:{},
     crLessons:{},
@@ -163,6 +167,18 @@ const mutations={
     },
     setAdminGrade(state, grade){
         state.adminGrade=grade.data;
+    },
+    setAdminAdmins(state, admins){
+        state.adminAdmins=admins.data;
+    },
+    setAdminInstructor(state, instructors){
+        state.adminInstructor=instructors.data;
+    },
+    setAdminUsers(state, users){
+        state.adminUsers=users.data;
+    },
+    setAdminGuardian(state, guardians){
+        state.adminGuardian=guardians.data;
     },
     setAdminExam(state, exam){
         state.adminExam=exam.data;
@@ -315,6 +331,22 @@ const actions={
     loadAdminExam({commit}){
         Axios.get('/api/admin/cr/exam/show')
             .then(response=>commit('setAdminExam', response.data));
+    },
+    loadAdminAdmins({commit}){
+        Axios.get('/api/admin/auth/admin/show')
+            .then(response=>commit('setAdminAdmins', response.data));
+    },
+    loadAdminInstructor({commit}){
+        Axios.get('/api/admin/auth/instructor/show')
+            .then(response=>commit('setAdminInstructor', response.data));
+    },
+    loadAdminGuardian({commit}){
+        Axios.get('/api/admin/auth/guardian/show')
+            .then(response=>commit('setAdminGuardian', response.data));
+    },
+    loadAdminUsers({commit}){
+        Axios.get('/api/admin/auth/student/show')
+            .then(response=>commit('setAdminUsers', response.data));
     },
     loadAdminDistrict({commit}, cityId){
         Axios.get('/api/admin/bs/city/'+cityId+'/districts')

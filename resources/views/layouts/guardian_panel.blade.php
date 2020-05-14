@@ -53,10 +53,10 @@
             </div>
             <ul>
                 <li>
-                    <a href="{{route('adminCategories')}}"> <i class="fas fa-book"></i>@lang('front/auth.students')</a>
+                    <a href="{{route('guardian_students')}}"> <i class="fas fa-book"></i>@lang('front/auth.students')</a>
                 </li>
                 <li>
-                    <a href="{{route('adminGrade')}}"> <i class="fas fa-pencil-alt"></i>@lang('front/auth.student_profiles')</a>
+                    <a href="{{route('guardian_student_profile')}}"> <i class="fas fa-pencil-alt"></i>@lang('front/auth.student_profiles')</a>
                 </li>
                 <li>
                     <a href="{{route('student_profile', Auth::user()->id)}}"> <i class="fas fa-user"></i>@lang('front/auth.student_mode')</a>

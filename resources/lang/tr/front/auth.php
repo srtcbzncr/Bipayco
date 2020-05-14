@@ -218,5 +218,7 @@ return [
     'pe_exams'=>'Sınavlar',
     'student_profiles'=>'Öğrenci Profilleri',
     'students'=>'Öğrenciler',
-
+    'admins'=>'Yöneticiler',
+    'users'=>'Kullanıcılar',
+    'guardians'=>'Veliler',
 ];

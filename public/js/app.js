@@ -45519,6 +45519,10 @@ var state = {
   adminSubject: {},
   adminGrade: {},
   adminExam: {},
+  adminAdmins: {},
+  adminInstructor: {},
+  adminGuardian: {},
+  adminUsers: {},
   adminCategory: {},
   adminSubCategory: {},
   crLessons: {},
@@ -45613,6 +45617,18 @@ var mutations = {
   },
   setAdminGrade: function setAdminGrade(state, grade) {
     state.adminGrade = grade.data;
+  },
+  setAdminAdmins: function setAdminAdmins(state, admins) {
+    state.adminAdmins = admins.data;
+  },
+  setAdminInstructor: function setAdminInstructor(state, instructors) {
+    state.adminInstructor = instructors.data;
+  },
+  setAdminUsers: function setAdminUsers(state, users) {
+    state.adminUsers = users.data;
+  },
+  setAdminGuardian: function setAdminGuardian(state, guardians) {
+    state.adminGuardian = guardians.data;
   },
   setAdminExam: function setAdminExam(state, exam) {
     state.adminExam = exam.data;
@@ -45877,31 +45893,55 @@ var actions = {
       return commit('setAdminExam', response.data);
     });
   },
-  loadAdminDistrict: function loadAdminDistrict(_ref51, cityId) {
+  loadAdminAdmins: function loadAdminAdmins(_ref51) {
     var commit = _ref51.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/auth/admin/show').then(function (response) {
+      return commit('setAdminAdmins', response.data);
+    });
+  },
+  loadAdminInstructor: function loadAdminInstructor(_ref52) {
+    var commit = _ref52.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/auth/instructor/show').then(function (response) {
+      return commit('setAdminInstructor', response.data);
+    });
+  },
+  loadAdminGuardian: function loadAdminGuardian(_ref53) {
+    var commit = _ref53.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/auth/guardian/show').then(function (response) {
+      return commit('setAdminGuardian', response.data);
+    });
+  },
+  loadAdminUsers: function loadAdminUsers(_ref54) {
+    var commit = _ref54.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/auth/student/show').then(function (response) {
+      return commit('setAdminUsers', response.data);
+    });
+  },
+  loadAdminDistrict: function loadAdminDistrict(_ref55, cityId) {
+    var commit = _ref55.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/bs/city/' + cityId + '/districts').then(function (response) {
       return commit('setAdminDistrict', response.data);
     });
   },
-  loadAdminNewPage: function loadAdminNewPage(_ref52, _ref53) {
-    var commit = _ref52.commit;
+  loadAdminNewPage: function loadAdminNewPage(_ref56, _ref57) {
+    var commit = _ref56.commit;
 
-    var _ref54 = _slicedToArray(_ref53, 2),
-        url = _ref54[0],
-        mutationName = _ref54[1];
+    var _ref58 = _slicedToArray(_ref57, 2),
+        url = _ref58[0],
+        mutationName = _ref58[1];
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
       return commit(mutationName, response.data);
     });
   },
-  loadCrLessons: function loadCrLessons(_ref55) {
-    var commit = _ref55.commit;
+  loadCrLessons: function loadCrLessons(_ref59) {
+    var commit = _ref59.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/pl/lessons').then(function (response) {
       return commit('setCrLessons', response.data);
     });
   },
-  loadCrExams: function loadCrExams(_ref56) {
-    var commit = _ref56.commit;
+  loadCrExams: function loadCrExams(_ref60) {
+    var commit = _ref60.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/pe/exams').then(function (response) {
       return commit('setCrExams', response.data);
     });

@@ -56,6 +56,18 @@
                     <a href="{{route('adminDashboard')}}"> <i class="fas fa-chalkboard"></i>  @lang('front/auth.dashboard') </a>
                 </li>
                 <li>
+                    <a href="{{route('admin_admins')}}"> <i class="fas fa-chalkboard"></i>  @lang('front/auth.admins') </a>
+                </li>
+                <li>
+                    <a href="{{route('admin_users')}}"> <i class="fas fa-chalkboard"></i>  @lang('front/auth.users') </a>
+                </li>
+                <li>
+                    <a href="{{route('admin_instructor')}}"> <i class="fas fa-chalkboard"></i>  @lang('front/auth.instructors') </a>
+                </li>
+                <li>
+                    <a href="{{route('admin_guardian')}}"> <i class="fas fa-chalkboard"></i>  @lang('front/auth.guardians') </a>
+                </li>
+                <li>
                     <a href="{{route('adminCities')}}"> <i class="fas fa-city"></i>  @lang('front/auth.cities') </a>
                 </li>
                 <li>
