@@ -350,10 +350,10 @@ class AuthController extends Controller
         $token = $data['token'];
 
         $flag = false;
-        $now = date("Y-m-d H:i:s");
+        $now = date('Y-m-d H:i:s', time());
         $results=DB::table('password_resets')->where('email',$email)->where('token',$token)->get();
         foreach ($results as $result){
-            //if($result->created_at + 1  )
+            //if(date('Y-m-d',strtotime($entry->access_start))<=$now)
         }
     }
 }
