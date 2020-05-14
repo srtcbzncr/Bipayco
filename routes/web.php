@@ -18,6 +18,9 @@ Route::get('login', 'Auth\AuthController@loginGet')->name('loginGet');
 Route::post('login', 'Auth\AuthController@loginPost')->name('loginPost');
 Route::get('logout', 'Auth\AuthController@logout')->name('logout');
 Route::get('error', 'HomeController@error')->name('error');
+Route::get('forgotPassword','Auth\AuthController@forgotPassGet')->name('forgotPasswordGet');
+Route::post('forgotPassword','Auth\AuthController@forgotPassPost')->name('forgotPasswordPost');
+Route::post('forgotPassword/reset','Auth\AuthController@forgotPassReset')->name('forgotPasswordPostReset');
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::get('/', 'Admin\HomeController@dashboard')->name('adminDashboard');
@@ -41,7 +44,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
 Route::group(['prefix' => 'guardian' , 'middleware' => 'auth'],  function (){
    Route::get('/students','Guardian\GuardianController@students')->name('guardian_students');
-   Route::get('/stundent_profile/{guardianUserId}/{studentUserId}','Guardian\GuardianController@studentProfile')->name('guardian_student_profile');
+   Route::get('/student_profile/{guardianUserId}','Guardian\GuardianController@studentProfile')->name('guardian_student_profile');
    Route::get('/student_course_detail/{guardianUserId}/{studentUserId}/{courseId}','Guardian\GuardianController@studentCourseDetail')->name('guardian_student_course_detail');
 });
 

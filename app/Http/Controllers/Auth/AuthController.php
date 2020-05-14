@@ -17,6 +17,7 @@ use App\Repositories\Auth\StudentRepository;
 use App\Repositories\Auth\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
@@ -319,5 +320,40 @@ class AuthController extends Controller
 
     public function getBasketView(){
         return view('cart');
+    }
+
+    public function forgotPassGet(){
+        return view('auth.forget_password');
+    }
+
+    public function forgotPassPost(Request $request){
+        // emaile kod gönder
+        $data = $request->toArray();
+        $to_name = $data['toName'];
+        $to_email = $data['toEmail'];
+        $token = uniqid('pr'.random_int(100,999), false);
+        $data = array('name'=>"Sanalist AŞ", "body" => "Merhaba, bu bir şifre sıfırlama mesajıdır.\n".$token);
+        Mail::send('mail', $data, function($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)->subject('Laravel Password Reset Test Mail');
+            $message->from('contact.softdevs@gmail.com','Password Reset Mail');
+        });
+
+        DB::table('password_resets')->insert([
+            'email' => $to_email,
+            'token' => $token
+        ]);
+    }
+
+    public function forgotPassReset(Request $request){
+        $data = $request->toArray();
+        $email = $data['email'];
+        $token = $data['token'];
+
+        $flag = false;
+        $now = date("Y-m-d H:i:s");
+        $results=DB::table('password_resets')->where('email',$email)->where('token',$token)->get();
+        foreach ($results as $result){
+            //if($result->created_at + 1  )
+        }
     }
 }
