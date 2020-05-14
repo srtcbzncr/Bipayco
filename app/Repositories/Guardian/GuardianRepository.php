@@ -485,22 +485,84 @@ class GuardianRepository implements IRepository
                     }
                 }
                 else if($entry->course_type == 'App\Models\PrepareExams\Course'){
-                    $sections = \App\Models\PrepareExams\Section::where('course_id',$entry->course_id)
+                    $sections = \App\Models\PrepareLessons\Section::where('course_id',$entry->course_id)
                         ->where('active',true)->where('deleted_at',null)->get();
                     foreach ($sections as $keySection => $section){
-                        $sections = \App\Models\PrepareLessons\Section::where('course_id',$entry->course_id)
-                            ->where('active',true)->where('deleted_at',null)->get();
-                        foreach ($sections as $keySection => $section){
-                            $flTestStatus = DB::table('qs_student_first_last_test_status')
-                                ->where('studentId',$student->id)
-                                ->where('sectionId',$section->id)
-                                ->where('sectionType','App\Models\PrepareExams\Section')->get()->toArray();
-                            if($flTestStatus != null and count($flTestStatus)>0){
-                                $flTestStatus['course'] = Course::find($entry->course_id)->get();
-                                $flTestStatus['section'] = $section;
-                                array_push($usersFLTestStatus,$flTestStatus);
-                            }
+                        $flTestStatus = DB::table('qs_student_first_last_test_status')
+                            ->where('studentId',$student->id)
+                            ->where('sectionId',$section->id)
+                            ->where('sectionType','App\Models\PrepareExams\Section')->get()->toArray();
+                        if($flTestStatus != null and count($flTestStatus)>0){
+                            $flTestStatus['course'] = Course::find($entry->course_id)->get();
+                            $flTestStatus['section'] = $section;
+                            array_push($usersFLTestStatus,$flTestStatus);
                         }
+                    }
+                }
+            }
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getOneflTestInfo($userId,$otherId,$courseId,$courseType){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $student = Student::where('user_id',$otherId);
+            $usersFLTestStatus = array();
+            if($courseType == 1){
+                $sections = Section::where('course_id',$courseId)
+                    ->where('active',true)->where('deleted_at',null)->get();
+                foreach ($sections as $keySection => $section){
+                    $flTestStatus = DB::table('qs_student_first_last_test_status')
+                        ->where('studentId',$student->id)
+                        ->where('sectionId',$section->id)
+                        ->where('sectionType','App\Models\GeneralEducation\Section')->get()->toArray();
+                    if($flTestStatus != null and count($flTestStatus)>0){
+                        $flTestStatus['course'] = Course::find($courseId)->get();
+                        $flTestStatus['section'] = $section;
+                        array_push($usersFLTestStatus,$flTestStatus);
+                    }
+                }
+            }
+            else if($courseType == 2){
+                $sections = \App\Models\PrepareLessons\Section::where('course_id',$courseId)
+                    ->where('active',true)->where('deleted_at',null)->get();
+                foreach ($sections as $keySection => $section){
+                    $flTestStatus = DB::table('qs_student_first_last_test_status')
+                        ->where('studentId',$student->id)
+                        ->where('sectionId',$section->id)
+                        ->where('sectionType','App\Models\PrepareLessons\Section')->get()->toArray();
+                    if($flTestStatus != null and count($flTestStatus)>0){
+                        $flTestStatus['course'] = Course::find($courseId)->get();
+                        $flTestStatus['section'] = $section;
+                        array_push($usersFLTestStatus,$flTestStatus);
+                    }
+                }
+            }
+            else if($courseType == 3){
+                $sections = \App\Models\PrepareLessons\Section::where('course_id',$courseId)
+                    ->where('active',true)->where('deleted_at',null)->get();
+                foreach ($sections as $keySection => $section){
+                    $flTestStatus = DB::table('qs_student_first_last_test_status')
+                        ->where('studentId',$student->id)
+                        ->where('sectionId',$section->id)
+                        ->where('sectionType','App\Models\PrepareExams\Section')->get()->toArray();
+                    if($flTestStatus != null and count($flTestStatus)>0){
+                        $flTestStatus['course'] = Course::find($courseId)->get();
+                        $flTestStatus['section'] = $section;
+                        array_push($usersFLTestStatus,$flTestStatus);
                     }
                 }
             }

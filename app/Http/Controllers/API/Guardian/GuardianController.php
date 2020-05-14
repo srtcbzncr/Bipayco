@@ -170,7 +170,23 @@ class GuardianController extends Controller
 
     public function getflTestInfo($userId,$otherId){
         $repo = new GuardianRepository();
-        $resp=$repo->getCourseInfo($userId,$otherId);
+        $resp=$repo->getflTestInfo($userId,$otherId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function getOneflTestInfo($userId,$otherId,$courseId,$courseType){
+        $repo = new GuardianRepository();
+        $resp=$repo->getOneflTestInfo($userId,$otherId,$courseId,$courseType);
         if($resp->getResult()){
             return response()->json([
                 'error' => false,

@@ -461,6 +461,6 @@ Route::prefix('guardian')->group(function (){
     // Hangi kursun sectionun ön/test sonuçları bilgilerini  getir
     Route::get('/firtLastTestInfo/{userId}/{otherId}','API\Guardian\GuardianController@getflTestInfo')->name('guardian_flTestInfo');
     // courseType: 1= ge, 2= pl, 3=pe
-    Route::get('/firtLastTestInfo/{userId}/{otherId}/{courseId}/{courseType}','API\Guardian\GuardianController@getflTestInfo')->name('guardian_flTestInfo');
+    Route::get('/firtLastTestInfo/{userId}/{otherId}/{courseId}/{courseType}','API\Guardian\GuardianController@getOneflTestInfo')->name('guardian_flTestInfo');
 
 });
