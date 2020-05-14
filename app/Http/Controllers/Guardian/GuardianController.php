@@ -12,9 +12,8 @@ class GuardianController extends Controller
         return view('guardian.students');
     }
 
-    public function studentProfile($guardianUserId,$studentUserId){
-        return view('guardian.student_profile')->with('guardianUserId',$guardianUserId)
-            ->with('studentUserId',$studentUserId);
+    public function studentProfile(){
+        return view('guardian.student_profile');
     }
 
     public function studentCourseDetail($guardianUserId,$studentUserId,$courseId){

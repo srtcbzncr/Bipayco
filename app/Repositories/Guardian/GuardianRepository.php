@@ -241,7 +241,8 @@ class GuardianRepository implements IRepository
         // Operations
         try{
             $guardian = Guardian::where('user_id',$userId)->first();
-            $object = GuardianUser::where('guardian_id',$guardian->id)->get();
+            $object = DB::table('auth_guardian_user')->where('guardian_id',$guardian->id)->paginate(10);
+           // $object = GuardianUser::where('guardian_id',$guardian->id)->get();
             foreach ($object as $key => $item){
                 $student = Student::find($item->student_id);
                 $user = User::find($student->user_id);
@@ -352,6 +353,8 @@ class GuardianRepository implements IRepository
                     }
                 }
             }
+
+            $object = $usersCompletedLessons;
         }
         catch(\Exception $e){
             $error = $e->getMessage();
