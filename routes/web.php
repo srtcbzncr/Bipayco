@@ -32,7 +32,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::get('/city/{cityId}/districts','Admin\HomeController@getDistrictsOfCity')->name('admingetDistricts');
     Route::get('/lesson/{lessonId}/subjects','Admin\HomeController@getSubjectsOfLesson')->name('admingetSubjects');
     Route::get('/exam','Admin\HomeController@exam')->name('admin_get_exam');
+
     Route::get('/users','Admin\HomeController@users')->name('admin_users');
+    Route::get('/instructors','Admin\HomeController@instructors')->name('admin_instructor');
+    Route::get('/guardians','Admin\HomeController@guardians')->name('admin_guardian');
+    Route::get('/admins','Admin\HomeController@admins')->name('admin_admins');
 });
 
 Route::group(['prefix' => 'guardian' , 'middleware' => 'auth'],  function (){

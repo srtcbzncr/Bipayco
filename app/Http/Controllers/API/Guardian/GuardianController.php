@@ -152,6 +152,22 @@ class GuardianController extends Controller
         ],400);
     }
 
+    public function getOneCourseInfo($userId,$otherId,$courseId,$courseType){
+        $repo = new GuardianRepository();
+        $resp=$repo->getOneCourseInfo($userId,$otherId,$courseId,$courseType);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
     public function getflTestInfo($userId,$otherId){
         $repo = new GuardianRepository();
         $resp=$repo->getCourseInfo($userId,$otherId);

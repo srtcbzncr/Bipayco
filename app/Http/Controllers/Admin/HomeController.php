@@ -73,4 +73,16 @@ class HomeController extends Controller
     public function users(){
         return view('admin.users');
     }
+
+    public function instructors(){
+        return view('admin.instructors');
+    }
+
+    public function guardians(){
+        return view('admin.guardians');
+    }
+
+    public function admins(){
+        return view('admin.admins');
+    }
 }

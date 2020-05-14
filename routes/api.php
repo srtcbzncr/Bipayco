@@ -456,7 +456,11 @@ Route::prefix('guardian')->group(function (){
 
     // Hangi kursun hangi derslerini izlemiş bilgilerini getir
     Route::get('/courseInfo/{userId}/{otherId}','API\Guardian\GuardianController@getCourseInfo')->name('guardian_courseInfo');
+    // courseType: 1= ge, 2= pl, 3=pe
+    Route::get('/courseInfo/{userId}/{otherId}/{courseId}/{courseType}','API\Guardian\GuardianController@getOneCourseInfo')->name('guardian_courseInfo');
     // Hangi kursun sectionun ön/test sonuçları bilgilerini  getir
     Route::get('/firtLastTestInfo/{userId}/{otherId}','API\Guardian\GuardianController@getflTestInfo')->name('guardian_flTestInfo');
+    // courseType: 1= ge, 2= pl, 3=pe
+    Route::get('/firtLastTestInfo/{userId}/{otherId}/{courseId}/{courseType}','API\Guardian\GuardianController@getflTestInfo')->name('guardian_flTestInfo');
 
 });
