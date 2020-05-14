@@ -69,4 +69,8 @@ class HomeController extends Controller
         $data['lessonId'] = $lessonId;
         return view('admin.subjects')->with('data',$data);
     }
+
+    public function users(){
+        return view('admin.users');
+    }
 }
