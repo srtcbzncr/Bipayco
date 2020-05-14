@@ -347,13 +347,18 @@ class AuthController extends Controller
     public function forgotPassReset(Request $request){
         $data = $request->toArray();
         $email = $data['email'];
-        $token = $data['token'];
+        $newPassword = $data['newPassword'];
 
-        $flag = false;
-        $now = date('Y-m-d H:i:s', time());
-        $results=DB::table('password_resets')->where('email',$email)->where('token',$token)->get();
-        foreach ($results as $result){
-            //if(date('Y-m-d',strtotime($entry->access_start))<=$now)
+        $user = User::where('email',$email)->first();
+        $user->password = Hash::make($newPassword);
+        $user->save();
+
+        // giriş yap
+        if(Auth::attempt(['email' => $email, 'password' => $newPassword], false)){
+            return redirect()->route('home');
+        }
+        else{
+            return redirect()->back()->with('error', __('auth.login_failed'));
         }
     }
 }

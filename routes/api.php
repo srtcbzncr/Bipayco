@@ -17,6 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/resetPasswordTokenControl','Auth\AuthController@resetPasswordTokenControl')->name('resetPasswordTokenControl');
+
 
 # Home'daki ge,pl vb. kurslar.
 Route::get('/home/ge/{user_id?}', 'API\HomeController@indexGe')->name('home_ge');

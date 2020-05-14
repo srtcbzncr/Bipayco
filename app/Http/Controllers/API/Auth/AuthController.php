@@ -12,7 +12,9 @@ use App\Repositories\Auth\StudentRepository;
 use App\Repositories\GeneralEducation\CourseRepository;
 use App\Repositories\UserOperations\UserOperations;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -100,5 +102,33 @@ class AuthController extends Controller
         else{
             return response()->json(['error' => true, 'message' => 'Eğitmen bulunamadı.']);
         }
+    }
+
+    public function resetPasswordTokenControl(Request $request){
+        $data = $request->toArray();
+        $email = $data['email'];
+        $token = $data['token'];
+
+        $flag = false;
+        $now = date('Y-m-d H:i:s', time());
+        $results=DB::table('password_resets')->where('email',$email)->where('token',$token)->get();
+        foreach ($results as $result){
+            if(date('Y-m-d H:i:s',strtotime('+ '.'1'.' hour', strtotime($result->access_start)))>$now){
+                $flag = true;
+                break;
+            }
+        }
+
+        if($flag){
+            return response()->json([
+               'error' => false,
+               'data' =>  $email
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Token bulunamadı.'
+        ],400);
     }
 }
