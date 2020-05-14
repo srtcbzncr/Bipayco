@@ -76,8 +76,9 @@ class AuthRepository implements IRepository {
         try{
             DB::beginTransaction();
             $object = new Admin();
+            $user = User::where('email',$data['email'])->first();
             $object->authority_id = $data['authorityId'];
-            $object->user_id = $data['userId'];
+            $object->user_id = $user->id;
             $object->active = $data['active'];
             $object->reference_code = uniqid('ad'.random_int(100,999), false);
             $object->save();
