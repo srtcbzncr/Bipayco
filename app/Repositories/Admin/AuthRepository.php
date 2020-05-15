@@ -130,6 +130,7 @@ class AuthRepository implements IRepository {
             DB::beginTransaction();
             $object = Admin::find($adminId);
             $object->active = true;
+            $object->save();
             DB::commit();
         }
         catch(\Exception $e){
