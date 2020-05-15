@@ -175,7 +175,7 @@ class AuthRepository implements IRepository {
 
         // Operations
         try{
-            $object=DB::table('auth_admins')->where('active',true)->where('deleted_at',null)
+            $object=Admin::where('active',true)->where('deleted_at',null)
                 ->paginate(10);
             foreach ($object as $key=>$item){
                 $user = User::find($item->user_id);
@@ -222,7 +222,7 @@ class AuthRepository implements IRepository {
 
         // Operations
         try{
-            $object=DB::table('auth_students')->where('active',true)->where('deleted_at',null)
+            $object=Student::where('active',true)->where('deleted_at',null)
                 ->paginate(10);
             foreach ($object as $key=> $item){
                 $user = User::find($item->user_id);
@@ -343,7 +343,7 @@ class AuthRepository implements IRepository {
 
         // Operations
         try{
-            $object=DB::table('auth_instructors')->where('active',true)->where('deleted_at',null)
+            $object=Instructor::where('active',true)->where('deleted_at',null)
                 ->paginate(10);
             foreach ($object as $key=>$item){
                 $user = User::find($item->user_id);
@@ -464,7 +464,7 @@ class AuthRepository implements IRepository {
 
         // Operations
         try{
-            $object=DB::table('auth_guardians')->where('active',true)->where('deleted_at',null)
+            $object=Guardian::where('active',true)->where('deleted_at',null)
                 ->paginate(10);
             foreach ($object as $key=>$item){
                 $user = User::find($item->user_id);
