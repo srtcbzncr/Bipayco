@@ -7762,7 +7762,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       referenceCode: "",
       selectedIndex: -1,
-      selectedPage: "/api/admin/auth/admin/show?page=1"
+      selectedPage: "/api/guardian/getStudents/" + this.userId + "?page=1"
     };
   },
   props: {
@@ -22961,7 +22961,7 @@ var render = function() {
                               attrs: { "uk-tooltip": _vm.deleteText },
                               on: {
                                 click: function($event) {
-                                  return _vm.deleteItem(item.id)
+                                  return _vm.deleteItem(item.user_id)
                                 }
                               }
                             },
@@ -23026,7 +23026,10 @@ var render = function() {
                     on: {
                       click: function($event) {
                         return _vm.loadNewPage(
-                          "/api/admin/cr/admin/show?page=" + page
+                          "/api/guardian/getStudents/" +
+                            this.userId +
+                            "?page=" +
+                            page
                         )
                       }
                     }
@@ -23039,7 +23042,10 @@ var render = function() {
                     on: {
                       click: function($event) {
                         return _vm.loadNewPage(
-                          "/api/admin/cr/admin/show?page=" + page
+                          "/api/guardian/getStudents/" +
+                            this.userId +
+                            "?page=" +
+                            page
                         )
                       }
                     }

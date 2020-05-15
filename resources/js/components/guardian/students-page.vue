@@ -17,7 +17,7 @@
                     <td class="uk-flex flex-wrap align-items-center justify-content-around">
                         <a v-if="!item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
                         <a v-else @click="deactivateItem(item.id)" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
-                        <a @click="deleteItem(item.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
+                        <a @click="deleteItem(item.user_id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                     </td>
                 </tr>
                 </tbody>
@@ -32,8 +32,8 @@
             </li>
             <li v-for="page in pageNumber">
                 <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
-                <button v-else-if="page==guardianStudents.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/admin/cr/admin/show?page='+page)">{{page}}</button>
-                <button v-else @click="loadNewPage('/api/admin/cr/admin/show?page='+page)">{{page}}</button>
+                <button v-else-if="page==guardianStudents.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/guardian/getStudents/'+this.userId+'?page='+page)">{{page}}</button>
+                <button v-else @click="loadNewPage('/api/guardian/getStudents/'+this.userId+'?page='+page)">{{page}}</button>
             </li>
             <li>
                 <button v-show="guardianStudents.current_page<guardianStudents.last_page" @click="loadNewPage(guardianStudents.next_page_url)"> > </button>
@@ -98,7 +98,7 @@
             return{
                 referenceCode:"",
                 selectedIndex:-1,
-                selectedPage:"/api/admin/auth/admin/show?page=1"
+                selectedPage:"/api/guardian/getStudents/"+this.userId+"?page=1"
             }
         },
         props:{
