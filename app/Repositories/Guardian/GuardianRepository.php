@@ -187,9 +187,10 @@ class GuardianRepository implements IRepository
         // Operations
         try{
             DB::beginTransaction();
+            $student = Student::where('reference_code',$data['referenceCode'])->first();
             $object = new GuardianUser();
             $object->guardian_id = $data['guardianId'];
-            $object->student_id = $data['studentId'];
+            $object->student_id = $student->id;
             $object->active = true;
             $object->save();
             DB::commit();
