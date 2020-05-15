@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Guardian;
 
 use App\Http\Controllers\Controller;
+use App\Models\Auth\Student;
 use App\Repositories\Guardian\GuardianRepository;
 use Illuminate\Http\Request;
 

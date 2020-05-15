@@ -290,10 +290,13 @@ class GuardianRepository implements IRepository
 
         // Operations
         try{
-            $student = Student::where('user_id',$otherId);
+            $student = Student::where('user_id',$otherId)->first();
             $entries = Entry::where('student_id',$student->id)->where('active',true)
                 ->where('deleted_at',null)->get();
             $usersCompletedLessons = array();
+            $usersCompletedLessons['ge'] = array();
+            $usersCompletedLessons['pl'] = array();
+            $usersCompletedLessons['pe'] = array();
             foreach ($entries as $keyEntry => $entry){
                 if($entry->course_type == 'App\Models\GeneralEducation\Course'){
                     $sections = Section::where('course_id',$entry->course_id)
@@ -309,7 +312,7 @@ class GuardianRepository implements IRepository
                             if($completedLesson != null and count($completedLesson)>0){
                                 $lesson['course'] = Course::find($entry->course_id);
                                 $lesson['section'] = $section;
-                                array_push($usersCompletedLessons,$lesson);
+                                array_push($usersCompletedLessons['ge'],$lesson);
                             }
                         }
                     }
@@ -328,7 +331,7 @@ class GuardianRepository implements IRepository
                             if($completedLesson != null and count($completedLesson)>0){
                                 $lesson['course'] = \App\Models\PrepareLessons\Course::find($entry->course_id);
                                 $lesson['section'] = $section;
-                                array_push($usersCompletedLessons,$lesson);
+                                array_push($usersCompletedLessons['pl'],$lesson);
                             }
                         }
                     }
@@ -347,14 +350,22 @@ class GuardianRepository implements IRepository
                             if($completedLesson != null and count($completedLesson)>0){
                                 $lesson['course'] = \App\Models\PrepareExams\Course::find($entry->course_id);
                                 $lesson['section'] = $section;
-                                array_push($usersCompletedLessons,$lesson);
+                                array_push($usersCompletedLessons['pe'],$lesson);
                             }
                         }
                     }
                 }
             }
 
-            $object = $usersCompletedLessons;
+            $tempGe = array_chunk($usersCompletedLessons['ge'],10);
+            $tempPl = array_chunk($usersCompletedLessons['pl'],10);
+            $tempPe = array_chunk($usersCompletedLessons['pe'],10);
+
+            $object = array();
+            $object['ge'] = $tempGe;
+            $object['pl'] = $tempPl;
+            $object['pe'] = $tempPe;
+
         }
         catch(\Exception $e){
             $error = $e->getMessage();
@@ -374,7 +385,7 @@ class GuardianRepository implements IRepository
 
         // Operations
         try{
-            $student = Student::where('user_id',$otherId);
+            $student = Student::where('user_id',$otherId)->first();
             $usersCompletedLessons = array();
             if($courseType == 1){
                 $sections = Section::where('course_id',$courseId)
@@ -433,6 +444,8 @@ class GuardianRepository implements IRepository
                     }
                 }
             }
+
+            $object = array_chunk($usersCompletedLessons,10);
         }
         catch(\Exception $e){
             $error = $e->getMessage();
@@ -452,10 +465,13 @@ class GuardianRepository implements IRepository
 
         // Operations
         try{
-            $student = Student::where('user_id',$otherId);
+            $student = Student::where('user_id',$otherId)->first();
             $entries = Entry::where('student_id',$student->id)->where('active',true)
                 ->where('deleted_at',null)->get();
             $usersFLTestStatus = array();
+            $usersFLTestStatus['ge'] = array();
+            $usersFLTestStatus['pl'] = array();
+            $usersFLTestStatus['pe'] = array();
             foreach ($entries as $keyEntry => $entry){
                 if($entry->course_type == 'App\Models\GeneralEducation\Course'){
                     $sections = Section::where('course_id',$entry->course_id)
@@ -468,7 +484,7 @@ class GuardianRepository implements IRepository
                         if($flTestStatus != null and count($flTestStatus)>0){
                             $flTestStatus['course'] = Course::find($entry->course_id)->get();
                             $flTestStatus['section'] = $section;
-                            array_push($usersFLTestStatus,$flTestStatus);
+                            array_push($usersFLTestStatus['ge'],$flTestStatus);
                         }
                     }
                 }
@@ -483,7 +499,7 @@ class GuardianRepository implements IRepository
                         if($flTestStatus != null and count($flTestStatus)>0){
                             $flTestStatus['course'] = Course::find($entry->course_id)->get();
                             $flTestStatus['section'] = $section;
-                            array_push($usersFLTestStatus,$flTestStatus);
+                            array_push($usersFLTestStatus['pl'],$flTestStatus);
                         }
                     }
                 }
@@ -498,11 +514,20 @@ class GuardianRepository implements IRepository
                         if($flTestStatus != null and count($flTestStatus)>0){
                             $flTestStatus['course'] = Course::find($entry->course_id)->get();
                             $flTestStatus['section'] = $section;
-                            array_push($usersFLTestStatus,$flTestStatus);
+                            array_push($usersFLTestStatus['pe'],$flTestStatus);
                         }
                     }
                 }
             }
+
+            $tempGe = array_chunk($usersFLTestStatus['ge'],10);
+            $tempPl = array_chunk($usersFLTestStatus['pl'],10);
+            $tempPe = array_chunk($usersFLTestStatus['pe'],10);
+
+            $object = array();
+            $object['ge'] = $tempGe;
+            $object['pl'] = $tempPl;
+            $object['pe'] = $tempPe;
         }
         catch(\Exception $e){
             $error = $e->getMessage();
@@ -569,6 +594,8 @@ class GuardianRepository implements IRepository
                     }
                 }
             }
+
+            $object = array_chunk($usersFLTestStatus,10);
         }
         catch(\Exception $e){
             $error = $e->getMessage();

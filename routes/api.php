@@ -453,16 +453,16 @@ Route::prefix('guardian')->group(function (){
     // userId: velinin user id'si - otherId: öğrencinin user id'si
     Route::post('/addStudent','API\Guardian\GuardianController@addStudent')->name('guardian_add_student');
     Route::post('/deleteStudent/{userId}/{otherId}','API\Guardian\GuardianController@deleteStudent')->name('guardian_delete_student');
-    Route::get('/getStudents/{userId}','API\Guardian\GuardianController@getStudents')->name('guardian_get_students');
+    Route::get('/getStudents/{userId}','API\Guardian\GuardianController@getStudents')->name('guardian_get_students'); // paginate var
     Route::get('/getStudent/{userId}/{otherId}','API\Guardian\GuardianController@getStudent')->name('guardian_get_student');
 
     // Hangi kursun hangi derslerini izlemiş bilgilerini getir
-    Route::get('/courseInfo/{userId}/{otherId}','API\Guardian\GuardianController@getCourseInfo')->name('guardian_courseInfo');
+    Route::get('/courseInfo/{userId}/{otherId}','API\Guardian\GuardianController@getCourseInfo')->name('guardian_courseInfo'); // paginate yok
     // courseType: 1= ge, 2= pl, 3=pe
-    Route::get('/courseInfo/{userId}/{otherId}/{courseId}/{courseType}','API\Guardian\GuardianController@getOneCourseInfo')->name('guardian_courseInfo');
+    Route::get('/courseInfo/{userId}/{otherId}/{courseId}/{courseType}','API\Guardian\GuardianController@getOneCourseInfo')->name('guardian_courseInfo'); // paginate yok
     // Hangi kursun sectionun ön/test sonuçları bilgilerini  getir
-    Route::get('/firtLastTestInfo/{userId}/{otherId}','API\Guardian\GuardianController@getflTestInfo')->name('guardian_flTestInfo');
+    Route::get('/firtLastTestInfo/{userId}/{otherId}','API\Guardian\GuardianController@getflTestInfo')->name('guardian_flTestInfo'); // paginate yok
     // courseType: 1= ge, 2= pl, 3=pe
-    Route::get('/firtLastTestInfo/{userId}/{otherId}/{courseId}/{courseType}','API\Guardian\GuardianController@getOneflTestInfo')->name('guardian_flTestInfo');
+    Route::get('/firtLastTestInfo/{userId}/{otherId}/{courseId}/{courseType}','API\Guardian\GuardianController@getOneflTestInfo')->name('guardian_flTestInfo'); // paginate yok
 
 });
