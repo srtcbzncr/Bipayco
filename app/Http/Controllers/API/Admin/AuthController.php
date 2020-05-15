@@ -97,7 +97,7 @@ class AuthController extends Controller
     public function getAdmin($adminId){
         $repo = new AuthRepository();
 
-        $resp = $repo->showAdmins();
+        $resp = $repo->getAdmin($adminId);
         if($resp->getResult()){
             return response()->json([
                 'error' => false,

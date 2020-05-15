@@ -177,6 +177,10 @@ class AuthRepository implements IRepository {
         try{
             $object=DB::table('auth_admins')->where('active',true)->where('deleted_at',null)
                 ->paginate(10);
+            foreach ($object as $key=>$item){
+                $user = User::find($item->user_id);
+                $object[$key]['user'] = $user;
+            }
         }
         catch(\Exception $e){
             $error = $e->getMessage();
@@ -220,6 +224,10 @@ class AuthRepository implements IRepository {
         try{
             $object=DB::table('auth_students')->where('active',true)->where('deleted_at',null)
                 ->paginate(10);
+            foreach ($object as $key=> $item){
+                $user = User::find($item->user_id);
+                $object[$key]['user'] = $user;
+            }
         }
         catch(\Exception $e){
             $error = $e->getMessage();
@@ -337,6 +345,10 @@ class AuthRepository implements IRepository {
         try{
             $object=DB::table('auth_instructors')->where('active',true)->where('deleted_at',null)
                 ->paginate(10);
+            foreach ($object as $key=>$item){
+                $user = User::find($item->user_id);
+                $object[$key]['user'] = $user;
+            }
         }
         catch(\Exception $e){
             $error = $e->getMessage();
@@ -454,6 +466,10 @@ class AuthRepository implements IRepository {
         try{
             $object=DB::table('auth_guardians')->where('active',true)->where('deleted_at',null)
                 ->paginate(10);
+            foreach ($object as $key=>$item){
+                $user = User::find($item->user_id);
+                $object[$key]['user'] = $user;
+            }
         }
         catch(\Exception $e){
             $error = $e->getMessage();
