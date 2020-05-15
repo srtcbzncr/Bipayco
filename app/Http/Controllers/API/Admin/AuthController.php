@@ -16,13 +16,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Admin başarıyla oluşturuldu.'
             ]);
         }
 
         return response()->json([
-           'error' => true,
-           'errorMessage' => $resp->getError()
+            'error' => true,
+            'errorMessage' => $resp->getError(),
+            'message' => 'Admin oluşturulurken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -33,13 +35,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Admin başarıyla silindi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Admin silinirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -50,13 +54,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Admin başarıyla aktifleştirildi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Admin aktifleştirilirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -67,13 +73,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Admin başarıyla pasifleştirildi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Admin pasifleştirilirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -84,13 +92,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Admin verileri başarıyla getirildi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Admin verileri getirilirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -101,13 +111,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Admin başarıyla getirildi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Admin getirilirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -118,13 +130,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'öğrenci verileri başarıyla getirildi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Öğrenci verileri getirilirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -135,13 +149,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Öğrenci başarıyla getirildi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Öğrenci getirilirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -152,13 +168,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Öğrenci başarıyla aktifleştirildi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Öğrenci aktifleştirilirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -169,13 +187,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Öğrenci başarıyla pasifleştirildi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Öğrenci pasifleştirilirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -186,13 +206,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Öğrenci başarıyla silindi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Öğrenci silinirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -203,13 +225,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Eğitmen verileri başarıyla getirildi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Eğitmen verileri getirilirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -220,13 +244,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Eğitmen başarıyla getirildi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Eğitmen getirilirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -237,13 +263,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Eğitmen başarıyla aktifleştirildi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Eğitmen aktifleştirilirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -254,13 +282,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Eğitmen başarıyla pasifleştiridi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Eğitmen pasifleştirilirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -271,13 +301,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Eğitmen başarıyla silindi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Eğitmen silinirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -288,13 +320,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Veli verileri başarıyla getirildi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Veli verileri getirilirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -305,13 +339,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Veli başarıyla getirildi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Veli getirilirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -322,13 +358,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Veli başarıyla aktifleşitirilirdi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Veli aktifleştirilirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -339,13 +377,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Veli başarıyla pasifleştirildi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Veli pasifleştirilirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 
@@ -356,13 +396,15 @@ class AuthController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Veli başarıyla silindi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError()
+            'errorMessage' => $resp->getError(),
+            'message' => 'Veli silinirken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
 }
