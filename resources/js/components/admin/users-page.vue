@@ -5,14 +5,12 @@
                 <thead v-if="true">
                 <tr>
                     <th>{{nameText}}</th>
-                    <th>{{surnameText}}</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody v-if="true">
-                <tr v-for="item in adminUsers.data">
-                    <td class="uk-width-3-4"><p>{{item.first_name}}</p></td>
-                    <td class="uk-width-3-4"><p>{{item.last_name}}</p></td>
+                <tr v-for="(item, index) in adminUsers.data">
+                    <td @click="openInfo(index)" class="uk-width-3-4 clickable"><p>{{item.user.first_name}} {{item.user.last_name}}</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-around">
                         <a v-if="!item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
                         <a v-else @click="deactivateItem(item.id)" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
@@ -38,6 +36,34 @@
                 <button v-show="adminUsers.current_page<adminUsers.last_page" @click="loadNewPage(adminUsers.next_page_url)"> > </button>
             </li>
         </ul>
+        <div id="userInfoArea" uk-modal>
+            <div class="uk-modal-dialog">
+                <div class="uk-modal-header">
+                    <h2 class="uk-modal-title">{{userInfoText}}</h2>
+                </div>
+                <div class="uk-modal-body" uk-overflow-auto>
+                    <div class="uk-flex align-items-center justify-content-center uk-margin-small-bottom">
+                        <img :src="selectedUser.user.avatar" class="uk-height-small uk-width-small uk-border-circle">
+                    </div>
+                    <div class="uk-form-label">{{nameText}}</div>
+                    <h6>{{selectedUser.user.first_name}} {{selectedUser.user.last_name}}</h6>
+                    <hr>
+                    <div class="uk-form-label">{{usernameText}}</div>
+                    <h6>{{selectedUser.user.username}}</h6>
+                    <hr>
+                    <div class="uk-form-label">{{emailText}}</div>
+                    <h6>{{selectedUser.user.email}}</h6>
+                    <hr>
+                    <div class="uk-form-label">{{phoneText}}</div>
+                    <h6>{{selectedUser.user.phone_number}}</h6>
+                    <hr>
+                    <div class="uk-form-label">{{referenceCodeText}}</div>
+                    <h6>{{selectedUser.reference_code}}</h6>
+                </div>
+                <div class="uk-modal-footer">
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -48,10 +74,7 @@
         name: "users-page",
         data(){
             return{
-                name:"",
-                icon:"",
-                hasItem:false,
-                selectedGradeId:"",
+                selectedIndex:-1,
                 selectedPage:"/api/admin/auth/student/show?page=1"
             }
         },
@@ -76,10 +99,26 @@
                 type:String,
                 default:"Adı"
             },
-            surnameText:{
+            emailText:{
                 type:String,
-                default:"Soyadı"
+                default:"Eposta"
             },
+            userInfoText:{
+                type:String,
+                default:"Kullanıcı Bilgisi"
+            },
+            referenceCodeText:{
+                type:String,
+                default:"Referans Kodu"
+            },
+            phoneText:{
+                type:String,
+                default:"Telefon"
+            },
+            usernameText:{
+                type:String,
+                default:"Kullanıcı Adı"
+            }
         },
         computed:{
             ...mapState([
@@ -106,6 +145,13 @@
                 }
                 return pages;
             },
+            selectedUser(){
+                if(this.selectedIndex>=0){
+                    return this.adminUsers.data[this.selectedIndex];
+                }else{
+                    return { user:{}}
+                }
+            }
         },
         methods:{
             ...mapActions([
@@ -113,7 +159,7 @@
                 'loadAdminNewPage'
             ]),
             deactivateItem:function (id) {
-                Axios.post('/api/admin/auth/student/setPassive/'+id)
+                Axios.post('/api/admin/auth/student/passive/'+id)
                     .then(response=>{
                         if(response.data.error){
                             UIkit.notification({message:response.data.message, status: 'danger'});
@@ -124,7 +170,7 @@
                     });
             },
             activateItem:function (id) {
-                Axios.post('/api/admin/auth/student/setActive/'+id)
+                Axios.post('/api/admin/auth/student/active/'+id)
                     .then(response=>{
                         if(response.data.error){
                             UIkit.notification({message:response.data.message, status: 'danger'});
@@ -148,7 +194,11 @@
             loadNewPage: function(name){
                 this.selectedPage=name;
                 this.$store.dispatch('loadAdminNewPage',[name, 'setAdminUsers']);
-            }
+            },
+            openInfo:function (index) {
+                this.selectedIndex=index;
+                UIkit.modal('#userInfoArea').show();
+            },
         },
         created() {
             this.$store.dispatch('loadAdminUsers');
@@ -157,5 +207,11 @@
 </script>
 
 <style scoped>
+h6{
+    margin:0
+}
 
+.clickable{
+    cursor: pointer;
+}
 </style>

@@ -194,10 +194,8 @@
                                     <a href="#">Sınavlara Hazırlık Modülü  </a>
                                 </li>
                                 <li>
-                                    <a href="#"> Soru Bankaları </a>
                                 </li>
                                 <li>
-                                    <a href="#"> Deneme Sınavları </a>
                                 </li>
                             </ul>
                         </div>

@@ -8,15 +8,13 @@
                 <thead v-if="true">
                 <tr>
                     <th>{{nameText}}</th>
-                    <th>{{surnameText}}</th>
                     <th></th>
                 </tr>
                 </thead>
                 <tbody v-if="true">
-                <tr v-for="item in adminAdmins.data">
-                    <td class="uk-width-3-4"><p>{{item.name}}</p></td>
+                <tr v-for="(item,index) in adminAdmins.data">
+                    <td @click="openInfo(index)" class="uk-width-3-4 clickable"><p>{{item.user.first_name}} {{item.user.last_name}}</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-around">
-                        <a @click="openSettings(item.id)" :uk-tooltip="editText"><i class="fas fa-cog"></i></a>
                         <a v-if="!item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
                         <a v-else @click="deactivateItem(item.id)" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
                         <a @click="deleteItem(item.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
@@ -49,14 +47,42 @@
 
                 <div class="uk-modal-body" uk-overflow-auto>
                     <div class="uk-margin-bottom">
-                        <div class="uk-form-label">{{gradeNameText}}</div>
-                        <input v-model="email" class="uk-width uk-input" :placeholder="gradeNameText">
+                        <div class="uk-form-label">{{emailText}}</div>
+                        <input v-model="email" class="uk-width uk-input" :placeholder="emailText">
                     </div>
                 </div>
 
                 <div class="uk-modal-footer uk-text-right">
                     <button class="uk-button uk-button-default uk-modal-close" @click="clearForm" type="button">{{cancelText}}</button>
                     <button class="uk-button uk-button-primary" type="button" @click="saveItem">{{saveText}}</button>
+                </div>
+            </div>
+        </div>
+        <div id="adminInfoArea" uk-modal>
+            <div class="uk-modal-dialog">
+                <div class="uk-modal-header">
+                    <h2 class="uk-modal-title">{{adminInfoText}}</h2>
+                </div>
+                <div class="uk-modal-body" uk-overflow-auto>
+                    <div class="uk-flex align-items-center justify-content-center uk-margin-small-bottom">
+                        <img :src="selectedUser.user.avatar" class="uk-height-small uk-width-small uk-border-circle">
+                    </div>
+                    <div class="uk-form-label">{{nameText}}</div>
+                    <h6>{{selectedUser.user.first_name}} {{selectedUser.user.last_name}}</h6>
+                    <hr>
+                    <div class="uk-form-label">{{usernameText}}</div>
+                    <h6>{{selectedUser.user.username}}</h6>
+                    <hr>
+                    <div class="uk-form-label">{{emailText}}</div>
+                    <h6>{{selectedUser.user.email}}</h6>
+                    <hr>
+                    <div class="uk-form-label">{{phoneText}}</div>
+                    <h6>{{selectedUser.user.phone_number}}</h6>
+                    <hr>
+                    <div class="uk-form-label">{{referenceCodeText}}</div>
+                    <h6>{{selectedUser.reference_code}}</h6>
+                </div>
+                <div class="uk-modal-footer">
                 </div>
             </div>
         </div>
@@ -71,15 +97,14 @@
         data(){
             return{
                 email:"",
-                hasItem:false,
-                selectedAdminId:"",
+                selectedIndex:-1,
                 selectedPage:"/api/admin/auth/admin/show?page=1"
             }
         },
         props:{
             addAdminText:{
                 type:String,
-                default:"Sınıf Ekle"
+                default:"Yönetici Ekle"
             },
             noContentText:{
                 type:String,
@@ -97,10 +122,6 @@
                 type:String,
                 default:"Pasifleştir"
             },
-            editText:{
-                type:String,
-                default:"Düzenle"
-            },
             saveText:{
                 type:String,
                 default:"Kaydet"
@@ -113,13 +134,29 @@
                 type:String,
                 default:"İkon"
             },
-            gradeNameText:{
+            nameText:{
                 type:String,
-                default:"Sınıf Adı"
+                default:"Adı"
             },
-            editGradeText:{
+            emailText:{
                 type:String,
-                default:"Sınıf Düzenle"
+                default:"Eposta"
+            },
+            adminInfoText:{
+                type:String,
+                default:"Yönetici Bilgisi"
+            },
+            referenceCodeText:{
+                type:String,
+                default:"Referans Kodu"
+            },
+            phoneText:{
+                type:String,
+                default:"Telefon"
+            },
+            usernameText:{
+                type:String,
+                default:"Kullanıcı Adı"
             }
         },
         computed:{
@@ -147,6 +184,13 @@
                 }
                 return pages;
             },
+            selectedUser(){
+                if(this.selectedIndex>=0){
+                    return this.adminAdmins.data[this.selectedIndex];
+                }else{
+                    return { user:{}}
+                }
+            }
         },
         methods:{
             ...mapActions([
@@ -154,7 +198,7 @@
                 'loadAdminNewPage'
             ]),
             deactivateItem:function (id) {
-                Axios.post('/api/admin/auth/admin/setPassive/'+id)
+                Axios.post('/api/admin/auth/admin/passive/'+id)
                     .then(response=>{
                         if(response.data.error){
                             UIkit.notification({message:response.data.message, status: 'danger'});
@@ -165,7 +209,7 @@
                     });
             },
             activateItem:function (id) {
-                Axios.post('/api/admin/auth/admin/setActive/'+id)
+                Axios.post('/api/admin/auth/admin/active/'+id)
                     .then(response=>{
                         if(response.data.error){
                             UIkit.notification({message:response.data.message, status: 'danger'});
@@ -186,16 +230,15 @@
                         }
                     });
             },
-            openSettings:function (id) {
-                this.selectedAdminId=id;
-                Axios.get('/api/admin/auth/admin/show/'+id)
-                    .then(response=>this.setSelected(response.data.data));
-            },
             openForm:function () {
                 UIkit.modal('#addAdminArea', {
                     escClose:false,
                     bgClose:false,
                 }).show();
+            },
+            openInfo:function (index) {
+                this.selectedIndex=index;
+                UIkit.modal('#adminInfoArea').show();
             },
             setSelected:function(selectedData){
                 this.icon=selectedData.symbol;
@@ -207,24 +250,22 @@
                 }).show();
             },
             clearForm:function () {
-                this.icon="";
-                this.name="";
-                this.hasItem=false;
+                this.email="";
                 this.selectedAdminId="";
             },
             saveItem:function () {
-                if(this.hasItem){
-                    Axios.post('/api/admin/auth/admin/create', {
-                        email: this.email,
-                    }).then(response=>{
-                        if(response.data.error){
-                            UIkit.notification({message:response.data.message, status: 'danger'});
-                        }else{
-                            UIkit.notification({message:response.data.message, status: 'success'});
-                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminAdmins'])
-                        }
-                    });
-                }
+                Axios.post('/api/admin/auth/admin/create', {
+                    email: this.email,
+                    authorityId:1,
+                    active:1
+                }).then(response=>{
+                    if(response.data.error){
+                        UIkit.notification({message:response.data.message, status: 'danger'});
+                    }else{
+                        UIkit.notification({message:response.data.message, status: 'success'});
+                        this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminAdmins'])
+                    }
+                });
                 this.clearForm();
                 UIkit.modal('#addAdminArea').hide();
             },
@@ -240,5 +281,10 @@
 </script>
 
 <style scoped>
-
+h6{
+    margin:0
+}
+.clickable{
+    cursor: pointer;
+}
 </style>

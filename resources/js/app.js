@@ -50,6 +50,10 @@ Vue.component('registered-profile', require('./components/admin/registered-profi
 Vue.component('comment', require('./components/admin/comment.vue').default);
 Vue.component('categories-page', require('./components/admin/categories-page.vue').default);
 Vue.component('exams-page', require('./components/admin/exams-page.vue').default);
+Vue.component('admins-page', require('./components/admin/admins-page.vue').default);
+Vue.component('users-page', require('./components/admin/users-page.vue').default);
+Vue.component('guardians-page', require('./components/admin/guardians-page.vue').default);
+Vue.component('instructors-page', require('./components/admin/instructors-page.vue').default);
 Vue.component('sub-categories-page', require('./components/admin/sub-categories-page.vue').default);
 Vue.component('cities-page', require('./components/admin/cities-page.vue').default);
 Vue.component('districts-page', require('./components/admin/districts-page.vue').default);

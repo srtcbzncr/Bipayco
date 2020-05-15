@@ -33,12 +33,8 @@
                 <course-progress-card user-id="{{Auth::user()->id}}" no-content="@lang('front/auth.not_found_content')" prepare-for-lessons></course-progress-card>
                 <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.prepare_for_exams') </span></h3>
                 <course-progress-card user-id="{{Auth::user()->id}}" no-content="@lang('front/auth.not_found_content')" prepare-for-exams></course-progress-card>
-                <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.exams') </span></h3>
-                <course-progress-card user-id="{{Auth::user()->id}}" no-content="@lang('front/auth.not_found_content')" exams></course-progress-card>
-                <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.books') </span></h3>
-                <course-progress-card user-id="{{Auth::user()->id}}" no-content="@lang('front/auth.not_found_content')" books></course-progress-card>
-                <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.homeworks') </span></h3>
-                <course-progress-card user-id="{{Auth::user()->id}}" no-content="@lang('front/auth.not_found_content')" homeworks></course-progress-card>
+{{--                <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.homeworks') </span></h3>--}}
+{{--                <course-progress-card user-id="{{Auth::user()->id}}" no-content="@lang('front/auth.not_found_content')" homeworks></course-progress-card>--}}
             </div>
         </div>
     </div>

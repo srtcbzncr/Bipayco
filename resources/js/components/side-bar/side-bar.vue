@@ -53,15 +53,15 @@
                     </div>
                 </div>
             </li>
-            <li>
-                <!-- blog -->
-                <a href="#" class="active" :uk-tooltip="'title:'+ booksText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-book icon-medium"></i> </a>
-            </li>
-            <li>
-                <!-- ui compounents -->
-                <a href="#" :uk-tooltip="'title:'+examsText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-award icon-medium"></i> </a>
+<!--            <li>-->
+<!--                &lt;!&ndash; blog &ndash;&gt;-->
+<!--                <a href="#" class="active" :uk-tooltip="'title:'+ booksText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-book icon-medium"></i> </a>-->
+<!--            </li>-->
+<!--            <li>-->
+<!--                &lt;!&ndash; ui compounents &ndash;&gt;-->
+<!--                <a href="#" :uk-tooltip="'title:'+examsText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-award icon-medium"></i> </a>-->
 
-            </li>
+<!--            </li>-->
         </ul>
         <ul class="uk-position-bottom">
             <li>
@@ -75,11 +75,11 @@
                     <div class="uk-card-small uk-box-shadow-xlarge uk-card-default uk-maring-small-left  border-radius-6">
                         <div class="uk-card uk-card-default border-radius-6">
                             <div class="uk-card-header">
-                                <h5 class="uk-card-title uk-margin-remove-bottom">Swich to night mode</h5>
+                                <h5 class="uk-card-title uk-margin-remove-bottom">Gece Modu özelliğini değiştir</h5>
                             </div>
                             <div class="uk-card-body">
-                                <p>Turns the light surfaces of the page dark, creating an experience ideal for night. Try it!</p>
-                                <p class="uk-text-small uk-align-left uk-margin-remove  uk-text-muted">DARK THEME </p>
+                                <p></p>
+                                <p class="uk-text-small uk-align-left uk-margin-remove  uk-text-muted">KARANLIK TEMA </p>
                                 <!-- night mode button -->
                                 <div class="btn-night uk-align-right" id="night-mode">
                                     <label class="tm-switch">

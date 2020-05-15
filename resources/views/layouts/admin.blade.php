@@ -60,15 +60,15 @@
             <li>
                 <a href="{{route('instructor_exams')}}"> <i class="fas fa-pencil-alt"></i>@lang('front/auth.my_exams')</a>
             </li>
-            <li>
-                <a href="{{route('instructor_homeworks')}}"> <i class="fas fa-book"></i>@lang('front/auth.my_homework_packages')</a>
-            </li>
-            <li>
-                <a href="{{route('instructor_performance')}}"> <i class="fas fa-chart-line"></i>@lang('front/auth.performance')</a>
-            </li>
-            <li>
-                <a href="{{route('instructor_questions')}}"> <i class="fas fa-question"></i>@lang('front/auth.questions')</a>
-            </li>
+{{--            <li>--}}
+{{--                <a href="{{route('instructor_homeworks')}}"> <i class="fas fa-book"></i>@lang('front/auth.my_homework_packages')</a>--}}
+{{--            </li>--}}
+{{--            <li>--}}
+{{--                <a href="{{route('instructor_performance')}}"> <i class="fas fa-chart-line"></i>@lang('front/auth.performance')</a>--}}
+{{--            </li>--}}
+{{--            <li>--}}
+{{--                <a href="{{route('instructor_questions')}}"> <i class="fas fa-question"></i>@lang('front/auth.questions')</a>--}}
+{{--            </li>--}}
             <li>
                 <a href="{{route('questionSource_show')}}"> <i class="fas fa-bookmark"></i>@lang('front/auth.question_source')</a>
             </li>
