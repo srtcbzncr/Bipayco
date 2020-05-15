@@ -50,7 +50,5 @@
         general-education-text="@lang('front/auth.general_education')"
         prepare-lessons-text="@lang('front/auth.prepare_for_lessons')"
         prepare-exams-text="@lang('front/auth.prepare_for_exams')"
-        exams-text="@lang('front/auth.exams')"
-        books-text="@lang('front/auth.books')"
     ></homepage-content>
 @endsection

@@ -135,7 +135,9 @@
                     @foreach($course->instructors as $instructor)
                         <div class="uk-grid-small  uk-margin-medium-top uk-padding-small" uk-grid>
                             <div class="uk-width-1-4@m uk-first-column">
-                                <a href="{{route('instructor_profile', $instructor->id)}}"><img alt="Image" class="uk-width-2-3 uk-margin-small-top uk-margin-small-bottom uk-border-circle uk-box-shadow-large  uk-animation-scale-up" src="{{asset($instructor->user->avatar)}}"></a>
+                                <a href="{{route('instructor_profile', $instructor->id)}}">
+                                    <img src="{{asset($instructor->user->avatar)}}" class="uk-margin uk-height-small uk-width-small uk-border-circle">
+                                </a>
                                 <div class="uk-text-small uk-margin-small-top">
                                     <p> <i class="fas fa-play"></i> {{$instructor->courseCount()}} @lang('front/auth.course') </p>
                                 </div>

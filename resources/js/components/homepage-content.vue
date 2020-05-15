@@ -4,8 +4,6 @@
             <li><a @click="changeModule('generalEducation')">{{generalEducationText}}</a></li>
             <li><a @click="changeModule('prepareLessons')">{{prepareLessonsText}}</a></li>
             <li><a @click="changeModule('prepareExams')">{{prepareExamsText}}</a></li>
-            <li><a @click="changeModule('books')">{{booksText}}</a></li>
-            <li><a @click="changeModule('exams')">{{examsText}}</a></li>
         </ul>
         <ul class="uk-margin uk-margin-medium-top">
             <li>
@@ -79,14 +77,6 @@
                 type:String,
                 default:"Sınavlara Hazırlık"
             },
-            examsText:{
-                type:String,
-                default:"Denemeler"
-            },
-            booksText:{
-                type:String,
-                default:"Soru Bankaları"
-            },
             noContentText:{
                 type:String,
                 default:"İçerik Bulunmamaktadır"
@@ -119,14 +109,6 @@
                     }
                     case 'prepareExams':{
                         this.module='pe';
-                        break;
-                    }
-                    case 'exams':{
-                        this.module='exams';
-                        break;
-                    }
-                    case 'books':{
-                        this.module='books';
                         break;
                     }
                     default:{

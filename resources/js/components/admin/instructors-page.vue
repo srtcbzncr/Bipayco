@@ -39,7 +39,7 @@
         <div id="instructorInfoArea" uk-modal>
             <div class="uk-modal-dialog">
                 <div class="uk-modal-header">
-                    <h2 class="uk-modal-title">{{userInfoText}}</h2>
+                    <h2 class="uk-modal-title">{{instructorInfoText}}</h2>
                 </div>
                 <div class="uk-modal-body" uk-overflow-auto>
                     <div class="uk-flex align-items-center justify-content-center uk-margin-small-bottom">
@@ -109,9 +109,9 @@
                 type:String,
                 default:"Eposta"
             },
-            userInfoText:{
+            instructorInfoText:{
                 type:String,
-                default:"Kullanıcı Bilgisi"
+                default:"Eğitmen Bilgisi"
             },
             referenceCodeText:{
                 type:String,

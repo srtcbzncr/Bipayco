@@ -4,8 +4,8 @@
         <div uk-grid>
             <div class="uk-width-1-4@m">
                 <div class="uk-card uk-card-default border-radius-6 uk-card uk-padding-small  uk-box-shadow-medium" uk-sticky="offset: 90; bottom: true; media: @m;">
-                    <div class=" uk-width-1-3 uk-width-1-4@s uk-width-1-2@m  uk-margin-small-bottom  uk-margin-small-top uk-margin-auto uk-visible-toggle uk-position-relative uk-border-circle uk-overflow-hidden uk-light">
-                        <img class="uk-width-1-1" src="{{asset($instructor->user->avatar)}}">
+                    <div class="uk-flex uk-flex-center">
+                        <img src="{{asset(Auth::user()->avatar)}}" class="uk-margin uk-height-small uk-width-small uk-border-circle">
                     </div>
                     <div class="uk-h4 uk-margin-remove uk-text-center uk-margin-small-top">{{$instructor->user->first_name}} {{$instructor->user->last_name}}</div>
                     <div class="uk-text-meta uk-text-center">{{$instructor->title}}</div>
