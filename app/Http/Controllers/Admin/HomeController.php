@@ -3,16 +3,32 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Auth\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     public function dashboard(){
-        return view('admin.dashboard');
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin != null){
+            return view('admin.dashboard');
+        }
+        else{
+            return redirect()->back();
+        }
     }
 
     public function categories(){
-        return view('admin.categories');
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin != null){
+            return view('admin.categories');
+        }
+        else{
+            return redirect()->back();
+        }
     }
 
   /*  public function subCategories(){
@@ -20,7 +36,14 @@ class HomeController extends Controller
     }*/
 
     public function cities(){
-        return view('admin.cities');
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin != null){
+            return view('admin.cities');
+        }
+        else{
+            return redirect()->back();
+        }
     }
 
   /*  public function districts(){
@@ -28,15 +51,36 @@ class HomeController extends Controller
     }*/
 
     public function grade(){
-        return view('admin.grade');
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin != null){
+            return view('admin.grade');
+        }
+        else{
+            return redirect()->back();
+        }
     }
 
     public function exam(){
-        return view('admin.exams');
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin != null){
+            return view('admin.exams');
+        }
+        else{
+            return redirect()->back();
+        }
     }
 
     public function lesson(){
-        return view('admin.lesson');
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin != null){
+            return view('admin.lesson');
+        }
+        else{
+            return redirect()->back();
+        }
     }
 
   /*  public function subjects(){
@@ -44,6 +88,12 @@ class HomeController extends Controller
     }*/
 
     public function getSubcategoryOfCategory($categoryId){
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin == null){
+            return redirect()->back();
+        }
+
         // initializing
         $data = array();
 
@@ -53,6 +103,11 @@ class HomeController extends Controller
     }
 
     public function getDistrictsOfCity($cityId){
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin == null){
+            return redirect()->back();
+        }
         // initializing
         $data = array();
 
@@ -62,6 +117,11 @@ class HomeController extends Controller
     }
 
     public function getSubjectsOfLesson($lessonId){
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin == null){
+            return redirect()->back();
+        }
         // initializing
         $data = array();
 
@@ -71,18 +131,38 @@ class HomeController extends Controller
     }
 
     public function users(){
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin == null){
+            return redirect()->back();
+        }
         return view('admin.users');
     }
 
     public function instructors(){
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin == null){
+            return redirect()->back();
+        }
         return view('admin.instructors');
     }
 
     public function guardians(){
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin == null){
+            return redirect()->back();
+        }
         return view('admin.guardians');
     }
 
     public function admins(){
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin == null){
+            return redirect()->back();
+        }
         return view('admin.admins');
     }
 }
