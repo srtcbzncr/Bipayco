@@ -7900,7 +7900,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/guardian/addStudent', {
         referenceCode: this.referenceCode,
-        userId: this.userId
+        guardianUserId: this.userId
       }).then(function (response) {
         if (response.data.error) {
           UIkit.notification({
@@ -7925,7 +7925,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   created: function created() {
-    //Axios.post('/api/guardian/createGuardian',{userId:this.userId});
     this.$store.dispatch('loadGuardianStudents', this.userId);
   }
 });

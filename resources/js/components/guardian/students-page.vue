@@ -228,7 +228,7 @@
             saveItem:function () {
                 Axios.post('/api/guardian/addStudent', {
                     referenceCode: this.referenceCode,
-                    userId:this.userId,
+                    guardianUserId:this.userId,
                 }).then(response=>{
                     if(response.data.error){
                         UIkit.notification({message:response.data.message, status: 'danger'});
@@ -246,7 +246,6 @@
             }
         },
         created() {
-            //Axios.post('/api/guardian/createGuardian',{userId:this.userId});
             this.$store.dispatch('loadGuardianStudents', this.userId);
         }
     }
