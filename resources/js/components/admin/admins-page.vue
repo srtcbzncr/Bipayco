@@ -240,18 +240,8 @@
                 this.selectedIndex=index;
                 UIkit.modal('#adminInfoArea').show();
             },
-            setSelected:function(selectedData){
-                this.icon=selectedData.symbol;
-                this.name=selectedData.name;
-                this.hasItem=true;
-                UIkit.modal('#addAdminArea', {
-                    escClose:false,
-                    bgClose:false,
-                }).show();
-            },
             clearForm:function () {
                 this.email="";
-                this.selectedAdminId="";
             },
             saveItem:function () {
                 Axios.post('/api/admin/auth/admin/create', {

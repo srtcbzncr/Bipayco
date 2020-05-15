@@ -81,6 +81,7 @@ const state={
     crExams:{},
     selectedSubjectId:"",
     selectedLessonId:"",
+    guardianStudents:{},
 };
 const getters={};
 const mutations={
@@ -200,6 +201,9 @@ const mutations={
     },
     setSelectedSubjectId(state, subject){
         state.selectedSubjectId=subject;
+    },
+    setGuardianStudents(state, students){
+        state.guardianStudents=students.data;
     }
 };
 const actions={
@@ -362,6 +366,14 @@ const actions={
     loadCrExams({commit}){
         Axios.get('/api/pe/exams')
             .then(response=>commit('setCrExams',response.data))
+    },
+    loadGuardianStudents({commit}, userId){
+        Axios.get('/api/guardian/getStudents/'+userId)
+            .then(response=>commit('setGuardianStudents', response.data));
+    },
+    loadGuardianNewPage({commit}, apiUrl){
+        Axios.get(apiUrl)
+            .then(response=>commit('setGuardianStudents', response.data));
     },
 };
 

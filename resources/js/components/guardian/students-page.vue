@@ -12,7 +12,7 @@
                 </tr>
                 </thead>
                 <tbody v-if="true">
-                <tr v-for="(item,index) in adminAdmins.data">
+                <tr v-for="(item,index) in guardianStudents.data">
                     <td @click="openInfo(index)" class="uk-width-3-4 clickable"><p>{{item.user.first_name}} {{item.user.last_name}}</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-around">
                         <a v-if="!item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
@@ -28,18 +28,18 @@
         </div>
         <ul class="uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
             <li>
-                <button v-show="adminAdmins.current_page>1" @click="loadNewPage(adminAdmins.prev_page_url)"> < </button>
+                <button v-show="guardianStudents.current_page>1" @click="loadNewPage(guardianStudents.prev_page_url)"> < </button>
             </li>
             <li v-for="page in pageNumber">
                 <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
-                <button v-else-if="page==adminAdmins.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/admin/cr/admin/show?page='+page)">{{page}}</button>
+                <button v-else-if="page==guardianStudents.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/admin/cr/admin/show?page='+page)">{{page}}</button>
                 <button v-else @click="loadNewPage('/api/admin/cr/admin/show?page='+page)">{{page}}</button>
             </li>
             <li>
-                <button v-show="adminAdmins.current_page<adminAdmins.last_page" @click="loadNewPage(adminAdmins.next_page_url)"> > </button>
+                <button v-show="guardianStudents.current_page<guardianStudents.last_page" @click="loadNewPage(guardianStudents.next_page_url)"> > </button>
             </li>
         </ul>
-        <div id="addAdminArea" uk-modal>
+        <div id="addStudentArea" uk-modal>
             <div class="uk-modal-dialog">
                 <div class="uk-modal-header">
                     <h2 class="uk-modal-title">{{addStudentText}}</h2>
@@ -58,10 +58,10 @@
                 </div>
             </div>
         </div>
-        <div id="adminInfoArea" uk-modal>
+        <div id="studentInfoArea" uk-modal>
             <div class="uk-modal-dialog">
                 <div class="uk-modal-header">
-                    <h2 class="uk-modal-title">{{adminInfoText}}</h2>
+                    <h2 class="uk-modal-title">{{studentInfoText}}</h2>
                 </div>
                 <div class="uk-modal-body" uk-overflow-auto>
                     <div class="uk-flex align-items-center justify-content-center uk-margin-small-bottom">
@@ -102,6 +102,10 @@
             }
         },
         props:{
+            userId:{
+                type:String,
+                required:true,
+            },
             addStudentText:{
                 type:String,
                 default:"Öğrenci Ekle"
@@ -161,22 +165,22 @@
         },
         computed:{
             ...mapState([
-                'adminAdmins',
+                'guardianStudents',
             ]),
             pageNumber(){
                 var pages=['1'];
                 var index=2;
-                for(var i=2; index<=this.adminAdmins.last_page; i++){
-                    if(i==2 && this.adminAdmins.current_page-2>3){
+                for(var i=2; index<=this.guardianStudents.last_page; i++){
+                    if(i==2 && this.guardianStudents.current_page-2>3){
                         pages.push('...');
-                        if(this.adminAdmins.current_page+3>this.adminAdmins.last_page){
-                            index=this.adminAdmins.last_page-6;
+                        if(this.guardianStudents.current_page+3>this.guardianStudents.last_page){
+                            index=this.guardianStudents.last_page-6;
                         }else{
-                            index=this.adminAdmins.current_page-2;
+                            index=this.guardianStudents.current_page-2;
                         }
-                    }else if(i==8 && this.adminAdmins.current_page+2<this.adminAdmins.last_page-2){
+                    }else if(i==8 && this.guardianStudents.current_page+2<this.guardianStudents.last_page-2){
                         pages.push('...');
-                        index=this.adminAdmins.last_page;
+                        index=this.guardianStudents.last_page;
                     }else{
                         pages.push(index);
                         index++;
@@ -186,7 +190,7 @@
             },
             selectedUser(){
                 if(this.selectedIndex>=0){
-                    return this.adminAdmins.data[this.selectedIndex];
+                    return this.guardianStudents.data[this.selectedIndex];
                 }else{
                     return { user:{}}
                 }
@@ -194,88 +198,56 @@
         },
         methods:{
             ...mapActions([
-                'loadAdminAdmins',
-                'loadAdminNewPage'
+                'loadGuardianStudents',
+                'loadGuardianNewPage'
             ]),
-            deactivateItem:function (id) {
-                Axios.post('/api/admin/auth/admin/passive/'+id)
-                    .then(response=>{
-                        if(response.data.error){
-                            UIkit.notification({message:response.data.message, status: 'danger'});
-                        }else{
-                            UIkit.notification({message:response.data.message, status: 'success'});
-                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminAdmins'])
-                        }
-                    });
-            },
-            activateItem:function (id) {
-                Axios.post('/api/admin/auth/admin/active/'+id)
-                    .then(response=>{
-                        if(response.data.error){
-                            UIkit.notification({message:response.data.message, status: 'danger'});
-                        }else{
-                            UIkit.notification({message:response.data.message, status: 'success'});
-                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminAdmins'])
-                        }
-                    });
-            },
             deleteItem:function (id) {
-                Axios.post('/api/admin/auth/admin/delete/'+id)
+                Axios.post('/api/guardian/delete/'+this.userId+'/'+id)
                     .then(response=>{
                         if(response.data.error){
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }else{
                             UIkit.notification({message:response.data.message, status: 'success'});
-                            this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminAdmins'])
+                            this.$store.dispatch('loadGuardianNewPage', this.selectedPage)
                         }
                     });
             },
             openForm:function () {
-                UIkit.modal('#addAdminArea', {
+                UIkit.modal('#addStudentArea', {
                     escClose:false,
                     bgClose:false,
                 }).show();
             },
             openInfo:function (index) {
                 this.selectedIndex=index;
-                UIkit.modal('#adminInfoArea').show();
-            },
-            setSelected:function(selectedData){
-                this.icon=selectedData.symbol;
-                this.name=selectedData.name;
-                this.hasItem=true;
-                UIkit.modal('#addAdminArea', {
-                    escClose:false,
-                    bgClose:false,
-                }).show();
+                UIkit.modal('#studentInfoArea').show();
             },
             clearForm:function () {
-                this.email="";
-                this.selectedAdminId="";
+                this.referenceCode="";
             },
             saveItem:function () {
-                Axios.post('/api/admin/auth/admin/create', {
-                    email: this.email,
-                    authorityId:1,
-                    active:1
+                Axios.post('/api/guardian/addStudent', {
+                    referenceCode: this.referenceCode,
+                    userId:this.userId,
                 }).then(response=>{
                     if(response.data.error){
                         UIkit.notification({message:response.data.message, status: 'danger'});
                     }else{
                         UIkit.notification({message:response.data.message, status: 'success'});
-                        this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminAdmins'])
+                        this.$store.dispatch('loadGuardianNewPage',this.selectedPage)
                     }
                 });
                 this.clearForm();
-                UIkit.modal('#addAdminArea').hide();
+                UIkit.modal('#addStudentArea').hide();
             },
             loadNewPage: function(name){
                 this.selectedPage=name;
-                this.$store.dispatch('loadAdminNewPage',[name, 'setAdminAdmins']);
+                this.$store.dispatch('loadGuardianNewPage',name);
             }
         },
         created() {
-            this.$store.dispatch('loadAdminAdmins');
+            //Axios.post('/api/guardian/createGuardian',{userId:this.userId});
+            this.$store.dispatch('loadGuardianStudents', this.userId);
         }
     }
 </script>

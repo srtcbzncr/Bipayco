@@ -2110,18 +2110,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.selectedIndex = index;
       UIkit.modal('#adminInfoArea').show();
     },
-    setSelected: function setSelected(selectedData) {
-      this.icon = selectedData.symbol;
-      this.name = selectedData.name;
-      this.hasItem = true;
-      UIkit.modal('#addAdminArea', {
-        escClose: false,
-        bgClose: false
-      }).show();
-    },
     clearForm: function clearForm() {
       this.email = "";
-      this.selectedAdminId = "";
     },
     saveItem: function saveItem() {
       var _this4 = this;
@@ -7776,6 +7766,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   props: {
+    userId: {
+      type: String,
+      required: true
+    },
     addStudentText: {
       type: String,
       "default": "Öğrenci Ekle"
@@ -7833,23 +7827,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Kullanıcı Adı"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminAdmins']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['guardianStudents']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
 
-      for (var i = 2; index <= this.adminAdmins.last_page; i++) {
-        if (i == 2 && this.adminAdmins.current_page - 2 > 3) {
+      for (var i = 2; index <= this.guardianStudents.last_page; i++) {
+        if (i == 2 && this.guardianStudents.current_page - 2 > 3) {
           pages.push('...');
 
-          if (this.adminAdmins.current_page + 3 > this.adminAdmins.last_page) {
-            index = this.adminAdmins.last_page - 6;
+          if (this.guardianStudents.current_page + 3 > this.guardianStudents.last_page) {
+            index = this.guardianStudents.last_page - 6;
           } else {
-            index = this.adminAdmins.current_page - 2;
+            index = this.guardianStudents.current_page - 2;
           }
-        } else if (i == 8 && this.adminAdmins.current_page + 2 < this.adminAdmins.last_page - 2) {
+        } else if (i == 8 && this.guardianStudents.current_page + 2 < this.guardianStudents.last_page - 2) {
           pages.push('...');
-          index = this.adminAdmins.last_page;
+          index = this.guardianStudents.last_page;
         } else {
           pages.push(index);
           index++;
@@ -7860,7 +7854,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     selectedUser: function selectedUser() {
       if (this.selectedIndex >= 0) {
-        return this.adminAdmins.data[this.selectedIndex];
+        return this.guardianStudents.data[this.selectedIndex];
       } else {
         return {
           user: {}
@@ -7868,11 +7862,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     }
   }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminAdmins', 'loadAdminNewPage']), {
-    deactivateItem: function deactivateItem(id) {
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadGuardianStudents', 'loadGuardianNewPage']), {
+    deleteItem: function deleteItem(id) {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/auth/admin/passive/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/guardian/delete/' + this.userId + '/' + id).then(function (response) {
         if (response.data.error) {
           UIkit.notification({
             message: response.data.message,
@@ -7884,78 +7878,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             status: 'success'
           });
 
-          _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminAdmins']);
-        }
-      });
-    },
-    activateItem: function activateItem(id) {
-      var _this2 = this;
-
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/auth/admin/active/' + id).then(function (response) {
-        if (response.data.error) {
-          UIkit.notification({
-            message: response.data.message,
-            status: 'danger'
-          });
-        } else {
-          UIkit.notification({
-            message: response.data.message,
-            status: 'success'
-          });
-
-          _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminAdmins']);
-        }
-      });
-    },
-    deleteItem: function deleteItem(id) {
-      var _this3 = this;
-
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/auth/admin/delete/' + id).then(function (response) {
-        if (response.data.error) {
-          UIkit.notification({
-            message: response.data.message,
-            status: 'danger'
-          });
-        } else {
-          UIkit.notification({
-            message: response.data.message,
-            status: 'success'
-          });
-
-          _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminAdmins']);
+          _this.$store.dispatch('loadGuardianNewPage', _this.selectedPage);
         }
       });
     },
     openForm: function openForm() {
-      UIkit.modal('#addAdminArea', {
+      UIkit.modal('#addStudentArea', {
         escClose: false,
         bgClose: false
       }).show();
     },
     openInfo: function openInfo(index) {
       this.selectedIndex = index;
-      UIkit.modal('#adminInfoArea').show();
-    },
-    setSelected: function setSelected(selectedData) {
-      this.icon = selectedData.symbol;
-      this.name = selectedData.name;
-      this.hasItem = true;
-      UIkit.modal('#addAdminArea', {
-        escClose: false,
-        bgClose: false
-      }).show();
+      UIkit.modal('#studentInfoArea').show();
     },
     clearForm: function clearForm() {
-      this.email = "";
-      this.selectedAdminId = "";
+      this.referenceCode = "";
     },
     saveItem: function saveItem() {
-      var _this4 = this;
+      var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/auth/admin/create', {
-        email: this.email,
-        authorityId: 1,
-        active: 1
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/guardian/addStudent', {
+        referenceCode: this.referenceCode,
+        userId: this.userId
       }).then(function (response) {
         if (response.data.error) {
           UIkit.notification({
@@ -7968,19 +7913,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             status: 'success'
           });
 
-          _this4.$store.dispatch('loadAdminNewPage', [_this4.selectedPage, 'setAdminAdmins']);
+          _this2.$store.dispatch('loadGuardianNewPage', _this2.selectedPage);
         }
       });
       this.clearForm();
-      UIkit.modal('#addAdminArea').hide();
+      UIkit.modal('#addStudentArea').hide();
     },
     loadNewPage: function loadNewPage(name) {
       this.selectedPage = name;
-      this.$store.dispatch('loadAdminNewPage', [name, 'setAdminAdmins']);
+      this.$store.dispatch('loadGuardianNewPage', name);
     }
   }),
   created: function created() {
-    this.$store.dispatch('loadAdminAdmins');
+    //Axios.post('/api/guardian/createGuardian',{userId:this.userId});
+    this.$store.dispatch('loadGuardianStudents', this.userId);
   }
 });
 
@@ -22946,7 +22892,7 @@ var render = function() {
             true
               ? _c(
                   "tbody",
-                  _vm._l(_vm.adminAdmins.data, function(item, index) {
+                  _vm._l(_vm.guardianStudents.data, function(item, index) {
                     return _c("tr", [
                       _c(
                         "td",
@@ -23053,13 +22999,13 @@ var render = function() {
                 {
                   name: "show",
                   rawName: "v-show",
-                  value: _vm.adminAdmins.current_page > 1,
-                  expression: "adminAdmins.current_page>1"
+                  value: _vm.guardianStudents.current_page > 1,
+                  expression: "guardianStudents.current_page>1"
                 }
               ],
               on: {
                 click: function($event) {
-                  return _vm.loadNewPage(_vm.adminAdmins.prev_page_url)
+                  return _vm.loadNewPage(_vm.guardianStudents.prev_page_url)
                 }
               }
             },
@@ -23073,7 +23019,7 @@ var render = function() {
               ? _c("button", { staticClass: "uk-disabled" }, [
                   _vm._v(_vm._s(page))
                 ])
-              : page == _vm.adminAdmins.current_page
+              : page == _vm.guardianStudents.current_page
               ? _c(
                   "button",
                   {
@@ -23113,13 +23059,15 @@ var render = function() {
                   name: "show",
                   rawName: "v-show",
                   value:
-                    _vm.adminAdmins.current_page < _vm.adminAdmins.last_page,
-                  expression: "adminAdmins.current_page<adminAdmins.last_page"
+                    _vm.guardianStudents.current_page <
+                    _vm.guardianStudents.last_page,
+                  expression:
+                    "guardianStudents.current_page<guardianStudents.last_page"
                 }
               ],
               on: {
                 click: function($event) {
-                  return _vm.loadNewPage(_vm.adminAdmins.next_page_url)
+                  return _vm.loadNewPage(_vm.guardianStudents.next_page_url)
                 }
               }
             },
@@ -23130,7 +23078,7 @@ var render = function() {
       2
     ),
     _vm._v(" "),
-    _c("div", { attrs: { id: "addAdminArea", "uk-modal": "" } }, [
+    _c("div", { attrs: { id: "addStudentArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
         _c("div", { staticClass: "uk-modal-header" }, [
           _c("h2", { staticClass: "uk-modal-title" }, [
@@ -23196,11 +23144,11 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("div", { attrs: { id: "adminInfoArea", "uk-modal": "" } }, [
+    _c("div", { attrs: { id: "studentInfoArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
         _c("div", { staticClass: "uk-modal-header" }, [
           _c("h2", { staticClass: "uk-modal-title" }, [
-            _vm._v(_vm._s(_vm.adminInfoText))
+            _vm._v(_vm._s(_vm.studentInfoText))
           ])
         ]),
         _vm._v(" "),
@@ -28160,7 +28108,6 @@ var render = function() {
           "a",
           {
             attrs: {
-              href: _vm.generalEducationRoute,
               "uk-tooltip":
                 "title:" +
                 _vm.generalEducationText +
@@ -28259,7 +28206,6 @@ var render = function() {
           "a",
           {
             attrs: {
-              href: _vm.prepareLessonsRoute,
               "uk-tooltip":
                 "title:" +
                 _vm.prepareLessonsText +
@@ -28320,7 +28266,6 @@ var render = function() {
           "a",
           {
             attrs: {
-              href: _vm.prepareExamsRoute,
               "uk-tooltip":
                 "title:" +
                 _vm.prepareExamsText +
@@ -49143,7 +49088,8 @@ var state = {
   crLessons: {},
   crExams: {},
   selectedSubjectId: "",
-  selectedLessonId: ""
+  selectedLessonId: "",
+  guardianStudents: {}
 };
 var getters = {};
 var mutations = {
@@ -49265,6 +49211,9 @@ var mutations = {
   },
   setSelectedSubjectId: function setSelectedSubjectId(state, subject) {
     state.selectedSubjectId = subject;
+  },
+  setGuardianStudents: function setGuardianStudents(state, students) {
+    state.guardianStudents = students.data;
   }
 };
 var actions = {
@@ -49559,6 +49508,18 @@ var actions = {
     var commit = _ref60.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/pe/exams').then(function (response) {
       return commit('setCrExams', response.data);
+    });
+  },
+  loadGuardianStudents: function loadGuardianStudents(_ref61, userId) {
+    var commit = _ref61.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/guardian/getStudents/' + userId).then(function (response) {
+      return commit('setGuardianStudents', response.data);
+    });
+  },
+  loadGuardianNewPage: function loadGuardianNewPage(_ref62, apiUrl) {
+    var commit = _ref62.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(apiUrl).then(function (response) {
+      return commit('setGuardianStudents', response.data);
     });
   }
 };
