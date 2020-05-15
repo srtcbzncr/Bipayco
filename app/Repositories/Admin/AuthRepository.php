@@ -154,6 +154,7 @@ class AuthRepository implements IRepository {
             DB::beginTransaction();
             $object = Admin::find($adminId);
             $object->active = false;
+            $object->save();
             DB::commit();
         }
         catch(\Exception $e){
@@ -175,7 +176,7 @@ class AuthRepository implements IRepository {
 
         // Operations
         try{
-            $object=Admin::where('active',true)->where('deleted_at',null)
+            $object=Admin::where('deleted_at',null)
                 ->paginate(10);
             foreach ($object as $key=>$item){
                 $user = User::find($item->user_id);
@@ -222,7 +223,7 @@ class AuthRepository implements IRepository {
 
         // Operations
         try{
-            $object=Student::where('active',true)->where('deleted_at',null)
+            $object=Student::where('deleted_at',null)
                 ->paginate(10);
             foreach ($object as $key=> $item){
                 $user = User::find($item->user_id);
@@ -343,7 +344,7 @@ class AuthRepository implements IRepository {
 
         // Operations
         try{
-            $object=Instructor::where('active',true)->where('deleted_at',null)
+            $object=Instructor::where('deleted_at',null)
                 ->paginate(10);
             foreach ($object as $key=>$item){
                 $user = User::find($item->user_id);
@@ -464,7 +465,7 @@ class AuthRepository implements IRepository {
 
         // Operations
         try{
-            $object=Guardian::where('active',true)->where('deleted_at',null)
+            $object=Guardian::where('deleted_at',null)
                 ->paginate(10);
             foreach ($object as $key=>$item){
                 $user = User::find($item->user_id);
