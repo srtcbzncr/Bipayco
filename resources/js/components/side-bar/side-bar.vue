@@ -64,10 +64,10 @@
 <!--            </li>-->
         </ul>
         <ul class="uk-position-bottom">
-            <li>
-                <!-- Lunch information box -->
-                <a href="#" uk-tooltip="title: Lunch information box ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up" uk-toggle="target: #infoBox; cls: infoBox-active"><i class="fas fa-question"></i> </a>
-            </li>
+<!--            <li>-->
+<!--                &lt;!&ndash; Lunch information box &ndash;&gt;-->
+<!--                <a href="#" uk-tooltip="title: Lunch information box ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up" uk-toggle="target: #infoBox; cls: infoBox-active"><i class="fas fa-question"></i> </a>-->
+<!--            </li>-->
             <li>
                 <!-- Night mode button  -->
                 <a href="#" uk-tooltip="title: Night mode ; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"> <i class="fas fa-moon"></i> </a>

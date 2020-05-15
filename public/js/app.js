@@ -28393,21 +28393,6 @@ var staticRenderFns = [
             attrs: {
               href: "#",
               "uk-tooltip":
-                "title: Lunch information box ; delay: 500 ; pos: right ;animation:\tuk-animation-scale-up",
-              "uk-toggle": "target: #infoBox; cls: infoBox-active"
-            }
-          },
-          [_c("i", { staticClass: "fas fa-question" })]
-        )
-      ]),
-      _vm._v(" "),
-      _c("li", [
-        _c(
-          "a",
-          {
-            attrs: {
-              href: "#",
-              "uk-tooltip":
                 "title: Night mode ; delay: 500 ; pos: right ;animation:\tuk-animation-scale-up"
             }
           },
