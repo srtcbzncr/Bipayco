@@ -411,9 +411,10 @@ class GuardianRepository implements IRepository
             $tempAllPe =  array_chunk($userAllCourses['pe'],10);
 
             $object = array();
+         /*
             $object['ge'] = $tempGe;
             $object['pl'] = $tempPl;
-            $object['pe'] = $tempPe;
+            $object['pe'] = $tempPe;*/
 
             $object['allCourses'] = array();
             $object['allCourses']['ge'] = $tempAllGe;
