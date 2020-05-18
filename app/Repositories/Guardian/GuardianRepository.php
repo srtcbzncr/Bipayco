@@ -243,8 +243,36 @@ class GuardianRepository implements IRepository
         // Operations
         try{
             $guardian = Guardian::where('user_id',$userId)->first();
-            $object = GuardianUser::where('guardian_id',$guardian->id)->paginate(10);
+            $object = GuardianUser::where('guardian_id',$guardian->id)->where('deleted_at',null)->paginate(10);
            // $object = GuardianUser::where('guardian_id',$guardian->id)->get();
+            foreach ($object as $key => $item){
+                $student = Student::find($item->student_id);
+                $user = User::find($student->user_id);
+                $object[$key]['student'] = $student;
+                $object[$key]['user'] = $user;
+            }
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getStudentsList($userId){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $guardian = Guardian::where('user_id',$userId)->first();
+            $object = GuardianUser::where('guardian_id',$guardian->id)->where('deleted_at',null)->get();
+            // $object = GuardianUser::where('guardian_id',$guardian->id)->get();
             foreach ($object as $key => $item){
                 $student = Student::find($item->student_id);
                 $user = User::find($student->user_id);

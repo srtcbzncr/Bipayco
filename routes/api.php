@@ -454,6 +454,7 @@ Route::prefix('guardian')->group(function (){
     Route::post('/addStudent','API\Guardian\GuardianController@addStudent')->name('guardian_add_student');
     Route::post('/deleteStudent/{userId}/{otherId}','API\Guardian\GuardianController@deleteStudent')->name('guardian_delete_student');
     Route::get('/getStudents/{userId}','API\Guardian\GuardianController@getStudents')->name('guardian_get_students'); // paginate var
+    Route::get('/getStudentsList/{userId}','API\Guardian\GuardianController@getStudentsList')->name('guardian_get_students_list'); // paginate yok
     Route::get('/getStudent/{userId}/{otherId}','API\Guardian\GuardianController@getStudent')->name('guardian_get_student');
 
     // Hangi kursun hangi derslerini izlemiş bilgilerini getir
