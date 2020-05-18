@@ -323,12 +323,20 @@ class GuardianRepository implements IRepository
             $student = Student::where('user_id',$otherId)->first();
             $entries = Entry::where('student_id',$student->id)->where('active',true)
                 ->where('deleted_at',null)->get();
+            $userAllCourses = array();
+            $userAllCourses['ge'] = array();
+            $userAllCourses['pl'] = array();
+            $userAllCourses['pe'] = array();
+
             $usersCompletedLessons = array();
             $usersCompletedLessons['ge'] = array();
             $usersCompletedLessons['pl'] = array();
             $usersCompletedLessons['pe'] = array();
             foreach ($entries as $keyEntry => $entry){
                 if($entry->course_type == 'App\Models\GeneralEducation\Course'){
+                    $tempCourse = Course::find($entry->course_id);
+                    array_push( $userAllCourses['ge'],$tempCourse);
+
                     $sections = Section::where('course_id',$entry->course_id)
                         ->where('active',true)->where('deleted_at',null)->get();
                     foreach ($sections as $keySection => $section){
@@ -348,6 +356,9 @@ class GuardianRepository implements IRepository
                     }
                 }
                 else if($entry->course_type == 'App\Models\PrepareLessons\Course'){
+                    $tempCourse = \App\Models\PrepareLessons\Course::find($entry->course_id);
+                    array_push( $userAllCourses['pl'],$tempCourse);
+
                     $sections = \App\Models\PrepareLessons\Section::where('course_id',$entry->course_id)
                         ->where('active',true)->where('deleted_at',null)->get();
                     foreach ($sections as $keySection => $section){
@@ -367,6 +378,10 @@ class GuardianRepository implements IRepository
                     }
                 }
                 else if($entry->course_type == 'App\Models\PrepareExams\Course'){
+
+                    $tempCourse = \App\Models\PrepareExams\Course::find($entry->course_id);
+                    array_push( $userAllCourses['pe'],$tempCourse);
+
                     $sections = \App\Models\PrepareExams\Section::where('course_id',$entry->course_id)
                         ->where('active',true)->where('deleted_at',null)->get();
                     foreach ($sections as $keySection => $section){
@@ -391,10 +406,19 @@ class GuardianRepository implements IRepository
             $tempPl = array_chunk($usersCompletedLessons['pl'],10);
             $tempPe = array_chunk($usersCompletedLessons['pe'],10);
 
+            $tempAllGe =  array_chunk($userAllCourses['ge'],10);
+            $tempAllPl =  array_chunk($userAllCourses['pl'],10);
+            $tempAllPe =  array_chunk($userAllCourses['pe'],10);
+
             $object = array();
             $object['ge'] = $tempGe;
             $object['pl'] = $tempPl;
             $object['pe'] = $tempPe;
+
+            $object['allCourses'] = array();
+            $object['allCourses']['ge'] = $tempAllGe;
+            $object['allCourses']['pl'] = $tempAllPl;
+            $object['allCourses']['pe'] = $tempAllPe;
 
         }
         catch(\Exception $e){
