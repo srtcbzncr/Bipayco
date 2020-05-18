@@ -406,9 +406,9 @@ class GuardianRepository implements IRepository
             $tempPl = array_chunk($usersCompletedLessons['pl'],10);
             $tempPe = array_chunk($usersCompletedLessons['pe'],10);
 
-            $tempAllGe =  array_chunk($userAllCourses['ge'],10);
+          /*  $tempAllGe =  array_chunk($userAllCourses['ge'],10);
             $tempAllPl =  array_chunk($userAllCourses['pl'],10);
-            $tempAllPe =  array_chunk($userAllCourses['pe'],10);
+            $tempAllPe =  array_chunk($userAllCourses['pe'],10);*/
 
             $object = array();
          /*
@@ -417,9 +417,9 @@ class GuardianRepository implements IRepository
             $object['pe'] = $tempPe;*/
 
             $object['allCourses'] = array();
-            $object['allCourses']['ge'] = $tempAllGe;
-            $object['allCourses']['pl'] = $tempAllPl;
-            $object['allCourses']['pe'] = $tempAllPe;
+            $object['allCourses']['ge'] = $userAllCourses['ge'];
+            $object['allCourses']['pl'] = $userAllCourses['pl'];
+            $object['allCourses']['pe'] = $userAllCourses['pe'];
 
         }
         catch(\Exception $e){
