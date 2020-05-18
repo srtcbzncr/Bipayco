@@ -456,6 +456,13 @@ class GuardianRepository implements IRepository
                         if($completedLesson != null and count($completedLesson)>0){
                             $lesson['course'] = Course::find($courseId);
                             $lesson['section'] = $section;
+                            $lesson['isCompleted'] = true;
+                            array_push($usersCompletedLessons,$lesson);
+                        }
+                        else{
+                            $lesson['course'] = Course::find($courseId);
+                            $lesson['section'] = $section;
+                            $lesson['isCompleted'] = false;
                             array_push($usersCompletedLessons,$lesson);
                         }
                     }
@@ -475,6 +482,13 @@ class GuardianRepository implements IRepository
                         if($completedLesson != null and count($completedLesson)>0){
                             $lesson['course'] = \App\Models\PrepareLessons\Course::find($courseId);
                             $lesson['section'] = $section;
+                            $lesson['isCompleted'] = true;
+                            array_push($usersCompletedLessons,$lesson);
+                        }
+                        else{
+                            $lesson['course'] = Course::find($courseId);
+                            $lesson['section'] = $section;
+                            $lesson['isCompleted'] = false;
                             array_push($usersCompletedLessons,$lesson);
                         }
                     }
@@ -494,6 +508,13 @@ class GuardianRepository implements IRepository
                         if($completedLesson != null and count($completedLesson)>0){
                             $lesson['course'] = \App\Models\PrepareExams\Course::find($courseId);
                             $lesson['section'] = $section;
+                            $lesson['isCompleted'] = true;
+                            array_push($usersCompletedLessons,$lesson);
+                        }
+                        else{
+                            $lesson['course'] = Course::find($courseId);
+                            $lesson['section'] = $section;
+                            $lesson['isCompleted'] = false;
                             array_push($usersCompletedLessons,$lesson);
                         }
                     }
