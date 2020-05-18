@@ -7757,6 +7757,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7797,6 +7818,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     noContentText: {
       type: String,
       "default": "İçerik Bulunmuyor"
+    },
+    lessonsText: {
+      type: String,
+      "default": "Dersler"
+    },
+    testsText: {
+      type: String,
+      "default": "Testler"
     }
   },
   watch: {
@@ -7813,6 +7842,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['guardianStudentList'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadGuardianStudentList']), {
     selectCourse: function selectCourse(id, module) {
+      var _this2 = this;
+
       var moduleNumber;
 
       switch (module) {
@@ -7829,7 +7860,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           break;
       }
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/guardian/courseInfo/' + this.userId + '/' + this.selectedStudent.id + '/' + id + '/' + moduleNumber).then(function () {});
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/guardian/courseInfo/' + this.userId + '/' + this.selectedStudent.id + '/' + id + '/' + moduleNumber).then(function (res) {
+        _this2.selectedCourse = res.data.data;
+        console.log(res.data.data);
+      });
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/guardian/firtLastTestInfo/' + this.userId + '/' + this.selectedStudent.id + '/' + id + '/' + moduleNumber).then(function (res) {
+        console.log(res);
+      });
+      UIkit.modal('#courseDetailModal').show();
     }
   }),
   created: function created() {
@@ -23278,7 +23316,11 @@ var render = function() {
                               "a",
                               {
                                 staticClass: "uk-link-reset",
-                                attrs: { href: "#" }
+                                on: {
+                                  click: function($event) {
+                                    return _vm.selectCourse(course.id, "ge")
+                                  }
+                                }
                               },
                               [
                                 _c(
@@ -23403,7 +23445,11 @@ var render = function() {
                               "a",
                               {
                                 staticClass: "uk-link-reset",
-                                attrs: { href: "#" }
+                                on: {
+                                  click: function($event) {
+                                    return _vm.selectCourse(course.id, "pl")
+                                  }
+                                }
                               },
                               [
                                 _c(
@@ -23528,7 +23574,11 @@ var render = function() {
                               "a",
                               {
                                 staticClass: "uk-link-reset",
-                                attrs: { href: "#" }
+                                on: {
+                                  click: function($event) {
+                                    return _vm.selectCourse(course.id, "pe")
+                                  }
+                                }
                               },
                               [
                                 _c(
@@ -23634,30 +23684,75 @@ var render = function() {
       "div",
       {
         staticClass: "uk-modal-container",
-        attrs: { id: "modal-container", "uk-modal": "" }
+        attrs: { id: "courseDetailModal", "uk-modal": "" }
       },
       [
         _c("div", { staticClass: "uk-modal-dialog uk-modal-body" }, [
           _c("button", {
-            staticClass: "uk-modal-close-default",
+            staticClass: "uk-modal-close-outside",
             attrs: { type: "button", "uk-close": "" }
           }),
           _vm._v(" "),
-          _c("h2", { staticClass: "uk-modal-title" }, [
-            _vm._v(_vm._s(_vm.selectedCourse.title))
+          _c("div", { staticClass: "uk-modal-title" }, [
+            _c(
+              "div",
+              {
+                staticClass:
+                  "uk-flex align-item-center justify-content-center flex-row flex-wrap"
+              },
+              [
+                _c("img", {
+                  staticClass: "uk-height-small uk-width-small ",
+                  attrs: { src: _vm.selectedCourse.image }
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-margin-left" }, [
+                  _c("h2", [_vm._v(_vm._s(_vm.selectedCourse.name))]),
+                  _vm._v(" "),
+                  _c("h6", { staticClass: "uk-margin-small" }, [
+                    _vm._v(_vm._s(_vm.selectedCourse.description))
+                  ])
+                ])
+              ]
+            )
           ]),
           _vm._v(" "),
-          _c("p", [
-            _vm._v(
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
-            )
+          _c("div", { staticClass: "uk-modal-body" }, [
+            _c(
+              "ul",
+              { staticClass: "uk-flex-center", attrs: { "uk-tab": "" } },
+              [
+                _c("li", { staticClass: "uk-active" }, [
+                  _c("a", [_vm._v(_vm._s(_vm.lessonsText))])
+                ]),
+                _vm._v(" "),
+                _c("li", [_c("a", [_vm._v(_vm._s(_vm.testsText))])])
+              ]
+            ),
+            _vm._v(" "),
+            _vm._m(0)
           ])
         ])
       ]
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "ul",
+      { staticClass: "uk-switcher uk-margin uk-margin-medium-top" },
+      [
+        _c("li", [_c("p", [_vm._v("selam")])]),
+        _vm._v(" "),
+        _c("li", [_c("p", [_vm._v("deneme")])])
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 

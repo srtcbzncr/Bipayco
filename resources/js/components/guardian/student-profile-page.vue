@@ -15,7 +15,7 @@
                     <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
                         <li v-for="course in studentCourses.ge">
                             <div class="uk-grid-margin">
-                                <a href="#" class="uk-link-reset">
+                                <a @click="selectCourse(course.id, 'ge')" class="uk-link-reset">
                                     <div class="uk-card-default uk-padding-small border-radius-6 scale-up">
                                         <!--                                    <progress id="js-progressbar" class="uk-progress uk-margin-small-bottom" :value="course.progress" max="100" style=" height: 7px;"> </progress>-->
                                         <img class="uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :src="course.image">
@@ -37,7 +37,7 @@
                     <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
                         <li v-for="course in studentCourses.ge">
                             <div class="uk-grid-margin">
-                                <a href="#" class="uk-link-reset">
+                                <a @click="selectCourse(course.id, 'pl')" class="uk-link-reset">
                                     <div class="uk-card-default uk-padding-small border-radius-6 scale-up">
                                         <!--                                    <progress id="js-progressbar" class="uk-progress uk-margin-small-bottom" :value="course.progress" max="100" style=" height: 7px;"> </progress>-->
                                         <img class="uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :src="course.image">
@@ -59,7 +59,7 @@
                     <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
                         <li v-for="course in studentCourses.ge">
                             <div class="uk-grid-margin">
-                                <a href="#" class="uk-link-reset">
+                                <a @click="selectCourse(course.id, 'pe')" class="uk-link-reset">
                                     <div class="uk-card-default uk-padding-small border-radius-6 scale-up">
                                         <!--                                    <progress id="js-progressbar" class="uk-progress uk-margin-small-bottom" :value="course.progress" max="100" style=" height: 7px;"> </progress>-->
                                         <img class="uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle" :src="course.image">
@@ -78,11 +78,32 @@
                 </div>
             </div>
         </div>
-        <div id="modal-container" class="uk-modal-container" uk-modal>
+        <div id="courseDetailModal" class="uk-modal-container" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">
-                <button class="uk-modal-close-default" type="button" uk-close></button>
-                <h2 class="uk-modal-title">{{selectedCourse.title}}</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <button class="uk-modal-close-outside" type="button" uk-close></button>
+                <div class="uk-modal-title">
+                    <div class="uk-flex align-item-center justify-content-center flex-row flex-wrap">
+                        <img :src="selectedCourse.image" class="uk-height-small uk-width-small ">
+                        <div class="uk-margin-left">
+                            <h2>{{selectedCourse.name}}</h2>
+                            <h6 class="uk-margin-small">{{selectedCourse.description}}</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-modal-body">
+                    <ul uk-tab class="uk-flex-center">
+                        <li class="uk-active"><a>{{lessonsText}}</a></li>
+                        <li><a>{{testsText}}</a></li>
+                    </ul>
+                    <ul class="uk-switcher uk-margin uk-margin-medium-top">
+                        <li>
+                            <p>selam</p>
+                        </li>
+                        <li>
+                            <p>deneme</p>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
@@ -126,6 +147,14 @@
                 type:String,
                 default:"İçerik Bulunmuyor"
             },
+            lessonsText:{
+                type:String,
+                default:"Dersler"
+            },
+            testsText:{
+                type:String,
+                default:"Testler"
+            }
         },
         watch:{
             selectedStudentIndex(){
@@ -154,7 +183,10 @@
                     case 'pe':moduleNumber=3;break;
                 }
                 Axios.get('/api/guardian/courseInfo/'+this.userId+'/'+this.selectedStudent.id+'/'+id+'/'+moduleNumber)
-                    .then(()=>{})
+                    .then((res)=>{this.selectedCourse=res.data.data; console.log(res.data.data);});
+                Axios.get('/api/guardian/firtLastTestInfo/'+this.userId+'/'+this.selectedStudent.id+'/'+id+'/'+moduleNumber)
+                    .then((res)=>{console.log(res)});
+                UIkit.modal('#courseDetailModal').show();
             }
         },
         created() {
