@@ -34,6 +34,11 @@ class Instructor extends Model
         //return $this->belongsToMany('App\Models\GeneralEducation\Course', 'ge_courses_instructors', 'instructor_id', 'course_id')->withPivot('is_manager', 'percent');
     }
 
+    public function peCourses(){
+        return $this->morphedByMany('App\Models\PrepareExams\Course', 'course', 'ge_courses_instructors', 'instructor_id', 'course_id')->withPivot('is_manager', 'percent');
+        //return $this->belongsToMany('App\Models\GeneralEducation\Course', 'ge_courses_instructors', 'instructor_id', 'course_id')->withPivot('is_manager', 'percent');
+    }
+
     public function courseCount(){
         return $this->geCourses->count();
     }
