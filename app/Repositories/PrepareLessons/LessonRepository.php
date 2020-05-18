@@ -48,7 +48,7 @@ class LessonRepository implements IRepository{
             $long = 0;
             if($data['is_video'] != 0){
                 $media=FFMpeg::open($pathForFFMpeg);
-                $long=$media->getDurationInSeconds();
+                $long = gmdate("H:i:s", $media->getDurationInSeconds());
             }
             $object = new Lesson;
             $object->section_id = $data['section_id'];

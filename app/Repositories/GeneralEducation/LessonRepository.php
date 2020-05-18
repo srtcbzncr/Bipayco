@@ -85,7 +85,7 @@ class LessonRepository implements IRepository{
                 $pathForFFMpeg = $data['document']->store('public/lessons');
                 $filePath = Storage::url($pathForFFMpeg);
                 $media=FFMpeg::open($pathForFFMpeg);
-                $long=$media->getDurationInSeconds();
+                $long = gmdate("H:i:s", $media->getDurationInSeconds());
             }
             else{
                 $path = $data['document']->store('public/lessons');
