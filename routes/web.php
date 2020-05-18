@@ -60,7 +60,7 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function(){
     Route::get('student/{id}', 'Auth\AuthController@studentProfile')->name('student_profile');
     Route::get('/basket','Auth\AuthController@getBasketView')->name('get_basket');
 });
-Route::get('instructor/{id}', 'Auth\AuthController@instructorProfile')->name('instructor_profile');
+Route::get('instructorProfile/{id}', 'Auth\AuthController@instructorProfile')->name('instructor_profile');
 
 Route::group(['prefix' => 'instructor', 'middleware' => 'auth'], function(){
    Route::get('create', 'Auth\AuthController@createInstructorGet')->name('instructor_create_get');

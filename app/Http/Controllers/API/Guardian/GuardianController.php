@@ -170,6 +170,7 @@ class GuardianController extends Controller
     }
 
     public function getOneCourseInfo($userId,$otherId,$courseId,$courseType){
+
         $repo = new GuardianRepository();
         $resp=$repo->getOneCourseInfo($userId,$otherId,$courseId,$courseType);
         if($resp->getResult()){
