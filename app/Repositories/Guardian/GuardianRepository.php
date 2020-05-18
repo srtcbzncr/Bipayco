@@ -500,7 +500,7 @@ class GuardianRepository implements IRepository
                 }
             }
 
-            $object = array_chunk($usersCompletedLessons,10);
+            $object = $usersCompletedLessons;
         }
         catch(\Exception $e){
             $error = $e->getMessage();
@@ -650,7 +650,7 @@ class GuardianRepository implements IRepository
                 }
             }
 
-            $object = array_chunk($usersFLTestStatus,10);
+            $object = $usersFLTestStatus;
         }
         catch(\Exception $e){
             $error = $e->getMessage();
