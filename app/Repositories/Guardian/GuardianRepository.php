@@ -515,7 +515,7 @@ class GuardianRepository implements IRepository
                 }
             }
 
-            $object = $usersCompletedLessons;
+            $object = $course;
         }
         catch(\Exception $e){
             $error = $e->getMessage();
