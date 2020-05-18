@@ -443,9 +443,11 @@ class GuardianRepository implements IRepository
             $student = Student::where('user_id',$otherId)->first();
             $usersCompletedLessons = array();
             if($courseType == 1){
+                $course = Course::find($courseId);
                 $sections = Section::where('course_id',$courseId)
                     ->where('active',true)->where('deleted_at',null)->get();
                 foreach ($sections as $keySection => $section){
+                    $course['sections'][$keySection] = $section;
                     $lessons = Lesson::where('section_id',$section->id)->where('active',true)->where('deleted_at',null)->get();
                     foreach ($lessons as $keyLesson => $lesson){
                         $completedLesson = DB::table('ge_students_completed_lessons')
@@ -454,24 +456,22 @@ class GuardianRepository implements IRepository
                             ->where('lesson_type','App\Models\GeneralEducation\Lesson')
                             ->where('deleted_at',null)->get()->toArray();
                         if($completedLesson != null and count($completedLesson)>0){
-                            $lesson['course'] = Course::find($courseId);
-                            $lesson['section'] = $section;
                             $lesson['isCompleted'] = true;
-                            array_push($usersCompletedLessons,$lesson);
+                            $course['sections'][$keySection]['lessons'][$keyLesson] = $lesson;
                         }
                         else{
-                            $lesson['course'] = Course::find($courseId);
-                            $lesson['section'] = $section;
                             $lesson['isCompleted'] = false;
-                            array_push($usersCompletedLessons,$lesson);
+                            $course['sections'][$keySection]['lessons'][$keyLesson] = $lesson;
                         }
                     }
                 }
             }
             else if($courseType == 2){
+                $course = \App\Models\PrepareLessons\Course::find($courseId);
                 $sections = \App\Models\PrepareLessons\Section::where('course_id',$courseId)
                     ->where('active',true)->where('deleted_at',null)->get();
                 foreach ($sections as $keySection => $section){
+                    $course['sections'][$keySection] = $section;
                     $lessons = \App\Models\PrepareLessons\Lesson::where('section_id',$section->id)->where('active',true)->where('deleted_at',null)->get();
                     foreach ($lessons as $keyLesson => $lesson){
                         $completedLesson = DB::table('ge_students_completed_lessons')
@@ -480,24 +480,22 @@ class GuardianRepository implements IRepository
                             ->where('lesson_type','App\Models\PrepareLessons\Lesson')
                             ->where('deleted_at',null)->get()->toArray();
                         if($completedLesson != null and count($completedLesson)>0){
-                            $lesson['course'] = \App\Models\PrepareLessons\Course::find($courseId);
-                            $lesson['section'] = $section;
                             $lesson['isCompleted'] = true;
-                            array_push($usersCompletedLessons,$lesson);
+                            $course['sections'][$keySection]['lessons'][$keyLesson] = $lesson;
                         }
                         else{
-                            $lesson['course'] = Course::find($courseId);
-                            $lesson['section'] = $section;
                             $lesson['isCompleted'] = false;
-                            array_push($usersCompletedLessons,$lesson);
+                            $course['sections'][$keySection]['lessons'][$keyLesson] = $lesson;
                         }
                     }
                 }
             }
             else if($courseType == 3){
+                $course = \App\Models\PrepareExams\Course::find($courseId);
                 $sections = \App\Models\PrepareExams\Section::where('course_id',$courseId)
                     ->where('active',true)->where('deleted_at',null)->get();
                 foreach ($sections as $keySection => $section){
+                    $course['sections'][$keySection] = $section;
                     $lessons = \App\Models\PrepareExams\Lesson::where('section_id',$section->id)->where('active',true)->where('deleted_at',null)->get();
                     foreach ($lessons as $keyLesson => $lesson){
                         $completedLesson = DB::table('ge_students_completed_lessons')
@@ -506,16 +504,12 @@ class GuardianRepository implements IRepository
                             ->where('lesson_type','App\Models\PrepareExams\Lesson')
                             ->where('deleted_at',null)->get()->toArray();
                         if($completedLesson != null and count($completedLesson)>0){
-                            $lesson['course'] = \App\Models\PrepareExams\Course::find($courseId);
-                            $lesson['section'] = $section;
                             $lesson['isCompleted'] = true;
-                            array_push($usersCompletedLessons,$lesson);
+                            $course['sections'][$keySection]['lessons'][$keyLesson] = $lesson;
                         }
                         else{
-                            $lesson['course'] = Course::find($courseId);
-                            $lesson['section'] = $section;
                             $lesson['isCompleted'] = false;
-                            array_push($usersCompletedLessons,$lesson);
+                            $course['sections'][$keySection]['lessons'][$keyLesson] = $lesson;
                         }
                     }
                 }

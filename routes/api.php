@@ -460,7 +460,7 @@ Route::prefix('guardian')->group(function (){
     // Hangi kursun hangi derslerini izlemiş bilgilerini getir
     Route::get('/courseInfo/{userId}/{otherId}','API\Guardian\GuardianController@getCourseInfo')->name('guardian_courseInfo'); // paginate yok
     // courseType: 1= ge, 2= pl, 3=pe
-    Route::get('/courseInfo/{userId}/{otherId}/{courseId}/{courseType}','API\Guardian\GuardianController@getOneCourseInfo')->name('guardian_courseInfo'); // paginate yok
+    Route::get('/courseInfo/{userId}/{otherId}/{courseId}/{courseType}','API\Guardian\GuardianController@getOneCourseInfo')->name('guardian_courseOneInfo'); // paginate yok
     // Hangi kursun sectionun ön/test sonuçları bilgilerini  getir
     Route::get('/firtLastTestInfo/{userId}/{otherId}','API\Guardian\GuardianController@getflTestInfo')->name('guardian_flTestInfo'); // paginate yok
     // courseType: 1= ge, 2= pl, 3=pe
