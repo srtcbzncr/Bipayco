@@ -90,16 +90,37 @@
                         </div>
                     </div>
                 </div>
-                <div class="uk-modal-body">
-                    <ul uk-tab class="uk-flex-center">
+                <div class="uk-modal-body" uk-overflow-auto>
+                    <ul uk-tab class="uk-flex-center uk-tab" :class="{'uk-hidden': !hasTest}" >
                         <li class="uk-active"><a>{{lessonsText}}</a></li>
                         <li><a>{{testsText}}</a></li>
                     </ul>
                     <ul class="uk-switcher uk-margin uk-margin-medium-top">
                         <li>
-                            <p>selam</p>
+                            <ul uk-accordion="" class="uk-accordion">
+                                <li v-if="selectedCourse.sections.length>0" v-for="section in selectedCourse.sections" class="tm-course-lesson-section uk-background-default">
+                                    <a class="uk-accordion-title uk-padding-small" href="#"><h6> {{sectionText}}  {{section.no}}</h6> <h4 class="uk-margin-remove"> {{section.name}}</h4> </a>
+                                    <div class="uk-accordion-content uk-margin-remove-top">
+                                        <div class="tm-course-section-list">
+                                            <ul>
+                                                <li v-if="section.lessons.length>0" v-for="lesson in section.lessons">
+                                                    <span>
+                                                        <i v-if="lesson.is_completed" style="color:#2ED24A" class="fas fa-check-circle icon-medium"></i>
+                                                        <i v-else-if="lesson.is_video" style="color:#666666" class="fas fa-play-circle icon-medium"></i>
+                                                        <i v-else style="color:#666666" class="fas fa-file-alt icon-medium"></i>
+                                                    </span>
+                                                    <!-- Course title  -->
+                                                    <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{lesson.name}}</div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+
+                            </ul>
+                            <h4 v-if="!selectedCourse.sections" class="uk-text-center">{{noContentText}}</h4>
                         </li>
-                        <li>
+                        <li v-if="hasTest">
                             <p>deneme</p>
                         </li>
                     </ul>
@@ -120,6 +141,7 @@
                 selectedStudent:"",
                 studentCourses:{pe:[], ge:[], pl:[]},
                 selectedCourse:{},
+                hasTest:false,
             }
         },
         props:{
@@ -154,6 +176,10 @@
             testsText:{
                 type:String,
                 default:"Testler"
+            },
+            sectionText:{
+                type:String,
+                default:"Bölüm"
             }
         },
         watch:{
@@ -178,14 +204,28 @@
             selectCourse:function (id, module) {
                 let moduleNumber;
                 switch (module) {
-                    case 'ge':moduleNumber=1;break;
-                    case 'pl':moduleNumber=2;break;
-                    case 'pe':moduleNumber=3;break;
+                    case 'ge':{
+                        moduleNumber=1;
+                        this.hasTest=false;
+                        break;
+                    }
+                    case 'pl':{
+                        moduleNumber=2;
+                        this.hasTest=true;
+                        break;
+                    }
+                    case 'pe':{
+                        moduleNumber=3;
+                        this.hasTest=true;
+                        break;
+                    }
                 }
                 Axios.get('/api/guardian/courseInfo/'+this.userId+'/'+this.selectedStudent.id+'/'+id+'/'+moduleNumber)
                     .then((res)=>{this.selectedCourse=res.data.data; console.log(res.data.data);});
-                Axios.get('/api/guardian/firtLastTestInfo/'+this.userId+'/'+this.selectedStudent.id+'/'+id+'/'+moduleNumber)
-                    .then((res)=>{console.log(res)});
+                if(this.hasTest){
+                    Axios.get('/api/guardian/firstLastTestInfo/'+this.userId+'/'+this.selectedStudent.id+'/'+id+'/'+moduleNumber)
+                        .then((res)=>{console.log(res)});
+                }
                 UIkit.modal('#courseDetailModal').show();
             }
         },

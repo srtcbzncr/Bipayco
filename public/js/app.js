@@ -7778,6 +7778,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7791,7 +7812,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         ge: [],
         pl: []
       },
-      selectedCourse: {}
+      selectedCourse: {},
+      hasTest: false
     };
   },
   props: {
@@ -7826,6 +7848,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     testsText: {
       type: String,
       "default": "Testler"
+    },
+    sectionText: {
+      type: String,
+      "default": "Bölüm"
     }
   },
   watch: {
@@ -7848,25 +7874,38 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       switch (module) {
         case 'ge':
-          moduleNumber = 1;
-          break;
+          {
+            moduleNumber = 1;
+            this.hasTest = false;
+            break;
+          }
 
         case 'pl':
-          moduleNumber = 2;
-          break;
+          {
+            moduleNumber = 2;
+            this.hasTest = true;
+            break;
+          }
 
         case 'pe':
-          moduleNumber = 3;
-          break;
+          {
+            moduleNumber = 3;
+            this.hasTest = true;
+            break;
+          }
       }
 
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/guardian/courseInfo/' + this.userId + '/' + this.selectedStudent.id + '/' + id + '/' + moduleNumber).then(function (res) {
         _this2.selectedCourse = res.data.data;
         console.log(res.data.data);
       });
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/guardian/firtLastTestInfo/' + this.userId + '/' + this.selectedStudent.id + '/' + id + '/' + moduleNumber).then(function (res) {
-        console.log(res);
-      });
+
+      if (this.hasTest) {
+        axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/guardian/firstLastTestInfo/' + this.userId + '/' + this.selectedStudent.id + '/' + id + '/' + moduleNumber).then(function (res) {
+          console.log(res);
+        });
+      }
+
       UIkit.modal('#courseDetailModal').show();
     }
   }),
@@ -23717,42 +23756,163 @@ var render = function() {
             )
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "uk-modal-body" }, [
-            _c(
-              "ul",
-              { staticClass: "uk-flex-center", attrs: { "uk-tab": "" } },
-              [
-                _c("li", { staticClass: "uk-active" }, [
-                  _c("a", [_vm._v(_vm._s(_vm.lessonsText))])
-                ]),
-                _vm._v(" "),
-                _c("li", [_c("a", [_vm._v(_vm._s(_vm.testsText))])])
-              ]
-            ),
-            _vm._v(" "),
-            _vm._m(0)
-          ])
+          _c(
+            "div",
+            { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
+            [
+              _c(
+                "ul",
+                {
+                  staticClass: "uk-flex-center uk-tab",
+                  class: { "uk-hidden": !_vm.hasTest },
+                  attrs: { "uk-tab": "" }
+                },
+                [
+                  _c("li", { staticClass: "uk-active" }, [
+                    _c("a", [_vm._v(_vm._s(_vm.lessonsText))])
+                  ]),
+                  _vm._v(" "),
+                  _c("li", [_c("a", [_vm._v(_vm._s(_vm.testsText))])])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "ul",
+                { staticClass: "uk-switcher uk-margin uk-margin-medium-top" },
+                [
+                  _c("li", [
+                    _c(
+                      "ul",
+                      {
+                        staticClass: "uk-accordion",
+                        attrs: { "uk-accordion": "" }
+                      },
+                      _vm._l(_vm.selectedCourse.sections, function(section) {
+                        return _vm.selectedCourse.sections.length > 0
+                          ? _c(
+                              "li",
+                              {
+                                staticClass:
+                                  "tm-course-lesson-section uk-background-default"
+                              },
+                              [
+                                _c(
+                                  "a",
+                                  {
+                                    staticClass:
+                                      "uk-accordion-title uk-padding-small",
+                                    attrs: { href: "#" }
+                                  },
+                                  [
+                                    _c("h6", [
+                                      _vm._v(
+                                        " " +
+                                          _vm._s(_vm.sectionText) +
+                                          "  " +
+                                          _vm._s(section.no)
+                                      )
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "h4",
+                                      { staticClass: "uk-margin-remove" },
+                                      [_vm._v(" " + _vm._s(section.name))]
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "uk-accordion-content uk-margin-remove-top"
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      { staticClass: "tm-course-section-list" },
+                                      [
+                                        _c(
+                                          "ul",
+                                          _vm._l(section.lessons, function(
+                                            lesson
+                                          ) {
+                                            return section.lessons.length > 0
+                                              ? _c("li", [
+                                                  _c("span", [
+                                                    lesson.is_completed
+                                                      ? _c("i", {
+                                                          staticClass:
+                                                            "fas fa-check-circle icon-medium",
+                                                          staticStyle: {
+                                                            color: "#2ED24A"
+                                                          }
+                                                        })
+                                                      : lesson.is_video
+                                                      ? _c("i", {
+                                                          staticClass:
+                                                            "fas fa-play-circle icon-medium",
+                                                          staticStyle: {
+                                                            color: "#666666"
+                                                          }
+                                                        })
+                                                      : _c("i", {
+                                                          staticClass:
+                                                            "fas fa-file-alt icon-medium",
+                                                          staticStyle: {
+                                                            color: "#666666"
+                                                          }
+                                                        })
+                                                  ]),
+                                                  _vm._v(" "),
+                                                  _c(
+                                                    "div",
+                                                    {
+                                                      staticClass:
+                                                        "uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right"
+                                                    },
+                                                    [
+                                                      _vm._v(
+                                                        _vm._s(lesson.name)
+                                                      )
+                                                    ]
+                                                  )
+                                                ])
+                                              : _vm._e()
+                                          }),
+                                          0
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      }),
+                      0
+                    ),
+                    _vm._v(" "),
+                    !_vm.selectedCourse.sections
+                      ? _c("h4", { staticClass: "uk-text-center" }, [
+                          _vm._v(_vm._s(_vm.noContentText))
+                        ])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _vm.hasTest
+                    ? _c("li", [_c("p", [_vm._v("deneme")])])
+                    : _vm._e()
+                ]
+              )
+            ]
+          )
         ])
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "ul",
-      { staticClass: "uk-switcher uk-margin uk-margin-medium-top" },
-      [
-        _c("li", [_c("p", [_vm._v("selam")])]),
-        _vm._v(" "),
-        _c("li", [_c("p", [_vm._v("deneme")])])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
