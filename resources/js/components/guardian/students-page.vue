@@ -5,28 +5,26 @@
         </div>
         <div class="uk-background-default uk-padding-remove uk-margin-small-top border-radius-6">
             <table id="categoryTable" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0">
-                <thead v-if="true">
+                <thead v-if="guardianStudents.data&&guardianStudents.data.length>0">
                 <tr>
                     <th>{{nameText}}</th>
                     <th></th>
                 </tr>
                 </thead>
-                <tbody v-if="true">
+                <tbody v-if="guardianStudents.data&&guardianStudents.data.length>0">
                 <tr v-for="(item,index) in guardianStudents.data">
                     <td @click="openInfo(index)" class="uk-width-3-4 clickable"><p>{{item.user.first_name}} {{item.user.last_name}}</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-around">
-                        <a v-if="!item.active" @click="activateItem(item.id)" :uk-tooltip="activateText"><i class="fas fa-check-circle"></i></a>
-                        <a v-else @click="deactivateItem(item.id)" :uk-tooltip="deactivateText"><i class="fas fa-times-circle"></i></a>
-                        <a @click="deleteItem(item.user_id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
+                        <a @click="deleteItem(item.user.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                     </td>
                 </tr>
                 </tbody>
                 <div v-else class=" uk-width uk-height-small uk-flex align-items-center justify-content-center">
-                    <h4> {{noContentText}} </h4>
+                    <h4> {{haveNoStudentText}} </h4>
                 </div>
             </table>
         </div>
-        <ul class="uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
+        <ul v-if="guardianStudents.data&&guardianStudents.data.length>0" class="uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
             <li>
                 <button v-show="guardianStudents.current_page>1" @click="loadNewPage(guardianStudents.prev_page_url)"> < </button>
             </li>
@@ -60,6 +58,7 @@
         </div>
         <div id="studentInfoArea" uk-modal>
             <div class="uk-modal-dialog">
+                <button class="uk-modal-close-default" type="button" uk-close></button>
                 <div class="uk-modal-header">
                     <h2 class="uk-modal-title">{{studentInfoText}}</h2>
                 </div>
@@ -78,9 +77,9 @@
                     <hr>
                     <div class="uk-form-label">{{phoneText}}</div>
                     <h6>{{selectedUser.user.phone_number}}</h6>
-                    <hr>
-                    <div class="uk-form-label">{{referenceCodeText}}</div>
-                    <h6>{{selectedUser.reference_code}}</h6>
+<!--                    <hr>-->
+<!--                    <div class="uk-form-label">{{referenceCodeText}}</div>-->
+<!--                    <h6>{{selectedUser.reference_code}}</h6>-->
                 </div>
                 <div class="uk-modal-footer">
                 </div>
@@ -110,9 +109,9 @@
                 type:String,
                 default:"Öğrenci Ekle"
             },
-            noContentText:{
+            haveNoStudentText:{
                 type:String,
-                default:"İçerik Bulunmuyor"
+                default:"Öğrenci Bulunmuyor"
             },
             deleteText:{
                 type:String,
@@ -202,7 +201,7 @@
                 'loadGuardianNewPage'
             ]),
             deleteItem:function (id) {
-                Axios.post('/api/guardian/delete/'+this.userId+'/'+id)
+                Axios.post('/api/guardian/deleteStudent/'+this.userId+'/'+id)
                     .then(response=>{
                         if(response.data.error){
                             UIkit.notification({message:response.data.message, status: 'danger'});

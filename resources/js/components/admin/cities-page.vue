@@ -5,14 +5,14 @@
         </div>
         <div class="uk-background-default uk-padding-remove uk-margin-small-top border-radius-6">
             <table id="categoryTable" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0">
-                <thead v-if="true">
+                <thead v-if="adminCity.data&&adminCity.data>0">
                 <tr>
                     <th>{{cityNameText}}</th>
                     <th>{{cityCodeText}}</th>
                     <th></th>
                 </tr>
                 </thead>
-                <tbody v-if="true">
+                <tbody v-if="adminCity.data&&adminCity.data>0">
                 <tr v-for="item in adminCity.data">
                     <td @click="routeDistricts(item.id)" class="uk-width-1-4"><p>{{item.name}}</p></td>
                     <td @click="routeDistricts(item.id)" class="uk-width-1-2"><p>{{item.code}}</p></td>
@@ -29,7 +29,7 @@
                 </div>
             </table>
         </div>
-        <ul class="uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
+        <ul v-if="adminCity.data&&adminCity.data>0" class="uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
             <li>
                 <button v-show="adminCity.current_page>1" @click="loadNewPage(adminCity.prev_page_url)"> < </button>
             </li>

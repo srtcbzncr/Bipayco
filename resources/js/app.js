@@ -66,6 +66,7 @@ Vue.component('grade-page', require('./components/admin/grades-page.vue').defaul
 Vue.component('subject-page', require('./components/admin/subjects-page.vue').default);
 
 Vue.component('students-page', require('./components/guardian/students-page.vue').default);
+Vue.component('student-profile-page', require('./components/guardian/student-profile-page.vue').default);
 
 Vue.component('course-card-pagination', require('./components/category/course-card-pagination.vue').default);
 Vue.component('lesson-pagination', require('./components/category/lesson-pagination.vue').default);

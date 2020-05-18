@@ -1938,6 +1938,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3956,6 +3957,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4135,6 +4137,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -5454,6 +5457,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -7645,6 +7649,196 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guardian/student-profile-page.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guardian/student-profile-page.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "student-profile-page",
+  data: function data() {
+    return {
+      selectedStudentIndex: "",
+      selectedStudent: "",
+      studentCourses: {
+        pe: [],
+        ge: [],
+        pl: []
+      },
+      selectedCourse: {}
+    };
+  },
+  props: {
+    userId: {
+      type: String,
+      required: true
+    },
+    selectStudentText: {
+      type: String,
+      "default": "Öğrenci Seçiniz"
+    },
+    generalEducationText: {
+      type: String,
+      "default": "Genel Eğitim"
+    },
+    prepareLessonsText: {
+      type: String,
+      "default": "Derslere Hazırlık"
+    },
+    prepareExamsText: {
+      type: String,
+      "default": "Sınavlara Hazırlık"
+    },
+    noContentText: {
+      type: String,
+      "default": "İçerik Bulunmuyor"
+    }
+  },
+  watch: {
+    selectedStudentIndex: function selectedStudentIndex() {
+      var _this = this;
+
+      this.selectedStudent = this.guardianStudentList[this.selectedStudentIndex].user;
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/guardian/courseInfo/' + this.userId + '/' + this.selectedStudent.id).then(function (res) {
+        _this.studentCourses = res.data.data.allCourses;
+        console.log(_this.studentCourses);
+      });
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['guardianStudentList'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadGuardianStudentList']), {
+    selectCourse: function selectCourse(id, module) {
+      var moduleNumber;
+
+      switch (module) {
+        case 'ge':
+          moduleNumber = 1;
+          break;
+
+        case 'pl':
+          moduleNumber = 2;
+          break;
+
+        case 'pe':
+          moduleNumber = 3;
+          break;
+      }
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/guardian/courseInfo/' + this.userId + '/' + this.selectedStudent.id + '/' + id + '/' + moduleNumber).then(function () {});
+    }
+  }),
+  created: function created() {
+    this.$store.dispatch('loadGuardianStudentList', this.userId);
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guardian/students-page.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guardian/students-page.vue?vue&type=script&lang=js& ***!
@@ -7663,7 +7857,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
 //
 //
 //
@@ -7774,9 +7967,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       "default": "Öğrenci Ekle"
     },
-    noContentText: {
+    haveNoStudentText: {
       type: String,
-      "default": "İçerik Bulunmuyor"
+      "default": "Öğrenci Bulunmuyor"
     },
     deleteText: {
       type: String,
@@ -7866,7 +8059,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     deleteItem: function deleteItem(id) {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/guardian/delete/' + this.userId + '/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/guardian/deleteStudent/' + this.userId + '/' + id).then(function (response) {
         if (response.data.error) {
           UIkit.notification({
             message: response.data.message,
@@ -15284,7 +15477,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true
+            _vm.adminAdmins.data && _vm.adminAdmins.data > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.nameText))]),
@@ -15292,9 +15485,9 @@ var render = function() {
                     _c("th")
                   ])
                 ])
-              : undefined,
+              : _vm._e(),
             _vm._v(" "),
-            true
+            _vm.adminAdmins.data && _vm.adminAdmins.data > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminAdmins.data, function(item, index) {
@@ -15383,103 +15576,114 @@ var render = function() {
                   }),
                   0
                 )
-              : undefined
+              : _c(
+                  "div",
+                  {
+                    staticClass:
+                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                  },
+                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
+                )
           ]
         )
       ]
     ),
     _vm._v(" "),
-    _c(
-      "ul",
-      {
-        staticClass:
-          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
-      },
-      [
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+    _vm.adminAdmins.data && _vm.adminAdmins.data > 0
+      ? _c(
+          "ul",
+          {
+            staticClass:
+              "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+          },
+          [
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.adminAdmins.current_page > 1,
-                  expression: "adminAdmins.current_page>1"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminAdmins.prev_page_url)
-                }
-              }
-            },
-            [_vm._v(" < ")]
-          )
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.pageNumber, function(page) {
-          return _c("li", [
-            page == "..."
-              ? _c("button", { staticClass: "uk-disabled" }, [
-                  _vm._v(_vm._s(page))
-                ])
-              : page == _vm.adminAdmins.current_page
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "uk-background-default uk-disabled",
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/cr/admin/show?page=" + page
-                        )
-                      }
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.adminAdmins.current_page > 1,
+                      expression: "adminAdmins.current_page>1"
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-              : _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/cr/admin/show?page=" + page
-                        )
-                      }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminAdmins.prev_page_url)
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-          ])
-        }),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+                  }
+                },
+                [_vm._v(" < ")]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.pageNumber, function(page) {
+              return _c("li", [
+                page == "..."
+                  ? _c("button", { staticClass: "uk-disabled" }, [
+                      _vm._v(_vm._s(page))
+                    ])
+                  : page == _vm.adminAdmins.current_page
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "uk-background-default uk-disabled",
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/cr/admin/show?page=" + page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/cr/admin/show?page=" + page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+              ])
+            }),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value:
-                    _vm.adminAdmins.current_page < _vm.adminAdmins.last_page,
-                  expression: "adminAdmins.current_page<adminAdmins.last_page"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminAdmins.next_page_url)
-                }
-              }
-            },
-            [_vm._v(" > ")]
-          )
-        ])
-      ],
-      2
-    ),
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value:
+                        _vm.adminAdmins.current_page <
+                        _vm.adminAdmins.last_page,
+                      expression:
+                        "adminAdmins.current_page<adminAdmins.last_page"
+                    }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminAdmins.next_page_url)
+                    }
+                  }
+                },
+                [_vm._v(" > ")]
+              )
+            ])
+          ],
+          2
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { attrs: { id: "addAdminArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
@@ -15549,6 +15753,11 @@ var render = function() {
     _vm._v(" "),
     _c("div", { attrs: { id: "adminInfoArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
+        _c("button", {
+          staticClass: "uk-modal-close-default",
+          attrs: { type: "button", "uk-close": "" }
+        }),
+        _vm._v(" "),
         _c("div", { staticClass: "uk-modal-header" }, [
           _c("h2", { staticClass: "uk-modal-title" }, [
             _vm._v(_vm._s(_vm.adminInfoText))
@@ -15677,7 +15886,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true
+            _vm.adminCategory.data && _vm.adminCategory.data > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.categoryNameText))]),
@@ -15687,9 +15896,9 @@ var render = function() {
                     _c("th")
                   ])
                 ])
-              : undefined,
+              : _vm._e(),
             _vm._v(" "),
-            true
+            _vm.adminCategory.data && _vm.adminCategory.data > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminCategory.data, function(item, index) {
@@ -15796,105 +16005,114 @@ var render = function() {
                   }),
                   0
                 )
-              : undefined
+              : _c(
+                  "div",
+                  {
+                    staticClass:
+                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                  },
+                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
+                )
           ]
         )
       ]
     ),
     _vm._v(" "),
-    _c(
-      "ul",
-      {
-        staticClass:
-          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
-      },
-      [
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+    _vm.adminCategory.data && _vm.adminCategory.data > 0
+      ? _c(
+          "ul",
+          {
+            staticClass:
+              "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+          },
+          [
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.adminCategory.current_page > 1,
-                  expression: "adminCategory.current_page>1"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminCategory.prev_page_url)
-                }
-              }
-            },
-            [_vm._v(" < ")]
-          )
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.pageNumber, function(page) {
-          return _c("li", [
-            page == "..."
-              ? _c("button", { staticClass: "uk-disabled" }, [
-                  _vm._v(_vm._s(page))
-                ])
-              : page == _vm.adminCategory.current_page
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "uk-background-default uk-disabled",
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/ge/category/show?page=" + page
-                        )
-                      }
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.adminCategory.current_page > 1,
+                      expression: "adminCategory.current_page>1"
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-              : _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/ge/category/show?page=" + page
-                        )
-                      }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminCategory.prev_page_url)
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-          ])
-        }),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+                  }
+                },
+                [_vm._v(" < ")]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.pageNumber, function(page) {
+              return _c("li", [
+                page == "..."
+                  ? _c("button", { staticClass: "uk-disabled" }, [
+                      _vm._v(_vm._s(page))
+                    ])
+                  : page == _vm.adminCategory.current_page
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "uk-background-default uk-disabled",
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/ge/category/show?page=" + page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/ge/category/show?page=" + page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+              ])
+            }),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value:
-                    _vm.adminCategory.current_page <
-                    _vm.adminCategory.last_page,
-                  expression:
-                    "adminCategory.current_page<adminCategory.last_page"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminCategory.next_page_url)
-                }
-              }
-            },
-            [_vm._v(" > ")]
-          )
-        ])
-      ],
-      2
-    ),
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value:
+                        _vm.adminCategory.current_page <
+                        _vm.adminCategory.last_page,
+                      expression:
+                        "adminCategory.current_page<adminCategory.last_page"
+                    }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminCategory.next_page_url)
+                    }
+                  }
+                },
+                [_vm._v(" > ")]
+              )
+            ])
+          ],
+          2
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { attrs: { id: "addCategoryArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
@@ -16182,7 +16400,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true
+            _vm.adminCity.data && _vm.adminCity.data > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.cityNameText))]),
@@ -16192,9 +16410,9 @@ var render = function() {
                     _c("th")
                   ])
                 ])
-              : undefined,
+              : _vm._e(),
             _vm._v(" "),
-            true
+            _vm.adminCity.data && _vm.adminCity.data > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminCity.data, function(item) {
@@ -16301,103 +16519,113 @@ var render = function() {
                   }),
                   0
                 )
-              : undefined
+              : _c(
+                  "div",
+                  {
+                    staticClass:
+                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                  },
+                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
+                )
           ]
         )
       ]
     ),
     _vm._v(" "),
-    _c(
-      "ul",
-      {
-        staticClass:
-          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
-      },
-      [
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+    _vm.adminCity.data && _vm.adminCity.data > 0
+      ? _c(
+          "ul",
+          {
+            staticClass:
+              "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+          },
+          [
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.adminCity.current_page > 1,
-                  expression: "adminCity.current_page>1"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminCity.prev_page_url)
-                }
-              }
-            },
-            [_vm._v(" < ")]
-          )
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.pageNumber, function(page) {
-          return _c("li", [
-            page == "..."
-              ? _c("button", { staticClass: "uk-disabled" }, [
-                  _vm._v(_vm._s(page))
-                ])
-              : page == _vm.adminCity.current_page
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "uk-background-default uk-disabled",
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/bs/city/show?page=" + page
-                        )
-                      }
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.adminCity.current_page > 1,
+                      expression: "adminCity.current_page>1"
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-              : _c(
-                  "button",
-                  {
-                    staticClass: "uk-",
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/bs/city/show?page=" + page
-                        )
-                      }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminCity.prev_page_url)
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-          ])
-        }),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+                  }
+                },
+                [_vm._v(" < ")]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.pageNumber, function(page) {
+              return _c("li", [
+                page == "..."
+                  ? _c("button", { staticClass: "uk-disabled" }, [
+                      _vm._v(_vm._s(page))
+                    ])
+                  : page == _vm.adminCity.current_page
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "uk-background-default uk-disabled",
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/bs/city/show?page=" + page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        staticClass: "uk-",
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/bs/city/show?page=" + page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+              ])
+            }),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.adminCity.current_page < _vm.adminCity.last_page,
-                  expression: "adminCity.current_page<adminCity.last_page"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminCity.next_page_url)
-                }
-              }
-            },
-            [_vm._v(" > ")]
-          )
-        ])
-      ],
-      2
-    ),
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value:
+                        _vm.adminCity.current_page < _vm.adminCity.last_page,
+                      expression: "adminCity.current_page<adminCity.last_page"
+                    }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminCity.next_page_url)
+                    }
+                  }
+                },
+                [_vm._v(" > ")]
+              )
+            ])
+          ],
+          2
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { attrs: { id: "addCityArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
@@ -16633,7 +16861,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true
+            _vm.adminDistrict.data && _vm.adminDistrict.data > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.districtNameText))]),
@@ -16641,9 +16869,9 @@ var render = function() {
                     _c("th")
                   ])
                 ])
-              : undefined,
+              : _vm._e(),
             _vm._v(" "),
-            true
+            _vm.adminDistrict.data && _vm.adminDistrict.data > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminDistrict.data, function(item) {
@@ -16728,111 +16956,120 @@ var render = function() {
                   }),
                   0
                 )
-              : undefined
+              : _c(
+                  "div",
+                  {
+                    staticClass:
+                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                  },
+                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
+                )
           ]
         )
       ]
     ),
     _vm._v(" "),
-    _c(
-      "ul",
-      {
-        staticClass:
-          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
-      },
-      [
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+    _vm.adminDistrict.data && _vm.adminDistrict.data > 0
+      ? _c(
+          "ul",
+          {
+            staticClass:
+              "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+          },
+          [
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.adminDistrict.current_page > 1,
-                  expression: "adminDistrict.current_page>1"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminDistrict.prev_page_url)
-                }
-              }
-            },
-            [_vm._v(" < ")]
-          )
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.pageNumber, function(page) {
-          return _c("li", [
-            page == "..."
-              ? _c("button", { staticClass: "uk-disabled" }, [
-                  _vm._v(_vm._s(page))
-                ])
-              : page == _vm.adminDistrict.current_page
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "uk-background-default uk-disabled",
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/bs/city/" +
-                            _vm.selectedCityId +
-                            "/districts?page=" +
-                            page
-                        )
-                      }
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.adminDistrict.current_page > 1,
+                      expression: "adminDistrict.current_page>1"
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-              : _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/bs/city/" +
-                            _vm.selectedCityId +
-                            "/districts?page=" +
-                            page
-                        )
-                      }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminDistrict.prev_page_url)
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-          ])
-        }),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+                  }
+                },
+                [_vm._v(" < ")]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.pageNumber, function(page) {
+              return _c("li", [
+                page == "..."
+                  ? _c("button", { staticClass: "uk-disabled" }, [
+                      _vm._v(_vm._s(page))
+                    ])
+                  : page == _vm.adminDistrict.current_page
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "uk-background-default uk-disabled",
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/bs/city/" +
+                                _vm.selectedCityId +
+                                "/districts?page=" +
+                                page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/bs/city/" +
+                                _vm.selectedCityId +
+                                "/districts?page=" +
+                                page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+              ])
+            }),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value:
-                    _vm.adminDistrict.current_page <
-                    _vm.adminDistrict.last_page,
-                  expression:
-                    "adminDistrict.current_page<adminDistrict.last_page"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminDistrict.next_page_url)
-                }
-              }
-            },
-            [_vm._v(" > ")]
-          )
-        ])
-      ],
-      2
-    ),
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value:
+                        _vm.adminDistrict.current_page <
+                        _vm.adminDistrict.last_page,
+                      expression:
+                        "adminDistrict.current_page<adminDistrict.last_page"
+                    }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminDistrict.next_page_url)
+                    }
+                  }
+                },
+                [_vm._v(" > ")]
+              )
+            ])
+          ],
+          2
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { attrs: { id: "addDistrictArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
@@ -16959,7 +17196,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true
+            _vm.adminExam.data && _vm.adminExam.data > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.examNameText))]),
@@ -16967,9 +17204,9 @@ var render = function() {
                     _c("th")
                   ])
                 ])
-              : undefined,
+              : _vm._e(),
             _vm._v(" "),
-            true
+            _vm.adminExam.data && _vm.adminExam.data > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminExam.data, function(item) {
@@ -17020,102 +17257,112 @@ var render = function() {
                   }),
                   0
                 )
-              : undefined
+              : _c(
+                  "div",
+                  {
+                    staticClass:
+                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                  },
+                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
+                )
           ]
         )
       ]
     ),
     _vm._v(" "),
-    _c(
-      "ul",
-      {
-        staticClass:
-          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
-      },
-      [
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+    _vm.adminExam.data && _vm.adminExam.data > 0
+      ? _c(
+          "ul",
+          {
+            staticClass:
+              "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+          },
+          [
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.adminExam.current_page > 1,
-                  expression: "adminExam.current_page>1"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminExam.prev_page_url)
-                }
-              }
-            },
-            [_vm._v(" < ")]
-          )
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.pageNumber, function(page) {
-          return _c("li", [
-            page == "..."
-              ? _c("button", { staticClass: "uk-disabled" }, [
-                  _vm._v(_vm._s(page))
-                ])
-              : page == _vm.adminExam.current_page
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "uk-background-default uk-disabled",
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/cr/exam/show?page=" + page
-                        )
-                      }
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.adminExam.current_page > 1,
+                      expression: "adminExam.current_page>1"
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-              : _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/cr/exam/show?page=" + page
-                        )
-                      }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminExam.prev_page_url)
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-          ])
-        }),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+                  }
+                },
+                [_vm._v(" < ")]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.pageNumber, function(page) {
+              return _c("li", [
+                page == "..."
+                  ? _c("button", { staticClass: "uk-disabled" }, [
+                      _vm._v(_vm._s(page))
+                    ])
+                  : page == _vm.adminExam.current_page
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "uk-background-default uk-disabled",
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/cr/exam/show?page=" + page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/cr/exam/show?page=" + page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+              ])
+            }),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.adminExam.current_page < _vm.adminExam.last_page,
-                  expression: "adminExam.current_page<adminExam.last_page"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminExam.next_page_url)
-                }
-              }
-            },
-            [_vm._v(" > ")]
-          )
-        ])
-      ],
-      2
-    ),
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value:
+                        _vm.adminExam.current_page < _vm.adminExam.last_page,
+                      expression: "adminExam.current_page<adminExam.last_page"
+                    }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminExam.next_page_url)
+                    }
+                  }
+                },
+                [_vm._v(" > ")]
+              )
+            ])
+          ],
+          2
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { attrs: { id: "addExamArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
@@ -17285,7 +17532,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true
+            _vm.adminGrade.data && _vm.adminGrade.data > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.gradeNameText))]),
@@ -17293,9 +17540,9 @@ var render = function() {
                     _c("th")
                   ])
                 ])
-              : undefined,
+              : _vm._e(),
             _vm._v(" "),
-            true
+            _vm.adminGrade.data && _vm.adminGrade.data > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminGrade.data, function(item) {
@@ -17346,102 +17593,112 @@ var render = function() {
                   }),
                   0
                 )
-              : undefined
+              : _c(
+                  "div",
+                  {
+                    staticClass:
+                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                  },
+                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
+                )
           ]
         )
       ]
     ),
     _vm._v(" "),
-    _c(
-      "ul",
-      {
-        staticClass:
-          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
-      },
-      [
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+    _vm.adminGrade.data && _vm.adminGrade.data > 0
+      ? _c(
+          "ul",
+          {
+            staticClass:
+              "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+          },
+          [
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.adminGrade.current_page > 1,
-                  expression: "adminGrade.current_page>1"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminGrade.prev_page_url)
-                }
-              }
-            },
-            [_vm._v(" < ")]
-          )
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.pageNumber, function(page) {
-          return _c("li", [
-            page == "..."
-              ? _c("button", { staticClass: "uk-disabled" }, [
-                  _vm._v(_vm._s(page))
-                ])
-              : page == _vm.adminGrade.current_page
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "uk-background-default uk-disabled",
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/cr/grade/show?page=" + page
-                        )
-                      }
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.adminGrade.current_page > 1,
+                      expression: "adminGrade.current_page>1"
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-              : _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/cr/grade/show?page=" + page
-                        )
-                      }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminGrade.prev_page_url)
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-          ])
-        }),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+                  }
+                },
+                [_vm._v(" < ")]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.pageNumber, function(page) {
+              return _c("li", [
+                page == "..."
+                  ? _c("button", { staticClass: "uk-disabled" }, [
+                      _vm._v(_vm._s(page))
+                    ])
+                  : page == _vm.adminGrade.current_page
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "uk-background-default uk-disabled",
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/cr/grade/show?page=" + page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/cr/grade/show?page=" + page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+              ])
+            }),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.adminGrade.current_page < _vm.adminGrade.last_page,
-                  expression: "adminGrade.current_page<adminGrade.last_page"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminGrade.next_page_url)
-                }
-              }
-            },
-            [_vm._v(" > ")]
-          )
-        ])
-      ],
-      2
-    ),
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value:
+                        _vm.adminGrade.current_page < _vm.adminGrade.last_page,
+                      expression: "adminGrade.current_page<adminGrade.last_page"
+                    }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminGrade.next_page_url)
+                    }
+                  }
+                },
+                [_vm._v(" > ")]
+              )
+            ])
+          ],
+          2
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { attrs: { id: "addGradeArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
@@ -17597,7 +17854,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true
+            _vm.adminGuardian.data && _vm.adminGuardian.data > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.nameText))]),
@@ -17605,9 +17862,9 @@ var render = function() {
                     _c("th")
                   ])
                 ])
-              : undefined,
+              : _vm._e(),
             _vm._v(" "),
-            true
+            _vm.adminGuardian.data && _vm.adminGuardian.data > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminGuardian.data, function(item, index) {
@@ -17696,108 +17953,122 @@ var render = function() {
                   }),
                   0
                 )
-              : undefined
+              : _c(
+                  "div",
+                  {
+                    staticClass:
+                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                  },
+                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
+                )
           ]
         )
       ]
     ),
     _vm._v(" "),
-    _c(
-      "ul",
-      {
-        staticClass:
-          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
-      },
-      [
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+    _vm.adminGuardian.data && _vm.adminGuardian.data > 0
+      ? _c(
+          "ul",
+          {
+            staticClass:
+              "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+          },
+          [
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.adminGuardian.current_page > 1,
-                  expression: "adminGuardian.current_page>1"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminGuardian.prev_page_url)
-                }
-              }
-            },
-            [_vm._v(" < ")]
-          )
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.pageNumber, function(page) {
-          return _c("li", [
-            page == "..."
-              ? _c("button", { staticClass: "uk-disabled" }, [
-                  _vm._v(_vm._s(page))
-                ])
-              : page == _vm.adminGuardian.current_page
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "uk-background-default uk-disabled",
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/auth/guardian/show?page=" + page
-                        )
-                      }
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.adminGuardian.current_page > 1,
+                      expression: "adminGuardian.current_page>1"
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-              : _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/auth/guardian/show?page=" + page
-                        )
-                      }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminGuardian.prev_page_url)
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-          ])
-        }),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+                  }
+                },
+                [_vm._v(" < ")]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.pageNumber, function(page) {
+              return _c("li", [
+                page == "..."
+                  ? _c("button", { staticClass: "uk-disabled" }, [
+                      _vm._v(_vm._s(page))
+                    ])
+                  : page == _vm.adminGuardian.current_page
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "uk-background-default uk-disabled",
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/auth/guardian/show?page=" + page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/auth/guardian/show?page=" + page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+              ])
+            }),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value:
-                    _vm.adminGuardian.current_page <
-                    _vm.adminGuardian.last_page,
-                  expression:
-                    "adminGuardian.current_page<adminGuardian.last_page"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminGuardian.next_page_url)
-                }
-              }
-            },
-            [_vm._v(" > ")]
-          )
-        ])
-      ],
-      2
-    ),
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value:
+                        _vm.adminGuardian.current_page <
+                        _vm.adminGuardian.last_page,
+                      expression:
+                        "adminGuardian.current_page<adminGuardian.last_page"
+                    }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminGuardian.next_page_url)
+                    }
+                  }
+                },
+                [_vm._v(" > ")]
+              )
+            ])
+          ],
+          2
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { attrs: { id: "guardianInfoArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
+        _c("button", {
+          staticClass: "uk-modal-close-default",
+          attrs: { type: "button", "uk-close": "" }
+        }),
+        _vm._v(" "),
         _c("div", { staticClass: "uk-modal-header" }, [
           _c("h2", { staticClass: "uk-modal-title" }, [
             _vm._v(_vm._s(_vm.guardianInfoText))
@@ -17912,7 +18183,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true
+            _vm.adminInstructor.data && _vm.adminInstructor.data > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.nameText))]),
@@ -17920,9 +18191,9 @@ var render = function() {
                     _c("th")
                   ])
                 ])
-              : undefined,
+              : _vm._e(),
             _vm._v(" "),
-            true
+            _vm.adminInstructor.data && _vm.adminInstructor.data > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminInstructor.data, function(item, index) {
@@ -18011,108 +18282,122 @@ var render = function() {
                   }),
                   0
                 )
-              : undefined
+              : _c(
+                  "div",
+                  {
+                    staticClass:
+                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                  },
+                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
+                )
           ]
         )
       ]
     ),
     _vm._v(" "),
-    _c(
-      "ul",
-      {
-        staticClass:
-          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
-      },
-      [
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+    _vm.adminInstructor.data && _vm.adminInstructor.data > 0
+      ? _c(
+          "ul",
+          {
+            staticClass:
+              "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+          },
+          [
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.adminInstructor.current_page > 1,
-                  expression: "adminInstructor.current_page>1"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminInstructor.prev_page_url)
-                }
-              }
-            },
-            [_vm._v(" < ")]
-          )
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.pageNumber, function(page) {
-          return _c("li", [
-            page == "..."
-              ? _c("button", { staticClass: "uk-disabled" }, [
-                  _vm._v(_vm._s(page))
-                ])
-              : page == _vm.adminInstructor.current_page
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "uk-background-default uk-disabled",
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/auth/instructor/show?page=" + page
-                        )
-                      }
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.adminInstructor.current_page > 1,
+                      expression: "adminInstructor.current_page>1"
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-              : _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/auth/instructor/show?page=" + page
-                        )
-                      }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminInstructor.prev_page_url)
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-          ])
-        }),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+                  }
+                },
+                [_vm._v(" < ")]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.pageNumber, function(page) {
+              return _c("li", [
+                page == "..."
+                  ? _c("button", { staticClass: "uk-disabled" }, [
+                      _vm._v(_vm._s(page))
+                    ])
+                  : page == _vm.adminInstructor.current_page
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "uk-background-default uk-disabled",
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/auth/instructor/show?page=" + page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/auth/instructor/show?page=" + page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+              ])
+            }),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value:
-                    _vm.adminInstructor.current_page <
-                    _vm.adminInstructor.last_page,
-                  expression:
-                    "adminInstructor.current_page<adminInstructor.last_page"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminInstructor.next_page_url)
-                }
-              }
-            },
-            [_vm._v(" > ")]
-          )
-        ])
-      ],
-      2
-    ),
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value:
+                        _vm.adminInstructor.current_page <
+                        _vm.adminInstructor.last_page,
+                      expression:
+                        "adminInstructor.current_page<adminInstructor.last_page"
+                    }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminInstructor.next_page_url)
+                    }
+                  }
+                },
+                [_vm._v(" > ")]
+              )
+            ])
+          ],
+          2
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { attrs: { id: "instructorInfoArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
+        _c("button", {
+          staticClass: "uk-modal-close-default",
+          attrs: { type: "button", "uk-close": "" }
+        }),
+        _vm._v(" "),
         _c("div", { staticClass: "uk-modal-header" }, [
           _c("h2", { staticClass: "uk-modal-title" }, [
             _vm._v(_vm._s(_vm.instructorInfoText))
@@ -18257,7 +18542,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true
+            _vm.adminLesson.data && _vm.adminLesson.data > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.lessonNameText))]),
@@ -18265,9 +18550,9 @@ var render = function() {
                     _c("th")
                   ])
                 ])
-              : undefined,
+              : _vm._e(),
             _vm._v(" "),
-            true
+            _vm.adminLesson.data && _vm.adminLesson.data > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminLesson.data, function(item) {
@@ -18327,103 +18612,114 @@ var render = function() {
                   }),
                   0
                 )
-              : undefined
+              : _c(
+                  "div",
+                  {
+                    staticClass:
+                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                  },
+                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
+                )
           ]
         )
       ]
     ),
     _vm._v(" "),
-    _c(
-      "ul",
-      {
-        staticClass:
-          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
-      },
-      [
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+    _vm.adminLesson.data && _vm.adminLesson.data > 0
+      ? _c(
+          "ul",
+          {
+            staticClass:
+              "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+          },
+          [
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.adminLesson.current_page > 1,
-                  expression: "adminLesson.current_page>1"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminLesson.prev_page_url)
-                }
-              }
-            },
-            [_vm._v(" < ")]
-          )
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.pageNumber, function(page) {
-          return _c("li", [
-            page == "..."
-              ? _c("button", { staticClass: "uk-disabled" }, [
-                  _vm._v(_vm._s(page))
-                ])
-              : page == _vm.adminLesson.current_page
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "uk-background-default uk-disabled",
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/cr/lesson/show?page=" + page
-                        )
-                      }
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.adminLesson.current_page > 1,
+                      expression: "adminLesson.current_page>1"
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-              : _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/cr/lesson/show?page=" + page
-                        )
-                      }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminLesson.prev_page_url)
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-          ])
-        }),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+                  }
+                },
+                [_vm._v(" < ")]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.pageNumber, function(page) {
+              return _c("li", [
+                page == "..."
+                  ? _c("button", { staticClass: "uk-disabled" }, [
+                      _vm._v(_vm._s(page))
+                    ])
+                  : page == _vm.adminLesson.current_page
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "uk-background-default uk-disabled",
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/cr/lesson/show?page=" + page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/cr/lesson/show?page=" + page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+              ])
+            }),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value:
-                    _vm.adminLesson.current_page < _vm.adminLesson.last_page,
-                  expression: "adminLesson.current_page<adminLesson.last_page"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminLesson.next_page_url)
-                }
-              }
-            },
-            [_vm._v(" > ")]
-          )
-        ])
-      ],
-      2
-    ),
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value:
+                        _vm.adminLesson.current_page <
+                        _vm.adminLesson.last_page,
+                      expression:
+                        "adminLesson.current_page<adminLesson.last_page"
+                    }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminLesson.next_page_url)
+                    }
+                  }
+                },
+                [_vm._v(" > ")]
+              )
+            ])
+          ],
+          2
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { attrs: { id: "addLessonArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
@@ -18663,7 +18959,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true
+            _vm.adminSubCategory.data && _vm.adminSubCategory.data > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.subCategoryNameText))]),
@@ -18673,9 +18969,9 @@ var render = function() {
                     _c("th")
                   ])
                 ])
-              : undefined,
+              : _vm._e(),
             _vm._v(" "),
-            true
+            _vm.adminSubCategory.data && _vm.adminSubCategory.data > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminSubCategory.data, function(item) {
@@ -18764,111 +19060,120 @@ var render = function() {
                   }),
                   0
                 )
-              : undefined
+              : _c(
+                  "div",
+                  {
+                    staticClass:
+                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                  },
+                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
+                )
           ]
         )
       ]
     ),
     _vm._v(" "),
-    _c(
-      "ul",
-      {
-        staticClass:
-          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
-      },
-      [
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+    _vm.adminSubCategory.data && _vm.adminSubCategory.data > 0
+      ? _c(
+          "ul",
+          {
+            staticClass:
+              "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+          },
+          [
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.adminSubCategory.current_page > 1,
-                  expression: "adminSubCategory.current_page>1"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminSubCategory.prev_page_url)
-                }
-              }
-            },
-            [_vm._v(" < ")]
-          )
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.pageNumber, function(page) {
-          return _c("li", [
-            page == "..."
-              ? _c("button", { staticClass: "uk-disabled" }, [
-                  _vm._v(_vm._s(page))
-                ])
-              : page == _vm.adminSubCategory.current_page
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "uk-background-default uk-disabled",
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/bs/city/" +
-                            _vm.selectedCategoryId +
-                            "/SubCategories?page=" +
-                            page
-                        )
-                      }
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.adminSubCategory.current_page > 1,
+                      expression: "adminSubCategory.current_page>1"
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-              : _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/bs/city/" +
-                            _vm.selectedSubCategoryId +
-                            "/SubCategories?page=" +
-                            page
-                        )
-                      }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminSubCategory.prev_page_url)
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-          ])
-        }),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+                  }
+                },
+                [_vm._v(" < ")]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.pageNumber, function(page) {
+              return _c("li", [
+                page == "..."
+                  ? _c("button", { staticClass: "uk-disabled" }, [
+                      _vm._v(_vm._s(page))
+                    ])
+                  : page == _vm.adminSubCategory.current_page
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "uk-background-default uk-disabled",
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/bs/city/" +
+                                _vm.selectedCategoryId +
+                                "/SubCategories?page=" +
+                                page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/bs/city/" +
+                                _vm.selectedSubCategoryId +
+                                "/SubCategories?page=" +
+                                page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+              ])
+            }),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value:
-                    _vm.adminSubCategory.current_page <
-                    _vm.adminSubCategory.last_page,
-                  expression:
-                    "adminSubCategory.current_page<adminSubCategory.last_page"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminSubCategory.next_page_url)
-                }
-              }
-            },
-            [_vm._v(" > ")]
-          )
-        ])
-      ],
-      2
-    ),
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value:
+                        _vm.adminSubCategory.current_page <
+                        _vm.adminSubCategory.last_page,
+                      expression:
+                        "adminSubCategory.current_page<adminSubCategory.last_page"
+                    }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminSubCategory.next_page_url)
+                    }
+                  }
+                },
+                [_vm._v(" > ")]
+              )
+            ])
+          ],
+          2
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { attrs: { id: "addSubCategoryArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
@@ -19182,7 +19487,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true
+            _vm.adminSubject.data && _vm.adminSubject.data > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.subjectNameText))]),
@@ -19190,9 +19495,9 @@ var render = function() {
                     _c("th")
                   ])
                 ])
-              : undefined,
+              : _vm._e(),
             _vm._v(" "),
-            true
+            _vm.adminSubject.data && _vm.adminSubject.data > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminSubject.data, function(item) {
@@ -19243,109 +19548,120 @@ var render = function() {
                   }),
                   0
                 )
-              : undefined
+              : _c(
+                  "div",
+                  {
+                    staticClass:
+                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                  },
+                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
+                )
           ]
         )
       ]
     ),
     _vm._v(" "),
-    _c(
-      "ul",
-      {
-        staticClass:
-          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
-      },
-      [
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+    _vm.adminSubject.data && _vm.adminSubject.data > 0
+      ? _c(
+          "ul",
+          {
+            staticClass:
+              "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+          },
+          [
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.adminSubject.current_page > 1,
-                  expression: "adminSubject.current_page>1"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminSubject.prev_page_url)
-                }
-              }
-            },
-            [_vm._v(" < ")]
-          )
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.pageNumber, function(page) {
-          return _c("li", [
-            page == "..."
-              ? _c("button", { staticClass: "uk-disabled" }, [
-                  _vm._v(_vm._s(page))
-                ])
-              : page == _vm.adminSubject.current_page
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "uk-background-default uk-disabled",
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/bs/city/" +
-                            _vm.selectedLessonId +
-                            "/subjects?page=" +
-                            page
-                        )
-                      }
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.adminSubject.current_page > 1,
+                      expression: "adminSubject.current_page>1"
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-              : _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/bs/city/" +
-                            _vm.selectedLessonId +
-                            "/subjects?page=" +
-                            page
-                        )
-                      }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminSubject.prev_page_url)
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-          ])
-        }),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+                  }
+                },
+                [_vm._v(" < ")]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.pageNumber, function(page) {
+              return _c("li", [
+                page == "..."
+                  ? _c("button", { staticClass: "uk-disabled" }, [
+                      _vm._v(_vm._s(page))
+                    ])
+                  : page == _vm.adminSubject.current_page
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "uk-background-default uk-disabled",
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/bs/city/" +
+                                _vm.selectedLessonId +
+                                "/subjects?page=" +
+                                page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/bs/city/" +
+                                _vm.selectedLessonId +
+                                "/subjects?page=" +
+                                page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+              ])
+            }),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value:
-                    _vm.adminSubject.current_page < _vm.adminSubject.last_page,
-                  expression: "adminSubject.current_page<adminSubject.last_page"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminSubject.next_page_url)
-                }
-              }
-            },
-            [_vm._v(" > ")]
-          )
-        ])
-      ],
-      2
-    ),
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value:
+                        _vm.adminSubject.current_page <
+                        _vm.adminSubject.last_page,
+                      expression:
+                        "adminSubject.current_page<adminSubject.last_page"
+                    }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminSubject.next_page_url)
+                    }
+                  }
+                },
+                [_vm._v(" > ")]
+              )
+            ])
+          ],
+          2
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { attrs: { id: "addSubjectArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
@@ -19497,7 +19813,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true
+            _vm.adminInstructor.data && _vm.adminInstructor.data > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.nameText))]),
@@ -19505,9 +19821,9 @@ var render = function() {
                     _c("th")
                   ])
                 ])
-              : undefined,
+              : _vm._e(),
             _vm._v(" "),
-            true
+            _vm.adminInstructor.data && _vm.adminInstructor.data > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminUsers.data, function(item, index) {
@@ -19596,105 +19912,120 @@ var render = function() {
                   }),
                   0
                 )
-              : undefined
+              : _c(
+                  "div",
+                  {
+                    staticClass:
+                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                  },
+                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
+                )
           ]
         )
       ]
     ),
     _vm._v(" "),
-    _c(
-      "ul",
-      {
-        staticClass:
-          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
-      },
-      [
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+    _vm.adminInstructor.data && _vm.adminInstructor.data > 0
+      ? _c(
+          "ul",
+          {
+            staticClass:
+              "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+          },
+          [
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.adminUsers.current_page > 1,
-                  expression: "adminUsers.current_page>1"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminUsers.prev_page_url)
-                }
-              }
-            },
-            [_vm._v(" < ")]
-          )
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.pageNumber, function(page) {
-          return _c("li", [
-            page == "..."
-              ? _c("button", { staticClass: "uk-disabled" }, [
-                  _vm._v(_vm._s(page))
-                ])
-              : page == _vm.adminUsers.current_page
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "uk-background-default uk-disabled",
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/auth/student/show?page=" + page
-                        )
-                      }
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.adminUsers.current_page > 1,
+                      expression: "adminUsers.current_page>1"
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-              : _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/admin/auth/student/show?page=" + page
-                        )
-                      }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminUsers.prev_page_url)
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-          ])
-        }),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+                  }
+                },
+                [_vm._v(" < ")]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.pageNumber, function(page) {
+              return _c("li", [
+                page == "..."
+                  ? _c("button", { staticClass: "uk-disabled" }, [
+                      _vm._v(_vm._s(page))
+                    ])
+                  : page == _vm.adminUsers.current_page
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "uk-background-default uk-disabled",
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/auth/student/show?page=" + page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/auth/student/show?page=" + page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+              ])
+            }),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.adminUsers.current_page < _vm.adminUsers.last_page,
-                  expression: "adminUsers.current_page<adminUsers.last_page"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.adminUsers.next_page_url)
-                }
-              }
-            },
-            [_vm._v(" > ")]
-          )
-        ])
-      ],
-      2
-    ),
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value:
+                        _vm.adminUsers.current_page < _vm.adminUsers.last_page,
+                      expression: "adminUsers.current_page<adminUsers.last_page"
+                    }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.adminUsers.next_page_url)
+                    }
+                  }
+                },
+                [_vm._v(" > ")]
+              )
+            ])
+          ],
+          2
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { attrs: { id: "userInfoArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
+        _c("button", {
+          staticClass: "uk-modal-close-default",
+          attrs: { type: "button", "uk-close": "" }
+        }),
+        _vm._v(" "),
         _c("div", { staticClass: "uk-modal-header" }, [
           _c("h2", { staticClass: "uk-modal-title" }, [
             _vm._v(_vm._s(_vm.userInfoText))
@@ -22833,6 +23164,506 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guardian/student-profile-page.vue?vue&type=template&id=3096a6f0&scoped=true&":
+/*!********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guardian/student-profile-page.vue?vue&type=template&id=3096a6f0&scoped=true& ***!
+  \********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "uk-margin-medium-top" }, [
+      _c(
+        "select",
+        {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.selectedStudentIndex,
+              expression: "selectedStudentIndex"
+            }
+          ],
+          staticClass: "uk-select uk-width-1-2@m uk-width-1-3@l",
+          on: {
+            change: function($event) {
+              var $$selectedVal = Array.prototype.filter
+                .call($event.target.options, function(o) {
+                  return o.selected
+                })
+                .map(function(o) {
+                  var val = "_value" in o ? o._value : o.value
+                  return val
+                })
+              _vm.selectedStudentIndex = $event.target.multiple
+                ? $$selectedVal
+                : $$selectedVal[0]
+            }
+          }
+        },
+        [
+          _c("option", { attrs: { value: "", hidden: "", disabled: "" } }, [
+            _vm._v(_vm._s(_vm.selectStudentText))
+          ]),
+          _vm._v(" "),
+          _vm._l(_vm.guardianStudentList, function(student, index) {
+            return _c("option", { domProps: { value: index } }, [
+              _vm._v(
+                _vm._s(student.user.first_name) +
+                  " " +
+                  _vm._s(student.user.last_name)
+              )
+            ])
+          })
+        ],
+        2
+      ),
+      _vm._v(" "),
+      _vm.selectedStudent != ""
+        ? _c("div", [
+            _c(
+              "div",
+              {
+                staticClass:
+                  " uk-margin-top uk-flex uk-flex-wrap align-items-center justify-content-start"
+              },
+              [
+                _c("img", {
+                  staticClass:
+                    "uk-height-small uk-width-small uk-border-circle",
+                  attrs: { src: _vm.selectedStudent.avatar }
+                }),
+                _vm._v(" "),
+                _c("h3", { staticClass: "uk-margin-medium-left" }, [
+                  _vm._v(
+                    _vm._s(_vm.selectedStudent.first_name) +
+                      " " +
+                      _vm._s(_vm.selectedStudent.last_name)
+                  )
+                ])
+              ]
+            ),
+            _vm._v(" "),
+            _c("h3", { staticClass: "uk-heading-line uk-text-center" }, [
+              _c("span", [_vm._v(" " + _vm._s(_vm.generalEducationText) + " ")])
+            ]),
+            _vm._v(" "),
+            _vm.studentCourses.ge.length > 0
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-position-relative uk-visible-toggle  uk-container uk-padding-medium",
+                    attrs: { "uk-slider": "" }
+                  },
+                  [
+                    _c(
+                      "ul",
+                      {
+                        staticClass:
+                          "uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid"
+                      },
+                      _vm._l(_vm.studentCourses.ge, function(course) {
+                        return _c("li", [
+                          _c("div", { staticClass: "uk-grid-margin" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "uk-link-reset",
+                                attrs: { href: "#" }
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "uk-card-default uk-padding-small border-radius-6 scale-up"
+                                  },
+                                  [
+                                    _c("img", {
+                                      staticClass:
+                                        "uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                      attrs: { src: course.image }
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "p",
+                                      {
+                                        staticClass:
+                                          "uk-margin-small-top uk-height-small uk-margin-remove-bottom uk-text-bold",
+                                        staticStyle: {
+                                          overflow: "hidden",
+                                          "text-overflow": "ellipsis",
+                                          display: "-webkit-box",
+                                          "line-height": "16px",
+                                          "max-height": "16px",
+                                          "-webkit-line-clamp": "1",
+                                          "-webkit-box-orient": "vertical"
+                                        }
+                                      },
+                                      [_vm._v(" " + _vm._s(course.name) + " ")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "p",
+                                      {
+                                        staticClass:
+                                          "uk-text-small uk-height-small uk-margin-remove",
+                                        staticStyle: {
+                                          overflow: "hidden",
+                                          "text-overflow": "ellipsis",
+                                          display: "-webkit-box",
+                                          "line-height": "16px",
+                                          "max-height": "32px",
+                                          "-webkit-line-clamp": "2",
+                                          "-webkit-box-orient": "vertical"
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          " " + _vm._s(course.description) + " "
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ])
+                        ])
+                      }),
+                      0
+                    ),
+                    _vm._v(" "),
+                    _c("a", {
+                      staticClass:
+                        "uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+                      attrs: {
+                        href: "#",
+                        "uk-slidenav-previous": "",
+                        "uk-slider-item": "previous"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("a", {
+                      staticClass:
+                        "uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+                      attrs: {
+                        href: "#",
+                        "uk-slidenav-next": "",
+                        "uk-slider-item": "next"
+                      }
+                    })
+                  ]
+                )
+              : _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-text-center uk-margin-large-top uk-margin-large-bottom"
+                  },
+                  [
+                    _c("h4", { staticClass: "uk-text-center text-secondary" }, [
+                      _vm._v(_vm._s(_vm.noContentText))
+                    ])
+                  ]
+                ),
+            _vm._v(" "),
+            _c("h3", { staticClass: "uk-heading-line uk-text-center" }, [
+              _c("span", [_vm._v(" " + _vm._s(_vm.prepareLessonsText) + " ")])
+            ]),
+            _vm._v(" "),
+            _vm.studentCourses.pl.length > 0
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-position-relative uk-visible-toggle  uk-container uk-padding-medium",
+                    attrs: { "uk-slider": "" }
+                  },
+                  [
+                    _c(
+                      "ul",
+                      {
+                        staticClass:
+                          "uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid"
+                      },
+                      _vm._l(_vm.studentCourses.ge, function(course) {
+                        return _c("li", [
+                          _c("div", { staticClass: "uk-grid-margin" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "uk-link-reset",
+                                attrs: { href: "#" }
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "uk-card-default uk-padding-small border-radius-6 scale-up"
+                                  },
+                                  [
+                                    _c("img", {
+                                      staticClass:
+                                        "uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                      attrs: { src: course.image }
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "p",
+                                      {
+                                        staticClass:
+                                          "uk-margin-small-top uk-height-small uk-margin-remove-bottom uk-text-bold",
+                                        staticStyle: {
+                                          overflow: "hidden",
+                                          "text-overflow": "ellipsis",
+                                          display: "-webkit-box",
+                                          "line-height": "16px",
+                                          "max-height": "16px",
+                                          "-webkit-line-clamp": "1",
+                                          "-webkit-box-orient": "vertical"
+                                        }
+                                      },
+                                      [_vm._v(" " + _vm._s(course.name) + " ")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "p",
+                                      {
+                                        staticClass:
+                                          "uk-text-small uk-height-small uk-margin-remove",
+                                        staticStyle: {
+                                          overflow: "hidden",
+                                          "text-overflow": "ellipsis",
+                                          display: "-webkit-box",
+                                          "line-height": "16px",
+                                          "max-height": "32px",
+                                          "-webkit-line-clamp": "2",
+                                          "-webkit-box-orient": "vertical"
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          " " + _vm._s(course.description) + " "
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ])
+                        ])
+                      }),
+                      0
+                    ),
+                    _vm._v(" "),
+                    _c("a", {
+                      staticClass:
+                        "uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+                      attrs: {
+                        href: "#",
+                        "uk-slidenav-previous": "",
+                        "uk-slider-item": "previous"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("a", {
+                      staticClass:
+                        "uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+                      attrs: {
+                        href: "#",
+                        "uk-slidenav-next": "",
+                        "uk-slider-item": "next"
+                      }
+                    })
+                  ]
+                )
+              : _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-text-center uk-margin-large-top uk-margin-large-bottom"
+                  },
+                  [
+                    _c("h4", { staticClass: "uk-text-center text-secondary" }, [
+                      _vm._v(_vm._s(_vm.noContentText))
+                    ])
+                  ]
+                ),
+            _vm._v(" "),
+            _c("h3", { staticClass: "uk-heading-line uk-text-center" }, [
+              _c("span", [_vm._v(" " + _vm._s(_vm.prepareExamsText) + " ")])
+            ]),
+            _vm._v(" "),
+            _vm.studentCourses.pe.length > 0
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-position-relative uk-visible-toggle  uk-container uk-padding-medium",
+                    attrs: { "uk-slider": "" }
+                  },
+                  [
+                    _c(
+                      "ul",
+                      {
+                        staticClass:
+                          "uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid"
+                      },
+                      _vm._l(_vm.studentCourses.ge, function(course) {
+                        return _c("li", [
+                          _c("div", { staticClass: "uk-grid-margin" }, [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "uk-link-reset",
+                                attrs: { href: "#" }
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "uk-card-default uk-padding-small border-radius-6 scale-up"
+                                  },
+                                  [
+                                    _c("img", {
+                                      staticClass:
+                                        "uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                      attrs: { src: course.image }
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "p",
+                                      {
+                                        staticClass:
+                                          "uk-margin-small-top uk-height-small uk-margin-remove-bottom uk-text-bold",
+                                        staticStyle: {
+                                          overflow: "hidden",
+                                          "text-overflow": "ellipsis",
+                                          display: "-webkit-box",
+                                          "line-height": "16px",
+                                          "max-height": "16px",
+                                          "-webkit-line-clamp": "1",
+                                          "-webkit-box-orient": "vertical"
+                                        }
+                                      },
+                                      [_vm._v(" " + _vm._s(course.name) + " ")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "p",
+                                      {
+                                        staticClass:
+                                          "uk-text-small uk-height-small uk-margin-remove",
+                                        staticStyle: {
+                                          overflow: "hidden",
+                                          "text-overflow": "ellipsis",
+                                          display: "-webkit-box",
+                                          "line-height": "16px",
+                                          "max-height": "32px",
+                                          "-webkit-line-clamp": "2",
+                                          "-webkit-box-orient": "vertical"
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          " " + _vm._s(course.description) + " "
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ])
+                        ])
+                      }),
+                      0
+                    ),
+                    _vm._v(" "),
+                    _c("a", {
+                      staticClass:
+                        "uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+                      attrs: {
+                        href: "#",
+                        "uk-slidenav-previous": "",
+                        "uk-slider-item": "previous"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("a", {
+                      staticClass:
+                        "uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+                      attrs: {
+                        href: "#",
+                        "uk-slidenav-next": "",
+                        "uk-slider-item": "next"
+                      }
+                    })
+                  ]
+                )
+              : _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-text-center uk-margin-large-top uk-margin-large-bottom"
+                  },
+                  [
+                    _c("h4", { staticClass: "uk-text-center text-secondary" }, [
+                      _vm._v(_vm._s(_vm.noContentText))
+                    ])
+                  ]
+                )
+          ])
+        : _vm._e()
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "uk-modal-container",
+        attrs: { id: "modal-container", "uk-modal": "" }
+      },
+      [
+        _c("div", { staticClass: "uk-modal-dialog uk-modal-body" }, [
+          _c("button", {
+            staticClass: "uk-modal-close-default",
+            attrs: { type: "button", "uk-close": "" }
+          }),
+          _vm._v(" "),
+          _c("h2", { staticClass: "uk-modal-title" }, [
+            _vm._v(_vm._s(_vm.selectedCourse.title))
+          ]),
+          _vm._v(" "),
+          _c("p", [
+            _vm._v(
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+            )
+          ])
+        ])
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guardian/students-page.vue?vue&type=template&id=9ada1a9e&scoped=true&":
 /*!*************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/guardian/students-page.vue?vue&type=template&id=9ada1a9e&scoped=true& ***!
@@ -22878,7 +23709,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            true
+            _vm.guardianStudents.data && _vm.guardianStudents.data.length > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.nameText))]),
@@ -22886,9 +23717,9 @@ var render = function() {
                     _c("th")
                   ])
                 ])
-              : undefined,
+              : _vm._e(),
             _vm._v(" "),
-            true
+            _vm.guardianStudents.data && _vm.guardianStudents.data.length > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.guardianStudents.data, function(item, index) {
@@ -22921,47 +23752,13 @@ var render = function() {
                             "uk-flex flex-wrap align-items-center justify-content-around"
                         },
                         [
-                          !item.active
-                            ? _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.activateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.activateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-check-circle"
-                                  })
-                                ]
-                              )
-                            : _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.deactivateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.deactivateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-times-circle"
-                                  })
-                                ]
-                              ),
-                          _vm._v(" "),
                           _c(
                             "a",
                             {
                               attrs: { "uk-tooltip": _vm.deleteText },
                               on: {
                                 click: function($event) {
-                                  return _vm.deleteItem(item.user_id)
+                                  return _vm.deleteItem(item.user.id)
                                 }
                               }
                             },
@@ -22977,111 +23774,124 @@ var render = function() {
                   }),
                   0
                 )
-              : undefined
+              : _c(
+                  "div",
+                  {
+                    staticClass:
+                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                  },
+                  [
+                    _c("h4", [
+                      _vm._v(" " + _vm._s(_vm.haveNoStudentText) + " ")
+                    ])
+                  ]
+                )
           ]
         )
       ]
     ),
     _vm._v(" "),
-    _c(
-      "ul",
-      {
-        staticClass:
-          "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
-      },
-      [
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+    _vm.guardianStudents.data && _vm.guardianStudents.data.length > 0
+      ? _c(
+          "ul",
+          {
+            staticClass:
+              "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+          },
+          [
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value: _vm.guardianStudents.current_page > 1,
-                  expression: "guardianStudents.current_page>1"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.guardianStudents.prev_page_url)
-                }
-              }
-            },
-            [_vm._v(" < ")]
-          )
-        ]),
-        _vm._v(" "),
-        _vm._l(_vm.pageNumber, function(page) {
-          return _c("li", [
-            page == "..."
-              ? _c("button", { staticClass: "uk-disabled" }, [
-                  _vm._v(_vm._s(page))
-                ])
-              : page == _vm.guardianStudents.current_page
-              ? _c(
-                  "button",
-                  {
-                    staticClass: "uk-background-default uk-disabled",
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/guardian/getStudents/" +
-                            this.userId +
-                            "?page=" +
-                            page
-                        )
-                      }
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.guardianStudents.current_page > 1,
+                      expression: "guardianStudents.current_page>1"
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-              : _c(
-                  "button",
-                  {
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          "/api/guardian/getStudents/" +
-                            this.userId +
-                            "?page=" +
-                            page
-                        )
-                      }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.guardianStudents.prev_page_url)
                     }
-                  },
-                  [_vm._v(_vm._s(page))]
-                )
-          ])
-        }),
-        _vm._v(" "),
-        _c("li", [
-          _c(
-            "button",
-            {
-              directives: [
+                  }
+                },
+                [_vm._v(" < ")]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.pageNumber, function(page) {
+              return _c("li", [
+                page == "..."
+                  ? _c("button", { staticClass: "uk-disabled" }, [
+                      _vm._v(_vm._s(page))
+                    ])
+                  : page == _vm.guardianStudents.current_page
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "uk-background-default uk-disabled",
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/guardian/getStudents/" +
+                                this.userId +
+                                "?page=" +
+                                page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/guardian/getStudents/" +
+                                this.userId +
+                                "?page=" +
+                                page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+              ])
+            }),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "button",
                 {
-                  name: "show",
-                  rawName: "v-show",
-                  value:
-                    _vm.guardianStudents.current_page <
-                    _vm.guardianStudents.last_page,
-                  expression:
-                    "guardianStudents.current_page<guardianStudents.last_page"
-                }
-              ],
-              on: {
-                click: function($event) {
-                  return _vm.loadNewPage(_vm.guardianStudents.next_page_url)
-                }
-              }
-            },
-            [_vm._v(" > ")]
-          )
-        ])
-      ],
-      2
-    ),
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value:
+                        _vm.guardianStudents.current_page <
+                        _vm.guardianStudents.last_page,
+                      expression:
+                        "guardianStudents.current_page<guardianStudents.last_page"
+                    }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(_vm.guardianStudents.next_page_url)
+                    }
+                  }
+                },
+                [_vm._v(" > ")]
+              )
+            ])
+          ],
+          2
+        )
+      : _vm._e(),
     _vm._v(" "),
     _c("div", { attrs: { id: "addStudentArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
@@ -23151,6 +23961,11 @@ var render = function() {
     _vm._v(" "),
     _c("div", { attrs: { id: "studentInfoArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
+        _c("button", {
+          staticClass: "uk-modal-close-default",
+          attrs: { type: "button", "uk-close": "" }
+        }),
+        _vm._v(" "),
         _c("div", { staticClass: "uk-modal-header" }, [
           _c("h2", { staticClass: "uk-modal-title" }, [
             _vm._v(_vm._s(_vm.studentInfoText))
@@ -23210,15 +24025,7 @@ var render = function() {
               _vm._v(_vm._s(_vm.phoneText))
             ]),
             _vm._v(" "),
-            _c("h6", [_vm._v(_vm._s(_vm.selectedUser.user.phone_number))]),
-            _vm._v(" "),
-            _c("hr"),
-            _vm._v(" "),
-            _c("div", { staticClass: "uk-form-label" }, [
-              _vm._v(_vm._s(_vm.referenceCodeText))
-            ]),
-            _vm._v(" "),
-            _c("h6", [_vm._v(_vm._s(_vm.selectedUser.reference_code))])
+            _c("h6", [_vm._v(_vm._s(_vm.selectedUser.user.phone_number))])
           ]
         ),
         _vm._v(" "),
@@ -44967,6 +45774,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('lesson-page', __webpack_re
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('grade-page', __webpack_require__(/*! ./components/admin/grades-page.vue */ "./resources/js/components/admin/grades-page.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('subject-page', __webpack_require__(/*! ./components/admin/subjects-page.vue */ "./resources/js/components/admin/subjects-page.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('students-page', __webpack_require__(/*! ./components/guardian/students-page.vue */ "./resources/js/components/guardian/students-page.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('student-profile-page', __webpack_require__(/*! ./components/guardian/student-profile-page.vue */ "./resources/js/components/guardian/student-profile-page.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('course-card-pagination', __webpack_require__(/*! ./components/category/course-card-pagination.vue */ "./resources/js/components/category/course-card-pagination.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('lesson-pagination', __webpack_require__(/*! ./components/category/lesson-pagination.vue */ "./resources/js/components/category/lesson-pagination.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('course-review', __webpack_require__(/*! ./components/category/course-review.vue */ "./resources/js/components/category/course-review.vue")["default"]);
@@ -47053,6 +47861,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/guardian/student-profile-page.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/js/components/guardian/student-profile-page.vue ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _student_profile_page_vue_vue_type_template_id_3096a6f0_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./student-profile-page.vue?vue&type=template&id=3096a6f0&scoped=true& */ "./resources/js/components/guardian/student-profile-page.vue?vue&type=template&id=3096a6f0&scoped=true&");
+/* harmony import */ var _student_profile_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./student-profile-page.vue?vue&type=script&lang=js& */ "./resources/js/components/guardian/student-profile-page.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _student_profile_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _student_profile_page_vue_vue_type_template_id_3096a6f0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _student_profile_page_vue_vue_type_template_id_3096a6f0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "3096a6f0",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/guardian/student-profile-page.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/guardian/student-profile-page.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************!*\
+  !*** ./resources/js/components/guardian/student-profile-page.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_student_profile_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./student-profile-page.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guardian/student-profile-page.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_student_profile_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/guardian/student-profile-page.vue?vue&type=template&id=3096a6f0&scoped=true&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/components/guardian/student-profile-page.vue?vue&type=template&id=3096a6f0&scoped=true& ***!
+  \**************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_student_profile_page_vue_vue_type_template_id_3096a6f0_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./student-profile-page.vue?vue&type=template&id=3096a6f0&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/guardian/student-profile-page.vue?vue&type=template&id=3096a6f0&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_student_profile_page_vue_vue_type_template_id_3096a6f0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_student_profile_page_vue_vue_type_template_id_3096a6f0_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/guardian/students-page.vue":
 /*!************************************************************!*\
   !*** ./resources/js/components/guardian/students-page.vue ***!
@@ -49094,7 +49971,8 @@ var state = {
   crExams: {},
   selectedSubjectId: "",
   selectedLessonId: "",
-  guardianStudents: {}
+  guardianStudents: {},
+  guardianStudentList: {}
 };
 var getters = {};
 var mutations = {
@@ -49219,6 +50097,9 @@ var mutations = {
   },
   setGuardianStudents: function setGuardianStudents(state, students) {
     state.guardianStudents = students.data;
+  },
+  setGuardianStudentList: function setGuardianStudentList(state, students) {
+    state.guardianStudentList = students.data;
   }
 };
 var actions = {
@@ -49521,8 +50402,14 @@ var actions = {
       return commit('setGuardianStudents', response.data);
     });
   },
-  loadGuardianNewPage: function loadGuardianNewPage(_ref62, apiUrl) {
+  loadGuardianStudentList: function loadGuardianStudentList(_ref62, userId) {
     var commit = _ref62.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/guardian/getStudentsList/' + userId).then(function (response) {
+      return commit('setGuardianStudentList', response.data);
+    });
+  },
+  loadGuardianNewPage: function loadGuardianNewPage(_ref63, apiUrl) {
+    var commit = _ref63.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(apiUrl).then(function (response) {
       return commit('setGuardianStudents', response.data);
     });

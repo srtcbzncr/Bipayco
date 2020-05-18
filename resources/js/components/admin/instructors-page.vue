@@ -2,13 +2,13 @@
     <div class="uk-margin-medium-top">
         <div class="uk-background-default uk-padding-remove uk-margin-small-top border-radius-6">
             <table id="categoryTable" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0">
-                <thead v-if="true">
+                <thead v-if="adminInstructor.data&&adminInstructor.data>0">
                 <tr>
                     <th>{{nameText}}</th>
                     <th></th>
                 </tr>
                 </thead>
-                <tbody v-if="true">
+                <tbody v-if="adminInstructor.data&&adminInstructor.data>0">
                 <tr v-for="(item, index) in adminInstructor.data">
                     <td @click="openInfo(index)" class="uk-width-3-4 clickable"><p>{{item.user.first_name}} {{item.user.last_name}}</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-around">
@@ -23,7 +23,7 @@
                 </div>
             </table>
         </div>
-        <ul class="uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
+        <ul v-if="adminInstructor.data&&adminInstructor.data>0" class="uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
             <li>
                 <button v-show="adminInstructor.current_page>1" @click="loadNewPage(adminInstructor.prev_page_url)"> < </button>
             </li>
@@ -38,6 +38,7 @@
         </ul>
         <div id="instructorInfoArea" uk-modal>
             <div class="uk-modal-dialog">
+                <button class="uk-modal-close-default" type="button" uk-close></button>
                 <div class="uk-modal-header">
                     <h2 class="uk-modal-title">{{instructorInfoText}}</h2>
                 </div>

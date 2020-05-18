@@ -5,7 +5,7 @@
             <div class="uk-width-1-4@m">
                 <div class="uk-card uk-card-default border-radius-6 uk-card uk-padding-small  uk-box-shadow-medium" uk-sticky="offset: 90; bottom: true; media: @m;">
                     <div class="uk-flex uk-flex-center">
-                        <img src="{{asset(Auth::user()->avatar)}}" class="uk-margin uk-height-small uk-width-small uk-border-circle">
+                        <img src="{{asset($instructor->user->avatar)}}" class="uk-margin uk-height-small uk-width-small uk-border-circle">
                     </div>
                     <div class="uk-h4 uk-margin-remove uk-text-center uk-margin-small-top">{{$instructor->user->first_name}} {{$instructor->user->last_name}}</div>
                     <div class="uk-text-meta uk-text-center">{{$instructor->title}}</div>

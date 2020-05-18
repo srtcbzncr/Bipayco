@@ -82,6 +82,7 @@ const state={
     selectedSubjectId:"",
     selectedLessonId:"",
     guardianStudents:{},
+    guardianStudentList:{},
 };
 const getters={};
 const mutations={
@@ -204,6 +205,9 @@ const mutations={
     },
     setGuardianStudents(state, students){
         state.guardianStudents=students.data;
+    },
+    setGuardianStudentList(state, students){
+        state.guardianStudentList=students.data;
     }
 };
 const actions={
@@ -370,6 +374,10 @@ const actions={
     loadGuardianStudents({commit}, userId){
         Axios.get('/api/guardian/getStudents/'+userId)
             .then(response=>commit('setGuardianStudents', response.data));
+    },
+    loadGuardianStudentList({commit}, userId){
+        Axios.get('/api/guardian/getStudentsList/'+userId)
+            .then(response=>commit('setGuardianStudentList', response.data));
     },
     loadGuardianNewPage({commit}, apiUrl){
         Axios.get(apiUrl)
