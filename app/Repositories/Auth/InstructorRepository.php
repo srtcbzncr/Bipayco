@@ -72,6 +72,26 @@ class InstructorRepository implements IRepository{
         return $resp;
     }
 
+    public function getInstructor($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = Instructor::find($id);
+        }
+        catch (\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
     public function getByEmail($email)
     {
         // Response variables

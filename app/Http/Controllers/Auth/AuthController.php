@@ -280,7 +280,7 @@ class AuthController extends Controller
         $repo = new InstructorRepository;
 
         // Operations
-        $resp = $repo->get($id);
+        $resp = $repo->getInstructor($id);
 
         // Response
         if($resp->getResult()){
