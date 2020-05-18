@@ -440,6 +440,7 @@ class GuardianRepository implements IRepository
 
         // Operations
         try{
+            $course = null;
             $student = Student::where('user_id',$otherId)->first();
             $usersCompletedLessons = array();
             if($courseType == 1){

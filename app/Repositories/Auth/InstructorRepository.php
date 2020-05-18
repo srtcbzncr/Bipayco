@@ -82,11 +82,14 @@ class InstructorRepository implements IRepository{
         try{
             $object = Instructor::find($id);
             $courses = array();
+            $courses['ge'] = array();
+            $courses['pl'] = array();
+            $courses['pe'] = array();
             $ge_courses_instructors = DB::table('ge_courses_instructors')->where('instructor_id',$id)
                 ->where('active',true)->where('deleted_at',null)->get();
             foreach ($ge_courses_instructors as $key => $item){
                 if($item->course_type == "App\Models\GeneralEducation\Course"){
-                    $courses
+                    $courses['ge'] = Course::find($item->course_id)
                 }
                 else if($item->course_type == "App\Models\PrepareLessons\Course"){
 
