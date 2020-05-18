@@ -1524,7 +1524,7 @@ class CourseRepository implements IRepository{
                 // tamamlanmış dersleri al
                 $completedLessons = DB::table('ge_students_completed_lessons')
                     ->where('student_id',$student->id)
-                    ->where('lesson_type','App\Models\GeneralEducation\Lesson')->get();
+                    ->where('lesson_type','App\Models\PrepareLessons\Lesson')->get();
                 $completeCount = 0;
                 foreach ($lessons as $lesson){
                     foreach ($completedLessons as $completedLessonn){
