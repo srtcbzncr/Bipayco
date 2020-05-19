@@ -126,7 +126,7 @@
                 <tr>
                     <td align="center" valign="top" style="padding: 36px 24px;">
                         <a href="https://bipayco.com" target="_blank" style="display: inline-block;">
-                            <img src="https://bipayco.com/images/logo2.png" alt="Bipayco" border="0" width="48" style="display: block; width: 48px; max-width: 48px; min-width: 48px;">
+                            <img src="https://bipayco.com/images/logo2.png" alt="Bipayco" border="0" width="48" style="display: block; width: 250px; max-width: 500px; min-width: 125px;">
                         </a>
                     </td>
                 </tr>
