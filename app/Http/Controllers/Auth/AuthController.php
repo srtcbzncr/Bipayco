@@ -339,7 +339,7 @@ class AuthController extends Controller
             $to_name = $user->first_name." ".$user->last_name;
             $token = uniqid('pr'.random_int(100,999), false);
             $data = array('name'=>"Sanalist AŞ", "token" => $token);
-            Mail::send('mail', $data, function($message) use ($to_name, $to_email) {
+            Mail::send('auth.forget_password_email', $data, function($message) use ($to_name, $to_email) {
                 $message->to($to_email, $to_name)->subject('Laravel Password Reset Test Mail');
                 $message->from('contact.softdevs@gmail.com','Password Reset Mail');
             });
@@ -357,20 +357,23 @@ class AuthController extends Controller
 
     public function forgotPassReset(Request $request){
         $data = $request->toArray();
-        $email = $data['email'];
-        $newPassword = $data['newPassword'];
+        if($data['password'] == $data['passwordAgain']){
+            $email = $data['email'];
+            $newPassword = $data['password'];
 
-        $user = User::where('email',$email)->first();
-        $user->password = Hash::make($newPassword);
-        $user->save();
+            $user = User::where('email',$email)->first();
+            $user->password = Hash::make($newPassword);
+            $user->save();
 
-        // giriş yap
-        if(Auth::attempt(['email' => $email, 'password' => $newPassword], false)){
-            return redirect()->route('home');
+            // giriş yap
+            if(Auth::attempt(['email' => $email, 'password' => $newPassword], false)){
+                return redirect()->route('home');
+            }
+            else{
+                return redirect()->back()->with('error', __('auth.login_failed'));
+            }
         }
-        else{
-            return redirect()->back()->with('error', __('auth.login_failed'));
-        }
+
     }
 
     public function newPasswordGet($token){
