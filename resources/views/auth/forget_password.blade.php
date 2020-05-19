@@ -1,11 +1,11 @@
 @extends('layouts.auth')
 @section('content')
-    <form method="POST" action="{{ route('') }}">
+    <form method="POST" action="{{ route('forgotPasswordPost') }}">
         @csrf
         <div class="uk-card-default uk-padding uk-card-small">
             <!-- Login tab tab -->
             <div id="login" class="tabcontent tab-default-open animation: uk-animation-slide-right-medium">
-                <h2 class="uk-text-bold">@lang('front/auth.forget_passord')</h2>
+                <h2 class="uk-text-bold">@lang('front/auth.forget_password')</h2>
                 <p class="uk-text-muted uk-margin-remove-top uk-margin-small-bottom">@lang('front/auth.forget_password_description')</p>
                 @if (session('error'))
                     <div class="alert alert-danger">

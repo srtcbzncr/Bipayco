@@ -41,7 +41,7 @@
                         </label>
                     </div>
                     <div class="uk-width-auto@m">
-                        <a href="#" class="tablinks uk-text-small " onclick="openTabs(event, 'forget')">@lang('front/auth.forget_password')</a>
+                        <a href="{{route('forgotPasswordGet')}}" class="tablinks uk-text-small" >@lang('front/auth.forget_password')</a>
                     </div>
                 </div>
                 <div class="uk-margin uk-text-small">

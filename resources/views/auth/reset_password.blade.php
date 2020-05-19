@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 @section('content')
-    <form method="POST" action="{{ route('') }}">
+    <form method="POST" action="{{ route('forgotPasswordPostReset') }}">
         @csrf
         <div class="uk-card-default uk-padding uk-card-small">
             <!-- Login tab tab -->
@@ -10,6 +10,11 @@
                 @if (session('error'))
                     <div class="alert alert-danger">
                         {{ session('error') }}
+                    </div>
+                @endif
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
                     </div>
                 @endif
                 <div class="uk-margin-small">
