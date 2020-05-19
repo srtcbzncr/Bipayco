@@ -41,6 +41,7 @@ Vue.component('instructor-courses-card', require('./components/instructor/instru
 Vue.component('provinces', require('./components/auth/province.vue').default);
 Vue.component('course-progress-card', require('./components/auth/course-progress-card.vue').default);
 Vue.component('cart-page', require('./components/auth/cart-page.vue').default);
+Vue.component('instructor-profile-courses', require('./components/auth/instructor_profile_courses.vue').default);
 
 Vue.component('notification-card', require('./components/top-bar/notification-card.vue').default);
 Vue.component('your-courses', require('./components/top-bar/your-courses.vue').default);

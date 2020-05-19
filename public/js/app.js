@@ -6011,6 +6011,179 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/auth/instructor_profile_courses.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/auth/instructor_profile_courses.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "instructor_profile_courses",
+  props: {
+    authCheck: {
+      type: Boolean,
+      "default": false
+    },
+    bio: {
+      type: String,
+      required: true
+    },
+    userId: {
+      type: String,
+      "default": ""
+    },
+    bioText: {
+      type: String,
+      "default": "Biyografi"
+    },
+    prepareExamsText: {
+      type: String,
+      "default": "Sınavlara Hazırlık"
+    },
+    prepareLessonsText: {
+      type: String,
+      "default": "Derslere Hazırlık"
+    },
+    generalEducationText: {
+      type: String,
+      "default": "Genel Eğitim"
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseCard', 'urlForCourseCard'])),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCourseCard', 'loadUrlForCourseCard'])),
+  created: function created() {
+    this.$store.dispatch('loadUrlForCourseCard', '/api/');
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/auth/province.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/auth/province.vue?vue&type=script&lang=js& ***!
@@ -21205,6 +21378,302 @@ var staticRenderFns = [
       ]
     )
   },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "ul",
+      { staticClass: "uk-slider-nav uk-dotnav uk-flex-center uk-margin" },
+      [
+        _c("li", { attrs: { "uk-slider-item": "0" } }, [
+          _c("a", { attrs: { href: "#" } })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "ul",
+      { staticClass: "uk-slider-nav uk-dotnav uk-flex-center uk-margin" },
+      [
+        _c("li", { attrs: { "uk-slider-item": "0" } }, [
+          _c("a", { attrs: { href: "#" } })
+        ])
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "ul",
+      { staticClass: "uk-slider-nav uk-dotnav uk-flex-center uk-margin" },
+      [
+        _c("li", { attrs: { "uk-slider-item": "0" } }, [
+          _c("a", { attrs: { href: "#" } })
+        ])
+      ]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/auth/instructor_profile_courses.vue?vue&type=template&id=73e9634c&scoped=true&":
+/*!**********************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/auth/instructor_profile_courses.vue?vue&type=template&id=73e9634c&scoped=true& ***!
+  \**********************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "uk-width-3-4@m" }, [
+    _c("h3", { staticClass: "uk-heading-line uk-text-center" }, [
+      _c("span", [_vm._v(_vm._s(_vm.bioText))])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "uk-margin-medium-top uk-padding-small" }, [
+      _c("p", { staticClass: "uk-margin-remove-top uk-margin-small-bottom" }, [
+        _vm._v(_vm._s(_vm.bio))
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "h3",
+      { staticClass: "uk-heading-line uk-text-center uk-margin-large-top" },
+      [_c("span", [_vm._v(_vm._s(_vm.generalEducationText) + " ")])]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass:
+          "uk-position-relative uk-visible-toggle  uk-container uk-padding-medium",
+        attrs: { "uk-slider": "" }
+      },
+      [
+        _c(
+          "ul",
+          { staticClass: "uk-slider-items uk-child-width-1-2@s uk-grid" },
+          _vm._l(_vm.courseCard.ge, function(course) {
+            return _vm.courseCard.ge
+              ? _c(
+                  "li",
+                  [
+                    _vm.authCheck
+                      ? _c("course-card", {
+                          attrs: {
+                            course: course,
+                            "style-full-star-color": "#F4C150",
+                            "style-empty-star-color": "#C1C1C1",
+                            "course-id": course.id,
+                            "module-name": "generalEducation",
+                            "is-login": "",
+                            "user-id": _vm.userId,
+                            module: "ge"
+                          }
+                        })
+                      : _c("course-card", {
+                          attrs: {
+                            course: course,
+                            "style-full-star-color": "#F4C150",
+                            "style-empty-star-color": "#C1C1C1",
+                            "course-id": course.id,
+                            "module-name": "generalEducation",
+                            module: "ge"
+                          }
+                        })
+                  ],
+                  1
+                )
+              : _vm._e()
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _c("a", {
+          staticClass:
+            "uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+          attrs: {
+            href: "#",
+            "uk-slidenav-previous": "",
+            "uk-slider-item": "previous"
+          }
+        }),
+        _vm._v(" "),
+        _c("a", {
+          staticClass:
+            "uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+          attrs: { href: "#", "uk-slidenav-next": "", "uk-slider-item": "next" }
+        }),
+        _vm._v(" "),
+        _vm._m(0)
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "h3",
+      { staticClass: "uk-heading-line uk-text-center uk-margin-large-top" },
+      [_c("span", [_vm._v(_vm._s(_vm.prepareLessonsText))])]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass:
+          "uk-position-relative uk-visible-toggle  uk-container uk-padding-medium",
+        attrs: { "uk-slider": "" }
+      },
+      [
+        _c(
+          "ul",
+          { staticClass: "uk-slider-items uk-child-width-1-2@s uk-grid" },
+          _vm._l(_vm.courseCard.pl, function(course) {
+            return _vm.courseCard.pl
+              ? _c(
+                  "li",
+                  [
+                    _vm.authCheck
+                      ? _c("course-card", {
+                          attrs: {
+                            course: course,
+                            "style-full-star-color": "#F4C150",
+                            "style-empty-star-color": "#C1C1C1",
+                            "course-id": course.id,
+                            "module-name": "prepareLessons",
+                            "is-login": "",
+                            "user-id": _vm.userId,
+                            module: "pl"
+                          }
+                        })
+                      : _c("course-card", {
+                          attrs: {
+                            course: course,
+                            "style-full-star-color": "#F4C150",
+                            "style-empty-star-color": "#C1C1C1",
+                            "course-id": course.id,
+                            "module-name": "prepareLessons",
+                            module: "pl"
+                          }
+                        })
+                  ],
+                  1
+                )
+              : _vm._e()
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _c("a", {
+          staticClass:
+            "uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+          attrs: {
+            href: "#",
+            "uk-slidenav-previous": "",
+            "uk-slider-item": "previous"
+          }
+        }),
+        _vm._v(" "),
+        _c("a", {
+          staticClass:
+            "uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+          attrs: { href: "#", "uk-slidenav-next": "", "uk-slider-item": "next" }
+        }),
+        _vm._v(" "),
+        _vm._m(1)
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "h3",
+      { staticClass: "uk-heading-line uk-text-center uk-margin-large-top" },
+      [_c("span", [_vm._v(_vm._s(_vm.prepareExamsText))])]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass:
+          "uk-position-relative uk-visible-toggle  uk-container uk-padding-medium",
+        attrs: { "uk-slider": "" }
+      },
+      [
+        _c(
+          "ul",
+          { staticClass: "uk-slider-items uk-child-width-1-2@s uk-grid" },
+          _vm._l(_vm.courseCard.pe, function(course) {
+            return _vm.courseCard.pe
+              ? _c(
+                  "li",
+                  [
+                    _vm.authCheck
+                      ? _c("course-card", {
+                          attrs: {
+                            course: course,
+                            "style-full-star-color": "#F4C150",
+                            "style-empty-star-color": "#C1C1C1",
+                            "course-id": course.id,
+                            "module-name": "prepareExams",
+                            "is-login": "",
+                            "user-id": _vm.userId,
+                            module: "pe"
+                          }
+                        })
+                      : _c("course-card", {
+                          attrs: {
+                            course: course,
+                            "style-full-star-color": "#F4C150",
+                            "style-empty-star-color": "#C1C1C1",
+                            "course-id": course.id,
+                            "module-name": "prepareExams",
+                            module: "pe"
+                          }
+                        })
+                  ],
+                  1
+                )
+              : _vm._e()
+          }),
+          0
+        ),
+        _vm._v(" "),
+        _c("a", {
+          staticClass:
+            "uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+          attrs: {
+            href: "#",
+            "uk-slidenav-previous": "",
+            "uk-slider-item": "previous"
+          }
+        }),
+        _vm._v(" "),
+        _c("a", {
+          staticClass:
+            "uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+          attrs: { href: "#", "uk-slidenav-next": "", "uk-slider-item": "next" }
+        }),
+        _vm._v(" "),
+        _vm._m(2)
+      ]
+    )
+  ])
+}
+var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -46332,6 +46801,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('instructor-courses-card', 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('provinces', __webpack_require__(/*! ./components/auth/province.vue */ "./resources/js/components/auth/province.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('course-progress-card', __webpack_require__(/*! ./components/auth/course-progress-card.vue */ "./resources/js/components/auth/course-progress-card.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('cart-page', __webpack_require__(/*! ./components/auth/cart-page.vue */ "./resources/js/components/auth/cart-page.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('instructor-profile-courses', __webpack_require__(/*! ./components/auth/instructor_profile_courses.vue */ "./resources/js/components/auth/instructor_profile_courses.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('notification-card', __webpack_require__(/*! ./components/top-bar/notification-card.vue */ "./resources/js/components/top-bar/notification-card.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('your-courses', __webpack_require__(/*! ./components/top-bar/your-courses.vue */ "./resources/js/components/top-bar/your-courses.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('search', __webpack_require__(/*! ./components/top-bar/search.vue */ "./resources/js/components/top-bar/search.vue")["default"]);
@@ -47640,6 +48110,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_course_progress_card_vue_vue_type_template_id_626a384a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_course_progress_card_vue_vue_type_template_id_626a384a_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/auth/instructor_profile_courses.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/auth/instructor_profile_courses.vue ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _instructor_profile_courses_vue_vue_type_template_id_73e9634c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./instructor_profile_courses.vue?vue&type=template&id=73e9634c&scoped=true& */ "./resources/js/components/auth/instructor_profile_courses.vue?vue&type=template&id=73e9634c&scoped=true&");
+/* harmony import */ var _instructor_profile_courses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./instructor_profile_courses.vue?vue&type=script&lang=js& */ "./resources/js/components/auth/instructor_profile_courses.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _instructor_profile_courses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _instructor_profile_courses_vue_vue_type_template_id_73e9634c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _instructor_profile_courses_vue_vue_type_template_id_73e9634c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "73e9634c",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/auth/instructor_profile_courses.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/auth/instructor_profile_courses.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/auth/instructor_profile_courses.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_instructor_profile_courses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./instructor_profile_courses.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/auth/instructor_profile_courses.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_instructor_profile_courses_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/auth/instructor_profile_courses.vue?vue&type=template&id=73e9634c&scoped=true&":
+/*!****************************************************************************************************************!*\
+  !*** ./resources/js/components/auth/instructor_profile_courses.vue?vue&type=template&id=73e9634c&scoped=true& ***!
+  \****************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_instructor_profile_courses_vue_vue_type_template_id_73e9634c_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./instructor_profile_courses.vue?vue&type=template&id=73e9634c&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/auth/instructor_profile_courses.vue?vue&type=template&id=73e9634c&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_instructor_profile_courses_vue_vue_type_template_id_73e9634c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_instructor_profile_courses_vue_vue_type_template_id_73e9634c_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

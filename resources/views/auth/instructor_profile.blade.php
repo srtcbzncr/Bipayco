@@ -19,64 +19,17 @@
                     </ul>
                 </div>
             </div>
-            <div class="uk-width-3-4@m">
-                <h3 class="uk-heading-line uk-text-center"><span>@lang('front/auth.bio') </span></h3>
-                <div class="uk-margin-medium-top uk-padding-small">
-                    <p class="uk-margin-remove-top uk-margin-small-bottom">{{$instructor->bio}}</p>
-                </div>
-
-                <h3 class="uk-heading-line uk-text-center uk-margin-large-top"><span>@lang('front/auth.general_education') </span></h3>
-                <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
-                    <ul class="uk-slider-items uk-child-width-1-2@s uk-grid">
-                        @foreach($instructor->geCourses as $course)
-                            <li>
-                                <!-- course card -->
-                            </li>
-                        @endforeach
-                    </ul>
-                    <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-                    <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-next uk-slider-item="next"></a>
-                    <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin">
-                        <li uk-slider-item="0" class="">
-                            <a href="#"></a>
-                        </li>
-                    </ul>
-                </div>
-                <h3 class="uk-heading-line uk-text-center uk-margin-large-top"><span>@lang('front/auth.prepare_lessons') </span></h3>
-                <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
-                    <ul class="uk-slider-items uk-child-width-1-2@s uk-grid">
-                        @foreach($instructor->plCourses as $course)
-                            <li>
-                                <!-- course card -->
-                            </li>
-                        @endforeach
-                    </ul>
-                    <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-                    <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-next uk-slider-item="next"></a>
-                    <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin">
-                        <li uk-slider-item="0" class="">
-                            <a href="#"></a>
-                        </li>
-                    </ul>
-                </div>
-                <h3 class="uk-heading-line uk-text-center uk-margin-large-top"><span>@lang('front/auth.prepare_exams') </span></h3>
-                <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
-                    <ul class="uk-slider-items uk-child-width-1-2@s uk-grid">
-                        @foreach($instructor->peCourses as $course)
-                            <li>
-                                <!-- course card -->
-                            </li>
-                        @endforeach
-                    </ul>
-                    <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
-                    <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-next uk-slider-item="next"></a>
-                    <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin">
-                        <li uk-slider-item="0" class="">
-                            <a href="#"></a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+            <instructor-profile-courses
+                @if(Auth::check())
+                    auth-check
+                    user-id="{{Auth::user()->id}}"
+                @endif
+                bio="{{$instructor->bio}}"
+                bio-text="@lang('front/auth.bio')"
+                prepare-lessons-text="@lang('front/auth.prepare_for_lessons')"
+                prepare-exams-text="@lang('front/auth.prepare_for_exams')"
+                general-education-text="@lang('front/auth.general_education')"
+            ></instructor-profile-courses>
         </div>
     </div>
 @endsection

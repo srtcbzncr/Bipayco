@@ -226,4 +226,5 @@ return [
     'new_password_repeat'=>'Yeni Şifre (Tekrar)',
     'new_password'=>'Yeni Şifre',
     'reset_password_description'=>'Aşağıdaki kutucuklara yeni şifreni girdikten sonra "Kaydet" butonuna tıklayın.',
+    'prepare_exams'=>'Sınavlara Hazırlık'
 ];
