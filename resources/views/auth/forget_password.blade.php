@@ -12,6 +12,12 @@
                         {{ session('error') }}
                     </div>
                 @endif
+
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
                 <div class="uk-margin-small">
                     <div class="uk-inline uk-flex align-items-center">
                         <input id="email" type="email" class="uk-input uk-form-width-large form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="@lang('front/auth.email')" required autocomplete="email" autofocus>
