@@ -12,6 +12,7 @@ use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\Entry;
 use App\Models\GeneralEducation\Lesson;
 use App\Models\GeneralEducation\Section;
+use App\Models\QuestionSource\Student\FirstLastTestStatus;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\DB;
@@ -625,10 +626,9 @@ class GuardianRepository implements IRepository
                     ->where('active',true)->where('deleted_at',null)->get();
                 foreach ($sections as $keySection => $section){
                     $course['sections'][$keySection] = $section;
-                    $flTestStatus = DB::table('qs_student_first_last_test_status')
-                        ->where('studentId',$student->id)
+                    $flTestStatus = FirstLastTestStatus::where('studentId',$student->id)
                         ->where('sectionId',$section->id)
-                        ->where('sectionType','App\Models\GeneralEducation\Section')->get()->toArray();
+                        ->where('sectionType','App\Models\GeneralEducation\Section')->get();
                     foreach ($flTestStatus as $flKey => $flTest){
                         $course['sections'][$keySection]['flTest'][$flKey] = $flTest;
                     }
@@ -645,10 +645,9 @@ class GuardianRepository implements IRepository
                     ->where('active',true)->where('deleted_at',null)->get();
                 foreach ($sections as $keySection => $section){
                     $course['sections'][$keySection] = $section;
-                    $flTestStatus = DB::table('qs_student_first_last_test_status')
-                        ->where('studentId',$student->id)
+                    $flTestStatus = FirstLastTestStatus::where('studentId',$student->id)
                         ->where('sectionId',$section->id)
-                        ->where('sectionType','App\Models\PrepareLessons\Section')->get()->toArray();
+                        ->where('sectionType','App\Models\PrepareLessons\Section')->get();
                     foreach ($flTestStatus as $flKey => $flTest){
                         $course['sections'][$keySection]['flTest'][$flKey] = $flTest;
                     }
@@ -660,10 +659,9 @@ class GuardianRepository implements IRepository
                     ->where('active',true)->where('deleted_at',null)->get();
                 foreach ($sections as $keySection => $section){
                     $course['sections'][$keySection] = $section;
-                    $flTestStatus = DB::table('qs_student_first_last_test_status')
-                        ->where('studentId',$student->id)
+                    $flTestStatus = FirstLastTestStatus::where('studentId',$student->id)
                         ->where('sectionId',$section->id)
-                        ->where('sectionType','App\Models\PrepareExams\Section')->get()->toArray();
+                        ->where('sectionType','App\Models\PrepareExams\Section')->get();
                     foreach ($flTestStatus as $flKey => $flTest){
                         $course['sections'][$keySection]['flTest'][$flKey] = $flTest;
                     }
