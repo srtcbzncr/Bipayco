@@ -234,7 +234,7 @@
                 <!-- start permission -->
                 <tr>
                     <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                        <p style="margin: 0;">Bu emaili, hesabın için şifreni değiştirme talebi aldığımız için aldın. Eğer bu isteği sen göndermediysen, e-postayı silebilirsin.</p>
+                        <p style="margin: 0;">Bu emaili, hesabın için şifreni sıfırlama talebi aldığımız için aldın. Eğer bu isteği sen göndermediysen, e-postayı silebilirsin.</p>
                     </td>
                 </tr>
                 <!-- end permission -->
