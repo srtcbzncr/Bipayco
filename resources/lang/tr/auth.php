@@ -24,4 +24,7 @@ return [
     'avatar_update_unsuccessfull' => 'Profil resmi güncellenirken bir hata oluştu.',
     'same_password' => 'Yeni şifreniz eski şifreniz ile aynı olamaz.',
     'invalid_reference_code' => 'Girdiğiniz referans kodu geçersiz. Lütfen referans kodunuzu kontrol ediniz.',
+    'activation_code_invalid'=>'Aktivasyon kodunuzun süresi dolmuş. Tekrar epostanızı giriniz.',
+    'email_post_successful'=>'Aktivasyon linkiniz e-postanıza iletildi. E-postanızı kontrol ediniz.',
+    'invalid_email'=>'Geçersiz bir e-posta girdiniz.'
 ];

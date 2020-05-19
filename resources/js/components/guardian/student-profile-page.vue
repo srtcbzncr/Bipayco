@@ -122,17 +122,28 @@
                         </li>
                         <li v-if="hasTest">
                             <ul uk-accordion="" class="uk-accordion">
-                                <li v-if="selectedTest.length>0" v-for="section in selectedTest" class="tm-course-lesson-section uk-background-default">
-                                    <a class="uk-accordion-title uk-padding-small" href="#"><h6> {{sectionText}}  {{section.section.no}}</h6> <h4 class="uk-margin-remove"> {{section.section.name}}</h4> </a>
+                                <li v-if="selectedTest.sections.length>0" v-for="section in selectedTest.sections" class="tm-course-lesson-section uk-background-default">
+                                    <a class="uk-accordion-title uk-padding-small" href="#"><h6> {{sectionText}}  {{section.no}}</h6> <h4 class="uk-margin-remove"> {{section.name}}</h4> </a>
                                     <div class="uk-accordion-content uk-margin-remove-top">
                                         <div class="tm-course-section-list">
                                             <ul>
-                                                <li v-for="test in section.tests">
+                                                <li v-if="section.firstTest">
                                                     <span>
-                                                        <i v-if="test.result" style="color:#2ED24A" class="fas fa-check-circle icon-medium"></i>
+                                                        <i v-if="section.firstTest.result" style="color:#2ED24A" class="fas fa-check-circle icon-medium"></i>
                                                         <i v-else style="color:#666666" class="fas fa-cross-circle icon-medium"></i>
                                                     </span>
-                                                    <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{testType(test.testType)}}</div>
+                                                    <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{testType(section.firstTest.testType)}}</div>
+                                                    <span style="color:#666666" class="uk-visible@m uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{section.firstTest.score}}</span>
+
+                                                </li>
+                                                <li v-if="section.lastTest">
+                                                    <span>
+                                                        <i v-if="section.lastTest.result" style="color:#2ED24A" class="fas fa-check-circle icon-medium"></i>
+                                                        <i v-else style="color:#666666" class="fas fa-minus-circle icon-medium"></i>
+                                                    </span>
+                                                    <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{testType(section.lastTest.testType)}}</div>
+                                                    <span style="color:#666666" class="uk-visible@m uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{section.lastTest.score}}</span>
+
                                                 </li>
                                             </ul>
                                         </div>

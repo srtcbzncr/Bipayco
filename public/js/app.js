@@ -7817,6 +7817,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -24020,8 +24031,8 @@ var render = function() {
                             staticClass: "uk-accordion",
                             attrs: { "uk-accordion": "" }
                           },
-                          _vm._l(_vm.selectedTest, function(section) {
-                            return _vm.selectedTest.length > 0
+                          _vm._l(_vm.selectedTest.sections, function(section) {
+                            return _vm.selectedTest.sections.length > 0
                               ? _c(
                                   "li",
                                   {
@@ -24042,18 +24053,14 @@ var render = function() {
                                             " " +
                                               _vm._s(_vm.sectionText) +
                                               "  " +
-                                              _vm._s(section.section.no)
+                                              _vm._s(section.no)
                                           )
                                         ]),
                                         _vm._v(" "),
                                         _c(
                                           "h4",
                                           { staticClass: "uk-margin-remove" },
-                                          [
-                                            _vm._v(
-                                              " " + _vm._s(section.section.name)
-                                            )
-                                          ]
+                                          [_vm._v(" " + _vm._s(section.name))]
                                         )
                                       ]
                                     ),
@@ -24072,50 +24079,135 @@ var render = function() {
                                               "tm-course-section-list"
                                           },
                                           [
-                                            _c(
-                                              "ul",
-                                              _vm._l(section.tests, function(
-                                                test
-                                              ) {
-                                                return _c("li", [
-                                                  _c("span", [
-                                                    test.result
-                                                      ? _c("i", {
-                                                          staticClass:
-                                                            "fas fa-check-circle icon-medium",
-                                                          staticStyle: {
-                                                            color: "#2ED24A"
-                                                          }
-                                                        })
-                                                      : _c("i", {
-                                                          staticClass:
-                                                            "fas fa-cross-circle icon-medium",
-                                                          staticStyle: {
-                                                            color: "#666666"
-                                                          }
-                                                        })
-                                                  ]),
-                                                  _vm._v(" "),
-                                                  _c(
-                                                    "div",
-                                                    {
-                                                      staticClass:
-                                                        "uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right"
-                                                    },
-                                                    [
-                                                      _vm._v(
-                                                        _vm._s(
-                                                          _vm.testType(
-                                                            test.testType
+                                            _c("ul", [
+                                              section.firstTest
+                                                ? _c("li", [
+                                                    _c("span", [
+                                                      section.firstTest.result
+                                                        ? _c("i", {
+                                                            staticClass:
+                                                              "fas fa-check-circle icon-medium",
+                                                            staticStyle: {
+                                                              color: "#2ED24A"
+                                                            }
+                                                          })
+                                                        : _c("i", {
+                                                            staticClass:
+                                                              "fas fa-cross-circle icon-medium",
+                                                            staticStyle: {
+                                                              color: "#666666"
+                                                            }
+                                                          })
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "div",
+                                                      {
+                                                        staticClass:
+                                                          "uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right"
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            _vm.testType(
+                                                              section.firstTest
+                                                                .testType
+                                                            )
                                                           )
                                                         )
-                                                      )
-                                                    ]
-                                                  )
-                                                ])
-                                              }),
-                                              0
-                                            )
+                                                      ]
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "span",
+                                                      {
+                                                        staticClass:
+                                                          "uk-visible@m uk-position-center-right time uk-margin-right",
+                                                        staticStyle: {
+                                                          color: "#666666"
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("i", {
+                                                          staticClass:
+                                                            "fas fa-clock icon-small"
+                                                        }),
+                                                        _vm._v(
+                                                          "  " +
+                                                            _vm._s(
+                                                              section.firstTest
+                                                                .score
+                                                            )
+                                                        )
+                                                      ]
+                                                    )
+                                                  ])
+                                                : _vm._e(),
+                                              _vm._v(" "),
+                                              section.lastTest
+                                                ? _c("li", [
+                                                    _c("span", [
+                                                      section.lastTest.result
+                                                        ? _c("i", {
+                                                            staticClass:
+                                                              "fas fa-check-circle icon-medium",
+                                                            staticStyle: {
+                                                              color: "#2ED24A"
+                                                            }
+                                                          })
+                                                        : _c("i", {
+                                                            staticClass:
+                                                              "fas fa-minus-circle icon-medium",
+                                                            staticStyle: {
+                                                              color: "#666666"
+                                                            }
+                                                          })
+                                                    ]),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "div",
+                                                      {
+                                                        staticClass:
+                                                          "uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right"
+                                                      },
+                                                      [
+                                                        _vm._v(
+                                                          _vm._s(
+                                                            _vm.testType(
+                                                              section.lastTest
+                                                                .testType
+                                                            )
+                                                          )
+                                                        )
+                                                      ]
+                                                    ),
+                                                    _vm._v(" "),
+                                                    _c(
+                                                      "span",
+                                                      {
+                                                        staticClass:
+                                                          "uk-visible@m uk-position-center-right time uk-margin-right",
+                                                        staticStyle: {
+                                                          color: "#666666"
+                                                        }
+                                                      },
+                                                      [
+                                                        _c("i", {
+                                                          staticClass:
+                                                            "fas fa-clock icon-small"
+                                                        }),
+                                                        _vm._v(
+                                                          "  " +
+                                                            _vm._s(
+                                                              section.lastTest
+                                                                .score
+                                                            )
+                                                        )
+                                                      ]
+                                                    )
+                                                  ])
+                                                : _vm._e()
+                                            ])
                                           ]
                                         )
                                       ]
