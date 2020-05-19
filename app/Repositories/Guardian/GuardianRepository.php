@@ -648,8 +648,14 @@ class GuardianRepository implements IRepository
                     $flTestStatus = FirstLastTestStatus::where('studentId',$student->id)
                         ->where('sectionId',$section->id)
                         ->where('sectionType','App\Models\PrepareLessons\Section')->get();
+
                     foreach ($flTestStatus as $flKey => $flTest){
-                        $course['sections'][$keySection]['flTest'][$flKey] = $flTest;
+                        if($flTest->testType == 0){
+                            $course['sections'][$keySection]['firstTest'] = $flTest;
+                        }
+                        else{
+                            $course['sections'][$keySection]['lastTest'] = $flTest;
+                        }
                     }
                 }
             }
@@ -663,7 +669,13 @@ class GuardianRepository implements IRepository
                         ->where('sectionId',$section->id)
                         ->where('sectionType','App\Models\PrepareExams\Section')->get();
                     foreach ($flTestStatus as $flKey => $flTest){
-                        $course['sections'][$keySection]['flTest'][$flKey] = $flTest;
+                        if($flTest->testType == 0){
+                            $course['sections'][$keySection]['firstTest'] = $flTest;
+                        }
+                        else{
+                            $course['sections'][$keySection]['lastTest'] = $flTest;
+                        }
+
                     }
                 }
             }
