@@ -617,7 +617,7 @@ class GuardianRepository implements IRepository
 
         // Operations
         try{
-            $student = Student::where('user_id',$otherId);
+            $student = Student::where('user_id',$otherId)->first();
             $usersFLTestStatus = array();
             if($courseType == 1){
                 $sections = Section::where('course_id',$courseId)
