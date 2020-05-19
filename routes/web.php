@@ -18,9 +18,11 @@ Route::get('login', 'Auth\AuthController@loginGet')->name('loginGet');
 Route::post('login', 'Auth\AuthController@loginPost')->name('loginPost');
 Route::get('logout', 'Auth\AuthController@logout')->name('logout');
 Route::get('error', 'HomeController@error')->name('error');
-Route::get('forgotPassword','Auth\AuthController@forgotPassGet')->name('forgotPasswordGet');
-Route::post('forgotPassword','Auth\AuthController@forgotPassPost')->name('forgotPasswordPost');
-Route::post('forgotPassword/reset','Auth\AuthController@forgotPassReset')->name('forgotPasswordPostReset');
+
+Route::get('forgotPassword','Auth\AuthController@forgotPassGet')->name('forgotPasswordGet'); // şifremi unuttum ekranı getirir.
+Route::post('forgotPassword','Auth\AuthController@forgotPassPost')->name('forgotPasswordPost'); // email gönder. İçerisinde token barındıran bir link ile.
+Route::post('forgotPassword/reset','Auth\AuthController@forgotPassReset')->name('forgotPasswordPostReset'); // yeni şifreyi girer ve home ekranına gider.
+Route::get('newPassword/{token}','Auth\AuthController@newPasswordGet')->name('newPassword'); // yeni şifreyi girmek için view döndürür.
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::get('/', 'Admin\HomeController@dashboard')->name('adminDashboard');
