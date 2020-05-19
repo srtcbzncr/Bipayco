@@ -18,27 +18,27 @@
             <div class="course-img uk-background-center-center uk-background-cover uk-panel uk-flex uk-flex-center uk-flex-middle" :style="'background-image: url('+course.image+')'"></div>
             <div class="uk-card-body">
                 <div v-if="moduleName=='generalEducation'">
-                    <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 20px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{course.name}}</h4>
+                    <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 25px; max-height: 25px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{course.name}}</h4>
                     <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{subCategory.name}}</p>
                 </div>
                 <div v-if="moduleName=='prepareLessons'">
-                    <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 20px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{course.name}}</h4>
+                    <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 25px; max-height: 25px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{course.name}}</h4>
                     <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{grade.name}}</p>
                 </div>
                 <div v-if="moduleName=='prepareExams'">
-                    <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 20px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{course.name}}</h4>
+                    <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 25px; max-height: 25px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{course.name}}</h4>
                     <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{exam.name}}</p>
                 </div>
                 <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small"> {{course.description}} </p>
-                <div class=" uk-width-2-3">
+                <div class="uk-width">
                     <stars-rating :rating="Number(course.point)" :style-full-star-color="styleFullStarColor" :style-empty-star-color="styleEmptyStarColor" > </stars-rating>
                 </div>
                 <hr class="uk-margin-remove-top">
-                <div class="uk-grid uk-child-width-1-2">
-                    <div>
-                        <a class="uk-button uk-button-text uk-button-small" style="margin-right: 20px" href="#"> Satın Al</a>
-                        <a class="uk-button uk-button-text uk-button-small" :href=pageLink> İncele </a>
-                    </div>
+                <div class="uk-flex justify-content-end uk-child-width-1-2">
+<!--                    <div>-->
+<!--                        <a class="uk-button uk-button-text uk-button-small" style="margin-right: 20px" href="#"> Satın Al</a>-->
+<!--                        <a class="uk-button uk-button-text uk-button-small" :href=pageLink> İncele </a>-->
+<!--                    </div>-->
                     <div v-if="course.price_with_discount!==course.price" class=" uk-margin-remove uk-padding-remove">
                         <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right" style="float:right; font-weight: bold; font-size: 16px;">{{course.price_with_discount.toFixed(2)}} <i class="fas fa-lira-sign icon-tiny"></i></p>
                         <p class="uk-margin-remove-bottom uk-margin-remove-left uk-margin-remove-top uk-margin-small-right" style="float:right; text-decoration: line-through; opacity: 0.75; font-size: 13px">{{course.price.toFixed(2)}} <i class="fas fa-lira-sign icon-tiny"></i></p>

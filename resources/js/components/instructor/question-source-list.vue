@@ -76,6 +76,10 @@
             deleteText:{
                 type:String,
                 default:"Sil"
+            },
+            subjectText:{
+                type:String,
+                default:"Konu"
             }
         },
         computed:{

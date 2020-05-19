@@ -28,7 +28,7 @@
             </li>
             <p v-else>{{noContentText}}</p>
         </ul>
-        <div v-for="lesson in previewLessons" :id="'preview'+lesson.id" uk-modal>
+        <div v-for="lesson in previewLessons" :id="'preview'+lesson.id" class="uk-modal-container" uk-modal>
             <div class="uk-modal-dialog uk-margin-auto-vertical uk-width-auto">
                 <button class="uk-modal-close-outside" type="button" uk-close></button>
                 <video v-if="lesson.is_video"  controls playsinline controlsList="nodownload" uk-video>
@@ -36,7 +36,7 @@
                     <source :src="lesson.file_path" type="video/ogg">
                     Your browser does not support HTML5 video.
                 </video>
-                <iframe v-else :src="lesson.file_path" class="uk-width uk-height-large" frameborder="0"></iframe>
+                <iframe v-else :src="lesson.file_path" class="uk-width " frameborder="0"></iframe>
             </div>
         </div>
     </div>
@@ -105,5 +105,7 @@
 </script>
 
 <style scoped>
-
+iframe{
+    height: 80vh;
+}
 </style>
