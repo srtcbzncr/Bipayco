@@ -221,4 +221,9 @@ return [
     'admins'=>'Yöneticiler',
     'users'=>'Kullanıcılar',
     'guardians'=>'Veliler',
+    'forget_password_description'=>'Şifreni unuttuğunu düşünüyorsan aşağıdaki alana e-postanı yaz ve "Gönder" butonuna tıklayın.',
+    'reset_password'=>'Şifreni sıfırla',
+    'new_password_repeat'=>'Yeni Şifre (Tekrar)',
+    'new_password'=>'Yeni Şifre',
+    'reset_password_description'=>'Aşağıdaki kutucuklara yeni şifreni girdikten sonra "Kaydet" butonuna tıklayın.',
 ];

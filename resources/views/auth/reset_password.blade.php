@@ -6,7 +6,7 @@
             <!-- Login tab tab -->
             <div id="resetPassword" class="tabcontent tab-default-open animation: uk-animation-slide-right-medium">
                 <h2 class="uk-text-bold">@lang('front/auth.reset_password')</h2>
-                <p class="uk-text-muted uk-margin-remove-top uk-margin-small-bottom">@lang('front/auth.reset_password_description')</p>
+                <p class="uk-text-muted uk-margin-remove-top uk-margin-medium-bottom">@lang('front/auth.reset_password_description')</p>
                 @if (session('error'))
                     <div class="alert alert-danger">
                         {{ session('error') }}
