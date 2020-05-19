@@ -12,7 +12,7 @@
                         {{ session('error') }}
                     </div>
                 @endif
-                <input id="email" class="uk-input uk-form-width-large form-control @error('email') is-invalid @enderror" name="email" type="text" value="{{$email}}" hidden disabled>
+                <input id="email" class="uk-input uk-form-width-large uk-hidden uk-disabled form-control @error('email') is-invalid @enderror" name="email" type="text" value="{{$email}}">
                 <div class="uk-margin-small">
                     <div class="uk-inline uk-flex align-items-center">
                         <input id="password" class="uk-input uk-form-width-large form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password" placeholder="@lang('front/auth.new_password')" type="password">
@@ -37,7 +37,7 @@
                 </div>
                 <div class="uk-flex-middle" uk-grid>
                     <div class="uk-width-expand@m">
-                        <input class="uk-button uk-button-success button" type="submit" value="@lang('front/auth.save') {{$email}}">
+                        <input class="uk-button uk-button-success button" type="submit" value="@lang('front/auth.save')">
                     </div>
                 </div>
             </div>
