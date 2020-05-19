@@ -456,12 +456,13 @@ class GuardianRepository implements IRepository
                             ->where('lesson_type','App\Models\GeneralEducation\Lesson')
                             ->where('deleted_at',null)->get()->toArray();
                         if($completedLesson != null and count($completedLesson)>0){
-                            $lesson['isCompleted'] = true;
                             $course['sections'][$keySection]['lessons'][$keyLesson] = $lesson;
+                            $course['sections'][$keySection]['lessons'][$keyLesson]['isCompleted'] = true;
                         }
                         else{
                             $lesson['isCompleted'] = false;
                             $course['sections'][$keySection]['lessons'][$keyLesson] = $lesson;
+                            $course['sections'][$keySection]['lessons'][$keyLesson]['isCompleted'] = false;
                         }
                     }
                 }
@@ -480,12 +481,13 @@ class GuardianRepository implements IRepository
                             ->where('lesson_type','App\Models\PrepareLessons\Lesson')
                             ->where('deleted_at',null)->get()->toArray();
                         if($completedLesson != null and count($completedLesson)>0){
-                            $lesson['isCompleted'] = true;
                             $course['sections'][$keySection]['lessons'][$keyLesson] = $lesson;
+                            $course['sections'][$keySection]['lessons'][$keyLesson]['isCompleted'] = true;
                         }
                         else{
                             $lesson['isCompleted'] = false;
                             $course['sections'][$keySection]['lessons'][$keyLesson] = $lesson;
+                            $course['sections'][$keySection]['lessons'][$keyLesson]['isCompleted'] = false;
                         }
                     }
                 }
@@ -504,12 +506,13 @@ class GuardianRepository implements IRepository
                             ->where('lesson_type','App\Models\PrepareExams\Lesson')
                             ->where('deleted_at',null)->get()->toArray();
                         if($completedLesson != null and count($completedLesson)>0){
-                            $lesson['isCompleted'] = true;
                             $course['sections'][$keySection]['lessons'][$keyLesson] = $lesson;
+                            $course['sections'][$keySection]['lessons'][$keyLesson]['isCompleted'] = true;
                         }
                         else{
                             $lesson['isCompleted'] = false;
                             $course['sections'][$keySection]['lessons'][$keyLesson] = $lesson;
+                            $course['sections'][$keySection]['lessons'][$keyLesson]['isCompleted'] = false;
                         }
                     }
                 }
