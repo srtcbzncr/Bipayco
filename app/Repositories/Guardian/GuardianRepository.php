@@ -620,7 +620,6 @@ class GuardianRepository implements IRepository
             $student = Student::where('user_id',$otherId)->first();
             $usersFLTestStatus = array();
             $course = null;
-            // todo: course ait sectionların testi geçip geçmediğini döndür.Test bilgisini döndür(ön/son test yani)
             if($courseType == 1){
                 $course = Course::find($courseId);
                 $sections = Section::where('course_id',$courseId)
@@ -658,7 +657,7 @@ class GuardianRepository implements IRepository
             }
             else if($courseType == 3){
                 $course = Course::find($courseId);
-                $sections = \App\Models\PrepareLessons\Section::where('course_id',$courseId)
+                $sections = \App\Models\PrepareExams\Section::where('course_id',$courseId)
                     ->where('active',true)->where('deleted_at',null)->get();
                 foreach ($sections as $keySection => $section){
                     $course['sections'][$keySection] = $section;
