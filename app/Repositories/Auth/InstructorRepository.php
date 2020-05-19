@@ -82,7 +82,7 @@ class InstructorRepository implements IRepository{
         // Response variables
         $result = true;
         $error = null;
-        $object = null;
+        $object = array();
 
         // Operations
         try{
@@ -183,7 +183,7 @@ class InstructorRepository implements IRepository{
                 }
             }
 
-            $object = $courses;
+            $object['courses'] = $courses;
         }
         catch (\Exception $e){
             $error = $e;
