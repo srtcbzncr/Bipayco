@@ -619,53 +619,60 @@ class GuardianRepository implements IRepository
         try{
             $student = Student::where('user_id',$otherId)->first();
             $usersFLTestStatus = array();
+            $course = null;
+            // todo: course ait sectionların testi geçip geçmediğini döndür.Test bilgisini döndür(ön/son test yani)
             if($courseType == 1){
+                $course = Course::find($courseId);
                 $sections = Section::where('course_id',$courseId)
                     ->where('active',true)->where('deleted_at',null)->get();
                 foreach ($sections as $keySection => $section){
+                    $course['sections'][$keySection] = $section;
                     $flTestStatus = DB::table('qs_student_first_last_test_status')
                         ->where('studentId',$student->id)
                         ->where('sectionId',$section->id)
                         ->where('sectionType','App\Models\GeneralEducation\Section')->get()->toArray();
-                    if($flTestStatus != null and count($flTestStatus)>0){
+                    foreach ($flTestStatus as $flKey => $flTest){
+                        $course['sections'][$keySection]['flTest'][$flKey] = $flTest;
+                    }
+                   /* if($flTestStatus != null and count($flTestStatus)>0){
                         $flTestStatus['course'] = Course::find($courseId)->get();
                         $flTestStatus['section'] = $section;
                         array_push($usersFLTestStatus,$flTestStatus);
-                    }
+                    }*/
                 }
             }
             else if($courseType == 2){
+                $course = Course::find($courseId);
                 $sections = \App\Models\PrepareLessons\Section::where('course_id',$courseId)
                     ->where('active',true)->where('deleted_at',null)->get();
                 foreach ($sections as $keySection => $section){
+                    $course['sections'][$keySection] = $section;
                     $flTestStatus = DB::table('qs_student_first_last_test_status')
                         ->where('studentId',$student->id)
                         ->where('sectionId',$section->id)
                         ->where('sectionType','App\Models\PrepareLessons\Section')->get()->toArray();
-                    if($flTestStatus != null and count($flTestStatus)>0){
-                        $flTestStatus['course'] = Course::find($courseId)->get();
-                        $flTestStatus['section'] = $section;
-                        array_push($usersFLTestStatus,$flTestStatus);
+                    foreach ($flTestStatus as $flKey => $flTest){
+                        $course['sections'][$keySection]['flTest'][$flKey] = $flTest;
                     }
                 }
             }
             else if($courseType == 3){
+                $course = Course::find($courseId);
                 $sections = \App\Models\PrepareLessons\Section::where('course_id',$courseId)
                     ->where('active',true)->where('deleted_at',null)->get();
                 foreach ($sections as $keySection => $section){
+                    $course['sections'][$keySection] = $section;
                     $flTestStatus = DB::table('qs_student_first_last_test_status')
                         ->where('studentId',$student->id)
                         ->where('sectionId',$section->id)
                         ->where('sectionType','App\Models\PrepareExams\Section')->get()->toArray();
-                    if($flTestStatus != null and count($flTestStatus)>0){
-                        $flTestStatus['course'] = Course::find($courseId)->get();
-                        $flTestStatus['section'] = $section;
-                        array_push($usersFLTestStatus,$flTestStatus);
+                    foreach ($flTestStatus as $flKey => $flTest){
+                        $course['sections'][$keySection]['flTest'][$flKey] = $flTest;
                     }
                 }
             }
 
-            $object = $usersFLTestStatus;
+            $object = $course;
         }
         catch(\Exception $e){
             $error = $e->getMessage();
