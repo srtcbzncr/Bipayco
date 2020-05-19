@@ -332,7 +332,7 @@ class AuthController extends Controller
         $to_name = $data['toName'];
         $to_email = $data['toEmail'];
         $token = uniqid('pr'.random_int(100,999), false);
-        $data = array('name'=>"Sanalist AŞ", "body" => "Merhaba, bu bir şifre sıfırlama mesajıdır.\n".$token);
+        $data = array('name'=>"Sanalist AŞ", "body" => "Merhaba, şifrenizi sıfırlamak için lütfen aşağıdaki linke tıklayın.\n".$token);
         Mail::send('mail', $data, function($message) use ($to_name, $to_email) {
             $message->to($to_email, $to_name)->subject('Laravel Password Reset Test Mail');
             $message->from('contact.softdevs@gmail.com','Password Reset Mail');

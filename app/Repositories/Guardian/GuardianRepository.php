@@ -618,7 +618,6 @@ class GuardianRepository implements IRepository
         // Operations
         try{
             $student = Student::where('user_id',$otherId)->first();
-            $usersFLTestStatus = array();
             $course = null;
             if($courseType == 1){
                 $course = Course::find($courseId);
@@ -641,7 +640,7 @@ class GuardianRepository implements IRepository
                 }
             }
             else if($courseType == 2){
-                $course = Course::find($courseId);
+                $course = \App\Models\PrepareLessons\Course::find($courseId);
                 $sections = \App\Models\PrepareLessons\Section::where('course_id',$courseId)
                     ->where('active',true)->where('deleted_at',null)->get();
                 foreach ($sections as $keySection => $section){
@@ -656,7 +655,7 @@ class GuardianRepository implements IRepository
                 }
             }
             else if($courseType == 3){
-                $course = Course::find($courseId);
+                $course = \App\Models\PrepareExams\Course::find($courseId);
                 $sections = \App\Models\PrepareExams\Section::where('course_id',$courseId)
                     ->where('active',true)->where('deleted_at',null)->get();
                 foreach ($sections as $keySection => $section){
