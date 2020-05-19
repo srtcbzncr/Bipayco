@@ -331,17 +331,27 @@ class AuthController extends Controller
         $data = $request->toArray();
         $to_name = $data['toName'];
         $to_email = $data['toEmail'];
-        $token = uniqid('pr'.random_int(100,999), false);
-        $data = array('name'=>"Sanalist AŞ", "body" => "Merhaba, şifrenizi sıfırlamak için lütfen aşağıdaki linke tıklayın.\n".$token);
-        Mail::send('mail', $data, function($message) use ($to_name, $to_email) {
-            $message->to($to_email, $to_name)->subject('Laravel Password Reset Test Mail');
-            $message->from('contact.softdevs@gmail.com','Password Reset Mail');
-        });
 
-        DB::table('password_resets')->insert([
-            'email' => $to_email,
-            'token' => $token
-        ]);
+        $user = User::where('email',$to_email)->where('deleted_at',null)->where('active',true)->first();
+        if($user == null){
+            return redirect()->back()->with('error', __('auth.invalid_email'));
+        }
+        else{
+            $token = uniqid('pr'.random_int(100,999), false);
+            $data = array('name'=>"Sanalist AŞ", "body" => "Merhaba, şifrenizi sıfırlamak için lütfen aşağıdaki linke tıklayın.\n".$token);
+            Mail::send('mail', $data, function($message) use ($to_name, $to_email) {
+                $message->to($to_email, $to_name)->subject('Laravel Password Reset Test Mail');
+                $message->from('contact.softdevs@gmail.com','Password Reset Mail');
+            });
+
+            DB::table('password_resets')->insert([
+                'email' => $to_email,
+                'token' => $token
+            ]);
+
+            return redirect()->back()->with('error', __('auth.email_post_successful'));
+        }
+
     }
 
     public function forgotPassReset(Request $request){
@@ -359,6 +369,26 @@ class AuthController extends Controller
         }
         else{
             return redirect()->back()->with('error', __('auth.login_failed'));
+        }
+    }
+
+    public function newPasswordGet($token){
+        $passwordResets = DB::table('password_resets')->where('token',$token)->get();
+        $now = date("Y-m-d H:i:s");
+        $email = null;
+        foreach ($passwordResets as $item){
+            if(date('Y-m-d H:i:s',strtotime('+1 hour',strtotime($item->created_at))) > $now){
+                $email = $item->email;
+                break;
+            }
+        }
+
+        if($email==null){
+            // süresi geçmiş token;
+            return redirect()->route('forgotPassGet')->with('error', __('error.activation_code_invalid'));
+        }
+        else{
+            return view('auth.reset_password')->with('email',$email);
         }
     }
 }
