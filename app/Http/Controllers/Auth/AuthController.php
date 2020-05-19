@@ -329,27 +329,28 @@ class AuthController extends Controller
     public function forgotPassPost(Request $request){
         // emaile kod gönder
         $data = $request->toArray();
-        $to_name = $data['toName'];
-        $to_email = $data['toEmail'];
+        $to_email = $data['email'];
 
         $user = User::where('email',$to_email)->where('deleted_at',null)->where('active',true)->first();
         if($user == null){
             return redirect()->back()->with('error', __('auth.invalid_email'));
         }
         else{
+            $to_name = $user->first_name." ".$user->last_name;
             $token = uniqid('pr'.random_int(100,999), false);
             $data = array('name'=>"Sanalist AŞ", "body" => "Merhaba, şifrenizi sıfırlamak için lütfen aşağıdaki linke tıklayın.\n".$token);
             Mail::send('mail', $data, function($message) use ($to_name, $to_email) {
                 $message->to($to_email, $to_name)->subject('Laravel Password Reset Test Mail');
                 $message->from('contact.softdevs@gmail.com','Password Reset Mail');
             });
-
+            $now = date("Y-m-d H:i:s");
             DB::table('password_resets')->insert([
                 'email' => $to_email,
-                'token' => $token
+                'token' => $token,
+                'created_at' => $now
             ]);
 
-            return redirect()->back()->with('error', __('auth.email_post_successful'));
+            return redirect()->back()->with('success', __('auth.email_post_successful'));
         }
 
     }
