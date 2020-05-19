@@ -12,6 +12,7 @@
                         {{ session('error') }}
                     </div>
                 @endif
+                <input id="email" name="email" type="text" value="{{$email}}" hidden disabled>
                 <div class="uk-margin-small">
                     <div class="uk-inline uk-flex align-items-center">
                         <input id="password" class="uk-input uk-form-width-large form-control @error('password') is-invalid @enderror" name="password" required autocomplete="password" placeholder="@lang('front/auth.new_password')" type="password">

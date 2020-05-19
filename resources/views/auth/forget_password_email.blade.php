@@ -9,9 +9,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type="text/css">
         /**
+
          * Google webfonts. Recommended to include the .woff version for cross-client compatibility.
          */
-
+        @import url('https://fonts.googleapis.com/css2?family=Kodchasan&display=swap');
         /**
          * Avoid browser level font resizing.
          * 1. Windows Mobile
@@ -45,12 +46,7 @@
          * Remove blue links for iOS devices.
          */
         a[x-apple-data-detectors] {
-            font-family: inherit !important;
-            font-size: inherit !important;
-            font-weight: inherit !important;
-            line-height: inherit !important;
-            color: inherit !important;
-            text-decoration: none !important;
+            font-family: 'Kodchasan', sans-serif;
         }
 
         /**
@@ -61,6 +57,8 @@
         }
 
         body {
+            font-family: 'Kodchasan', sans-serif;
+
             width: 100% !important;
             height: 100% !important;
             padding: 0 !important;
@@ -135,7 +133,7 @@
             <![endif]-->
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                 <tr>
-                    <td align="left" bgcolor="#ffffff" style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #d4dadf;">
+                    <td align="left" bgcolor="#ffffff" style="padding: 36px 24px 0; border-top: 3px solid #d4dadf;">
                         <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Şifreni Sıfırla</h1>
                     </td>
                 </tr>
@@ -161,7 +159,7 @@
 
                 <!-- start copy -->
                 <tr>
-                    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+                    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-size: 16px; line-height: 24px;">
                         <p style="margin: 0;">Şifreni sıfırlamak için aşağıdaki "Şifremi Sıfırla" butonuna tıklayabilirsin. Eğer sıfırlama isteğini sen göndermediysen endişelenmene gerek, sen onaylamadığın sürece şifren sıfırlanmayacaktır.</p>
                     </td>
                 </tr>
@@ -176,7 +174,7 @@
                                     <table border="0" cellpadding="0" cellspacing="0">
                                         <tr>
                                             <td align="center" bgcolor="#1a82e2" style="border-radius: 6px;">
-                                                <a href="{{url('newPassword', $token)}}" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Şifremi Sıfırla</a>
+                                                <a href="{{url('newPassword', $token)}}" target="_blank" style="display: inline-block; padding: 16px 36px;  font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Şifremi Sıfırla</a>
                                             </td>
                                         </tr>
                                     </table>
@@ -189,7 +187,7 @@
 
                 <!-- start copy -->
                 <tr>
-                    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
+                    <td align="left" bgcolor="#ffffff" style="padding: 24px; font-size: 16px; line-height: 24px;">
                         <p style="margin: 0;">Eğer butonu görmüyorsan, aşağıdaki linki kullanabilirsin.</p>
                         <p style="margin: 0;"><a href="{{url('newPassword', $token)}}" target="_blank">{{url('newPassword', $token)}}</a></p>
                     </td>
@@ -217,7 +215,7 @@
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                 <!-- start permission -->
                 <tr>
-                    <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
+                    <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-size: 14px; line-height: 20px; color: #666;">
                         <p style="margin: 0;">Bu emaili, hesabın için şifreni sıfırlama talebi aldığımız için aldın. Eğer bu isteği sen göndermediysen, e-postayı silebilirsin.</p>
                     </td>
                 </tr>
@@ -225,7 +223,7 @@
 
                 <!-- start unsubscribe -->
                 <tr>
-                    <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
+                    <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-size: 14px; line-height: 20px; color: #666;">
                         <p style="margin: 0;">© 2020 Bipayco</p>
                     </td>
                 </tr>
