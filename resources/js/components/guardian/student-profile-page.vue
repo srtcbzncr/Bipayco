@@ -133,16 +133,16 @@
                                                         <i v-else style="color:#666666" class="fas fa-cross-circle icon-medium"></i>
                                                     </span>
                                                     <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{testType(section.firstTest.testType)}}</div>
-                                                    <span style="color:#666666" class="uk-visible@m uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{section.firstTest.score}}</span>
+                                                    <span style="color:#666666" class="uk-visible@m uk-position-center-right time uk-margin-right"> <i class="fas fa-star icon-small"></i>  {{section.firstTest.score}}</span>
 
                                                 </li>
                                                 <li v-if="section.lastTest">
                                                     <span>
                                                         <i v-if="section.lastTest.result" style="color:#2ED24A" class="fas fa-check-circle icon-medium"></i>
-                                                        <i v-else style="color:#666666" class="fas fa-minus-circle icon-medium"></i>
+                                                        <i v-else style="color: red" class="fas fa-minus-circle icon-medium"></i>
                                                     </span>
                                                     <div class="uk-panel uk-panel-box uk-text-truncate uk-margin-medium-right">{{testType(section.lastTest.testType)}}</div>
-                                                    <span style="color:#666666" class="uk-visible@m uk-position-center-right time uk-margin-right"> <i class="fas fa-clock icon-small"></i>  {{section.lastTest.score}}</span>
+                                                    <span style="color:#666666" class="uk-visible@m uk-position-center-right time uk-margin-right"> <i class="fas fa-star icon-small"></i>  {{section.lastTest.score}}</span>
 
                                                 </li>
                                             </ul>

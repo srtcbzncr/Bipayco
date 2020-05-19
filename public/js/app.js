@@ -24130,7 +24130,7 @@ var render = function() {
                                                       [
                                                         _c("i", {
                                                           staticClass:
-                                                            "fas fa-clock icon-small"
+                                                            "fas fa-star icon-small"
                                                         }),
                                                         _vm._v(
                                                           "  " +
@@ -24159,7 +24159,7 @@ var render = function() {
                                                             staticClass:
                                                               "fas fa-minus-circle icon-medium",
                                                             staticStyle: {
-                                                              color: "#666666"
+                                                              color: "red"
                                                             }
                                                           })
                                                     ]),
@@ -24194,7 +24194,7 @@ var render = function() {
                                                       [
                                                         _c("i", {
                                                           staticClass:
-                                                            "fas fa-clock icon-small"
+                                                            "fas fa-star icon-small"
                                                         }),
                                                         _vm._v(
                                                           "  " +
