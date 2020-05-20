@@ -101,7 +101,7 @@ Route::group(['prefix' => 'pe'],function (){
 
 Route::prefix('profile')->group(function (){
     # buradaki userId instructor'a ait değil. Giriş yapmış kullanıcıya ait.Eğer giriş yapmış kullanıcı yoksa gönderilmesine gerek yoktur.
-    Route::get('instructor/{instructorId}/{userId?}', 'API\Auth\AuthController@instructorProfile')->name('instructor_profile');
+    Route::get('instructor/{instructorId}/{userId?}', 'API\Auth\AuthController@getInstructorsCourses')->name('instructor_profile');
 });
 
 Route::prefix('country')->group(function(){
