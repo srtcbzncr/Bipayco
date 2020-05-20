@@ -131,4 +131,20 @@ class AuthController extends Controller
             'message' => 'Token bulunamadı.'
         ],400);
     }
+
+    private function instructorProfile($instructorId,$userId = null){
+        // Initializations
+        $repo = new InstructorRepository;
+
+        // Operations
+        $resp = $repo->getInstructor($instructorId,$userId);
+
+        // Response
+        if($resp->getResult()){
+            return view('auth.instructor_profile', ['instructor' => $resp->getData()]);
+        }
+        else{
+            return redirect()->route('error');
+        }
+    }
 }
