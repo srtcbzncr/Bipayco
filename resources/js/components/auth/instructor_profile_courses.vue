@@ -4,8 +4,10 @@
         <div class="uk-margin-medium-top uk-padding-small">
             <p class="uk-margin-remove-top uk-margin-small-bottom">{{bio}}</p>
         </div>
-
         <h3 class="uk-heading-line uk-text-center uk-margin-large-top"><span>{{generalEducationText}} </span></h3>
+        <div v-if="courseCard.ge&&courseCard.ge.length<=0" class="uk-flex uk-flex-center">
+            <h2>{{haveNoCourseText}}</h2>
+        </div>
         <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
             <ul class="uk-slider-items uk-child-width-1-2@s uk-grid">
                 <li v-if="courseCard.ge" v-for="course in courseCard.ge">
@@ -41,6 +43,9 @@
             </ul>
         </div>
         <h3 class="uk-heading-line uk-text-center uk-margin-large-top"><span>{{prepareLessonsText}}</span></h3>
+        <div v-if="courseCard.pl&&courseCard.pl.length<=0" class="uk-flex uk-flex-center">
+            <h2>{{haveNoCourseText}}</h2>
+        </div>
         <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
             <ul class="uk-slider-items uk-child-width-1-2@s uk-grid">
                 <li v-if="courseCard.pl" v-for="course in courseCard.pl">
@@ -76,6 +81,9 @@
             </ul>
         </div>
         <h3 class="uk-heading-line uk-text-center uk-margin-large-top"><span>{{prepareExamsText}}</span></h3>
+        <div v-if="courseCard.pe&&courseCard.pe.length<=0" class="uk-flex uk-flex-center">
+            <h3>{{haveNoCourseText}}</h3>
+        </div>
         <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
             <ul class="uk-slider-items uk-child-width-1-2@s uk-grid">
                 <li v-if="courseCard.pe" v-for="course in courseCard.pe">
@@ -127,6 +135,10 @@
                 type:String,
                 required:true,
             },
+            instructorId:{
+                type:String,
+                required:true,
+            },
             userId:{
                 type:String,
                 default:"",
@@ -146,6 +158,10 @@
             generalEducationText:{
                 type:String,
                 default:"Genel Eğitim"
+            },
+            haveNoCourseText:{
+                type:String,
+                default:"Hiç Kurs Bulunmuyor"
             }
         },
         computed: {
@@ -161,7 +177,7 @@
             ]),
         },
         created() {
-            this.$store.dispatch('loadUrlForCourseCard', '/api/');
+            this.$store.dispatch('loadUrlForCourseCard', '/api/profile/instructor/'+this.instructorId+'/'+this.userId);
         }
     }
 </script>

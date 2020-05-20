@@ -24,6 +24,7 @@
                     auth-check
                     user-id="{{Auth::user()->id}}"
                 @endif
+                instructor-id="{{$instructor->id}}"
                 bio="{{$instructor->bio}}"
                 bio-text="@lang('front/auth.bio')"
                 prepare-lessons-text="@lang('front/auth.prepare_for_lessons')"

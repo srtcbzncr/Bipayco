@@ -6142,6 +6142,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "instructor_profile_courses",
@@ -6151,6 +6159,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": false
     },
     bio: {
+      type: String,
+      required: true
+    },
+    instructorId: {
       type: String,
       required: true
     },
@@ -6173,12 +6185,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     generalEducationText: {
       type: String,
       "default": "Genel Eğitim"
+    },
+    haveNoCourseText: {
+      type: String,
+      "default": "Hiç Kurs Bulunmuyor"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseCard', 'urlForCourseCard'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCourseCard', 'loadUrlForCourseCard'])),
   created: function created() {
-    this.$store.dispatch('loadUrlForCourseCard', '/api/');
+    this.$store.dispatch('loadUrlForCourseCard', '/api/profile/instructor/' + this.instructorId + '/' + this.userId);
   }
 });
 
@@ -21459,6 +21475,12 @@ var render = function() {
       [_c("span", [_vm._v(_vm._s(_vm.generalEducationText) + " ")])]
     ),
     _vm._v(" "),
+    _vm.courseCard.ge && _vm.courseCard.ge.length <= 0
+      ? _c("div", { staticClass: "uk-flex uk-flex-center" }, [
+          _c("h2", [_vm._v(_vm._s(_vm.haveNoCourseText))])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
     _c(
       "div",
       {
@@ -21532,6 +21554,12 @@ var render = function() {
       [_c("span", [_vm._v(_vm._s(_vm.prepareLessonsText))])]
     ),
     _vm._v(" "),
+    _vm.courseCard.pl && _vm.courseCard.pl.length <= 0
+      ? _c("div", { staticClass: "uk-flex uk-flex-center" }, [
+          _c("h2", [_vm._v(_vm._s(_vm.haveNoCourseText))])
+        ])
+      : _vm._e(),
+    _vm._v(" "),
     _c(
       "div",
       {
@@ -21604,6 +21632,12 @@ var render = function() {
       { staticClass: "uk-heading-line uk-text-center uk-margin-large-top" },
       [_c("span", [_vm._v(_vm._s(_vm.prepareExamsText))])]
     ),
+    _vm._v(" "),
+    _vm.courseCard.pe && _vm.courseCard.pe.length <= 0
+      ? _c("div", { staticClass: "uk-flex uk-flex-center" }, [
+          _c("h3", [_vm._v(_vm._s(_vm.haveNoCourseText))])
+        ])
+      : _vm._e(),
     _vm._v(" "),
     _c(
       "div",
