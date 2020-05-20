@@ -132,19 +132,27 @@ class AuthController extends Controller
         ],400);
     }
 
-    private function instructorProfile($instructorId,$userId = null){
+    private function getInstructorsCourses($instructorId,$userId = null){
         // Initializations
         $repo = new InstructorRepository;
 
         // Operations
-        $resp = $repo->getInstructor($instructorId,$userId);
+        $resp = $repo->getInstructorsCourses($instructorId,$userId);
 
         // Response
         if($resp->getResult()){
-            return view('auth.instructor_profile', ['instructor' => $resp->getData()]);
+            return response()->json([
+               'error' => false,
+               'data' => $resp->getData(),
+                'message' => 'Eğitmenin kursları başarıyla getirildi.'
+            ]);
         }
         else{
-            return redirect()->route('error');
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getError(),
+                'message' => 'Eğitmenin kursları getirilirken bir hata meydana geldi.Tekrar deneyin.'
+            ]);
         }
     }
 }

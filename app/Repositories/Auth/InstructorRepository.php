@@ -78,7 +78,29 @@ class InstructorRepository implements IRepository{
         return $resp;
     }
 
-    public function getInstructor($id,$user_id){
+    public function getInstructor($id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = array();
+
+        // Operations
+        try{
+            $object = Instructor::find($id);
+            $user = User::find($object->user_id);
+            $object['user'] = $user;
+        }
+        catch (\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getInstructorsCourses($id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -87,7 +109,6 @@ class InstructorRepository implements IRepository{
         // Operations
         try{
             if($user_id != null){
-                $object = Instructor::find($id);
                 $courses = array();
                 $courses['ge'] = array();
                 $courses['pl'] = array();
@@ -183,10 +204,9 @@ class InstructorRepository implements IRepository{
                     }
                 }
 
-                $object['courses'] = $courses;
+                $object = $courses;
             }
             else{
-                $object = Instructor::find($id);
                 $courses = array();
                 $courses['ge'] = array();
                 $courses['pl'] = array();
@@ -220,7 +240,7 @@ class InstructorRepository implements IRepository{
                     }
                 }
 
-                $object['courses'] = $courses;
+                $object = $courses;
             }
 
         }
@@ -233,6 +253,7 @@ class InstructorRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+
 
     public function getByEmail($email)
     {
