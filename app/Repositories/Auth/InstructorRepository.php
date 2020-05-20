@@ -78,7 +78,7 @@ class InstructorRepository implements IRepository{
         return $resp;
     }
 
-    public function getInstructor($id){
+    public function getInstructor($id,$user_id){
         // Response variables
         $result = true;
         $error = null;
@@ -86,107 +86,146 @@ class InstructorRepository implements IRepository{
 
         // Operations
         try{
-            $user_id = Auth::id();
-            $object = Instructor::find($id);
-            $courses = array();
-            $courses['ge'] = array();
-            $courses['pl'] = array();
-            $courses['pe'] = array();
-            $ge_courses_instructors = DB::table('ge_courses_instructors')->where('instructor_id',$id)
-                ->where('active',true)->where('deleted_at',null)->get();
-            foreach ($ge_courses_instructors as $key => $item){
-                if($item->course_type == "App\Models\GeneralEducation\Course"){
-                    $course = Course::find($item->course_id);
-                    $category = Category::find($course->category_id);
-                    $subcategory = SubCategory::find($course->sub_category_id);
-                    $inBasket = null;
-                    $inFavorite = null;
-                    if($user_id!=null){
-                        $basketControl = Basket::where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->where('user_id',$user_id)->get();
-                        $favoriteControl = Favorite::where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->where('user_id',$user_id)->get();
-                        if($basketControl!=null and count($basketControl)>0){
-                            $inBasket=true;
+            if($user_id != null){
+                $object = Instructor::find($id);
+                $courses = array();
+                $courses['ge'] = array();
+                $courses['pl'] = array();
+                $courses['pe'] = array();
+                $ge_courses_instructors = DB::table('ge_courses_instructors')->where('instructor_id',$id)
+                    ->where('active',true)->where('deleted_at',null)->get();
+                foreach ($ge_courses_instructors as $key => $item){
+                    if($item->course_type == "App\Models\GeneralEducation\Course"){
+                        $course = Course::find($item->course_id);
+                        $category = Category::find($course->category_id);
+                        $subcategory = SubCategory::find($course->sub_category_id);
+                        $inBasket = null;
+                        $inFavorite = null;
+                        if($user_id!=null){
+                            $basketControl = Basket::where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->where('user_id',$user_id)->get();
+                            $favoriteControl = Favorite::where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->where('user_id',$user_id)->get();
+                            if($basketControl!=null and count($basketControl)>0){
+                                $inBasket=true;
+                            }
+                            else{
+                                $inBasket = false;
+                            }
+                            if($favoriteControl!=null and count($favoriteControl)>0){
+                                $inFavorite=true;
+                            }
+                            else{
+                                $inFavorite = false;
+                            }
                         }
-                        else{
-                            $inBasket = false;
-                        }
-                        if($favoriteControl!=null and count($favoriteControl)>0){
-                            $inFavorite=true;
-                        }
-                        else{
-                            $inFavorite = false;
-                        }
+                        $course['category'] = $category;
+                        $course['subCategory'] = $subcategory;
+                        $course['inBasket'] = $inBasket;
+                        $course['inFavorite'] = $inFavorite;
+                        array_push($courses['ge'],$course);
                     }
-                    $course['category'] = $category;
-                    $course['subCategory'] = $subcategory;
-                    $course['inBasket'] = $inBasket;
-                    $course['inFavorite'] = $inFavorite;
-                    array_push($courses['ge'],$course);
-                }
-                else if($item->course_type == "App\Models\PrepareLessons\Course"){
-                    $course = \App\Models\PrepareLessons\Course::find($item->course_id);
-                    $lesson = \App\Models\Curriculum\Lesson::find($course->lesson_id);
-                    $grade = Grade::find($course->grade_id);
+                    else if($item->course_type == "App\Models\PrepareLessons\Course"){
+                        $course = \App\Models\PrepareLessons\Course::find($item->course_id);
+                        $lesson = \App\Models\Curriculum\Lesson::find($course->lesson_id);
+                        $grade = Grade::find($course->grade_id);
 
-                    $inBasket = null;
-                    $inFavorite = null;
-                    if($user_id!=null){
-                        $basketControl = Basket::where('course_id',$course->id)->where('course_type','App\Models\PrepareLessons\Course')->where('user_id',$user_id)->get();
-                        $favoriteControl = Favorite::where('course_id',$course->id)->where('course_type','App\Models\PrepareLessons\Course')->where('user_id',$user_id)->get();
-                        if($basketControl!=null and count($basketControl)>0){
-                            $inBasket=true;
+                        $inBasket = null;
+                        $inFavorite = null;
+                        if($user_id!=null){
+                            $basketControl = Basket::where('course_id',$course->id)->where('course_type','App\Models\PrepareLessons\Course')->where('user_id',$user_id)->get();
+                            $favoriteControl = Favorite::where('course_id',$course->id)->where('course_type','App\Models\PrepareLessons\Course')->where('user_id',$user_id)->get();
+                            if($basketControl!=null and count($basketControl)>0){
+                                $inBasket=true;
+                            }
+                            else{
+                                $inBasket = false;
+                            }
+                            if($favoriteControl!=null and count($favoriteControl)>0){
+                                $inFavorite=true;
+                            }
+                            else{
+                                $inFavorite = false;
+                            }
                         }
-                        else{
-                            $inBasket = false;
-                        }
-                        if($favoriteControl!=null and count($favoriteControl)>0){
-                            $inFavorite=true;
-                        }
-                        else{
-                            $inFavorite = false;
-                        }
+
+                        $course['lesson'] = $lesson;
+                        $course['grade'] = $grade;
+                        $course['inBasket'] = $inBasket;
+                        $course['inFavorite'] = $inFavorite;
+                        array_push($courses['pl'],$course);
                     }
+                    else if($item->course_type == "App\Models\PrepareExams\Course"){
+                        $course = \App\Models\PrepareExams\Course::find($item->course_id);
+                        $exam = Exam::find($course->exam_id);
 
-                    $course['lesson'] = $lesson;
-                    $course['grade'] = $grade;
-                    $course['inBasket'] = $inBasket;
-                    $course['inFavorite'] = $inFavorite;
-                    array_push($courses['pl'],$course);
-                }
-                else if($item->course_type == "App\Models\PrepareExams\Course"){
-                    $course = \App\Models\PrepareExams\Course::find($item->course_id);
-                    $exam = Exam::find($course->exam_id);
+                        $inBasket = null;
+                        $inFavorite = null;
+                        if($user_id!=null){
+                            $basketControl = Basket::where('course_id',$course->id)->where('course_type','App\Models\PrepareExams\Course')->where('user_id',$user_id)->get();
+                            $favoriteControl = Favorite::where('course_id',$course->id)->where('course_type','App\Models\PrepareExams\Course')->where('user_id',$user_id)->get();
+                            if($basketControl!=null and count($basketControl)>0){
+                                $inBasket=true;
+                            }
+                            else{
+                                $inBasket = false;
+                            }
+                            if($favoriteControl!=null and count($favoriteControl)>0){
+                                $inFavorite=true;
+                            }
+                            else{
+                                $inFavorite = false;
+                            }
+                        }
 
-                    $inBasket = null;
-                    $inFavorite = null;
-                    if($user_id!=null){
-                        $basketControl = Basket::where('course_id',$course->id)->where('course_type','App\Models\PrepareExams\Course')->where('user_id',$user_id)->get();
-                        $favoriteControl = Favorite::where('course_id',$course->id)->where('course_type','App\Models\PrepareExams\Course')->where('user_id',$user_id)->get();
-                        if($basketControl!=null and count($basketControl)>0){
-                            $inBasket=true;
-                        }
-                        else{
-                            $inBasket = false;
-                        }
-                        if($favoriteControl!=null and count($favoriteControl)>0){
-                            $inFavorite=true;
-                        }
-                        else{
-                            $inFavorite = false;
-                        }
+                        $course['exam'] = $exam;
+                        $course['inBasket'] = $inBasket;
+                        $course['inFavorite'] = $inFavorite;
+                        array_push($courses['pe'],$course);
                     }
-
-                    $course['exam'] = $exam;
-                    $course['inBasket'] = $inBasket;
-                    $course['inFavorite'] = $inFavorite;
-                    array_push($courses['pe'],$course);
                 }
+
+                $object['courses'] = $courses;
+            }
+            else{
+                $object = Instructor::find($id);
+                $courses = array();
+                $courses['ge'] = array();
+                $courses['pl'] = array();
+                $courses['pe'] = array();
+                $ge_courses_instructors = DB::table('ge_courses_instructors')->where('instructor_id',$id)
+                    ->where('active',true)->where('deleted_at',null)->get();
+                foreach ($ge_courses_instructors as $key => $item){
+                    if($item->course_type == "App\Models\GeneralEducation\Course"){
+                        $course = Course::find($item->course_id);
+                        $category = Category::find($course->category_id);
+                        $subcategory = SubCategory::find($course->sub_category_id);
+                        $course['category'] = $category;
+                        $course['subCategory'] = $subcategory;
+                        array_push($courses['ge'],$course);
+                    }
+                    else if($item->course_type == "App\Models\PrepareLessons\Course"){
+                        $course = \App\Models\PrepareLessons\Course::find($item->course_id);
+                        $lesson = \App\Models\Curriculum\Lesson::find($course->lesson_id);
+                        $grade = Grade::find($course->grade_id);
+
+                        $course['lesson'] = $lesson;
+                        $course['grade'] = $grade;
+                        array_push($courses['pl'],$course);
+                    }
+                    else if($item->course_type == "App\Models\PrepareExams\Course"){
+                        $course = \App\Models\PrepareExams\Course::find($item->course_id);
+                        $exam = Exam::find($course->exam_id);
+
+                        $course['exam'] = $exam;
+                        array_push($courses['pe'],$course);
+                    }
+                }
+
+                $object['courses'] = $courses;
             }
 
-            $object['courses'] = $courses;
         }
         catch (\Exception $e){
-            $error = $e;
+            $error = $e->getMessage();
             $result = false;
         }
 
