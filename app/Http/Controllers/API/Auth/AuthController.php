@@ -132,7 +132,7 @@ class AuthController extends Controller
         ],400);
     }
 
-    private function getInstructorsCourses($instructorId,$userId = null){
+    public function getInstructorsCourses($instructorId,$userId = null){
         // Initializations
         $repo = new InstructorRepository;
 
