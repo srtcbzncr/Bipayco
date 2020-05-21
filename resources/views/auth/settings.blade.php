@@ -235,7 +235,7 @@
                                     <button class="uk-button uk-button-default uk-width-1-4@m" onclick="copyToClipboard('guardianRefCode')"><i class="fas fa-copy icon-medium"></i> <span class="uk-hidden@m">@lang('front/auth.copy')</span></button>
                                 </div>
                             @else
-                                <button class="uk-button uk-button-success" onclick="beGuardian({{Auth::user()->id}})">@lang('front/auth.be_guardian')</button>
+                                <button class="uk-button uk-button-success uk-width" onclick="beGuardian({{Auth::user()->id}})">@lang('front/auth.be_guardian')</button>
                             @endif
                         </div>
                     </div>

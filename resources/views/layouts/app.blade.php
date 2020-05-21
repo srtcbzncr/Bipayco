@@ -317,12 +317,13 @@
     function beGuardian(userId) {
         axios.post('/api/guardian/createGuardian', {'userId': userId})
             .then((res)=>{
-                if(!res.data.error){
-                    UIkit.notification({message:res.data.message, status: 'success'});
+                if(!res.error){
+                    UIkit.notification({message:"@lang('front/auth.guardian_profile_created_successfully')", status: 'success'});
                 }else{
                     UIkit.notification({message:res.data.message, status: 'danger'});
                 }
-            })
+            });
+        setTimeout(()=>{this.window.location.reload()}, '1500');
     }
 </script>
 </body>

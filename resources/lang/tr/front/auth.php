@@ -228,5 +228,7 @@ return [
     'reset_password_description'=>'Aşağıdaki kutucuklara yeni şifreni girdikten sonra "Kaydet" butonuna tıklayın.',
     'prepare_exams'=>'Sınavlara Hazırlık',
     'guardian_infos'=>'Veli Hesabı',
-    'copied_successfully'=>'Başarıyla Kopyalandı'
+    'copied_successfully'=>'Başarıyla Kopyalandı',
+    'guardian_profile_created_successfully'=>'Veli Hesabı Başarıyla Oluşturuldu',
+    'be_guardian'=>'Veli Ol',
 ];
