@@ -139,9 +139,10 @@
                     <div uk-grid class="uk-flex-center">
                         <div class="uk-width-large@m uk-padding-remove-top">
                             <fieldset class="uk-fieldset uk-margin-small-bottom">
-                                <div>
-                                    <div class="uk-form-label"> @lang('front/auth.reference_code')  </div>
-                                    <input class="uk-input" type="text" disabled name="reference_code" value="{{$student_profile->reference_code}}" required>
+                                <div class="uk-form-label"> @lang('front/auth.reference_code')  </div>
+                                <div class="uk-flex uk-flex-wrap">
+                                    <input class="uk-input uk-width-3-4@m" type="text" readonly name="reference_code" id="studentRefCode" value="{{$student_profile->reference_code}}" >
+                                    <button class="uk-button uk-button-default uk-width-1-4@m" onclick="copyToClipboard('studentRefCode')"><i class="fas fa-copy icon-medium"></i> <span class="uk-hidden@m">@lang('front/auth.copy')</span></button>
                                 </div>
                             </fieldset>
                         </div>
@@ -156,87 +157,90 @@
                     @lang('front/auth.instructor_infos')
                 </div>
                 <div class="uk-card-body">
-                    <form method="POST" action="{{route('updateInstructorData')}}">
-                        @csrf
-                        <div uk-grid class="uk-flex-center">
-                            <div class="uk-width-large@m uk-padding-remove-top">
-                                <div class="uk-fieldset uk-margin-small-bottom">
-                                    <div>
-                                        <div class="uk-form-label">@lang('front/auth.id_num') </div>
-                                        <input class="uk-input form-control @error('identification_number') is-invalid @enderror" type="text"  name="identification_number" value="{{$instructor_profile->identification_number}}" required>
-                                        @error('identification_number')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div>
-                                        <div class="uk-form-label"> @lang('front/auth.title')  </div>
-                                        <input class="uk-input form-control @error('title') is-invalid @enderror" type="text" name="title" value="{{$instructor_profile->title}}" required>
-                                        @error('title')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-
-                                    <div>
-                                        <div class="uk-form-label"> @lang('front/auth.iban')  </div>
-                                        <input class="uk-input form-control @error('iban') is-invalid @enderror" type="text" name="iban" value="{{$instructor_profile->iban}}" required>
-                                        @error('iban')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div>
-                                        <div class="uk-form-label"> @lang('front/auth.bio')</div>
-                                        <textarea class="uk-textarea form-control @error('bio') is-invalid @enderror" type="text" rows="5" name="bio" style=" resize: none" required> {{$instructor_profile->bio}} </textarea>
-                                        @error('bio')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div>
-                                        <div class="uk-form-label">@lang('front/auth.reference_code') </div>
-                                        <input class="uk-input form-control @error('new_password') is-invalid @enderror" type="text" disabled name="reference_code" value="{{$instructor_profile->reference_code}}" required>
-                                        @error('reference_code')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
+                    <div uk-grid class="uk-flex-center">
+                        <div class="uk-width-large@m uk-padding-remove-top">
+                            <div class="uk-fieldset uk-margin-small-bottom">
                                 <div>
-                                    <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')">
+                                    <div class="uk-form-label">@lang('front/auth.reference_code') </div>
+                                    <div class="uk-flex uk-flex-wrap">
+                                        <input class="uk-input uk-width-3-4@m" type="text" readonly id="instructorRefCode" name="reference_code" value="{{$instructor_profile->reference_code}}">
+                                        <button class="uk-button uk-button-default uk-width-1-4@m" onclick="copyToClipboard('instructorRefCode')"><i class="fas fa-copy icon-medium"></i> <span class="uk-hidden@m">@lang('front/auth.copy')</span></button>
+                                    </div>
                                 </div>
+                                <hr>
+                                <form method="POST" action="{{route('updateInstructorData')}}">
+                                    @csrf
+                                    <div>
+                                        <div>
+                                            <div class="uk-form-label">@lang('front/auth.id_num') </div>
+                                            <input class="uk-input form-control @error('identification_number') is-invalid @enderror" type="text"  name="identification_number" value="{{$instructor_profile->identification_number}}" required>
+                                            @error('identification_number')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div>
+                                            <div class="uk-form-label"> @lang('front/auth.title')  </div>
+                                            <input class="uk-input form-control @error('title') is-invalid @enderror" type="text" name="title" value="{{$instructor_profile->title}}" required>
+                                            @error('title')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div>
+                                            <div class="uk-form-label"> @lang('front/auth.iban')  </div>
+                                            <input class="uk-input form-control @error('iban') is-invalid @enderror" type="text" name="iban" value="{{$instructor_profile->iban}}" required>
+                                            @error('iban')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div>
+                                            <div class="uk-form-label"> @lang('front/auth.bio')</div>
+                                            <textarea class="uk-textarea form-control @error('bio') is-invalid @enderror" type="text" rows="5" name="bio" style=" resize: none" required> {{$instructor_profile->bio}} </textarea>
+                                            @error('bio')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <input class="uk-button uk-button-grey button uk-margin" type="submit" value="@lang('front/auth.save')">
+                                    </div>
+                                </form>
                             </div>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         @endif
-{{--        @if($has_guardian_profile)--}}
-{{--            <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 90%">--}}
-{{--                <div class="uk-card-header uk-text-bold">--}}
-{{--                    <span class="fas icon-medium uk-margin-small-right fa-graduation-cap"></span>--}}
-{{--                    @lang('front/auth.guardian_infos')--}}
-{{--                </div>--}}
-{{--                <div class="uk-card-body">--}}
-{{--                    <div uk-grid class="uk-flex-center">--}}
-{{--                        <div class="uk-width-large@m uk-padding-remove-top">--}}
-{{--                            <div class="uk-fieldset uk-margin-small-bottom">--}}
-{{--                                <guardian-add-student></guardian-add-student>--}}
-{{--                                <div>--}}
-{{--                                    <div class="uk-form-label"> @lang('front/auth.reference_code')  </div>--}}
-{{--                                    <input class="uk-input" type="text" disabled name="reference_code" value="{{$guardian_profile->reference_code}}" required>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        @endif--}}
+        <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 90%">
+            <div class="uk-card-header uk-text-bold">
+                <span class="fas icon-medium uk-margin-small-right fa-user-friends"></span>
+                @lang('front/auth.guardian_infos')
+            </div>
+            <div class="uk-card-body">
+                <div uk-grid class="uk-flex-center">
+                    <div class="uk-width-large@m uk-padding-remove-top">
+                        <div class="uk-fieldset uk-margin-small-bottom">
+                            @if($has_guardian_profile)
+                                <div class="uk-form-label"> @lang('front/auth.reference_code')  </div>
+                                <div class="uk-flex uk-flex-wrap">
+                                    <input class="uk-input uk-width-3-4@m" type="text" readonly name="reference_code" id="guardianRefCode" value="{{$guardian_profile->reference_code}}">
+                                    <button class="uk-button uk-button-default uk-width-1-4@m" onclick="copyToClipboard('guardianRefCode')"><i class="fas fa-copy icon-medium"></i> <span class="uk-hidden@m">@lang('front/auth.copy')</span></button>
+                                </div>
+                            @else
+                                <button class="uk-button uk-button-success" onclick="beGuardian({{Auth::user()->id}})">@lang('front/auth.be_guardian')</button>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

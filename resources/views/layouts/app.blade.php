@@ -258,7 +258,7 @@
                             <a href="#" class="uk-icon-button uk-link-reset"><i class="fab fa-twitter" style=" color: #6f23ff !important;"></i></a>
                         </div>
                         <div class="uk-width-1-3@m uk-width-1-1@s">
-                            <p><a href="#"  class="uk-text-bold uk-link-reset"> Sanalist </a> tarafından geliştirildi. </p>
+                            <p><a href="http://sanalist.com.tr/"  class="uk-text-bold uk-link-reset"> Sanalist </a> tarafından geliştirildi. </p>
                         </div>
                     </div>
                 </div>
@@ -306,6 +306,22 @@
         } else {
             passwordInput.type = "password";
         }
+    }
+    function copyToClipboard(idName) {
+        var textBox = document.getElementById(idName);
+        textBox.select();
+        document.execCommand("copy");
+        UIkit.notification({message:"@lang('front/auth.copied_successfully')", status: 'success'});
+    }
+    function beGuardian(userId) {
+        axios.post('/api/guardian/createGuardian', {'userId': userId})
+            .then((res)=>{
+                if(!res.data.error){
+                    UIkit.notification({message:res.data.message, status: 'success'});
+                }else{
+                    UIkit.notification({message:res.data.message, status: 'danger'});
+                }
+            })
     }
 </script>
 </body>

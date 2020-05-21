@@ -82,7 +82,7 @@
         </div>
         <h3 class="uk-heading-line uk-text-center uk-margin-large-top"><span>{{prepareExamsText}}</span></h3>
         <div v-if="courseCard.pe&&courseCard.pe.length<=0" class="uk-flex uk-flex-center">
-            <h3>{{haveNoCourseText}}</h3>
+            <h2>{{haveNoCourseText}}</h2>
         </div>
         <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
             <ul class="uk-slider-items uk-child-width-1-2@s uk-grid">

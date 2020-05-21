@@ -15853,7 +15853,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            _vm.adminAdmins.data && _vm.adminAdmins.data > 0
+            _vm.adminAdmins.data && _vm.adminAdmins.data.length > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.nameText))]),
@@ -15863,7 +15863,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.adminAdmins.data && _vm.adminAdmins.data > 0
+            _vm.adminAdmins.data && _vm.adminAdmins.data.length > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminAdmins.data, function(item, index) {
@@ -15965,7 +15965,7 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm.adminAdmins.data && _vm.adminAdmins.data > 0
+    _vm.adminAdmins.data && _vm.adminAdmins.data.length > 0
       ? _c(
           "ul",
           {
@@ -18230,7 +18230,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            _vm.adminGuardian.data && _vm.adminGuardian.data > 0
+            _vm.adminGuardian.data && _vm.adminGuardian.data.length > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.nameText))]),
@@ -18240,7 +18240,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.adminGuardian.data && _vm.adminGuardian.data > 0
+            _vm.adminGuardian.data && _vm.adminGuardian.data.length > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminGuardian.data, function(item, index) {
@@ -18342,7 +18342,7 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm.adminGuardian.data && _vm.adminGuardian.data > 0
+    _vm.adminGuardian.data && _vm.adminGuardian.data.length > 0
       ? _c(
           "ul",
           {
@@ -18559,7 +18559,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            _vm.adminInstructor.data && _vm.adminInstructor.data > 0
+            _vm.adminInstructor.data && _vm.adminInstructor.data.length > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.nameText))]),
@@ -18569,7 +18569,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.adminInstructor.data && _vm.adminInstructor.data > 0
+            _vm.adminInstructor.data && _vm.adminInstructor.data.length > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminInstructor.data, function(item, index) {
@@ -18671,7 +18671,7 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm.adminInstructor.data && _vm.adminInstructor.data > 0
+    _vm.adminInstructor.data && _vm.adminInstructor.data.length > 0
       ? _c(
           "ul",
           {
@@ -20189,7 +20189,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            _vm.adminInstructor.data && _vm.adminInstructor.data > 0
+            _vm.adminUsers.data && _vm.adminUsers.data.length > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.nameText))]),
@@ -20199,7 +20199,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.adminInstructor.data && _vm.adminInstructor.data > 0
+            _vm.adminUsers.data && _vm.adminUsers.data.length > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminUsers.data, function(item, index) {
@@ -20301,7 +20301,7 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm.adminInstructor.data && _vm.adminInstructor.data > 0
+    _vm.adminUsers.data && _vm.adminUsers.data.length > 0
       ? _c(
           "ul",
           {
@@ -21635,7 +21635,7 @@ var render = function() {
     _vm._v(" "),
     _vm.courseCard.pe && _vm.courseCard.pe.length <= 0
       ? _c("div", { staticClass: "uk-flex uk-flex-center" }, [
-          _c("h3", [_vm._v(_vm._s(_vm.haveNoCourseText))])
+          _c("h2", [_vm._v(_vm._s(_vm.haveNoCourseText))])
         ])
       : _vm._e(),
     _vm._v(" "),
