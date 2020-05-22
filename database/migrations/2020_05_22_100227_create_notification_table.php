@@ -18,9 +18,9 @@ class CreateNotificationTable extends Migration
             $table->integer('user_id');
             $table->boolean('is_choice');
             $table->string('content');
-            $table->string('accept_url');
-            $table->string('reject_url');
-            $table->string('redirect_url');
+            $table->string('accept_url')->nullable(true);
+            $table->string('reject_url')->nullable(true);
+            $table->string('redirect_url')->nullable(true);
             $table->boolean('is_seen');
             $table->timestamps();
             $table->softDeletes();
