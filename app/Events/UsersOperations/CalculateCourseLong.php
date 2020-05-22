@@ -13,17 +13,18 @@ use Illuminate\Queue\SerializesModels;
 class CalculateCourseLong
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $course_id,$long;
+    public $course_id,$course_type,$long;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($course_id,$long)
+    public function __construct($data)
     {
-        $this->course_id = $course_id;
-        $this->long = $long;
+        $this->course_id = $data['course_id'];
+        $this->course_type = $data['course_type'];
+        $this->long = $data['long'];
     }
 
     /**

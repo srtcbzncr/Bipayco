@@ -6,6 +6,7 @@ namespace App\Repositories\PrepareExams;
 
 use App\Events\Instructor\CourseActiveEvent;
 use App\Events\Instructor\SectionActiveEvent;
+use App\Events\UsersOperations\CalculateCourseLong;
 use App\Models\Auth\Student;
 use App\Models\GeneralEducation\Source;
 use App\Models\PrepareExams\Course;
@@ -48,9 +49,11 @@ class LessonRepository implements IRepository{
             $pathForFFMpeg = $data['document']->store('public/lessons');
             $filePath = Storage::url($pathForFFMpeg);
             $long = 0;
+            $tempLong = 0;
             if($data['is_video'] != 0){
                 $media=FFMpeg::open($pathForFFMpeg);
                 $long = gmdate("H:i:s", $media->getDurationInSeconds());
+                $tempLong = $media->getDurationInSeconds();
             }
             $object = new Lesson();
             $object->section_id = $data['section_id'];
@@ -94,6 +97,11 @@ class LessonRepository implements IRepository{
             $lessonEventData['course_id'] = $course_id;
             $lessonEventData['education'] = 3;
             event(new CourseActiveEvent($lessonEventData));
+            $courseLongData = array();
+            $courseLongData['course_id'] = $course_id;
+            $courseLongData['course_type'] = 3;
+            $courseLongData['long'] = $tempLong;
+            event(new CalculateCourseLong($courseLongData));
 
             DB::commit();
         }
