@@ -336,9 +336,9 @@ Route::prefix('notification')->group(function (){
 });
 
 Route::prefix('student')->group(function (){
-   Route::post('/accept/{studentId}','API\Notification\StudentController@accept')->name('api_student_accept');
-   Route::post('/reject/{studentId}','API\Notification\StudentController@reject')->name('api_student_reject');
-   Route::post('/redirect/{studentId}','API\Notification\StudentController@redirect')->name('api_student_redirect');
+   Route::post('/accept/{studentId}/{guardianId}','API\Notification\StudentController@accept')->name('api_student_accept');
+   Route::post('/reject/{studentId}/{guardianId}','API\Notification\StudentController@reject')->name('api_student_reject');
+   Route::post('/redirect/{studentId}/{guardianId}','API\Notification\StudentController@redirect')->name('api_student_redirect');
 });
 
 Route::prefix('questionSource')->group(function (){
