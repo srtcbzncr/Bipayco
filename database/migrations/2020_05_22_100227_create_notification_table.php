@@ -21,7 +21,7 @@ class CreateNotificationTable extends Migration
             $table->string('accept_url');
             $table->string('reject_url');
             $table->string('redirect_url');
-            $table->boolean('isSeen');
+            $table->boolean('is_seen');
             $table->timestamps();
             $table->softDeletes();
         });

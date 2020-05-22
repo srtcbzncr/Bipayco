@@ -15,7 +15,7 @@ class Notification extends Model
         'accept_url', // is_choice bir ise kabul butonuna basıldığında gidilecek url
         'reject_url', // is_choice bir ise reddet butonuna basıldığında gidilecek url
         'redirect_url', // is_choice sıfır ise yönlenecek url
-        'isSeen' // bildirim görüldümü
+        'is_seen' // bildirim görüldümü
     ];
 
     protected $table = "notification";
