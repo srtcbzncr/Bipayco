@@ -13,7 +13,7 @@
                                     <p>{{notification.content}}</p>
                                 </div>
                                 <div class="uk-width-1-6 uk-flex flex-column align-items-center justify-content-around">
-                                    <a @click="notificationChoice(notifications.accept_url, notification.id)" v-if="notification.is_choice"><i class="text-success fas fa-check icon-small uk-margin-bottom"></i></a>
+                                    <a @click="notificationChoice(notification.accept_url, notification.id)" v-if="notification.is_choice"><i class="text-success fas fa-check icon-small uk-margin-bottom"></i></a>
                                     <a v-if="notification.is_choice" @click="notificationChoice(notification.reject_url, notification.id)"><i class="text-danger fas fa-times icon-small uk-margin-top"></i></a>
                                     <a v-else @click="notificationChoice(notification.redirect_url, notification.id)"><i class="text-danger fas fa-times icon-small"></i></a>
                                 </div>

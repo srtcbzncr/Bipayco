@@ -30803,7 +30803,7 @@ var render = function() {
                                         on: {
                                           click: function($event) {
                                             return _vm.notificationChoice(
-                                              _vm.notifications.accept_url,
+                                              notification.accept_url,
                                               notification.id
                                             )
                                           }
