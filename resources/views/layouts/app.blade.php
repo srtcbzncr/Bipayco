@@ -108,22 +108,12 @@
                                 <h5 class="uk-padding-small uk-margin-remove uk-text-bold uk-text-center"><a class="uk-link-heading" href="{{route('get_basket')}}"> Sepete Git </a> </h5>
                             </div>
                         </li>
-                        <li>
                             <!-- Notifications -->
-                            <a href="#"><i style="color: #424242" class="fas fa-bell icon-medium" uk-tooltip="title: Bildirimler ; delay: 500 ; pos: bottom ;animation:	uk-animation-scale-up"> </i></a>
-                            <div uk-dropdown="pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small" class="uk-dropdown uk-dropdown-top-right  tm-dropdown-small border-radius-6 uk-padding-remove uk-box-shadow-large angle-top-right">
-                                <h5 class="uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"> Bildirimler </h5>
-                                <a href="#" class="uk-position-top-right uk-link-reset"> <i class="fas fa-trash uk-align-right   uk-text-small uk-padding-small"> Hepsini Temizle</i></a>
-                                <hr class=" uk-margin-remove">
-                                <div class="uk-text-left uk-height-medium">
-                                    <div data-simplebar style="overflow-y:auto">
-                                        <div class="uk-padding-small"  uk-scrollspy="target: > div; cls:uk-animation-slide-bottom-small; delay: 100">
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+                            <notification-area
+                                notification-text="@lang('front/auth.notification')"
+                                remove-all-text="@lang('front/auth.remove_all')"
+                                user-id="{{Auth::user()->id}}"
+                            ></notification-area>
                         <li>
                             <!-- User profile -->
                             <a href="#">
@@ -320,7 +310,7 @@
                 if(!res.error){
                     UIkit.notification({message:"@lang('front/auth.guardian_profile_created_successfully')", status: 'success'});
                 }else{
-                    UIkit.notification({message:res.data.message, status: 'danger'});
+                    UIkit.notification({message:res.errorMessage, status: 'danger'});
                 }
             });
         setTimeout(()=>{this.window.location.reload()}, '1500');

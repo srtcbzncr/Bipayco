@@ -231,4 +231,6 @@ return [
     'copied_successfully'=>'Başarıyla Kopyalandı',
     'guardian_profile_created_successfully'=>'Veli Hesabı Başarıyla Oluşturuldu',
     'be_guardian'=>'Veli Ol',
+    'remove_all'=>'Hepsini Kaldır',
+    'notifications'=>'Bildirimler'
 ];

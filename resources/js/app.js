@@ -43,7 +43,7 @@ Vue.component('course-progress-card', require('./components/auth/course-progress
 Vue.component('cart-page', require('./components/auth/cart-page.vue').default);
 Vue.component('instructor-profile-courses', require('./components/auth/instructor_profile_courses.vue').default);
 
-Vue.component('notification-card', require('./components/top-bar/notification-card.vue').default);
+Vue.component('notification-area', require('./components/top-bar/notification-area.vue').default);
 Vue.component('your-courses', require('./components/top-bar/your-courses.vue').default);
 Vue.component('search', require('./components/top-bar/search.vue').default);
 Vue.component('messages-small-card', require('./components/top-bar/messages-small-card.vue').default);
