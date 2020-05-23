@@ -13,8 +13,14 @@
             <li>
                 <a :href="profileRoute"> <i class="fas fa-user uk-margin-small-right"></i>{{profile}}</a>
             </li>
-            <li class="uk-hidden@m">
-                <a :href="instructorModeRoute"> <i class="fas fa-user-tie uk-margin-small-right"></i>{{instructorMode}}</a>
+            <li v-if="isAdmin">
+                <a :href="adminModeRoute"> <i class="fas fa-user-tie uk-margin-small-right"></i>{{adminMode}}</a>
+            </li>
+            <li>
+                <a :href="instructorModeRoute"> <i class="fas fa-chalkboard-teacher uk-margin-small-right"></i>{{instructorMode}}</a>
+            </li>
+            <li v-if="isGuardian">
+                <a :href="guardianModeRoute"> <i class="fas fa-user-friends uk-margin-small-right"></i>{{guardianMode}}</a>
             </li>
             <li>
                 <a :href="settingsRoute"> <i class="fas fa-cog uk-margin-small-right"></i>{{settings}}</a>
@@ -41,7 +47,19 @@
             profile:String,
             profileRoute:String,
             instructorMode:String,
-            instructorModeRoute:String
+            instructorModeRoute:String,
+            adminMode:String,
+            adminModeRoute:String,
+            guardianMode:String,
+            guardianModeRoute:String,
+            isAdmin:{
+                type:Boolean,
+                default:false
+            },
+            isGuardian:{
+                type:Boolean,
+                default:false
+            },
         }
     }
 </script>

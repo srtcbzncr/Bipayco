@@ -233,5 +233,6 @@ return [
     'be_guardian'=>'Veli Ol',
     'remove_all'=>'Hepsini Kaldır',
     'notifications'=>'Bildirimler',
-    'have_no_new_notification'=>'Yeni Bir Bildirim Bulunmuyor'
+    'have_no_new_notification'=>'Yeni Bir Bildirim Bulunmuyor',
+    'guardian_mode'=>'Veli Modu'
 ];

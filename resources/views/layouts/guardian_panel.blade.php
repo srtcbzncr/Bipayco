@@ -59,7 +59,7 @@
                     <a href="{{route('guardian_student_profile')}}"> <i class="fas fa-pencil-alt"></i>@lang('front/auth.student_profiles')</a>
                 </li>
                 <li>
-                    <a href="{{route('student_profile', Auth::user()->id)}}"> <i class="fas fa-user"></i>@lang('front/auth.student_mode')</a>
+                    <a href="{{route('student_profile', Auth::user()->id)}}"> <i class="fas fa-graduation-cap"></i>@lang('front/auth.student_mode')</a>
                 </li>
                 <li>
                     <a href="{{route('settings')}}"> <i class="fas fa-cog"></i>@lang('front/auth.settings')</a>

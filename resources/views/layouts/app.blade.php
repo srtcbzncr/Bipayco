@@ -65,18 +65,18 @@
                 <span class="uk-hidden@m tm-mobile-user-icon uk-align-right" uk-toggle="target: #tm-show-on-mobile; cls: tm-show-on-mobile-active"><i class="far fa-user icon-large"></i></span>
                 <!-- mobile logo -->
                 <a class="uk-hidden@m uk-logo" href="{{route('home')}}">Bipayco</a>
-                <div class="uk-navbar-left uk-visible@m uk-flex-center">
-                @if(Auth::check())
-                    @if(!isSet(Auth::user()->instructor))
-                        <a href="{{route('instructor_create_get')}}" class="uk-navbar-item uk-button-text back-to-dashboard uk-margin-small-top"> @lang('front/auth.be_instructor') </a>
-                    @else
-                        <a href="{{route('instructor_courses')}}" class="uk-navbar-item uk-button-text back-to-dashboard uk-margin-small-top">@lang('front/auth.instructor_mode')</a>
-                    @endif
-                    @if(isSet(Auth::user()->admin))
-                            <a href="{{route('adminDashboard')}}" class="uk-navbar-item uk-button-text back-to-dashboard uk-margin-small-top"> @lang('front/auth.admin_mode') </a>
-                    @endif
-                @endif
-                </div>
+{{--                <div class="uk-navbar-left uk-visible@m uk-flex-center">--}}
+{{--                @if(Auth::check())--}}
+{{--                    @if(!isSet(Auth::user()->instructor))--}}
+{{--                        <a href="{{route('instructor_create_get')}}" class="uk-navbar-item uk-button-text back-to-dashboard uk-margin-small-top"> @lang('front/auth.be_instructor') </a>--}}
+{{--                    @else--}}
+{{--                        <a href="{{route('instructor_courses')}}" class="uk-navbar-item uk-button-text back-to-dashboard uk-margin-small-top">@lang('front/auth.instructor_mode')</a>--}}
+{{--                    @endif--}}
+{{--                    @if(isSet(Auth::user()->admin))--}}
+{{--                            <a href="{{route('adminDashboard')}}" class="uk-navbar-item uk-button-text back-to-dashboard uk-margin-small-top"> @lang('front/auth.admin_mode') </a>--}}
+{{--                    @endif--}}
+{{--                @endif--}}
+{{--                </div>--}}
                 <div class="uk-navbar-right tm-show-on-mobile uk-flex-right" id="tm-show-on-mobile" >
                     <!-- this will clouse after display user icon -->
                     <span class="uk-hidden@m tm-mobile-user-close-icon uk-align-right" uk-toggle="target: #tm-show-on-mobile; cls: tm-show-on-mobile-active"><i class="fas fa-times icon-large"></i></span>
@@ -127,6 +127,16 @@
                                 @else
                                 instructor-mode="@lang('front/auth.instructor_mode')"
                                 instructor-mode-route="{{route('instructor_courses')}}"
+                                @endif
+                                @if(isSet(Auth::user()->admin))
+                                admin-mode="@lang('front/auth.admin_mode')"
+                                admin-mode-route="{{route('adminDashboard')}}"
+                                is-admin
+                                @endif
+                                @if(isSet(Auth::user()->guardian))
+                                guardian-mode="@lang('front/auth.guardian_mode')"
+                                guardian-mode-route="{{route('guardian_students')}}"
+                                is-guardian
                                 @endif
                                 settings-route="{{route('settings')}}"
                                 logout-route="{{route('logout')}}"

@@ -12698,6 +12698,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "user-profile-dropdown-nav",
   props: {
@@ -12711,7 +12717,19 @@ __webpack_require__.r(__webpack_exports__);
     profile: String,
     profileRoute: String,
     instructorMode: String,
-    instructorModeRoute: String
+    instructorModeRoute: String,
+    adminMode: String,
+    adminModeRoute: String,
+    guardianMode: String,
+    guardianModeRoute: String,
+    isAdmin: {
+      type: Boolean,
+      "default": false
+    },
+    isGuardian: {
+      type: Boolean,
+      "default": false
+    }
   }
 });
 
@@ -31004,12 +31022,36 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c("li", { staticClass: "uk-hidden@m" }, [
+        _vm.isAdmin
+          ? _c("li", [
+              _c("a", { attrs: { href: _vm.adminModeRoute } }, [
+                _c("i", {
+                  staticClass: "fas fa-user-tie uk-margin-small-right"
+                }),
+                _vm._v(_vm._s(_vm.adminMode))
+              ])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("li", [
           _c("a", { attrs: { href: _vm.instructorModeRoute } }, [
-            _c("i", { staticClass: "fas fa-user-tie uk-margin-small-right" }),
+            _c("i", {
+              staticClass: "fas fa-chalkboard-teacher uk-margin-small-right"
+            }),
             _vm._v(_vm._s(_vm.instructorMode))
           ])
         ]),
+        _vm._v(" "),
+        _vm.isGuardian
+          ? _c("li", [
+              _c("a", { attrs: { href: _vm.guardianModeRoute } }, [
+                _c("i", {
+                  staticClass: "fas fa-user-friends uk-margin-small-right"
+                }),
+                _vm._v(_vm._s(_vm.guardianMode))
+              ])
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c("li", [
           _c("a", { attrs: { href: _vm.settingsRoute } }, [

@@ -56,16 +56,16 @@
                     <a href="{{route('adminDashboard')}}"> <i class="fas fa-chalkboard"></i>  @lang('front/auth.dashboard') </a>
                 </li>
                 <li>
-                    <a href="{{route('admin_admins')}}"> <i class="fas fa-chalkboard"></i>  @lang('front/auth.admins') </a>
+                    <a href="{{route('admin_admins')}}"> <i class="fas fa-user-tie"></i>  @lang('front/auth.admins') </a>
                 </li>
                 <li>
-                    <a href="{{route('admin_users')}}"> <i class="fas fa-chalkboard"></i>  @lang('front/auth.users') </a>
+                    <a href="{{route('admin_users')}}"> <i class="fas fa-users"></i>  @lang('front/auth.users') </a>
                 </li>
                 <li>
-                    <a href="{{route('admin_instructor')}}"> <i class="fas fa-chalkboard"></i>  @lang('front/auth.instructors') </a>
+                    <a href="{{route('admin_instructor')}}"> <i class="fas fa-chalkboard-teacher"></i>  @lang('front/auth.instructors') </a>
                 </li>
                 <li>
-                    <a href="{{route('admin_guardian')}}"> <i class="fas fa-chalkboard"></i>  @lang('front/auth.guardians') </a>
+                    <a href="{{route('admin_guardian')}}"> <i class="fas fa-user-friends"></i>  @lang('front/auth.guardians') </a>
                 </li>
                 <li>
                     <a href="{{route('adminCities')}}"> <i class="fas fa-city"></i>  @lang('front/auth.cities') </a>
@@ -83,7 +83,7 @@
                     <a href="{{route('admin_get_exam')}}"> <i class="fas fa-stream"></i>@lang('front/auth.pe_exams')</a>
                 </li>
                 <li>
-                    <a href="{{route('student_profile', Auth::user()->id)}}"> <i class="fas fa-user"></i>@lang('front/auth.student_mode')</a>
+                    <a href="{{route('student_profile', Auth::user()->id)}}"> <i class="fas fa-graduation-cap"></i>@lang('front/auth.student_mode')</a>
                 </li>
                 <li>
                     <a href="{{route('settings')}}"> <i class="fas fa-cog"></i>@lang('front/auth.settings')</a>
