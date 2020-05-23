@@ -1,27 +1,30 @@
 <template>
     <li>
-        <a href="#"><i style="color: #424242" class="fas fa-bell icon-medium" :uk-tooltip="'title:'+notificationsText+' ; delay: 500 ; pos: bottom ;animation:	uk-animation-scale-up'"> </i><span style="margin-left:-5px" class="float-right uk-margin-bottom"><i class=" fas fa-circle text-danger icon-tiny"></i></span></a>
+        <a><i style="color: #424242" class="fas fa-bell icon-medium" :uk-tooltip="'title:'+notificationsText+' ; delay: 500 ; pos: bottom ;animation:	uk-animation-scale-up'"> </i><span v-if="notifications&&notifications.length>0" style="margin-left:-5px" class="float-right uk-margin-bottom"><i class=" fas fa-circle text-danger icon-tiny"></i></span></a>
         <div uk-dropdown="pos: top-right ;mode : click; animation: uk-animation-slide-bottom-small" class="uk-dropdown uk-dropdown-top-right  tm-dropdown-small border-radius-6 uk-padding-remove uk-box-shadow-large angle-top-right">
             <h5 class="uk-padding-small uk-margin-remove uk-text-bold  uk-text-left"> {{notificationsText}} </h5>
-            <a href="#" class="uk-position-top-right uk-link-reset"> <i class="fas fa-trash uk-align-right   uk-text-small uk-padding-small"> {{removeAllText}}</i></a>
             <hr class=" uk-margin-remove">
-            <div class="uk-text-left uk-height-medium">
+            <div v-if="notifications&&notifications.length>0" class="uk-text-left uk-height-medium">
                 <div data-simplebar style="overflow-y:auto">
                     <div class="uk-padding-small"  uk-scrollspy="target: > div; cls:uk-animation-slide-bottom-small; delay: 100">
-                        <div>
+                        <div v-for="notification in notifications">
                             <div class="uk-flex-middle uk-grid-small" uk-grid>
                                 <div class="uk-width-5-6">
-                                    <p> selam naber naılsın deneme yanılma yazıları bunlar neasıl şeyler de yazılarım var dfsdf selam naber naılsın deneme yanılma yazıları bunlar neasıl şeyler de yazılarım var dfsdf</p>
+                                    <p>{{notification.content}}</p>
                                 </div>
                                 <div class="uk-width-1-6 uk-flex flex-column align-items-center justify-content-around">
-                                    <a><i class="text-success fas fa-check icon-medium uk-margin-small-top uk-margin-small-bottom"></i></a>
-                                    <a><i class="text-danger fas fa-times icon-medium uk-margin-small-top uk-margin-small-bottom"></i></a>
+                                    <a @click="notificationChoice(notifications.accept_url, notification.id)" v-if="notification.is_choice"><i class="text-success fas fa-check icon-small uk-margin-bottom"></i></a>
+                                    <a v-if="notification.is_choice" @click="notificationChoice(notification.reject_url, notification.id)"><i class="text-danger fas fa-times icon-small uk-margin-top"></i></a>
+                                    <a v-else @click="notificationChoice(notification.redirect_url, notification.id)"><i class="text-danger fas fa-times icon-small"></i></a>
                                 </div>
                             </div>
                             <hr>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div v-else class="uk-flex uk-height-medium uk-width justify-content-around uk-padding align-items-center text-center">
+                <h4>{{haveNoNewNotificationText}}</h4>
             </div>
         </div>
     </li>
@@ -33,7 +36,7 @@
         name: "notification-card",
         data(){
             return{
-
+                notifications:[],
             }
         },
         props:{
@@ -48,20 +51,33 @@
             removeAllText:{
                 type:String,
                 default: "Hepsini Kaldır"
+            },
+            haveNoNewNotificationText:{
+                type:String,
+                default: "Hiç Yeni Bildirimin Bulunmuyor"
             }
         },
-        computed:{
-
-        },
         methods:{
-
+            fetchNotification:function(){
+                Axios.get('/api/notification/show/'+this.userId)
+                    .then((res)=>{this.notifications=res.data.data})
+            },
+            notificationChoice:function (url, id) {
+                Axios.post(url, {notificationId:id, userId:this.userId})
+                    .then((res)=>{
+                        if(res.error){
+                            UIkit.notification({message:res.errorMessage, status: 'danger'});
+                        }else{
+                            this.fetchNotification();
+                        }
+                    })
+            },
         },
         created() {
-
+            this.fetchNotification();
         }
     }
 </script>
 
 <style scoped>
-
 </style>

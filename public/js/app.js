@@ -12380,6 +12380,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -12392,6 +12395,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     removeAllText: {
       type: String,
       "default": "Hepsini Temizle"
+    },
+    cartEmptyText: {
+      type: String,
+      "default": "Sepetinde Ürün Bulunmuyor"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['shoppingCart'])),
@@ -12566,11 +12573,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "notification-card",
   data: function data() {
-    return {};
+    return {
+      notifications: []
+    };
   },
   props: {
     userId: {
@@ -12584,11 +12596,41 @@ __webpack_require__.r(__webpack_exports__);
     removeAllText: {
       type: String,
       "default": "Hepsini Kaldır"
+    },
+    haveNoNewNotificationText: {
+      type: String,
+      "default": "Hiç Yeni Bildirimin Bulunmuyor"
     }
   },
-  computed: {},
-  methods: {},
-  created: function created() {}
+  methods: {
+    fetchNotification: function fetchNotification() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/notification/show/' + this.userId).then(function (res) {
+        _this.notifications = res.data.data;
+      });
+    },
+    notificationChoice: function notificationChoice(url, id) {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, {
+        notificationId: id,
+        userId: this.userId
+      }).then(function (res) {
+        if (res.error) {
+          UIkit.notification({
+            message: res.errorMessage,
+            status: 'danger'
+          });
+        } else {
+          _this2.fetchNotification();
+        }
+      });
+    }
+  },
+  created: function created() {
+    this.fetchNotification();
+  }
 });
 
 /***/ }),
@@ -30490,130 +30532,144 @@ var render = function() {
     _vm._v(" "),
     _c("hr", { staticClass: " uk-margin-remove" }),
     _vm._v(" "),
-    _c("div", { staticClass: "uk-text-left uk-height-medium" }, [
-      _c(
-        "div",
-        {
-          staticStyle: { "overflow-y": "auto" },
-          attrs: {
-            "uk-scrollspy":
-              "target: > div; cls:uk-animation-slide-bottom-small; delay: 100",
-            "data-simplebar": ""
-          }
-        },
-        [
-          _c("hr"),
-          _vm._v(" "),
-          _vm._l(_vm.shoppingCart, function(item) {
-            return _c("div", [
-              _c(
-                "div",
-                { staticClass: "uk-grid align-items-center shoppingItem" },
-                [
+    _vm.shoppingCart && _vm.shoppingCart.length > 0
+      ? _c("div", { staticClass: "uk-text-left uk-height-medium" }, [
+          _c(
+            "div",
+            {
+              staticStyle: { "overflow-y": "auto" },
+              attrs: {
+                "uk-scrollspy":
+                  "target: > div; cls:uk-animation-slide-bottom-small; delay: 100",
+                "data-simplebar": ""
+              }
+            },
+            [
+              _c("hr"),
+              _vm._v(" "),
+              _vm._l(_vm.shoppingCart, function(item) {
+                return _c("div", [
                   _c(
-                    "a",
-                    {
-                      staticClass: "uk-width-5-6",
-                      attrs: {
-                        href:
-                          "/" +
-                          _vm.moduleNameToModule(item.course_type) +
-                          "/course/" +
-                          item.course_id
-                      }
-                    },
+                    "div",
+                    { staticClass: "uk-grid align-items-center shoppingItem" },
                     [
                       _c(
-                        "div",
+                        "a",
                         {
-                          staticClass:
-                            "uk-flex align-item-center justify-content-between"
+                          staticClass: "uk-width-5-6",
+                          attrs: {
+                            href:
+                              "/" +
+                              _vm.moduleNameToModule(item.course_type) +
+                              "/course/" +
+                              item.course_id
+                          }
                         },
                         [
-                          _c("div", { staticClass: "uk-width-3-4 uk-flex" }, [
-                            _c(
-                              "div",
-                              {
-                                staticClass:
-                                  "uk-margin-small-left uk-card-media-left uk-cover-container uk-width-1-4"
-                              },
-                              [
-                                _c("img", {
-                                  attrs: {
-                                    src: item.course.image,
-                                    alt: "",
-                                    "uk-cover": ""
-                                  }
-                                }),
-                                _vm._v(" "),
-                                _c("canvas", {
-                                  attrs: { width: "600", height: "400" }
-                                })
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "h5",
-                              {
-                                staticClass:
-                                  "uk-margin-left uk-width-3-4 uk-margin-remove-vertical uk-margin-remove-right",
-                                staticStyle: {
-                                  overflow: "hidden",
-                                  "text-overflow": "ellipsis",
-                                  display: "-webkit-box",
-                                  "line-height": "16px",
-                                  "max-height": "32px",
-                                  "-webkit-line-clamp": "2",
-                                  "-webkit-box-orient": "vertical"
-                                }
-                              },
-                              [_vm._v(_vm._s(item.course.name))]
-                            )
-                          ]),
-                          _vm._v(" "),
                           _c(
-                            "h6",
+                            "div",
                             {
                               staticClass:
-                                "uk-width-1-4 text-center uk-margin-remove"
+                                "uk-flex align-item-center justify-content-between"
                             },
                             [
-                              _vm._v(
-                                _vm._s(item.course.price_with_discount) + "  "
+                              _c(
+                                "div",
+                                { staticClass: "uk-width-3-4 uk-flex" },
+                                [
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "uk-margin-small-left uk-card-media-left uk-cover-container uk-width-1-4"
+                                    },
+                                    [
+                                      _c("img", {
+                                        attrs: {
+                                          src: item.course.image,
+                                          alt: "",
+                                          "uk-cover": ""
+                                        }
+                                      }),
+                                      _vm._v(" "),
+                                      _c("canvas", {
+                                        attrs: { width: "600", height: "400" }
+                                      })
+                                    ]
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "h5",
+                                    {
+                                      staticClass:
+                                        "uk-margin-left uk-width-3-4 uk-margin-remove-vertical uk-margin-remove-right",
+                                      staticStyle: {
+                                        overflow: "hidden",
+                                        "text-overflow": "ellipsis",
+                                        display: "-webkit-box",
+                                        "line-height": "16px",
+                                        "max-height": "32px",
+                                        "-webkit-line-clamp": "2",
+                                        "-webkit-box-orient": "vertical"
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(item.course.name))]
+                                  )
+                                ]
                               ),
-                              _c("i", {
-                                staticClass: "fas fa-lira-sign icon-tiny"
-                              })
+                              _vm._v(" "),
+                              _c(
+                                "h6",
+                                {
+                                  staticClass:
+                                    "uk-width-1-4 text-center uk-margin-remove"
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(item.course.price_with_discount) +
+                                      "  "
+                                  ),
+                                  _c("i", {
+                                    staticClass: "fas fa-lira-sign icon-tiny"
+                                  })
+                                ]
+                              )
                             ]
                           )
                         ]
-                      )
+                      ),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "uk-width-1-6 text-left" }, [
+                        _c("i", {
+                          staticClass: "fas fa-trash-alt text-danger",
+                          on: {
+                            click: function($event) {
+                              return _vm.removeCourse(
+                                item.course_id,
+                                item.course_type
+                              )
+                            }
+                          }
+                        })
+                      ])
                     ]
                   ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "uk-width-1-6 text-left" }, [
-                    _c("i", {
-                      staticClass: "fas fa-trash-alt text-danger",
-                      on: {
-                        click: function($event) {
-                          return _vm.removeCourse(
-                            item.course_id,
-                            item.course_type
-                          )
-                        }
-                      }
-                    })
-                  ])
-                ]
-              ),
-              _vm._v(" "),
-              _c("hr")
-            ])
-          })
-        ],
-        2
-      )
-    ])
+                  _c("hr")
+                ])
+              })
+            ],
+            2
+          )
+        ])
+      : _c(
+          "div",
+          {
+            staticClass:
+              "uk-flex uk-height-medium uk-width uk-padding justify-content-around align-items-center text-center"
+          },
+          [_c("h4", [_vm._v(_vm._s(_vm.cartEmptyText))])]
+        )
   ])
 }
 var staticRenderFns = []
@@ -30639,7 +30695,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("li", [
-    _c("a", { attrs: { href: "#" } }, [
+    _c("a", [
       _c("i", {
         staticClass: "fas fa-bell icon-medium",
         staticStyle: { color: "#424242" },
@@ -30650,7 +30706,16 @@ var render = function() {
             " ; delay: 500 ; pos: bottom ;animation:	uk-animation-scale-up"
         }
       }),
-      _vm._m(0)
+      _vm.notifications && _vm.notifications.length > 0
+        ? _c(
+            "span",
+            {
+              staticClass: "float-right uk-margin-bottom",
+              staticStyle: { "margin-left": "-5px" }
+            },
+            [_c("i", { staticClass: " fas fa-circle text-danger icon-tiny" })]
+          )
+        : _vm._e()
     ]),
     _vm._v(" "),
     _c(
@@ -30673,117 +30738,133 @@ var render = function() {
           [_vm._v(" " + _vm._s(_vm.notificationsText) + " ")]
         ),
         _vm._v(" "),
-        _c(
-          "a",
-          {
-            staticClass: "uk-position-top-right uk-link-reset",
-            attrs: { href: "#" }
-          },
-          [
-            _c(
-              "i",
-              {
-                staticClass:
-                  "fas fa-trash uk-align-right   uk-text-small uk-padding-small"
-              },
-              [_vm._v(" " + _vm._s(_vm.removeAllText))]
-            )
-          ]
-        ),
-        _vm._v(" "),
         _c("hr", { staticClass: " uk-margin-remove" }),
         _vm._v(" "),
-        _vm._m(1)
+        _vm.notifications && _vm.notifications.length > 0
+          ? _c("div", { staticClass: "uk-text-left uk-height-medium" }, [
+              _c(
+                "div",
+                {
+                  staticStyle: { "overflow-y": "auto" },
+                  attrs: { "data-simplebar": "" }
+                },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass: "uk-padding-small",
+                      attrs: {
+                        "uk-scrollspy":
+                          "target: > div; cls:uk-animation-slide-bottom-small; delay: 100"
+                      }
+                    },
+                    _vm._l(_vm.notifications, function(notification) {
+                      return _c("div", [
+                        _c(
+                          "div",
+                          {
+                            staticClass: "uk-flex-middle uk-grid-small",
+                            attrs: { "uk-grid": "" }
+                          },
+                          [
+                            _c("div", { staticClass: "uk-width-5-6" }, [
+                              _c("p", [_vm._v(_vm._s(notification.content))])
+                            ]),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "uk-width-1-6 uk-flex flex-column align-items-center justify-content-around"
+                              },
+                              [
+                                notification.is_choice
+                                  ? _c(
+                                      "a",
+                                      {
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.notificationChoice(
+                                              _vm.notifications.accept_url,
+                                              notification.id
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "text-success fas fa-check icon-small uk-margin-bottom"
+                                        })
+                                      ]
+                                    )
+                                  : _vm._e(),
+                                _vm._v(" "),
+                                notification.is_choice
+                                  ? _c(
+                                      "a",
+                                      {
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.notificationChoice(
+                                              notification.reject_url,
+                                              notification.id
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "text-danger fas fa-times icon-small uk-margin-top"
+                                        })
+                                      ]
+                                    )
+                                  : _c(
+                                      "a",
+                                      {
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.notificationChoice(
+                                              notification.redirect_url,
+                                              notification.id
+                                            )
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _c("i", {
+                                          staticClass:
+                                            "text-danger fas fa-times icon-small"
+                                        })
+                                      ]
+                                    )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("hr")
+                      ])
+                    }),
+                    0
+                  )
+                ]
+              )
+            ])
+          : _c(
+              "div",
+              {
+                staticClass:
+                  "uk-flex uk-height-medium uk-width justify-content-around uk-padding align-items-center text-center"
+              },
+              [_c("h4", [_vm._v(_vm._s(_vm.haveNoNewNotificationText))])]
+            )
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "span",
-      {
-        staticClass: "float-right uk-margin-bottom",
-        staticStyle: { "margin-left": "-5px" }
-      },
-      [_c("i", { staticClass: " fas fa-circle text-danger icon-tiny" })]
-    )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-text-left uk-height-medium" }, [
-      _c(
-        "div",
-        {
-          staticStyle: { "overflow-y": "auto" },
-          attrs: { "data-simplebar": "" }
-        },
-        [
-          _c(
-            "div",
-            {
-              staticClass: "uk-padding-small",
-              attrs: {
-                "uk-scrollspy":
-                  "target: > div; cls:uk-animation-slide-bottom-small; delay: 100"
-              }
-            },
-            [
-              _c("div", [
-                _c(
-                  "div",
-                  {
-                    staticClass: "uk-flex-middle uk-grid-small",
-                    attrs: { "uk-grid": "" }
-                  },
-                  [
-                    _c("div", { staticClass: "uk-width-5-6" }, [
-                      _c("p", [
-                        _vm._v(
-                          " selam naber naılsın deneme yanılma yazıları bunlar neasıl şeyler de yazılarım var dfsdf selam naber naılsın deneme yanılma yazıları bunlar neasıl şeyler de yazılarım var dfsdf"
-                        )
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "uk-width-1-6 uk-flex flex-column align-items-center justify-content-around"
-                      },
-                      [
-                        _c("a", [
-                          _c("i", {
-                            staticClass:
-                              "text-success fas fa-check icon-medium uk-margin-small-top uk-margin-small-bottom"
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("a", [
-                          _c("i", {
-                            staticClass:
-                              "text-danger fas fa-times icon-medium uk-margin-small-top uk-margin-small-bottom"
-                          })
-                        ])
-                      ]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c("hr")
-              ])
-            ]
-          )
-        ]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -30999,16 +31080,16 @@ var render = function() {
       _vm._v(" "),
       _c("hr", { staticClass: " uk-margin-remove" }),
       _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "uk-padding-small uk-text-left uk-height-medium" },
-        [
-          _vm.myCourses.courses != null &&
-          _vm.myCourses.courses.ge.length +
-            _vm.myCourses.courses.pl.length +
-            _vm.myCourses.courses.pe.length >
-            0
-            ? _c(
+      _vm.myCourses.courses != null &&
+      _vm.myCourses.courses.ge.length +
+        _vm.myCourses.courses.pl.length +
+        _vm.myCourses.courses.pe.length >
+        0
+        ? _c(
+            "div",
+            { staticClass: "uk-padding-small uk-text-left uk-height-medium" },
+            [
+              _c(
                 "div",
                 {
                   staticClass: "demo1",
@@ -31395,16 +31476,16 @@ var render = function() {
                   )
                 ]
               )
-            : _c(
-                "div",
-                {
-                  staticClass:
-                    "uk-flex align-items-center justify-content-center uk-wrap uk-width uk-height"
-                },
-                [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText))])]
-              )
-        ]
-      ),
+            ]
+          )
+        : _c(
+            "div",
+            {
+              staticClass:
+                "uk-flex align-items-center justify-content-center uk-wrap uk-width uk-height-medium"
+            },
+            [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText))])]
+          ),
       _vm._v(" "),
       _c("hr", { staticClass: " uk-margin-remove" }),
       _vm._v(" "),

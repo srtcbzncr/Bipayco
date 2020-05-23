@@ -112,6 +112,7 @@
                             <notification-area
                                 notification-text="@lang('front/auth.notification')"
                                 remove-all-text="@lang('front/auth.remove_all')"
+                                have-no-new-notification-text="@lang('front/auth.have_no_new_notification')"
                                 user-id="{{Auth::user()->id}}"
                             ></notification-area>
                         <li>

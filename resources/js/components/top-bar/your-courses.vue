@@ -6,8 +6,8 @@
             </div>
         </div>
         <hr class=" uk-margin-remove">
-        <div class="uk-padding-small uk-text-left uk-height-medium">
-            <div v-if="myCourses.courses != null && myCourses.courses.ge.length+myCourses.courses.pl.length+myCourses.courses.pe.length>0" class="demo1" data-simplebar style="overflow-y:auto">
+        <div v-if="myCourses.courses != null && myCourses.courses.ge.length+myCourses.courses.pl.length+myCourses.courses.pe.length>0" class="uk-padding-small uk-text-left uk-height-medium">
+            <div class="demo1" data-simplebar style="overflow-y:auto">
                 <div class="uk-child-width-1-2@s  uk-grid-small uk-padding-small"  uk-scrollspy="target: > div; cls:uk-animation-slide-bottom-small; delay: 100 ;repeat: true" uk-grid>
                     <div  v-for="myCourse in myCourses.courses.ge">
                         <a :href="'/ge/course/'+myCourse.course.id" class="uk-link-reset">
@@ -65,9 +65,9 @@
                     </div>
                 </div>
             </div>
-            <div v-else class="uk-flex align-items-center justify-content-center uk-wrap uk-width uk-height">
-                <h4> {{noContentText}}</h4>
-            </div>
+        </div>
+        <div v-else class="uk-flex align-items-center justify-content-center uk-wrap uk-width uk-height-medium">
+            <h4> {{noContentText}}</h4>
         </div>
         <hr class=" uk-margin-remove">
         <h5 class="uk-padding-small uk-margin-remove uk-text-bold uk-text-center"><a class="uk-link-heading" :href="profileRoute"> {{seeAllText}} </a> </h5>

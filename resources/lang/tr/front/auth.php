@@ -232,5 +232,6 @@ return [
     'guardian_profile_created_successfully'=>'Veli Hesabı Başarıyla Oluşturuldu',
     'be_guardian'=>'Veli Ol',
     'remove_all'=>'Hepsini Kaldır',
-    'notifications'=>'Bildirimler'
+    'notifications'=>'Bildirimler',
+    'have_no_new_notification'=>'Yeni Bir Bildirim Bulunmuyor'
 ];
