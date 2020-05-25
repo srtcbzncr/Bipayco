@@ -201,7 +201,8 @@ class GuardianRepository implements IRepository
             $notificationData = array();
             $notificationData['userId'] = $student->user_id;
             $notificationData['isChoice'] = true;
-            $notificationData['content'] = 'Veli ekleme bildirimi!';
+            $guardianUser = User::find($data['guardianUserId']);
+            $notificationData['content'] = $guardianUser->first_name.' '.$guardianUser->last_name.' velin olmak istiyor.';
             $notificationData['acceptUrl'] = 'student/acceptGuardian/'.$student->id.'/'.$guardian->id;
             $notificationData['rejectUrl'] = 'student/rejectGuardian/'.$student->id.'/'.$guardian->id;
             $notificationData['redirectUrl'] = null;
