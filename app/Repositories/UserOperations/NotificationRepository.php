@@ -110,8 +110,8 @@ class NotificationRepository implements IRepository
             $object->user_id = $data['userId'];
             $object->is_choice = $data['isChoice'];
             $object->content = $data['content'];
-            $object->accept_url = $data['acceptUrl'];
-            $object->reject_url = $data['rejectUrl'];
+            $object->accept_url = null;
+            $object->reject_url = null;
             $object->redirect_url = $data['redirectUrl'];
             $object->is_seen = $data['isSeen'];
             $object->save();
@@ -173,7 +173,7 @@ class NotificationRepository implements IRepository
         return $resp;
     }
 
-    public function accept(){
+    public function acceptGuardian($studentId,$guardianId){
         // Response variables
         $result = true;
         $error = null;
@@ -182,7 +182,9 @@ class NotificationRepository implements IRepository
         // Operations
         try {
             DB::beginTransaction();
-
+            $object = GuardianUser::where('guardian_id',$guardianId)->where('student_id',$studentId)->where('deleted_at',null)->first();
+            $object->active = true;
+            $object->save();
             DB::commit();
         }catch(\Exception $e){
             DB::rollBack();
@@ -195,7 +197,7 @@ class NotificationRepository implements IRepository
         return $resp;
     }
 
-    public function reject(){
+    public function rejectGuardian($studentId,$guardianId){
         // Response variables
         $result = true;
         $error = null;
@@ -204,29 +206,8 @@ class NotificationRepository implements IRepository
         // Operations
         try {
             DB::beginTransaction();
-
-            DB::commit();
-        }catch(\Exception $e){
-            DB::rollBack();
-            $error = $e->getMessage();
-            $result = false;
-        }
-
-        // Response
-        $resp = new RepositoryResponse($result, $object, $error);
-        return $resp;
-    }
-
-    public function redirect(){
-        // Response variables
-        $result = true;
-        $error = null;
-        $object = null;
-
-        // Operations
-        try {
-            DB::beginTransaction();
-
+            $object = GuardianUser::where('guardian_id',$guardianId)->where('student_id',$studentId)->where('deleted_at',null)->first();
+            $object->delete();
             DB::commit();
         }catch(\Exception $e){
             DB::rollBack();

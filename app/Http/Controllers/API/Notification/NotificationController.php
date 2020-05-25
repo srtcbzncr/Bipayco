@@ -99,9 +99,9 @@ class NotificationController extends Controller
         ]);
     }
 
-    public function accept(){
+    public function acceptGuardian($studentId,$guardianId){
         $repo = new NotificationRepository();
-        $resp = $repo->accept();
+        $resp = $repo->acceptGuardian($studentId,$guardianId);
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
@@ -115,9 +115,9 @@ class NotificationController extends Controller
         ],400);
     }
 
-    public function reject(){
+    public function rejectGuardian($studentId,$guardianId){
         $repo = new NotificationRepository();
-        $resp = $repo->reject();
+        $resp = $repo->rejectGuardian($studentId,$guardianId);
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
@@ -131,19 +131,4 @@ class NotificationController extends Controller
         ],400);
     }
 
-    public function redirect(){
-        $repo = new NotificationRepository();
-        $resp = $repo->redirect();
-        if($resp->getResult()){
-            return response()->json([
-                'error' => false,
-                'data' => $resp->getData()
-            ]);
-        }
-        return response()->json([
-            'error' => true,
-            'message' => 'Bir hata meydana geldi.Tekrar deneyin',
-            'errorMessage' => $resp->getError()
-        ],400);
-    }
 }

@@ -334,10 +334,11 @@ Route::prefix('notification')->group(function (){
     Route::get('/get/{notificationId}','API\Notification\NotificationController@get')->name('api_notification_get');
     Route::post('/delete/{notificationId}','API\Notification\NotificationController@delete')->name('api_notification_delete');
     Route::post('/seen/{notificationId}','API\Notification\NotificationController@seen')->name('api_notification_seen');
+});
 
-    Route::post('/accept/{userId}','API\Notification\NotificationController@accept')->name('api_notificatio_accept');
-    Route::post('/reject/{userId}','API\Notification\NotificationController@reject')->name('api_notificatio_reject');
-    Route::post('/redirect/{userId}','API\Notification\NotificationController@redirect')->name('api_notificatio_redirect');
+Route::prefix('student')->group(function (){
+    Route::post('/acceptGuardian/{studentId}/{guardianId}','API\Notification\NotificationController@acceptGuardian')->name('api_student_accept');
+    Route::post('/rejectGuardian/{studentId}/{guardianId}','API\Notification\NotificationController@rejectGuardian')->name('api_student_reject');
 });
 
 
