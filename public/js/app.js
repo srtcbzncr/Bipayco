@@ -12607,16 +12607,13 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/notification/show/' + this.userId).then(function (res) {
-        _this.notifications = res.data.data;
+        _this.notifications = res.data.data.data;
       });
     },
-    notificationChoice: function notificationChoice(url, id) {
+    notificationChoice: function notificationChoice(url) {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, {
-        notificationId: id,
-        userId: this.userId
-      }).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/' + url).then(function (res) {
         if (res.error) {
           UIkit.notification({
             message: res.errorMessage,
@@ -30803,8 +30800,7 @@ var render = function() {
                                         on: {
                                           click: function($event) {
                                             return _vm.notificationChoice(
-                                              notification.accept_url,
-                                              notification.id
+                                              notification.accept_url
                                             )
                                           }
                                         }
@@ -30825,8 +30821,7 @@ var render = function() {
                                         on: {
                                           click: function($event) {
                                             return _vm.notificationChoice(
-                                              notification.reject_url,
-                                              notification.id
+                                              notification.reject_url
                                             )
                                           }
                                         }
@@ -30843,8 +30838,7 @@ var render = function() {
                                       {
                                         on: {
                                           click: function($event) {
-                                            return _vm.notificationChoice(
-                                              notification.redirect_url,
+                                            return _vm.deleteNotification(
                                               notification.id
                                             )
                                           }
