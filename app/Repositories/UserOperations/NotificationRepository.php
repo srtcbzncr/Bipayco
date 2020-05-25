@@ -97,6 +97,36 @@ class NotificationRepository implements IRepository
         // TODO: Implement setPassive() method.
     }
 
+    public function createNotification($userId,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try {
+            DB::beginTransaction();
+            $object = new Notification();
+            $object->user_id = $data['userId'];
+            $object->is_choice = $data['isChoice'];
+            $object->content = $data['content'];
+            $object->accept_url = $data['acceptUrl'];
+            $object->reject_url = $data['rejectUrl'];
+            $object->redirect_url = $data['redirectUrl'];
+            $object->is_seen = $data['isSeen'];
+            $object->save();
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
     public function show($userId){
         // Response variables
         $result = true;

@@ -8,6 +8,25 @@ use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
+    public function create($userId,Request $request){
+        $data = $request->toArray();
+        $repo = new NotificationRepository();
+        $resp = $repo->createNotification($userId,$data);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData(),
+                'message' => 'Bildirim başarıyla oluşturuld.'
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Bildirim oluşturulurken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
+
     public function show($userId){
         $repo = new NotificationRepository();
         $resp = $repo->show($userId);

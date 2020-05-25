@@ -329,17 +329,17 @@ Route::prefix('favorite')->group(function (){
 });
 
 Route::prefix('notification')->group(function (){
-   Route::get('/show/{userId}','API\Notification\NotificationController@show')->name('api_notification_show');
-   Route::get('/get/{notificationId}','API\Notification\NotificationController@get')->name('api_notification_get');
-   Route::post('/delete/{notificationId}','API\Notification\NotificationController@delete')->name('api_notification_delete');
-   Route::post('/seen/{notificationId}','API\Notification\NotificationController@seen')->name('api_notification_seen');
+    Route::post('/create/{userId}','API\Notification\NotificationController@create')->name('api_notification_create');
+    Route::get('/show/{userId}','API\Notification\NotificationController@show')->name('api_notification_show');
+    Route::get('/get/{notificationId}','API\Notification\NotificationController@get')->name('api_notification_get');
+    Route::post('/delete/{notificationId}','API\Notification\NotificationController@delete')->name('api_notification_delete');
+    Route::post('/seen/{notificationId}','API\Notification\NotificationController@seen')->name('api_notification_seen');
+
+    Route::post('/accept/{userId}','API\Notification\NotificationController@accept')->name('api_notificatio_accept');
+    Route::post('/reject/{userId}','API\Notification\NotificationController@reject')->name('api_notificatio_reject');
+    Route::post('/redirect/{userId}','API\Notification\NotificationController@redirect')->name('api_notificatio_redirect');
 });
 
-Route::prefix('student')->group(function (){
-   Route::post('/accept/{studentId}/{guardianId}','API\Notification\StudentController@accept')->name('api_student_accept');
-   Route::post('/reject/{studentId}/{guardianId}','API\Notification\StudentController@reject')->name('api_student_reject');
-   Route::post('/redirect/{studentId}/{guardianId}','API\Notification\StudentController@redirect')->name('api_student_redirect');
-});
 
 Route::prefix('questionSource')->group(function (){
    Route::post('/create','API\QuestionSource\QuestionSourceController@create')->name('api_question_source_create');
