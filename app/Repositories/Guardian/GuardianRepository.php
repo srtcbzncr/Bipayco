@@ -194,7 +194,7 @@ class GuardianRepository implements IRepository
             $object = new GuardianUser();
             $object->guardian_id = $guardian->id;
             $object->student_id = $student->id;
-            $object->active = true;
+            $object->active = false;
             $object->save();
 
             // eklenen öğrenci için bildirim event'ini tetikle
