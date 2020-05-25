@@ -16,7 +16,7 @@ class NotificationController extends Controller
             return response()->json([
                 'error' => false,
                 'data' => $resp->getData(),
-                'message' => 'Bildirim başarıyla oluşturuld.'
+                'message' => 'Bildirim başarıyla oluşturuldu.'
             ]);
         }
 
@@ -105,7 +105,8 @@ class NotificationController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'İstek başarıyla kabul edildi.'
             ]);
         }
         return response()->json([
@@ -121,7 +122,8 @@ class NotificationController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'İstek başarıyla reddedildi.'
             ]);
         }
         return response()->json([
