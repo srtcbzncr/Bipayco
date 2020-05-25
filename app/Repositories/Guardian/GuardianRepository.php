@@ -197,7 +197,7 @@ class GuardianRepository implements IRepository
             $object->active = true;
             $object->save();
 
-            // eklenen öğrenci için bildirim event'ini tetikle
+            /*// eklenen öğrenci için bildirim event'ini tetikle
             $notificationData = array();
             $notificationData['userId'] = $student->user_id;
             $notificationData['isChoice'] = true;
@@ -206,7 +206,7 @@ class GuardianRepository implements IRepository
             $notificationData['rejectUrl'] = 'student/reject/'.$student->id.'/'.$guardian->id;
             $notificationData['redirectUrl'] = null;
             $notificationData['isSeen'] = false;
-            event(new AddStudentByGuardian($notificationData));
+            event(new AddStudentByGuardian($notificationData));*/
             DB::commit();
         }
         catch(\Exception $e){
