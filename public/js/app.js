@@ -8270,6 +8270,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8341,6 +8342,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     usernameText: {
       type: String,
       "default": "Kullanıcı Adı"
+    },
+    waitingConfirmText: {
+      type: String,
+      "default": "Onay Bekliyor"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['guardianStudents']), {
@@ -12607,22 +12612,34 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/notification/show/' + this.userId).then(function (res) {
-        _this.notifications = res.data.data.data;
+        _this.notifications = res.data.data;
       });
     },
-    notificationChoice: function notificationChoice(url) {
+    notificationChoice: function notificationChoice(url, id) {
       var _this2 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/' + url).then(function (res) {
-        if (res.error) {
+        console.log(res);
+
+        if (res.data.error) {
           UIkit.notification({
-            message: res.errorMessage,
+            message: res.data.errorMessage,
             status: 'danger'
           });
         } else {
+          UIkit.notification({
+            message: res.data.message,
+            status: 'success'
+          });
+
+          _this2.deleteNotification(id);
+
           _this2.fetchNotification();
         }
       });
+    },
+    deleteNotification: function deleteNotification(id) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/notification/delete/' + id);
     }
   },
   created: function created() {
@@ -24902,26 +24919,39 @@ var render = function() {
                   "tbody",
                   _vm._l(_vm.guardianStudents.data, function(item, index) {
                     return _c("tr", [
-                      _c(
-                        "td",
-                        {
-                          staticClass: "uk-width-3-4 clickable",
-                          on: {
-                            click: function($event) {
-                              return _vm.openInfo(index)
-                            }
-                          }
-                        },
-                        [
-                          _c("p", [
-                            _vm._v(
-                              _vm._s(item.user.first_name) +
-                                " " +
-                                _vm._s(item.user.last_name)
-                            )
-                          ])
-                        ]
-                      ),
+                      item.active
+                        ? _c(
+                            "td",
+                            {
+                              staticClass: "uk-width-3-4 clickable",
+                              on: {
+                                click: function($event) {
+                                  return _vm.openInfo(index)
+                                }
+                              }
+                            },
+                            [
+                              _c("p", [
+                                _vm._v(
+                                  _vm._s(item.user.first_name) +
+                                    " " +
+                                    _vm._s(item.user.last_name)
+                                )
+                              ])
+                            ]
+                          )
+                        : _c("td", { staticClass: "uk-width-3-4 clickable" }, [
+                            _c("p", [
+                              _vm._v(
+                                _vm._s(item.user.first_name) +
+                                  " " +
+                                  _vm._s(item.user.last_name) +
+                                  " (" +
+                                  _vm._s(_vm.waitingConfirmText) +
+                                  ")"
+                              )
+                            ])
+                          ]),
                       _vm._v(" "),
                       _c(
                         "td",
@@ -30800,7 +30830,8 @@ var render = function() {
                                         on: {
                                           click: function($event) {
                                             return _vm.notificationChoice(
-                                              notification.accept_url
+                                              notification.accept_url,
+                                              notification.id
                                             )
                                           }
                                         }
@@ -30821,7 +30852,8 @@ var render = function() {
                                         on: {
                                           click: function($event) {
                                             return _vm.notificationChoice(
-                                              notification.reject_url
+                                              notification.reject_url,
+                                              notification.id
                                             )
                                           }
                                         }

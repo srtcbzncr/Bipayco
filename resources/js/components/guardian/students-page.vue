@@ -13,7 +13,8 @@
                 </thead>
                 <tbody v-if="guardianStudents.data&&guardianStudents.data.length>0">
                 <tr v-for="(item,index) in guardianStudents.data">
-                    <td @click="openInfo(index)" class="uk-width-3-4 clickable"><p>{{item.user.first_name}} {{item.user.last_name}}</p></td>
+                    <td v-if="item.active" @click="openInfo(index)" class="uk-width-3-4 clickable"><p>{{item.user.first_name}} {{item.user.last_name}}</p></td>
+                    <td v-else class="uk-width-3-4 clickable"><p>{{item.user.first_name}} {{item.user.last_name}} ({{waitingConfirmText}})</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-around">
                         <a @click="deleteItem(item.user.id)" :uk-tooltip="deleteText"><i class="fas fa-trash text-danger"></i></a>
                     </td>
@@ -160,6 +161,10 @@
             usernameText:{
                 type:String,
                 default:"Kullanıcı Adı"
+            },
+            waitingConfirmText:{
+                type:String,
+                default:"Onay Bekliyor"
             }
         },
         computed:{
