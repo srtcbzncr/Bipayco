@@ -137,7 +137,7 @@ class NotificationRepository implements IRepository
         try {
             $object = Notification::where('user_id',$userId)
                 ->where('is_seen',false)
-                ->where('deleted_at',null)->paginate(10);
+                ->where('deleted_at',null)->orderBy('created_at','desc')->take(5)->get();
         }catch(\Exception $e){
             $error = $e->getMessage();
             $result = false;
