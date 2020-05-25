@@ -4,6 +4,7 @@
 namespace App\Repositories\UserOperations;
 
 
+use App\Models\Auth\GuardianUser;
 use App\Models\UsersOperations\Notification;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
@@ -130,6 +131,75 @@ class NotificationRepository implements IRepository
             $object = Notification::find($id);
             $object->is_seen = true;
             $object->save();
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function accept($studentId,$guardianId){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try {
+            DB::beginTransaction();
+            $object = GuardianUser::where('guardian_id',$guardianId)->where('student_id',$studentId)->where('deleted_at',null)->first();
+            $object->active = true;
+            $object->save();
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function reject($studentId,$guardianId){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try {
+            DB::beginTransaction();
+            $object = GuardianUser::where('guardian_id',$guardianId)->where('student_id',$studentId)->where('deleted_at',null)->first();
+            $object->delete();
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function redirect($studentId,$guardianId){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try {
+            DB::beginTransaction();
+
             DB::commit();
         }catch(\Exception $e){
             DB::rollBack();
