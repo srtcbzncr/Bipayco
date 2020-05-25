@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    public function accept($studentId,$guardianId){
+    public function accept(){
         $repo = new NotificationRepository();
-        $resp = $repo->accept($studentId,$guardianId);
+        $resp = $repo->accept();
         if($resp->getResult()){
             return response()->json([
                'error' => false,
@@ -24,9 +24,9 @@ class StudentController extends Controller
         ],400);
     }
 
-    public function reject($studentId,$guardianId){
+    public function reject(){
         $repo = new NotificationRepository();
-        $resp = $repo->reject($studentId,$guardianId);
+        $resp = $repo->reject();
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
@@ -40,9 +40,9 @@ class StudentController extends Controller
         ],400);
     }
 
-    public function redirect($studentId,$guardianId){
+    public function redirect(){
         $repo = new NotificationRepository();
-        $resp = $repo->redirect($studentId,$guardianId);
+        $resp = $repo->redirect();
         if($resp->getResult()){
             return response()->json([
                 'error' => false,

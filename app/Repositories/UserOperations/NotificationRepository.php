@@ -143,7 +143,7 @@ class NotificationRepository implements IRepository
         return $resp;
     }
 
-    public function accept($studentId,$guardianId){
+    public function accept(){
         // Response variables
         $result = true;
         $error = null;
@@ -152,9 +152,7 @@ class NotificationRepository implements IRepository
         // Operations
         try {
             DB::beginTransaction();
-            $object = GuardianUser::where('guardian_id',$guardianId)->where('student_id',$studentId)->where('deleted_at',null)->first();
-            $object->active = true;
-            $object->save();
+
             DB::commit();
         }catch(\Exception $e){
             DB::rollBack();
@@ -167,7 +165,7 @@ class NotificationRepository implements IRepository
         return $resp;
     }
 
-    public function reject($studentId,$guardianId){
+    public function reject(){
         // Response variables
         $result = true;
         $error = null;
@@ -176,8 +174,7 @@ class NotificationRepository implements IRepository
         // Operations
         try {
             DB::beginTransaction();
-            $object = GuardianUser::where('guardian_id',$guardianId)->where('student_id',$studentId)->where('deleted_at',null)->first();
-            $object->delete();
+
             DB::commit();
         }catch(\Exception $e){
             DB::rollBack();
@@ -190,7 +187,7 @@ class NotificationRepository implements IRepository
         return $resp;
     }
 
-    public function redirect($studentId,$guardianId){
+    public function redirect(){
         // Response variables
         $result = true;
         $error = null;
