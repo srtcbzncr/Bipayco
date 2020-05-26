@@ -18,6 +18,7 @@ class FavoriteController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
+                'data' =>$resp->getData(),
                 'message' => 'Kurs başarıyla favorilere eklendi.'
             ]);
         }
@@ -39,6 +40,7 @@ class FavoriteController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
+                'data' =>$resp->getData(),
                 'message' => 'Kurs favorilere başarıyla kaldırıldı'
             ]);
         }
@@ -59,6 +61,49 @@ class FavoriteController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
+                'data' =>$resp->getData(),
+                'message' => 'Favoriler başarıyla getirildi',
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Favoriler getirilirken hata oluştu.Tekrar deneyin.'
+            ]);
+        }
+    }
+
+    public function getLastFavorite($user_id){
+        // Initializing
+        $repo = new FavoriteRepository();
+
+        // Operations
+        $resp=$repo->getLastFavorite($user_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' =>$resp->getData(),
+                'message' => 'Favoriler başarıyla getirildi'
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'message' => 'Favoriler getirilirken hata oluştu.Tekrar deneyin.'
+            ]);
+        }
+    }
+
+    public function getFavoritePaginate($user_id){
+        // Initializing
+        $repo = new FavoriteRepository();
+
+        // Operations
+        $resp=$repo->getFavoritePaginate($user_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' =>$resp->getData(),
                 'message' => 'Favoriler başarıyla getirildi'
             ]);
         }

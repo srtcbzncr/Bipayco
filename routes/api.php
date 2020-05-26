@@ -323,9 +323,11 @@ Route::prefix('basket')->group(function (){
     Route::post('/buy/{userId}','API\Basket\BasketController@buy')->name('buy_courses');
 });
 Route::prefix('favorite')->group(function (){
-    Route::post('/add','API\Favorite\FavoriteController@add')->name('add_basket');
-    Route::post('/delete','API\Favorite\FavoriteController@remove')->name('remove_basket');
-    Route::get('/show/{user_id}','API\Favorite\FavoriteController@show')->name('show_basket');
+    Route::post('/add','API\Favorite\FavoriteController@add')->name('add_favorite');
+    Route::post('/delete','API\Favorite\FavoriteController@remove')->name('remove_favorite');
+    Route::get('/show/{user_id}','API\Favorite\FavoriteController@show')->name('show_favorite');
+    Route::get('/getLastFavorites/{user_id}','API\Favorite\FavoriteController@getLastFavorite')->name('favorite_get_last');
+    Route::get('/getFavoritePaginate/{user_id}','API\Favorite\FavoriteController@getFavoritePaginate')->name('favorite_get_favorite');
 });
 
 Route::prefix('notification')->group(function (){
