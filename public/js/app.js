@@ -21246,18 +21246,16 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "uk-container" }, [
-    _c(
-      "div",
-      { staticClass: "uk-clearfix boundary-align uk-margin-medium-top" },
-      [
-        _c(
-          "div",
-          { staticClass: "uk-float-left section-heading none-border" },
-          [_c("h2", [_vm._v(_vm._s(_vm.favoritesText))]), _vm._v(" "), _c("p")]
-        )
-      ]
-    ),
+  return _c("div", { staticClass: "uk-container uk-margin-medium-top" }, [
+    _c("div", { staticClass: "uk-clearfix boundary-align" }, [
+      _c("div", { staticClass: "uk-float-left none-border" }, [
+        _c("h2", { staticClass: "uk-margin-small-bottom" }, [
+          _vm._v(_vm._s(_vm.favoritesText))
+        ]),
+        _vm._v(" "),
+        _c("p")
+      ])
+    ]),
     _vm._v(" "),
     _vm.courseCard.data && _vm.courseCard.data.length > 0
       ? _c("div", [

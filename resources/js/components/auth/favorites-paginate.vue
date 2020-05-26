@@ -1,8 +1,8 @@
 <template>
-    <div class="uk-container">
-        <div class="uk-clearfix boundary-align uk-margin-medium-top">
-            <div class="uk-float-left section-heading none-border">
-                <h2>{{favoritesText}}</h2>
+    <div class="uk-container uk-margin-medium-top">
+        <div class="uk-clearfix boundary-align">
+            <div class="uk-float-left none-border">
+                <h2 class="uk-margin-small-bottom">{{favoritesText}}</h2>
                 <p></p>
             </div>
         </div>

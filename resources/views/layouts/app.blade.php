@@ -139,7 +139,7 @@
                                 is-guardian
                                 @endif
                                 favorites="@lang('front/auth.favorites')"
-                                favorites-route="#"
+                                favorites-route="{{route('get_favorite')}}"
                                 settings-route="{{route('settings')}}"
                                 logout-route="{{route('logout')}}"
                                 settings="@lang('front/auth.settings')"
