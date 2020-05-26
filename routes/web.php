@@ -61,6 +61,7 @@ Route::group(['prefix' => 'settings', 'middleware' => 'auth'], function(){
 Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function(){
     Route::get('student/{id}', 'Auth\AuthController@studentProfile')->name('student_profile');
     Route::get('/basket','Auth\AuthController@getBasketView')->name('get_basket');
+    Route::get('/favorite','Auth\AuthController@getFavoriteView')->name('get_favorite');
 });
 Route::get('instructorProfile/{id}', 'Auth\AuthController@instructorProfile')->name('instructor_profile');
 

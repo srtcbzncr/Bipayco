@@ -322,6 +322,10 @@ class AuthController extends Controller
         return view('cart');
     }
 
+    public function getFavoriteView(){
+        return view('auth.user_favorites');
+    }
+
     public function forgotPassGet(){
         return view('auth.forget_password');
     }
