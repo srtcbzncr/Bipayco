@@ -178,7 +178,7 @@ class FavoriteRepository implements IRepository
                     $subCategory = SubCategory::find($tempCourse->sub_category_id);
                     $tempCourse['category'] = $category;
                     $tempCourse['subCategory'] = $subCategory;
-                    array_push($object,$tempCourse);
+                    $courses[$key]['course'] = $tempCourse;
                 }
                 else if($course->course_type == 'App\Models\PrepareLessons\Course'){
                     $tempCourse = \App\Models\PrepareLessons\Course::find($course->id);
@@ -195,7 +195,7 @@ class FavoriteRepository implements IRepository
                     $grade = Grade::find($tempCourse->grade_id);
                     $tempCourse['lesson'] = $lesson;
                     $tempCourse['grade'] = $grade;
-                    array_push($object,$tempCourse);
+                    $courses[$key]['course'] = $tempCourse;
                 }
                 else if($course->course_type == 'App\Models\PrepareExams\Course'){
                     $tempCourse = \App\Models\PrepareExams\Course::find($course->id);
@@ -210,9 +210,11 @@ class FavoriteRepository implements IRepository
                     $tempCourse['inFavorite'] = true;
                     $exam = Exam::find($tempCourse->exam_id);
                     $tempCourse['exam'] = $exam;
-                    array_push($object,$tempCourse);
+                    $courses[$key]['course'] = $tempCourse;
                 }
             }
+
+            $object = $courses;
 
         }catch(\Exception $e){
             $error = $e->getMessage();
@@ -251,7 +253,8 @@ class FavoriteRepository implements IRepository
                     $subCategory = SubCategory::find($tempCourse->sub_category_id);
                     $tempCourse['category'] = $category;
                     $tempCourse['subCategory'] = $subCategory;
-                    array_push($object,$tempCourse);
+                    $courses[$key]['course'] = $tempCourse;
+
                 }
                 else if($course->course_type == 'App\Models\PrepareLessons\Course'){
                     $tempCourse = \App\Models\PrepareLessons\Course::find($course->id);
@@ -268,7 +271,7 @@ class FavoriteRepository implements IRepository
                     $grade = Grade::find($tempCourse->grade_id);
                     $tempCourse['lesson'] = $lesson;
                     $tempCourse['grade'] = $grade;
-                    array_push($object,$tempCourse);
+                    $courses[$key]['course'] = $tempCourse;
                 }
                 else if($course->course_type == 'App\Models\PrepareExams\Course'){
                     $tempCourse = \App\Models\PrepareExams\Course::find($course->id);
@@ -283,9 +286,10 @@ class FavoriteRepository implements IRepository
                     $tempCourse['inFavorite'] = true;
                     $exam = Exam::find($tempCourse->exam_id);
                     $tempCourse['exam'] = $exam;
-                    array_push($object,$tempCourse);
+                    $courses[$key]['course'] = $tempCourse;
                 }
             }
+            $object = $courses;
 
         }catch(\Exception $e){
             $error = $e->getMessage();
