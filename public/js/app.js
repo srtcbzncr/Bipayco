@@ -6003,7 +6003,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "course-card-pagination",
   data: function data() {
     return {
-      url: '/api/'
+      url: '/api/favorite/getFavoritePaginate/' + this.userId
     };
   },
   props: {
@@ -6014,6 +6014,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     favoritesText: {
       type: String,
       "default": "Favoriler"
+    },
+    hasNoContentText: {
+      type: String,
+      "default": "İçerik Bulunmamaktadır"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseCard']), {
@@ -6045,12 +6049,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadUrlForCourseCard']), {
     loadNewPage: function loadNewPage(name) {
       this.$store.dispatch('loadUrlForCourseCard', name);
+    },
+    convertModule: function convertModule(moduleName) {
+      switch (moduleName) {
+        case "generalEducation":
+          return "ge";
+
+        case "prepareExams":
+          return "pe";
+
+        case "prepareLessons":
+          return "pl";
+
+        default:
+          return "";
+      }
     }
   }),
   created: function created() {
-    if (this.courseCount > 0) {
-      this.$store.dispatch('loadUrlForCourseCard', this.url);
-    }
+    this.$store.dispatch('loadUrlForCourseCard', '/api/favorite/getFavoritePaginate/' + this.userId);
   }
 });
 
@@ -21276,14 +21293,14 @@ var render = function() {
                 [
                   _c("course-card", {
                     attrs: {
-                      course: course,
+                      course: course.course,
                       "style-full-star-color": "#F4C150",
                       "style-empty-star-color": "#C1C1C1",
-                      "course-id": course.id,
-                      "module-name": _vm.moduleName,
+                      "course-id": course.course_id,
+                      "module-name": course.course.course_type,
                       "is-login": true,
                       "user-id": _vm.userId,
-                      module: _vm.module
+                      module: _vm.convertModule(course.course.course_type)
                     }
                   })
                 ],
@@ -21386,7 +21403,7 @@ var render = function() {
             staticClass:
               "uk-flex uk-flex-center align-items-center justify-content-center uk-margin-large-top"
           },
-          [_c("h2", [_vm._v(_vm._s(_vm.hasNoContent))])]
+          [_c("h2", [_vm._v(_vm._s(_vm.hasNoContentText))])]
         )
   ])
 }

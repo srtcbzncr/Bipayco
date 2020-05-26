@@ -236,4 +236,5 @@ return [
     'have_no_new_notification'=>'Yeni Bir Bildirim Bulunmuyor',
     'guardian_mode'=>'Veli Modu',
     'favorites'=>'Favoriler',
+    'have_no_favorite'=>'Favori Bulunmamaktadır'
 ];

@@ -10,14 +10,14 @@
             <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-margin" uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div ; delay: 200" uk-grid>
                 <div v-for="course in courseCard.data">
                     <course-card
-                        :course="course"
+                        :course="course.course"
                         style-full-star-color="#F4C150"
                         style-empty-star-color="#C1C1C1"
-                        :course-id="course.id"
-                        :module-name="moduleName"
+                        :course-id="course.course_id"
+                        :module-name="course.course.course_type"
                         :is-login="true"
                         :user-id="userId"
-                        :module="module"
+                        :module="convertModule(course.course.course_type)"
                     > </course-card>
                 </div>
             </div>
@@ -36,7 +36,7 @@
             </ul>
         </div>
         <div v-else class="uk-flex uk-flex-center align-items-center justify-content-center uk-margin-large-top">
-            <h2>{{hasNoContent}}</h2>
+            <h2>{{hasNoContentText}}</h2>
         </div>
     </div>
 </template>
@@ -47,7 +47,7 @@
         name: "course-card-pagination",
         data(){
             return {
-                url:'/api/'
+                url:'/api/favorite/getFavoritePaginate/'+this.userId,
             }
         },
         props:{
@@ -58,6 +58,10 @@
             favoritesText:{
                 type:String,
                 default:"Favoriler"
+            },
+            hasNoContentText:{
+                type:String,
+                default:"İçerik Bulunmamaktadır"
             }
         },
         computed:{
@@ -92,12 +96,22 @@
             ]),
             loadNewPage: function(name){
                 this.$store.dispatch('loadUrlForCourseCard', name);
+            },
+            convertModule: function(moduleName){
+                switch (moduleName) {
+                    case "generalEducation":
+                        return "ge";
+                    case "prepareExams":
+                        return "pe";
+                    case "prepareLessons":
+                        return "pl";
+                    default:
+                            return "";
+                }
             }
         },
         created() {
-            if (this.courseCount>0) {
-                this.$store.dispatch('loadUrlForCourseCard', this.url);
-            }
+            this.$store.dispatch('loadUrlForCourseCard', '/api/favorite/getFavoritePaginate/'+this.userId);
         },
     }
 </script>
