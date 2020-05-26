@@ -4,6 +4,7 @@
 namespace App\Repositories\Admin;
 
 
+use App\Events\Auth\AdminRegisterEvent;
 use App\Models\Auth\Admin;
 use App\Models\Auth\Guardian;
 use App\Models\Auth\Instructor;
@@ -82,6 +83,12 @@ class AuthRepository implements IRepository {
             $object->active = $data['active'];
             $object->reference_code = uniqid('ad'.random_int(100,999), false);
             $object->save();
+
+            // event tetikle kullanıcıya admin olarak eklendiğine dair.
+            $eventData = array();
+            $eventData['name'] = $user->first_name.' '.$user->last_name;
+            $eventData['mail'] = $data['email'];
+            event(new AdminRegisterEvent($eventData));
             DB::commit();
         }
         catch(\Exception $e){

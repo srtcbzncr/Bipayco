@@ -56,6 +56,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\UsersOperations\AddStudentByGuardian' => [
             'App\Listeners\UsersOperations\AddStudentByGuardianListener'
+        ],
+        'App\Events\Auth\AdminRegisterEvent' => [
+            'App\Listeners\Auth\AdminRegisterListener'
         ]
     ];
 
