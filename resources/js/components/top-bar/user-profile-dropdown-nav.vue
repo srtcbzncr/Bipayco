@@ -13,14 +13,17 @@
             <li>
                 <a :href="profileRoute"> <i class="fas fa-user uk-margin-small-right"></i>{{profile}}</a>
             </li>
+            <li>
+                <a :href="favoritesRoute"> <i class="fas fa-heart uk-margin-small-right"></i>{{favorites}}</a>
+            </li>
             <li v-if="isAdmin">
                 <a :href="adminModeRoute"> <i class="fas fa-user-tie uk-margin-small-right"></i>{{adminMode}}</a>
             </li>
-            <li>
-                <a :href="instructorModeRoute"> <i class="fas fa-chalkboard-teacher uk-margin-small-right"></i>{{instructorMode}}</a>
-            </li>
             <li v-if="isGuardian">
                 <a :href="guardianModeRoute"> <i class="fas fa-user-friends uk-margin-small-right"></i>{{guardianMode}}</a>
+            </li>
+            <li>
+                <a :href="instructorModeRoute"> <i class="fas fa-chalkboard-teacher uk-margin-small-right"></i>{{instructorMode}}</a>
             </li>
             <li>
                 <a :href="settingsRoute"> <i class="fas fa-cog uk-margin-small-right"></i>{{settings}}</a>
@@ -37,12 +40,14 @@
     export default {
         name: "user-profile-dropdown-nav",
         props:{
+            favoritesRoute:String,
             settingsRoute:String,
             logoutRoute:String,
             profileImage:String,
             userName:String,
             userCity:String,
             settings:String,
+            favorites:String,
             logOut:String,
             profile:String,
             profileRoute:String,

@@ -138,6 +138,8 @@
                                 guardian-mode-route="{{route('guardian_students')}}"
                                 is-guardian
                                 @endif
+                                favorites="@lang('front/auth.favorites')"
+                                favorites-route="#"
                                 settings-route="{{route('settings')}}"
                                 logout-route="{{route('logout')}}"
                                 settings="@lang('front/auth.settings')"
