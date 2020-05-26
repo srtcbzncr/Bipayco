@@ -234,5 +234,6 @@ return [
     'remove_all'=>'Hepsini Kaldır',
     'notifications'=>'Bildirimler',
     'have_no_new_notification'=>'Yeni Bir Bildirim Bulunmuyor',
-    'guardian_mode'=>'Veli Modu'
+    'guardian_mode'=>'Veli Modu',
+    'favorites'=>'Favoriler',
 ];

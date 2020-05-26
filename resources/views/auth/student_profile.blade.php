@@ -27,12 +27,13 @@
                 </div>
             </div>
             <div class="uk-width-3-4@m">
-                <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.general_education') </span></h3>
-                <course-progress-card user-id="{{Auth::user()->id}}" no-content="@lang('front/auth.not_found_content')" general-education></course-progress-card>
-                <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.prepare_for_lessons') </span></h3>
-                <course-progress-card user-id="{{Auth::user()->id}}" no-content="@lang('front/auth.not_found_content')" prepare-for-lessons></course-progress-card>
-                <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.prepare_for_exams') </span></h3>
-                <course-progress-card user-id="{{Auth::user()->id}}" no-content="@lang('front/auth.not_found_content')" prepare-for-exams></course-progress-card>
+                <course-progress-card
+                    user-id="{{Auth::user()->id}}"
+                    no-content="@lang('front/auth.not_found_content')"
+                    prepare-lessons-text="@lang('front/auth.prepare_for_lessons')"
+                    prepare-exams-text="@lang('front/auth.prepare_for_exams')"
+                    general-education-text="@lang('front/auth.general_education')"
+                ></course-progress-card>
 {{--                <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.homeworks') </span></h3>--}}
 {{--                <course-progress-card user-id="{{Auth::user()->id}}" no-content="@lang('front/auth.not_found_content')" homeworks></course-progress-card>--}}
             </div>
