@@ -41,19 +41,29 @@
         <div id="answerArea" uk-modal>
             <div class="uk-modal-dialog">
                 <div class="uk-modal-header">
-                    <h2 class="uk-modal-title">{{addStudentText}}</h2>
+                    <h2 class="uk-modal-title">{{selectedQuestion.title}}</h2>
                 </div>
 
                 <div class="uk-modal-body" uk-overflow-auto>
-                    <div class="uk-margin-bottom">
-                        <div class="uk-form-label">{{referenceCodeText}}</div>
-                        <input class="uk-width uk-input" :placeholder="referenceCodeText">
+                    <!-- question area -->
+
+                    <!-- answer area -->
+                    <div>
+                        <div class="uk-margin-bottom">
+                            <div class="uk-form-label">{{answerText}}</div>
+                            <textarea v-model="answer" class="uk-width uk-input" :placeholder="letsAnswerText"></textarea>
+                        </div>
+                        <button class="uk-button uk-button-default uk-modal-close" @click="clearForm" type="button">{{cancelText}}</button>
+                        <button class="uk-button uk-button-success" type="button" @click="saveItem">{{sendText}}</button>
+                    </div>
+                    <!-- answered text area -->
+                    <div>
+
                     </div>
                 </div>
 
                 <div class="uk-modal-footer uk-text-right">
-                    <button class="uk-button uk-button-default uk-modal-close" @click="clearForm" type="button">{{cancelText}}</button>
-                    <button class="uk-button uk-button-primary" type="button" @click="saveItem">{{saveText}}</button>
+                    <button class="uk-button uk-button-default uk-modal-close" type="button">{{closeText}}</button>
                 </div>
             </div>
         </div>
@@ -72,16 +82,13 @@
                 selectedUrl:'/api/instructor/getNotAnsweredQuestions',
                 selectedAreaName:"waitingAnswer",
                 selectedPage:'0',
+                answer:"",
             }
         },
         props:{
             userId:{
                 type:String,
                 required:true,
-            },
-            addStudentText:{
-                type:String,
-                default:"Öğrenci Ekle"
             },
             haveNoQuestionText:{
                 type:String,
@@ -99,53 +106,29 @@
                 type:String,
                 default:"Sil"
             },
-            activateText:{
-                type:String,
-                default:"Aktifleştir"
-            },
-            deactivateText:{
-                type:String,
-                default:"Pasifleştir"
-            },
             saveText:{
                 type:String,
                 default:"Kaydet"
+            },
+            sendText:{
+                type:String,
+                default:"Gönder"
             },
             cancelText:{
                 type:String,
                 default:"Vazgeç"
             },
-            iconText:{
+            answerText:{
                 type:String,
-                default:"İkon"
+                default:"Cevap"
             },
-            nameText:{
+            letsAnswerText:{
                 type:String,
-                default:"Adı"
+                default:"Hadi Sorusunu Cevapla"
             },
-            emailText:{
+            closeText:{
                 type:String,
-                default:"Eposta"
-            },
-            studentInfoText:{
-                type:String,
-                default:"Öğrenci Bilgisi"
-            },
-            referenceCodeText:{
-                type:String,
-                default:"Referans Kodu"
-            },
-            phoneText:{
-                type:String,
-                default:"Telefon"
-            },
-            usernameText:{
-                type:String,
-                default:"Kullanıcı Adı"
-            },
-            waitingConfirmText:{
-                type:String,
-                default:"Onay Bekliyor"
+                default:"Kapat"
             }
         },
         watch:{

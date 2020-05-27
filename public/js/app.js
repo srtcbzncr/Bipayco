@@ -11855,6 +11855,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "questions-page",
@@ -11865,17 +11875,14 @@ __webpack_require__.r(__webpack_exports__);
       selectedQuestion: {},
       selectedUrl: '/api/instructor/getNotAnsweredQuestions',
       selectedAreaName: "waitingAnswer",
-      selectedPage: '0'
+      selectedPage: '0',
+      answer: ""
     };
   },
   props: {
     userId: {
       type: String,
       required: true
-    },
-    addStudentText: {
-      type: String,
-      "default": "Öğrenci Ekle"
     },
     haveNoQuestionText: {
       type: String,
@@ -11893,53 +11900,29 @@ __webpack_require__.r(__webpack_exports__);
       type: String,
       "default": "Sil"
     },
-    activateText: {
-      type: String,
-      "default": "Aktifleştir"
-    },
-    deactivateText: {
-      type: String,
-      "default": "Pasifleştir"
-    },
     saveText: {
       type: String,
       "default": "Kaydet"
+    },
+    sendText: {
+      type: String,
+      "default": "Gönder"
     },
     cancelText: {
       type: String,
       "default": "Vazgeç"
     },
-    iconText: {
+    answerText: {
       type: String,
-      "default": "İkon"
+      "default": "Cevap"
     },
-    nameText: {
+    letsAnswerText: {
       type: String,
-      "default": "Adı"
+      "default": "Hadi Sorusunu Cevapla"
     },
-    emailText: {
+    closeText: {
       type: String,
-      "default": "Eposta"
-    },
-    studentInfoText: {
-      type: String,
-      "default": "Öğrenci Bilgisi"
-    },
-    referenceCodeText: {
-      type: String,
-      "default": "Referans Kodu"
-    },
-    phoneText: {
-      type: String,
-      "default": "Telefon"
-    },
-    usernameText: {
-      type: String,
-      "default": "Kullanıcı Adı"
-    },
-    waitingConfirmText: {
-      type: String,
-      "default": "Onay Bekliyor"
+      "default": "Kapat"
     }
   },
   watch: {
@@ -30225,7 +30208,7 @@ var render = function() {
       _c("div", { staticClass: "uk-modal-dialog" }, [
         _c("div", { staticClass: "uk-modal-header" }, [
           _c("h2", { staticClass: "uk-modal-title" }, [
-            _vm._v(_vm._s(_vm.addStudentText))
+            _vm._v(_vm._s(_vm.selectedQuestion.title))
           ])
         ]),
         _vm._v(" "),
@@ -30233,16 +30216,57 @@ var render = function() {
           "div",
           { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
           [
-            _c("div", { staticClass: "uk-margin-bottom" }, [
-              _c("div", { staticClass: "uk-form-label" }, [
-                _vm._v(_vm._s(_vm.referenceCodeText))
+            _c("div", [
+              _c("div", { staticClass: "uk-margin-bottom" }, [
+                _c("div", { staticClass: "uk-form-label" }, [
+                  _vm._v(_vm._s(_vm.answerText))
+                ]),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.answer,
+                      expression: "answer"
+                    }
+                  ],
+                  staticClass: "uk-width uk-input",
+                  attrs: { placeholder: _vm.letsAnswerText },
+                  domProps: { value: _vm.answer },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.answer = $event.target.value
+                    }
+                  }
+                })
               ]),
               _vm._v(" "),
-              _c("input", {
-                staticClass: "uk-width uk-input",
-                attrs: { placeholder: _vm.referenceCodeText }
-              })
-            ])
+              _c(
+                "button",
+                {
+                  staticClass: "uk-button uk-button-default uk-modal-close",
+                  attrs: { type: "button" },
+                  on: { click: _vm.clearForm }
+                },
+                [_vm._v(_vm._s(_vm.cancelText))]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "uk-button uk-button-success",
+                  attrs: { type: "button" },
+                  on: { click: _vm.saveItem }
+                },
+                [_vm._v(_vm._s(_vm.sendText))]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div")
           ]
         ),
         _vm._v(" "),
@@ -30251,20 +30275,9 @@ var render = function() {
             "button",
             {
               staticClass: "uk-button uk-button-default uk-modal-close",
-              attrs: { type: "button" },
-              on: { click: _vm.clearForm }
+              attrs: { type: "button" }
             },
-            [_vm._v(_vm._s(_vm.cancelText))]
-          ),
-          _vm._v(" "),
-          _c(
-            "button",
-            {
-              staticClass: "uk-button uk-button-primary",
-              attrs: { type: "button" },
-              on: { click: _vm.saveItem }
-            },
-            [_vm._v(_vm._s(_vm.saveText))]
+            [_vm._v(_vm._s(_vm.closeText))]
           )
         ])
       ])
