@@ -14494,7 +14494,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nh6[data-v-3f8ac686]{\n    margin:0\n}\n.clickable[data-v-3f8ac686]{\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\nh6[data-v-3f8ac686]{\n    margin:0\n}\n.clickable[data-v-3f8ac686]{\n    cursor: pointer;\n}\ntextarea[data-v-3f8ac686]{\n    resize:none;\n}\n", ""]);
 
 // exports
 
@@ -30231,7 +30231,7 @@ var render = function() {
                       expression: "answer"
                     }
                   ],
-                  staticClass: "uk-width uk-input",
+                  staticClass: "uk-width uk-textarea",
                   attrs: { placeholder: _vm.letsAnswerText },
                   domProps: { value: _vm.answer },
                   on: {

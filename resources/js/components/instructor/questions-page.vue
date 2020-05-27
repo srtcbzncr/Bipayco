@@ -51,7 +51,7 @@
                     <div>
                         <div class="uk-margin-bottom">
                             <div class="uk-form-label">{{answerText}}</div>
-                            <textarea v-model="answer" class="uk-width uk-input" :placeholder="letsAnswerText"></textarea>
+                            <textarea v-model="answer" class="uk-width uk-textarea" :placeholder="letsAnswerText"></textarea>
                         </div>
                         <button class="uk-button uk-button-default uk-modal-close" @click="clearForm" type="button">{{cancelText}}</button>
                         <button class="uk-button uk-button-success" type="button" @click="saveItem">{{sendText}}</button>
@@ -230,7 +230,12 @@
     h6{
         margin:0
     }
+
     .clickable{
         cursor: pointer;
+    }
+
+    textarea{
+        resize:none;
     }
 </style>
