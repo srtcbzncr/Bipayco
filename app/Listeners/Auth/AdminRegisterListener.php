@@ -32,7 +32,7 @@ class AdminRegisterListener
         $data = array('name'=>"$to_name", "body" => "Bipayco sistemine admin olarak eklendiniz.");
         Mail::send('mail', $data, function($message) use ($to_name, $to_email) {
             $message->to($to_email, $to_name)->subject('Bipayco Admin');
-            $message->from('contact.softdevs@gmail.com','Bipayco Admin Register');
+            $message->from('info@bipayco.com','Bipayco Admin Register');
         });
     }
 }

@@ -32,7 +32,7 @@ class RegisterListener
         $data = array('name'=>"Sanalist AŞ", "body" => "Merhaba, bu bir hoşgeldin mesajıdır.");
         Mail::send('mail', $data, function($message) use ($to_name, $to_email) {
             $message->to($to_email, $to_name)->subject('Laravel Test Mail');
-            $message->from('contact.softdevs@gmail.com','Register Mail');
+            $message->from('info@bipayco.com','Register Mail');
         });
     }
 }

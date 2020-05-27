@@ -345,7 +345,7 @@ class AuthController extends Controller
             $data = array('name'=>"Sanalist AŞ", "token" => $token);
             Mail::send('auth.forget_password_email', $data, function($message) use ($to_name, $to_email) {
                 $message->to($to_email, $to_name)->subject('Laravel Password Reset Test Mail');
-                $message->from('contact.softdevs@gmail.com','Password Reset Mail');
+                $message->from('info@bipayco.com','Password Reset Mail');
             });
             $now = date("Y-m-d H:i:s");
             DB::table('password_resets')->insert([
