@@ -276,6 +276,10 @@ Route::prefix('instructor')->group(function(){
     Route::post('prepareExams/course/{id}/section/{section_id}/lesson/{lesson_id}/up','API\PrepareExams\CourseController@lessonUp')->name('api_gl_course_lesson_up'); // ok
     Route::post('prepareExams/course/{id}/section/{section_id}/lesson/{lesson_id}/down','API\PrepareExams\CourseController@lessonDown')->name('api_pl_course_lesson_down'); // ok
     Route::get('prepareExams/exams','API\PrepareExams\CourseController@getExams')->name('api_pl_course_get_exams');
+
+    // soru cevap bölümü
+    Route::get('getNotAnsweredQuestions/{userId}','API\Learn\QuestionAnswer\QuestionAnswerController@getNotAnsweredQuestions')->name('api_get_not_answered_question');
+    Route::get('getAnsweredQuestions/{userId}','API\Learn\QuestionAnswer\QuestionAnswerController@getAnsweredQuestions')->name('api_get_answered_question');
 });
 
 # Kurs İzleme Bölümü İçin Routes
