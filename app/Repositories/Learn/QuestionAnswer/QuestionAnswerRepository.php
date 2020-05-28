@@ -81,8 +81,6 @@ class QuestionAnswerRepository implements IRepository
             foreach ($object as $keyCourse => $item){
                 if($item->course_type == 'App\Models\GeneralEducation\Course'){
                     $course = Course::find($item->course_id);
-                    $user = User::find($item->user_id);
-                    $course['user'] = $user;
                     $object[$keyCourse] = $course;
 
                     $sections = Section::where('course_id',$course->id)->where('active',true)->where('deleted_at',null)->get();
@@ -104,6 +102,8 @@ class QuestionAnswerRepository implements IRepository
 
                                     // cevap verilmemiş bir sorudur.
                                     $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue] = $question;
+                                    $user = User::find($question->user_id);
+                                    $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue]['user'] = $user;
                                 }
 
                             }
@@ -134,6 +134,8 @@ class QuestionAnswerRepository implements IRepository
 
                                     // cevap verilmemiş bir sorudur.
                                     $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue] = $question;
+                                    $user = User::find($question->user_id);
+                                    $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue]['user'] = $user;
                                 }
 
                             }
@@ -163,6 +165,8 @@ class QuestionAnswerRepository implements IRepository
 
                                     // cevap verilmemiş bir sorudur.
                                     $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue] = $question;
+                                    $user = User::find($question->user_id);
+                                    $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue]['user'] = $user;
                                 }
 
                             }
