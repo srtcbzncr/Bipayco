@@ -280,6 +280,8 @@ Route::prefix('instructor')->group(function(){
     // soru cevap bölümü
     Route::get('getNotAnsweredQuestions/{userId}','API\Learn\QuestionAnswer\QuestionAnswerController@getNotAnsweredQuestions')->name('api_get_not_answered_question');
     Route::get('getAnsweredQuestions/{userId}','API\Learn\QuestionAnswer\QuestionAnswerController@getAnsweredQuestions')->name('api_get_answered_question');
+    Route::post('deleteAnswer/{answerId}','API\Learn\QuestionAnswer\QuestionAnswerController@deleteAnswer')->name('api_delete_answer');
+    Route::post('updateAnswer/{answerId}','API\Learn\QuestionAnswer\QuestionAnswerController@updateAnswer')->name('api_update_answer');
 });
 
 # Kurs İzleme Bölümü İçin Routes

@@ -291,4 +291,51 @@ class QuestionAnswerRepository implements IRepository
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+
+    public function deleteAnswer($answerId){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        try{
+            DB::beginTransaction();
+            $object = Answer::find($answerId);
+            $object->delete();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function updateAnswer($answerId,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        try{
+            DB::beginTransaction();
+            $object = Answer::find($answerId);
+            $object->content  = $data['content'];
+            $object->save();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
 }

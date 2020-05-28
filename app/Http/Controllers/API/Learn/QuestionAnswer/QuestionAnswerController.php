@@ -41,4 +41,39 @@ class QuestionAnswerController extends Controller
             'errorMessage' => $resp->getError()
         ]);
     }
+
+    public function deleteAnswer($answerId){
+        $repo = new QuestionAnswerRepository();
+        $resp = $repo->deleteAnswer($answerId);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Cevap başarıyla silindi',
+                'data' => $resp->getData()
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Cevap silinirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
+
+    public function updateAnswer($answerId,Request $request){
+        $repo = new QuestionAnswerRepository();
+        $data = $request->toArray();
+        $resp = $repo->updateAnswer($answerId,$data);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Cevap başarıyla güncellendi',
+                'data' => $resp->getData()
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Cevap güncellenirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
 }
