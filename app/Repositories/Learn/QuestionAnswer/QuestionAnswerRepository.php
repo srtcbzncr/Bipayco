@@ -210,7 +210,7 @@ class QuestionAnswerRepository implements IRepository
     }
 
     public function getAnsweredQuestions($userId){
-// Response variables
+        // Response variables
         $result = true;
         $error = null;
         $object = null;
@@ -218,19 +218,20 @@ class QuestionAnswerRepository implements IRepository
         try{
             $instructor = Instructor::where('user_id',$userId)->where('active',true)->where('deleted_at',null)->first();
             $object = DB::table('ge_courses_instructors')->where('instructor_id',$instructor->id)
-                ->where('active',true)->where('deleted_at',null)->paginate(10); // şu anda elimde eğitmenin kursları var.
+                ->where('active',true)->where('deleted_at',null)->get(); // şu anda elimde eğitmenin kursları var.
+            $answeredQuestions = array();
             foreach ($object as $keyCourse => $item){
                 if($item->course_type == 'App\Models\GeneralEducation\Course'){
                     $course = Course::find($item->course_id);
-                    $object[$keyCourse] = $course;
+                   // $object[$keyCourse] = $course;
 
                     $sections = Section::where('course_id',$course->id)->where('active',true)->where('deleted_at',null)->get();
                     foreach ($sections as $keySection => $section){
-                        $object[$keyCourse]['sections'][$keySection] = $section;
+                        //$object[$keyCourse]['sections'][$keySection] = $section;
 
                         $lessons = Lesson::where('section_id',$section->id)->where('active',true)->where('deleted_at',null)->get();
                         foreach ($lessons as $keyLesson => $lesson){ // şu an eğitmenenin her bir kursunun dersleri elimde
-                            $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson] = $lesson;
+                            //$object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson] = $lesson;
 
                             $questions = Question::where('lesson_id',$lesson->id)->where('lesson_type','App\Models\GeneralEducation\Lesson')
                                 ->where('active',true)->where('deleted_at',null)->get();
@@ -238,9 +239,17 @@ class QuestionAnswerRepository implements IRepository
                                 $answer = Answer::where('question_id',$question->id)->where('active',true)->where('deleted_at',null)->get();
                                 if($answer!=null and count($answer)>0){
                                     // cevap verilmiş bir sorudur.
-                                    $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue] = $question;
+                                    $user = User::find($question->user_id);
+                                    $tempQuestion = $question;
+                                    $tempQuestion['user'] = $user;
+                                    $tempQuestion['course'] = $course;
+                                    $tempQuestion['section'] = $section;
+                                    $tempQuestion['lesson'] = $lesson;
+                                    //$object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue] = $question;
                                     foreach ($answer as $ansKey => $itemAns){
-                                        $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue]['answers'][$ansKey] = $itemAns;
+                                        //$object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue]['answers'][$ansKey] = $itemAns;
+                                        $tempQuestion['answer'] = $itemAns;
+                                        array_push($answeredQuestions,$tempQuestion);
                                     }
                                 }
                                 else{
@@ -255,15 +264,15 @@ class QuestionAnswerRepository implements IRepository
                 }
                 else if($item->course_type == 'App\Models\PrepareLessons\Course'){
                     $course = \App\Models\PrepareLessons\Course::find($item->course_id);
-                    $object[$keyCourse] = $course;
+                    //$object[$keyCourse] = $course;
 
                     $sections = \App\Models\PrepareLessons\Section::where('course_id',$course->id)->where('active',true)->where('deleted_at',null)->get();
                     foreach ($sections as $keySection => $section){
-                        $object[$keyCourse]['sections'][$keySection] = $section;
+                        //$object[$keyCourse]['sections'][$keySection] = $section;
 
                         $lessons = \App\Models\PrepareLessons\Lesson::where('section_id',$section->id)->where('active',true)->where('deleted_at',null)->get();
                         foreach ($lessons as $keyLesson => $lesson){ // şu an eğitmenenin her bir kursunun dersleri elimde
-                            $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson] = $lesson;
+                            //$object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson] = $lesson;
 
                             $questions = Question::where('lesson_id',$lesson->id)->where('lesson_type','App\Models\PrepareLessons\Lesson')
                                 ->where('active',true)->where('deleted_at',null)->get();
@@ -271,9 +280,17 @@ class QuestionAnswerRepository implements IRepository
                                 $answer = Answer::where('question_id',$question->id)->where('active',true)->where('deleted_at',null)->get();
                                 if($answer!=null and count($answer)>0){
                                     // cevap verilmiş bir sorudur.
-                                    $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue] = $question;
+                                    $user = User::find($question->user_id);
+                                    $tempQuestion = $question;
+                                    $tempQuestion['user'] = $user;
+                                    $tempQuestion['course'] = $course;
+                                    $tempQuestion['section'] = $section;
+                                    $tempQuestion['lesson'] = $lesson;
+                                    //$object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue] = $question;
                                     foreach ($answer as $ansKey => $itemAns){
-                                        $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue]['answers'][$ansKey] = $itemAns;
+                                        //$object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue]['answers'][$ansKey] = $itemAns;
+                                        $tempQuestion['answer'] = $itemAns;
+                                        array_push($answeredQuestions,$tempQuestion);
                                     }
                                 }
                                 else{
@@ -287,15 +304,15 @@ class QuestionAnswerRepository implements IRepository
                 }
                 else if($item->course_type == 'App\Models\PrepareExams\Course'){
                     $course = \App\Models\PrepareExams\Course::find($item->course_id);
-                    $object[$keyCourse] = $course;
+                    //$object[$keyCourse] = $course;
 
                     $sections = \App\Models\PrepareExams\Section::where('course_id',$course->id)->where('active',true)->where('deleted_at',null)->get();
                     foreach ($sections as $keySection => $section){
-                        $object[$keyCourse]['sections'][$keySection] = $section;
+                       // $object[$keyCourse]['sections'][$keySection] = $section;
 
                         $lessons = \App\Models\PrepareExams\Lesson::where('section_id',$section->id)->where('active',true)->where('deleted_at',null)->get();
                         foreach ($lessons as $keyLesson => $lesson){ // şu an eğitmenenin her bir kursunun dersleri elimde
-                            $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson] = $lesson;
+                            //$object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson] = $lesson;
 
                             $questions = Question::where('lesson_id',$lesson->id)->where('lesson_type','App\Models\PrepareExams\Lesson')
                                 ->where('active',true)->where('deleted_at',null)->get();
@@ -303,9 +320,17 @@ class QuestionAnswerRepository implements IRepository
                                 $answer = Answer::where('question_id',$question->id)->where('active',true)->where('deleted_at',null)->get();
                                 if($answer!=null and count($answer)>0){
                                     // cevap verilmiş bir sorudur.
-                                    $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue] = $question;
+                                    $user = User::find($question->user_id);
+                                    $tempQuestion = $question;
+                                    $tempQuestion['user'] = $user;
+                                    $tempQuestion['course'] = $course;
+                                    $tempQuestion['section'] = $section;
+                                    $tempQuestion['lesson'] = $lesson;
+                                    //$object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue] = $question;
                                     foreach ($answer as $ansKey => $itemAns){
-                                        $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue]['answers'][$ansKey] = $itemAns;
+                                        //$object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue]['answers'][$ansKey] = $itemAns;
+                                        $tempQuestion['answer'] = $itemAns;
+                                        array_push($answeredQuestions,$tempQuestion);
                                     }
                                 }
                                 else{
@@ -318,6 +343,8 @@ class QuestionAnswerRepository implements IRepository
                     }
                 }
             }
+
+            $object = array_chunk($answeredQuestions,10);
         }
         catch(\Exception $e){
             $error = $e->getMessage();

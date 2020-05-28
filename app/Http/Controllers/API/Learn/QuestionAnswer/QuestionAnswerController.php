@@ -31,13 +31,13 @@ class QuestionAnswerController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'message' => 'Cevaplanmamış sorular başarıyla getirildi.',
+                'message' => 'Cevaplanmış sorular başarıyla getirildi.',
                 'data' => $resp->getData()
             ]);
         }
         return response()->json([
             'error' => true,
-            'message' => 'Cevaplanmamış sorular getirilirken bir hata meydana geldi.Tekrar deneyin.',
+            'message' => 'Cevaplanmış sorular getirilirken bir hata meydana geldi.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
         ]);
     }
