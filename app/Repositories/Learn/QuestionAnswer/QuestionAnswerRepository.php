@@ -5,6 +5,7 @@ namespace App\Repositories\Learn\QuestionAnswer;
 
 
 use App\Models\Auth\Instructor;
+use App\Models\Auth\User;
 use App\Models\GeneralEducation\Answer;
 use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\Lesson;
@@ -80,6 +81,8 @@ class QuestionAnswerRepository implements IRepository
             foreach ($object as $keyCourse => $item){
                 if($item->course_type == 'App\Models\GeneralEducation\Course'){
                     $course = Course::find($item->course_id);
+                    $user = User::find($item->user_id);
+                    $course['user'] = $user;
                     $object[$keyCourse] = $course;
 
                     $sections = Section::where('course_id',$course->id)->where('active',true)->where('deleted_at',null)->get();
