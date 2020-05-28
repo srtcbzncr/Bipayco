@@ -210,11 +210,14 @@ class QuestionAnswerRepository implements IRepository
                                 $answer = Answer::where('question_id',$question->id)->where('active',true)->where('deleted_at',null)->get();
                                 if($answer!=null and count($answer)>0){
                                     // cevap verilmiş bir sorudur.
+                                    $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue] = $question;
+                                    foreach ($answer as $ansKey => $itemAns){
+                                        $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue]['answers'][$ansKey] = $itemAns;
+                                    }
                                 }
                                 else{
 
                                     // cevap verilmemiş bir sorudur.
-                                    $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue] = $question;
                                 }
 
                             }
@@ -240,11 +243,14 @@ class QuestionAnswerRepository implements IRepository
                                 $answer = Answer::where('question_id',$question->id)->where('active',true)->where('deleted_at',null)->get();
                                 if($answer!=null and count($answer)>0){
                                     // cevap verilmiş bir sorudur.
+                                    $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue] = $question;
+                                    foreach ($answer as $ansKey => $itemAns){
+                                        $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue]['answers'][$ansKey] = $itemAns;
+                                    }
                                 }
                                 else{
 
                                     // cevap verilmemiş bir sorudur.
-                                    $object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue] = $question;
                                 }
 
                             }
