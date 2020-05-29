@@ -160,7 +160,7 @@
                 <!-- start copy -->
                 <tr>
                     <td align="left" bgcolor="#ffffff" style="padding: 24px; font-size: 16px; line-height: 24px;">
-                        <p style="margin: 0;">Şifreni sıfırlamak için aşağıdaki "Şifremi Sıfırla" butonuna tıklayabilirsin. Eğer sıfırlama isteğini sen göndermediysen endişelenmene gerek, sen onaylamadığın sürece şifren sıfırlanmayacaktır.</p>
+                        <p style="margin: 0;">Şifreni sıfırlamak için aşağıdaki "Şifremi Sıfırla" butonuna tıklayabilirsin. Eğer sıfırlama isteğini sen göndermediysen endişelenmene gerek yok, sen onaylamadığın sürece şifren sıfırlanmayacaktır.</p>
                     </td>
                 </tr>
                 <!-- end copy -->
@@ -216,7 +216,7 @@
                 <!-- start permission -->
                 <tr>
                     <td align="center" bgcolor="#e9ecef" style="padding: 12px 24px; font-size: 14px; line-height: 20px; color: #666;">
-                        <p style="margin: 0;">Bu emaili, hesabın için şifreni sıfırlama talebi aldığımız için aldın. Eğer bu isteği sen göndermediysen, e-postayı silebilirsin.</p>
+                        <p style="margin: 0;">Bu emaili, hesabın için şifre sıfırlama talebi aldığımız için aldın. Eğer bu isteği sen göndermediysen, e-postayı görmezden gelebilirsin.</p>
                     </td>
                 </tr>
                 <!-- end permission -->
