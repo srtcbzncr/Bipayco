@@ -6,18 +6,18 @@
         </ul>
         <div class="uk-background-default uk-padding-remove uk-margin-top border-radius-6">
             <table id="categoryTable" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0">
-                <thead v-if="selectedArea.data&&selectedArea.data.length>0">
+                <thead v-if="questionAnswerData.length>0">
                     <tr>
                         <th>{{questionTitleText}}</th>
                         <th>{{courseNameText}}</th>
                         <th>{{studentNameText}}</th>
                     </tr>
                 </thead>
-                <tbody v-if="selectedArea.data&&selectedArea.data.length>0">
-                    <tr v-for="(item,index) in selectedArea.data" @click="openInfo(index)" class="clickable">
+                <tbody v-if="questionAnswerData.length>0">
+                    <tr v-for="(item,index) in questionAnswerData[selectedPage-1]" @click="openInfo(index)" class="clickable">
                         <td class="uk-width-1-2"><p>{{item.title}}</p></td>
                         <td class="uk-width-1-4"><p>{{item.course.name}}</p></td>
-                        <td class="uk-width-1-4"><p>{{item.student.first_name}} {{item.student.last_name}}</p></td>
+                        <td class="uk-width-1-4"><p>{{item.user.first_name}} {{item.user.last_name}}</p></td>
                     </tr>
                 </tbody>
                 <div v-else class=" uk-width uk-height-small uk-flex align-items-center justify-content-center">
@@ -25,45 +25,69 @@
                 </div>
             </table>
         </div>
-        <ul v-if="selectedArea.data&&selectedArea.data.length>0" class="uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
+        <ul v-if="questionAnswerData.length>0" class="uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
             <li>
-                <button v-show="selectedArea.current_page>1" @click="loadNewPage(Number(selectedArea.current_page)-1)"> < </button>
+                <button v-show="(selectedPage-1)>1" @click="loadNewPage(Number(selectedPage)-1)"> < </button>
             </li>
             <li v-for="page in pageNumber">
                 <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
-                <button v-else-if="page==selectedArea.current_page" class="uk-background-default uk-disabled" @click="loadNewPage(page)">{{page}}</button>
+                <button v-else-if="page==selectedPage" class="uk-background-default uk-disabled" @click="loadNewPage(selectedPage)">{{page}}</button>
                 <button v-else @click="loadNewPage(page)">{{page}}</button>
             </li>
             <li>
-                <button v-show="selectedArea.current_page<selectedArea.last_page" @click="loadNewPage(Number(selectedArea.current_page)+1)"> > </button>
+                <button v-show="(selectedPage-1)<questionAnswerData.length-1" @click="loadNewPage(Number(selectedPage)+1)"> > </button>
             </li>
         </ul>
         <div id="answerArea" uk-modal>
-            <div class="uk-modal-dialog">
+            <div v-if="selectedQuestion" class="uk-modal-dialog">
                 <div class="uk-modal-header">
-                    <h2 class="uk-modal-title">{{selectedQuestion.title}}</h2>
+                    <p class="uk-modal-title">{{questionDetailText}}</p>
                 </div>
 
                 <div class="uk-modal-body" uk-overflow-auto>
                     <!-- question area -->
-
+                    <div>
+                        <p>{{selectedQuestion.course.name}} > {{selectedQuestion.section.name}} > {{selectedQuestion.lesson.name}}</p>
+                    </div>
+                    <div>
+                        <p class="uk-float-right">{{new Date(selectedQuestion.created_at).toLocaleDateString()}}</p>
+                        <h4 class="uk-margin-remove">{{selectedQuestion.title}}</h4>
+                        <p>{{selectedQuestion.content}}</p>
+                        <div class="uk-flex align-item-center">
+                            <img :src="selectedQuestion.user.avatar" alt="" class="uk-border-circle user-profile-tiny">
+                            <p class="uk-margin-remove-vertical uk-margin-small-left">{{selectedQuestion.user.first_name}} {{selectedQuestion.user.last_name}}</p>
+                        </div>
+                    </div>
+                    <hr>
                     <!-- answer area -->
                     <div>
                         <div class="uk-margin-bottom">
                             <div class="uk-form-label">{{answerText}}</div>
-                            <textarea v-model="answer" class="uk-width uk-textarea" :placeholder="letsAnswerText"></textarea>
+                            <textarea v-model="answer" class="uk-width uk-height-small uk-textarea" :placeholder="letsAnswerText"></textarea>
                         </div>
-                        <button class="uk-button uk-button-default uk-modal-close" @click="clearForm" type="button">{{cancelText}}</button>
-                        <button class="uk-button uk-button-success" type="button" @click="saveItem">{{sendText}}</button>
+                        <button v-if="selectedQuestion.answer" class="uk-button uk-button-default uk-float-right uk-margin-small-left uk-modal-close" @click="clearForm" type="button">{{cancelText}}</button>
+                        <button class="uk-button uk-button-success uk-float-right" type="button" @click="saveItem">{{sendText}}</button>
                     </div>
                     <!-- answered text area -->
-                    <div>
-
+                    <div v-if="selectedQuestion.answer">
+                        <span class="uk-float-right">
+                        <button class="uk-button-default" type="button"><i class="fas fa-ellipsis-v"></i></button>
+                        <div uk-dropdown="mode:click" class="uk-padding-small border-radius-6">
+                            <ul class="uk-nav uk-dropdown-nav">
+                                <li><a @click="editAnswer">{{editText}}</a></li>
+                                <li><a @click="deleteAnswer" class="uk-text-danger">{{deleteText}}</a></li>
+                            </ul>
+                        </div>
+                    </span>
+                        <div>
+                            <img>
+                            <p></p>
+                        </div>
+                        <p></p>
                     </div>
                 </div>
-
                 <div class="uk-modal-footer uk-text-right">
-                    <button class="uk-button uk-button-default uk-modal-close" type="button">{{closeText}}</button>
+                    <button class="uk-button uk-button-default uk-modal-close" @click="closeInfo" type="button">{{closeText}}</button>
                 </div>
             </div>
         </div>
@@ -72,16 +96,17 @@
 
 <script>
     import Axios from 'axios';
+    import {mapState, mapActions} from 'vuex';
     export default {
         name: "questions-page",
         data(){
             return{
-                selectedArea:[],
+                selectedArea:{},
                 selectedQuestionIndex:"",
-                selectedQuestion:{},
+                selectedQuestion:null,
                 selectedUrl:'/api/instructor/getNotAnsweredQuestions',
                 selectedAreaName:"waitingAnswer",
-                selectedPage:'0',
+                selectedPage:1,
                 answer:"",
             }
         },
@@ -89,6 +114,22 @@
             userId:{
                 type:String,
                 required:true,
+            },
+            questionDetailText:{
+                type:String,
+                default:"Soru Detayı"
+            },
+            questionTitleText:{
+                type:String,
+                default:"Soru Başlığı"
+            },
+            studentNameText:{
+                type:String,
+                default:"Öğrenci Adı"
+            },
+            courseNameText:{
+                type:String,
+                default:"Kurs Adı"
             },
             haveNoQuestionText:{
                 type:String,
@@ -105,6 +146,10 @@
             deleteText:{
                 type:String,
                 default:"Sil"
+            },
+            editText:{
+                type:String,
+                default:"Düzenle"
             },
             saveText:{
                 type:String,
@@ -133,7 +178,7 @@
         },
         watch:{
             selectedAreaName(){
-                this.selectedPage="0";
+                this.selectedPage=1;
                 if(this.selectedAreaName=='waitingAnswer'){
                     this.selectedUrl='/api/instructor/getNotAnsweredQuestions';
                 }else{
@@ -144,24 +189,27 @@
                 this.fetchData();
             },
             selectedQuestionIndex(){
-                this.selectedQuestion=this.selectedArea.data[this.selectedQuestionIndex];
-            }
+                this.selectedQuestion=this.questionAnswerData[this.selectedPage-1][this.selectedQuestionIndex];
+            },
         },
         computed:{
+            ...mapState([
+                'questionAnswerData'
+            ]),
             pageNumber(){
                 var pages=['1'];
                 var index=2;
-                for(var i=2; index<=this.selectedArea.last_page; i++){
-                    if(i==2 && this.selectedArea.current_page-2>3){
+                for(var i=2; index<=this.questionAnswerData.length; i++){
+                    if(i==2 && this.selectedPage-2>3){
                         pages.push('...');
-                        if(this.selectedArea.current_page+3>this.selectedArea.last_page){
-                            index=this.selectedArea.last_page-6;
+                        if(this.selectedPage+3>this.questionAnswerData.length){
+                            index=this.questionAnswerData.length-6;
                         }else{
-                            index=this.selectedArea.current_page-2;
+                            index=this.selectedPage-2;
                         }
-                    }else if(i==8 && this.selectedArea.current_page+2<this.selectedArea.last_page-2){
+                    }else if(i==8 && this.selectedPage+2<this.questionAnswerData.length-2){
                         pages.push('...');
-                        index=this.selectedArea.last_page;
+                        index=this.questionAnswerData.length;
                     }else{
                         pages.push(index);
                         index++;
@@ -171,35 +219,52 @@
             },
         },
         methods:{
+            ...mapActions([
+                'loadQuestionAnswerData',
+            ]),
             fetchData:function(){
-                Axios.get(this.selectedUrl+'/'+this.userId+'?page='+this.selectedPage)
-                    .then((res)=>{this.selectedArea=res.data.data});
+                this.$store.dispatch('loadQuestionAnswerData', this.selectedUrl+'/'+this.userId);
             },
             changeArea:function(name){
                 this.selectedAreaName=name;
             },
-            // deleteItem:function (id) {
-            //     Axios.post('/api/guardian/deleteStudent/'+this.userId+'/'+id)
-            //         .then(response=>{
-            //             if(response.data.error){
-            //                 UIkit.notification({message:response.data.message, status: 'danger'});
-            //             }else{
-            //                 UIkit.notification({message:response.data.message, status: 'success'});
-            //                 this.$store.dispatch('loadGuardianNewPage', this.selectedPage)
-            //             }
-            //         });
-            // },
+            deleteAnswer:function () {
+                Axios.post('/api/instructor/deleteAnswer/'+this.selectedQuestion.answer.id)
+                    .then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.fetchData();
+                        }
+                    });
+            },
+            editAnswer:function () {
+                Axios.post('/api/instructor/deleteAnswer/'+this.selectedQuestion.answer.id)
+                    .then(response=>{
+                        if(response.data.error){
+                            UIkit.notification({message:response.data.message, status: 'danger'});
+                        }else{
+                            UIkit.notification({message:response.data.message, status: 'success'});
+                            this.fetchData();
+                        }
+                    });
+            },
             openInfo:function (index) {
                 this.selectedQuestionIndex=index;
+                // this.answer=this.selectedQuestion.content;
                 UIkit.modal('#answerArea', {
                     escClose:false,
                     bgClose:false,
                 }).show();
             },
+            closeInfo:function(){
+                UIkit.modal('#answerArea').hide();
+                this.clearForm();
+            },
             clearForm:function(){
                 this.answer="";
             },
-            // /api/learn/generalEducation/{course_id}/lesson/{lesson_id}/discussion/answer/{question_id}
             saveItem:function () {
                 Axios.post('/api/learn/'+this.selectedQuestion.course.course_type+'/'+this.selectedQuestion.course.id+'/lesson/'+this.selectedQuestion.lesson.id+'/discussion/answer/'+this.selectedQuestion.id, {
                     answer: this.answer,
@@ -217,11 +282,10 @@
             },
             loadNewPage: function(pageNo){
                 this.selectedPage=pageNo;
-                this.fetchData();
             }
         },
-        created() {
-            this.fetchData();
+        mounted() {
+            this.$store.dispatch('loadQuestionAnswerData', '/api/instructor/getNotAnsweredQuestions/'+this.userId);
         }
     }
 </script>

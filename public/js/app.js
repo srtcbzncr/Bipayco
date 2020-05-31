@@ -11793,6 +11793,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -11866,16 +11897,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "questions-page",
   data: function data() {
     return {
-      selectedArea: [],
+      selectedArea: {},
       selectedQuestionIndex: "",
-      selectedQuestion: {},
+      selectedQuestion: null,
       selectedUrl: '/api/instructor/getNotAnsweredQuestions',
       selectedAreaName: "waitingAnswer",
-      selectedPage: '0',
+      selectedPage: 1,
       answer: ""
     };
   },
@@ -11883,6 +11915,22 @@ __webpack_require__.r(__webpack_exports__);
     userId: {
       type: String,
       required: true
+    },
+    questionDetailText: {
+      type: String,
+      "default": "Soru Detayı"
+    },
+    questionTitleText: {
+      type: String,
+      "default": "Soru Başlığı"
+    },
+    studentNameText: {
+      type: String,
+      "default": "Öğrenci Adı"
+    },
+    courseNameText: {
+      type: String,
+      "default": "Kurs Adı"
     },
     haveNoQuestionText: {
       type: String,
@@ -11899,6 +11947,10 @@ __webpack_require__.r(__webpack_exports__);
     deleteText: {
       type: String,
       "default": "Sil"
+    },
+    editText: {
+      type: String,
+      "default": "Düzenle"
     },
     saveText: {
       type: String,
@@ -11927,7 +11979,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   watch: {
     selectedAreaName: function selectedAreaName() {
-      this.selectedPage = "0";
+      this.selectedPage = 1;
 
       if (this.selectedAreaName == 'waitingAnswer') {
         this.selectedUrl = '/api/instructor/getNotAnsweredQuestions';
@@ -11939,26 +11991,26 @@ __webpack_require__.r(__webpack_exports__);
       this.fetchData();
     },
     selectedQuestionIndex: function selectedQuestionIndex() {
-      this.selectedQuestion = this.selectedArea.data[this.selectedQuestionIndex];
+      this.selectedQuestion = this.questionAnswerData[this.selectedPage - 1][this.selectedQuestionIndex];
     }
   },
-  computed: {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['questionAnswerData']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
 
-      for (var i = 2; index <= this.selectedArea.last_page; i++) {
-        if (i == 2 && this.selectedArea.current_page - 2 > 3) {
+      for (var i = 2; index <= this.questionAnswerData.length; i++) {
+        if (i == 2 && this.selectedPage - 2 > 3) {
           pages.push('...');
 
-          if (this.selectedArea.current_page + 3 > this.selectedArea.last_page) {
-            index = this.selectedArea.last_page - 6;
+          if (this.selectedPage + 3 > this.questionAnswerData.length) {
+            index = this.questionAnswerData.length - 6;
           } else {
-            index = this.selectedArea.current_page - 2;
+            index = this.selectedPage - 2;
           }
-        } else if (i == 8 && this.selectedArea.current_page + 2 < this.selectedArea.last_page - 2) {
+        } else if (i == 8 && this.selectedPage + 2 < this.questionAnswerData.length - 2) {
           pages.push('...');
-          index = this.selectedArea.last_page;
+          index = this.questionAnswerData.length;
         } else {
           pages.push(index);
           index++;
@@ -11967,42 +12019,69 @@ __webpack_require__.r(__webpack_exports__);
 
       return pages;
     }
-  },
-  methods: {
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadQuestionAnswerData']), {
     fetchData: function fetchData() {
-      var _this = this;
-
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(this.selectedUrl + '/' + this.userId + '?page=' + this.selectedPage).then(function (res) {
-        _this.selectedArea = res.data.data;
-      });
+      this.$store.dispatch('loadQuestionAnswerData', this.selectedUrl + '/' + this.userId);
     },
     changeArea: function changeArea(name) {
       this.selectedAreaName = name;
     },
-    // deleteItem:function (id) {
-    //     Axios.post('/api/guardian/deleteStudent/'+this.userId+'/'+id)
-    //         .then(response=>{
-    //             if(response.data.error){
-    //                 UIkit.notification({message:response.data.message, status: 'danger'});
-    //             }else{
-    //                 UIkit.notification({message:response.data.message, status: 'success'});
-    //                 this.$store.dispatch('loadGuardianNewPage', this.selectedPage)
-    //             }
-    //         });
-    // },
+    deleteAnswer: function deleteAnswer() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/instructor/deleteAnswer/' + this.selectedQuestion.answer.id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this.fetchData();
+        }
+      });
+    },
+    editAnswer: function editAnswer() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/instructor/deleteAnswer/' + this.selectedQuestion.answer.id).then(function (response) {
+        if (response.data.error) {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: response.data.message,
+            status: 'success'
+          });
+
+          _this2.fetchData();
+        }
+      });
+    },
     openInfo: function openInfo(index) {
-      this.selectedQuestionIndex = index;
+      this.selectedQuestionIndex = index; // this.answer=this.selectedQuestion.content;
+
       UIkit.modal('#answerArea', {
         escClose: false,
         bgClose: false
       }).show();
     },
+    closeInfo: function closeInfo() {
+      UIkit.modal('#answerArea').hide();
+      this.clearForm();
+    },
     clearForm: function clearForm() {
       this.answer = "";
     },
-    // /api/learn/generalEducation/{course_id}/lesson/{lesson_id}/discussion/answer/{question_id}
     saveItem: function saveItem() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/learn/' + this.selectedQuestion.course.course_type + '/' + this.selectedQuestion.course.id + '/lesson/' + this.selectedQuestion.lesson.id + '/discussion/answer/' + this.selectedQuestion.id, {
         answer: this.answer,
@@ -12019,7 +12098,7 @@ __webpack_require__.r(__webpack_exports__);
             status: 'success'
           });
 
-          _this2.fetchData();
+          _this3.fetchData();
         }
       });
       this.clearForm();
@@ -12027,11 +12106,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     loadNewPage: function loadNewPage(pageNo) {
       this.selectedPage = pageNo;
-      this.fetchData();
     }
-  },
-  created: function created() {
-    this.fetchData();
+  }),
+  mounted: function mounted() {
+    this.$store.dispatch('loadQuestionAnswerData', '/api/instructor/getNotAnsweredQuestions/' + this.userId);
   }
 });
 
@@ -30046,7 +30124,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            _vm.selectedArea.data && _vm.selectedArea.data.length > 0
+            _vm.questionAnswerData.length > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.questionTitleText))]),
@@ -30058,10 +30136,13 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.selectedArea.data && _vm.selectedArea.data.length > 0
+            _vm.questionAnswerData.length > 0
               ? _c(
                   "tbody",
-                  _vm._l(_vm.selectedArea.data, function(item, index) {
+                  _vm._l(_vm.questionAnswerData[_vm.selectedPage - 1], function(
+                    item,
+                    index
+                  ) {
                     return _c(
                       "tr",
                       {
@@ -30084,9 +30165,9 @@ var render = function() {
                         _c("td", { staticClass: "uk-width-1-4" }, [
                           _c("p", [
                             _vm._v(
-                              _vm._s(item.student.first_name) +
+                              _vm._s(item.user.first_name) +
                                 " " +
-                                _vm._s(item.student.last_name)
+                                _vm._s(item.user.last_name)
                             )
                           ])
                         ])
@@ -30112,7 +30193,7 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm.selectedArea.data && _vm.selectedArea.data.length > 0
+    _vm.questionAnswerData.length > 0
       ? _c(
           "ul",
           {
@@ -30128,13 +30209,13 @@ var render = function() {
                     {
                       name: "show",
                       rawName: "v-show",
-                      value: _vm.selectedArea.current_page > 1,
-                      expression: "selectedArea.current_page>1"
+                      value: _vm.selectedPage - 1 > 1,
+                      expression: "(selectedPage-1)>1"
                     }
                   ],
                   on: {
                     click: function($event) {
-                      _vm.loadNewPage(Number(_vm.selectedArea.current_page) - 1)
+                      _vm.loadNewPage(Number(_vm.selectedPage) - 1)
                     }
                   }
                 },
@@ -30148,14 +30229,14 @@ var render = function() {
                   ? _c("button", { staticClass: "uk-disabled" }, [
                       _vm._v(_vm._s(page))
                     ])
-                  : page == _vm.selectedArea.current_page
+                  : page == _vm.selectedPage
                   ? _c(
                       "button",
                       {
                         staticClass: "uk-background-default uk-disabled",
                         on: {
                           click: function($event) {
-                            return _vm.loadNewPage(page)
+                            return _vm.loadNewPage(_vm.selectedPage)
                           }
                         }
                       },
@@ -30184,15 +30265,14 @@ var render = function() {
                       name: "show",
                       rawName: "v-show",
                       value:
-                        _vm.selectedArea.current_page <
-                        _vm.selectedArea.last_page,
-                      expression:
-                        "selectedArea.current_page<selectedArea.last_page"
+                        _vm.selectedPage - 1 <
+                        _vm.questionAnswerData.length - 1,
+                      expression: "(selectedPage-1)<questionAnswerData.length-1"
                     }
                   ],
                   on: {
                     click: function($event) {
-                      _vm.loadNewPage(Number(_vm.selectedArea.current_page) + 1)
+                      _vm.loadNewPage(Number(_vm.selectedPage) + 1)
                     }
                   }
                 },
@@ -30205,86 +30285,208 @@ var render = function() {
       : _vm._e(),
     _vm._v(" "),
     _c("div", { attrs: { id: "answerArea", "uk-modal": "" } }, [
-      _c("div", { staticClass: "uk-modal-dialog" }, [
-        _c("div", { staticClass: "uk-modal-header" }, [
-          _c("h2", { staticClass: "uk-modal-title" }, [
-            _vm._v(_vm._s(_vm.selectedQuestion.title))
-          ])
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
-          [
-            _c("div", [
-              _c("div", { staticClass: "uk-margin-bottom" }, [
-                _c("div", { staticClass: "uk-form-label" }, [
-                  _vm._v(_vm._s(_vm.answerText))
+      _vm.selectedQuestion
+        ? _c("div", { staticClass: "uk-modal-dialog" }, [
+            _c("div", { staticClass: "uk-modal-header" }, [
+              _c("p", { staticClass: "uk-modal-title" }, [
+                _vm._v(_vm._s(_vm.questionDetailText))
+              ])
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              {
+                staticClass: "uk-modal-body",
+                attrs: { "uk-overflow-auto": "" }
+              },
+              [
+                _c("div", [
+                  _c("p", [
+                    _vm._v(
+                      _vm._s(_vm.selectedQuestion.course.name) +
+                        " > " +
+                        _vm._s(_vm.selectedQuestion.section.name) +
+                        " > " +
+                        _vm._s(_vm.selectedQuestion.lesson.name)
+                    )
+                  ])
                 ]),
                 _vm._v(" "),
-                _c("textarea", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.answer,
-                      expression: "answer"
-                    }
-                  ],
-                  staticClass: "uk-width uk-textarea",
-                  attrs: { placeholder: _vm.letsAnswerText },
-                  domProps: { value: _vm.answer },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+                _c("div", [
+                  _c("p", { staticClass: "uk-float-right" }, [
+                    _vm._v(
+                      _vm._s(
+                        new Date(
+                          _vm.selectedQuestion.created_at
+                        ).toLocaleDateString()
+                      )
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("h4", { staticClass: "uk-margin-remove" }, [
+                    _vm._v(_vm._s(_vm.selectedQuestion.title))
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [_vm._v(_vm._s(_vm.selectedQuestion.content))]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-flex align-item-center" }, [
+                    _c("img", {
+                      staticClass: "uk-border-circle user-profile-tiny",
+                      attrs: { src: _vm.selectedQuestion.user.avatar, alt: "" }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "p",
+                      {
+                        staticClass:
+                          "uk-margin-remove-vertical uk-margin-small-left"
+                      },
+                      [
+                        _vm._v(
+                          _vm._s(_vm.selectedQuestion.user.first_name) +
+                            " " +
+                            _vm._s(_vm.selectedQuestion.user.last_name)
+                        )
+                      ]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
+                _c("div", [
+                  _c("div", { staticClass: "uk-margin-bottom" }, [
+                    _c("div", { staticClass: "uk-form-label" }, [
+                      _vm._v(_vm._s(_vm.answerText))
+                    ]),
+                    _vm._v(" "),
+                    _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.answer,
+                          expression: "answer"
+                        }
+                      ],
+                      staticClass: "uk-width uk-height-small uk-textarea",
+                      attrs: { placeholder: _vm.letsAnswerText },
+                      domProps: { value: _vm.answer },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.answer = $event.target.value
+                        }
                       }
-                      _vm.answer = $event.target.value
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _vm.selectedQuestion.answer
+                    ? _c(
+                        "button",
+                        {
+                          staticClass:
+                            "uk-button uk-button-default uk-float-right uk-margin-small-left uk-modal-close",
+                          attrs: { type: "button" },
+                          on: { click: _vm.clearForm }
+                        },
+                        [_vm._v(_vm._s(_vm.cancelText))]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "uk-button uk-button-success uk-float-right",
+                      attrs: { type: "button" },
+                      on: { click: _vm.saveItem }
+                    },
+                    [_vm._v(_vm._s(_vm.sendText))]
+                  )
+                ]),
+                _vm._v(" "),
+                _vm.selectedQuestion.answer
+                  ? _c("div", [
+                      _c("span", { staticClass: "uk-float-right" }, [
+                        _vm._m(0),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "uk-padding-small border-radius-6",
+                            attrs: { "uk-dropdown": "mode:click" }
+                          },
+                          [
+                            _c(
+                              "ul",
+                              { staticClass: "uk-nav uk-dropdown-nav" },
+                              [
+                                _c("li", [
+                                  _c("a", { on: { click: _vm.editAnswer } }, [
+                                    _vm._v(_vm._s(_vm.editText))
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("li", [
+                                  _c(
+                                    "a",
+                                    {
+                                      staticClass: "uk-text-danger",
+                                      on: { click: _vm.deleteAnswer }
+                                    },
+                                    [_vm._v(_vm._s(_vm.deleteText))]
+                                  )
+                                ])
+                              ]
+                            )
+                          ]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(1),
+                      _vm._v(" "),
+                      _c("p")
+                    ])
+                  : _vm._e()
+              ]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "uk-modal-footer uk-text-right" }, [
               _c(
                 "button",
                 {
                   staticClass: "uk-button uk-button-default uk-modal-close",
                   attrs: { type: "button" },
-                  on: { click: _vm.clearForm }
+                  on: { click: _vm.closeInfo }
                 },
-                [_vm._v(_vm._s(_vm.cancelText))]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "uk-button uk-button-success",
-                  attrs: { type: "button" },
-                  on: { click: _vm.saveItem }
-                },
-                [_vm._v(_vm._s(_vm.sendText))]
+                [_vm._v(_vm._s(_vm.closeText))]
               )
-            ]),
-            _vm._v(" "),
-            _c("div")
-          ]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "uk-modal-footer uk-text-right" }, [
-          _c(
-            "button",
-            {
-              staticClass: "uk-button uk-button-default uk-modal-close",
-              attrs: { type: "button" }
-            },
-            [_vm._v(_vm._s(_vm.closeText))]
-          )
-        ])
-      ])
+            ])
+          ])
+        : _vm._e()
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      { staticClass: "uk-button-default", attrs: { type: "button" } },
+      [_c("i", { staticClass: "fas fa-ellipsis-v" })]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [_c("img"), _vm._v(" "), _c("p")])
+  }
+]
 render._withStripped = true
 
 
@@ -52080,7 +52282,8 @@ var state = {
   selectedSubjectId: "",
   selectedLessonId: "",
   guardianStudents: {},
-  guardianStudentList: {}
+  guardianStudentList: {},
+  questionAnswerData: []
 };
 var getters = {};
 var mutations = {
@@ -52208,6 +52411,9 @@ var mutations = {
   },
   setGuardianStudentList: function setGuardianStudentList(state, students) {
     state.guardianStudentList = students.data;
+  },
+  setQuestionAnswerData: function setQuestionAnswerData(state, data) {
+    state.questionAnswerData = data.data;
   }
 };
 var actions = {
@@ -52520,6 +52726,12 @@ var actions = {
     var commit = _ref63.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(apiUrl).then(function (response) {
       return commit('setGuardianStudents', response.data);
+    });
+  },
+  loadQuestionAnswerData: function loadQuestionAnswerData(_ref64, url) {
+    var commit = _ref64.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
+      return commit('setQuestionAnswerData', response.data);
     });
   }
 };

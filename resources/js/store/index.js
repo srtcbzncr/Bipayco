@@ -83,6 +83,7 @@ const state={
     selectedLessonId:"",
     guardianStudents:{},
     guardianStudentList:{},
+    questionAnswerData:[],
 };
 const getters={};
 const mutations={
@@ -208,6 +209,9 @@ const mutations={
     },
     setGuardianStudentList(state, students){
         state.guardianStudentList=students.data;
+    },
+    setQuestionAnswerData(state, data){
+        state.questionAnswerData=data.data;
     }
 };
 const actions={
@@ -383,6 +387,10 @@ const actions={
         Axios.get(apiUrl)
             .then(response=>commit('setGuardianStudents', response.data));
     },
+    loadQuestionAnswerData({commit},url){
+        Axios.get(url)
+            .then(response=>commit('setQuestionAnswerData',response.data));
+    }
 };
 
 const store=new Vuex.Store({
