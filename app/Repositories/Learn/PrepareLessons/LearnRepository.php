@@ -563,7 +563,7 @@ class LearnRepository implements IRepository
             DB::beginTransaction();
             $answer = new Answer();
             $answer->question_id = $question_id;
-            $answer->user_id = Auth::id();
+            $answer->user_id = $data['userId'];
             $answer->content = $data['content'];
             $answer->save();
 
