@@ -41,7 +41,7 @@
         <div id="answerArea" uk-modal>
             <div v-if="selectedQuestion" class="uk-modal-dialog">
                 <div class="uk-modal-header">
-                    <p class="uk-modal-title">{{questionDetailText}}</p>
+                    <h3 class="uk-modal-title">{{questionDetailText}}</h3>
                 </div>
 
                 <div class="uk-modal-body" uk-overflow-auto>
@@ -49,10 +49,12 @@
                     <div>
                         <p>{{selectedQuestion.course.name}} > {{selectedQuestion.section.name}} > {{selectedQuestion.lesson.name}}</p>
                     </div>
+                    <hr>
                     <div>
                         <p class="uk-float-right">{{new Date(selectedQuestion.created_at).toLocaleDateString()}}</p>
                         <h4 class="uk-margin-remove">{{selectedQuestion.title}}</h4>
                         <p>{{selectedQuestion.content}}</p>
+                        <hr>
                         <div class="uk-flex align-item-center">
                             <img :src="selectedQuestion.user.avatar" alt="" class="uk-border-circle user-profile-tiny">
                             <p class="uk-margin-remove-vertical uk-margin-small-left">{{selectedQuestion.user.first_name}} {{selectedQuestion.user.last_name}}</p>
@@ -71,14 +73,14 @@
                     <!-- answered text area -->
                     <div v-if="selectedQuestion.answer">
                         <span class="uk-float-right">
-                        <button class="uk-button-default" type="button"><i class="fas fa-ellipsis-v"></i></button>
-                        <div uk-dropdown="mode:click" class="uk-padding-small border-radius-6">
-                            <ul class="uk-nav uk-dropdown-nav">
-                                <li><a @click="editAnswer">{{editText}}</a></li>
-                                <li><a @click="deleteAnswer" class="uk-text-danger">{{deleteText}}</a></li>
-                            </ul>
-                        </div>
-                    </span>
+                            <button class="uk-button-default" type="button"><i class="fas fa-ellipsis-v"></i></button>
+                            <div uk-dropdown="mode:click" class="uk-padding-small border-radius-6">
+                                <ul class="uk-nav uk-dropdown-nav">
+                                    <li><a @click="editAnswer">{{editText}}</a></li>
+                                    <li><a @click="deleteAnswer" class="uk-text-danger">{{deleteText}}</a></li>
+                                </ul>
+                            </div>
+                        </span>
                         <div>
                             <img>
                             <p></p>
@@ -101,7 +103,6 @@
         name: "questions-page",
         data(){
             return{
-                selectedArea:{},
                 selectedQuestionIndex:"",
                 selectedQuestion:null,
                 selectedUrl:'/api/instructor/getNotAnsweredQuestions',
@@ -266,9 +267,9 @@
                 this.answer="";
             },
             saveItem:function () {
-                Axios.post('/api/learn/'+this.selectedQuestion.course.course_type+'/'+this.selectedQuestion.course.id+'/lesson/'+this.selectedQuestion.lesson.id+'/discussion/answer/'+this.selectedQuestion.id, {
-                    answer: this.answer,
-                    instructorUserId:this.userId,
+                Axios.post('/api/learn/'+this.selectedQuestion.course.type+'/'+this.selectedQuestion.course.id+'/lesson/'+this.selectedQuestion.lesson.id+'/discussion/answer/'+this.selectedQuestion.id, {
+                    content: this.answer,
+                    userId:this.userId
                 }).then(response=>{
                     if(response.data.error){
                         UIkit.notification({message:response.data.message, status: 'danger'});

@@ -11896,13 +11896,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "questions-page",
   data: function data() {
     return {
-      selectedArea: {},
       selectedQuestionIndex: "",
       selectedQuestion: null,
       selectedUrl: '/api/instructor/getNotAnsweredQuestions',
@@ -12083,9 +12084,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     saveItem: function saveItem() {
       var _this3 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/learn/' + this.selectedQuestion.course.course_type + '/' + this.selectedQuestion.course.id + '/lesson/' + this.selectedQuestion.lesson.id + '/discussion/answer/' + this.selectedQuestion.id, {
-        answer: this.answer,
-        instructorUserId: this.userId
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/learn/' + this.selectedQuestion.course.type + '/' + this.selectedQuestion.course.id + '/lesson/' + this.selectedQuestion.lesson.id + '/discussion/answer/' + this.selectedQuestion.id, {
+        content: this.answer,
+        userId: this.userId
       }).then(function (response) {
         if (response.data.error) {
           UIkit.notification({
@@ -30288,7 +30289,7 @@ var render = function() {
       _vm.selectedQuestion
         ? _c("div", { staticClass: "uk-modal-dialog" }, [
             _c("div", { staticClass: "uk-modal-header" }, [
-              _c("p", { staticClass: "uk-modal-title" }, [
+              _c("h3", { staticClass: "uk-modal-title" }, [
                 _vm._v(_vm._s(_vm.questionDetailText))
               ])
             ]),
@@ -30312,6 +30313,8 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
                 _c("div", [
                   _c("p", { staticClass: "uk-float-right" }, [
                     _vm._v(
@@ -30328,6 +30331,8 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("p", [_vm._v(_vm._s(_vm.selectedQuestion.content))]),
+                  _vm._v(" "),
+                  _c("hr"),
                   _vm._v(" "),
                   _c("div", { staticClass: "uk-flex align-item-center" }, [
                     _c("img", {
