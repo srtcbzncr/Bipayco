@@ -82,6 +82,7 @@ class QuestionAnswerRepository implements IRepository
             foreach ($object as $keyCourse => $item){
                 if($item->course_type == 'App\Models\GeneralEducation\Course'){
                     $course = Course::find($item->course_id);
+                    $course['type'] = "generalEducation";
                     //$object[$keyCourse] = $course;
 
                     $sections = Section::where('course_id',$course->id)->where('active',true)->where('deleted_at',null)->get();
@@ -121,6 +122,7 @@ class QuestionAnswerRepository implements IRepository
                 }
                 else if($item->course_type == 'App\Models\PrepareLessons\Course'){
                     $course = \App\Models\PrepareLessons\Course::find($item->course_id);
+                    $course['type'] = "prepareLessons";
                     //$object[$keyCourse] = $course;
 
                     $sections = \App\Models\PrepareLessons\Section::where('course_id',$course->id)->where('active',true)->where('deleted_at',null)->get();
@@ -158,6 +160,7 @@ class QuestionAnswerRepository implements IRepository
                 }
                 else if($item->course_type == 'App\Models\PrepareExams\Course'){
                     $course = \App\Models\PrepareExams\Course::find($item->course_id);
+                    $course['type'] = "prepareExams";
                     //$object[$keyCourse] = $course;
 
                     $sections = \App\Models\PrepareExams\Section::where('course_id',$course->id)->where('active',true)->where('deleted_at',null)->get();
