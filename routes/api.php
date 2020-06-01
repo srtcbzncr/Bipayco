@@ -27,7 +27,7 @@ Route::get('/home/pe/{user_id?}', 'API\HomeController@indexPe')->name('home_pe')
 Route::get('/home/books/{user_id?}', 'API\HomeController@indexBooks')->name('home_books');
 Route::get('/home/exams/{user_id?}', 'API\HomeController@indexExams')->name('home_exams');
 
-Route::post('search','Search\SearchController@search')->name('api_search');
+Route::get('search','API\Search\SearchController@search')->name('api_search');
 
 #Kurs detay sayfası,kategoriler ve alt kategoriler ve
 # iki api yazılacak. 1. sepette varmı yokmu, 2. benzer kurslar.
