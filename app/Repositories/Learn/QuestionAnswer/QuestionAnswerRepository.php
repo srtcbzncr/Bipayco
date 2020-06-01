@@ -252,6 +252,8 @@ class QuestionAnswerRepository implements IRepository
                                     foreach ($answer as $ansKey => $itemAns){
                                         //$object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue]['answers'][$ansKey] = $itemAns;
                                         $tempQuestion['answer'] = $itemAns;
+                                        $ansUser = User::find($itemAns->user_id);
+                                        $tempQuestion['answer']['user'] = $ansUser;
                                         array_push($answeredQuestions,$tempQuestion);
                                     }
                                 }
@@ -293,6 +295,8 @@ class QuestionAnswerRepository implements IRepository
                                     foreach ($answer as $ansKey => $itemAns){
                                         //$object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue]['answers'][$ansKey] = $itemAns;
                                         $tempQuestion['answer'] = $itemAns;
+                                        $ansUser = User::find($itemAns->user_id);
+                                        $tempQuestion['answer']['user'] = $ansUser;
                                         array_push($answeredQuestions,$tempQuestion);
                                     }
                                 }
@@ -333,6 +337,8 @@ class QuestionAnswerRepository implements IRepository
                                     foreach ($answer as $ansKey => $itemAns){
                                         //$object[$keyCourse]['sections'][$keySection]['lessons'][$keyLesson]['questions'][$keyQue]['answers'][$ansKey] = $itemAns;
                                         $tempQuestion['answer'] = $itemAns;
+                                        $ansUser = User::find($itemAns->user_id);
+                                        $tempQuestion['answer']['user'] = $ansUser;
                                         array_push($answeredQuestions,$tempQuestion);
                                     }
                                 }

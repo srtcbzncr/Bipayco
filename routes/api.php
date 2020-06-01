@@ -27,6 +27,8 @@ Route::get('/home/pe/{user_id?}', 'API\HomeController@indexPe')->name('home_pe')
 Route::get('/home/books/{user_id?}', 'API\HomeController@indexBooks')->name('home_books');
 Route::get('/home/exams/{user_id?}', 'API\HomeController@indexExams')->name('home_exams');
 
+Route::post('search','Search\SearchController@search')->name('api_search');
+
 #Kurs detay sayfası,kategoriler ve alt kategoriler ve
 # iki api yazılacak. 1. sepette varmı yokmu, 2. benzer kurslar.
 Route::group(['prefix' => 'ge'], function(){
@@ -118,6 +120,7 @@ Route::prefix('category')->group(function(){
 Route::prefix('curriculum')->group(function (){
     Route::get('index', 'API\PrepareLessons\CurriculumController@index')->name('api_pl_curriculum_index');
 });
+
 
 Route::prefix('course')->group(function(){
     #general education

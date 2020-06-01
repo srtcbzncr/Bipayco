@@ -494,7 +494,11 @@ class LearnRepository implements IRepository
                         $user = User::find($value->user_id);
                         $object['questions'][$key1][$key2]['user'] = $user;
                         $answers = $value->answers;
-                        $object['questions'][$key1][$key2]['answers'] = $answers;
+                        foreach ($answers as $keyAns => $answerItem){
+                            $object['questions'][$key1][$key2]['answers'][$keyAns] = $answerItem;
+                            $userAns = User::find($answerItem->user_id);
+                            $object['questions'][$key1][$key2]['answers'][$keyAns]['user'] = $userAns;
+                        }
                     }
                 }
             }
@@ -505,7 +509,11 @@ class LearnRepository implements IRepository
                     $user = User::find($question->user_id);
                     $object['questions'][0][$key]['user'] = $user;
                     $answers = $question->answers;
-                    $object['questions'][0][$key]['answers'] = $answers;
+                    foreach ($answers as $keyAns => $answerItem){
+                        $object['questions'][0][$key]['answers'][$keyAns] = $answerItem;
+                        $userAns = User::find($answerItem->user_id);
+                        $object['questions'][0][$key]['answers'][$keyAns]['user'] = $userAns;
+                    }
                 }
             }
             DB::commit();
