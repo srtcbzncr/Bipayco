@@ -8,12 +8,12 @@
         <div class="uk-container">
             <div v-if="lessonDiscussion.questions.length>0" v-for="discussion in lessonDiscussion.questions[page]" class="uk-margin-top">
                 <div class="uk-card uk-padding-small uk-card-default">
-                    <div class="uk-card-body uk-padding-small uk-flex align-items-center">
+                    <div class="uk-card-body uk-padding-small uk-flex">
                         <div class="uk-width-1-6@m uk-visible@m justify-content-center">
                             <img class="uk-border-circle " :src="discussion.user.avatar" style="width: 125px; height:125px;">
                         </div>
                         <div class="uk-grid-stack uk-width-5-6@m">
-                            <div class="uk-margin-remove uk-flex justify-content-between uk-flex-wrap">
+                            <div class="uk-margin-remove uk-flex justify-content-between uk-flex-wrap align-item-center">
                                 <h4 class="uk-margin-remove">{{discussion.user.first_name}} {{discussion.user.last_name}}</h4>
                                 <p class="uk-margin-remove">{{dateFormat(discussion.question.created_at)}}</p>
                             </div>
@@ -26,18 +26,19 @@
                 </div>
                 <div v-if="discussion.answers.length>0" uk-grid>
                     <div class="uk-width-1-6"></div>
-                    <div class="uk-card uk-card-primary uk-padding-small uk-width-5-6">
-                        <div class="uk-card-body uk-padding-small uk-flex align-items-center">
-                            <div class="uk-width-1-6@m uk-visible@m justify-content-center">
-                                <img class="uk-border-circle " :src="discussion.answers.user.avatar" style="width: 125px; height:125px;">
+                    <div class="uk-card uk-card-primary uk-padding-small uk-width-5-6 uk-card-body uk-padding-small uk-flex">
+                        <div class="uk-width-1-6@m uk-visible@m justify-content-center uk-margin-small-right">
+                            <img class="uk-border-circle" :src="discussion.answers[0].user.avatar" style="width: 125px; height:125px;">
+                        </div>
+                        <div class="uk-grid-stack uk-width-5-6@m">
+                            <div class="uk-margin-remove uk-flex justify-content-between align-item-center uk-flex-wrap">
+                                <h4 class="uk-margin-remove">{{discussion.answers[0].user.first_name}} {{discussion.answers[0].user.last_name}}</h4>
+                                <p class="uk-margin-remove">{{dateFormat(discussion.answers[0].created_at)}}</p>
                             </div>
-                            <div class="uk-grid-stack uk-width-5-6@m">
-                                <h4 class="uk-margin-remove">{{discussion.answers.user.first_name}} {{discussion.answers.user.last_name}}</h4>
-                                <hr class="uk-margin-small-bottom uk-margin-small-top">
-                                <p class="uk-margin-remove">
-                                    {{discussion.answers.message}}
-                                </p>
-                            </div>
+                            <hr class="uk-margin-small-bottom uk-margin-small-top">
+                            <p class="uk-margin-remove">
+                                {{discussion.answers[0].content}}
+                            </p>
                         </div>
                     </div>
                 </div>

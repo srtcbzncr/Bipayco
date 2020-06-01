@@ -11898,6 +11898,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -11905,7 +11915,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       selectedQuestionIndex: "",
-      selectedQuestion: null,
       selectedUrl: '/api/instructor/getNotAnsweredQuestions',
       selectedAreaName: "waitingAnswer",
       selectedPage: 1,
@@ -11987,15 +11996,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       } else {
         this.selectedUrl = '/api/instructor/getAnsweredQuestions';
       }
-    },
-    selectedUrl: function selectedUrl() {
+
       this.fetchData();
-    },
-    selectedQuestionIndex: function selectedQuestionIndex() {
-      this.selectedQuestion = this.questionAnswerData[this.selectedPage - 1][this.selectedQuestionIndex];
+
+      if (this.selectedQuestion != null && this.selectedQuestion.answer) {
+        this.answer = this.selectedQuestion.answer.content;
+      } else {
+        this.answer = "";
+      }
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['questionAnswerData']), {
+    selectedQuestion: function selectedQuestion() {
+      if (this.questionAnswerData.length > 0) {
+        return this.questionAnswerData[this.selectedPage - 1][this.selectedQuestionIndex];
+      } else {
+        return null;
+      }
+    },
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
@@ -12048,9 +12066,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     editAnswer: function editAnswer() {
+      this.answer = this.selectedQuestion.answer.content;
+      document.getElementById('answerTextArea').style.display = "block";
+      document.getElementById('answered').style.display = "none";
+    },
+    updateItem: function updateItem() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/instructor/deleteAnswer/' + this.selectedQuestion.answer.id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/instructor/updateAnswer/' + this.selectedQuestion.answer.id, {
+        content: this.answer,
+        userId: this.userId
+      }).then(function (response) {
         if (response.data.error) {
           UIkit.notification({
             message: response.data.message,
@@ -12065,21 +12091,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this2.fetchData();
         }
       });
+      document.getElementById('answerTextArea').style.display = "none";
+      document.getElementById('answered').style.display = "block";
     },
     openInfo: function openInfo(index) {
-      this.selectedQuestionIndex = index; // this.answer=this.selectedQuestion.content;
-
+      this.selectedQuestionIndex = index;
       UIkit.modal('#answerArea', {
         escClose: false,
         bgClose: false
       }).show();
     },
     closeInfo: function closeInfo() {
-      UIkit.modal('#answerArea').hide();
+      if (this.selectedQuestion.answer) {
+        document.getElementById('answerTextArea').style.display = "none";
+        document.getElementById('answered').style.display = "block";
+      }
+
       this.clearForm();
     },
     clearForm: function clearForm() {
-      this.answer = "";
+      if (this.selectedQuestion.answer) {
+        this.answer = this.selectedQuestion.answer.content;
+      } else {
+        this.answer = "";
+      }
     },
     saveItem: function saveItem() {
       var _this3 = this;
@@ -13296,6 +13331,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
 //
 //
 //
@@ -14573,7 +14609,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nh6[data-v-3f8ac686]{\n    margin:0\n}\n.clickable[data-v-3f8ac686]{\n    cursor: pointer;\n}\ntextarea[data-v-3f8ac686]{\n    resize:none;\n}\n", ""]);
+exports.push([module.i, "\nh6[data-v-3f8ac686]{\n    margin:0\n}\n.clickable[data-v-3f8ac686]{\n    cursor: pointer;\n}\ntextarea[data-v-3f8ac686]{\n    resize:none;\n}\n.isAnswered[data-v-3f8ac686]{\n    display:none;\n}\n", ""]);
 
 // exports
 
@@ -30285,193 +30321,347 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
-    _c("div", { attrs: { id: "answerArea", "uk-modal": "" } }, [
-      _vm.selectedQuestion
-        ? _c("div", { staticClass: "uk-modal-dialog" }, [
-            _c("div", { staticClass: "uk-modal-header" }, [
-              _c("h3", { staticClass: "uk-modal-title" }, [
-                _vm._v(_vm._s(_vm.questionDetailText))
-              ])
-            ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              {
-                staticClass: "uk-modal-body",
-                attrs: { "uk-overflow-auto": "" }
-              },
-              [
-                _c("div", [
-                  _c("p", [
-                    _vm._v(
-                      _vm._s(_vm.selectedQuestion.course.name) +
-                        " > " +
-                        _vm._s(_vm.selectedQuestion.section.name) +
-                        " > " +
-                        _vm._s(_vm.selectedQuestion.lesson.name)
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", [
-                  _c("p", { staticClass: "uk-float-right" }, [
-                    _vm._v(
-                      _vm._s(
-                        new Date(
-                          _vm.selectedQuestion.created_at
-                        ).toLocaleDateString()
+    _c(
+      "div",
+      {
+        staticClass: "uk-height-viewport uk-modal-container uk-modal",
+        attrs: { id: "answerArea" }
+      },
+      [
+        _vm.selectedQuestion
+          ? _c("div", { staticClass: "uk-modal-dialog" }, [
+              _c("div", { staticClass: "uk-modal-header" }, [
+                _c("h3", { staticClass: "uk-modal-title" }, [
+                  _vm._v(_vm._s(_vm.questionDetailText))
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-modal-body uk-height-max-large uk-overflow-auto"
+                },
+                [
+                  _c("div", [
+                    _c("p", [
+                      _vm._v(
+                        _vm._s(_vm.selectedQuestion.course.name) +
+                          " > " +
+                          _vm._s(_vm.selectedQuestion.section.name) +
+                          " > " +
+                          _vm._s(_vm.selectedQuestion.lesson.name)
                       )
-                    )
+                    ])
                   ]),
-                  _vm._v(" "),
-                  _c("h4", { staticClass: "uk-margin-remove" }, [
-                    _vm._v(_vm._s(_vm.selectedQuestion.title))
-                  ]),
-                  _vm._v(" "),
-                  _c("p", [_vm._v(_vm._s(_vm.selectedQuestion.content))]),
                   _vm._v(" "),
                   _c("hr"),
                   _vm._v(" "),
-                  _c("div", { staticClass: "uk-flex align-item-center" }, [
-                    _c("img", {
-                      staticClass: "uk-border-circle user-profile-tiny",
-                      attrs: { src: _vm.selectedQuestion.user.avatar, alt: "" }
-                    }),
-                    _vm._v(" "),
-                    _c(
-                      "p",
-                      {
-                        staticClass:
-                          "uk-margin-remove-vertical uk-margin-small-left"
-                      },
-                      [
-                        _vm._v(
-                          _vm._s(_vm.selectedQuestion.user.first_name) +
-                            " " +
-                            _vm._s(_vm.selectedQuestion.user.last_name)
-                        )
-                      ]
-                    )
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", [
-                  _c("div", { staticClass: "uk-margin-bottom" }, [
-                    _c("div", { staticClass: "uk-form-label" }, [
-                      _vm._v(_vm._s(_vm.answerText))
-                    ]),
-                    _vm._v(" "),
-                    _c("textarea", {
-                      directives: [
+                  _c(
+                    "div",
+                    { staticClass: "uk-card uk-card-default-uk-padding-small" },
+                    [
+                      _c("div", [
+                        _c("h4", { staticClass: "uk-margin-remove" }, [
+                          _vm._v(_vm._s(_vm.selectedQuestion.title))
+                        ]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(_vm.selectedQuestion.content))])
+                      ]),
+                      _vm._v(" "),
+                      _c("hr", { staticClass: "uk-margin-remove-vertical" }),
+                      _vm._v(" "),
+                      _c(
+                        "div",
                         {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.answer,
-                          expression: "answer"
-                        }
-                      ],
-                      staticClass: "uk-width uk-height-small uk-textarea",
-                      attrs: { placeholder: _vm.letsAnswerText },
-                      domProps: { value: _vm.answer },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                          staticClass:
+                            "uk-flex justify-content-between uk-card-footer align-item-center uk-flex-wrap"
+                        },
+                        [
+                          _c(
+                            "div",
+                            { staticClass: "uk-flex align-item-center" },
+                            [
+                              _c("img", {
+                                staticClass:
+                                  "uk-border-circle user-profile-tiny",
+                                attrs: {
+                                  src: _vm.selectedQuestion.user.avatar,
+                                  alt: ""
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c(
+                                "p",
+                                {
+                                  staticClass:
+                                    "uk-margin-remove-vertical uk-margin-small-left"
+                                },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      _vm.selectedQuestion.user.first_name
+                                    ) +
+                                      " " +
+                                      _vm._s(
+                                        _vm.selectedQuestion.user.last_name
+                                      )
+                                  )
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "p",
+                            { staticClass: "uk-margin-remove-vertical" },
+                            [
+                              _vm._v(
+                                _vm._s(
+                                  new Date(
+                                    _vm.selectedQuestion.created_at
+                                  ).toLocaleDateString()
+                                )
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      staticClass: "uk-margin-top",
+                      class: { isAnswered: _vm.selectedQuestion.answer },
+                      attrs: { id: "answerTextArea" }
+                    },
+                    [
+                      _c("div", { staticClass: "uk-margin-bottom" }, [
+                        _c("div", { staticClass: "uk-form-label" }, [
+                          _vm._v(_vm._s(_vm.answerText))
+                        ]),
+                        _vm._v(" "),
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.answer,
+                              expression: "answer"
+                            }
+                          ],
+                          staticClass: "uk-width uk-height-small uk-textarea",
+                          attrs: { placeholder: _vm.letsAnswerText },
+                          domProps: { value: _vm.answer },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.answer = $event.target.value
+                            }
                           }
-                          _vm.answer = $event.target.value
-                        }
-                      }
-                    })
-                  ]),
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _vm.selectedQuestion.answer
+                        ? _c(
+                            "button",
+                            {
+                              staticClass:
+                                "uk-button uk-button-default uk-float-right uk-margin-small-left",
+                              attrs: { type: "button" },
+                              on: { click: _vm.closeInfo }
+                            },
+                            [_vm._v(_vm._s(_vm.cancelText))]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.selectedQuestion.answer
+                        ? _c(
+                            "button",
+                            {
+                              staticClass:
+                                "uk-button uk-button-success uk-float-right",
+                              attrs: { type: "button" },
+                              on: { click: _vm.updateItem }
+                            },
+                            [_vm._v(_vm._s(_vm.sendText))]
+                          )
+                        : _c(
+                            "button",
+                            {
+                              staticClass:
+                                "uk-button uk-button-success uk-float-right",
+                              attrs: { type: "button" },
+                              on: { click: _vm.saveItem }
+                            },
+                            [_vm._v(_vm._s(_vm.sendText))]
+                          )
+                    ]
+                  ),
                   _vm._v(" "),
                   _vm.selectedQuestion.answer
                     ? _c(
-                        "button",
+                        "div",
                         {
                           staticClass:
-                            "uk-button uk-button-default uk-float-right uk-margin-small-left uk-modal-close",
-                          attrs: { type: "button" },
-                          on: { click: _vm.clearForm }
+                            "answerToggle uk-card uk-margin-top uk-card-body uk-card-primary uk-padding-small",
+                          attrs: { id: "answered" }
                         },
-                        [_vm._v(_vm._s(_vm.cancelText))]
-                      )
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "uk-button uk-button-success uk-float-right",
-                      attrs: { type: "button" },
-                      on: { click: _vm.saveItem }
-                    },
-                    [_vm._v(_vm._s(_vm.sendText))]
-                  )
-                ]),
-                _vm._v(" "),
-                _vm.selectedQuestion.answer
-                  ? _c("div", [
-                      _c("span", { staticClass: "uk-float-right" }, [
-                        _vm._m(0),
-                        _vm._v(" "),
-                        _c(
-                          "div",
-                          {
-                            staticClass: "uk-padding-small border-radius-6",
-                            attrs: { "uk-dropdown": "mode:click" }
-                          },
-                          [
-                            _c(
-                              "ul",
-                              { staticClass: "uk-nav uk-dropdown-nav" },
-                              [
-                                _c("li", [
-                                  _c("a", { on: { click: _vm.editAnswer } }, [
-                                    _vm._v(_vm._s(_vm.editText))
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _c("li", [
+                        [
+                          _vm.selectedQuestion.answer.user.id == _vm.userId
+                            ? _c(
+                                "span",
+                                { staticClass: "uk-float-right uk-card-title" },
+                                [
+                                  _vm._m(0),
+                                  _vm._v(" "),
                                   _c(
-                                    "a",
+                                    "div",
                                     {
-                                      staticClass: "uk-text-danger",
-                                      on: { click: _vm.deleteAnswer }
+                                      staticClass:
+                                        "uk-padding-small border-radius-6",
+                                      attrs: {
+                                        "uk-dropdown":
+                                          "mode:click; pos:bottom-right"
+                                      }
                                     },
-                                    [_vm._v(_vm._s(_vm.deleteText))]
+                                    [
+                                      _c(
+                                        "ul",
+                                        {
+                                          staticClass: "uk-nav uk-dropdown-nav"
+                                        },
+                                        [
+                                          _c("li", [
+                                            _c(
+                                              "a",
+                                              {
+                                                staticClass: "uk-text-black",
+                                                on: { click: _vm.editAnswer }
+                                              },
+                                              [_vm._v(_vm._s(_vm.editText))]
+                                            )
+                                          ]),
+                                          _vm._v(" "),
+                                          _c("li", [
+                                            _c(
+                                              "a",
+                                              {
+                                                staticClass:
+                                                  "uk-text-danger uk-modal-close",
+                                                on: { click: _vm.deleteAnswer }
+                                              },
+                                              [_vm._v(_vm._s(_vm.deleteText))]
+                                            )
+                                          ])
+                                        ]
+                                      )
+                                    ]
                                   )
-                                ])
-                              ]
-                            )
-                          ]
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _vm._m(1),
-                      _vm._v(" "),
-                      _c("p")
-                    ])
-                  : _vm._e()
-              ]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "uk-modal-footer uk-text-right" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "uk-button uk-button-default uk-modal-close",
-                  attrs: { type: "button" },
-                  on: { click: _vm.closeInfo }
-                },
-                [_vm._v(_vm._s(_vm.closeText))]
-              )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "uk-card-body uk-padding-small" },
+                            [
+                              _c("p", [
+                                _vm._v(
+                                  _vm._s(_vm.selectedQuestion.answer.content)
+                                )
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c("hr", {
+                            staticClass: "uk-margin-remove-vertical"
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "uk-flex uk-card-footer align-item-center justify-content-between uk-flex-wrap"
+                            },
+                            [
+                              _c(
+                                "div",
+                                { staticClass: "uk-flex align-item-center" },
+                                [
+                                  _c("img", {
+                                    staticClass:
+                                      "uk-border-circle user-profile-tiny",
+                                    attrs: {
+                                      src:
+                                        _vm.selectedQuestion.answer.user.avatar,
+                                      alt: ""
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "p",
+                                    {
+                                      staticClass:
+                                        "uk-margin-remove-vertical uk-margin-small-left"
+                                    },
+                                    [
+                                      _vm._v(
+                                        _vm._s(
+                                          _vm.selectedQuestion.answer.user
+                                            .first_name
+                                        ) +
+                                          " " +
+                                          _vm._s(
+                                            _vm.selectedQuestion.answer.user
+                                              .last_name
+                                          )
+                                      )
+                                    ]
+                                  )
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "p",
+                                { staticClass: "uk-margin-remove-vertical" },
+                                [
+                                  _vm._v(
+                                    _vm._s(
+                                      new Date(
+                                        _vm.selectedQuestion.answer.created_at
+                                      ).toLocaleDateString()
+                                    )
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _vm._e()
+                ]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "uk-modal-footer uk-text-right" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "uk-button uk-button-default uk-modal-close",
+                    attrs: { type: "button" },
+                    on: { click: _vm.closeInfo }
+                  },
+                  [_vm._v(_vm._s(_vm.closeText))]
+                )
+              ])
             ])
-          ])
-        : _vm._e()
-    ])
+          : _vm._e()
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -30484,12 +30674,6 @@ var staticRenderFns = [
       { staticClass: "uk-button-default", attrs: { type: "button" } },
       [_c("i", { staticClass: "fas fa-ellipsis-v" })]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [_c("img"), _vm._v(" "), _c("p")])
   }
 ]
 render._withStripped = true
@@ -32325,10 +32509,7 @@ var render = function() {
                   [
                     _c(
                       "div",
-                      {
-                        staticClass:
-                          "uk-card-body uk-padding-small uk-flex align-items-center"
-                      },
+                      { staticClass: "uk-card-body uk-padding-small uk-flex" },
                       [
                         _c(
                           "div",
@@ -32353,7 +32534,7 @@ var render = function() {
                               "div",
                               {
                                 staticClass:
-                                  "uk-margin-remove uk-flex justify-content-between uk-flex-wrap"
+                                  "uk-margin-remove uk-flex justify-content-between uk-flex-wrap align-item-center"
                               },
                               [
                                 _c("h4", { staticClass: "uk-margin-remove" }, [
@@ -32403,39 +32584,39 @@ var render = function() {
                         "div",
                         {
                           staticClass:
-                            "uk-card uk-card-primary uk-padding-small uk-width-5-6"
+                            "uk-card uk-card-primary uk-padding-small uk-width-5-6 uk-card-body uk-padding-small uk-flex"
                         },
                         [
                           _c(
                             "div",
                             {
                               staticClass:
-                                "uk-card-body uk-padding-small uk-flex align-items-center"
+                                "uk-width-1-6@m uk-visible@m justify-content-center uk-margin-small-right"
                             },
+                            [
+                              _c("img", {
+                                staticClass: "uk-border-circle",
+                                staticStyle: {
+                                  width: "125px",
+                                  height: "125px"
+                                },
+                                attrs: {
+                                  src: discussion.answers[0].user.avatar
+                                }
+                              })
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "div",
+                            { staticClass: "uk-grid-stack uk-width-5-6@m" },
                             [
                               _c(
                                 "div",
                                 {
                                   staticClass:
-                                    "uk-width-1-6@m uk-visible@m justify-content-center"
+                                    "uk-margin-remove uk-flex justify-content-between align-item-center uk-flex-wrap"
                                 },
-                                [
-                                  _c("img", {
-                                    staticClass: "uk-border-circle ",
-                                    staticStyle: {
-                                      width: "125px",
-                                      height: "125px"
-                                    },
-                                    attrs: {
-                                      src: discussion.answers.user.avatar
-                                    }
-                                  })
-                                ]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "uk-grid-stack uk-width-5-6@m" },
                                 [
                                   _c(
                                     "h4",
@@ -32443,30 +32624,40 @@ var render = function() {
                                     [
                                       _vm._v(
                                         _vm._s(
-                                          discussion.answers.user.first_name
+                                          discussion.answers[0].user.first_name
                                         ) +
                                           " " +
                                           _vm._s(
-                                            discussion.answers.user.last_name
+                                            discussion.answers[0].user.last_name
                                           )
                                       )
                                     ]
                                   ),
                                   _vm._v(" "),
-                                  _c("hr", {
-                                    staticClass:
-                                      "uk-margin-small-bottom uk-margin-small-top"
-                                  }),
-                                  _vm._v(" "),
                                   _c("p", { staticClass: "uk-margin-remove" }, [
                                     _vm._v(
-                                      "\n                                " +
-                                        _vm._s(discussion.answers.message) +
-                                        "\n                            "
+                                      _vm._s(
+                                        _vm.dateFormat(
+                                          discussion.answers[0].created_at
+                                        )
+                                      )
                                     )
                                   ])
                                 ]
-                              )
+                              ),
+                              _vm._v(" "),
+                              _c("hr", {
+                                staticClass:
+                                  "uk-margin-small-bottom uk-margin-small-top"
+                              }),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "uk-margin-remove" }, [
+                                _vm._v(
+                                  "\n                            " +
+                                    _vm._s(discussion.answers[0].content) +
+                                    "\n                        "
+                                )
+                              ])
                             ]
                           )
                         ]

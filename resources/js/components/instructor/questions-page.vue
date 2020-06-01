@@ -38,54 +38,64 @@
                 <button v-show="(selectedPage-1)<questionAnswerData.length-1" @click="loadNewPage(Number(selectedPage)+1)"> > </button>
             </li>
         </ul>
-        <div id="answerArea" uk-modal>
+        <div id="answerArea" class="uk-height-viewport uk-modal-container uk-modal">
             <div v-if="selectedQuestion" class="uk-modal-dialog">
                 <div class="uk-modal-header">
                     <h3 class="uk-modal-title">{{questionDetailText}}</h3>
                 </div>
 
-                <div class="uk-modal-body" uk-overflow-auto>
+                <div class="uk-modal-body uk-height-max-large uk-overflow-auto">
                     <!-- question area -->
                     <div>
                         <p>{{selectedQuestion.course.name}} > {{selectedQuestion.section.name}} > {{selectedQuestion.lesson.name}}</p>
                     </div>
                     <hr>
-                    <div>
-                        <p class="uk-float-right">{{new Date(selectedQuestion.created_at).toLocaleDateString()}}</p>
-                        <h4 class="uk-margin-remove">{{selectedQuestion.title}}</h4>
-                        <p>{{selectedQuestion.content}}</p>
-                        <hr>
-                        <div class="uk-flex align-item-center">
-                            <img :src="selectedQuestion.user.avatar" alt="" class="uk-border-circle user-profile-tiny">
-                            <p class="uk-margin-remove-vertical uk-margin-small-left">{{selectedQuestion.user.first_name}} {{selectedQuestion.user.last_name}}</p>
+                    <div class="uk-card uk-card-default-uk-padding-small">
+                        <div>
+                            <h4 class="uk-margin-remove">{{selectedQuestion.title}}</h4>
+                            <p>{{selectedQuestion.content}}</p>
+                        </div>
+                        <hr class="uk-margin-remove-vertical">
+                        <div class="uk-flex justify-content-between uk-card-footer align-item-center uk-flex-wrap">
+                            <div class="uk-flex align-item-center">
+                                <img :src="selectedQuestion.user.avatar" alt="" class="uk-border-circle user-profile-tiny">
+                                <p class="uk-margin-remove-vertical uk-margin-small-left">{{selectedQuestion.user.first_name}} {{selectedQuestion.user.last_name}}</p>
+                            </div>
+                            <p class="uk-margin-remove-vertical">{{new Date(selectedQuestion.created_at).toLocaleDateString()}}</p>
                         </div>
                     </div>
-                    <hr>
                     <!-- answer area -->
-                    <div>
+                    <div id="answerTextArea" class="uk-margin-top" :class="{'isAnswered': selectedQuestion.answer}">
                         <div class="uk-margin-bottom">
                             <div class="uk-form-label">{{answerText}}</div>
                             <textarea v-model="answer" class="uk-width uk-height-small uk-textarea" :placeholder="letsAnswerText"></textarea>
                         </div>
-                        <button v-if="selectedQuestion.answer" class="uk-button uk-button-default uk-float-right uk-margin-small-left uk-modal-close" @click="clearForm" type="button">{{cancelText}}</button>
-                        <button class="uk-button uk-button-success uk-float-right" type="button" @click="saveItem">{{sendText}}</button>
+                        <button v-if="selectedQuestion.answer" class="uk-button uk-button-default uk-float-right uk-margin-small-left" @click="closeInfo" type="button">{{cancelText}}</button>
+                        <button v-if="selectedQuestion.answer" class="uk-button uk-button-success uk-float-right" type="button" @click="updateItem">{{sendText}}</button>
+                        <button v-else class="uk-button uk-button-success uk-float-right" type="button" @click="saveItem">{{sendText}}</button>
                     </div>
                     <!-- answered text area -->
-                    <div v-if="selectedQuestion.answer">
-                        <span class="uk-float-right">
+                    <div id="answered" v-if="selectedQuestion.answer" class="answerToggle uk-card uk-margin-top uk-card-body uk-card-primary uk-padding-small">
+                        <span v-if="selectedQuestion.answer.user.id==userId" class="uk-float-right uk-card-title">
                             <button class="uk-button-default" type="button"><i class="fas fa-ellipsis-v"></i></button>
-                            <div uk-dropdown="mode:click" class="uk-padding-small border-radius-6">
+                            <div uk-dropdown="mode:click; pos:bottom-right" class="uk-padding-small border-radius-6">
                                 <ul class="uk-nav uk-dropdown-nav">
-                                    <li><a @click="editAnswer">{{editText}}</a></li>
-                                    <li><a @click="deleteAnswer" class="uk-text-danger">{{deleteText}}</a></li>
+                                    <li><a @click="editAnswer" class="uk-text-black">{{editText}}</a></li>
+                                    <li><a @click="deleteAnswer" class="uk-text-danger uk-modal-close">{{deleteText}}</a></li>
                                 </ul>
                             </div>
                         </span>
-                        <div>
-                            <img>
-                            <p></p>
+                        <div class="uk-card-body uk-padding-small">
+                            <p>{{selectedQuestion.answer.content}}</p>
                         </div>
-                        <p></p>
+                        <hr class="uk-margin-remove-vertical">
+                        <div class="uk-flex uk-card-footer align-item-center justify-content-between uk-flex-wrap">
+                            <div class="uk-flex align-item-center">
+                                <img :src="selectedQuestion.answer.user.avatar" alt="" class="uk-border-circle user-profile-tiny">
+                                <p class="uk-margin-remove-vertical uk-margin-small-left">{{selectedQuestion.answer.user.first_name}} {{selectedQuestion.answer.user.last_name}}</p>
+                            </div>
+                            <p class="uk-margin-remove-vertical">{{new Date(selectedQuestion.answer.created_at).toLocaleDateString()}}</p>
+                        </div>
                     </div>
                 </div>
                 <div class="uk-modal-footer uk-text-right">
@@ -104,7 +114,6 @@
         data(){
             return{
                 selectedQuestionIndex:"",
-                selectedQuestion:null,
                 selectedUrl:'/api/instructor/getNotAnsweredQuestions',
                 selectedAreaName:"waitingAnswer",
                 selectedPage:1,
@@ -185,18 +194,25 @@
                 }else{
                     this.selectedUrl='/api/instructor/getAnsweredQuestions';
                 }
-            },
-            selectedUrl(){
                 this.fetchData();
-            },
-            selectedQuestionIndex(){
-                this.selectedQuestion=this.questionAnswerData[this.selectedPage-1][this.selectedQuestionIndex];
+                if(this.selectedQuestion!=null&&this.selectedQuestion.answer){
+                    this.answer=this.selectedQuestion.answer.content;
+                }else{
+                    this.answer="";
+                }
             },
         },
         computed:{
             ...mapState([
                 'questionAnswerData'
             ]),
+            selectedQuestion(){
+                if(this.questionAnswerData.length>0){
+                    return this.questionAnswerData[this.selectedPage-1][this.selectedQuestionIndex];
+                }else{
+                    return null;
+                }
+            },
             pageNumber(){
                 var pages=['1'];
                 var index=2;
@@ -241,7 +257,12 @@
                     });
             },
             editAnswer:function () {
-                Axios.post('/api/instructor/deleteAnswer/'+this.selectedQuestion.answer.id)
+                this.answer=this.selectedQuestion.answer.content;
+                document.getElementById('answerTextArea').style.display = "block";
+                document.getElementById('answered').style.display = "none";
+            },
+            updateItem:function(){
+                Axios.post('/api/instructor/updateAnswer/'+this.selectedQuestion.answer.id, {content:this.answer, userId:this.userId})
                     .then(response=>{
                         if(response.data.error){
                             UIkit.notification({message:response.data.message, status: 'danger'});
@@ -250,21 +271,30 @@
                             this.fetchData();
                         }
                     });
+                document.getElementById('answerTextArea').style.display = "none";
+                document.getElementById('answered').style.display = "block";
+
             },
             openInfo:function (index) {
                 this.selectedQuestionIndex=index;
-                // this.answer=this.selectedQuestion.content;
                 UIkit.modal('#answerArea', {
                     escClose:false,
                     bgClose:false,
                 }).show();
             },
             closeInfo:function(){
-                UIkit.modal('#answerArea').hide();
+                if(this.selectedQuestion.answer){
+                    document.getElementById('answerTextArea').style.display = "none";
+                    document.getElementById('answered').style.display = "block";
+                }
                 this.clearForm();
             },
             clearForm:function(){
-                this.answer="";
+                if(this.selectedQuestion.answer){
+                    this.answer=this.selectedQuestion.answer.content;
+                }else{
+                    this.answer="";
+                }
             },
             saveItem:function () {
                 Axios.post('/api/learn/'+this.selectedQuestion.course.type+'/'+this.selectedQuestion.course.id+'/lesson/'+this.selectedQuestion.lesson.id+'/discussion/answer/'+this.selectedQuestion.id, {
@@ -302,5 +332,9 @@
 
     textarea{
         resize:none;
+    }
+
+    .isAnswered{
+        display:none;
     }
 </style>
