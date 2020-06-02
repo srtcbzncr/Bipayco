@@ -162,7 +162,13 @@
                     </ul>
                 </div>
                 <div id="modal-full" class="uk-modal-full uk-modal uk-animation-scale-down" uk-modal>
-                    <search></search>
+                    <div class="uk-modal-dialog uk-flex uk-flex-center" uk-height-viewport>
+                        <button class="uk-modal-close-full" type="button" uk-close> </button>
+                        <form method="POST" action="{{ route('search') }}" class="uk-search uk-margin-small-left uk-margin-xlarge-top uk-search-large uk-flex-center uk-animation-slide-bottom-medium">
+                            <i class="fas fa-search uk-position-absolute uk-margin-top icon-xxlarge"> </i>
+                            <input class="uk-search-input uk-margin-large-left uk-width-medium" name="search" type="search" placeholder="Search..." autofocus>
+                        </form>
+                    </div>
                 </div>
             </nav>
             <div class="uk-margin-remove uk-padding-remove">

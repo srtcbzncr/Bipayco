@@ -24,6 +24,7 @@ window.Vue = require('vue');
 Vue.component('course-card', require('./components/course-card.vue').default);
 Vue.component('homepage-content', require('./components/homepage-content.vue').default);
 Vue.component('stars-rating', require('./components/stars-rating.vue').default);
+Vue.component('search-page', require('./components/search-page.vue').default);
 
 Vue.component('category-select', require('./components/instructor/category-select.vue').default);
 Vue.component('cr-lesson-select', require('./components/instructor/cr-lesson-select.vue').default);
@@ -47,7 +48,6 @@ Vue.component('instructor-profile-courses', require('./components/auth/instructo
 
 Vue.component('notification-area', require('./components/top-bar/notification-area.vue').default);
 Vue.component('your-courses', require('./components/top-bar/your-courses.vue').default);
-Vue.component('search', require('./components/top-bar/search.vue').default);
 Vue.component('messages-small-card', require('./components/top-bar/messages-small-card.vue').default);
 Vue.component('user-profile-dropdown-nav', require('./components/top-bar/user-profile-dropdown-nav.vue').default);
 
