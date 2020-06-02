@@ -8,10 +8,10 @@
                         style-full-star-color="#F4C150"
                         style-empty-star-color="#C1C1C1"
                         :course-id="course.id"
-                        :module-name="course.course_type"
+                        :module-name="course.type"
                         :is-login="userId!=''"
                         :user-id="userId"
-                        :module="convertModule(course.course_type)"
+                        :module="convertModule(course.type)"
                     > </course-card>
                 </div>
             </div>
@@ -21,8 +21,8 @@
                 </li>
                 <li v-for="page in pageNumber">
                     <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
-                    <button v-else-if="page==courseCard.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/search/?page='+page)">{{page}}</button>
-                    <button v-else @click="loadNewPage('/api/search/?page='+page)">{{page}}</button>
+                    <button v-else-if="page==courseCard.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/search/'+tag+'/'+userId+'?page='+page)">{{page}}</button>
+                    <button v-else @click="loadNewPage('/api/search/'+tag+'/'+userId+'?page='+page)">{{page}}</button>
                 </li>
                 <li>
                     <button v-show="courseCard.current_page<courseCard.last_page" @click="loadNewPage(courseCard.next_page_url)"> > </button>
@@ -46,10 +46,17 @@
             }
         },
         props:{
-            hasNoContent:String,
             userId:{
                 type:String,
                 default:""
+            },
+            tag:{
+                type:String,
+                required:true,
+            },
+            hasNoContent:{
+                type:String,
+                default:"Aradığınız sonuç bulunamadı"
             }
         },
         computed:{
@@ -95,7 +102,7 @@
             }
         },
         created() {
-            this.$store.dispatch('loadUrlForCourseCard', '/api/search');
+            this.$store.dispatch('loadUrlForCourseCard', '/api/search/'+this.tag+'/'+this.userId);
         },
     }
 </script>

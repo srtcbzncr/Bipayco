@@ -12430,10 +12430,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {};
   },
   props: {
-    hasNoContent: String,
     userId: {
       type: String,
       "default": ""
+    },
+    tag: {
+      type: String,
+      required: true
+    },
+    hasNoContent: {
+      type: String,
+      "default": "Aradığınız sonuç bulunamadı"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseCard']), {
@@ -12483,7 +12490,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   created: function created() {
-    this.$store.dispatch('loadUrlForCourseCard', '/api/search');
+    this.$store.dispatch('loadUrlForCourseCard', '/api/search/' + this.tag + '/' + this.userId);
   }
 });
 
@@ -31094,10 +31101,10 @@ var render = function() {
                       "style-full-star-color": "#F4C150",
                       "style-empty-star-color": "#C1C1C1",
                       "course-id": course.id,
-                      "module-name": course.course_type,
+                      "module-name": course.type,
                       "is-login": _vm.userId != "",
                       "user-id": _vm.userId,
-                      module: _vm.convertModule(course.course_type)
+                      module: _vm.convertModule(course.type)
                     }
                   })
                 ],
@@ -31147,7 +31154,12 @@ var render = function() {
                           on: {
                             click: function($event) {
                               return _vm.loadNewPage(
-                                "/api/search/?page=" + page
+                                "/api/search/" +
+                                  _vm.tag +
+                                  "/" +
+                                  _vm.userId +
+                                  "?page=" +
+                                  page
                               )
                             }
                           }
@@ -31160,7 +31172,12 @@ var render = function() {
                           on: {
                             click: function($event) {
                               return _vm.loadNewPage(
-                                "/api/search/?page=" + page
+                                "/api/search/" +
+                                  _vm.tag +
+                                  "/" +
+                                  _vm.userId +
+                                  "?page=" +
+                                  page
                               )
                             }
                           }

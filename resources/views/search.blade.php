@@ -4,5 +4,6 @@
         @if(Auth::check())
             user-id="{{Auth::user()->id}}"
         @endif
+        tag="{{$tag}}"
     ></search-page>
 @endsection
