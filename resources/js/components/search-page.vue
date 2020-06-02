@@ -29,7 +29,7 @@
                 </li>
             </ul>
         </div>
-        <div v-if="courseCard.data&&courseCard.data.length<=0" class="uk-flex uk-flex-center align-items-center justify-content-center uk-margin-large-top">
+        <div v-if="courseCard.data&&courseCard.data.length<=0" class="uk-flex uk-flex-center align-items-center justify-content-center uk-height-medium uk-margin-large-top">
             <h2>{{hasNoContent}}</h2>
         </div>
     </div>

@@ -31222,7 +31222,7 @@ var render = function() {
           "div",
           {
             staticClass:
-              "uk-flex uk-flex-center align-items-center justify-content-center uk-margin-large-top"
+              "uk-flex uk-flex-center align-items-center justify-content-center uk-height-medium uk-margin-large-top"
           },
           [_c("h2", [_vm._v(_vm._s(_vm.hasNoContent))])]
         )
