@@ -12483,8 +12483,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   created: function created() {
-    var url = '/api/course/search';
-    this.$store.dispatch('loadUrlForCourseCard', url);
+    this.$store.dispatch('loadUrlForCourseCard', '/api/search');
   }
 });
 
@@ -31148,7 +31147,7 @@ var render = function() {
                           on: {
                             click: function($event) {
                               return _vm.loadNewPage(
-                                "/api/course/search/?page=" + page
+                                "/api/search/?page=" + page
                               )
                             }
                           }
@@ -31161,7 +31160,7 @@ var render = function() {
                           on: {
                             click: function($event) {
                               return _vm.loadNewPage(
-                                "/api/course/search/?page=" + page
+                                "/api/search/?page=" + page
                               )
                             }
                           }

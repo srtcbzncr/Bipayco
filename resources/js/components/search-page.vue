@@ -21,8 +21,8 @@
                 </li>
                 <li v-for="page in pageNumber">
                     <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
-                    <button v-else-if="page==courseCard.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/course/search/?page='+page)">{{page}}</button>
-                    <button v-else @click="loadNewPage('/api/course/search/?page='+page)">{{page}}</button>
+                    <button v-else-if="page==courseCard.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/search/?page='+page)">{{page}}</button>
+                    <button v-else @click="loadNewPage('/api/search/?page='+page)">{{page}}</button>
                 </li>
                 <li>
                     <button v-show="courseCard.current_page<courseCard.last_page" @click="loadNewPage(courseCard.next_page_url)"> > </button>
@@ -95,8 +95,7 @@
             }
         },
         created() {
-            var url='/api/course/search';
-            this.$store.dispatch('loadUrlForCourseCard', url);
+            this.$store.dispatch('loadUrlForCourseCard', '/api/search');
         },
     }
 </script>
