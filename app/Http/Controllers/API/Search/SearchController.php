@@ -11,10 +11,11 @@ class SearchController extends Controller
     public function search(Request $request){
         $data = $request->toArray();
         $tag = $data['tag'];
+        $userId = $data['userId'];
         $tags = explode(" ",$tag); // burada search bölümüne yazılan her bir kelime var.
         $repo = new SearchRepository();
 
-        $resp = $repo->search($tags);
+        $resp = $repo->search($tags,$userId);
         if($resp->getResult()){
             return response()->json([
                'error' => false,
