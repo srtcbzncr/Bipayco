@@ -69,20 +69,27 @@ class SearchRepository implements IRepository
                     $course['type'] = "generalEducation";
                     $course['category'] = Category::find($course->category_id);
                     $course['subCategory'] = SubCategory::find($course->sub_category_id);
-                    $controlBasket = Basket::where('user_id',$userId)->where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
-                    if($controlBasket != null and count($controlBasket)>0){
-                        $course['inBasket'] = true;
+                    if($userId != null){
+                        $controlBasket = Basket::where('user_id',$userId)->where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
+                        if($controlBasket != null and count($controlBasket)>0){
+                            $course['inBasket'] = true;
+                        }
+                        else{
+                            $course['inBasket'] = false;
+                        }
+                        $controlFavorite= Favorite::where('user_id',$userId)->where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
+                        if($controlFavorite != null and count($controlFavorite)>0){
+                            $course['inFavorite'] = true;
+                        }
+                        else{
+                            $course['inFavorite'] = false;
+                        }
                     }
                     else{
-                        $course['inBasket'] = false;
+                        $course['inBasket'] = null;
+                        $course['inFavorite'] = null;
                     }
-                    $controlFavorite= Favorite::where('user_id',$userId)->where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
-                    if($controlFavorite != null and count($controlFavorite)>0){
-                        $course['inFavorite'] = true;
-                    }
-                    else{
-                        $course['inFavorite'] = false;
-                    }
+
                     $geTags[$key] = $course;
                 }
                 else if($item->course_type == "App\Models\PrepareLessons\Course"){
@@ -90,40 +97,54 @@ class SearchRepository implements IRepository
                     $course['type'] = "prepareLessons";
                     $course['lesson'] = Lesson::find($course->lesson_id);
                     $course['grade'] = Grade::find($course->grade_id);
-                    $controlBasket = Basket::where('user_id',$userId)->where('course_id',$course->id)->where('course_type','App\Models\PrepareLessons\Course')->get();
-                    if($controlBasket != null and count($controlBasket)>0){
-                        $course['inBasket'] = true;
+                    if($userId != null){
+                        $controlBasket = Basket::where('user_id',$userId)->where('course_id',$course->id)->where('course_type','App\Models\PrepareLessons\Course')->get();
+                        if($controlBasket != null and count($controlBasket)>0){
+                            $course['inBasket'] = true;
+                        }
+                        else{
+                            $course['inBasket'] = false;
+                        }
+                        $controlFavorite= Favorite::where('user_id',$userId)->where('course_id',$course->id)->where('course_type','App\Models\PrepareLessons\Course')->get();
+                        if($controlFavorite != null and count($controlFavorite)>0){
+                            $course['inFavorite'] = true;
+                        }
+                        else{
+                            $course['inFavorite'] = false;
+                        }
                     }
                     else{
-                        $course['inBasket'] = false;
+                        $course['inBasket'] = null;
+                        $course['inFavorite'] = null;
                     }
-                    $controlFavorite= Favorite::where('user_id',$userId)->where('course_id',$course->id)->where('course_type','App\Models\PrepareLessons\Course')->get();
-                    if($controlFavorite != null and count($controlFavorite)>0){
-                        $course['inFavorite'] = true;
-                    }
-                    else{
-                        $course['inFavorite'] = false;
-                    }
+
                     $geTags[$key] = $course;
                 }
                 else if($item->course_type == "App\Models\PrepareExams\Course"){
                     $course = \App\Models\PrepareExams\Course::find($item->course_id);
                     $course['type'] = "prepareExams";
                     $course['exam'] = Exam::find($course->exam_id);
-                    $controlBasket = Basket::where('user_id',$userId)->where('course_id',$course->id)->where('course_type','App\Models\PrepareExams\Course')->get();
-                    if($controlBasket != null and count($controlBasket)>0){
-                        $course['inBasket'] = true;
+                    if($userId != null){
+                        $controlBasket = Basket::where('user_id',$userId)->where('course_id',$course->id)->where('course_type','App\Models\PrepareExams\Course')->get();
+                        if($controlBasket != null and count($controlBasket)>0){
+                            $course['inBasket'] = true;
+                        }
+                        else{
+                            $course['inBasket'] = false;
+                        }
+                        $controlFavorite= Favorite::where('user_id',$userId)->where('course_id',$course->id)->where('course_type','App\Models\PrepareExams\Course')->get();
+                        if($controlFavorite != null and count($controlFavorite)>0){
+                            $course['inFavorite'] = true;
+                        }
+                        else{
+                            $course['inFavorite'] = false;
+                        }
                     }
                     else{
-                        $course['inBasket'] = false;
+                        $course['inBasket'] = null;
+                        $course['inFavorite'] = null;
                     }
-                    $controlFavorite= Favorite::where('user_id',$userId)->where('course_id',$course->id)->where('course_type','App\Models\PrepareExams\Course')->get();
-                    if($controlFavorite != null and count($controlFavorite)>0){
-                        $course['inFavorite'] = true;
-                    }
-                    else{
-                        $course['inFavorite'] = false;
-                    }
+
                     $geTags[$key] = $course;
                 }
             }

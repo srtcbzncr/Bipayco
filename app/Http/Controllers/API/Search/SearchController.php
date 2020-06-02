@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
-    public function search($tag,$userId){
+    public function search($tag,$userId=null){
         $tags = explode(" ",$tag); // burada search bölümüne yazılan her bir kelime var.
         $repo = new SearchRepository();
 
