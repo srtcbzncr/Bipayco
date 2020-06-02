@@ -84,6 +84,14 @@
             ]),
             loadNewPage: function(name){
                 this.$store.dispatch('loadUrlForCourseCard', name);
+            },
+            convertModule:function(moduleName){
+                switch(moduleName){
+                    case 'generalEducation': return 'ge';
+                    case 'prepareLessons': return 'pl';
+                    case 'prepareExams': return 'pe';
+                    default: return'';
+                }
             }
         },
         created() {

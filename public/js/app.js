@@ -12465,6 +12465,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadUrlForCourseCard']), {
     loadNewPage: function loadNewPage(name) {
       this.$store.dispatch('loadUrlForCourseCard', name);
+    },
+    convertModule: function convertModule(moduleName) {
+      switch (moduleName) {
+        case 'generalEducation':
+          return 'ge';
+
+        case 'prepareLessons':
+          return 'pl';
+
+        case 'prepareExams':
+          return 'pe';
+
+        default:
+          return '';
+      }
     }
   }),
   created: function created() {
