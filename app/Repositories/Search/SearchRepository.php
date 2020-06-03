@@ -62,7 +62,9 @@ class SearchRepository implements IRepository
 
         // operations
         try{
-            $geTags = Tag::where('deleted_at',null)->whereIn('tag',$tags)->paginate(10);
+            $geTags = Tag::where('deleted_at',null)->whereIn('tag',$tags)->get();
+
+            //$geTags = Tag::where('deleted_at',null)->whereIn('tag',$tags)->paginate(10);
             $tempCourses = array();
             $tempTypes = array();
             foreach ($geTags as $key => $item){
@@ -106,7 +108,7 @@ class SearchRepository implements IRepository
                         array_push($tempTypes,'ge');
                     }
                     else{
-                         unset($geTags[$key]);
+                        unset($geTags[$key]);
                     }
                 }
                 else if($item->course_type == "App\Models\PrepareLessons\Course"){
@@ -196,7 +198,7 @@ class SearchRepository implements IRepository
                 }
             }
 
-            $object = $geTags;
+            $object = array_chunk($geTags->toArray(),10);
         }
         catch(\Exception $e){
             $error = $e->getMessage();
