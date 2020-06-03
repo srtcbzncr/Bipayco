@@ -1,8 +1,8 @@
 <template>
     <div class="uk-container">
-        <div v-if="courseCard.data&&courseCard.data.length>0">
+        <div v-if="courseCard.data&&Object.keys(courseCard.data).length>0">
             <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-margin" uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div ; delay: 200" uk-grid>
-                <div v-for="course in courseCard.data">
+                <div v-for="course of courseCard.data">
                     <course-card
                         :course="course"
                         style-full-star-color="#F4C150"
@@ -29,7 +29,8 @@
                 </li>
             </ul>
         </div>
-        <div v-if="courseCard.data&&courseCard.data.length<=0" class="uk-flex uk-flex-center align-items-center justify-content-center uk-height-medium uk-margin-large-top">
+        <div v-else class="uk-flex uk-flex-center align-items-center justify-content-center uk-height-medium uk-margin-large-top">
+            {{courseCard.data.length}}
             <h2>{{hasNoContent}}</h2>
         </div>
     </div>
