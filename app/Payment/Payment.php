@@ -22,6 +22,7 @@ use App\Models\Auth\Instructor;
 
 class Payment
 {
+    // alt üye iş yeri kayıt oluşturma metodu-satıcı oluşturma
     public function createSubMerchant(Instructor $instructor){
         $options = new Options();
         $options->setApiKey('sandbox-zKK3HgzvDkPILo9D7PesKOixCuBg9Rpj');
@@ -47,6 +48,7 @@ class Payment
         return $subMerchant;
     }
 
+    // satıcı güncelleme
     public function updateSubMerchant(Instructor $instructor){
         $options = new Options();
         $options->setApiKey('sandbox-zKK3HgzvDkPILo9D7PesKOixCuBg9Rpj');
@@ -71,6 +73,8 @@ class Payment
         return $subMerchant;
     }
 
+    // checkout metodu ödemeden önceki detay sayfasını verir. Fatura bilgileri yazıldıktan sonra ödeme yap dedikten sonra check out metodu çağıralacak.
+    // dönen veri-> https://dev.iyzipay.com/tr/odeme-formu/odeme-formu-baslatma
     public function checkOut($user_id, $first_name, $last_name, $phone_number, $email, $identity_number, $ip, $city, $zip_code, $country, $address, $price, $pricePaid, $courses, $is_discount){
         $options = new Options();
         $options->setApiKey('sandbox-zKK3HgzvDkPILo9D7PesKOixCuBg9Rpj');
