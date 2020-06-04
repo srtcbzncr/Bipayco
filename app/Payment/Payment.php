@@ -71,7 +71,7 @@ class Payment
         return $subMerchant;
     }
 
-    public function pay($user_id, $first_name, $last_name, $phone_number, $email, $identity_number, $ip, $city, $zip_code, $country, $address, $price, $pricePaid, $courses, $is_discount){
+    public function checkOut($user_id, $first_name, $last_name, $phone_number, $email, $identity_number, $ip, $city, $zip_code, $country, $address, $price, $pricePaid, $courses, $is_discount){
         $options = new Options();
         $options->setApiKey('sandbox-zKK3HgzvDkPILo9D7PesKOixCuBg9Rpj');
         $options->setSecretKey('sandbox-AuVhbC9hstaRNtlSb1xEn9bwwsgecdHP');
