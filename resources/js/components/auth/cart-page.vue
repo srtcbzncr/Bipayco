@@ -1,27 +1,35 @@
 <template>
     <div uk-grid>
         <div class="uk-width-1-4@m">
-            <div class="uk-card uk-padding-remove-bottom uk-card-default border-radius-6 uk-card uk-padding-small  uk-box-shadow-medium" uk-sticky="offset: 90; bottom: true; media: @m;">
-                <ul class="uk-list uk-list-divider uk-margin-remove-bottom uk-text-small" style="margin: -15px;">
-                    <li>
-                        <div class="uk-padding-small text-left">
-                            <div class="uk-form-label uk-margin-remove">İndirim kodu</div>
-                            <input class="uk-input uk-width uk-margin-small">
+            <div  uk-sticky="offset: 90; bottom: true; media: @m;">
+                <div class="uk-card uk-padding-remove-bottom uk-card-default border-radius-6 uk-card uk-padding-small  uk-box-shadow-medium">
+                    <ul class="uk-list uk-list-divider uk-margin-remove-bottom uk-text-small" style="margin: -15px;">
+                        <li class="uk-padding-small uk-margin-remove uk-flex align-item-center justify-content-center">
+                            <div>
+                                <p class="uk-margin-remove">Toplam Tutar: <span>{{cartAmount}}<i class="fas fa-lira-sign icon-small"></i></span></p>
+                                <p class="uk-margin-remove">İndirim (%25): <span>-{{cartAmount}}<i class="fas fa-lira-sign icon-small"></i></span></p>
+                                <hr class="uk-width">
+                                <h5 class="uk-margin-remove">Ödenecek Tutar: <span>{{cartAmount}}<i class="fas fa-lira-sign icon-small"></i></span></h5>
+                            </div>
+                        </li>
+                        <li class="uk-padding-remove">
+                            <button class="uk-button uk-width uk-button-success" @click="buyAll">Satın Al</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="uk-card uk-margin-top uk-padding-remove-bottom uk-card-default border-radius-6 uk-card uk-padding-small  uk-box-shadow-medium">
+                    <ul class="uk-list uk-list-divider uk-margin-remove-bottom uk-text-small" style="margin: -15px;">
+                        <li>
+                            <div class="uk-padding-small text-left">
+                                <div class="uk-form-label uk-margin-remove">İndirim kodu</div>
+                                <input class="uk-input uk-width uk-margin-small">
+                            </div>
+                        </li>
+                        <li class="uk-padding-remove">
                             <button class="uk-button uk-width uk-button-primary" @click="buyAll">Uygula</button>
-                        </div>
-                    </li>
-                    <li class="uk-padding-small uk-margin-remove uk-flex align-item-center justify-content-center">
-                        <div>
-                            <p class="uk-margin-remove">Toplam Tutar: <span>{{cartAmount}}<i class="fas fa-lira-sign icon-small"></i></span></p>
-                            <p class="uk-margin-remove">İndirim (%25): <span>-{{cartAmount}}<i class="fas fa-lira-sign icon-small"></i></span></p>
-                            <hr class="uk-width">
-                            <h5 class="uk-margin-remove">Ödenecek Tutar: <span>{{cartAmount}}<i class="fas fa-lira-sign icon-small"></i></span></h5>
-                        </div>
-                    </li>
-                    <li class="uk-padding-remove">
-                        <button class="uk-button uk-width uk-button-success" @click="buyAll">Satın Al</button>
-                    </li>
-                </ul>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="uk-width-3-4@m">

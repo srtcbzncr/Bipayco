@@ -5751,6 +5751,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -21276,88 +21284,110 @@ var render = function() {
     _c("div", { staticClass: "uk-width-1-4@m" }, [
       _c(
         "div",
-        {
-          staticClass:
-            "uk-card uk-padding-remove-bottom uk-card-default border-radius-6 uk-card uk-padding-small  uk-box-shadow-medium",
-          attrs: { "uk-sticky": "offset: 90; bottom: true; media: @m;" }
-        },
+        { attrs: { "uk-sticky": "offset: 90; bottom: true; media: @m;" } },
         [
           _c(
-            "ul",
+            "div",
             {
               staticClass:
-                "uk-list uk-list-divider uk-margin-remove-bottom uk-text-small",
-              staticStyle: { margin: "-15px" }
+                "uk-card uk-padding-remove-bottom uk-card-default border-radius-6 uk-card uk-padding-small  uk-box-shadow-medium"
             },
             [
-              _c("li", [
-                _c("div", { staticClass: "uk-padding-small text-left" }, [
-                  _c("div", { staticClass: "uk-form-label uk-margin-remove" }, [
-                    _vm._v("İndirim kodu")
-                  ]),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass: "uk-input uk-width uk-margin-small"
-                  }),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "uk-button uk-width uk-button-primary",
-                      on: { click: _vm.buyAll }
-                    },
-                    [_vm._v("Uygula")]
-                  )
-                ])
-              ]),
-              _vm._v(" "),
               _c(
-                "li",
+                "ul",
                 {
                   staticClass:
-                    "uk-padding-small uk-margin-remove uk-flex align-item-center justify-content-center"
+                    "uk-list uk-list-divider uk-margin-remove-bottom uk-text-small",
+                  staticStyle: { margin: "-15px" }
                 },
                 [
-                  _c("div", [
-                    _c("p", { staticClass: "uk-margin-remove" }, [
-                      _vm._v("Toplam Tutar: "),
-                      _c("span", [
-                        _vm._v(_vm._s(_vm.cartAmount)),
-                        _c("i", { staticClass: "fas fa-lira-sign icon-small" })
+                  _c(
+                    "li",
+                    {
+                      staticClass:
+                        "uk-padding-small uk-margin-remove uk-flex align-item-center justify-content-center"
+                    },
+                    [
+                      _c("div", [
+                        _c("p", { staticClass: "uk-margin-remove" }, [
+                          _vm._v("Toplam Tutar: "),
+                          _c("span", [
+                            _vm._v(_vm._s(_vm.cartAmount)),
+                            _c("i", {
+                              staticClass: "fas fa-lira-sign icon-small"
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "uk-margin-remove" }, [
+                          _vm._v("İndirim (%25): "),
+                          _c("span", [
+                            _vm._v("-" + _vm._s(_vm.cartAmount)),
+                            _c("i", {
+                              staticClass: "fas fa-lira-sign icon-small"
+                            })
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("hr", { staticClass: "uk-width" }),
+                        _vm._v(" "),
+                        _c("h5", { staticClass: "uk-margin-remove" }, [
+                          _vm._v("Ödenecek Tutar: "),
+                          _c("span", [
+                            _vm._v(_vm._s(_vm.cartAmount)),
+                            _c("i", {
+                              staticClass: "fas fa-lira-sign icon-small"
+                            })
+                          ])
+                        ])
                       ])
-                    ]),
-                    _vm._v(" "),
-                    _c("p", { staticClass: "uk-margin-remove" }, [
-                      _vm._v("İndirim (%25): "),
-                      _c("span", [
-                        _vm._v("-" + _vm._s(_vm.cartAmount)),
-                        _c("i", { staticClass: "fas fa-lira-sign icon-small" })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("hr", { staticClass: "uk-width" }),
-                    _vm._v(" "),
-                    _c("h5", { staticClass: "uk-margin-remove" }, [
-                      _vm._v("Ödenecek Tutar: "),
-                      _c("span", [
-                        _vm._v(_vm._s(_vm.cartAmount)),
-                        _c("i", { staticClass: "fas fa-lira-sign icon-small" })
-                      ])
-                    ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "uk-padding-remove" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "uk-button uk-width uk-button-success",
+                        on: { click: _vm.buyAll }
+                      },
+                      [_vm._v("Satın Al")]
+                    )
                   ])
                 ]
-              ),
-              _vm._v(" "),
-              _c("li", { staticClass: "uk-padding-remove" }, [
-                _c(
-                  "button",
-                  {
-                    staticClass: "uk-button uk-width uk-button-success",
-                    on: { click: _vm.buyAll }
-                  },
-                  [_vm._v("Satın Al")]
-                )
-              ])
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "uk-card uk-margin-top uk-padding-remove-bottom uk-card-default border-radius-6 uk-card uk-padding-small  uk-box-shadow-medium"
+            },
+            [
+              _c(
+                "ul",
+                {
+                  staticClass:
+                    "uk-list uk-list-divider uk-margin-remove-bottom uk-text-small",
+                  staticStyle: { margin: "-15px" }
+                },
+                [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "uk-padding-remove" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "uk-button uk-width uk-button-primary",
+                        on: { click: _vm.buyAll }
+                      },
+                      [_vm._v("Uygula")]
+                    )
+                  ])
+                ]
+              )
             ]
           )
         ]
@@ -21402,7 +21432,22 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", [
+      _c("div", { staticClass: "uk-padding-small text-left" }, [
+        _c("div", { staticClass: "uk-form-label uk-margin-remove" }, [
+          _vm._v("İndirim kodu")
+        ]),
+        _vm._v(" "),
+        _c("input", { staticClass: "uk-input uk-width uk-margin-small" })
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
