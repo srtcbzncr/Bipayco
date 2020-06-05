@@ -9,7 +9,7 @@
                 <div class="uk-width-3-4@s">
                     <div class="uk-card-body">
                         <div class="uk-card-title">
-                            <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-margin-remove">{{course.name}}</h4>
+                            <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 25px; max-height: 25px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-margin-remove">{{course.name}}</h4>
                             <stars-rating :rating="course.point"></stars-rating>
                         </div>
                         <hr class="uk-margin-remove">

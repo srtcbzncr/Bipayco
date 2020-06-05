@@ -1,22 +1,43 @@
 <template>
-    <div>
-        <div class="uk-background-default border-radius-6 uk-padding uk-width">
-            <div class="uk-flex uk-flex-wrap align-item-center justify-content-around">
-                <h2 class="uk-margin-remove">Toplam Tutar: {{cartAmount}} <i class="fas fa-lira-sign icon-small"></i></h2>
-                <button class="uk-button uk-width-1-4@s uk-button-success" @click="buyAll">Satın Al</button>
+    <div uk-grid>
+        <div class="uk-width-1-4@m">
+            <div class="uk-card uk-padding-remove-bottom uk-card-default border-radius-6 uk-card uk-padding-small  uk-box-shadow-medium" uk-sticky="offset: 90; bottom: true; media: @m;">
+                <ul class="uk-list uk-list-divider uk-margin-remove-bottom uk-text-small" style="margin: -15px;">
+                    <li>
+                        <div class="uk-padding-small text-left">
+                            <div class="uk-form-label uk-margin-remove">İndirim kodu</div>
+                            <input class="uk-input uk-width uk-margin-small">
+                            <button class="uk-button uk-width uk-button-primary" @click="buyAll">Uygula</button>
+                        </div>
+                    </li>
+                    <li class="uk-padding-small uk-margin-remove uk-flex align-item-center justify-content-center">
+                        <div>
+                            <p class="uk-margin-remove">Toplam Tutar: <span>{{cartAmount}}<i class="fas fa-lira-sign icon-small"></i></span></p>
+                            <p class="uk-margin-remove">İndirim (%25): <span>-{{cartAmount}}<i class="fas fa-lira-sign icon-small"></i></span></p>
+                            <hr class="uk-width">
+                            <h5 class="uk-margin-remove">Ödenecek Tutar: <span>{{cartAmount}}<i class="fas fa-lira-sign icon-small"></i></span></h5>
+                        </div>
+                    </li>
+                    <li class="uk-padding-remove">
+                        <button class="uk-button uk-width uk-button-success" @click="buyAll">Satın Al</button>
+                    </li>
+                </ul>
             </div>
         </div>
-        <hr>
-        <h3> Sepetteki Ürünler </h3>
-        <div v-for="item in shoppingCart">
-            <cart-element
-                :course="item.course"
-                :user-id="userId"
-                :moduleName="item.course_type"
-            ></cart-element>
-        </div>
-        <div v-if="shoppingCart.length<=0" class="uk-flex align-items-center justify-content-center">
-            <h2>{{noContentText}}</h2>
+        <div class="uk-width-3-4@m">
+            <div>
+                <h3> Sepetteki Ürünler </h3>
+                <div v-for="item in shoppingCart">
+                    <cart-element
+                        :course="item.course"
+                        :user-id="userId"
+                        :moduleName="item.course_type"
+                    ></cart-element>
+                </div>
+                <div v-if="shoppingCart.length<=0" class="uk-flex align-items-center justify-content-center">
+                    <h2>{{noContentText}}</h2>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -86,5 +107,8 @@
 </script>
 
 <style scoped>
-
+    .uk-list-divider > li:nth-child(n+2){
+        margin-top:0;
+        padding-top:15px;
+    }
 </style>
