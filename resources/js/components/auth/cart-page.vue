@@ -7,9 +7,9 @@
                         <li class="uk-padding-small uk-margin-remove uk-flex align-item-center justify-content-center">
                             <div>
                                 <p class="uk-margin-remove">Toplam Tutar: <span>{{cartAmount}}<i class="fas fa-lira-sign icon-small"></i></span></p>
-                                <p class="uk-margin-remove">İndirim (%25): <span>-{{cartAmount}}<i class="fas fa-lira-sign icon-small"></i></span></p>
+                                <p class="uk-margin-remove" v-if="usedCoupon">İndirim (%25): <span>-{{discount}}<i class="fas fa-lira-sign icon-small"></i></span></p>
                                 <hr class="uk-width">
-                                <h5 class="uk-margin-remove">Ödenecek Tutar: <span>{{cartAmount}}<i class="fas fa-lira-sign icon-small"></i></span></h5>
+                                <h5 class="uk-margin-remove">Ödenecek Tutar: <span>{{payAmount}}<i class="fas fa-lira-sign icon-small"></i></span></h5>
                             </div>
                         </li>
                         <li class="uk-padding-remove">
@@ -57,6 +57,12 @@
 
     export default {
         name: "cart-page",
+        data(){
+            return{
+                usedCoupon:false,
+                discountPercent:25,
+            }
+        },
         components: {CartElement},
         props: {
             userId: {
@@ -82,7 +88,17 @@
                     amount+=this.shoppingCart[i].course.price_with_discount;
                 }
                 return amount;
-            }
+            },
+            payAmount(){
+                return this.cartAmount-this.discount;
+            },
+            discount(){
+                if(this.usedCoupon){
+                    return this.cartAmount*this.discountPercent/100;
+                }else{
+                    return 0;
+                }
+            },
         },
         methods: {
             ...mapActions([

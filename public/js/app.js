@@ -5764,6 +5764,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "cart-page",
+  data: function data() {
+    return {
+      usedCoupon: false,
+      discountPercent: 25
+    };
+  },
   components: {
     CartElement: _cart_element__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
@@ -5790,6 +5796,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
 
       return amount;
+    },
+    payAmount: function payAmount() {
+      return this.cartAmount - this.discount;
+    },
+    discount: function discount() {
+      if (this.usedCoupon) {
+        return this.cartAmount * this.discountPercent / 100;
+      } else {
+        return 0;
+      }
     }
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadShoppingCart', 'loadCourseCard']), {
@@ -21319,22 +21335,24 @@ var render = function() {
                           ])
                         ]),
                         _vm._v(" "),
-                        _c("p", { staticClass: "uk-margin-remove" }, [
-                          _vm._v("İndirim (%25): "),
-                          _c("span", [
-                            _vm._v("-" + _vm._s(_vm.cartAmount)),
-                            _c("i", {
-                              staticClass: "fas fa-lira-sign icon-small"
-                            })
-                          ])
-                        ]),
+                        _vm.usedCoupon
+                          ? _c("p", { staticClass: "uk-margin-remove" }, [
+                              _vm._v("İndirim (%25): "),
+                              _c("span", [
+                                _vm._v("-" + _vm._s(_vm.discount)),
+                                _c("i", {
+                                  staticClass: "fas fa-lira-sign icon-small"
+                                })
+                              ])
+                            ])
+                          : _vm._e(),
                         _vm._v(" "),
                         _c("hr", { staticClass: "uk-width" }),
                         _vm._v(" "),
                         _c("h5", { staticClass: "uk-margin-remove" }, [
                           _vm._v("Ödenecek Tutar: "),
                           _c("span", [
-                            _vm._v(_vm._s(_vm.cartAmount)),
+                            _vm._v(_vm._s(_vm.payAmount)),
                             _c("i", {
                               staticClass: "fas fa-lira-sign icon-small"
                             })
