@@ -115,4 +115,24 @@ class BasketController extends Controller
             'errorMessage' => $resp->getError()
         ]);
     }
+
+    public function referenceControl($referenceCode){
+        // initializing
+        $repo = new BasketRepository();
+
+        // operations
+        $resp = $repo->referenceControl($referenceCode);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData(),
+                'message' => 'Referans kodu başarıyla kontrol edildi.'
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Referans kodu kontrol edilirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
 }

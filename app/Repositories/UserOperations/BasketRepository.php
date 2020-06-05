@@ -4,6 +4,7 @@
 namespace App\Repositories\UserOperations;
 
 
+use App\Models\Auth\Instructor;
 use App\Models\Auth\User;
 use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\Entry;
@@ -286,6 +287,34 @@ class BasketRepository implements IRepository
             DB::commit();
         }catch(\Exception $e){
             DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function referenceControl($referenceCode){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try {
+
+            $instructor = Instructor::where('reference_code',$referenceCode)->where('active',true)
+                ->where('deleted_at',null)->first();
+            if($instructor != null){
+                $object = true;
+            }
+            else{
+                $object = false;
+            }
+
+        }catch(\Exception $e){
             $error = $e->getMessage();
             $result = false;
         }

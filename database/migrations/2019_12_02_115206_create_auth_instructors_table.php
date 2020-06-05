@@ -23,6 +23,7 @@ class CreateAuthInstructorsTable extends Migration
             $table->string('bio', 1500);
             $table->string('iban', 50);
             $table->string('reference_code', 18);
+            $table->string('sub_merchant_key')->nullable(true);
             $table->boolean('active')->default(true);
             $table->timestamps();
             $table->softDeletes();

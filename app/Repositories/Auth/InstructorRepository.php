@@ -16,6 +16,7 @@ use App\Models\GeneralEducation\Section;
 use App\Models\GeneralEducation\SubCategory;
 use App\Models\UsersOperations\Basket;
 use App\Models\UsersOperations\Favorite;
+use App\Payment\Payment;
 use App\Repositories\Base\SchoolRepository;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
@@ -341,6 +342,14 @@ class InstructorRepository implements IRepository{
                 $object->iban = $data['iban'];
                 $object->reference_code = uniqid('in'.random_int(100,999), false);
                 $object->save();
+                // iyzicoya alt üye iş yeri olarak kaydet.
+                $payment = new Payment();
+                $payment_result = $payment->createSubMerchant($object);
+                if($payment_result->getStatus()!="failure"){
+                    $ins = Instructor::find($object->id);
+                    $ins->sub_merchant_key = $payment_result->getSubMerchantKey();
+                    $ins->save();
+                }
                 DB::commit();
             }
             else{
