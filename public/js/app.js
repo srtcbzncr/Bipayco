@@ -5786,6 +5786,34 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     noContentText: {
       type: String,
       "default": "İçerik Bulunmamaktadır"
+    },
+    applyText: {
+      type: String,
+      "default": "Uygula"
+    },
+    buyText: {
+      type: String,
+      "default": "Satın Al"
+    },
+    willPayAmountText: {
+      type: String,
+      "default": "Ödenecek Tutar"
+    },
+    discountText: {
+      type: String,
+      "default": "İndirim"
+    },
+    discountCouponText: {
+      type: String,
+      "default": "İndirim Kuponu"
+    },
+    totalAmountText: {
+      type: String,
+      "default": "Toplam Tutar"
+    },
+    courseInCartText: {
+      type: String,
+      "default": "Sepetteki Kurslar"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['shoppingCart']), {
@@ -5799,11 +5827,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return amount;
     },
     payAmount: function payAmount() {
-      return this.cartAmount - this.discount;
+      return (this.cartAmount - this.discount).toFixed(2);
     },
     discount: function discount() {
       if (this.usedCoupon) {
-        return this.cartAmount * this.discountPercent / 100;
+        return (this.cartAmount * this.discountPercent / 100).toFixed(2);
       } else {
         return 0;
       }
@@ -21334,22 +21362,22 @@ var render = function() {
                     [
                       _c("div", [
                         _c("p", { staticClass: "uk-margin-remove" }, [
-                          _vm._v("Toplam Tutar: "),
+                          _vm._v(_vm._s(_vm.totalAmountText) + ": "),
                           _c("span", [
                             _vm._v(_vm._s(_vm.cartAmount)),
                             _c("i", {
-                              staticClass: "fas fa-lira-sign icon-small"
+                              staticClass: "fas fa-lira-sign icon-tiny"
                             })
                           ])
                         ]),
                         _vm._v(" "),
                         _vm.usedCoupon
                           ? _c("p", { staticClass: "uk-margin-remove" }, [
-                              _vm._v("İndirim (%25): "),
+                              _vm._v(_vm._s(_vm.discountText) + " (%25): "),
                               _c("span", [
                                 _vm._v("-" + _vm._s(_vm.discount)),
                                 _c("i", {
-                                  staticClass: "fas fa-lira-sign icon-small"
+                                  staticClass: "fas fa-lira-sign icon-tiny"
                                 })
                               ])
                             ])
@@ -21358,7 +21386,7 @@ var render = function() {
                         _c("hr", { staticClass: "uk-width" }),
                         _vm._v(" "),
                         _c("h5", { staticClass: "uk-margin-remove" }, [
-                          _vm._v("Ödenecek Tutar: "),
+                          _vm._v(_vm._s(_vm.willPayAmountText) + ": "),
                           _c("span", [
                             _vm._v(_vm._s(_vm.payAmount)),
                             _c("i", {
@@ -21377,7 +21405,7 @@ var render = function() {
                         staticClass: "uk-button uk-width uk-button-success",
                         on: { click: _vm.buyAll }
                       },
-                      [_vm._v("Satın Al")]
+                      [_vm._v(_vm._s(_vm.buyText))]
                     )
                   ])
                 ]
@@ -21405,7 +21433,7 @@ var render = function() {
                       _c(
                         "div",
                         { staticClass: "uk-form-label uk-margin-remove" },
-                        [_vm._v("İndirim kodu")]
+                        [_vm._v(_vm._s(_vm.discountCouponText))]
                       ),
                       _vm._v(" "),
                       _c("input", {
@@ -21438,7 +21466,7 @@ var render = function() {
                         staticClass: "uk-button uk-width uk-button-primary",
                         on: { click: _vm.couponControl }
                       },
-                      [_vm._v("Uygula")]
+                      [_vm._v(_vm._s(_vm.applyText))]
                     )
                   ])
                 ]
@@ -21453,7 +21481,7 @@ var render = function() {
       _c(
         "div",
         [
-          _c("h3", [_vm._v(" Sepetteki Ürünler ")]),
+          _c("h3", [_vm._v(" " + _vm._s(_vm.courseInCartText) + " ")]),
           _vm._v(" "),
           _vm._l(_vm.shoppingCart, function(item) {
             return _c(

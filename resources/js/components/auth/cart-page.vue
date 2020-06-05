@@ -6,14 +6,14 @@
                     <ul class="uk-list uk-list-divider uk-margin-remove-bottom uk-text-small" style="margin: -15px;">
                         <li class="uk-padding-small uk-margin-remove uk-flex align-item-center justify-content-center">
                             <div>
-                                <p class="uk-margin-remove">Toplam Tutar: <span>{{cartAmount}}<i class="fas fa-lira-sign icon-small"></i></span></p>
-                                <p class="uk-margin-remove" v-if="usedCoupon">İndirim (%25): <span>-{{discount}}<i class="fas fa-lira-sign icon-small"></i></span></p>
+                                <p class="uk-margin-remove">{{totalAmountText}}: <span>{{cartAmount}}<i class="fas fa-lira-sign icon-tiny"></i></span></p>
+                                <p class="uk-margin-remove" v-if="usedCoupon">{{discountText}} (%25): <span>-{{discount}}<i class="fas fa-lira-sign icon-tiny"></i></span></p>
                                 <hr class="uk-width">
-                                <h5 class="uk-margin-remove">Ödenecek Tutar: <span>{{payAmount}}<i class="fas fa-lira-sign icon-small"></i></span></h5>
+                                <h5 class="uk-margin-remove">{{willPayAmountText}}: <span>{{payAmount}}<i class="fas fa-lira-sign icon-small"></i></span></h5>
                             </div>
                         </li>
                         <li class="uk-padding-remove">
-                            <button class="uk-button uk-width uk-button-success" @click="buyAll">Satın Al</button>
+                            <button class="uk-button uk-width uk-button-success" @click="buyAll">{{buyText}}</button>
                         </li>
                     </ul>
                 </div>
@@ -21,12 +21,12 @@
                     <ul class="uk-list uk-list-divider uk-margin-remove-bottom uk-text-small" style="margin: -15px;">
                         <li>
                             <div class="uk-padding-small text-left">
-                                <div class="uk-form-label uk-margin-remove">İndirim kodu</div>
+                                <div class="uk-form-label uk-margin-remove">{{discountCouponText}}</div>
                                 <input v-model="couponCode" class="uk-input uk-width uk-margin-small">
                             </div>
                         </li>
                         <li class="uk-padding-remove">
-                            <button class="uk-button uk-width uk-button-primary" @click="couponControl">Uygula</button>
+                            <button class="uk-button uk-width uk-button-primary" @click="couponControl">{{applyText}}</button>
                         </li>
                     </ul>
                 </div>
@@ -34,7 +34,7 @@
         </div>
         <div class="uk-width-3-4@m">
             <div>
-                <h3> Sepetteki Ürünler </h3>
+                <h3> {{courseInCartText}} </h3>
                 <div v-for="item in shoppingCart">
                     <cart-element
                         :course="item.course"
@@ -77,6 +77,34 @@
             noContentText:{
                 type:String,
                 default:"İçerik Bulunmamaktadır"
+            },
+            applyText:{
+                type:String,
+                default:"Uygula"
+            },
+            buyText:{
+                type:String,
+                default:"Satın Al"
+            },
+            willPayAmountText:{
+                type:String,
+                default:"Ödenecek Tutar"
+            },
+            discountText:{
+                type:String,
+                default:"İndirim"
+            },
+            discountCouponText:{
+                type:String,
+                default:"İndirim Kuponu"
+            },
+            totalAmountText:{
+                type:String,
+                default:"Toplam Tutar"
+            },
+            courseInCartText:{
+                type:String,
+                default:"Sepetteki Kurslar"
             }
         },
         computed: {
@@ -91,11 +119,11 @@
                 return amount;
             },
             payAmount(){
-                return this.cartAmount-this.discount;
+                return (this.cartAmount-this.discount).toFixed(2);
             },
             discount(){
                 if(this.usedCoupon){
-                    return this.cartAmount*this.discountPercent/100;
+                    return (this.cartAmount*this.discountPercent/100).toFixed(2);
                 }else{
                     return 0;
                 }
