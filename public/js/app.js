@@ -5767,7 +5767,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       usedCoupon: false,
-      discountPercent: 25
+      discountPercent: 25,
+      couponCode: ""
     };
   },
   components: {
@@ -5838,6 +5839,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
 
         _this2.$store.dispatch('loadShoppingCart', _this2.userId);
+      });
+    },
+    couponControl: function couponControl() {
+      var _this3 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/basket/referenceControl/' + this.couponCode).then(function (res) {
+        _this3.usedCoupon = res.data.data;
       });
     }
   }),
@@ -21392,14 +21400,43 @@ var render = function() {
                   staticStyle: { margin: "-15px" }
                 },
                 [
-                  _vm._m(0),
+                  _c("li", [
+                    _c("div", { staticClass: "uk-padding-small text-left" }, [
+                      _c(
+                        "div",
+                        { staticClass: "uk-form-label uk-margin-remove" },
+                        [_vm._v("İndirim kodu")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.couponCode,
+                            expression: "couponCode"
+                          }
+                        ],
+                        staticClass: "uk-input uk-width uk-margin-small",
+                        domProps: { value: _vm.couponCode },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.couponCode = $event.target.value
+                          }
+                        }
+                      })
+                    ])
+                  ]),
                   _vm._v(" "),
                   _c("li", { staticClass: "uk-padding-remove" }, [
                     _c(
                       "button",
                       {
                         staticClass: "uk-button uk-width uk-button-primary",
-                        on: { click: _vm.buyAll }
+                        on: { click: _vm.couponControl }
                       },
                       [_vm._v("Uygula")]
                     )
@@ -21450,22 +21487,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("div", { staticClass: "uk-padding-small text-left" }, [
-        _c("div", { staticClass: "uk-form-label uk-margin-remove" }, [
-          _vm._v("İndirim kodu")
-        ]),
-        _vm._v(" "),
-        _c("input", { staticClass: "uk-input uk-width uk-margin-small" })
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

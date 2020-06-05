@@ -22,11 +22,11 @@
                         <li>
                             <div class="uk-padding-small text-left">
                                 <div class="uk-form-label uk-margin-remove">İndirim kodu</div>
-                                <input class="uk-input uk-width uk-margin-small">
+                                <input v-model="couponCode" class="uk-input uk-width uk-margin-small">
                             </div>
                         </li>
                         <li class="uk-padding-remove">
-                            <button class="uk-button uk-width uk-button-primary" @click="buyAll">Uygula</button>
+                            <button class="uk-button uk-width uk-button-primary" @click="couponControl">Uygula</button>
                         </li>
                     </ul>
                 </div>
@@ -61,6 +61,7 @@
             return{
                 usedCoupon:false,
                 discountPercent:25,
+                couponCode:"",
             }
         },
         components: {CartElement},
@@ -123,6 +124,12 @@
                         this.$store.dispatch('loadShoppingCart', this.userId);
                     });
             },
+            couponControl:function () {
+                Axios.get('/api/basket/referenceControl/'+this.couponCode)
+                .then((res)=>{
+                    this.usedCoupon=res.data.data;
+                })
+            }
         },
         created() {
             this.$store.dispatch('loadShoppingCart', this.userId);
