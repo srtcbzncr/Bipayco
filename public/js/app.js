@@ -5823,6 +5823,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "cart-page",
   data: function data() {
     return {
+      isLoaded: false,
       usedCoupon: false,
       discountPercent: 25,
       couponCode: "",
@@ -12632,6 +12633,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "search-page",
@@ -12654,7 +12658,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Aradığınız sonuç bulunamadı"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseCard']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['loadingStatus', 'courseCard']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
@@ -31810,7 +31814,16 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "uk-container" }, [
-    _vm.courseCard.length > 0
+    !_vm.loadingStatus
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "uk-flex uk-flex-center align-items-center justify-content-center uk-height-medium uk-margin-large-top"
+          },
+          [_c("h2", [_vm._v("Yükleniyor...")])]
+        )
+      : _vm.courseCard.length > 0
       ? _c("div", [
           _c(
             "div",
@@ -53422,7 +53435,8 @@ var state = {
   selectedLessonId: "",
   guardianStudents: {},
   guardianStudentList: {},
-  questionAnswerData: []
+  questionAnswerData: [],
+  loadingStatus: false
 };
 var getters = {};
 var mutations = {
@@ -53490,6 +53504,7 @@ var mutations = {
   },
   setCourseCard: function setCourseCard(state, course) {
     state.courseCard = course.data;
+    state.loadingStatus = true;
   },
   setUrlForCourseCard: function setUrlForCourseCard(state, url) {
     state.urlForCourseCard = url;
@@ -53553,6 +53568,9 @@ var mutations = {
   },
   setQuestionAnswerData: function setQuestionAnswerData(state, data) {
     state.questionAnswerData = data.data;
+  },
+  setLoadingStatus: function setLoadingStatus(state, data) {
+    state.loadingStatus = data;
   }
 };
 var actions = {
@@ -53732,6 +53750,7 @@ var actions = {
   },
   loadCourseCard: function loadCourseCard(_ref39) {
     var commit = _ref39.commit;
+    commit('setLoadingStatus', false);
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(state.urlForCourseCard).then(function (response) {
       return commit('setCourseCard', response.data);
     });

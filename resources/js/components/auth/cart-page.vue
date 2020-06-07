@@ -116,6 +116,7 @@
         name: "cart-page",
         data(){
             return{
+                isLoaded:false,
                 usedCoupon:false,
                 discountPercent:25,
                 couponCode:"",
@@ -286,7 +287,7 @@
             }
         },
         created() {
-            this.$store.dispatch('loadShoppingCart', this.userId);
+            this.$store.dispatch('loadShoppingCart', this.userId)
         }
     }
 </script>

@@ -84,6 +84,7 @@ const state={
     guardianStudents:{},
     guardianStudentList:{},
     questionAnswerData:[],
+    loadingStatus:false,
 };
 const getters={};
 const mutations={
@@ -149,6 +150,7 @@ const mutations={
     },
     setCourseCard(state,course){
         state.courseCard=course.data;
+        state.loadingStatus=true;
     },
     setUrlForCourseCard(state, url){
         state.urlForCourseCard=url;
@@ -212,6 +214,9 @@ const mutations={
     },
     setQuestionAnswerData(state, data){
         state.questionAnswerData=data.data;
+    },
+    setLoadingStatus(state, data){
+        state.loadingStatus=data;
     }
 };
 const actions={
@@ -305,6 +310,7 @@ const actions={
             .then(response=>commit('setShoppingCart', response.data))
     },
     loadCourseCard({commit}){
+        commit('setLoadingStatus',false);
         Axios.get(state.urlForCourseCard)
             .then(response=>commit('setCourseCard', response.data));
     },

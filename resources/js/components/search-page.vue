@@ -1,6 +1,9 @@
 <template>
     <div class="uk-container">
-        <div v-if="courseCard.length>0">
+        <div v-if="!loadingStatus" class="uk-flex uk-flex-center align-items-center justify-content-center uk-height-medium uk-margin-large-top">
+            <h2>Yükleniyor...</h2>
+        </div>
+        <div v-else-if="courseCard.length>0">
             <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-margin" uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div ; delay: 200" uk-grid>
                 <div v-for="course of courseCard[Number(currentPage)-1]">
                     <course-card
@@ -61,6 +64,7 @@
         },
         computed:{
             ...mapState([
+                'loadingStatus',
                 'courseCard'
             ]),
             pageNumber(){
