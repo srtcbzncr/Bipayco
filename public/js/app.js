@@ -5895,7 +5895,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     zipCodeText: {
       type: String,
-      "default": "Şehir Kodu"
+      "default": "Posta Kodu"
     },
     nameText: {
       type: String,
@@ -5919,7 +5919,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     skipCheckoutText: {
       type: String,
-      "default": "Ödeme Aşamsına Geç"
+      "default": "Ödeme Aşamasına Geç"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['shoppingCart']), {

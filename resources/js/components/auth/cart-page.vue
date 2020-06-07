@@ -186,7 +186,7 @@
             },
             zipCodeText:{
                 type:String,
-                default:"Şehir Kodu"
+                default:"Posta Kodu"
             },
             nameText:{
                 type:String,
@@ -210,7 +210,7 @@
             },
             skipCheckoutText:{
                 type:String,
-                default:"Ödeme Aşamsına Geç"
+                default:"Ödeme Aşamasına Geç"
             },
         },
         computed: {
