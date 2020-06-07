@@ -106,7 +106,7 @@
         </div>
         <div class="uk-modal-container" id="checkoutResult" uk-modal>
             <div class="uk-modal-body" uk-overflow-auto>
-                <div v-html="rawHtml"></div>
+                <div id="iyzipay-checkout-form" class="popup" v-html="rawHtml"></div>
             </div>
         </div>
     </div>
@@ -286,7 +286,6 @@
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
-                        this.$store.dispatch('loadShoppingCart', this.userId);
                     });
             },
             couponControl:function () {
