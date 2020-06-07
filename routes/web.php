@@ -26,6 +26,11 @@ Route::get('newPassword/{token}','Auth\AuthController@newPasswordGet')->name('ne
 
 Route::post('search','Search\SearchController@search')->name('search');
 
+Route::group(['prefix' => 'iyzico', 'middleware' => 'auth'],function (){
+    Route::post('/billing','Iyzico\CheckOutController@billing')->name('iyzico_billing');
+    Route::post('/checkOut','Iyzico\CheckOutController@checkOut')->name('iyzico_check_out');
+});
+
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::get('/', 'Admin\HomeController@dashboard')->name('adminDashboard');
     Route::get('/categories','Admin\HomeController@categories')->name('adminCategories');
