@@ -7,6 +7,7 @@ namespace App\Repositories\UserOperations;
 use App\Models\Auth\Instructor;
 use App\Models\Auth\User;
 use App\Models\Base\City;
+use App\Models\Base\Country;
 use App\Models\Base\District;
 use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\Entry;
@@ -336,13 +337,32 @@ class BasketRepository implements IRepository
 
         // Operations
         try {
+            #preapre checkOut methot
             $user = User::find($data['user_id']);
             $ip = Request::ip();
             $disctrict = District::find($user->district_id);
             $city = City::find($disctrict->city_id);
+            $country = Country::find($city->country_id);
+            $basket = Basket::where('user_id',$data['user_id'])->get();
+            $courses = array();
+            foreach ($basket as $item){
+                if($item->course_type == "App\Models\GeneralEducation\Course"){
+                    $course = Course::find($item->course_id);
+                    array_push($courses,$course);
+                }
+                else if($item->course_type == "App\Models\PrepareLessons\Course"){
+                    $course = \App\Models\PrepareLessons\Course::find($item->course_id);
+                    array_push($courses,$course);
+                }
+                else if($item->course_type == "App\Models\PrepareExams\Course"){
+                    $course = \App\Models\PrepareExams\Course::find($item->course_id);
+                    array_push($courses,$course);
+                }
+            }
+
             $payment = new Payment();
             $payment_result = $payment->checkOut($data['user_id'],$user->first_name,$user->last_name,$user->phone_number,$user->email,$data['identity_number'],
-                $ip,$disctrict->city_id,$data['zip_code'],$city->country_id,$data['address'],$data['price'],$data['pricePaid'],$data['courses'],$data['is_discount']);
+                $ip,$city,$data['zip_code'],$country,$data['address'],$data['price'],$data['pricePaid'],$courses,$data['is_discount']);
             if($payment_result->getStatus() == "success"){
                 $object = $payment_result->getCheckoutFormContent();
             }
