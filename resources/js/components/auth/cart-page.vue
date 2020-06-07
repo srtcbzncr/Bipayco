@@ -104,6 +104,11 @@
                 </div>
             </div>
         </div>
+        <div class="uk-modal-container" id="checkoutResult" uk-modal>
+            <div class="uk-modal-body" uk-overflow-auto>
+                <div v-html="rawHtml"></div>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -116,6 +121,7 @@
         name: "cart-page",
         data(){
             return{
+                rawHtml:"",
                 isLoaded:false,
                 usedCoupon:false,
                 discountPercent:25,
@@ -267,9 +273,16 @@
                     'price_paid':this.payAmount,
                     'courses':this.shoppingCart,
                     'is_discount':this.usedCoupon,
-                }).then(response=>{
+                }).then((response)=>{
                         if(!response.data.error){
-                            UIkit.notification({message:'Satın Alım Başarıyla Gerçekleşti.', status:'success'})
+                            UIkit.notification({message:'Satın Alım Başarıyla Gerçekleşti.', status:'success'});
+                            console.log(response);
+                            UIkit.modal('#invoiceInformation').hide();
+                            this.rawHtml=response.data.data;
+                            UIkit.modal('#checkoutResult', {
+                                escClose:false,
+                                bgClose:false,
+                            }).show();
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
@@ -287,7 +300,7 @@
             }
         },
         created() {
-            this.$store.dispatch('loadShoppingCart', this.userId)
+            this.$store.dispatch('loadShoppingCart', this.userId);
         }
     }
 </script>

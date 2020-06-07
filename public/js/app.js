@@ -5816,6 +5816,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -5823,6 +5828,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "cart-page",
   data: function data() {
     return {
+      rawHtml: "",
       isLoaded: false,
       usedCoupon: false,
       discountPercent: 25,
@@ -5981,6 +5987,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             message: 'Satın Alım Başarıyla Gerçekleşti.',
             status: 'success'
           });
+          console.log(response);
+          UIkit.modal('#invoiceInformation').hide();
+          UIkit.modal('#checkoutResult', {
+            escClose: false,
+            bgClose: false
+          }).show();
         } else {
           UIkit.notification({
             message: response.data.message,
@@ -21992,6 +22004,21 @@ var render = function() {
             )
           ])
         ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "uk-modal-container",
+        attrs: { id: "checkoutResult", "uk-modal": "" }
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
+          [_c("div", { domProps: { innerHTML: _vm._s(_vm.rawHtml) } })]
+        )
       ]
     )
   ])
