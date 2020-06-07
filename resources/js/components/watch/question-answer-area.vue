@@ -24,7 +24,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-if="discussion.answers.length>0" uk-grid>
+                <div v-if="discussion.answers&&discussion.answers.length>0" uk-grid>
                     <div class="uk-width-1-6"></div>
                     <div class="uk-card uk-card-primary uk-padding-small uk-width-5-6 uk-card-body uk-padding-small uk-flex">
                         <div class="uk-width-1-6@m uk-visible@m justify-content-center uk-margin-small-right">

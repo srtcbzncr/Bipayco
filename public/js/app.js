@@ -33513,7 +33513,7 @@ var render = function() {
                   ]
                 ),
                 _vm._v(" "),
-                discussion.answers.length > 0
+                discussion.answers && discussion.answers.length > 0
                   ? _c("div", { attrs: { "uk-grid": "" } }, [
                       _c("div", { staticClass: "uk-width-1-6" }),
                       _vm._v(" "),
