@@ -237,5 +237,11 @@ return [
     'guardian_mode'=>'Veli Modu',
     'favorites'=>'Favoriler',
     'have_no_favorite'=>'Favori Bulunmamaktadır',
-    'search_course'=>'Kurs Ara'
+    'search_course'=>'Kurs Ara',
+    'address'=>'Adres',
+    'zip_code'=>'Posta Kodu',
+    'identity_number'=>'Kimlik Numarası',
+    'skip_to_payment'=>'Ödeme Aşamasına geç',
+    'country'=>'Ülke',
+    'invoice_informations'=>'Fatura Bilgileri',
 ];

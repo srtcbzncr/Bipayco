@@ -13,7 +13,7 @@
                             </div>
                         </li>
                         <li class="uk-padding-remove">
-                            <button class="uk-button uk-width uk-button-success" @click="openModal">{{buyText}}</button>
+                            <button class="uk-button uk-width uk-button-success" @click="buyAll">{{buyText}}</button>
                         </li>
                     </ul>
                 </div>
@@ -44,63 +44,6 @@
                 </div>
                 <div v-if="shoppingCart.length<=0" class="uk-flex align-items-center justify-content-center">
                     <h2>{{noContentText}}</h2>
-                </div>
-            </div>
-        </div>
-        <div class="uk-modal-container" id="invoiceInformation" uk-modal>
-            <div class="uk-modal-dialog">
-                <button class="uk-modal-close-default" type="button" uk-close></button>
-                <div class="uk-modal-header">
-                    <h2 class="uk-modal-title">Fatura Bilgileri</h2>
-                </div>
-                <div class="uk-modal-body" uk-overflow-auto>
-                    <div class="uk-flex uk-flex-wrap uk-child-width-1-2@m">
-                        <div class="uk-padding-small">
-                            <div class="uk-form-model">{{nameText}}</div>
-                            <input class="uk-input" v-model="name" :placeholder="nameText" required type="text">
-                        </div>
-                        <div class="uk-padding-small">
-                            <div class="uk-form-model">{{surnameText}}</div>
-                            <input class="uk-input" v-model="surname" :placeholder="surnameText" required type="text">
-                        </div>
-                    </div>
-                    <div class="uk-flex uk-flex-wrap uk-child-width-1-2@m">
-                        <div class="uk-padding-small">
-                            <div class="uk-form-model">{{phoneNumberText}}</div>
-                            <input class="uk-input" v-model="phone" :placeholder="phoneNumberText" required type="text">
-                        </div>
-                        <div class="uk-padding-small">
-                            <div class="uk-form-model">{{emailText}}</div>
-                            <input class="uk-input" v-model="email" :placeholder="emailText" required type="text">
-                        </div>
-                    </div>
-                    <div class="uk-flex uk-flex-wrap uk-child-width-1-2@m">
-                        <div class="uk-padding-small">
-                            <div class="uk-form-model">{{identityNumberText}}</div>
-                            <input class="uk-input" v-model="id" :placeholder="identityNumberText" required type="text">
-                        </div>
-                        <div class="uk-padding-small">
-                            <div class="uk-form-model">{{countryText}}</div>
-                            <input class="uk-input" v-model="country" :placeholder="countryText" required type="text">
-                        </div>
-                    </div>
-                    <div class="uk-padding-small uk-padding-remove-vertical">
-                        <div class="uk-form-label">{{addressText}}</div>
-                        <textarea class="uk-textarea uk-width uk-height-small uk-overflow" :placeholder="addressText" required v-model="address"></textarea>
-                    </div>
-                    <div class="uk-flex uk-flex-wrap uk-child-width-1-2@m">
-                        <div class="uk-padding-small">
-                            <div class="uk-form-model">{{cityText}}</div>
-                            <input class="uk-input" v-model="city" :placeholder="cityText" required type="text">
-                        </div>
-                        <div class="uk-padding-small">
-                            <div class="uk-form-model">{{zipCodeText}}</div>
-                            <input class="uk-input" v-model="zipCode" :placeholder="zipCodeText" required type="text">
-                        </div>
-                    </div>
-                </div>
-                <div class="uk-modal-footer">
-                    <button class="uk-button uk-button-success uk-float-right" @click="buyAll">{{skipCheckoutText}}</button>
                 </div>
             </div>
         </div>
@@ -214,6 +157,10 @@
                 type:String,
                 default:"Ödeme Aşamasına Geç"
             },
+            invoiceInfoRoute:{
+                type:String,
+                required:true,
+            }
         },
         computed: {
             ...mapState([
@@ -249,35 +196,8 @@
                         this.$store.dispatch('loadCourseCard');
                     })
             },
-            openModal:function(){
-                UIkit.modal('#invoiceInformation').show();
-            },
             buyAll:function(){
-                Axios.post('/api/basket/checkOut', {
-                    user_id:this.userId,
-                    first_name:this.name,
-                    last_name:this.surname,
-                    phone_number:this.phone,
-                    email:this.email,
-                    identity_number:this.id,
-                    city:this.city,
-                    zip_code:this.zipCode,
-                    country:this.country,
-                    address:this.address,
-                    price:this.cartAmount,
-                    price_paid:this.payAmount,
-                    courses:this.shoppingCart,
-                    is_discount:this.usedCoupon,
-                }).then((response)=>{
-                        if(!response.data.error){
-                            UIkit.notification({message:'Satın Alım Başarıyla Gerçekleşti.', status:'success'});
-                            console.log(response);
-                            UIkit.modal('#invoiceInformation').hide();
-                            this.rawHtml=response.data.data;
-                        }else{
-                            UIkit.notification({message:response.data.message, status: 'danger'});
-                        }
-                    });
+                window.location.replace(this.invoiceInfoRoute+'?user_id='+this.userId+'&is_discount='+this.usedCoupon+'&price_paid='+this.payAmount+'&price='+this.cartAmount);
             },
             couponControl:function () {
                 Axios.get('/api/basket/referenceControl/'+this.couponCode)
