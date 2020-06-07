@@ -5816,11 +5816,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
 
 
 
@@ -5967,20 +5962,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this2 = this;
 
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/basket/checkOut', {
-        'user_id': this.userId,
-        'first_name': this.name,
-        'last_name': this.surname,
-        'phone_number': this.phone,
-        'email': this.email,
-        'identity_number': this.id,
-        'city': this.city,
-        'zip_code': this.zipCode,
-        'country': this.country,
-        'address': this.address,
-        'price': this.cartAmount,
-        'price_paid': this.payAmount,
-        'courses': this.shoppingCart,
-        'is_discount': this.usedCoupon
+        user_id: this.userId,
+        first_name: this.name,
+        last_name: this.surname,
+        phone_number: this.phone,
+        email: this.email,
+        identity_number: this.id,
+        city: this.city,
+        zip_code: this.zipCode,
+        country: this.country,
+        address: this.address,
+        price: this.cartAmount,
+        price_paid: this.payAmount,
+        courses: this.shoppingCart,
+        is_discount: this.usedCoupon
       }).then(function (response) {
         if (!response.data.error) {
           UIkit.notification({
@@ -5989,18 +5984,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
           console.log(response);
           UIkit.modal('#invoiceInformation').hide();
-          UIkit.modal('#checkoutResult', {
-            escClose: false,
-            bgClose: false
-          }).show();
+          _this2.rawHtml = response.data.data;
         } else {
           UIkit.notification({
             message: response.data.message,
             status: 'danger'
           });
         }
-
-        _this2.$store.dispatch('loadShoppingCart', _this2.userId);
       });
     },
     couponControl: function couponControl() {
@@ -22004,21 +21994,6 @@ var render = function() {
             )
           ])
         ])
-      ]
-    ),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass: "uk-modal-container",
-        attrs: { id: "checkoutResult", "uk-modal": "" }
-      },
-      [
-        _c(
-          "div",
-          { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
-          [_c("div", { domProps: { innerHTML: _vm._s(_vm.rawHtml) } })]
-        )
       ]
     )
   ])

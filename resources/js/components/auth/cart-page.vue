@@ -104,11 +104,6 @@
                 </div>
             </div>
         </div>
-        <div class="uk-modal-container" id="checkoutResult" uk-modal>
-            <div class="uk-modal-body" uk-overflow-auto>
-                <div id="iyzipay-checkout-form" class="popup" v-html="rawHtml"></div>
-            </div>
-        </div>
     </div>
 </template>
 
@@ -259,30 +254,26 @@
             },
             buyAll:function(){
                 Axios.post('/api/basket/checkOut', {
-                    'user_id':this.userId,
-                    'first_name':this.name,
-                    'last_name':this.surname,
-                    'phone_number':this.phone,
-                    'email':this.email,
-                    'identity_number':this.id,
-                    'city':this.city,
-                    'zip_code':this.zipCode,
-                    'country':this.country,
-                    'address':this.address,
-                    'price':this.cartAmount,
-                    'price_paid':this.payAmount,
-                    'courses':this.shoppingCart,
-                    'is_discount':this.usedCoupon,
+                    user_id:this.userId,
+                    first_name:this.name,
+                    last_name:this.surname,
+                    phone_number:this.phone,
+                    email:this.email,
+                    identity_number:this.id,
+                    city:this.city,
+                    zip_code:this.zipCode,
+                    country:this.country,
+                    address:this.address,
+                    price:this.cartAmount,
+                    price_paid:this.payAmount,
+                    courses:this.shoppingCart,
+                    is_discount:this.usedCoupon,
                 }).then((response)=>{
                         if(!response.data.error){
                             UIkit.notification({message:'Satın Alım Başarıyla Gerçekleşti.', status:'success'});
                             console.log(response);
                             UIkit.modal('#invoiceInformation').hide();
                             this.rawHtml=response.data.data;
-                            UIkit.modal('#checkoutResult', {
-                                escClose:false,
-                                bgClose:false,
-                            }).show();
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
