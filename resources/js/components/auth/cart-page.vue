@@ -263,7 +263,7 @@
                     'country':this.country,
                     'address':this.address,
                     'price':this.cartAmount,
-                    'pricePaid':this.payAmount,
+                    'price_paid':this.payAmount,
                     'courses':this.shoppingCart,
                     'is_discount':this.usedCoupon,
                 }).then(response=>{

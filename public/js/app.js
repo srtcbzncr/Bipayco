@@ -5971,7 +5971,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         'country': this.country,
         'address': this.address,
         'price': this.cartAmount,
-        'pricePaid': this.payAmount,
+        'price_paid': this.payAmount,
         'courses': this.shoppingCart,
         'is_discount': this.usedCoupon
       }).then(function (response) {
