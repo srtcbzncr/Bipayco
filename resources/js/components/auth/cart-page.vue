@@ -279,6 +279,9 @@
                 Axios.get('/api/basket/referenceControl/'+this.couponCode)
                 .then((res)=>{
                     this.usedCoupon=res.data.data;
+                    if(!res.data.data){
+                        UIkit.notification({message:"Hatalı Bir Kod Girdiniz", status: 'danger'});
+                    }
                 })
             }
         },

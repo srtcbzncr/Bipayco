@@ -5995,6 +5995,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/basket/referenceControl/' + this.couponCode).then(function (res) {
         _this3.usedCoupon = res.data.data;
+
+        if (!res.data.data) {
+          UIkit.notification({
+            message: "Hatalı Bir Kod Girdiniz",
+            status: 'danger'
+          });
+        }
       });
     }
   }),
