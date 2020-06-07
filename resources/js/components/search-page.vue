@@ -30,7 +30,6 @@
             </ul>
         </div>
         <div v-else class="uk-flex uk-flex-center align-items-center justify-content-center uk-height-medium uk-margin-large-top">
-            {{courseCard.data.length}}
             <h2>{{hasNoContent}}</h2>
         </div>
     </div>

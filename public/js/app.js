@@ -12625,7 +12625,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "search-page",
@@ -31945,12 +31944,7 @@ var render = function() {
             staticClass:
               "uk-flex uk-flex-center align-items-center justify-content-center uk-height-medium uk-margin-large-top"
           },
-          [
-            _vm._v(
-              "\n        " + _vm._s(_vm.courseCard.data.length) + "\n        "
-            ),
-            _c("h2", [_vm._v(_vm._s(_vm.hasNoContent))])
-          ]
+          [_c("h2", [_vm._v(_vm._s(_vm.hasNoContent))])]
         )
   ])
 }
