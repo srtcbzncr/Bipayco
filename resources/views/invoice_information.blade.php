@@ -38,6 +38,10 @@
                 <div>
                     <form method="POST" action="{{ route('iyzico_check_out') }}">
                         @csrf
+                        <input class="uk-hidden" name="user_id" id="user_id" value="{{$user_id}}">
+                        <input class="uk-hidden" name="is_discount" id="is_discount" value="{{$is_discount}}">
+                        <input class="uk-hidden" name="price" id="price" value="{{$price}}">
+                        <input class="uk-hidden" name="price_paid" id="price_paid" value="{{$price_paid}}">
                         <div class="uk-card-default uk-padding uk-card-small">
                             <div id="register" class="tabcontent animation: uk-animation-slide-left-medium">
                                 <h2 class="uk-text-bold">  @lang('front/auth.invoice_informations')  </h2>
