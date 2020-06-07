@@ -12629,7 +12629,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "search-page",
   data: function data() {
-    return {};
+    return {
+      currentPage: 1
+    };
   },
   props: {
     userId: {
@@ -12650,18 +12652,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var pages = ['1'];
       var index = 2;
 
-      for (var i = 2; index <= this.courseCard.last_page; i++) {
-        if (i == 2 && this.courseCard.current_page - 2 > 3) {
+      for (var i = 2; index <= this.courseCard.length; i++) {
+        if (i == 2 && this.currentPage - 2 > 3) {
           pages.push('...');
 
-          if (this.courseCard.current_page + 3 > this.courseCard.last_page) {
-            index = this.courseCard.last_page - 6;
+          if (this.currentPage + 3 > this.courseCard.length) {
+            index = this.courseCard.length - 6;
           } else {
-            index = this.courseCard.current_page - 2;
+            index = this.currentPage - 2;
           }
-        } else if (i == 8 && this.courseCard.current_page + 2 < this.courseCard.last_page - 2) {
+        } else if (i == 8 && this.currentPage + 2 < this.courseCard.length - 2) {
           pages.push('...');
-          index = this.courseCard.last_page;
+          index = this.courseCard.length;
         } else {
           pages.push(index);
           index++;
@@ -31801,7 +31803,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "uk-container" }, [
-    _vm.courseCard.data && Object.keys(_vm.courseCard.data).length > 0
+    _vm.courseCard.length > 0
       ? _c("div", [
           _c(
             "div",
@@ -31814,7 +31816,9 @@ var render = function() {
                 "uk-grid": ""
               }
             },
-            _vm._l(_vm.courseCard.data, function(course) {
+            _vm._l(_vm.courseCard[Number(_vm.currentPage) - 1], function(
+              course
+            ) {
               return _c(
                 "div",
                 [
@@ -31849,13 +31853,13 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: _vm.courseCard.current_page > 1,
-                        expression: "courseCard.current_page>1"
+                        value: _vm.currentPage > 1,
+                        expression: "currentPage>1"
                       }
                     ],
                     on: {
                       click: function($event) {
-                        return _vm.loadNewPage(_vm.courseCard.prev_page_url)
+                        _vm.loadNewPage(Number(_vm.currentPage) - 1)
                       }
                     }
                   },
@@ -31869,21 +31873,14 @@ var render = function() {
                     ? _c("button", { staticClass: "uk-disabled" }, [
                         _vm._v(_vm._s(page))
                       ])
-                    : page == _vm.courseCard.current_page
+                    : page == _vm.currentPage
                     ? _c(
                         "button",
                         {
                           staticClass: "uk-background-default uk-disabled",
                           on: {
                             click: function($event) {
-                              return _vm.loadNewPage(
-                                "/api/search/" +
-                                  _vm.tag +
-                                  "/" +
-                                  _vm.userId +
-                                  "?page=" +
-                                  page
-                              )
+                              return _vm.loadNewPage(page)
                             }
                           }
                         },
@@ -31894,14 +31891,7 @@ var render = function() {
                         {
                           on: {
                             click: function($event) {
-                              return _vm.loadNewPage(
-                                "/api/search/" +
-                                  _vm.tag +
-                                  "/" +
-                                  _vm.userId +
-                                  "?page=" +
-                                  page
-                              )
+                              return _vm.loadNewPage(page)
                             }
                           }
                         },
@@ -31927,7 +31917,7 @@ var render = function() {
                     ],
                     on: {
                       click: function($event) {
-                        return _vm.loadNewPage(_vm.courseCard.next_page_url)
+                        _vm.loadNewPage(Number(_vm.currentPage) + 1)
                       }
                     }
                   },

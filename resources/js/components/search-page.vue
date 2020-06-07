@@ -1,8 +1,8 @@
 <template>
     <div class="uk-container">
-        <div v-if="courseCard.data&&Object.keys(courseCard.data).length>0">
+        <div v-if="courseCard.length>0">
             <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-margin" uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div ; delay: 200" uk-grid>
-                <div v-for="course of courseCard.data">
+                <div v-for="course of courseCard[Number(currentPage)-1]">
                     <course-card
                         :course="course"
                         style-full-star-color="#F4C150"
@@ -17,15 +17,15 @@
             </div>
             <ul class="uk-pagination uk-flex-center uk-margin-medium">
                 <li>
-                    <button v-show="courseCard.current_page>1" @click="loadNewPage(courseCard.prev_page_url)"> < </button>
+                    <button v-show="currentPage>1" @click="loadNewPage(Number(currentPage)-1)"> < </button>
                 </li>
                 <li v-for="page in pageNumber">
                     <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
-                    <button v-else-if="page==courseCard.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/search/'+tag+'/'+userId+'?page='+page)">{{page}}</button>
-                    <button v-else @click="loadNewPage('/api/search/'+tag+'/'+userId+'?page='+page)">{{page}}</button>
+                    <button v-else-if="page==currentPage" class="uk-background-default uk-disabled" @click="loadNewPage(page)">{{page}}</button>
+                    <button v-else @click="loadNewPage(page)">{{page}}</button>
                 </li>
                 <li>
-                    <button v-show="courseCard.current_page<courseCard.last_page" @click="loadNewPage(courseCard.next_page_url)"> > </button>
+                    <button v-show="courseCard.current_page<courseCard.last_page" @click="loadNewPage(Number(currentPage)+1)"> > </button>
                 </li>
             </ul>
         </div>
@@ -42,7 +42,7 @@
         name: "search-page",
         data(){
             return {
-
+                currentPage:1,
             }
         },
         props:{
@@ -66,17 +66,17 @@
             pageNumber(){
                 var pages=['1'];
                 var index=2;
-                for(var i=2; index<=this.courseCard.last_page; i++){
-                    if(i==2 && this.courseCard.current_page-2>3){
+                for(var i=2; index<=this.courseCard.length; i++){
+                    if(i==2 && this.currentPage-2>3){
                         pages.push('...');
-                        if(this.courseCard.current_page+3>this.courseCard.last_page){
-                            index=this.courseCard.last_page-6;
+                        if(this.currentPage+3>this.courseCard.length){
+                            index=this.courseCard.length-6;
                         }else{
-                            index=this.courseCard.current_page-2;
+                            index=this.currentPage-2;
                         }
-                    }else if(i==8 && this.courseCard.current_page+2<this.courseCard.last_page-2){
+                    }else if(i==8 && this.currentPage+2<this.courseCard.length-2){
                         pages.push('...');
-                        index=this.courseCard.last_page;
+                        index=this.courseCard.length;
                     }else{
                         pages.push(index);
                         index++;
