@@ -134,9 +134,9 @@ class Payment
             else{
                 $basketItem->setPrice($course->price_with_discount);
             }
-            $instructor = $course->instructors()->where('is_manager', true)->first();
-            $basketItem->setSubMerchantKey($instructor->sub_merchant_key);
-            $basketItem->setSubMerchantPrice(($basketItem->getPrice() - 0.18 * $basketItem->getPrice()) * 0.40);
+            //$instructor = $course->instructors()->where('is_manager', true)->first();
+            //$basketItem->setSubMerchantKey($instructor->sub_merchant_key);
+            //$basketItem->setSubMerchantPrice(($basketItem->getPrice() - 0.18 * $basketItem->getPrice()) * 0.40);
             array_push($basketItems, $basketItem);
         }
         $request->setBasketItems($basketItems);
