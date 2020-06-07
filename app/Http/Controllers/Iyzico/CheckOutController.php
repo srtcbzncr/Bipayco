@@ -17,12 +17,10 @@ class CheckOutController extends Controller
         // initializing
         $repo = new BasketRepository();
         $data = $request->toArray();
-        dd($data);
 
         // operations
         $resp = $repo->checkOut($data);
         if($resp->getResult()){
-            dd("doğrus");
             return view('payment_checkout')->with('data',$resp->getData());
            /* return response()->json([
                 'error' => false,
@@ -31,7 +29,6 @@ class CheckOutController extends Controller
             ]);*/
         }
         else{
-            dd($resp->getError());
             return redirect()->back();
         }
 

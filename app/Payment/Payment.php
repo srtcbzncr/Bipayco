@@ -130,7 +130,7 @@ class Payment
             $basketItem->setName($course->name);
             $basketItem->setCategory1("Bipayco");
             $basketItem->setItemType(BasketItemType::VIRTUAL);
-            if($is_discount == True){
+            if($is_discount == "true"){
                 $basketItem->setPrice(0.75 * $course->price_with_discount);
             }
             else{
