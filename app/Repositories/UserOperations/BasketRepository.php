@@ -6,14 +6,18 @@ namespace App\Repositories\UserOperations;
 
 use App\Models\Auth\Instructor;
 use App\Models\Auth\User;
+use App\Models\Base\City;
+use App\Models\Base\District;
 use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\Entry;
 use App\Models\GeneralEducation\Purchase;
 use App\Models\UsersOperations\Basket;
+use App\Payment\Payment;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
 
 class BasketRepository implements IRepository
 {
@@ -312,6 +316,38 @@ class BasketRepository implements IRepository
             }
             else{
                 $object = false;
+            }
+
+        }catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function checkOut($data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try {
+            $user = User::find($data['user_id']);
+            $ip = Request::ip();
+            $disctrict = District::find($user->district_id);
+            $city = City::find($disctrict->city_id);
+            $payment = new Payment();
+            $payment_result = $payment->checkOut($data['user_id'],$user->first_name,$user->last_name,$user->phone_number,$user->email,$data['identity_number'],
+                $ip,$disctrict->city_id,$data['zip_code'],$city->country_id,$data['address'],$data['price'],$data['pricePaid'],$data['courses'],$data['is_discount']);
+            if($payment_result->getStatus() == "success"){
+                $object = $payment_result->getCheckoutFormContent();
+            }
+            else{
+                $error = $payment_result->getErrorMessage();
             }
 
         }catch(\Exception $e){

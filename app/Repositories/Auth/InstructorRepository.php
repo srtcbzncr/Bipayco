@@ -345,10 +345,13 @@ class InstructorRepository implements IRepository{
                 // iyzicoya alt üye iş yeri olarak kaydet.
                 $payment = new Payment();
                 $payment_result = $payment->createSubMerchant($object);
-                if($payment_result->getStatus()!="failure"){
+                if($payment_result->getStatus() == "success"){
                     $ins = Instructor::find($object->id);
                     $ins->sub_merchant_key = $payment_result->getSubMerchantKey();
                     $ins->save();
+                }
+                else{
+                    $error = $payment_result->getErrorMessage();
                 }
                 DB::commit();
             }

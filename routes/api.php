@@ -332,6 +332,7 @@ Route::prefix('basket')->group(function (){
     Route::post('/buy/{userId}','API\Basket\BasketController@buy')->name('buy_courses');
 
     Route::get('/referenceControl/{referenceCode}','API\Basket\BasketController@referenceControl')->name('api_reference_control');
+    Route::post('/checkOut','API\Basket\BasketController@checkOut')->name('api_check_out');
 });
 Route::prefix('favorite')->group(function (){
     Route::post('/add','API\Favorite\FavoriteController@add')->name('add_favorite');

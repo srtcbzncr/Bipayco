@@ -135,4 +135,25 @@ class BasketController extends Controller
             'errorMessage' => $resp->getError()
         ]);
     }
+
+    public function checkOut(Request $request){
+        // initializing
+        $repo = new BasketRepository();
+        $data = $request->toArray();
+
+        // operations
+        $resp = $repo->checkOut($data);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData(),
+                'message' => 'Fatura bilgileri başarıyla kontrol edildi.'
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Fatura bilgileri kontrol edilirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
 }
