@@ -25,7 +25,7 @@
                     <button v-else @click="loadNewPage(page)">{{page}}</button>
                 </li>
                 <li>
-                    <button v-show="courseCard.current_page<courseCard.last_page" @click="loadNewPage(Number(currentPage)+1)"> > </button>
+                    <button v-show="currentPage<courseCard.length" @click="loadNewPage(Number(currentPage)+1)"> > </button>
                 </li>
             </ul>
         </div>

@@ -31908,11 +31908,8 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value:
-                          _vm.courseCard.current_page <
-                          _vm.courseCard.last_page,
-                        expression:
-                          "courseCard.current_page<courseCard.last_page"
+                        value: _vm.currentPage < _vm.courseCard.length,
+                        expression: "currentPage<courseCard.length"
                       }
                     ],
                     on: {
