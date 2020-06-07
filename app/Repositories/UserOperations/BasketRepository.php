@@ -7,6 +7,7 @@ namespace App\Repositories\UserOperations;
 use App\Models\Auth\Instructor;
 use App\Models\Auth\User;
 use App\Models\Base\City;
+use App\Models\Base\Country;
 use App\Models\Base\District;
 use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\Entry;
@@ -341,6 +342,7 @@ class BasketRepository implements IRepository
             $ip = Request::ip();
             $disctrict = District::find($user->district_id);
             $city = City::find($disctrict->city_id);
+            $country = Country::find($city->country_id);
             $basket = Basket::where('user_id',$data['user_id'])->get();
             $courses = array();
             foreach ($basket as $item){
@@ -360,7 +362,7 @@ class BasketRepository implements IRepository
 
             $payment = new Payment();
             $payment_result = $payment->checkOut($data['user_id'],$user->first_name,$user->last_name,$user->phone_number,$user->email,$data['identity_number'],
-                $ip,$disctrict->city_id,$data['zip_code'],$city->country_id,$data['address'],$data['price'],$data['pricePaid'],$courses,$data['is_discount']);
+                $ip,$city,$data['zip_code'],$country,$data['address'],$data['price'],$data['pricePaid'],$courses,$data['is_discount']);
             if($payment_result->getStatus() == "success"){
                 $object = $payment_result->getCheckoutFormContent();
             }
