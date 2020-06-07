@@ -35,8 +35,9 @@
                 <div class="uk-text-middle uk-margin-auto-vertical uk-text-center uk-padding-small uk-animation-scale-up">
                     <a class="" href="{{ route('home') }}"> <img class="uk-logo uk-width-medium" src="{{asset('images/logo1.png')}}"/> </a>
                 </div>
-
+                <div class="uk-card-default uk-padding uk-card-small">
                     <div id="iyzipay-checkout-form" class="responsive"></div>
+                </div>
             </div>
         </div>
     </div>
