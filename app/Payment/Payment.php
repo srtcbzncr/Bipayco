@@ -12,11 +12,13 @@ use Iyzipay\Options;
 use Iyzipay\Request\CreateSubMerchantRequest;
 use Iyzipay\Request\UpdateSubMerchantRequest;
 use Iyzipay\Request\CreateCheckoutFormInitializeRequest;
+use Iyzipay\Request\RetrieveCheckoutFormRequest;
 use Iyzipay\Model\Buyer;
 use Iyzipay\Model\Address;
 use Iyzipay\Model\BasketItem;
 use Iyzipay\Model\BasketItemType;
 use Iyzipay\Model\PaymentGroup;
+use Iyzipay\Model\CheckoutForm;
 use App\Models\Auth\Instructor;
 
 
@@ -143,6 +145,20 @@ class Payment
 
         $checkoutFormInitialize = CheckoutFormInitialize::create($request, $options);
         return $checkoutFormInitialize;
+    }
+
+    public function result($conversation_id, $token){
+        $options = new Options();
+        $options->setApiKey('sandbox-zKK3HgzvDkPILo9D7PesKOixCuBg9Rpj');
+        $options->setSecretKey('sandbox-AuVhbC9hstaRNtlSb1xEn9bwwsgecdHP');
+        $options->setBaseUrl('https://sandbox-api.iyzipay.com');
+
+        $request = new RetrieveCheckoutFormRequest();
+        $request->setLocale(Locale::TR);
+        $request->setConversationId($conversation_id);
+        $request->setToken($token);
+
+        $result = CheckoutForm::retrieve($request, $options);
     }
 
 }
