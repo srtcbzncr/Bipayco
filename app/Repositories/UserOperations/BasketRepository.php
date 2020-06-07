@@ -364,6 +364,7 @@ class BasketRepository implements IRepository
                 $object = $payment_result->getCheckoutFormContent();
             }
             else{
+                $result = false;
                 $error = $payment_result->getErrorMessage();
             }
 

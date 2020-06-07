@@ -148,7 +148,6 @@ class BasketController extends Controller
                 'error' => false,
                 'data' => $resp->getData(),
                 'message' => 'Fatura bilgileri başarıyla kontrol edildi.',
-                'errorMessage' => $resp->getError()
             ]);
         }
         return response()->json([
