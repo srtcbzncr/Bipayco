@@ -5759,6 +5759,63 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -5768,7 +5825,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       usedCoupon: false,
       discountPercent: 25,
-      couponCode: ""
+      couponCode: "",
+      name: "",
+      surname: "",
+      address: "",
+      city: "",
+      country: "",
+      zipCode: "",
+      phone: "",
+      id: "",
+      email: ""
     };
   },
   components: {
@@ -5814,6 +5880,46 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     courseInCartText: {
       type: String,
       "default": "Sepetteki Kurslar"
+    },
+    identityNumberText: {
+      type: String,
+      "default": "Kimlik Numarası"
+    },
+    countryText: {
+      type: String,
+      "default": "Ülke"
+    },
+    cityText: {
+      type: String,
+      "default": "Şehir"
+    },
+    zipCodeText: {
+      type: String,
+      "default": "Şehir Kodu"
+    },
+    nameText: {
+      type: String,
+      "default": "Ad"
+    },
+    surnameText: {
+      type: String,
+      "default": "Soyad"
+    },
+    phoneNumberText: {
+      type: String,
+      "default": "Telefon Numarası"
+    },
+    emailText: {
+      type: String,
+      "default": "Eposta"
+    },
+    addressText: {
+      type: String,
+      "default": "Adres"
+    },
+    skipCheckoutText: {
+      type: String,
+      "default": "Ödeme Aşamsına Geç"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['shoppingCart']), {
@@ -5847,12 +5953,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.$store.dispatch('loadCourseCard');
       });
     },
+    openModal: function openModal() {
+      UIkit.modal('#invoiceInformation').show();
+    },
     buyAll: function buyAll() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/basket/buy/' + this.userId, {
-        'userId': this.userId,
-        'cart': this.shoppingCart
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/basket/checkOut', {
+        'user_id': this.userId,
+        'first_name': this.name,
+        'last_name': this.surname,
+        'phone_number': this.phone,
+        'email': this.email,
+        'identity_number': this.id,
+        'city': this.city,
+        'zip_code': this.zipCode,
+        'country': this.country,
+        'address': this.address,
+        'price': this.cartAmount,
+        'pricePaid': this.payAmount,
+        'courses': this.shoppingCart,
+        'is_discount': this.usedCoupon
       }).then(function (response) {
         if (!response.data.error) {
           UIkit.notification({
@@ -14697,7 +14818,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.uk-list-divider > li[data-v-abd4cc00]:nth-child(n+2){\n    margin-top:0;\n    padding-top:15px;\n}\n", ""]);
+exports.push([module.i, "\n.uk-list-divider > li[data-v-abd4cc00]:nth-child(n+2){\n    margin-top:0;\n    padding-top:15px;\n}\ntextarea[data-v-abd4cc00]{\n    resize:none;\n}\n", ""]);
 
 // exports
 
@@ -21403,7 +21524,7 @@ var render = function() {
                       "button",
                       {
                         staticClass: "uk-button uk-width uk-button-success",
-                        on: { click: _vm.buyAll }
+                        on: { click: _vm.openModal }
                       },
                       [_vm._v(_vm._s(_vm.buyText))]
                     )
@@ -21512,10 +21633,367 @@ var render = function() {
         ],
         2
       )
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "uk-modal-container",
+        attrs: { id: "invoiceInformation", "uk-modal": "" }
+      },
+      [
+        _c("div", { staticClass: "uk-modal-dialog" }, [
+          _c("button", {
+            staticClass: "uk-modal-close-default",
+            attrs: { type: "button", "uk-close": "" }
+          }),
+          _vm._v(" "),
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
+            [
+              _c(
+                "div",
+                { staticClass: "uk-flex uk-flex-wrap uk-child-width-1-2@m" },
+                [
+                  _c("div", { staticClass: "uk-padding-small" }, [
+                    _c("div", { staticClass: "uk-form-model" }, [
+                      _vm._v(_vm._s(_vm.nameText))
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.name,
+                          expression: "name"
+                        }
+                      ],
+                      staticClass: "uk-input",
+                      attrs: {
+                        placeholder: _vm.nameText,
+                        required: "",
+                        type: "text"
+                      },
+                      domProps: { value: _vm.name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.name = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-padding-small" }, [
+                    _c("div", { staticClass: "uk-form-model" }, [
+                      _vm._v(_vm._s(_vm.surnameText))
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.surname,
+                          expression: "surname"
+                        }
+                      ],
+                      staticClass: "uk-input",
+                      attrs: {
+                        placeholder: _vm.surnameText,
+                        required: "",
+                        type: "text"
+                      },
+                      domProps: { value: _vm.surname },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.surname = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "uk-flex uk-flex-wrap uk-child-width-1-2@m" },
+                [
+                  _c("div", { staticClass: "uk-padding-small" }, [
+                    _c("div", { staticClass: "uk-form-model" }, [
+                      _vm._v(_vm._s(_vm.phoneNumberText))
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.phone,
+                          expression: "phone"
+                        }
+                      ],
+                      staticClass: "uk-input",
+                      attrs: {
+                        placeholder: _vm.phoneNumberText,
+                        required: "",
+                        type: "text"
+                      },
+                      domProps: { value: _vm.phone },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.phone = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-padding-small" }, [
+                    _c("div", { staticClass: "uk-form-model" }, [
+                      _vm._v(_vm._s(_vm.emailText))
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.email,
+                          expression: "email"
+                        }
+                      ],
+                      staticClass: "uk-input",
+                      attrs: {
+                        placeholder: _vm.emailText,
+                        required: "",
+                        type: "text"
+                      },
+                      domProps: { value: _vm.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.email = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "uk-flex uk-flex-wrap uk-child-width-1-2@m" },
+                [
+                  _c("div", { staticClass: "uk-padding-small" }, [
+                    _c("div", { staticClass: "uk-form-model" }, [
+                      _vm._v(_vm._s(_vm.identityNumberText))
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.id,
+                          expression: "id"
+                        }
+                      ],
+                      staticClass: "uk-input",
+                      attrs: {
+                        placeholder: _vm.identityNumberText,
+                        required: "",
+                        type: "text"
+                      },
+                      domProps: { value: _vm.id },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.id = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-padding-small" }, [
+                    _c("div", { staticClass: "uk-form-model" }, [
+                      _vm._v(_vm._s(_vm.countryText))
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.country,
+                          expression: "country"
+                        }
+                      ],
+                      staticClass: "uk-input",
+                      attrs: {
+                        placeholder: _vm.countryText,
+                        required: "",
+                        type: "text"
+                      },
+                      domProps: { value: _vm.country },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.country = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "uk-padding-small uk-padding-remove-vertical" },
+                [
+                  _c("div", { staticClass: "uk-form-label" }, [
+                    _vm._v(_vm._s(_vm.addressText))
+                  ]),
+                  _vm._v(" "),
+                  _c("textarea", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.address,
+                        expression: "address"
+                      }
+                    ],
+                    staticClass:
+                      "uk-textarea uk-width uk-height-small uk-overflow",
+                    attrs: { placeholder: _vm.addressText, required: "" },
+                    domProps: { value: _vm.address },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.address = $event.target.value
+                      }
+                    }
+                  })
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "uk-flex uk-flex-wrap uk-child-width-1-2@m" },
+                [
+                  _c("div", { staticClass: "uk-padding-small" }, [
+                    _c("div", { staticClass: "uk-form-model" }, [
+                      _vm._v(_vm._s(_vm.cityText))
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.city,
+                          expression: "city"
+                        }
+                      ],
+                      staticClass: "uk-input",
+                      attrs: {
+                        placeholder: _vm.cityText,
+                        required: "",
+                        type: "text"
+                      },
+                      domProps: { value: _vm.city },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.city = $event.target.value
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "uk-padding-small" }, [
+                    _c("div", { staticClass: "uk-form-model" }, [
+                      _vm._v(_vm._s(_vm.zipCodeText))
+                    ]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.zipCode,
+                          expression: "zipCode"
+                        }
+                      ],
+                      staticClass: "uk-input",
+                      attrs: {
+                        placeholder: _vm.zipCodeText,
+                        required: "",
+                        type: "text"
+                      },
+                      domProps: { value: _vm.zipCode },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.zipCode = $event.target.value
+                        }
+                      }
+                    })
+                  ])
+                ]
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "uk-modal-footer" }, [
+            _c(
+              "button",
+              {
+                staticClass: "uk-button uk-button-success uk-float-right",
+                on: { click: _vm.buyAll }
+              },
+              [_vm._v(_vm._s(_vm.skipCheckoutText))]
+            )
+          ])
+        ])
+      ]
+    )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-modal-header" }, [
+      _c("h2", { staticClass: "uk-modal-title" }, [_vm._v("Fatura Bilgileri")])
+    ])
+  }
+]
 render._withStripped = true
 
 
