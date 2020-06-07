@@ -17,10 +17,12 @@ class CheckOutController extends Controller
         // initializing
         $repo = new BasketRepository();
         $data = $request->toArray();
+        dd($data);
 
         // operations
         $resp = $repo->checkOut($data);
         if($resp->getResult()){
+            dd("doğrus");
             return view('payment_checkout')->with('data',$resp->getData());
            /* return response()->json([
                 'error' => false,
@@ -28,7 +30,11 @@ class CheckOutController extends Controller
                 'message' => 'Fatura bilgileri başarıyla kontrol edildi.',
             ]);*/
         }
-        return redirect()->back();
+        else{
+            dd($resp->getError());
+            return redirect()->back();
+        }
+
        /* return response()->json([
             'error' => true,
             'message' => 'Fatura bilgileri kontrol edilirken bir hata meydana geldi.Tekrar deneyin.',
