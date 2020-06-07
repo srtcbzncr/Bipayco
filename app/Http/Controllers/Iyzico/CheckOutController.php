@@ -10,7 +10,7 @@ class CheckOutController extends Controller
 {
     public function billing(Request $request){
         $data = $request->toArray();
-        return view('')->with('data',$data);
+        return view('invoice_information')->with('data',$data);
     }
 
     public function checkOut(Request $request){
@@ -21,7 +21,7 @@ class CheckOutController extends Controller
         // operations
         $resp = $repo->checkOut($data);
         if($resp->getResult()){
-            return view('')->with('data',$resp->getData());
+            return view('payment_checkout')->with('data',$resp->getData());
            /* return response()->json([
                 'error' => false,
                 'data' => $resp->getData(),
