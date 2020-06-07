@@ -338,11 +338,7 @@ class BasketRepository implements IRepository
         // Operations
         try {
             #preapre checkOut methot
-            $user = User::find($data['user_id']);
             $ip = Request::ip();
-            $disctrict = District::find($user->district_id);
-            $city = City::find($disctrict->city_id);
-            $country = Country::find($city->country_id);
             $basket = Basket::where('user_id',$data['user_id'])->get();
             $courses = array();
             foreach ($basket as $item){
@@ -361,8 +357,8 @@ class BasketRepository implements IRepository
             }
 
             $payment = new Payment();
-            $payment_result = $payment->checkOut($data['user_id'],$user->first_name,$user->last_name,$user->phone_number,$user->email,$data['identity_number'],
-                $ip,$city,$data['zip_code'],$country,$data['address'],$data['price'],$data['pricePaid'],$courses,$data['is_discount']);
+            $payment_result = $payment->checkOut($data['user_id'],$data['first_name'],$data['last_name'],$data['phone_number'],$data['email'],$data['identity_number'],
+                $ip,$data['city'],$data['zip_code'],$data['country'],$data['address'],$data['price'],$data['price_paid'],$courses,$data['is_discount']);
             if($payment_result->getStatus() == "success"){
                 $object = $payment_result->getCheckoutFormContent();
             }
