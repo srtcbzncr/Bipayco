@@ -5771,15 +5771,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       usedCoupon: false,
       discountPercent: 25,
       couponCode: "",
-      name: "",
-      surname: "",
-      address: "",
-      city: "",
-      country: "",
-      zipCode: "",
-      phone: "",
-      id: "",
-      email: ""
+      coupon: null
     };
   },
   components: {
@@ -5903,7 +5895,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     buyAll: function buyAll() {
-      window.location.replace(this.invoiceInfoRoute + '?user_id=' + this.userId + '&is_discount=' + this.usedCoupon + '&price_paid=' + this.payAmount + '&price=' + this.cartAmount);
+      window.location.replace(this.invoiceInfoRoute + '?user_id=' + this.userId + '&coupon=' + this.coupon);
     },
     couponControl: function couponControl() {
       var _this2 = this;
@@ -5916,6 +5908,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             message: "Hatalı Bir Kod Girdiniz",
             status: 'danger'
           });
+          _this2.coupon = null;
+        } else {
+          _this2.coupon = _this2.couponCode;
         }
       });
     }

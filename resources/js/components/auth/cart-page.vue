@@ -64,15 +64,7 @@
                 usedCoupon:false,
                 discountPercent:25,
                 couponCode:"",
-                name:"",
-                surname:"",
-                address:"",
-                city:"",
-                country:"",
-                zipCode:"",
-                phone:"",
-                id:"",
-                email:"",
+                coupon:null,
             }
         },
         components: {CartElement},
@@ -197,7 +189,7 @@
                     })
             },
             buyAll:function(){
-                window.location.replace(this.invoiceInfoRoute+'?user_id='+this.userId+'&is_discount='+this.usedCoupon+'&price_paid='+this.payAmount+'&price='+this.cartAmount);
+                window.location.replace(this.invoiceInfoRoute+'?user_id='+this.userId+'&coupon='+this.coupon);
             },
             couponControl:function () {
                 Axios.get('/api/basket/referenceControl/'+this.couponCode)
@@ -205,6 +197,9 @@
                     this.usedCoupon=res.data.data;
                     if(!res.data.data){
                         UIkit.notification({message:"Hatalı Bir Kod Girdiniz", status: 'danger'});
+                        this.coupon=null;
+                    }else{
+                        this.coupon=this.couponCode;
                     }
                 })
             }
