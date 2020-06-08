@@ -77,7 +77,7 @@ class Payment
 
     // checkout metodu ödemeden önceki detay sayfasını verir. Fatura bilgileri yazıldıktan sonra ödeme yap dedikten sonra check out metodu çağıralacak.
     // dönen veri-> https://dev.iyzipay.com/tr/odeme-formu/odeme-formu-baslatma
-    public function checkOut($user_id, $first_name, $last_name, $phone_number, $email, $identity_number, $ip, $city, $zip_code, $country, $address, $courses, $is_discount){
+    public function checkOut($user_id, $first_name, $last_name, $phone_number, $email, $identity_number, $ip, $city, $zip_code, $country, $address, $courses, $is_discount, $basket_id){
         $options = new Options();
         $options->setApiKey('sandbox-zKK3HgzvDkPILo9D7PesKOixCuBg9Rpj');
         $options->setSecretKey('sandbox-AuVhbC9hstaRNtlSb1xEn9bwwsgecdHP');
@@ -116,7 +116,8 @@ class Payment
 
         $request = new CreateCheckoutFormInitializeRequest();
         $request->setLocale(Locale::TR);
-        $request->setConversationId("123456789");
+        $request->setConversationId($basket_id);
+        $request->setBasketId($basket_id);
         $request->setPrice($total_price);
         $request->setPaidPrice($total_price);
         $request->setCurrency(Currency::TL);
