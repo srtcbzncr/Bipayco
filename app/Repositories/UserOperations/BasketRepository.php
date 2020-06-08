@@ -424,6 +424,9 @@ class BasketRepository implements IRepository
                     // iyzico basket itemi güncelle
                     $iyzicoBasketItems = BasketItems::where('iyzico_basket_id',$data['basket_id'])->where('deleted_at',null)->get();
                     $paymentItems = $payment_result->getPaymentItems();
+                    $coursesId = array();
+                    $coursesType = array();
+                    $coursesPrice = array();
                     for($i=0;$i<count($iyzicoBasketItems);$i++){
                         $itemId = $paymentItems[$i]->itemId;
                         $exp = explode('-',$itemId);
@@ -440,6 +443,10 @@ class BasketRepository implements IRepository
                         }
                         $course_id = $exp[1];
 
+                        array_push($coursesId,$course_id);
+                        array_push($coursesType,$course_type);
+                        array_push($coursesPrice,$paymentItems[$i]->paidPrice);
+
                         $iyzicoBasketItems[$i]->item_id = $paymentItems[$i]->itemId;
                         $iyzicoBasketItems[$i]->course_type = $course_type;
                         $iyzicoBasketItems[$i]->course_id = $course_id;
@@ -448,6 +455,92 @@ class BasketRepository implements IRepository
                         $iyzicoBasketItems[$i]->transaction_status = $paymentItems[$i]->transactionStatus;
                         $iyzicoBasketItems[$i]->confirmation = true;
                         $iyzicoBasketItems->save();
+                    }
+
+                    // ge_purchase ve ge_entries tablosuna ekle
+                    for($i=0;$i<count($coursesId);$i++){
+                        // öğrenciyi purchase tablosuna kaydet.
+                        if($coursesType[$i] == "App\Models\GeneralEducation\Course"){
+                            $object = new Purchase();
+                            $object->user_id =  $data['user_id'];
+                            $user = User::find($data['user_id']);
+                            $object->student_id = $user->student->id;
+                            $object->course_id = $coursesId[$i];
+                            $object->course_type = 'App\Models\GeneralEducation\Course';
+                            $object->price = $coursesPrice[$i];
+                            $object->confirmation = true;
+                            $object->save();
+
+                            //  öğrenciyi entry tablosuna kaydet.
+                            $object = null;
+                            $object = new Entry();
+                            $object->course_id = $coursesId[$i];
+                            $object->course_type = 'App\Models\GeneralEducation\Course';
+                            $object->student_id = $user->student->id;
+
+                            $course = \App\Models\GeneralEducation\Course::find($coursesId[$i]);
+                            $today = date("Y/m/d");
+                            $accessTime = $course->access_time;
+                            $d = new \DateTime();
+                            $object->access_start = $d->format('Y-m-d');
+                            $object->access_finish = date('Y-m-d', strtotime('+ '.$accessTime.' months', strtotime($today)));
+                            $object->active = true;
+                            $object->save();
+                        }
+                        else if($coursesType[$i] == "App\Models\PrepareLessons\Course"){
+                            $object = new Purchase();
+                            $object->user_id =  $data['user_id'];
+                            $user = User::find($data['user_id']);
+                            $object->student_id = $user->student->id;
+                            $object->course_id = $coursesId[$i];
+                            $object->course_type = 'App\Models\PrepareLessons\Course';
+                            $object->price = $coursesPrice[$i];
+                            $object->confirmation = true;
+                            $object->save();
+
+                            //  öğrenciyi entry tablosuna kaydet.
+                            $object = null;
+                            $object = new Entry();
+                            $object->course_id = $coursesId[$i];
+                            $object->course_type = 'App\Models\PrepareLessons\Course';
+                            $object->student_id = $user->student->id;
+
+                            $course = \App\Models\PrepareLessons\Course::find($coursesId[$i]);
+                            $today = date("Y/m/d");
+                            $accessTime = $course->access_time;
+                            $d = new \DateTime();
+                            $object->access_start = $d->format('Y-m-d');
+                            $object->access_finish = date('Y-m-d', strtotime('+ '.$accessTime.' months', strtotime($today)));
+                            $object->active = true;
+                            $object->save();
+                        }
+                        else if($coursesType[$i] == "App\Models\PrepareExams\Course"){
+                            $object = new Purchase();
+                            $object->user_id =  $data['user_id'];;
+                            $user = User::find($data['user_id']);
+                            $object->student_id = $user->student->id;
+                            $object->course_id = $coursesId[$i];
+                            $object->course_type = 'App\Models\PrepareExams\Course';
+                            $object->price = $coursesPrice[$i];
+                            $object->confirmation = true;
+                            $object->save();
+
+                            //  öğrenciyi entry tablosuna kaydet.
+                            $object = null;
+                            $object = new Entry();
+                            $object->course_id = $coursesId[$i];;
+                            $object->course_type = 'App\Models\PrepareExams\Course';
+                            $object->student_id = $user->student->id;
+
+                            $course = \App\Models\PrepareExams\Course::find($coursesId[$i]);
+                            $today = date("Y/m/d");
+                            $accessTime = $course->access_time;
+                            $d = new \DateTime();
+                            $object->access_start = $d->format('Y-m-d');
+                            $object->access_finish = date('Y-m-d', strtotime('+ '.$accessTime.' months', strtotime($today)));
+                            $object->active = true;
+                            $object->save();
+                        }
                     }
                 }
                 else{
