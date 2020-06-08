@@ -77,17 +77,48 @@ class Payment
 
     // checkout metodu ödemeden önceki detay sayfasını verir. Fatura bilgileri yazıldıktan sonra ödeme yap dedikten sonra check out metodu çağıralacak.
     // dönen veri-> https://dev.iyzipay.com/tr/odeme-formu/odeme-formu-baslatma
-    public function checkOut($user_id, $first_name, $last_name, $phone_number, $email, $identity_number, $ip, $city, $zip_code, $country, $address, $price, $pricePaid, $courses, $is_discount){
+    public function checkOut($user_id, $first_name, $last_name, $phone_number, $email, $identity_number, $ip, $city, $zip_code, $country, $address, $courses, $is_discount){
         $options = new Options();
         $options->setApiKey('sandbox-zKK3HgzvDkPILo9D7PesKOixCuBg9Rpj');
         $options->setSecretKey('sandbox-AuVhbC9hstaRNtlSb1xEn9bwwsgecdHP');
         $options->setBaseUrl('https://sandbox-api.iyzipay.com');
 
+        $basketItems = array();
+        $total_price = 0.0;
+        foreach ($courses as $course){
+            $basketItem = new BasketItem();
+            $type = '';
+            if(get_class($course) == 'App\Models\GeneralEducation\Course'){
+                $type = 'ge-';
+            }
+            else if(get_class($course) == 'App\Models\PrepareLessons\Course'){
+                $type = 'pl-';
+            }
+            else if(get_class($course) == 'App\Models\PrepareExams\Course'){
+                $type = 'pe-';
+            }
+            $basketItem->setId($type.strval($course->id));
+            $basketItem->setName($course->name);
+            $basketItem->setCategory1("Bipayco");
+            $basketItem->setItemType(BasketItemType::VIRTUAL);
+            if($is_discount == "true"){
+                $basketItem->setPrice(round(0.75 * $course->price_with_discount, 2));
+            }
+            else{
+                $basketItem->setPrice(round($course->price_with_discount, 2));
+            }
+            //$instructor = $course->instructors()->where('is_manager', true)->first();
+            //$basketItem->setSubMerchantKey($instructor->sub_merchant_key);
+            //$basketItem->setSubMerchantPrice(($basketItem->getPrice() - 0.18 * $basketItem->getPrice()) * 0.40);
+            $total_price += $basketItem->getPrice();
+            array_push($basketItems, $basketItem);
+        }
+
         $request = new CreateCheckoutFormInitializeRequest();
         $request->setLocale(Locale::TR);
         $request->setConversationId("123456789");
-        $request->setPrice($price);
-        $request->setPaidPrice($pricePaid);
+        $request->setPrice($total_price);
+        $request->setPaidPrice($total_price);
         $request->setCurrency(Currency::TL);
         $request->setPaymentGroup(PaymentGroup::PRODUCT);
         $request->setCallbackUrl("https://www.bipayco.com/paymentResult");
@@ -123,24 +154,6 @@ class Payment
         $billingAddress->setZipCode($zip_code);
         $request->setBillingAddress($billingAddress);
 
-        $basketItems = array();
-        foreach ($courses as $course){
-            $basketItem = new BasketItem();
-            $basketItem->setId($course->id);
-            $basketItem->setName($course->name);
-            $basketItem->setCategory1("Bipayco");
-            $basketItem->setItemType(BasketItemType::VIRTUAL);
-            if($is_discount == "true"){
-                $basketItem->setPrice(0.75 * $course->price_with_discount);
-            }
-            else{
-                $basketItem->setPrice($course->price_with_discount);
-            }
-            //$instructor = $course->instructors()->where('is_manager', true)->first();
-            //$basketItem->setSubMerchantKey($instructor->sub_merchant_key);
-            //$basketItem->setSubMerchantPrice(($basketItem->getPrice() - 0.18 * $basketItem->getPrice()) * 0.40);
-            array_push($basketItems, $basketItem);
-        }
         $request->setBasketItems($basketItems);
 
         $checkoutFormInitialize = CheckoutFormInitialize::create($request, $options);
