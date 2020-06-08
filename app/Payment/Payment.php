@@ -173,6 +173,7 @@ class Payment
         $request->setToken($token);
 
         $result = CheckoutForm::retrieve($request, $options);
+        return $result;
     }
 
 }
