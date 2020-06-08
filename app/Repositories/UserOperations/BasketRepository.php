@@ -358,7 +358,7 @@ class BasketRepository implements IRepository
 
             $payment = new Payment();
             $payment_result = $payment->checkOut($data['user_id'],$data['first_name'],$data['last_name'],$data['phone_number'],$data['email'],$data['identity_number'],
-                $ip,$data['city'],$data['zip_code'],$data['country'],$data['address'],$data['price'],$data['price_paid'],$courses,$data['is_discount']);
+                $ip,$data['city'],$data['zip_code'],$data['country'],$data['address'],$courses,$data['is_discount']);
 
             if($payment_result->getStatus() == "success"){
                 $object = $payment_result->getCheckoutFormContent();
