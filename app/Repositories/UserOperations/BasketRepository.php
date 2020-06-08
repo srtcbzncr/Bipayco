@@ -12,6 +12,7 @@ use App\Models\Base\District;
 use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\Entry;
 use App\Models\GeneralEducation\Purchase;
+use App\Models\Iyzico\BasketItems;
 use App\Models\UsersOperations\Basket;
 use App\Payment\Payment;
 use App\Repositories\IRepository;
@@ -355,13 +356,104 @@ class BasketRepository implements IRepository
                     array_push($courses,$course);
                 }
             }
+            #create iyzico_basket and iyzico_basket_items
+            $iyzicoBasket = new \App\Models\Iyzico\Basket();
+            $iyzicoBasket->save();
+
+            for($i = 0;$i<count($courses);$i++){
+                $iyzicoBasketItems = new BasketItems();
+                $iyzicoBasketItems->iyzico_basket_id = $iyzicoBasket->id;
+                $iyzicoBasketItems->save();
+            }
+
 
             $payment = new Payment();
             $payment_result = $payment->checkOut($data['user_id'],$data['first_name'],$data['last_name'],$data['phone_number'],$data['email'],$data['identity_number'],
-                $ip,$data['city'],$data['zip_code'],$data['country'],$data['address'],$courses,$data['is_discount']);
+                $ip,$data['city'],$data['zip_code'],$data['country'],$data['address'],$courses,$data['is_discount'],$iyzicoBasket->id);
 
             if($payment_result->getStatus() == "success"){
-                $object = $payment_result->getCheckoutFormContent();
+                $object = array();
+                $object['checkout_form_content'] = $payment_result->getCheckoutFormContent();
+                $object['basket_id'] = $payment_result->getConversationId();
+                $object['token'] = $payment_result->getToken();
+
+                $iyzicoBasket->token = $payment_result->getToken();
+                $iyzicoBasket->save();
+            }
+            else{
+                $result = false;
+                $error = $payment_result->getErrorMessage();
+            }
+
+        }catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function result($data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try {
+
+            $payment = new Payment();
+            $payment_result = $payment->result($data['basket_id'],$data['token']);
+
+            if($payment_result->getStatus() == "success"){
+                if($payment_result->getPaymentStatus() == "SUCCESS"){
+                    $object = true;
+                    // iyzico basket'i güncelle
+                    $iyzicoBasket = \App\Models\Iyzico\Basket::find($data['basket_id']);
+                    $iyzicoBasket->status = $payment_result->getStatus();
+                    $iyzicoBasket->price = $payment_result->getPrice();
+                    $iyzicoBasket->payment_status = $payment_result->getPaymentStatus();
+                    $iyzicoBasket->error_message = $payment_result->getErrorMessage();
+                    $iyzicoBasket->payment_id = $payment_result->getPaymentId();
+                    $iyzicoBasket->fraud_status = $payment_result->getFraudStatus();
+                    $iyzicoBasket->iyzico_comission_fee = $payment_result->getIyziCommissionFee();
+                    $iyzicoBasket->save();
+
+                    // iyzico basket itemi güncelle
+                    $iyzicoBasketItems = BasketItems::where('iyzico_basket_id',$data['basket_id'])->where('deleted_at',null)->get();
+                    $paymentItems = $payment_result->getPaymentItems();
+                    for($i=0;$i<count($iyzicoBasketItems);$i++){
+                        $itemId = $paymentItems[$i]->itemId;
+                        $exp = explode('-',$itemId);
+                        $type = $exp[0];
+                        $course_type = null;
+                        if($type == "ge"){
+                            $course_type = "App\Models\GeneralEducation\Course";
+                        }
+                        else if($type == "pl"){
+                            $course_type = "App\Models\PrepareLessons\Course";
+                        }
+                        else if($type == "pe"){
+                            $course_type = "App\Models\PrepareExams\Course";
+                        }
+                        $course_id = $exp[1];
+
+                        $iyzicoBasketItems[$i]->item_id = $paymentItems[$i]->itemId;
+                        $iyzicoBasketItems[$i]->course_type = $course_type;
+                        $iyzicoBasketItems[$i]->course_id = $course_id;
+                        $iyzicoBasketItems[$i]->price = $paymentItems[$i]->paidPrice;
+                        $iyzicoBasketItems[$i]->payment_transaction_id = $paymentItems[$i]->paymentTransactionId;
+                        $iyzicoBasketItems[$i]->transaction_status = $paymentItems[$i]->transactionStatus;
+                        $iyzicoBasketItems[$i]->confirmation = true;
+                        $iyzicoBasketItems->save();
+                    }
+                }
+                else{
+                    $error = $payment_result->getErrorMessage();
+                    $object = false;
+                }
             }
             else{
                 $result = false;
