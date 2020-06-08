@@ -161,6 +161,8 @@ class Payment
         return $checkoutFormInitialize;
     }
 
+    // kart bilgilerini girdikten sonra çağırılacak method
+    // $converstion_id yerine iyzico_basket_id gönder.
     public function result($conversation_id, $token){
         $options = new Options();
         $options->setApiKey('sandbox-zKK3HgzvDkPILo9D7PesKOixCuBg9Rpj');
