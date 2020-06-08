@@ -29,7 +29,7 @@ Route::post('search','Search\SearchController@search')->name('search');
 Route::group(['prefix' => 'iyzico', 'middleware' => 'auth'],function (){
     Route::get('/billing','Iyzico\CheckOutController@billing')->name('iyzico_billing');
     Route::post('/checkOut','Iyzico\CheckOutController@checkOut')->name('iyzico_check_out');
-    Route::post('/result','Iyzico\ResultController@result')->name('iyzico_result');
+    Route::post('/paymentResult','Iyzico\ResultController@result')->name('iyzico_result');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
