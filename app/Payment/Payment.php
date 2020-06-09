@@ -27,9 +27,9 @@ class Payment
     // alt üye iş yeri kayıt oluşturma metodu-satıcı oluşturma
     public function createSubMerchant(Instructor $instructor){
         $options = new Options();
-        $options->setApiKey('sandbox-zKK3HgzvDkPILo9D7PesKOixCuBg9Rpj');
-        $options->setSecretKey('sandbox-AuVhbC9hstaRNtlSb1xEn9bwwsgecdHP');
-        $options->setBaseUrl('https://sandbox-api.iyzipay.com');
+        $options->setApiKey('OvGVgeJc3cxWABZYUhGsXB44dUo9d3xB');
+        $options->setSecretKey('xEgG4Q3Xsadaj9t3SphScKK5hoUU1pG2');
+        $options->setBaseUrl('https://api.iyzipay.com');
 
         $request = new CreateSubMerchantRequest();
         $request->setLocale(Locale::TR);

@@ -352,8 +352,9 @@ class InstructorRepository implements IRepository{
                 }
                 else{
                     $error = $payment_result->getErrorMessage();
+                    throw new \Exception('Bir hata oluştu. Hata kodu:'.$payment_result->getErrorCode());
                 }
-                DB::commit();
+
             }
             else{
                 throw new \Exception(__('auth.create_profile_failed'));
@@ -365,6 +366,7 @@ class InstructorRepository implements IRepository{
             $error = $e;
             $result = false;
         }
+        DB::commit();
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
