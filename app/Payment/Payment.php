@@ -117,12 +117,12 @@ class Payment
         $request = new CreateCheckoutFormInitializeRequest();
         $request->setLocale(Locale::TR);
         $request->setConversationId($basket_id);
-        $request->setBasketId($basket_id);
+        $request->setBasketId(strval($basket_id));
         $request->setPrice($total_price);
         $request->setPaidPrice($total_price);
         $request->setCurrency(Currency::TL);
         $request->setPaymentGroup(PaymentGroup::PRODUCT);
-        $request->setCallbackUrl("78.185.130.123:8000/paymentResult");
+        $request->setCallbackUrl("http://127.0.0.1:8000/iyzico/paymentResult");
         $request->setEnabledInstallments(array(2, 3, 6, 9));
 
         $buyer = new Buyer();

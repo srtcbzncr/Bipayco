@@ -13,6 +13,7 @@ class ResultController extends Controller
         // initializing
         $repo = new BasketRepository();
         $data = $request->toArray();
+        dd($data);
         //$data['user_id'] = Auth::id();
 
         // operations
