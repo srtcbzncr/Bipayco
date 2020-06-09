@@ -12,13 +12,12 @@ class CheckOutController extends Controller
     public function billing(Request $request){
         $data = $request->toArray();
         $data['is_discount'] = false;
-        if($data['coupon'] != null){
+        if($data['coupon'] != "null"){
             $instructor = Instructor::where('reference_code',$data['coupon'])->where('active',true)->where('deleted_at',null)->first();
             if($instructor != null){
                 $data['is_discount'] = true;
             }
         }
-
         return view('invoice_information')->with('data',$data);
     }
 
