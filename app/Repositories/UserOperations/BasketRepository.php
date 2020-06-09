@@ -547,6 +547,10 @@ class BasketRepository implements IRepository
                             $object->save();
                         }
                     }
+                    $basket = Basket::where('user_id',$data['user_id'])->get();
+                    foreach ($basket as $item){
+                        $item->delete();
+                    }
                    $object = true;
                 }
                 else{
