@@ -122,7 +122,7 @@ class Payment
         $request->setPaidPrice($total_price);
         $request->setCurrency(Currency::TL);
         $request->setPaymentGroup(PaymentGroup::PRODUCT);
-        $request->setCallbackUrl("https://www.bipayco.com/paymentResult");
+        $request->setCallbackUrl("78.185.130.123:8000/paymentResult");
         $request->setEnabledInstallments(array(2, 3, 6, 9));
 
         $buyer = new Buyer();

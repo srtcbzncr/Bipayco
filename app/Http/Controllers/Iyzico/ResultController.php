@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ResultController extends Controller
 {
-    public function checkOut(Request $request){
+    public function result(Request $request){
         // initializing
         $repo = new BasketRepository();
         $data = $request->toArray();
@@ -16,7 +16,7 @@ class ResultController extends Controller
         // operations
         $resp = $repo->result($data);
         if($resp->getResult()){
-            return view('');
+            return view('paymentResult');
         }
         else{
             return redirect()->back();
