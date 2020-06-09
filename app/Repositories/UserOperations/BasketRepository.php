@@ -412,7 +412,7 @@ class BasketRepository implements IRepository
 
             if($payment_result->getStatus() == "success"){
                 if($payment_result->getPaymentStatus() == "SUCCESS"){
-                    $object = true;
+                   /* $object = true;
                     // iyzico basket'i güncelle
                     $iyzicoBasket = \App\Models\Iyzico\Basket::find($data['basket_id']);
                     $iyzicoBasket->status = $payment_result->getStatus();
@@ -544,11 +544,12 @@ class BasketRepository implements IRepository
                             $object->active = true;
                             $object->save();
                         }
-                    }
+                    }*/
+                   $object = "başarılı";
                 }
                 else{
                     $error = $payment_result->getErrorMessage();
-                    $object = false;
+                    $object = "başarısız";
                 }
             }
             else{

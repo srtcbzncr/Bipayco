@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Iyzico;
 use App\Http\Controllers\Controller;
 use App\Repositories\UserOperations\BasketRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ResultController extends Controller
 {
@@ -12,6 +13,7 @@ class ResultController extends Controller
         // initializing
         $repo = new BasketRepository();
         $data = $request->toArray();
+        //$data['user_id'] = Auth::id();
 
         // operations
         $resp = $repo->result($data);
