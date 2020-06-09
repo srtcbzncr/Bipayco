@@ -32,16 +32,22 @@
     <div uk-height-viewport="offset-top: true; offset-bottom: true" class="uk-flex uk-flex-middle">
         <div class="uk-width-2-3@m uk-width-1-2@s uk-margin-auto  border-radius-6 ">
             <div class="uk-background-grey uk-grid-collapse" uk-grid>
-                <div class="uk-text-middle uk-margin-auto-vertical uk-text-center uk-padding-small uk-animation-scale-up">
+                <div class="uk-width uk-text-middle uk-margin-auto-vertical uk-text-center uk-padding-small uk-animation-scale-up">
                     <a class="" href="{{ route('home') }}"> <img class="uk-logo uk-width-medium" src="{{asset('images/logo1.png')}}"/> </a>
                 </div>
-                <div>
-                    <div class="uk-background-success">
-                        <p>
-                            {{$data}}
-                        </p>
+                <div class="uk-width uk-card-default uk-padding uk-card-small">
+                    <div class="uk-flex-column uk-flex align-items-center justify-content-center">
+                        @if($data)
+                            <div style="border-radius: 6px" class="uk-width-1-2@m uk-padding-medium uk-card-default uk-background-success text-white">
+                                <p class="uk-margin-remove"><span class="fas fa-check-circle icon-small"></span> @lang('front/auth.payment_successfully')</p>
+                            </div>
+                        @else
+                            <div style="border-radius: 6px" class="uk-width-1-2@m uk-padding-medium uk-background-danger text-white">
+                                <p class="uk-margin-remove"><span class="fas fa-minus-circle icon-small"></span> @lang('front/auth.payment_error')</p>
+                            </div>
+                        @endif
+                        <a href="{{route('home')}}"><button class=" uk-margin-top uk-button uk-button-default">@lang('front/auth.return_homepage')</button></a>
                     </div>
-                    <a href="{{route('home')}}"><button class="uk-button uk-button-secondary">@lang('front/auth.return_homepage')</button></a>
                 </div>
             </div>
         </div>

@@ -244,5 +244,7 @@ return [
     'skip_to_payment'=>'Ödeme Aşamasına geç',
     'country'=>'Ülke',
     'invoice_informations'=>'Fatura Bilgileri',
-    'return_homepage'=>'Ana sayfaya dön'
+    'return_homepage'=>'Ana sayfaya dön',
+    'payment_successfully'=>'Ödeme işlemi başarıyla gerçekleşti',
+    'payment_error'=>'Ödeme işlemi gerçekleştirilirken bir hata meydana geldi',
 ];
