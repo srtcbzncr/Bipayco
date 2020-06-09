@@ -13,13 +13,17 @@ class ResultController extends Controller
         // initializing
         $repo = new BasketRepository();
         $data = $request->toArray();
-        dd($data);
-        //$data['user_id'] = Auth::id();
+        $data['user_id'] = Auth::id();
 
         // operations
         $resp = $repo->result($data);
         if($resp->getResult()){
-            return view('paymentResult');
+            if($resp->getData()){
+                return view('paymentResult')->with('data',true);
+            }
+            else{
+                return view('paymentResult')->with('data',false);
+            }
         }
         else{
             return redirect()->back();

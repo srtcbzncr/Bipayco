@@ -20,6 +20,7 @@ use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
+use Iyzipay\Model\PaymentItem;
 
 class BasketRepository implements IRepository
 {
@@ -412,9 +413,9 @@ class BasketRepository implements IRepository
 
             if($payment_result->getStatus() == "success"){
                 if($payment_result->getPaymentStatus() == "SUCCESS"){
-                   /* $object = true;
+                    $object = true;
                     // iyzico basket'i güncelle
-                    $iyzicoBasket = \App\Models\Iyzico\Basket::find($data['basket_id']);
+                    $iyzicoBasket = \App\Models\Iyzico\Basket::where('token',$data['token'])->where('deleted_at',null)->first();
                     $iyzicoBasket->status = $payment_result->getStatus();
                     $iyzicoBasket->price = $payment_result->getPrice();
                     $iyzicoBasket->payment_status = $payment_result->getPaymentStatus();
@@ -425,13 +426,14 @@ class BasketRepository implements IRepository
                     $iyzicoBasket->save();
 
                     // iyzico basket itemi güncelle
-                    $iyzicoBasketItems = BasketItems::where('iyzico_basket_id',$data['basket_id'])->where('deleted_at',null)->get();
+                    $iyzicoBasketItems = BasketItems::where('iyzico_basket_id',$iyzicoBasket->id)->where('deleted_at',null)->get();
                     $paymentItems = $payment_result->getPaymentItems();
                     $coursesId = array();
                     $coursesType = array();
                     $coursesPrice = array();
                     for($i=0;$i<count($iyzicoBasketItems);$i++){
-                        $itemId = $paymentItems[$i]->itemId;
+
+                        $itemId = $paymentItems[$i]->getItemId();
                         $exp = explode('-',$itemId);
                         $type = $exp[0];
                         $course_type = null;
@@ -448,16 +450,16 @@ class BasketRepository implements IRepository
 
                         array_push($coursesId,$course_id);
                         array_push($coursesType,$course_type);
-                        array_push($coursesPrice,$paymentItems[$i]->paidPrice);
+                        array_push($coursesPrice,$paymentItems[$i]->getPaidPrice());
 
-                        $iyzicoBasketItems[$i]->item_id = $paymentItems[$i]->itemId;
+                        $iyzicoBasketItems[$i]->item_id = $paymentItems[$i]->getItemId();
                         $iyzicoBasketItems[$i]->course_type = $course_type;
                         $iyzicoBasketItems[$i]->course_id = $course_id;
-                        $iyzicoBasketItems[$i]->price = $paymentItems[$i]->paidPrice;
-                        $iyzicoBasketItems[$i]->payment_transaction_id = $paymentItems[$i]->paymentTransactionId;
-                        $iyzicoBasketItems[$i]->transaction_status = $paymentItems[$i]->transactionStatus;
+                        $iyzicoBasketItems[$i]->price = $paymentItems[$i]->getPaidPrice();
+                        $iyzicoBasketItems[$i]->payment_transaction_id = $paymentItems[$i]->getPaymentTransactionId();
+                        $iyzicoBasketItems[$i]->transaction_status = $paymentItems[$i]->getTransactionStatus();
                         $iyzicoBasketItems[$i]->confirmation = true;
-                        $iyzicoBasketItems->save();
+                        $iyzicoBasketItems[$i]->save();
                     }
 
                     // ge_purchase ve ge_entries tablosuna ekle
@@ -544,12 +546,12 @@ class BasketRepository implements IRepository
                             $object->active = true;
                             $object->save();
                         }
-                    }*/
-                   $object = "başarılı";
+                    }
+                   $object = true;
                 }
                 else{
                     $error = $payment_result->getErrorMessage();
-                    $object = "başarısız";
+                    $object = false;
                 }
             }
             else{
