@@ -42,6 +42,6 @@
         </div>
     </div>
 </div>
-{!!$data!!}
+{!!$data['checkout_form_content']!!}
 </body>
 </html>
