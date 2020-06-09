@@ -366,7 +366,10 @@ class BasketRepository implements IRepository
                 $iyzicoBasketItems->save();
             }
 
-
+            $data['is_discount'] = false;
+            if($data['coupon'] != "null"){
+                $data['is_discount'] = true;
+            }
             $payment = new Payment();
             $payment_result = $payment->checkOut($data['user_id'],$data['first_name'],$data['last_name'],$data['phone_number'],$data['email'],$data['identity_number'],
                 $ip,$data['city'],$data['zip_code'],$data['country'],$data['address'],$courses,$data['is_discount'],$iyzicoBasket->id);
