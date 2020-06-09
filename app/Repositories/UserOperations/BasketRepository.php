@@ -408,7 +408,7 @@ class BasketRepository implements IRepository
         try {
 
             $payment = new Payment();
-            $payment_result = $payment->result($data['basket_id'],$data['token']);
+            $payment_result = $payment->result($data['token']);
 
             if($payment_result->getStatus() == "success"){
                 if($payment_result->getPaymentStatus() == "SUCCESS"){
