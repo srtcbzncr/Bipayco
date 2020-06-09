@@ -163,7 +163,7 @@ class Payment
 
     // kart bilgilerini girdikten sonra çağırılacak method
     // $converstion_id yerine iyzico_basket_id gönder.
-    public function result($conversation_id, $token){
+    public function result($token){
         $options = new Options();
         $options->setApiKey('sandbox-zKK3HgzvDkPILo9D7PesKOixCuBg9Rpj');
         $options->setSecretKey('sandbox-AuVhbC9hstaRNtlSb1xEn9bwwsgecdHP');
@@ -171,7 +171,6 @@ class Payment
 
         $request = new RetrieveCheckoutFormRequest();
         $request->setLocale(Locale::TR);
-        $request->setConversationId($conversation_id);
         $request->setToken($token);
 
         $result = CheckoutForm::retrieve($request, $options);
