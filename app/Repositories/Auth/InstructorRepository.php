@@ -351,12 +351,14 @@ class InstructorRepository implements IRepository{
                     $ins->save();
                 }
                 else{
+                    DB::rollBack();
                     $error = $payment_result->getErrorMessage();
                     throw new \Exception('Bir hata oluştu. Hata kodu:'.$payment_result->getErrorCode());
                 }
                 DB::commit();
             }
             else{
+                DB::rollBack();
                 throw new \Exception(__('auth.create_profile_failed'));
             }
 
