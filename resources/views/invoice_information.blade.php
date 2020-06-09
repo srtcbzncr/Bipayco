@@ -38,10 +38,13 @@
                 <div>
                     <form method="POST" action="{{ route('iyzico_check_out') }}">
                         @csrf
-                        <input class="uk-hidden" name="user_id" id="user_id" value="{{$data['user_id']}}">
-                        <input class="uk-hidden" name="is_discount" id="is_discount" value="{{$data['is_discount']}}">
-                        <input class="uk-hidden" name="price" id="price" value="{{$data['price']}}">
-                        <input class="uk-hidden" name="price_paid" id="price_paid" value="{{$data['price_paid']}}">
+                        {{$data['user_id']}}
+                        {{$data['coupon']}}
+                        {{$data['checkout_form_content']}}
+{{--                        <input class="uk-hidden" name="user_id" id="user_id" value="{{$data['user_id']}}">--}}
+{{--                        <input class="uk-hidden" name="is_discount" id="is_discount" value="{{$data['is_discount']}}">--}}
+{{--                        <input class="uk-hidden" name="price" id="price" value="{{$data['price']}}">--}}
+{{--                        <input class="uk-hidden" name="price_paid" id="price_paid" value="{{$data['price_paid']}}">--}}
                         <div class="uk-card-default uk-padding uk-card-small">
                             <div id="register" class="tabcontent animation: uk-animation-slide-left-medium">
                                 <h2 class="uk-text-bold">  @lang('front/auth.invoice_informations')  </h2>

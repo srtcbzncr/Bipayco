@@ -244,4 +244,5 @@ return [
     'skip_to_payment'=>'Ödeme Aşamasına geç',
     'country'=>'Ülke',
     'invoice_informations'=>'Fatura Bilgileri',
+    'return_homepage'=>'Ana sayfaya dön'
 ];
