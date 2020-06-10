@@ -56,6 +56,7 @@ class RebateRepository implements IRepository
 
         // Operations
         try{
+            DB::beginTransaction();
             // coursun iade olabilme şartını kontrol et.
             $progress = 0;
             $user_id = $data['user_id'];
@@ -204,8 +205,10 @@ class RebateRepository implements IRepository
                     $error = $payment_result->getErrorCode();
                 }
             }
+            DB::commit();
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e->getMessage();
             $result = false;
         }
