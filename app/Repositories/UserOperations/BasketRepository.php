@@ -339,6 +339,7 @@ class BasketRepository implements IRepository
 
         // Operations
         try {
+            DB::beginTransaction();
             #preapre checkOut methot
             $ip = Request::ip();
             $basket = Basket::where('user_id',$data['user_id'])->get();
@@ -388,8 +389,9 @@ class BasketRepository implements IRepository
                 $result = false;
                 $error = $payment_result->getErrorMessage();
             }
-
+            DB::commit();
         }catch(\Exception $e){
+            DB::rollBack();
             $error = $e->getMessage();
             $result = false;
         }
@@ -407,7 +409,7 @@ class BasketRepository implements IRepository
 
         // Operations
         try {
-
+            DB::beginTransaction();
             $payment = new Payment();
             $payment_result = $payment->result($data['token']);
 
@@ -562,8 +564,9 @@ class BasketRepository implements IRepository
                 $result = false;
                 $error = $payment_result->getErrorMessage();
             }
-
+            DB::commit();
         }catch(\Exception $e){
+            DB::rollBack();
             $error = $e->getMessage();
             $result = false;
         }
