@@ -61,7 +61,7 @@ class RebateRepository implements IRepository
             $progress = 0;
             $user_id = $data['user_id'];
             $course_id = $data['course_id'];
-            $student = Student::where('user_id',$user_id)->first();
+            $student = $data['student_id'];
             $course_type = null;
             if($data['course_type'] == "ge"){
                 $course_type = 'App\Models\GeneralEducation\Lesson';
@@ -74,7 +74,7 @@ class RebateRepository implements IRepository
             }
 
             // prepare
-            $purchase = Purchase::where('course_id',$course_id)->where('user_id',$user_id)->where('student_id',$student->id)->where('course_type',$course_type)->where('deleted_at',null)->first();
+            $purchase = Purchase::find($data['purchases_id']);
 
             if($data['course_type'] == "ge"){
                 $sections = Section::where('course_id',$course_id)->where('deleted_at',null)->where('active',true)->get()->toArray();
