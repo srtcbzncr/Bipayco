@@ -23,7 +23,7 @@ class RebateController extends Controller
 
         return response()->json([
             'error' => true,
-            'errorMessage' => $resp->getError(),
+            'errorMessage' => "Hata: ".$resp->getError(),
             'message' => 'İade oluşturulurken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }

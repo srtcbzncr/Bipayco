@@ -17,8 +17,8 @@ class CreateGeRebatesTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('purchase_id');
-            $table->unsignedBigInteger('payment_id');
-            $table->string('payment_transaction_id');
+            $table->unsignedBigInteger('payment_id')->nullable(true);
+            $table->string('payment_transaction_id')->nullable(true);
             $table->string('message'); // kullanıcı iade sebebi
             $table->tinyInteger('rebate_status'); // iade durumu: -1:red, 0: bekliyor, 1: onaylandı
             $table->float('price');
