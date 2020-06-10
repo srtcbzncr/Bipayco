@@ -32,6 +32,8 @@ Route::group(['prefix' => 'iyzico', 'middleware' => 'auth'],function (){
     Route::post('/paymentResult','Iyzico\ResultController@result')->name('iyzico_result');
 });
 
+Route::get('/purchases','Purchases\PurchasesController@getPurchases')->name('get_purchases');
+
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::get('/', 'Admin\HomeController@dashboard')->name('adminDashboard');
     Route::get('/categories','Admin\HomeController@categories')->name('adminCategories');
