@@ -177,4 +177,20 @@ class Payment
         return $result;
     }
 
+    public function rebate($ip, $payment_id, $rebate_id){
+        $options = new Options();
+        $options->setApiKey('OvGVgeJc3cxWABZYUhGsXB44dUo9d3xB');
+        $options->setSecretKey('xEgG4Q3Xsadaj9t3SphScKK5hoUU1pG2');
+        $options->setBaseUrl('https://api.iyzipay.com');
+
+        $request = new \Iyzipay\Request\CreateCancelRequest();
+        $request->setLocale(\Iyzipay\Model\Locale::TR);
+        $request->setConversationId($rebate_id);
+        $request->setPaymentId($payment_id);
+        $request->setIp($ip);
+
+        $rebate = \Iyzipay\Model\Cancel::create($request, $options);
+        return $rebate;
+}
+
 }
