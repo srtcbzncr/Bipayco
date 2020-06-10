@@ -12,6 +12,7 @@ class BasketItems extends Model
     protected $table = "iyzico_basket_items";
     protected $fillable = [
         'iyzico_basket_id',
+        'purchase_id',
         'item_id',
         'course_type',
         'course_id',

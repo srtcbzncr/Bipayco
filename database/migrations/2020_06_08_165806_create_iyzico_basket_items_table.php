@@ -16,6 +16,7 @@ class CreateIyzicoBasketItemsTable extends Migration
         Schema::create('iyzico_basket_items', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('iyzico_basket_id')->nullable(true);
+            $table->integer('purchase_id')->nullable(true);
             $table->string('item_id')->nullable(true);
             $table->string('course_type')->nullable(true);
             $table->integer('course_id')->nullable(true);
