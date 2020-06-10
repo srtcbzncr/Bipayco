@@ -100,6 +100,7 @@ Route::group(['prefix' => 'pe'],function (){
 
 });
 
+Route::get('/purchases/{user_id}','API\Purchases\PurchasesController@getPurchases')->name('api_get_purchases');
 
 Route::prefix('profile')->group(function (){
     # buradaki userId instructor'a ait değil. Giriş yapmış kullanıcıya ait.Eğer giriş yapmış kullanıcı yoksa gönderilmesine gerek yoktur.
