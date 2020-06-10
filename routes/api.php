@@ -367,6 +367,7 @@ Route::prefix('questionSource')->group(function (){
 
 Route::get('myCourses/{id}', 'API\Auth\AuthController@courses')->name('api_my_courses');
 Route::get('lastCourses/{id}', 'API\Auth\AuthController@getLastWatchedCourses')->name('api_my_last_courses');
+Route::post('rebateCourse','API\Iyzico\RebateController@rebateCourse')->name('api_rebate_course');
 
 Route::prefix('admin')->group(function (){
    Route::prefix('bs')->group(function (){

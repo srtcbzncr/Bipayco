@@ -177,6 +177,7 @@ class Payment
         return $result;
     }
 
+    // $payment_transaction_id iyzico_basket_item'deki $payment_transaction_id'dir.
     public function rebate($ip, $price, $payment_transaction_id, $rebate_id){
         $options = new Options();
         $options->setApiKey('OvGVgeJc3cxWABZYUhGsXB44dUo9d3xB');
