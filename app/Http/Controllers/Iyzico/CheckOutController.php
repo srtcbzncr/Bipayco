@@ -37,7 +37,7 @@ class CheckOutController extends Controller
             ]);*/
         }
         else{
-            return redirect()->back();
+            return redirect()->back()->with('error', __('auth.payment_error'));
         }
 
        /* return response()->json([

@@ -19,14 +19,14 @@ class ResultController extends Controller
         $resp = $repo->result($data);
         if($resp->getResult()){
             if($resp->getData()){
-                return view('paymentResult')->with('data',true);
+                return view('paymentResult')->with('data',true)->with('error', __('auth.payment_successful'));
             }
             else{
-                return view('paymentResult')->with('data',false);
+                return view('paymentResult')->with('data',false)->with('error', __('auth.payment_error'));
             }
         }
         else{
-            return redirect()->back();
+            return redirect()->back()->with('error', __('auth.payment_error'));
         }
     }
 }

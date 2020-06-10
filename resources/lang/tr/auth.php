@@ -26,5 +26,7 @@ return [
     'invalid_reference_code' => 'Girdiğiniz referans kodu geçersiz. Lütfen referans kodunuzu kontrol ediniz.',
     'activation_code_invalid'=>'Aktivasyon kodunuzun süresi dolmuş. Tekrar epostanızı giriniz.',
     'email_post_successful'=>'Aktivasyon linkiniz e-postanıza iletildi. E-postanızı kontrol ediniz.',
-    'invalid_email'=>'Geçersiz bir e-posta girdiniz.'
+    'invalid_email'=>'Geçersiz bir e-posta girdiniz.',
+    'payment_error' => 'Ödeme yapılırken bir hata meydana geldi. Lütfen daha sonra tekrar deneyin',
+    'payment_successful' => 'Ödeme işlemi başarıyla gerçekleşti.'
 ];
