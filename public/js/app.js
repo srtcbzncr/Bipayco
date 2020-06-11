@@ -6595,6 +6595,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/rebateCourse', {
         message: this.reason,
         purchases_id: this.selectedPurchase.id,
+        student_id: this.selectedPurchase.student_id,
+        course_id: this.selectedPurchase.course.id,
+        course_type: this.selectedPurchase.course.course_type,
         user_id: this.userId
       }).then(function (res) {
         if (res.data.error) {
