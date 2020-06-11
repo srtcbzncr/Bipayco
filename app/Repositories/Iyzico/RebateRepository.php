@@ -203,7 +203,7 @@ class RebateRepository implements IRepository
                     $rebate_update->confirmation = false;
                     $rebate_update->save();
                     $result = false;
-                    $error = $payment_result->getErrorCode();
+                    $error = $payment_result->getErrorMessage()." Hata Kodu: ".$payment_result->getErrorCode();
                 }
             }
             DB::commit();
