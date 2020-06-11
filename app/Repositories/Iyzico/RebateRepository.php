@@ -61,22 +61,23 @@ class RebateRepository implements IRepository
             $progress = 0;
             $user_id = $data['user_id'];
             $course_id = $data['course_id'];
-            $student = $data['student_id'];
+            $student = Student::find($data['student_id']);
+
             $course_type = null;
-            if($data['course_type'] == "ge"){
+            if($data['course_type'] == "generalEducation"){
                 $course_type = 'App\Models\GeneralEducation\Lesson';
             }
-            else if($data['course_type'] == "pl"){
+            else if($data['course_type'] == "prepareLessons"){
                 $course_type = 'App\Models\PrepareLessons\Lesson';
             }
-            else if($data['course_type'] == "pe"){
+            else if($data['course_type'] == "prepareExams"){
                 $course_type = 'App\Models\PrepareExams\Lesson';
             }
 
             // prepare
             $purchase = Purchase::find($data['purchases_id']);
 
-            if($data['course_type'] == "ge"){
+            if($data['course_type'] == "generalEducation"){
                 $sections = Section::where('course_id',$course_id)->where('deleted_at',null)->where('active',true)->get()->toArray();
                 $lessons = array();
                 foreach ($sections as $section){
@@ -102,7 +103,7 @@ class RebateRepository implements IRepository
                 }
                 $progress = ($completeCount/count($lessons))*100;
             }
-            else if($data['course_type'] == "pl"){
+            else if($data['course_type'] == "prepareLessons"){
                 $sections = \App\Models\PrepareLessons\Section::where('course_id',$course_id)->where('deleted_at',null)->where('active',true)->get()->toArray();
                 $lessons = array();
                 foreach ($sections as $section){
@@ -128,7 +129,7 @@ class RebateRepository implements IRepository
                 }
                 $progress = ($completeCount/count($lessons))*100;
             }
-            else if($data['course_type'] == "pe"){
+            else if($data['course_type'] == "prepareExams"){
                 $sections = \App\Models\PrepareExams\Section::where('course_id',$course_id)->where('deleted_at',null)->where('active',true)->get()->toArray();
                 $lessons = array();
                 foreach ($sections as $section){
