@@ -65,13 +65,13 @@ class RebateRepository implements IRepository
 
             $course_type = null;
             if($data['course_type'] == "generalEducation"){
-                $course_type = 'App\Models\GeneralEducation\Lesson';
+                $course_type = 'App\Models\GeneralEducation\Course';
             }
             else if($data['course_type'] == "prepareLessons"){
-                $course_type = 'App\Models\PrepareLessons\Lesson';
+                $course_type = 'App\Models\PrepareLessons\Course';
             }
             else if($data['course_type'] == "prepareExams"){
-                $course_type = 'App\Models\PrepareExams\Lesson';
+                $course_type = 'App\Models\PrepareExams\Course';
             }
 
             // prepare
