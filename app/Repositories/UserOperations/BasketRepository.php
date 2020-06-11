@@ -478,6 +478,11 @@ class BasketRepository implements IRepository
                             $object->confirmation = true;
                             $object->save();
 
+                            // iyzico basket items ekle.
+                            $iyzicoBasketItemsTemp = BasketItems::find($iyzicoBasketItems[$i]->id);
+                            $iyzicoBasketItemsTemp->purchase_id = $object->id;
+                            $iyzicoBasketItemsTemp->save();
+
                             //  öğrenciyi entry tablosuna kaydet.
                             $object = null;
                             $object = new Entry();
@@ -505,6 +510,11 @@ class BasketRepository implements IRepository
                             $object->confirmation = true;
                             $object->save();
 
+                            // iyzico basket items ekle.
+                            $iyzicoBasketItemsTemp = BasketItems::find($iyzicoBasketItems[$i]->id);
+                            $iyzicoBasketItemsTemp->purchase_id = $object->id;
+                            $iyzicoBasketItemsTemp->save();
+
                             //  öğrenciyi entry tablosuna kaydet.
                             $object = null;
                             $object = new Entry();
@@ -531,6 +541,11 @@ class BasketRepository implements IRepository
                             $object->price = $coursesPrice[$i];
                             $object->confirmation = true;
                             $object->save();
+
+                            // iyzico basket items ekle.
+                            $iyzicoBasketItemsTemp = BasketItems::find($iyzicoBasketItems[$i]->id);
+                            $iyzicoBasketItemsTemp->purchase_id = $object->id;
+                            $iyzicoBasketItemsTemp->save();
 
                             //  öğrenciyi entry tablosuna kaydet.
                             $object = null;
