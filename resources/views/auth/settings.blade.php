@@ -242,5 +242,13 @@
                 </div>
             </div>
         </div>
+        <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 90%">
+            <a class="card-link" href="{{route('get_purchases')}}">
+                <div class="uk-card-header uk-text-primary">
+                    <span class="fas icon-medium uk-margin-small-right fa-money-bill"></span>
+                    @lang('front/auth.purchase_history')
+                </div>
+            </a>
+        </div>
     </div>
 @endsection
