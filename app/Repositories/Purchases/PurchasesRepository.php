@@ -62,7 +62,7 @@ class PurchasesRepository implements IRepository
                 }
                 else if($item->course_type == 'App\Models\PrepareLessons\Course'){
                     $course = \App\Models\PrepareLessons\Course::find($item->course_id);
-                    $course['course_type'] = "prepareLesson";
+                    $course['course_type'] = "prepareLessons";
                     $now = Carbon ::now();
                     $created_at = Carbon ::parse($item->created_at);
 

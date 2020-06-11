@@ -22,11 +22,11 @@ class ResultController extends Controller
                 return view('paymentResult')->with('data',true)->with('error', __('auth.payment_successful'));
             }
             else{
-                return view('paymentResult')->with('data',false)->with('error', __('auth.payment_error'));
+                return view('paymentResult')->with('data',false)->with('error', __('auth.payment_error').$resp->getError());
             }
         }
         else{
-            return redirect()->back()->with('error', __('auth.payment_error'));
+            return redirect()->back()->with('error', __('auth.payment_error').$resp->getError());
         }
     }
 }

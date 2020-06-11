@@ -387,12 +387,12 @@ class BasketRepository implements IRepository
             }
             else{
                 $result = false;
-                $error = $payment_result->getErrorMessage();
+                $error = $payment_result->getErrorMessage().'Hata Kodu: '.$payment_result->getErrorCode();
             }
             DB::commit();
         }catch(\Exception $e){
             DB::rollBack();
-            $error = $e->getMessage();
+            $error = " ";
             $result = false;
         }
 
@@ -478,6 +478,11 @@ class BasketRepository implements IRepository
                             $object->confirmation = true;
                             $object->save();
 
+                            // iyzico basket items ekle.
+                            $iyzicoBasketItemsTemp = BasketItems::find($iyzicoBasketItems[$i]->id);
+                            $iyzicoBasketItemsTemp->purchase_id = $object->id;
+                            $iyzicoBasketItemsTemp->save();
+
                             //  öğrenciyi entry tablosuna kaydet.
                             $object = null;
                             $object = new Entry();
@@ -504,6 +509,11 @@ class BasketRepository implements IRepository
                             $object->price = $coursesPrice[$i];
                             $object->confirmation = true;
                             $object->save();
+
+                            // iyzico basket items ekle.
+                            $iyzicoBasketItemsTemp = BasketItems::find($iyzicoBasketItems[$i]->id);
+                            $iyzicoBasketItemsTemp->purchase_id = $object->id;
+                            $iyzicoBasketItemsTemp->save();
 
                             //  öğrenciyi entry tablosuna kaydet.
                             $object = null;
@@ -532,6 +542,11 @@ class BasketRepository implements IRepository
                             $object->confirmation = true;
                             $object->save();
 
+                            // iyzico basket items ekle.
+                            $iyzicoBasketItemsTemp = BasketItems::find($iyzicoBasketItems[$i]->id);
+                            $iyzicoBasketItemsTemp->purchase_id = $object->id;
+                            $iyzicoBasketItemsTemp->save();
+
                             //  öğrenciyi entry tablosuna kaydet.
                             $object = null;
                             $object = new Entry();
@@ -556,18 +571,18 @@ class BasketRepository implements IRepository
                    $object = true;
                 }
                 else{
-                    $error = $payment_result->getErrorMessage();
+                    $error = $payment_result->getErrorMessage().' Hata Kodu: '.$payment_result->getErrorCode();
                     $object = false;
                 }
             }
             else{
                 $result = false;
-                $error = $payment_result->getErrorMessage();
+                $error = $payment_result->getErrorMessage().' Hata Kodu: '.$payment_result->getErrorCode();
             }
             DB::commit();
         }catch(\Exception $e){
             DB::rollBack();
-            $error = $e->getMessage();
+            $error = " ";
             $result = false;
         }
 
