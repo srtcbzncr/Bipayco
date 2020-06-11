@@ -387,7 +387,7 @@ class BasketRepository implements IRepository
             }
             else{
                 $result = false;
-                $error = 'Hata Kodu: '.$payment_result->getErrorCode();
+                $error = $payment_result->getErrorMessage().'Hata Kodu: '.$payment_result->getErrorCode();
             }
             DB::commit();
         }catch(\Exception $e){
@@ -556,13 +556,13 @@ class BasketRepository implements IRepository
                    $object = true;
                 }
                 else{
-                    $error = $payment_result->getErrorCode();
+                    $error = $payment_result->getErrorMessage().' Hata Kodu: '.$payment_result->getErrorCode();
                     $object = false;
                 }
             }
             else{
                 $result = false;
-                $error = $payment_result->getErrorCode();
+                $error = $payment_result->getErrorMessage().' Hata Kodu: '.$payment_result->getErrorCode();
             }
             DB::commit();
         }catch(\Exception $e){
