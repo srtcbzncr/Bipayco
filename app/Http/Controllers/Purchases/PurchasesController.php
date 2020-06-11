@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 class PurchasesController extends Controller
 {
     public function getPurchases(){
-        return view('');
+        return view('auth.purchase_history');
     }
 }
