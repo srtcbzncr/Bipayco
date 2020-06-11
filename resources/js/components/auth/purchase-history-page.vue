@@ -1,31 +1,33 @@
 <template>
-    <div>
-        <div v-if="purchaseHistory.data&&purchaseHistory.data.length>0" v-for="(purchase, index) in purchaseHistory.data" class="uk-card uk-card-default border-radius-6 uk-card-small uk-grid-collapse" uk-grid>
-            <div class="uk-flex align-items-center uk-margin-medium-left">
-                <a class="uk-width-5-6 uk-margin" :href="'/'+convertModule(purchase.course.course_type)+'/course/'+purchase.course.id">
-                    <div class="uk-card-media-left uk-cover-container uk-width-1-4@s">
-                        <img :src="purchase.course.image" alt="" uk-cover>
-                        <canvas width="600" height="400"></canvas>
-                    </div>
-                    <div class="uk-width-3-4@s">
-                        <div class="uk-card-body">
-                            <div class="uk-card-title">
-                                <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 25px; max-height: 25px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-margin-remove">{{purchase.course.name}}</h4>
-                                <stars-rating :rating="purchase.course.point"></stars-rating>
-                            </div>
-                            <hr class="uk-margin-remove">
-                            <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{purchase.course.description}}</p>
-                            <div class="uk-float-right uk-flex text-center  ">
-                                <h5 class="uk-margin-remove">
-                                    {{purchase.course.price_with_discount}}
-                                    <i class="fas fa-lira-sign icon-tiny"></i>
-                                </h5>
+    <div class="uk-container uk-margin-large-top">
+        <div v-if="purchaseHistory.data&&purchaseHistory.data.length>0" v-for="(purchase, index) in purchaseHistory.data" class="uk-margin">
+            <div class="uk-card uk-card-default border-radius-6 uk-card-small uk-margin-remove uk-grid uk-grid-collapse">
+                <a :class="{'uk-width-5-6@s':purchase.course.isRebate, 'uk-width':!(purchase.course.isRebate)}" class=" uk-padding-small card-link" :href="'/'+convertModule(purchase.course.course_type)+'/course/'+purchase.course.id">
+                    <div class="uk-flex uk-flex-wrap align-items-center">
+                        <div class="uk-card-media-left uk-cover-container uk-width-1-4@s">
+                            <img :src="purchase.course.image" alt="" uk-cover>
+                            <canvas width="600" height="400"></canvas>
+                        </div>
+                        <div class="uk-width-3-4@s">
+                            <div class="uk-card-body">
+                                <div class="uk-card-title">
+                                    <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 25px; max-height: 25px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-margin-remove">{{purchase.course.name}}</h4>
+                                    <stars-rating :rating="purchase.course.point"></stars-rating>
+                                </div>
+                                <hr class="uk-margin-remove">
+                                <h6 class="uk-margin-small">{{purchaseDate}}: {{new Date(purchase.created_at).toLocaleDateString()}}</h6>
+                                <div class="uk-float-right uk-flex text-center  ">
+                                    <h5 class="uk-margin-remove">
+                                        {{purchase.price}}
+                                        <i class="fas fa-lira-sign icon-tiny"></i>
+                                    </h5>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </a>
-                <div v-if="purchase.course.rebate" class="uk-width-1-6 text-center">
-                    <a @click="openModal(index)"><i class="fas fa-trash-alt text-danger"></i></a>
+                <div v-if="purchase.course.isRebate" class="uk-width-1-6@s uk-padding-small auto-border uk-flex uk-flex-center">
+                    <button class="uk-button uk-button-link  text-danger" @click="openModal(index)">İade Talebi Oluştur</button>
                 </div>
             </div>
         </div>
@@ -48,12 +50,12 @@
                     <h2 class="uk-modal-title">İade Sbebi</h2>
                 </div>
                 <div class="uk-modal-body" uk-overflow-auto>
-                    <div class="uk-label">İade Sebebi</div>
+                    <div class="uk-form-label">İade Sebebi</div>
                     <input v-model="reason" required class="uk-input" type="text">
                 </div>
                 <div class="uk-modal-footer uk-text-right">
-                    <button class="uk-button uk-button-default uk-modal-close" type="button">Vazgeç</button>
-                    <button class="uk-button uk-button-primary" type="button">İade Et</button>
+                    <button class="uk-button uk-button-default uk-modal-close" @click="clearForm" type="button">Vazgeç</button>
+                    <button class="uk-button uk-button-primary" @click="sendRefundRequest" type="button">İade Et</button>
                 </div>
             </div>
         </div>
@@ -76,7 +78,11 @@
             userId:{
                 type:String,
                 required:true,
-            }
+            },
+            purchaseDate:{
+                type:String,
+                default:'Satın Alım Tarihi'
+            },
         },
         computed:{
             ...mapState([
@@ -103,6 +109,9 @@
                 }
                 return pages;
             },
+            selectedPurchase(){
+                return this.purchaseHistory.data[this.selectedIndex];
+            }
         },
         methods:{
             ...mapActions([
@@ -115,7 +124,7 @@
                 this.selectedIndex=index;
             },
             sendRefundRequest:function () {
-                Axios.post('/api/rebateCourse',{reason:this.reason, purchaseId:this.purchaseHistory.data[selectedIndex].id, userId:this.userId})
+                Axios.post('/api/rebateCourse',{message:this.reason, purchases_id:this.selectedPurchase.id, user_id:this.userId})
                     .then((res)=>{
                         if(res.data.error){
                             UIkit.notification({message:res.data.message, status: 'danger'});
@@ -123,7 +132,7 @@
                             UIkit.notification({message:res.data.message, status: 'success'});
                         }
                     });
-                this.$store.dispatch('loadMyCourses');
+                this.$store.dispatch('loadMyCourses', this.userId);
                 this.$store.dispatch('loadPurchaseHistoryNewPage', this.selectedPageUrl);
                 UIkit.modal('#reason').hide();
                 this.clearForm();
@@ -151,5 +160,14 @@
 </script>
 
 <style scoped>
+    .auto-border{
+        border-top: 1px solid #dee2e6;
+    }
 
+    @media (min-width: 640px){
+        .auto-border{
+            border-top:none;
+            border-left: 1px solid #dee2e6 !important;
+        }
+    }
 </style>

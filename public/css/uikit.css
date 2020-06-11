@@ -7831,7 +7831,7 @@ ul.uk-nav-sub {
   }
 }
 /* Tablet landscape and bigger */
-@media (min-width: 960px) {
+@media (min-width: 900px) {
   .uk-child-width-1-1\@m > * {
     width: 100%;
   }
