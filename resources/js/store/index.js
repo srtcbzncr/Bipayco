@@ -85,6 +85,7 @@ const state={
     guardianStudentList:{},
     questionAnswerData:[],
     loadingStatus:false,
+    purchaseHistory:{},
 };
 const getters={};
 const mutations={
@@ -211,6 +212,9 @@ const mutations={
     },
     setGuardianStudentList(state, students){
         state.guardianStudentList=students.data;
+    },
+    setPurchaseHistory(state, purchases){
+        state.purchaseHistory=purchases.data;
     },
     setQuestionAnswerData(state, data){
         state.questionAnswerData=data.data;
@@ -392,6 +396,14 @@ const actions={
     loadGuardianNewPage({commit}, apiUrl){
         Axios.get(apiUrl)
             .then(response=>commit('setGuardianStudents', response.data));
+    },
+    loadPurchaseHistory({commit}, userId){
+        Axios.get('/api/purchases/'+userId)
+            .then(response=>commit('setPurchaseHistory', response.data));
+    },
+    loadPurchaseHistoryNewPage({commit}, apiUrl){
+        Axios.get(apiUrl)
+            .then(response=>commit('setPurchaseHistory', response.data));
     },
     loadQuestionAnswerData({commit},url){
         Axios.get(url)

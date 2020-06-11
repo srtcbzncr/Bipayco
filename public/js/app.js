@@ -6451,6 +6451,188 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/auth/purchase-history-page.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/auth/purchase-history-page.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "purchase-history-page",
+  data: function data() {
+    return {
+      reason: "",
+      selectedPageUrl: "/api/purchases/" + this.userId,
+      selectedIndex: 0
+    };
+  },
+  props: {
+    userId: {
+      type: String,
+      required: true
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['purchaseHistory']), {
+    pageNumber: function pageNumber() {
+      var pages = ['1'];
+      var index = 2;
+
+      for (var i = 2; index <= this.purchaseHistory.last_page; i++) {
+        if (i == 2 && this.purchaseHistory.current_page - 2 > 3) {
+          pages.push('...');
+
+          if (this.purchaseHistory.current_page + 3 > this.purchaseHistory.last_page) {
+            index = this.purchaseHistory.last_page - 6;
+          } else {
+            index = this.purchaseHistory.current_page - 2;
+          }
+        } else if (i == 8 && this.purchaseHistory.current_page + 2 < this.purchaseHistory.last_page - 2) {
+          pages.push('...');
+          index = this.purchaseHistory.last_page;
+        } else {
+          pages.push(index);
+          index++;
+        }
+      }
+
+      return pages;
+    }
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadMyCourses', 'loadPurchaseHistory', 'loadPurchaseHistoryNewPage']), {
+    openModal: function openModal(index) {
+      UIkit.modal('#reason', {
+        escClose: false,
+        bgClose: false
+      }).show();
+      this.selectedIndex = index;
+    },
+    sendRefundRequest: function sendRefundRequest() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/rebateCourse', {
+        reason: this.reason,
+        purchaseId: this.purchaseHistory.data[selectedIndex].id,
+        userId: this.userId
+      }).then(function (res) {
+        if (res.data.error) {
+          UIkit.notification({
+            message: res.data.message,
+            status: 'danger'
+          });
+        } else {
+          UIkit.notification({
+            message: res.data.message,
+            status: 'success'
+          });
+        }
+      });
+      this.$store.dispatch('loadMyCourses');
+      this.$store.dispatch('loadPurchaseHistoryNewPage', this.selectedPageUrl);
+      UIkit.modal('#reason').hide();
+      this.clearForm();
+    },
+    clearForm: function clearForm() {
+      this.reason = "";
+    },
+    loadNewPage: function loadNewPage(name) {
+      this.selectedPageUrl = name;
+      this.$store.dispatch('loadPurchaseHistoryNewPage', name);
+      this.selectedIndex = 0;
+    },
+    convertModule: function convertModule(moduleName) {
+      switch (moduleName) {
+        case "generalEducation":
+          return "ge";
+
+        case "prepareLessons":
+          return "pl";
+
+        case "prepareExams":
+          return "pe";
+      }
+    }
+  }),
+  created: function created() {
+    this.$store.dispatch('loadPurchaseHistory', this.userId);
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/cart-element.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/cart-element.vue?vue&type=script&lang=js& ***!
@@ -22633,6 +22815,362 @@ var render = function() {
   ])
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/auth/purchase-history-page.vue?vue&type=template&id=37430458&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/auth/purchase-history-page.vue?vue&type=template&id=37430458&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    [
+      _vm._l(_vm.purchaseHistory.data, function(purchase, index) {
+        return _vm.purchaseHistory.data && _vm.purchaseHistory.data.length > 0
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "uk-card uk-card-default border-radius-6 uk-card-small uk-grid-collapse",
+                attrs: { "uk-grid": "" }
+              },
+              [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-flex align-items-center uk-margin-medium-left"
+                  },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "uk-width-5-6 uk-margin",
+                        attrs: {
+                          href:
+                            "/" +
+                            _vm.convertModule(purchase.course.course_type) +
+                            "/course/" +
+                            purchase.course.id
+                        }
+                      },
+                      [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "uk-card-media-left uk-cover-container uk-width-1-4@s"
+                          },
+                          [
+                            _c("img", {
+                              attrs: {
+                                src: purchase.course.image,
+                                alt: "",
+                                "uk-cover": ""
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("canvas", {
+                              attrs: { width: "600", height: "400" }
+                            })
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "uk-width-3-4@s" }, [
+                          _c("div", { staticClass: "uk-card-body" }, [
+                            _c(
+                              "div",
+                              { staticClass: "uk-card-title" },
+                              [
+                                _c(
+                                  "h4",
+                                  {
+                                    staticClass: "uk-margin-remove",
+                                    staticStyle: {
+                                      overflow: "hidden",
+                                      "text-overflow": "ellipsis",
+                                      display: "-webkit-box",
+                                      "line-height": "25px",
+                                      "max-height": "25px",
+                                      "-webkit-line-clamp": "1",
+                                      "-webkit-box-orient": "vertical"
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(purchase.course.name))]
+                                ),
+                                _vm._v(" "),
+                                _c("stars-rating", {
+                                  attrs: { rating: purchase.course.point }
+                                })
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c("hr", { staticClass: "uk-margin-remove" }),
+                            _vm._v(" "),
+                            _c(
+                              "p",
+                              {
+                                staticStyle: {
+                                  overflow: "hidden",
+                                  "text-overflow": "ellipsis",
+                                  display: "-webkit-box",
+                                  "line-height": "16px",
+                                  "max-height": "32px",
+                                  "-webkit-line-clamp": "2",
+                                  "-webkit-box-orient": "vertical"
+                                }
+                              },
+                              [_vm._v(_vm._s(purchase.course.description))]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "uk-float-right uk-flex text-center  "
+                              },
+                              [
+                                _c("h5", { staticClass: "uk-margin-remove" }, [
+                                  _vm._v(
+                                    "\n                                " +
+                                      _vm._s(
+                                        purchase.course.price_with_discount
+                                      ) +
+                                      "\n                                "
+                                  ),
+                                  _c("i", {
+                                    staticClass: "fas fa-lira-sign icon-tiny"
+                                  })
+                                ])
+                              ]
+                            )
+                          ])
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    purchase.course.rebate
+                      ? _c("div", { staticClass: "uk-width-1-6 text-center" }, [
+                          _c(
+                            "a",
+                            {
+                              on: {
+                                click: function($event) {
+                                  return _vm.openModal(index)
+                                }
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-trash-alt text-danger"
+                              })
+                            ]
+                          )
+                        ])
+                      : _vm._e()
+                  ]
+                )
+              ]
+            )
+          : _vm._e()
+      }),
+      _vm._v(" "),
+      _vm.purchaseHistory.data && _vm.purchaseHistory.data.length > 0
+        ? _c(
+            "ul",
+            {
+              staticClass:
+                "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+            },
+            [
+              _c("li", [
+                _c(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.purchaseHistory.current_page > 1,
+                        expression: "purchaseHistory.current_page>1"
+                      }
+                    ],
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(
+                          _vm.purchaseHistory.prev_page_url
+                        )
+                      }
+                    }
+                  },
+                  [_vm._v(" < ")]
+                )
+              ]),
+              _vm._v(" "),
+              _vm._l(_vm.pageNumber, function(page) {
+                return _c("li", [
+                  page == "..."
+                    ? _c("button", { staticClass: "uk-disabled" }, [
+                        _vm._v(_vm._s(page))
+                      ])
+                    : page == _vm.purchaseHistory.current_page
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "uk-background-default uk-disabled",
+                          on: {
+                            click: function($event) {
+                              return _vm.loadNewPage(
+                                "/api/purchases/" +
+                                  this.userId +
+                                  "?page=" +
+                                  page
+                              )
+                            }
+                          }
+                        },
+                        [_vm._v(_vm._s(page))]
+                      )
+                    : _c(
+                        "button",
+                        {
+                          on: {
+                            click: function($event) {
+                              return _vm.loadNewPage(
+                                "/api/purchases/" +
+                                  this.userId +
+                                  "?page=" +
+                                  page
+                              )
+                            }
+                          }
+                        },
+                        [_vm._v(_vm._s(page))]
+                      )
+                ])
+              }),
+              _vm._v(" "),
+              _c("li", [
+                _c(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value:
+                          _vm.purchaseHistory.current_page <
+                          _vm.purchaseHistory.last_page,
+                        expression:
+                          "purchaseHistory.current_page<purchaseHistory.last_page"
+                      }
+                    ],
+                    on: {
+                      click: function($event) {
+                        return _vm.loadNewPage(
+                          _vm.purchaseHistory.next_page_url
+                        )
+                      }
+                    }
+                  },
+                  [_vm._v(" > ")]
+                )
+              ])
+            ],
+            2
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { attrs: { id: "reason", "uk-modal": "" } }, [
+        _c("div", { staticClass: "uk-modal-dialog" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
+            [
+              _c("div", { staticClass: "uk-label" }, [_vm._v("İade Sebebi")]),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.reason,
+                    expression: "reason"
+                  }
+                ],
+                staticClass: "uk-input",
+                attrs: { required: "", type: "text" },
+                domProps: { value: _vm.reason },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.reason = $event.target.value
+                  }
+                }
+              })
+            ]
+          ),
+          _vm._v(" "),
+          _vm._m(1)
+        ])
+      ])
+    ],
+    2
+  )
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-modal-header" }, [
+      _c("h2", { staticClass: "uk-modal-title" }, [_vm._v("İade Sbebi")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "uk-modal-footer uk-text-right" }, [
+      _c(
+        "button",
+        {
+          staticClass: "uk-button uk-button-default uk-modal-close",
+          attrs: { type: "button" }
+        },
+        [_vm._v("Vazgeç")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "uk-button uk-button-primary",
+          attrs: { type: "button" }
+        },
+        [_vm._v("İade Et")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -48505,6 +49043,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('questions-page', __webpack
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('provinces', __webpack_require__(/*! ./components/auth/province.vue */ "./resources/js/components/auth/province.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('favorites-paginate', __webpack_require__(/*! ./components/auth/favorites-paginate.vue */ "./resources/js/components/auth/favorites-paginate.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('course-progress-card', __webpack_require__(/*! ./components/auth/course-progress-card.vue */ "./resources/js/components/auth/course-progress-card.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('purchase-history-page', __webpack_require__(/*! ./components/auth/purchase-history-page.vue */ "./resources/js/components/auth/purchase-history-page.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('cart-page', __webpack_require__(/*! ./components/auth/cart-page.vue */ "./resources/js/components/auth/cart-page.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('instructor-profile-courses', __webpack_require__(/*! ./components/auth/instructor_profile_courses.vue */ "./resources/js/components/auth/instructor_profile_courses.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('notification-area', __webpack_require__(/*! ./components/top-bar/notification-area.vue */ "./resources/js/components/top-bar/notification-area.vue")["default"]);
@@ -50039,6 +50578,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_province_vue_vue_type_template_id_35369808___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_province_vue_vue_type_template_id_35369808___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/auth/purchase-history-page.vue":
+/*!****************************************************************!*\
+  !*** ./resources/js/components/auth/purchase-history-page.vue ***!
+  \****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _purchase_history_page_vue_vue_type_template_id_37430458_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./purchase-history-page.vue?vue&type=template&id=37430458&scoped=true& */ "./resources/js/components/auth/purchase-history-page.vue?vue&type=template&id=37430458&scoped=true&");
+/* harmony import */ var _purchase_history_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./purchase-history-page.vue?vue&type=script&lang=js& */ "./resources/js/components/auth/purchase-history-page.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _purchase_history_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _purchase_history_page_vue_vue_type_template_id_37430458_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _purchase_history_page_vue_vue_type_template_id_37430458_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "37430458",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/auth/purchase-history-page.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/auth/purchase-history-page.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/components/auth/purchase-history-page.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_purchase_history_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./purchase-history-page.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/auth/purchase-history-page.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_purchase_history_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/auth/purchase-history-page.vue?vue&type=template&id=37430458&scoped=true&":
+/*!***********************************************************************************************************!*\
+  !*** ./resources/js/components/auth/purchase-history-page.vue?vue&type=template&id=37430458&scoped=true& ***!
+  \***********************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_purchase_history_page_vue_vue_type_template_id_37430458_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./purchase-history-page.vue?vue&type=template&id=37430458&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/auth/purchase-history-page.vue?vue&type=template&id=37430458&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_purchase_history_page_vue_vue_type_template_id_37430458_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_purchase_history_page_vue_vue_type_template_id_37430458_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -52988,7 +53596,8 @@ var state = {
   guardianStudents: {},
   guardianStudentList: {},
   questionAnswerData: [],
-  loadingStatus: false
+  loadingStatus: false,
+  purchaseHistory: {}
 };
 var getters = {};
 var mutations = {
@@ -53117,6 +53726,9 @@ var mutations = {
   },
   setGuardianStudentList: function setGuardianStudentList(state, students) {
     state.guardianStudentList = students.data;
+  },
+  setPurchaseHistory: function setPurchaseHistory(state, purchases) {
+    state.purchaseHistory = purchases.data;
   },
   setQuestionAnswerData: function setQuestionAnswerData(state, data) {
     state.questionAnswerData = data.data;
@@ -53438,8 +54050,20 @@ var actions = {
       return commit('setGuardianStudents', response.data);
     });
   },
-  loadQuestionAnswerData: function loadQuestionAnswerData(_ref64, url) {
+  loadPurchaseHistory: function loadPurchaseHistory(_ref64, userId) {
     var commit = _ref64.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/purchases/' + userId).then(function (response) {
+      return commit('setPurchaseHistory', response.data);
+    });
+  },
+  loadPurchaseHistoryNewPage: function loadPurchaseHistoryNewPage(_ref65, apiUrl) {
+    var commit = _ref65.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(apiUrl).then(function (response) {
+      return commit('setPurchaseHistory', response.data);
+    });
+  },
+  loadQuestionAnswerData: function loadQuestionAnswerData(_ref66, url) {
+    var commit = _ref66.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
       return commit('setQuestionAnswerData', response.data);
     });

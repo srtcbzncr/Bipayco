@@ -43,6 +43,7 @@ Vue.component('questions-page', require('./components/instructor/questions-page.
 Vue.component('provinces', require('./components/auth/province.vue').default);
 Vue.component('favorites-paginate', require('./components/auth/favorites-paginate.vue').default);
 Vue.component('course-progress-card', require('./components/auth/course-progress-card.vue').default);
+Vue.component('purchase-history-page', require('./components/auth/purchase-history-page.vue').default);
 Vue.component('cart-page', require('./components/auth/cart-page.vue').default);
 Vue.component('instructor-profile-courses', require('./components/auth/instructor_profile_courses.vue').default);
 
