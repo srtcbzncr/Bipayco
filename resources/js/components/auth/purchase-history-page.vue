@@ -27,7 +27,7 @@
                     </div>
                 </a>
                 <div v-if="purchase.course.isRebate" class="uk-width-1-6@s uk-padding-small auto-border uk-flex uk-flex-center">
-                    <button class="uk-button uk-button-link  text-danger" @click="openModal(index)">İade Talebi Oluştur</button>
+                    <button class="uk-button uk-button-link  text-danger" @click="openModal(index)">{{createRefundRequestText}}</button>
                 </div>
             </div>
         </div>
@@ -44,18 +44,21 @@
                 <button v-show="purchaseHistory.current_page<purchaseHistory.last_page" @click="loadNewPage(purchaseHistory.next_page_url)"> > </button>
             </li>
         </ul>
+        <div v-else class="uk-flex align-items-center justify-content-center">
+            <h2>{{noContentText}}</h2>
+        </div>
         <div id="reason" uk-modal>
             <div class="uk-modal-dialog">
                 <div class="uk-modal-header">
-                    <h2 class="uk-modal-title">İade Sbebi</h2>
+                    <h2 class="uk-modal-title">{{refundReasonText}}</h2>
                 </div>
                 <div class="uk-modal-body" uk-overflow-auto>
-                    <div class="uk-form-label">İade Sebebi</div>
+                    <div class="uk-form-label">{{refundReasonText}}</div>
                     <input v-model="reason" required class="uk-input" type="text">
                 </div>
                 <div class="uk-modal-footer uk-text-right">
-                    <button class="uk-button uk-button-default uk-modal-close" @click="clearForm" type="button">Vazgeç</button>
-                    <button class="uk-button uk-button-primary" @click="sendRefundRequest" type="button">İade Et</button>
+                    <button class="uk-button uk-button-default uk-modal-close" @click="clearForm" type="button">{{cancelText}}</button>
+                    <button class="uk-button uk-button-primary" @click="sendRefundRequest" type="button">{{doRefundText}}</button>
                 </div>
             </div>
         </div>
@@ -83,6 +86,30 @@
                 type:String,
                 default:'Satın Alım Tarihi'
             },
+            noContentText:{
+                type:String,
+                default:"Kayıt Bulunamadı"
+            },
+            refundReasonText:{
+                type:String,
+                default:"İade Sebebi",
+            },
+            refundText:{
+                type:String,
+                default:"İade",
+            },
+            doRefundText:{
+                type:String,
+                default:"İade Et",
+            },
+            cancelText:{
+                type:String,
+                default:"Vazgeç",
+            },
+            createRefundRequestText:{
+                type:String,
+                default:"İade Talebi Oluştur"
+            }
         },
         computed:{
             ...mapState([

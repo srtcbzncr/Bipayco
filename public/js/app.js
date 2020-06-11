@@ -6533,6 +6533,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6552,6 +6555,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     purchaseDate: {
       type: String,
       "default": 'Satın Alım Tarihi'
+    },
+    noContentText: {
+      type: String,
+      "default": "Kayıt Bulunamadı"
+    },
+    refundReasonText: {
+      type: String,
+      "default": "İade Sebebi"
+    },
+    refundText: {
+      type: String,
+      "default": "İade"
+    },
+    doRefundText: {
+      type: String,
+      "default": "İade Et"
+    },
+    cancelText: {
+      type: String,
+      "default": "Vazgeç"
+    },
+    createRefundRequestText: {
+      type: String,
+      "default": "İade Talebi Oluştur"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['purchaseHistory']), {
@@ -23049,7 +23076,7 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v("İade Talebi Oluştur")]
+                            [_vm._v(_vm._s(_vm.createRefundRequestText))]
                           )
                         ]
                       )
@@ -23164,18 +23191,28 @@ var render = function() {
             ],
             2
           )
-        : _vm._e(),
+        : _c(
+            "div",
+            {
+              staticClass: "uk-flex align-items-center justify-content-center"
+            },
+            [_c("h2", [_vm._v(_vm._s(_vm.noContentText))])]
+          ),
       _vm._v(" "),
       _c("div", { attrs: { id: "reason", "uk-modal": "" } }, [
         _c("div", { staticClass: "uk-modal-dialog" }, [
-          _vm._m(0),
+          _c("div", { staticClass: "uk-modal-header" }, [
+            _c("h2", { staticClass: "uk-modal-title" }, [
+              _vm._v(_vm._s(_vm.refundReasonText))
+            ])
+          ]),
           _vm._v(" "),
           _c(
             "div",
             { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
             [
               _c("div", { staticClass: "uk-form-label" }, [
-                _vm._v("İade Sebebi")
+                _vm._v(_vm._s(_vm.refundReasonText))
               ]),
               _vm._v(" "),
               _c("input", {
@@ -23210,7 +23247,7 @@ var render = function() {
                 attrs: { type: "button" },
                 on: { click: _vm.clearForm }
               },
-              [_vm._v("Vazgeç")]
+              [_vm._v(_vm._s(_vm.cancelText))]
             ),
             _vm._v(" "),
             _c(
@@ -23220,7 +23257,7 @@ var render = function() {
                 attrs: { type: "button" },
                 on: { click: _vm.sendRefundRequest }
               },
-              [_vm._v("İade Et")]
+              [_vm._v(_vm._s(_vm.doRefundText))]
             )
           ])
         ])
@@ -23229,16 +23266,7 @@ var render = function() {
     2
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "uk-modal-header" }, [
-      _c("h2", { staticClass: "uk-modal-title" }, [_vm._v("İade Sbebi")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
