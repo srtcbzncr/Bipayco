@@ -210,7 +210,7 @@ class RebateRepository implements IRepository
         }
         catch(\Exception $e){
             DB::rollBack();
-            $error = $e->getMessage();
+            $error = "İade işlemi yapılırken bir hata meydana geldi. Tekrar deneyin.";
             $result = false;
         }
 
