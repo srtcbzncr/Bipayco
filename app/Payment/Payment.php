@@ -194,6 +194,20 @@ class Payment
 
         $rebate = \Iyzipay\Model\Refund::create($request, $options);
         return $rebate;
-}
+    }
+
+    public function detail($ip, $payment_id){
+        $options = new Options();
+        $options->setApiKey('OvGVgeJc3cxWABZYUhGsXB44dUo9d3xB');
+        $options->setSecretKey('xEgG4Q3Xsadaj9t3SphScKK5hoUU1pG2');
+        $options->setBaseUrl('https://api.iyzipay.com');
+
+        $request = new \Iyzipay\Request\RetrievePaymentRequest();
+        $request->setLocale(\Iyzipay\Model\Locale::TR);
+        $request->setConversationId($payment_id);
+        $request->setPaymentId($payment_id);
+
+        $payment = \Iyzipay\Model\Payment::retrieve($request, $options);
+    }
 
 }
