@@ -208,6 +208,7 @@ class Payment
         $request->setPaymentId($payment_id);
 
         $payment = \Iyzipay\Model\Payment::retrieve($request, $options);
+        return $payment;
     }
 
 }
