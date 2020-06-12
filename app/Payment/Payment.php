@@ -196,7 +196,7 @@ class Payment
         return $rebate;
     }
 
-    public function detail($ip, $payment_id){
+    public function detail($payment_id){
         $options = new Options();
         $options->setApiKey('OvGVgeJc3cxWABZYUhGsXB44dUo9d3xB');
         $options->setSecretKey('xEgG4Q3Xsadaj9t3SphScKK5hoUU1pG2');
