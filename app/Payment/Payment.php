@@ -211,4 +211,19 @@ class Payment
         return $payment;
     }
 
+    public function confirm($payment_transaction_id){
+        $options = new Options();
+        $options->setApiKey('OvGVgeJc3cxWABZYUhGsXB44dUo9d3xB');
+        $options->setSecretKey('xEgG4Q3Xsadaj9t3SphScKK5hoUU1pG2');
+        $options->setBaseUrl('https://api.iyzipay.com');
+
+        $request = new \Iyzipay\Request\CreateApprovalRequest();
+        $request->setLocale(Locale::TR);
+        $request->setConversationId($payment_transaction_id);
+        $request->setPaymentTransactionId($payment_transaction_id);
+
+        $approval = \Iyzipay\Model\Approval::create($request, $options);
+        return $approval;
+    }
+
 }
