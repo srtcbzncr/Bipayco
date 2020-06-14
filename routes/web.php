@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/iyzico/registerSubMerchants', 'Iyzico\ConfirmController@register')->name('iyzico_register');
 Route::post('/iyzico/confirm', 'Iyzico\ConfirmController@confirm')->name('iyzico_confirm');
 Route::get('/', 'HomeController@index')->name('home'); // pe_ok
 Route::get('register', 'Auth\AuthController@registerGet')->name('registerGet');

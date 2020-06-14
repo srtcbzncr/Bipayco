@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Iyzico;
 
 use App\Http\Controllers\Controller;
+use App\Models\Auth\Instructor;
 use DateTime;
 use DateTimeZone;
 use Illuminate\Http\Request;
@@ -34,5 +35,23 @@ class ConfirmController extends Controller
         $datetime = new DateTime();
         $datetime->setTimezone($tz_object);
         return $datetime;
+    }
+
+    public function register(Request $request){
+        $instructors = Instructor::all();
+        $payment = new Payment();
+        $count = 0;
+
+        foreach($instructors as $instructor){
+            if($instructor->sub_merchant_key == null){
+                $result = $payment->createSubMerchant($instructor);
+                if($result->getStatus() == 'success'){
+                    $instructor->sub_merchant_key = $result->getSubMerchantKey();
+                    $instructor->save();
+                    $count += 1;
+                }
+            }
+        }
+        return response($count);
     }
 }
