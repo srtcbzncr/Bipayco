@@ -5,14 +5,14 @@
         </div>
         <div class="uk-background-default uk-padding-remove uk-margin-small-top border-radius-6">
             <table id="categoryTable" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0">
-                <thead v-if="adminCategory.data&&adminCategory.data>0">
+                <thead v-if="adminCategory.data&&adminCategory.data.length>0">
                     <tr>
                         <th>{{categoryNameText}}</th>
                         <th>{{descriptionText}}</th>
                         <th></th>
                     </tr>
                 </thead>
-                <tbody v-if="adminCategory.data&&adminCategory.data>0">
+                <tbody v-if="adminCategory.data&&adminCategory.data.length>0">
                 <tr v-for="(item, index) in adminCategory.data">
                     <td @click="routeSubCategories(item.id)" class="uk-width-1-4"><p>{{item.name}}</p></td>
                     <td @click="routeSubCategories(item.id)" class="uk-width-1-2"><p>{{item.description}}</p></td>
@@ -29,7 +29,7 @@
                 </div>
             </table>
         </div>
-        <ul v-if="adminCategory.data&&adminCategory.data>0" class="uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
+        <ul v-if="adminCategory.data&&adminCategory.data.length>0" class="uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
             <li>
                 <button v-show="adminCategory.current_page>1" @click="loadNewPage(adminCategory.prev_page_url)"> < </button>
             </li>

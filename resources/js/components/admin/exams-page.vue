@@ -5,13 +5,13 @@
         </div>
         <div class="uk-background-default uk-padding-remove uk-margin-small-top border-radius-6">
             <table id="categoryTable" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0">
-                <thead v-if="adminExam.data&&adminExam.data>0">
+                <thead v-if="adminExam.data&&adminExam.data.length>0">
                 <tr>
                     <th>{{examNameText}}</th>
                     <th></th>
                 </tr>
                 </thead>
-                <tbody v-if="adminExam.data&&adminExam.data>0">
+                <tbody v-if="adminExam.data&&adminExam.data.length>0">
                 <tr v-for="item in adminExam.data">
                     <td class="uk-width-3-4"><p>{{item.name}}</p></td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-around">
@@ -25,7 +25,7 @@
                 </div>
             </table>
         </div>
-        <ul v-if="adminExam.data&&adminExam.data>0" class="uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
+        <ul v-if="adminExam.data&&adminExam.data.length>0" class="uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
             <li>
                 <button v-show="adminExam.current_page>1" @click="loadNewPage(adminExam.prev_page_url)"> < </button>
             </li>

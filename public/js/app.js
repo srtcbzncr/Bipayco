@@ -17451,7 +17451,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            _vm.adminCategory.data && _vm.adminCategory.data > 0
+            _vm.adminCategory.data && _vm.adminCategory.data.length > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.categoryNameText))]),
@@ -17463,7 +17463,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.adminCategory.data && _vm.adminCategory.data > 0
+            _vm.adminCategory.data && _vm.adminCategory.data.length > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminCategory.data, function(item, index) {
@@ -17583,7 +17583,7 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm.adminCategory.data && _vm.adminCategory.data > 0
+    _vm.adminCategory.data && _vm.adminCategory.data.length > 0
       ? _c(
           "ul",
           {
@@ -17965,7 +17965,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            _vm.adminCity.data && _vm.adminCity.data > 0
+            _vm.adminCity.data && _vm.adminCity.data.length > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.cityNameText))]),
@@ -17977,7 +17977,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.adminCity.data && _vm.adminCity.data > 0
+            _vm.adminCity.data && _vm.adminCity.data.length > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminCity.data, function(item) {
@@ -18097,7 +18097,7 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm.adminCity.data && _vm.adminCity.data > 0
+    _vm.adminCity.data && _vm.adminCity.data.length > 0
       ? _c(
           "ul",
           {
@@ -18426,7 +18426,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            _vm.adminDistrict.data && _vm.adminDistrict.data > 0
+            _vm.adminDistrict.data && _vm.adminDistrict.data.length > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.districtNameText))]),
@@ -18436,7 +18436,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.adminDistrict.data && _vm.adminDistrict.data > 0
+            _vm.adminDistrict.data && _vm.adminDistrict.data.length > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminDistrict.data, function(item) {
@@ -18534,7 +18534,7 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm.adminDistrict.data && _vm.adminDistrict.data > 0
+    _vm.adminDistrict.data && _vm.adminDistrict.data.length > 0
       ? _c(
           "ul",
           {
@@ -18761,7 +18761,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            _vm.adminExam.data && _vm.adminExam.data > 0
+            _vm.adminExam.data && _vm.adminExam.data.length > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.examNameText))]),
@@ -18771,7 +18771,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.adminExam.data && _vm.adminExam.data > 0
+            _vm.adminExam.data && _vm.adminExam.data.length > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminExam.data, function(item) {
@@ -18835,7 +18835,7 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm.adminExam.data && _vm.adminExam.data > 0
+    _vm.adminExam.data && _vm.adminExam.data.length > 0
       ? _c(
           "ul",
           {
@@ -19097,7 +19097,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            _vm.adminGrade.data && _vm.adminGrade.data > 0
+            _vm.adminGrade.data && _vm.adminGrade.data.length > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.gradeNameText))]),
@@ -19107,7 +19107,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.adminGrade.data && _vm.adminGrade.data > 0
+            _vm.adminGrade.data && _vm.adminGrade.data.length > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminGrade.data, function(item) {
@@ -19171,7 +19171,7 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm.adminGrade.data && _vm.adminGrade.data > 0
+    _vm.adminGrade.data && _vm.adminGrade.data.length > 0
       ? _c(
           "ul",
           {
@@ -20107,7 +20107,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            _vm.adminLesson.data && _vm.adminLesson.data > 0
+            _vm.adminLesson.data && _vm.adminLesson.data.length > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.lessonNameText))]),
@@ -20117,7 +20117,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.adminLesson.data && _vm.adminLesson.data > 0
+            _vm.adminLesson.data && _vm.adminLesson.data.length > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminLesson.data, function(item) {
@@ -20190,7 +20190,7 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm.adminLesson.data && _vm.adminLesson.data > 0
+    _vm.adminLesson.data && _vm.adminLesson.data.length > 0
       ? _c(
           "ul",
           {
@@ -20524,7 +20524,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            _vm.adminSubCategory.data && _vm.adminSubCategory.data > 0
+            _vm.adminSubCategory.data && _vm.adminSubCategory.data.length > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.subCategoryNameText))]),
@@ -20536,7 +20536,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.adminSubCategory.data && _vm.adminSubCategory.data > 0
+            _vm.adminSubCategory.data && _vm.adminSubCategory.data.length > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminSubCategory.data, function(item) {
@@ -20638,7 +20638,7 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm.adminSubCategory.data && _vm.adminSubCategory.data > 0
+    _vm.adminSubCategory.data && _vm.adminSubCategory.data.length > 0
       ? _c(
           "ul",
           {
@@ -21052,7 +21052,7 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            _vm.adminSubject.data && _vm.adminSubject.data > 0
+            _vm.adminSubject.data && _vm.adminSubject.data.length > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.subjectNameText))]),
@@ -21062,7 +21062,7 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.adminSubject.data && _vm.adminSubject.data > 0
+            _vm.adminSubject.data && _vm.adminSubject.data.length > 0
               ? _c(
                   "tbody",
                   _vm._l(_vm.adminSubject.data, function(item) {
@@ -21126,7 +21126,7 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
-    _vm.adminSubject.data && _vm.adminSubject.data > 0
+    _vm.adminSubject.data && _vm.adminSubject.data.length > 0
       ? _c(
           "ul",
           {
