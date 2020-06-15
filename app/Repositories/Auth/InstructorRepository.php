@@ -14,6 +14,7 @@ use App\Models\GeneralEducation\Purchase;
 use App\Models\GeneralEducation\Question;
 use App\Models\GeneralEducation\Section;
 use App\Models\GeneralEducation\SubCategory;
+use App\Models\Iyzico\BasketItems;
 use App\Models\UsersOperations\Basket;
 use App\Models\UsersOperations\Favorite;
 use App\Payment\Payment;
@@ -825,6 +826,47 @@ class InstructorRepository implements IRepository{
             }
             $object['totalQuestions'] = $totalQuestions;
             $object['notAnsweredQuestions'] = $notAnsweredQuestions;
+
+            // bekleyen ödemeler ve gerçekleşen ödemeleri döndür: iyzico_basket tablosu fraud status
+            $iyzico_basket_ids = array();
+            foreach ($courses as $item){
+                if($item->course_type == 'App\Models\GeneralEducation\Course'){
+                    $purchases = Purchase::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\GeneralEducation\Course')->where('confirmation',1)->get();
+                    foreach ($purchases as $purchase){
+                        $iy_bas_item = BasketItems::where('purchase_id',$purchase->id)->where('course_id',$item->course_id)->where('deleted_at',null)->first();
+                        array_push($iyzico_basket_ids,$iy_bas_item->iyzico_basket_id);
+                    }
+                }
+                else if($item->course_type == 'App\Models\PrepareLessons\Course'){
+                    $purchases = Purchase::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\PrepareLessons\Course')->where('confirmation',1)->get();
+                    foreach ($purchases as $purchase){
+                        $iy_bas_item = BasketItems::where('purchase_id',$purchase->id)->where('course_id',$item->course_id)->where('deleted_at',null)->first();
+                        array_push($iyzico_basket_ids,$iy_bas_item->iyzico_basket_id);
+                    }
+                }
+                else if($item->course_type == 'App\Models\PrepareExams\Course'){
+                    $purchases = Purchase::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\PrepareExams\Course')->where('confirmation',1)->get();
+                    foreach ($purchases as $purchase){
+                        $iy_bas_item = BasketItems::where('purchase_id',$purchase->id)->where('course_id',$item->course_id)->where('deleted_at',null)->first();
+                        array_push($iyzico_basket_ids,$iy_bas_item->iyzico_basket_id);
+                    }
+                }
+            }
+            $new_iyzico_basket_ids = array_unique($iyzico_basket_ids);
+            $pendind_payments = 0;
+            $made_payments = 0;
+            foreach ($new_iyzico_basket_ids as $id){
+                $iyzico_basket = \App\Models\Iyzico\Basket::find($id);
+                if($iyzico_basket->fraud_status == 0){
+                    $pendind_payments++;
+                }
+                else if($iyzico_basket->fraud_status == 1){
+                    $made_payments++;
+                }
+            }
+
+            $object['pending_payments'] = $pendind_payments;
+            $object['made_payments'] = $made_payments;
         }
         catch (\Exception $e){
             $error = $e->getMessage();
