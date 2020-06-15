@@ -248,4 +248,6 @@ return [
     'payment_successfully'=>'Ödeme işlemi başarıyla gerçekleşti',
     'payment_error'=>'Ödeme işlemi gerçekleştirilirken bir hata meydana geldi',
     'purchase_history'=>'Satın Alma Geçmişi',
+    'no_content'=>'İçerik bulunmuyor',
+    
 ];

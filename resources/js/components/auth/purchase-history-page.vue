@@ -27,7 +27,7 @@
                     </div>
                 </a>
                 <div v-if="purchase.course.isRebate" class="uk-width-1-6@s uk-padding-small auto-border uk-flex uk-flex-center">
-                    <button class="uk-button uk-button-link  text-danger" @click="openModal(index)">{{createRefundRequestText}}</button>
+                    <button class="uk-button uk-button-link  text-danger" @click="openModal(index)">{{php}}</button>
                 </div>
             </div>
         </div>
@@ -158,7 +158,7 @@
                         }else{
                             UIkit.notification({message:res.data.message, status: 'success'});
                         }
-                    });
+                    }).catch((res)=>{UIkit.notification({message:res.data.errorMessage, status: 'danger'})});
                 this.$store.dispatch('loadMyCourses', this.userId);
                 this.$store.dispatch('loadPurchaseHistoryNewPage', this.selectedPageUrl);
                 UIkit.modal('#reason').hide();
