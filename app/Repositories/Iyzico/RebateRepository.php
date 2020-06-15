@@ -173,8 +173,11 @@ class RebateRepository implements IRepository
                 $rebate->save();
 
                 //iyzico_basket_items tablosundna iade edilecek ürünü getir.
-                $iyzico_basket_items = BasketItems::where('purchase_id',$purchase->id)->where('course_type',$course_type)->where('course_id',$course_id)->where('deleted_at',null)->first();
-
+                $iyzico_basket_items = null;
+                $iyzico_basket_items = BasketItems::where('purchase_id',$purchase->id)->where('transaction_status',1)->where('course_type',$course_type)->where('course_id',$course_id)->where('deleted_at',null)->first();
+                if($iyzico_basket_items ==null){
+                    $iyzico_basket_items = BasketItems::where('purchase_id',$purchase->id)->where('transaction_status',2)->where('course_type',$course_type)->where('course_id',$course_id)->where('deleted_at',null)->first();
+                }
                 // iyzico iade oluştur.
                 $payment = new Payment();
                 $payment_result=$payment->rebate(Request::ip(),$purchase->price,$iyzico_basket_items->payment_transaction_id,$rebate->id);
