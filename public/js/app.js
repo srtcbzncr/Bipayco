@@ -6583,6 +6583,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     createRefundRequestText: {
       type: String,
       "default": "İade Talebi Oluştur"
+    },
+    errorMessageText: {
+      type: String,
+      "default": "İade işlemi başarısız oldu. Tekrar deneyiniz"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['purchaseHistory']), {
@@ -6623,6 +6627,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.selectedIndex = index;
     },
     sendRefundRequest: function sendRefundRequest() {
+      var _this = this;
+
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/rebateCourse', {
         message: this.reason,
         purchases_id: this.selectedPurchase.id,
@@ -6631,6 +6637,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         course_type: this.selectedPurchase.course.course_type,
         user_id: this.userId
       }).then(function (res) {
+        console.log(res);
+
         if (res.data.error) {
           UIkit.notification({
             message: res.data.message,
@@ -6642,9 +6650,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             status: 'success'
           });
         }
-      })["catch"](function (res) {
+      })["catch"](function () {
         UIkit.notification({
-          message: res.data.errorMessage,
+          message: _this.errorMessageText,
           status: 'danger'
         });
       });

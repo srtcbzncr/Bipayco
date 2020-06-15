@@ -109,6 +109,10 @@
             createRefundRequestText:{
                 type:String,
                 default:"İade Talebi Oluştur"
+            },
+            errorMessageText:{
+                type:String,
+                default:"İade işlemi başarısız oldu. Tekrar deneyiniz"
             }
         },
         computed:{
@@ -153,12 +157,13 @@
             sendRefundRequest:function () {
                 Axios.post('/api/rebateCourse',{message:this.reason, purchases_id:this.selectedPurchase.id, student_id:this.selectedPurchase.student_id,  course_id:this.selectedPurchase.course.id, course_type:this.selectedPurchase.course.course_type, user_id:this.userId})
                     .then((res)=>{
+                        console.log(res);
                         if(res.data.error){
                             UIkit.notification({message:res.data.message, status: 'danger'});
                         }else{
                             UIkit.notification({message:res.data.message, status: 'success'});
                         }
-                    }).catch((res)=>{UIkit.notification({message:res.data.errorMessage, status: 'danger'})});
+                    }).catch(()=>{UIkit.notification({message:this.errorMessageText, status: 'danger'})});
                 this.$store.dispatch('loadMyCourses', this.userId);
                 this.$store.dispatch('loadPurchaseHistoryNewPage', this.selectedPageUrl);
                 UIkit.modal('#reason').hide();
