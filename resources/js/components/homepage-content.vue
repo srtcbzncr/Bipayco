@@ -92,7 +92,11 @@
                 'urlForCourseCard',
             ]),
             url(){
-                return '/api/home/'+this.module+'/'+this.userId;
+                if(this.userId!=''){
+                    return '/api/home/'+this.module+'/'+this.userId;
+                }else{
+                    return '/api/home/'+this.module;
+                }
             }
         },
         methods:{

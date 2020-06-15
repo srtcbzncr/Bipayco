@@ -93,8 +93,8 @@
             ...mapActions([
                 'loadUrlForCourseCard',
             ]),
-            loadNewPage: function(name){
-                this.$store.dispatch('loadUrlForCourseCard', name);
+            loadNewPage: function(pageNumber){
+                this.currentPage=pageNumber;
             },
             convertModule:function(moduleName){
                 switch(moduleName){
@@ -106,7 +106,11 @@
             }
         },
         created() {
-            this.$store.dispatch('loadUrlForCourseCard', '/api/search/'+this.tag+'/'+this.userId);
+            if(this.userId!=''){
+                this.$store.dispatch('loadUrlForCourseCard', '/api/search/'+this.tag+'/'+this.userId);
+            }else{
+                this.$store.dispatch('loadUrlForCourseCard', '/api/search/'+this.tag);
+            }
         },
     }
 </script>

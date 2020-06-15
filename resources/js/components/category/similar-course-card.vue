@@ -61,7 +61,11 @@
                 'courseCard'
             ]),
             url(){
-                return '/api/'+this.module+'/similarCourses/'+this.courseId+'/'+this.userId;
+                if(this.userId!=''){
+                    return '/api/'+this.module+'/similarCourses/'+this.courseId+'/'+this.userId;
+                }else{
+                    return '/api/'+this.module+'/similarCourses/'+this.courseId;
+                }
             }
         },
         methods:{

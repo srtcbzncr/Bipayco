@@ -6375,7 +6375,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseCard', 'urlForCourseCard'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCourseCard', 'loadUrlForCourseCard'])),
   created: function created() {
-    this.$store.dispatch('loadUrlForCourseCard', '/api/profile/instructor/' + this.instructorId + '/' + this.userId);
+    if (this.userId != '') {
+      this.$store.dispatch('loadUrlForCourseCard', '/api/profile/instructor/' + this.instructorId + '/' + this.userId);
+    } else {
+      this.$store.dispatch('loadUrlForCourseCard', '/api/profile/instructor/' + this.instructorId);
+    }
   }
 });
 
@@ -6638,6 +6642,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             status: 'success'
           });
         }
+      })["catch"](function (res) {
+        UIkit.notification({
+          message: res.data.errorMessage,
+          status: 'danger'
+        });
       });
       this.$store.dispatch('loadMyCourses', this.userId);
       this.$store.dispatch('loadPurchaseHistoryNewPage', this.selectedPageUrl);
@@ -7138,10 +7147,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCategoryCourses', 'loadUrlForCourseCard', 'loadNewPageCourses']), {
+    urlCreate: function urlCreate(sortBy, id, userId, page) {
+      if (userId != '') {
+        return '/api/course/' + sortBy + '/' + id + '/' + userId + '?page=' + page;
+      } else {
+        return '/api/course/' + sortBy + '/' + id + '?page=' + page;
+      }
+    },
     loadCourseList: function loadCourseList() {
       var sort = document.getElementById('sortBy').value;
       this.$store.dispatch('loadCategoryCourses', [sort, this.id, this.userId]);
-      this.$store.dispatch('loadUrlForCourseCard', '/api/course/' + sort + '/' + this.id + '/' + this.userId);
+
+      if (this.userId != '') {
+        this.$store.dispatch('loadUrlForCourseCard', '/api/course/' + sort + '/' + this.id + '/' + this.userId);
+      } else {
+        this.$store.dispatch('loadUrlForCourseCard', '/api/course/' + sort + '/' + this.id);
+      }
     },
     loadNewPage: function loadNewPage(name, newPageNumber) {
       this.$store.dispatch('loadNewPageCourses', name);
@@ -7652,9 +7673,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCategoryCourses', 'loadUrlForCourseCard', 'loadNewPageCourses']), {
+    urlCreate: function urlCreate(sortBy, id, userId, page) {
+      if (userId != '') {
+        return '/api/course/' + sortBy + '/' + id + '/' + userId + '?page=' + page;
+      } else {
+        return '/api/course/' + sortBy + '/' + id + '?page=' + page;
+      }
+    },
     loadCourseList: function loadCourseList() {
       this.$store.dispatch('loadCategoryCourses', [this.sortBy, this.id, this.userId]);
-      this.$store.dispatch('loadUrlForCourseCard', '/api/course/' + this.sortBy + '/' + this.id + '/' + this.userId);
+
+      if (this.userId != '') {
+        this.$store.dispatch('loadUrlForCourseCard', '/api/course/' + sort + '/' + this.id + '/' + this.userId);
+      } else {
+        this.$store.dispatch('loadUrlForCourseCard', '/api/course/' + sort + '/' + this.id);
+      }
     },
     loadNewPage: function loadNewPage(name, newPageNumber) {
       this.$store.dispatch('loadNewPageCourses', name);
@@ -8023,7 +8056,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseCard']), {
     url: function url() {
-      return '/api/' + this.module + '/similarCourses/' + this.courseId + '/' + this.userId;
+      if (this.userId != '') {
+        return '/api/' + this.module + '/similarCourses/' + this.courseId + '/' + this.userId;
+      } else {
+        return '/api/' + this.module + '/similarCourses/' + this.courseId;
+      }
     }
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadUrlForCourseCard'])),
@@ -8959,7 +8996,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseCard', 'urlForCourseCard']), {
     url: function url() {
-      return '/api/home/' + this.module + '/' + this.userId;
+      if (this.userId != '') {
+        return '/api/home/' + this.module + '/' + this.userId;
+      } else {
+        return '/api/home/' + this.module;
+      }
     }
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCourseCard', 'loadUrlForCourseCard']), {
@@ -12815,8 +12856,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadUrlForCourseCard']), {
-    loadNewPage: function loadNewPage(name) {
-      this.$store.dispatch('loadUrlForCourseCard', name);
+    loadNewPage: function loadNewPage(pageNumber) {
+      this.currentPage = pageNumber;
     },
     convertModule: function convertModule(moduleName) {
       switch (moduleName) {
@@ -12835,7 +12876,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   created: function created() {
-    this.$store.dispatch('loadUrlForCourseCard', '/api/search/' + this.tag + '/' + this.userId);
+    if (this.userId != '') {
+      this.$store.dispatch('loadUrlForCourseCard', '/api/search/' + this.tag + '/' + this.userId);
+    } else {
+      this.$store.dispatch('loadUrlForCourseCard', '/api/search/' + this.tag);
+    }
   }
 });
 
@@ -23076,7 +23121,7 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v(_vm._s(_vm.createRefundRequestText))]
+                            [_vm._v(_vm._s(_vm.php))]
                           )
                         ]
                       )
@@ -23790,16 +23835,7 @@ var render = function() {
                           staticClass: "uk-background-default uk-disabled",
                           on: {
                             click: function($event) {
-                              return _vm.loadNewPage(
-                                "/api/course/" +
-                                  _vm.sortBy +
-                                  "/" +
-                                  _vm.id +
-                                  "/" +
-                                  _vm.userId +
-                                  "?page=" +
-                                  page
-                              )
+                              return _vm.loadNewPage()
                             }
                           }
                         },
@@ -23810,15 +23846,13 @@ var render = function() {
                         {
                           on: {
                             click: function($event) {
-                              return _vm.loadNewPage(
-                                "/api/course/" +
-                                  _vm.sortBy +
-                                  "/" +
-                                  _vm.id +
-                                  "/" +
-                                  _vm.userId +
-                                  "?page=" +
+                              _vm.loadNewPage(
+                                _vm.urlCreate(
+                                  _vm.sortBy,
+                                  _vm.id,
+                                  _vm.userId,
                                   page
+                                )
                               )
                             }
                           }
@@ -24655,15 +24689,13 @@ var render = function() {
                           staticClass: "uk-background-default uk-disabled",
                           on: {
                             click: function($event) {
-                              return _vm.loadNewPage(
-                                "/api/course/" +
-                                  _vm.sortBy +
-                                  "/" +
-                                  _vm.id +
-                                  "/" +
-                                  _vm.userId +
-                                  "?page=" +
+                              _vm.loadNewPage(
+                                _vm.urlCreate(
+                                  _vm.sortBy,
+                                  _vm.id,
+                                  _vm.userId,
                                   page
+                                )
                               )
                             }
                           }
@@ -24675,15 +24707,13 @@ var render = function() {
                         {
                           on: {
                             click: function($event) {
-                              return _vm.loadNewPage(
-                                "/api/course/" +
-                                  _vm.sortBy +
-                                  "/" +
-                                  _vm.id +
-                                  "/" +
-                                  _vm.userId +
-                                  "?page=" +
+                              _vm.loadNewPage(
+                                _vm.urlCreate(
+                                  _vm.sortBy,
+                                  _vm.id,
+                                  _vm.userId,
                                   page
+                                )
                               )
                             }
                           }
@@ -53880,9 +53910,15 @@ var actions = {
         categoryId = _ref6[1],
         userId = _ref6[2];
 
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/course/' + sort + '/' + categoryId + '/' + userId).then(function (response) {
-      return commit('setCategoryCourses', response);
-    });
+    if (userId != '') {
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/course/' + sort + '/' + categoryId + '/' + userId).then(function (response) {
+        return commit('setCategoryCourses', response);
+      });
+    } else {
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/course/' + sort + '/' + categoryId).then(function (response) {
+        return commit('setCategoryCourses', response);
+      });
+    }
   },
   loadNewPageCourses: function loadNewPageCourses(_ref7, id) {
     var commit = _ref7.commit;

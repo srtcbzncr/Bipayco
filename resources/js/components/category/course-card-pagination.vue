@@ -39,8 +39,8 @@
                 </li>
                 <li v-for="page in pageNumber">
                     <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
-                    <button v-else-if="page==courseCard.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/course/'+sortBy+'/'+id+'/'+userId+'?page='+page)">{{page}}</button>
-                    <button v-else @click="loadNewPage('/api/course/'+sortBy+'/'+id+'/'+userId+'?page='+page)">{{page}}</button>
+                    <button v-else-if="page==courseCard.current_page" class="uk-background-default uk-disabled" @click="loadNewPage()">{{page}}</button>
+                    <button v-else @click="loadNewPage(urlCreate(sortBy,id,userId,page))">{{page}}</button>
                 </li>
                 <li>
                     <button v-show="courseCard.current_page<courseCard.last_page" @click="loadNewPage(courseCard.next_page_url)"> > </button>
@@ -153,10 +153,21 @@
                 'loadUrlForCourseCard',
                 'loadNewPageCourses'
             ]),
+            urlCreate:function(sortBy,id,userId,page){
+                if(userId!=''){
+                    return '/api/course/'+sortBy+'/'+id+'/'+userId+'?page='+page;
+                }else{
+                    return '/api/course/'+sortBy+'/'+id+'?page='+page;
+                }
+            },
             loadCourseList: function(){
                 var sort=document.getElementById('sortBy').value;
                 this.$store.dispatch('loadCategoryCourses',[sort, this.id, this.userId]);
-                this.$store.dispatch('loadUrlForCourseCard', '/api/course/'+sort+'/'+this.id+'/'+this.userId);
+                if(this.userId!=''){
+                    this.$store.dispatch('loadUrlForCourseCard', '/api/course/'+sort+'/'+this.id+'/'+this.userId);
+                }else{
+                    this.$store.dispatch('loadUrlForCourseCard', '/api/course/'+sort+'/'+this.id);
+                }
             },
             loadNewPage: function(name,newPageNumber){
                 this.$store.dispatch('loadNewPageCourses',name);

@@ -177,7 +177,11 @@
             ]),
         },
         created() {
-            this.$store.dispatch('loadUrlForCourseCard', '/api/profile/instructor/'+this.instructorId+'/'+this.userId);
+            if(this.userId!=''){
+                this.$store.dispatch('loadUrlForCourseCard', '/api/profile/instructor/'+this.instructorId+'/'+this.userId);
+            }else{
+                this.$store.dispatch('loadUrlForCourseCard', '/api/profile/instructor/'+this.instructorId);
+            }
         }
     }
 </script>

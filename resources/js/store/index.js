@@ -239,8 +239,13 @@ const actions={
             .then(response =>commit('setCategories',response.data))
     },
     loadCategoryCourses({commit}, [sort, categoryId, userId]){
-        Axios.get('/api/course/'+sort+'/'+categoryId+'/'+userId)
-            .then(response =>commit('setCategoryCourses',response))
+        if(userId!=''){
+            Axios.get('/api/course/'+sort+'/'+categoryId+'/'+userId)
+                .then(response =>commit('setCategoryCourses',response))
+        }else{
+            Axios.get('/api/course/'+sort+'/'+categoryId)
+                .then(response =>commit('setCategoryCourses',response))
+        }
     },
     loadNewPageCourses({commit}, id){
         Axios.get(id)
