@@ -27,7 +27,7 @@
                     </div>
                 </a>
                 <div v-if="purchase.course.isRebate" class="uk-width-1-6@s uk-padding-small auto-border uk-flex uk-flex-center">
-                    <button class="uk-button uk-button-link  text-danger" @click="openModal(index)">{{php}}</button>
+                    <button class="uk-button uk-button-link  text-danger" @click="openModal(index)">{{createRefundRequestText}}</button>
                 </div>
             </div>
         </div>

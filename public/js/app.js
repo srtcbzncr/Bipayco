@@ -23121,7 +23121,7 @@ var render = function() {
                                 }
                               }
                             },
-                            [_vm._v(_vm._s(_vm.php))]
+                            [_vm._v(_vm._s(_vm.createRefundRequestText))]
                           )
                         ]
                       )
