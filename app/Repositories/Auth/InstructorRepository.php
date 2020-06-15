@@ -628,6 +628,13 @@ class InstructorRepository implements IRepository{
                         $toplam+=$puan;
                     }
                 }
+                else if($item->course_type == 'App\Models\PrepareExams\Course'){
+                    $course = \App\Models\PrepareExams\Course::find($item->course_id);
+                    if($course!=null){
+                        $puan = $course->point;
+                        $toplam+=$puan;
+                    }
+                }
             }
             if(count($courses) != 0)
                 $ort = $toplam/count($courses);
@@ -644,6 +651,10 @@ class InstructorRepository implements IRepository{
                 }
                 else if($item->course_type == 'App\Models\PrepareLessons\Course'){
                     $course = Entry::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\PrepareLessons\Course')->where('active',true)->get();
+                    $totalStudent+=count($course);
+                }
+                else if($item->course_type == 'App\Models\PrepareExams\Course'){
+                    $course = Entry::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\PrepareExams\Course')->where('active',true)->get();
                     $totalStudent+=count($course);
                 }
             }
@@ -663,6 +674,9 @@ class InstructorRepository implements IRepository{
                 else if($item->course_type == 'App\Models\PrepareLessons\Course'){
                     $plCount++;
                 }
+                else if($item->course_type == 'App\Models\PrepareExams\Course'){
+                    $peCount++;
+                }
             }
             $object['geCount'] = $geCount;
             $object['plCount'] = $plCount;
@@ -678,7 +692,7 @@ class InstructorRepository implements IRepository{
                     $purchases = Purchase::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\GeneralEducation\Course')->where('confirmation',1)->get();
                     foreach ($purchases as $purchase){
                         $price=$purchase->price;
-                        $pay = ($price*$item->percent)/100;
+                        $pay = ($price*$item->percent);
                         $totalPay+=$pay;
                     }
                 }
@@ -686,7 +700,15 @@ class InstructorRepository implements IRepository{
                     $purchases = Purchase::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\PrepareLessons\Course')->where('confirmation',1)->get();
                     foreach ($purchases as $purchase){
                         $price=$purchase->price;
-                        $pay = ($price*$item->percent)/100;
+                        $pay = ($price*$item->percent);
+                        $totalPay+=$pay;
+                    }
+                }
+                else if($item->course_type == 'App\Models\PrepareExams\Course'){
+                    $purchases = Purchase::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\PrepareExams\Course')->where('confirmation',1)->get();
+                    foreach ($purchases as $purchase){
+                        $price=$purchase->price;
+                        $pay = ($price*$item->percent);
                         $totalPay+=$pay;
                     }
                 }
@@ -705,10 +727,15 @@ class InstructorRepository implements IRepository{
                         ->where('confirmation',1)
                         ->whereRaw('MONTH(created_at) = ?',[$currentMonth])->get();
                 }
+                else if($item->course_type == 'App\Models\PrepareExams\Course'){
+                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('course_type','App\Models\PrepareExams\Course')
+                        ->where('confirmation',1)
+                        ->whereRaw('MONTH(created_at) = ?',[$currentMonth])->get();
+                }
 
                 foreach ($purchases as $purchase){
                     $price=$purchase->price;
-                    $pay = ($price*$item->percent)/100;
+                    $pay = ($price*$item->percent);
                     $totalMonthPay+=$pay;
                 }
             }
@@ -727,16 +754,21 @@ class InstructorRepository implements IRepository{
                         ->where('confirmation',1)
                         ->whereRaw('YEAR(created_at) = ?',[$currentMonth])->get();
                 }
+                else if($item->course_type == 'App\Models\PrepareExams\Course'){
+                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('course_type','App\Models\PrepareExams\Course')
+                        ->where('confirmation',1)
+                        ->whereRaw('YEAR(created_at) = ?',[$currentMonth])->get();
+                }
                 foreach ($purchases as $purchase){
                     $price=$purchase->price;
-                    $pay = ($price*$item->percent)/100;
+                    $pay = ($price*$item->percent);
                     $totalYearPay+=$pay;
                 }
             }
 
-            $object['totalMonthPrice'] = $totalMonthPay;
-            $object['totalYearPrice'] = $totalYearPay;
-            $object['totalPrice'] = $totalPay;
+            $object['totalMonthPrice'] = ($totalMonthPay-($totalMonthPay*0.18))*0.4;
+            $object['totalYearPrice'] = ($totalYearPay-($totalYearPay*0.18))*0.4;
+            $object['totalPrice'] = ($totalPay-($totalPay*0.18))*0.4;
 
             // Toplam Yorumlar
             $totalQuestions = 0;
@@ -759,11 +791,27 @@ class InstructorRepository implements IRepository{
                     }
                 }
                 else if($item->course_type == 'App\Models\PrepareLessons\Course'){
-                    $sections = Section::where('course_id',$item->course_id)->where('deleted_at',null)->get();
+                    $sections = \App\Models\PrepareLessons\Section::where('course_id',$item->course_id)->where('deleted_at',null)->get();
                     foreach ($sections as $section){
-                        $lessons = Lesson::where('section_id',$section->id)->where('deleted_at',null)->get();
+                        $lessons = \App\Models\PrepareLessons\Lesson::where('section_id',$section->id)->where('deleted_at',null)->get();
                         foreach ($lessons as $lesson){
                             $questions = Question::where('lesson_id',$lesson->id)->where('deleted_at',null)->where('lesson_type','App\Models\PrepareLessons\Lesson')->get();
+                            $totalQuestions+=count($questions);
+                            foreach ($questions as $question){
+                                $answers = Answer::where('question_id',$question->id)->where('deleted_at',null)->get();
+                                if($answers==null or count($answers) == 0){
+                                    $notAnsweredQuestions++;
+                                }
+                            }
+                        }
+                    }
+                }
+                else if($item->course_type == 'App\Models\PrepareExams\Course'){
+                    $sections = \App\Models\PrepareExams\Section::where('course_id',$item->course_id)->where('deleted_at',null)->get();
+                    foreach ($sections as $section){
+                        $lessons = \App\Models\PrepareExams\Lesson::where('section_id',$section->id)->where('deleted_at',null)->get();
+                        foreach ($lessons as $lesson){
+                            $questions = Question::where('lesson_id',$lesson->id)->where('deleted_at',null)->where('lesson_type','App\Models\PrepareExams\Lesson')->get();
                             $totalQuestions+=count($questions);
                             foreach ($questions as $question){
                                 $answers = Answer::where('question_id',$question->id)->where('deleted_at',null)->get();
