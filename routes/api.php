@@ -477,6 +477,12 @@ Route::prefix('admin')->group(function (){
        Route::post('/guardian/passive/{guardianId}','API\Admin\AuthController@passiveGuardian')->name('admin_auth_passive_guardian');
        Route::post('/guardian/delete/{guardianId}','API\Admin\AuthController@deleteGuardian')->name('admin_auth_delete_guardian');
    });
+   Route::prefix('purchase')->group(function (){
+       Route::get('getPurchases/{user_id}','API\Admin\PurchasesController@getPurchases')->name('api_get_purchases');
+       Route::get('getPurchaseDetail/{payment_id}','API\Admin\PurchasesController@getPurchaseDetail')->name('api_get_purchase_detail');
+       Route::get('getPurchasesAsDate/{user_id}','API\Admin\PurchasesController@getPurchasesAsDate')->name('api_get_purchases_as_date');
+   });
+
 });
 
 Route::prefix('guardian')->group(function (){
