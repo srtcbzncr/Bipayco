@@ -249,5 +249,6 @@ return [
     'payment_error'=>'Ödeme işlemi gerçekleştirilirken bir hata meydana geldi',
     'purchase_history'=>'Satın Alma Geçmişi',
     'no_content'=>'İçerik bulunmuyor',
-    ''=>'',
+    'made_payments'=>'Yapılan Ödemeler',
+    'pending_payments'=>'Bekleyen Ödemeler'
 ];

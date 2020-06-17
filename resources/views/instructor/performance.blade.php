@@ -53,7 +53,7 @@
     <div class="uk-container uk-margin-top">
         <div class="uk-card">
             <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.total_earning') </span></h3>
-            <div class="uk-child-width-1-3@m uk-card-body uk-grid-small uk-grid-divider uk-grid-match" uk-grid>
+            <div class="uk-child-width-1-3@m uk-card-body uk-grid-small uk-padding-remove-bottom uk-grid-divider uk-grid-match" uk-grid>
                 <div>
                     <div class="uk-card uk-card-default uk-card-body text-center stats-card">
                         <h3 class="stats-card-title uk-card-title">@lang('front/auth.monthly')</h3>
@@ -73,9 +73,23 @@
                     </div>
                 </div>
             </div>
+            <div class="uk-child-width-1-2@m uk-card-body uk-grid-small uk-margin-remove-top uk-grid-divider uk-grid-match" uk-grid>
+                <div>
+                    <div class="uk-card uk-card-default uk-card-body text-center stats-card">
+                        <h3 class="stats-card-title uk-card-title">@lang('front/auth.pending_payments')</h3>
+                        <p><span class="fas fa-lira-sign uk-margin-small-right"></span>{{$data['pending_payments']}}</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="uk-card uk-card-default uk-card-body text-center stats-card">
+                        <h3 class="stats-card-title uk-card-title">@lang('front/auth.made_payments')</h3>
+                        <p><span class="fas fa-lira-sign uk-margin-small-right"></span>{{$data['made_payments']}}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <!--total earnings-->
+    <!--questions-->
     <div class="uk-container uk-margin-top">
         <div class="uk-card">
             <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.question_answer') </span></h3>

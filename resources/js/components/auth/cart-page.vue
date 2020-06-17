@@ -163,7 +163,7 @@
                 for(var i=0;i<this.shoppingCart.length;i++){
                     amount+=this.shoppingCart[i].course.price_with_discount;
                 }
-                return amount;
+                return amount.toFixed(2);
             },
             payAmount(){
                 return (this.cartAmount-this.discount).toFixed(2);

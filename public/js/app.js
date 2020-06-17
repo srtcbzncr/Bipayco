@@ -5871,7 +5871,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         amount += this.shoppingCart[i].course.price_with_discount;
       }
 
-      return amount;
+      return amount.toFixed(2);
     },
     payAmount: function payAmount() {
       return (this.cartAmount - this.discount).toFixed(2);
