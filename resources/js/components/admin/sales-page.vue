@@ -25,7 +25,7 @@
                 </tr>
                 </thead>
                 <tbody v-if="adminSales.data&&adminSales.data.length>0">
-                <tr v-for="(item, index) in adminSales.data"  @click="openInfo(item.payment_id)">
+                <tr v-for="item in adminSales.data"  @click="openInfo(item.payment_id)">
                     <td class="uk-width-1-4 clickable"><p>{{item.user.first_name}} {{item.user.last_name}}</p></td>
                     <td class="uk-width-1-4 clickable"><p>{{item.payment_id}}</p></td>
                     <td class="uk-width-1-4 clickable"><p>{{item.payment_status}}</p></td>
@@ -89,13 +89,15 @@
         name: "sales-page",
         data(){
             return{
-                selectedIndex:-1,
-                selectedPage:"/api/admin/purchase/getPurchases/"+this.userId+"?page=1",
                 purchaseAsDate:{},
                 selectedSale:null,
             }
         },
         props: {
+            userId:{
+                type:String,
+                required:true,
+            },
             noContentText: {
                 type: String,
                 default: "İçerik Bulunmuyor"
@@ -170,7 +172,6 @@
                 'loadAdminNewPage'
             ]),
             loadNewPage: function(name){
-                this.selectedPage=name;
                 this.$store.dispatch('loadAdminNewPage',[name, 'setAdminSales']);
                 selectedSale=null;
             },
