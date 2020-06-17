@@ -75,6 +75,7 @@ const state={
     adminInstructor:{},
     adminGuardian:{},
     adminUsers:{},
+    adminSales:{},
     adminCategory:{},
     adminSubCategory:{},
     crLessons:{},
@@ -182,6 +183,9 @@ const mutations={
     },
     setAdminUsers(state, users){
         state.adminUsers=users.data;
+    },
+    setAdminSales(state, sales){
+        state.adminSales=sales.data;
     },
     setAdminGuardian(state, guardians){
         state.adminGuardian=guardians.data;
@@ -374,6 +378,10 @@ const actions={
     loadAdminUsers({commit}){
         Axios.get('/api/admin/auth/student/show')
             .then(response=>commit('setAdminUsers', response.data));
+    },
+    loadAdminSales({commit}, userId){
+        Axios.get('/api/admin/purchase/getPurchases/'+userId)
+            .then(response=>commit('setAdminSales', response.data));
     },
     loadAdminDistrict({commit}, cityId){
         Axios.get('/api/admin/bs/city/'+cityId+'/districts')

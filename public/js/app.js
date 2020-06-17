@@ -53739,6 +53739,7 @@ var state = {
   adminInstructor: {},
   adminGuardian: {},
   adminUsers: {},
+  adminSales: {},
   adminCategory: {},
   adminSubCategory: {},
   crLessons: {},
@@ -53848,6 +53849,9 @@ var mutations = {
   },
   setAdminUsers: function setAdminUsers(state, users) {
     state.adminUsers = users.data;
+  },
+  setAdminSales: function setAdminSales(state, sales) {
+    state.adminSales = sales.data;
   },
   setAdminGuardian: function setAdminGuardian(state, guardians) {
     state.adminGuardian = guardians.data;
@@ -54161,67 +54165,73 @@ var actions = {
       return commit('setAdminUsers', response.data);
     });
   },
-  loadAdminDistrict: function loadAdminDistrict(_ref55, cityId) {
+  loadAdminSales: function loadAdminSales(_ref55, userId) {
     var commit = _ref55.commit;
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/purchase/getPurchases/' + userId).then(function (response) {
+      return commit('setAdminSales', response.data);
+    });
+  },
+  loadAdminDistrict: function loadAdminDistrict(_ref56, cityId) {
+    var commit = _ref56.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/bs/city/' + cityId + '/districts').then(function (response) {
       return commit('setAdminDistrict', response.data);
     });
   },
-  loadAdminNewPage: function loadAdminNewPage(_ref56, _ref57) {
-    var commit = _ref56.commit;
+  loadAdminNewPage: function loadAdminNewPage(_ref57, _ref58) {
+    var commit = _ref57.commit;
 
-    var _ref58 = _slicedToArray(_ref57, 2),
-        url = _ref58[0],
-        mutationName = _ref58[1];
+    var _ref59 = _slicedToArray(_ref58, 2),
+        url = _ref59[0],
+        mutationName = _ref59[1];
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
       return commit(mutationName, response.data);
     });
   },
-  loadCrLessons: function loadCrLessons(_ref59) {
-    var commit = _ref59.commit;
+  loadCrLessons: function loadCrLessons(_ref60) {
+    var commit = _ref60.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/pl/lessons').then(function (response) {
       return commit('setCrLessons', response.data);
     });
   },
-  loadCrExams: function loadCrExams(_ref60) {
-    var commit = _ref60.commit;
+  loadCrExams: function loadCrExams(_ref61) {
+    var commit = _ref61.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/pe/exams').then(function (response) {
       return commit('setCrExams', response.data);
     });
   },
-  loadGuardianStudents: function loadGuardianStudents(_ref61, userId) {
-    var commit = _ref61.commit;
+  loadGuardianStudents: function loadGuardianStudents(_ref62, userId) {
+    var commit = _ref62.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/guardian/getStudents/' + userId).then(function (response) {
       return commit('setGuardianStudents', response.data);
     });
   },
-  loadGuardianStudentList: function loadGuardianStudentList(_ref62, userId) {
-    var commit = _ref62.commit;
+  loadGuardianStudentList: function loadGuardianStudentList(_ref63, userId) {
+    var commit = _ref63.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/guardian/getStudentsList/' + userId).then(function (response) {
       return commit('setGuardianStudentList', response.data);
     });
   },
-  loadGuardianNewPage: function loadGuardianNewPage(_ref63, apiUrl) {
-    var commit = _ref63.commit;
+  loadGuardianNewPage: function loadGuardianNewPage(_ref64, apiUrl) {
+    var commit = _ref64.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(apiUrl).then(function (response) {
       return commit('setGuardianStudents', response.data);
     });
   },
-  loadPurchaseHistory: function loadPurchaseHistory(_ref64, userId) {
-    var commit = _ref64.commit;
+  loadPurchaseHistory: function loadPurchaseHistory(_ref65, userId) {
+    var commit = _ref65.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/purchases/' + userId).then(function (response) {
       return commit('setPurchaseHistory', response.data);
     });
   },
-  loadPurchaseHistoryNewPage: function loadPurchaseHistoryNewPage(_ref65, apiUrl) {
-    var commit = _ref65.commit;
+  loadPurchaseHistoryNewPage: function loadPurchaseHistoryNewPage(_ref66, apiUrl) {
+    var commit = _ref66.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(apiUrl).then(function (response) {
       return commit('setPurchaseHistory', response.data);
     });
   },
-  loadQuestionAnswerData: function loadQuestionAnswerData(_ref66, url) {
-    var commit = _ref66.commit;
+  loadQuestionAnswerData: function loadQuestionAnswerData(_ref67, url) {
+    var commit = _ref67.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
       return commit('setQuestionAnswerData', response.data);
     });
