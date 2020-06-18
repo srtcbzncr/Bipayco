@@ -6,8 +6,12 @@ namespace App\Repositories\Admin;
 
 use App\Models\Auth\Admin;
 use App\Models\Auth\User;
+use App\Models\Curriculum\Exam;
+use App\Models\Curriculum\Lesson;
+use App\Models\GeneralEducation\Category;
 use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\Purchase;
+use App\Models\GeneralEducation\SubCategory;
 use App\Models\Iyzico\Basket;
 use App\Models\Iyzico\BasketItems;
 use App\Payment\Payment;
@@ -118,16 +122,29 @@ class PurchasesRepository implements IRepository
                 if($item_id_split[0] == "ge"){
                     $item_id = $item_id_split[1];
                     $course = Course::find($item_id);
+                    $category = Category::find($course->category_id);
+                    $sub_category = SubCategory::find($course->sub_category_id);
+                    $course['category'] = $category;
+                    $course['subCategory'] = $sub_category;
+
                     $object->itemTransactions[$key]->course =  $course;
                 }
                 else if($item_id_split[0] == "pl"){
                     $item_id = $item_id_split[1];
                     $course = \App\Models\PrepareLessons\Course::find($item_id);
+                    $lesson = Lesson::find($course->lesson_id);
+                    $grade = Lesson::find($course->grade_id);
+                    $course['lesson'] = $lesson;
+                    $course['grade'] = $grade;
+
                     $object->itemTransactions[$key]->course =  $course;
                 }
                 else if($item_id_split[0] == "pe"){
                     $item_id = $item_id_split[1];
                     $course = \App\Models\PrepareExams\Course::find($item_id);
+                    $exam = Exam::find($course->exam_id);
+                    $course['exam'] = $exam;
+
                     $object->itemTransactions[$key]->course =  $course;
                 }
 
