@@ -6,6 +6,7 @@ namespace App\Repositories\Admin;
 
 use App\Models\Auth\Admin;
 use App\Models\Auth\User;
+use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\Purchase;
 use App\Models\Iyzico\Basket;
 use App\Models\Iyzico\BasketItems;
@@ -112,6 +113,25 @@ class PurchasesRepository implements IRepository
         try{
             $payment = new Payment();
             $object=json_decode($payment->detail($payment_id)->getRawResult());
+            foreach ($object->itemTransactions as $key => $item){
+                $item_id_split = explode('-',$item->itemId);
+                if($item_id_split[0] == "ge"){
+                    $item_id = $item_id_split[1];
+                    $course = Course::find($item_id);
+                    $object->itemTransactions[$key]->course =  $course;
+                }
+                else if($item_id_split[0] == "pl"){
+                    $item_id = $item_id_split[1];
+                    $course = \App\Models\PrepareLessons\Course::find($item_id);
+                    $object->itemTransactions[$key]->course =  $course;
+                }
+                else if($item_id_split[0] == "pe"){
+                    $item_id = $item_id_split[1];
+                    $course = \App\Models\PrepareExams\Course::find($item_id);
+                    $object->itemTransactions[$key]->course =  $course;
+                }
+
+            }
         }
         catch(\Exception $e){
             $error = $e->getMessage();
