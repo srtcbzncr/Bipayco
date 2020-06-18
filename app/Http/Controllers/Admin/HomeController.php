@@ -165,4 +165,8 @@ class HomeController extends Controller
         }
         return view('admin.admins');
     }
+
+    public function purchases(){
+        return view('admin.sales');
+    }
 }
