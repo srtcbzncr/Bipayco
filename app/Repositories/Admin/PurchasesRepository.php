@@ -149,7 +149,7 @@ class PurchasesRepository implements IRepository
 
                 // yıllık kazanç
                 $total_year_purchase = 0;
-                $purchases = Purchase::where('deleted_at',null)->where('confirmation',true)->whereDate('created_at', '>', \Carbon\Carbon::now()->subWeeks())->get();
+                $purchases = Purchase::where('deleted_at',null)->where('confirmation',true)->whereDate('created_at', '>', \Carbon\Carbon::now()->subYear())->get();
                 foreach ($purchases as $item){
                     $total_year_purchase+=$item->price;
                 }
