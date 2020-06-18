@@ -27,9 +27,9 @@ class Payment
     // alt üye iş yeri kayıt oluşturma metodu-satıcı oluşturma
     public function createSubMerchant(Instructor $instructor){
         $options = new Options();
-        $options->setApiKey('OvGVgeJc3cxWABZYUhGsXB44dUo9d3xB');
-        $options->setSecretKey('xEgG4Q3Xsadaj9t3SphScKK5hoUU1pG2');
-        $options->setBaseUrl('https://api.iyzipay.com');
+        $options->setApiKey('sandbox-zKK3HgzvDkPILo9D7PesKOixCuBg9Rpj');
+        $options->setSecretKey('sandbox-AuVhbC9hstaRNtlSb1xEn9bwwsgecdHP');
+        $options->setBaseUrl('https://sandbox-api.iyzipay.com');
 
         $request = new CreateSubMerchantRequest();
         $request->setLocale(Locale::TR);
@@ -53,9 +53,9 @@ class Payment
     // satıcı güncelleme
     public function updateSubMerchant(Instructor $instructor){
         $options = new Options();
-        $options->setApiKey('OvGVgeJc3cxWABZYUhGsXB44dUo9d3xB');
-        $options->setSecretKey('xEgG4Q3Xsadaj9t3SphScKK5hoUU1pG2');
-        $options->setBaseUrl('https://api.iyzipay.com');
+        $options->setApiKey('sandbox-zKK3HgzvDkPILo9D7PesKOixCuBg9Rpj');
+        $options->setSecretKey('sandbox-AuVhbC9hstaRNtlSb1xEn9bwwsgecdHP');
+        $options->setBaseUrl('https://sandbox-api.iyzipay.com');
 
         $request = new UpdateSubMerchantRequest();
         $request->setLocale(Locale::TR);
@@ -79,9 +79,9 @@ class Payment
     // dönen veri-> https://dev.iyzipay.com/tr/odeme-formu/odeme-formu-baslatma
     public function checkOut($user_id, $first_name, $last_name, $phone_number, $email, $identity_number, $ip, $city, $zip_code, $country, $address, $courses, $is_discount, $basket_id){
         $options = new Options();
-        $options->setApiKey('OvGVgeJc3cxWABZYUhGsXB44dUo9d3xB');
-        $options->setSecretKey('xEgG4Q3Xsadaj9t3SphScKK5hoUU1pG2');
-        $options->setBaseUrl('https://api.iyzipay.com');
+        $options->setApiKey('sandbox-zKK3HgzvDkPILo9D7PesKOixCuBg9Rpj');
+        $options->setSecretKey('sandbox-AuVhbC9hstaRNtlSb1xEn9bwwsgecdHP');
+        $options->setBaseUrl('https://sandbox-api.iyzipay.com');
 
         $basketItems = array();
         $total_price = 0.0;
@@ -107,9 +107,9 @@ class Payment
             else{
                 $basketItem->setPrice(round($course->price_with_discount, 2));
             }
-            $instructor = $course->instructors()->where('is_manager', true)->first();
-            $basketItem->setSubMerchantKey($instructor->sub_merchant_key);
-            $basketItem->setSubMerchantPrice(($basketItem->getPrice() - 0.18 * $basketItem->getPrice()) * 0.40);
+            //$instructor = $course->instructors()->where('is_manager', true)->first();
+            //$basketItem->setSubMerchantKey($instructor->sub_merchant_key);
+            //$basketItem->setSubMerchantPrice(($basketItem->getPrice() - 0.18 * $basketItem->getPrice()) * 0.40);
             $total_price += $basketItem->getPrice();
             array_push($basketItems, $basketItem);
         }
@@ -122,7 +122,7 @@ class Payment
         $request->setPaidPrice($total_price);
         $request->setCurrency(Currency::TL);
         $request->setPaymentGroup(PaymentGroup::PRODUCT);
-        $request->setCallbackUrl("http://127.0.0.1:8000/iyzico/paymentResult");
+        $request->setCallbackUrl("http://127.0.0.1/iyzico/paymentResult");
         $request->setEnabledInstallments(array(2, 3, 6, 9));
 
         $buyer = new Buyer();
@@ -165,9 +165,9 @@ class Payment
     // $converstion_id yerine iyzico_basket_id gönder.
     public function result($token){
         $options = new Options();
-        $options->setApiKey('OvGVgeJc3cxWABZYUhGsXB44dUo9d3xB');
-        $options->setSecretKey('xEgG4Q3Xsadaj9t3SphScKK5hoUU1pG2');
-        $options->setBaseUrl('https://api.iyzipay.com');
+        $options->setApiKey('sandbox-zKK3HgzvDkPILo9D7PesKOixCuBg9Rpj');
+        $options->setSecretKey('sandbox-AuVhbC9hstaRNtlSb1xEn9bwwsgecdHP');
+        $options->setBaseUrl('https://sandbox-api.iyzipay.com');
 
         $request = new RetrieveCheckoutFormRequest();
         $request->setLocale(Locale::TR);
@@ -180,9 +180,9 @@ class Payment
     // $payment_transaction_id iyzico_basket_item'deki $payment_transaction_id'dir.
     public function rebate($ip, $price, $payment_transaction_id, $rebate_id){
         $options = new Options();
-        $options->setApiKey('OvGVgeJc3cxWABZYUhGsXB44dUo9d3xB');
-        $options->setSecretKey('xEgG4Q3Xsadaj9t3SphScKK5hoUU1pG2');
-        $options->setBaseUrl('https://api.iyzipay.com');
+        $options->setApiKey('sandbox-zKK3HgzvDkPILo9D7PesKOixCuBg9Rpj');
+        $options->setSecretKey('sandbox-AuVhbC9hstaRNtlSb1xEn9bwwsgecdHP');
+        $options->setBaseUrl('https://sandbox-api.iyzipay.com');
 
         $request = new \Iyzipay\Request\CreateRefundRequest();
         $request->setLocale(\Iyzipay\Model\Locale::TR);
@@ -198,9 +198,9 @@ class Payment
 
     public function detail($payment_id){
         $options = new Options();
-        $options->setApiKey('OvGVgeJc3cxWABZYUhGsXB44dUo9d3xB');
-        $options->setSecretKey('xEgG4Q3Xsadaj9t3SphScKK5hoUU1pG2');
-        $options->setBaseUrl('https://api.iyzipay.com');
+        $options->setApiKey('sandbox-zKK3HgzvDkPILo9D7PesKOixCuBg9Rpj');
+        $options->setSecretKey('sandbox-AuVhbC9hstaRNtlSb1xEn9bwwsgecdHP');
+        $options->setBaseUrl('https://sandbox-api.iyzipay.com');
 
         $request = new \Iyzipay\Request\RetrievePaymentRequest();
         $request->setLocale(\Iyzipay\Model\Locale::TR);
@@ -213,9 +213,9 @@ class Payment
 
     public function confirm($payment_transaction_id){
         $options = new Options();
-        $options->setApiKey('OvGVgeJc3cxWABZYUhGsXB44dUo9d3xB');
-        $options->setSecretKey('xEgG4Q3Xsadaj9t3SphScKK5hoUU1pG2');
-        $options->setBaseUrl('https://api.iyzipay.com');
+        $options->setApiKey('sandbox-zKK3HgzvDkPILo9D7PesKOixCuBg9Rpj');
+        $options->setSecretKey('sandbox-AuVhbC9hstaRNtlSb1xEn9bwwsgecdHP');
+        $options->setBaseUrl('https://sandbox-api.iyzipay.com');
 
         $request = new \Iyzipay\Request\CreateApprovalRequest();
         $request->setLocale(Locale::TR);
