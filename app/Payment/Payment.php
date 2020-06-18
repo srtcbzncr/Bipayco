@@ -122,7 +122,7 @@ class Payment
         $request->setPaidPrice($total_price);
         $request->setCurrency(Currency::TL);
         $request->setPaymentGroup(PaymentGroup::PRODUCT);
-        $request->setCallbackUrl("http://127.0.0.1/iyzico/paymentResult");
+        $request->setCallbackUrl("http://127.0.0.1:8000/iyzico/paymentResult");
         $request->setEnabledInstallments(array(2, 3, 6, 9));
 
         $buyer = new Buyer();
