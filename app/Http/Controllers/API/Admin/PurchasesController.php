@@ -21,7 +21,7 @@ class PurchasesController extends Controller
         return response()->json([
             'error' => true,
             'message' => 'Satın alımlar getirilirken bir hata meydana geldi.Tekrar deneyin',
-            'data' => $resp->getData()
+            'errorMessage'=>$resp->getError()
         ],400);
     }
 
