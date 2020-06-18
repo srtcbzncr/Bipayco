@@ -111,7 +111,7 @@ class PurchasesRepository implements IRepository
         // Operations
         try{
             $payment = new Payment();
-            $object=$payment->detail($payment_id);
+            $object=json_decode($payment->detail($payment_id)->getRawResult());
         }
         catch(\Exception $e){
             $error = $e->getMessage();
