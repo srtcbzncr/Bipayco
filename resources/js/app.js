@@ -68,6 +68,7 @@ Vue.component('districts-page', require('./components/admin/districts-page.vue')
 Vue.component('lesson-page', require('./components/admin/lessons-page.vue').default);
 Vue.component('grade-page', require('./components/admin/grades-page.vue').default);
 Vue.component('subject-page', require('./components/admin/subjects-page.vue').default);
+Vue.component('sales-page', require('./components/admin/sales-page.vue').default);
 
 Vue.component('students-page', require('./components/guardian/students-page.vue').default);
 Vue.component('student-profile-page', require('./components/guardian/student-profile-page.vue').default);

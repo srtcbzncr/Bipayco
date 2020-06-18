@@ -3,15 +3,15 @@
         <div class="uk-child-width-1-3@m uk-card-body uk-grid-small uk-grid-divider uk-grid-match" uk-grid>
             <div class="text-center">
                 <h3 class="stats-card-title uk-card-title">{{monthlyText}}</h3>
-                <p><span class="fas fa-lira-sign uk-margin-small-right"></span>{{purchaseAsDate.total_month_purchase}}</p>
+                <p>{{purchaseAsDate.total_month_purchase}} <span class="fas fa-lira-sign icon-tiny"></span></p>
             </div>
             <div class="text-center">
                 <h3 class="stats-card-title uk-card-title">{{yearlyText}}</h3>
-                <p><span class="fas fa-lira-sign uk-margin-small-right"></span>{{purchaseAsDate.total_year_purchase}}</p>
+                <p>{{purchaseAsDate.total_year_purchase}} <span class="fas fa-lira-sign icon-tiny"></span></p>
             </div>
             <div class="text-center">
                 <h3 class="stats-card-title uk-card-title">{{totalText}}</h3>
-                <p><span class="fas fa-lira-sign uk-margin-small-right"></span>{{purchaseAsDate.total_purchase}}</p>
+                <p>{{purchaseAsDate.total_purchase}} <span class="fas fa-lira-sign icon-tiny"></span></p>
             </div>
         </div>
         <div class="uk-background-default uk-padding-remove uk-margin-small-top border-radius-6">
@@ -56,7 +56,7 @@
                 <div class="uk-modal-header">
                     <h2 class="uk-modal-title">{{saleInfoText}}</h2>
                 </div>
-                <div class="uk-modal-body" uk-overflow-auto>
+                <div class="uk-modal-body" v-if="selectedSale!=null" uk-overflow-auto>
                     <div class="uk-flex align-items-center justify-content-center uk-margin-small-bottom">
                         <img :src="selectedSale.user.avatar" class="uk-height-small uk-width-small uk-border-circle">
                     </div>
@@ -186,7 +186,7 @@
         },
         mounted() {
             Axios.get('/api/admin/purchase/getPurchasesAsDate/'+this.userId)
-                .then((res)=>{this.purchaseAsDate=res.data});
+                .then((res)=>{this.purchaseAsDate=res.data.data});
         }
     }
 </script>
