@@ -14,6 +14,7 @@
                 <p>{{purchaseAsDate.total_purchase}} <span class="fas fa-lira-sign icon-tiny"></span></p>
             </div>
         </div>
+        <hr>
         <div class="uk-background-default uk-padding-remove uk-margin-small-top border-radius-6">
             <table id="categoryTable" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0">
                 <thead v-if="adminSales.data&&adminSales.data.length>0">
@@ -57,23 +58,20 @@
                     <h2 class="uk-modal-title">{{saleInfoText}}</h2>
                 </div>
                 <div class="uk-modal-body" v-if="selectedSale!=null" uk-overflow-auto>
-                    <div class="uk-flex align-items-center justify-content-center uk-margin-small-bottom">
-                        <img :src="selectedSale.user.avatar" class="uk-height-small uk-width-small uk-border-circle">
-                    </div>
-                    <div class="uk-form-label">{{nameText}}</div>
-                    <h6>{{selectedSale.user.first_name}} {{selectedSale.user.last_name}}</h6>
+                    <div class="uk-form-label">{{statusText}}</div>
+                    <h6>{{selectedSale.status}}</h6>
                     <hr>
-<!--                    <div class="uk-form-label">{{usernameText}}</div>-->
-<!--                    <h6>{{selectedSale.user.username}}</h6>-->
-<!--                    <hr>-->
-<!--                    <div class="uk-form-label">{{emailText}}</div>-->
-<!--                    <h6>{{selectedSale.user.email}}</h6>-->
-<!--                    <hr>-->
-<!--                    <div class="uk-form-label">{{phoneText}}</div>-->
-<!--                    <h6>{{selectedSale.user.phone_number}}</h6>-->
-<!--                    <hr>-->
-<!--                    <div class="uk-form-label">{{referenceCodeText}}</div>-->
-<!--                    <h6>{{selectedSale.reference_code}}</h6>-->
+                    <div class="uk-form-label">{{cardTypeText}}</div>
+                    <h6>{{selectedSale.user.username}}</h6>
+                    <hr>
+                    <div class="uk-form-label">{{cardText}}</div>
+                    <h6>{{selectedSale.user.email}}</h6>
+                    <hr>
+                    <div class="uk-form-label">{{iyzicoCommissionText}}</div>
+                    <h6>{{selectedSale.user.phone_number}}</h6>
+                    <hr>
+                    <div class="uk-form-label">{{referenceCodeText}}</div>
+                    <h6>{{selectedSale.reference_code}}</h6>
                 </div>
                 <div class="uk-modal-footer">
                 </div>

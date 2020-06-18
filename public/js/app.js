@@ -4837,8 +4837,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -20782,6 +20780,8 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
     _c(
       "div",
       {
@@ -20991,34 +20991,43 @@ var render = function() {
                 attrs: { "uk-overflow-auto": "" }
               },
               [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "uk-flex align-items-center justify-content-center uk-margin-small-bottom"
-                  },
-                  [
-                    _c("img", {
-                      staticClass:
-                        "uk-height-small uk-width-small uk-border-circle",
-                      attrs: { src: _vm.selectedSale.user.avatar }
-                    })
-                  ]
-                ),
+                _c("div", { staticClass: "uk-form-label" }, [
+                  _vm._v(_vm._s(_vm.statusText))
+                ]),
+                _vm._v(" "),
+                _c("h6", [_vm._v(_vm._s(_vm.selectedSale.status))]),
+                _vm._v(" "),
+                _c("hr"),
                 _vm._v(" "),
                 _c("div", { staticClass: "uk-form-label" }, [
-                  _vm._v(_vm._s(_vm.nameText))
+                  _vm._v(_vm._s(_vm.cardTypeText))
                 ]),
                 _vm._v(" "),
-                _c("h6", [
-                  _vm._v(
-                    _vm._s(_vm.selectedSale.user.first_name) +
-                      " " +
-                      _vm._s(_vm.selectedSale.user.last_name)
-                  )
+                _c("h6", [_vm._v(_vm._s(_vm.selectedSale.user.username))]),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-form-label" }, [
+                  _vm._v(_vm._s(_vm.cardText))
                 ]),
                 _vm._v(" "),
-                _c("hr")
+                _c("h6", [_vm._v(_vm._s(_vm.selectedSale.user.email))]),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-form-label" }, [
+                  _vm._v(_vm._s(_vm.iyzicoCommissionText))
+                ]),
+                _vm._v(" "),
+                _c("h6", [_vm._v(_vm._s(_vm.selectedSale.user.phone_number))]),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-form-label" }, [
+                  _vm._v(_vm._s(_vm.referenceCodeText))
+                ]),
+                _vm._v(" "),
+                _c("h6", [_vm._v(_vm._s(_vm.selectedSale.reference_code))])
               ]
             )
           : _vm._e(),
