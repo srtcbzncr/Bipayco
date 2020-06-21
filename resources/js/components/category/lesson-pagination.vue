@@ -74,7 +74,12 @@
         created() {
             if (this.courseCount>0) {
                 var sort='getBy'+this.name+'FilterByTrending/'+this.grades[0].id;
-                var url='/api/course/'+sort+'/'+this.id+'/'+this.userId;
+                var url;
+                if(this.userId!=''){
+                    url='/api/course/'+sort+'/'+this.id+'/'+this.userId;
+                }else {
+                    url='/api/course/'+sort+'/'+this.id;
+                }
                 this.$store.dispatch('loadUrlForCourseCard', url);
                 this.$store.dispatch('loadCategoryCourses',[sort, this.id, this.userId]);
             }
