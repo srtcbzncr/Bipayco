@@ -1927,7 +1927,7 @@ Course video page
     margin-right:120px !important
 }
 
-@media (min-width: 960px){
+@media (min-width: 900px){
     .tm-filters.uk-offcanvas .uk-offcanvas-bar {
         position: static;
         overflow: visible;
@@ -1944,7 +1944,7 @@ Course video page
 
 }
 
-@media (min-width: 960px){
+@media (min-width: 900px){
     .tm-filters.uk-offcanvas .uk-offcanvas-bar>.uk-card>.uk-card-header {
         display: none;
     }
@@ -2008,7 +2008,7 @@ Course video page
     overflow: hidden;
 }
 
-@media (max-width: 960px){
+@media (max-width: 900px){
     .tm-side-course {
         background: none;
     }

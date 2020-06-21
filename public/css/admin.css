@@ -1,7 +1,7 @@
 body{
     background-color: #f8f9fa;
-} 
-.admin-side{ 
+}
+.admin-side{
     width: 260px;
     height: 100%;
     position: fixed;
@@ -10,20 +10,20 @@ body{
     background: #343a40;
     transition: 0.4s ease all ;
     z-index: 1;
-} 
+}
 .admin-side .simplebar-scrollbar:before {
     position: absolute;
     content: "";
     background: #8c8c8c;
 }
-@media screen and (max-width: 960px){
-    .admin-side{ 
+@media screen and (max-width: 900px){
+    .admin-side{
         margin-left: -260px
-    } 
+    }
     .admin-side-active{
         margin-left: 0px !important;
         box-shadow: 0 0 0 800px #0000005e;
-    } 
+    }
     .admin-side-close-btn{
         background: white;
         margin-right: -48px;
@@ -33,30 +33,30 @@ body{
         display: none;
     }
     .admin-side-active .admin-side-close-btn{
-        display: block !important        
+        display: block !important
     }
     .admin-content{
-        margin-left: 0px !important; 
-       
-    } 
+        margin-left: 0px !important;
+
+    }
     .admin-content-inner{
         padding: 10px !important
     }
     .admin-mobile-headder{
         background: #343a40;
         padding: 10px 20px;
-    } 
+    }
     .dashboard-card{
         padding: 20px !important;
-    }  
-} 
+    }
+}
 .admin-content{
-    margin-left: 260px; 
+    margin-left: 260px;
 }
 .admin-content .uk-navbar{
     padding: 10px;
     padding: 10px 30px;
-} 
+}
 .admin-content-inner{
     padding: 30px ;
     max-width: 1100px;
@@ -88,8 +88,8 @@ body{
 }
 .admin-side ul li a{
     padding: 16px 20px;
-    padding-left: 30px; 
-    color: rgba(255, 255, 255, 0.9); 
+    padding-left: 30px;
+    color: rgba(255, 255, 255, 0.9);
     font-weight: 500;
     text-align: left;
     display: block;
@@ -105,10 +105,10 @@ body{
     margin-right: 18px;
 }
 .admin-side .uk-accordion-title:hover, .uk-accordion-title:focus {
-    color: rgba(255, 255, 255, 0.9); 
+    color: rgba(255, 255, 255, 0.9);
 }
 .admin-side .uk-accordion-content a {
-    color: rgba(255, 255, 255, 0.65)  
+    color: rgba(255, 255, 255, 0.65)
 }
 .admin-side .uk-accordion-content a:hover{
     color: rgba(255, 255, 255, 0.9);
