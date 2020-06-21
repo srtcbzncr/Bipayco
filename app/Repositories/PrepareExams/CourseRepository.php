@@ -2399,8 +2399,27 @@ class CourseRepository implements IRepository{
                     ->where('is_manager',true)->get();
                 if($hasCourse != null and count($hasCourse)>0){
                     $course = Course::find($courseId);
-                    $course->active = true;
-                    $course->save();
+                    $sections = Section::where('course_id',$course->id)->where('active',true)->where('deleted_at',null)->get();
+                    if($sections != null and count($sections)>0){
+                        $flag = false;
+                        foreach ($sections as $section){
+                            $lessons = Lesson::where('section_id',$section->id)->where('active',true)->where('deleted_at',null)->get();
+                            if($lessons != null and count($lessons)>0){
+                                $course->active = true;
+                                $course->save();
+                                $flag = true;
+                                break;
+                            }
+                        }
+                        if(!$flag){
+                            $error = "Kursa ait ders bulunmadığı için aktifleştirme işlemi başarısız.";
+                            $result = false;
+                        }
+                    }
+                    else{
+                        $error = "Kursa ait bölüm bulunmadığı için aktifleştirme işlemi başarısız.";
+                        $result = false;
+                    }
                 }
                 else{
                     $error = "Bu kursun eğitmeni veya yönetici değilsiniz.Erişiminiz bulunmamaktadır.";
