@@ -61,17 +61,34 @@
                     <div class="uk-form-label">{{statusText}}</div>
                     <h6>{{selectedSale.status}}</h6>
                     <hr>
-                    <div class="uk-form-label">{{cardTypeText}}</div>
-                    <h6>{{selectedSale.user.username}}</h6>
-                    <hr>
-                    <div class="uk-form-label">{{cardText}}</div>
-                    <h6>{{selectedSale.user.email}}</h6>
-                    <hr>
                     <div class="uk-form-label">{{iyzicoCommissionText}}</div>
-                    <h6>{{selectedSale.user.phone_number}}</h6>
+                    <h6>{{selectedSale.iyziCommissionFee}}</h6>
                     <hr>
-                    <div class="uk-form-label">{{referenceCodeText}}</div>
-                    <h6>{{selectedSale.reference_code}}</h6>
+                    <div class="uk-form-label">{{totalPriceText}}</div>
+                    <h6>{{selectedSale.paidPrice}}</h6>
+                    <hr>
+                    <div class="uk-form-label">{{productsText}}</div>
+                    <div v-for="item in selectedSale.itemTransactions" class="uk-margin-small-bottom">
+                        <div class="uk-grid align-items-center ">
+                            <div class="uk-flex uk-width align-items-center justify-content-between">
+                                <div class="uk-width-5-6 uk-flex align-items-center">
+                                    <div class="uk-margin-small-left uk-card-media-left uk-cover-container uk-width-1-4">
+                                        <img :src="item.course.image" alt="" uk-cover>
+                                        <canvas width="600" height="400"></canvas>
+                                    </div>
+                                    <div class="uk-margin-left uk-width-3-4">
+                                        <h5 class="uk-margin-remove-vertical uk-margin-remove-right" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{item.course.name}}</h5>
+                                        <p>{{transactionIdText}}: {{item.paymentTransactionId}}</p>
+                                        <p>{{transactionStatusText}}: {{item.transactionStatus}}</p>
+                                        <p>{{iyzicoCommissionText}}: {{item.iyziCommissionFee}}</p>
+                                        <p>{{merchantPayoutAmountText}}: {{item.merchantPayoutAmount}}</p>
+                                    </div>
+                                </div>
+                                <h6 class="uk-width-1-6 text-center">{{item.paidPrice}}  <i class="fas fa-lira-sign icon-tiny"></i></h6>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
                 </div>
                 <div class="uk-modal-footer">
                 </div>
@@ -132,6 +149,31 @@
                 type: String,
                 default: "Tarih"
             },
+            statusText:{
+                type:String,
+                default:"Durum",
+            },
+            iyzicoCommissionText:{
+                type:String,
+                default:"İyzico Komisyon Tutarı",
+            },
+            totalPriceText:{
+                type:String,
+                default:"Toplam Tutar"
+            },
+            transactionIdText:{
+                type:String,
+                default:"İşlem Numarası"
+            },
+            transactionStatusText:{
+                type:String,
+                default:"İşlem Durumu"
+            },
+            merchantPayoutAmountText:{
+                type:String,
+                default:"Satıcı Ödeme Tutarı"
+            },
+            
         },
         watch:{
             selectedSale(){
@@ -197,4 +239,5 @@
     .clickable{
         cursor: pointer;
     }
+
 </style>

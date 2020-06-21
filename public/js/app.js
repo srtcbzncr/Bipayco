@@ -4837,6 +4837,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4887,6 +4904,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     dateText: {
       type: String,
       "default": "Tarih"
+    },
+    statusText: {
+      type: String,
+      "default": "Durum"
+    },
+    iyzicoCommissionText: {
+      type: String,
+      "default": "İyzico Komisyon Tutarı"
+    },
+    totalPriceText: {
+      type: String,
+      "default": "Toplam Tutar"
+    },
+    transactionIdText: {
+      type: String,
+      "default": "İşlem Numarası"
+    },
+    transactionStatusText: {
+      type: String,
+      "default": "İşlem Durumu"
+    },
+    merchantPayoutAmountText: {
+      type: String,
+      "default": "Satıcı Ödeme Tutarı"
     }
   },
   watch: {
@@ -15186,7 +15227,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nh6[data-v-57a21fbb]{\n    margin:0\n}\n.clickable[data-v-57a21fbb]{\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\nh6[data-v-57a21fbb]{\n    margin:0\n}\n.clickable[data-v-57a21fbb]{\n    cursor: pointer;\n}\n\n", ""]);
 
 // exports
 
@@ -21000,35 +21041,140 @@ var render = function() {
                 _c("hr"),
                 _vm._v(" "),
                 _c("div", { staticClass: "uk-form-label" }, [
-                  _vm._v(_vm._s(_vm.cardTypeText))
-                ]),
-                _vm._v(" "),
-                _c("h6", [_vm._v(_vm._s(_vm.selectedSale.user.username))]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-form-label" }, [
-                  _vm._v(_vm._s(_vm.cardText))
-                ]),
-                _vm._v(" "),
-                _c("h6", [_vm._v(_vm._s(_vm.selectedSale.user.email))]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-form-label" }, [
                   _vm._v(_vm._s(_vm.iyzicoCommissionText))
                 ]),
                 _vm._v(" "),
-                _c("h6", [_vm._v(_vm._s(_vm.selectedSale.user.phone_number))]),
+                _c("h6", [_vm._v(_vm._s(_vm.selectedSale.iyziCommissionFee))]),
                 _vm._v(" "),
                 _c("hr"),
                 _vm._v(" "),
                 _c("div", { staticClass: "uk-form-label" }, [
-                  _vm._v(_vm._s(_vm.referenceCodeText))
+                  _vm._v(_vm._s(_vm.totalPriceText))
                 ]),
                 _vm._v(" "),
-                _c("h6", [_vm._v(_vm._s(_vm.selectedSale.reference_code))])
-              ]
+                _c("h6", [_vm._v(_vm._s(_vm.selectedSale.paidPrice))]),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-form-label" }, [
+                  _vm._v(_vm._s(_vm.productsText))
+                ]),
+                _vm._v(" "),
+                _vm._l(_vm.selectedSale.itemTransactions, function(item) {
+                  return _c("div", { staticClass: "uk-margin-small-bottom" }, [
+                    _c("div", { staticClass: "uk-grid align-items-center " }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "uk-flex uk-width align-items-center justify-content-between"
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "uk-width-5-6 uk-flex align-items-center"
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "uk-margin-small-left uk-card-media-left uk-cover-container uk-width-1-4"
+                                },
+                                [
+                                  _c("img", {
+                                    attrs: {
+                                      src: item.course.image,
+                                      alt: "",
+                                      "uk-cover": ""
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("canvas", {
+                                    attrs: { width: "600", height: "400" }
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "div",
+                                { staticClass: "uk-margin-left uk-width-3-4" },
+                                [
+                                  _c(
+                                    "h5",
+                                    {
+                                      staticClass:
+                                        "uk-margin-remove-vertical uk-margin-remove-right",
+                                      staticStyle: {
+                                        overflow: "hidden",
+                                        "text-overflow": "ellipsis",
+                                        display: "-webkit-box",
+                                        "line-height": "16px",
+                                        "max-height": "32px",
+                                        "-webkit-line-clamp": "2",
+                                        "-webkit-box-orient": "vertical"
+                                      }
+                                    },
+                                    [_vm._v(_vm._s(item.course.name))]
+                                  ),
+                                  _vm._v(" "),
+                                  _c("p", [
+                                    _vm._v(
+                                      _vm._s(_vm.transactionIdText) +
+                                        ": " +
+                                        _vm._s(item.paymentTransactionId)
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", [
+                                    _vm._v(
+                                      _vm._s(_vm.transactionStatusText) +
+                                        ": " +
+                                        _vm._s(item.transactionStatus)
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", [
+                                    _vm._v(
+                                      _vm._s(_vm.iyzicoCommissionText) +
+                                        ": " +
+                                        _vm._s(item.iyziCommissionFee)
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", [
+                                    _vm._v(
+                                      _vm._s(_vm.merchantPayoutAmountText) +
+                                        ": " +
+                                        _vm._s(item.merchantPayoutAmount)
+                                    )
+                                  ])
+                                ]
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "h6",
+                            { staticClass: "uk-width-1-6 text-center" },
+                            [
+                              _vm._v(_vm._s(item.paidPrice) + "  "),
+                              _c("i", {
+                                staticClass: "fas fa-lira-sign icon-tiny"
+                              })
+                            ]
+                          )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("hr")
+                  ])
+                })
+              ],
+              2
             )
           : _vm._e(),
         _vm._v(" "),
