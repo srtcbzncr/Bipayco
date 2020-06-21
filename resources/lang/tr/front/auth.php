@@ -250,5 +250,6 @@ return [
     'purchase_history'=>'Satın Alma Geçmişi',
     'no_content'=>'İçerik bulunmuyor',
     'made_payments'=>'Yapılan Ödemeler',
-    'pending_payments'=>'Bekleyen Ödemeler'
+    'pending_payments'=>'Bekleyen Ödemeler',
+    'purchases'=>'Satın Alımlar'
 ];

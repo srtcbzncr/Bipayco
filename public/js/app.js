@@ -4852,8 +4852,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4928,6 +4926,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     merchantPayoutAmountText: {
       type: String,
       "default": "Satıcı Ödeme Tutarı"
+    },
+    transactionPriceText: {
+      type: String,
+      "default": "İşlem Tutarı"
+    },
+    productsText: {
+      type: String,
+      "default": "Ürünler"
     }
   },
   watch: {
@@ -21044,7 +21050,10 @@ var render = function() {
                   _vm._v(_vm._s(_vm.iyzicoCommissionText))
                 ]),
                 _vm._v(" "),
-                _c("h6", [_vm._v(_vm._s(_vm.selectedSale.iyziCommissionFee))]),
+                _c("h6", [
+                  _vm._v(_vm._s(_vm.selectedSale.iyziCommissionFee) + " "),
+                  _c("span", { staticClass: "fas fa-lira-sign icon-tiny" })
+                ]),
                 _vm._v(" "),
                 _c("hr"),
                 _vm._v(" "),
@@ -21052,7 +21061,10 @@ var render = function() {
                   _vm._v(_vm._s(_vm.totalPriceText))
                 ]),
                 _vm._v(" "),
-                _c("h6", [_vm._v(_vm._s(_vm.selectedSale.paidPrice))]),
+                _c("h6", [
+                  _vm._v(_vm._s(_vm.selectedSale.paidPrice) + " "),
+                  _c("span", { staticClass: "fas fa-lira-sign icon-tiny" })
+                ]),
                 _vm._v(" "),
                 _c("hr"),
                 _vm._v(" "),
@@ -21065,105 +21077,102 @@ var render = function() {
                     _c("div", { staticClass: "uk-grid align-items-center " }, [
                       _c(
                         "div",
-                        {
-                          staticClass:
-                            "uk-flex uk-width align-items-center justify-content-between"
-                        },
+                        { staticClass: "uk-width uk-flex align-items-center" },
                         [
                           _c(
                             "div",
                             {
                               staticClass:
-                                "uk-width-5-6 uk-flex align-items-center"
+                                "uk-margin-small-left uk-card-media-left uk-cover-container uk-width-1-4"
                             },
                             [
-                              _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "uk-margin-small-left uk-card-media-left uk-cover-container uk-width-1-4"
-                                },
-                                [
-                                  _c("img", {
-                                    attrs: {
-                                      src: item.course.image,
-                                      alt: "",
-                                      "uk-cover": ""
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("canvas", {
-                                    attrs: { width: "600", height: "400" }
-                                  })
-                                ]
-                              ),
+                              _c("img", {
+                                attrs: {
+                                  src: item.course.image,
+                                  alt: "",
+                                  "uk-cover": ""
+                                }
+                              }),
                               _vm._v(" "),
-                              _c(
-                                "div",
-                                { staticClass: "uk-margin-left uk-width-3-4" },
-                                [
-                                  _c(
-                                    "h5",
-                                    {
-                                      staticClass:
-                                        "uk-margin-remove-vertical uk-margin-remove-right",
-                                      staticStyle: {
-                                        overflow: "hidden",
-                                        "text-overflow": "ellipsis",
-                                        display: "-webkit-box",
-                                        "line-height": "16px",
-                                        "max-height": "32px",
-                                        "-webkit-line-clamp": "2",
-                                        "-webkit-box-orient": "vertical"
-                                      }
-                                    },
-                                    [_vm._v(_vm._s(item.course.name))]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("p", [
-                                    _vm._v(
-                                      _vm._s(_vm.transactionIdText) +
-                                        ": " +
-                                        _vm._s(item.paymentTransactionId)
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("p", [
-                                    _vm._v(
-                                      _vm._s(_vm.transactionStatusText) +
-                                        ": " +
-                                        _vm._s(item.transactionStatus)
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("p", [
-                                    _vm._v(
-                                      _vm._s(_vm.iyzicoCommissionText) +
-                                        ": " +
-                                        _vm._s(item.iyziCommissionFee)
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("p", [
-                                    _vm._v(
-                                      _vm._s(_vm.merchantPayoutAmountText) +
-                                        ": " +
-                                        _vm._s(item.merchantPayoutAmount)
-                                    )
-                                  ])
-                                ]
-                              )
+                              _c("canvas", {
+                                attrs: { width: "600", height: "400" }
+                              })
                             ]
                           ),
                           _vm._v(" "),
                           _c(
-                            "h6",
-                            { staticClass: "uk-width-1-6 text-center" },
+                            "div",
+                            { staticClass: "uk-margin-left uk-width-3-4" },
                             [
-                              _vm._v(_vm._s(item.paidPrice) + "  "),
-                              _c("i", {
-                                staticClass: "fas fa-lira-sign icon-tiny"
-                              })
+                              _c(
+                                "h5",
+                                {
+                                  staticClass:
+                                    "uk-margin-remove-vertical uk-margin-remove-right",
+                                  staticStyle: {
+                                    overflow: "hidden",
+                                    "text-overflow": "ellipsis",
+                                    display: "-webkit-box",
+                                    "line-height": "16px",
+                                    "max-height": "32px",
+                                    "-webkit-line-clamp": "2",
+                                    "-webkit-box-orient": "vertical"
+                                  }
+                                },
+                                [_vm._v(_vm._s(item.course.name))]
+                              ),
+                              _vm._v(" "),
+                              _c("p", [
+                                _vm._v(
+                                  _vm._s(_vm.transactionIdText) +
+                                    ": " +
+                                    _vm._s(item.paymentTransactionId)
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [
+                                _vm._v(
+                                  _vm._s(_vm.transactionStatusText) +
+                                    ": " +
+                                    _vm._s(item.transactionStatus)
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [
+                                _vm._v(
+                                  _vm._s(_vm.transactionPriceText) +
+                                    ": " +
+                                    _vm._s(item.paidPrice) +
+                                    " "
+                                ),
+                                _c("span", {
+                                  staticClass: "fas fa-lira-sign icon-tiny"
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [
+                                _vm._v(
+                                  _vm._s(_vm.iyzicoCommissionText) +
+                                    ": " +
+                                    _vm._s(item.iyziCommissionFee) +
+                                    " "
+                                ),
+                                _c("span", {
+                                  staticClass: "fas fa-lira-sign icon-tiny"
+                                })
+                              ]),
+                              _vm._v(" "),
+                              _c("p", [
+                                _vm._v(
+                                  _vm._s(_vm.merchantPayoutAmountText) +
+                                    ": " +
+                                    _vm._s(item.merchantPayoutAmount) +
+                                    " "
+                                ),
+                                _c("span", {
+                                  staticClass: "fas fa-lira-sign icon-tiny"
+                                })
+                              ])
                             ]
                           )
                         ]
