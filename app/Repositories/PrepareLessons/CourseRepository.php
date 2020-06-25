@@ -1227,8 +1227,22 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             $course = Course::find($id);
-            $courses = Course::where('lesson_id',$course->lesson_id)->where('deleted_at',null)->where('grade_id',$course->grade_id)
-                ->where('active',true)->get();
+
+            $pl_tag = Tag::where('course_id',$id)->where('course_type','App\Models\PrepareLessons\Course')->where('deleted_at',null)->get();
+            $tags = array();
+            foreach ($pl_tag as $item){
+                array_push($tags,$item->tag);
+            }
+            $courses_tag = Tag::where('deleted_at',null)->where('course_type','App\Models\PrepareLessons\Course')->whereIn('tag',$tags)->get();
+            $temp_courses = array();
+            $courses = null;
+            foreach ($courses_tag as $item){
+                $temp_course = Course::find($item->course_id);
+                array_push($temp_courses,$temp_course);
+            }
+            $courses = collect($temp_courses);
+
+
             if(count($courses)>2){
                 $object = $courses->random(2);
             }
