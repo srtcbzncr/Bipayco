@@ -7,6 +7,7 @@ namespace App\Repositories\Live;
 use App\Models\Auth\Instructor;
 use App\Models\Auth\User;
 use App\Models\Live\Course;
+use App\Models\Live\Entry;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\DB;
@@ -91,6 +92,17 @@ class LiveRepository  implements IRepository{
             $object->record = false;
             $object->duration = $data['duration'];
             $object->save();
+
+            $user = User::find($data['user_id']);
+            $instructor = $user->instructor();
+            DB::table('ge_courses_instructors')->insert([
+                'course_id' => $object->id,
+                'course_type' => 'App\Models\Live\Course',
+                'instructor_id' => $instructor->id,
+                'is_manager' => true,
+                'percent' => 100,
+                'active' => true
+            ]);
             DB::commit();
         }
         catch(\Exception $e){
@@ -144,21 +156,41 @@ class LiveRepository  implements IRepository{
         try{
             $user = User::find($user_id);
             $live = Course::find($meeting_id);
-            if($live->user_id ==$user_id){
-                BigBlueButton::join([
-                    'meetingID' => $meeting_id,
-                    'fullName' => $user->first_name.' '.$user->last_name,
-                    'password' => $live->moderator_pw, //which user role want to join set password here
-                    'redirect' => false, //it will not redirect into bigblueservr
-                ]);
+            $instructor = $user->instructor();
+            if($instructor!=null){
+                $control = DB::table('ge_courses_instructors')->where('course_id',$meeting_id)->where('course_type', 'App\Models\Live\Course')
+                    ->where('instructor_id',$instructor->id)->where('active',true)->where('deleted_at',null)->first();
+                if($control!=null){
+                    BigBlueButton::join([
+                        'meetingID' => $meeting_id,
+                        'fullName' => $user->first_name.' '.$user->last_name,
+                        'password' => $live->moderator_pw, //which user role want to join set password here
+                        'redirect' => false, //it will not redirect into bigblueservr
+                    ]);
+                }
+
+                $student = $user->student();
+                $live_entry_control = Entry::where('student_id',$student->id)->where('live_course_id',$meeting_id)->where('deleted_at',null)->first();
+                if($live_entry_control!=null){
+                    BigBlueButton::join([
+                        'meetingID' => $meeting_id,
+                        'fullName' => $user->first_name.' '.$user->last_name,
+                        'password' => $live->attendee_pw, //which user role want to join set password here
+                        'redirect' => false, //it will not redirect into bigblueservr
+                    ]);
+                }
             }
             else{
-                BigBlueButton::join([
-                    'meetingID' => $meeting_id,
-                    'fullName' => $user->first_name.' '.$user->last_name,
-                    'password' => $live->attendee_pw, //which user role want to join set password here
-                    'redirect' => false, //it will not redirect into bigblueservr
-                ]);
+                $student = $user->student();
+                $live_entry_control = Entry::where('student_id',$student->id)->where('live_course_id',$meeting_id)->where('deleted_at',null)->first();
+                if($live_entry_control!=null){
+                    BigBlueButton::join([
+                        'meetingID' => $meeting_id,
+                        'fullName' => $user->first_name.' '.$user->last_name,
+                        'password' => $live->attendee_pw, //which user role want to join set password here
+                        'redirect' => false, //it will not redirect into bigblueservr
+                    ]);
+                }
             }
         }
         catch(\Exception $e){
