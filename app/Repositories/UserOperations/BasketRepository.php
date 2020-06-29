@@ -587,19 +587,13 @@ class BasketRepository implements IRepository
                             $iyzicoBasketItemsTemp->save();
 
                             //  öğrenciyi entry tablosuna kaydet.
+                            $live_course = \App\Models\Live\Course::find($coursesId[$i]);
                             $object = null;
-                            $object = new Entry();
-                            $object->course_id = $coursesId[$i];;
-                            $object->course_type = 'App\Models\Live\Course';
+                            $object = new \App\Models\Live\Entry();
+                            $object->live_course_id = $coursesId[$i];
                             $object->student_id = $user->student->id;
+                            $object->password = $live_course->attendee_pw;
 
-                            $course = \App\Models\PrepareExams\Course::find($coursesId[$i]);
-                            $today = date("Y/m/d");
-                            $accessTime = $course->access_time;
-                            $d = new \DateTime();
-                            $object->access_start = $d->format('Y-m-d');
-                            $object->access_finish = date('Y-m-d', strtotime('+ '.$accessTime.' months', strtotime($today)));
-                            $object->active = true;
                             $object->save();
                         }
                     }
