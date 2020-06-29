@@ -63,6 +63,7 @@ class RebateRepository implements IRepository
             $user_id = $data['user_id'];
             $course_id = $data['course_id'];
             $student = Student::find($data['student_id']);
+            $is_live = false;
 
             $course_type = null;
             if($data['course_type'] == "generalEducation"){
@@ -161,6 +162,7 @@ class RebateRepository implements IRepository
             }
             else if($data['course_type'] == "live"){
                // canlı ders izlenip izlenmediği kontrolü
+                $is_live = true;
                 $course = Course::find($course_id);
                 if($course->completed_at == null){
                     $progress = 0;
@@ -208,8 +210,14 @@ class RebateRepository implements IRepository
                     $purchase_delete = Purchase::find($purchase->id);
                     $purchase_delete->delete();
 
-                    $entry_delete = Entry::where('course_id',$course_id)->where('course_type',$course_type)->where('student_id',$student->id)->where('deleted_at',null)->first();
-                    $entry_delete->delete();
+                    if($is_live == false){
+                        $entry_delete = Entry::where('course_id',$course_id)->where('course_type',$course_type)->where('student_id',$student->id)->where('deleted_at',null)->first();
+                        $entry_delete->delete();
+                    }
+                    else{
+                        $entry_delete = \App\Models\Live\Entry::where('live_course_id',$course_id)->where('student_id',$student->id)->where('deleted_at',null)->first();
+                        $entry_delete->delete();
+                    }
                 }
                 else{
                     // iade başarısız
