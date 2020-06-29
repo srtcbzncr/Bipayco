@@ -357,6 +357,10 @@ class BasketRepository implements IRepository
                     $course = \App\Models\PrepareExams\Course::find($item->course_id);
                     array_push($courses,$course);
                 }
+                else if($item->course_type == "App\Models\Live\Course"){
+                    $course = \App\Models\Live\Course::find($item->course_id);
+                    array_push($courses,$course);
+                }
             }
             #create iyzico_basket and iyzico_basket_items
             $iyzicoBasket = new \App\Models\Iyzico\Basket();
@@ -447,6 +451,9 @@ class BasketRepository implements IRepository
                         }
                         else if($type == "pe"){
                             $course_type = "App\Models\PrepareExams\Course";
+                        }
+                        else if($type == "live"){
+                            $course_type = "App\Models\Live\Course";
                         }
                         $course_id = $exp[1];
 
@@ -552,6 +559,38 @@ class BasketRepository implements IRepository
                             $object = new Entry();
                             $object->course_id = $coursesId[$i];;
                             $object->course_type = 'App\Models\PrepareExams\Course';
+                            $object->student_id = $user->student->id;
+
+                            $course = \App\Models\PrepareExams\Course::find($coursesId[$i]);
+                            $today = date("Y/m/d");
+                            $accessTime = $course->access_time;
+                            $d = new \DateTime();
+                            $object->access_start = $d->format('Y-m-d');
+                            $object->access_finish = date('Y-m-d', strtotime('+ '.$accessTime.' months', strtotime($today)));
+                            $object->active = true;
+                            $object->save();
+                        }
+                        else if($coursesType[$i] == "App\Models\Live\Course"){
+                            $object = new Purchase();
+                            $object->user_id =  $data['user_id'];;
+                            $user = User::find($data['user_id']);
+                            $object->student_id = $user->student->id;
+                            $object->course_id = $coursesId[$i];
+                            $object->course_type = 'App\Models\Live\Course';
+                            $object->price = $coursesPrice[$i];
+                            $object->confirmation = true;
+                            $object->save();
+
+                            // iyzico basket items ekle.
+                            $iyzicoBasketItemsTemp = BasketItems::find($iyzicoBasketItems[$i]->id);
+                            $iyzicoBasketItemsTemp->purchase_id = $object->id;
+                            $iyzicoBasketItemsTemp->save();
+
+                            //  öğrenciyi entry tablosuna kaydet.
+                            $object = null;
+                            $object = new Entry();
+                            $object->course_id = $coursesId[$i];;
+                            $object->course_type = 'App\Models\Live\Course';
                             $object->student_id = $user->student->id;
 
                             $course = \App\Models\PrepareExams\Course::find($coursesId[$i]);
