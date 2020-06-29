@@ -11,6 +11,7 @@ use App\Models\GeneralEducation\Purchase;
 use App\Models\GeneralEducation\Rebate;
 use App\Models\GeneralEducation\Section;
 use App\Models\Iyzico\BasketItems;
+use App\Models\Live\Course;
 use App\Payment\Payment;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
@@ -72,6 +73,9 @@ class RebateRepository implements IRepository
             }
             else if($data['course_type'] == "prepareExams"){
                 $course_type = 'App\Models\PrepareExams\Course';
+            }
+            else if($data['course_type'] == "live"){
+                $course_type = 'App\Models\Live\Course';
             }
 
             // prepare
@@ -154,6 +158,16 @@ class RebateRepository implements IRepository
                     }
                 }
                 $progress = ($completeCount/count($lessons))*100;
+            }
+            else if($data['course_type'] == "live"){
+               // canlı ders izlenip izlenmediği kontrolü
+                $course = Course::find($course_id);
+                if($course->completed_at == null){
+                    $progress = 0;
+                }
+                else{
+                    $progress = 100;
+                }
             }
 
             if($progress > 30){
