@@ -97,6 +97,9 @@ class Payment
             else if(get_class($course) == 'App\Models\PrepareExams\Course'){
                 $type = 'pe-';
             }
+            else if(get_class($course) == 'App\Models\Live\Course'){
+                $type = 'live-';
+            }
             $basketItem->setId($type.strval($course->id));
             $basketItem->setName($course->name);
             $basketItem->setCategory1("Bipayco");
