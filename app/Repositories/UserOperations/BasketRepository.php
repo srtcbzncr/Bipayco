@@ -87,6 +87,9 @@ class BasketRepository implements IRepository
             }
             else if($data['module_name'] == 'hw'){
             }
+            else if($data['module_name'] == 'live'){
+                $basket->course_type = 'App\Models\Live\Course';
+            }
             $basket->save();
 
             DB::commit();
@@ -118,6 +121,8 @@ class BasketRepository implements IRepository
                 $type = "App\Models\PrepareLessons\Course";
             else if($data['module_name'] == 'prepareExams')
                 $type = "App\Models\PrepareExams\Course";
+            else if($data['module_name'] == 'live')
+                $type = "App\Models\Live\Course";
 
             DB::table('basket')->where('user_id',$data['user_id'])
                 ->where('course_id',$data['course_id'])
@@ -180,6 +185,11 @@ class BasketRepository implements IRepository
                 else if($item->course_type == "App\Models\PrepareExams\Course"){
                     $courses[$key]['course_type'] = "prepareExams";
                     $course = \App\Models\PrepareExams\Course::find($item->course_id);
+                    $courses[$key]['course'] = $course;
+                }
+                else if($item->course_type == "App\Models\Live\Course"){
+                    $courses[$key]['course_type'] = "live";
+                    $course = \App\Models\Live\Course::find($item->course_id);
                     $courses[$key]['course'] = $course;
                 }
             }
