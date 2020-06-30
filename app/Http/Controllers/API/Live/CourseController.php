@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    public function goalsPost(Request $request){
+    public function goalsPost($course_id,Request $request){
         $data = $request->toArray();
         $repo = new CourseRepository();
         $resp = $repo->goalsPost();
@@ -25,5 +25,9 @@ class CourseController extends Controller
             'errorMessage' => $resp->getError(),
             'message' => 'Kazanımlar oluşturulurken bir hata meydana geldi. Tekrar deneyin.'
         ],400);
+    }
+
+    public function goalsGet($course_id){
+
     }
 }
