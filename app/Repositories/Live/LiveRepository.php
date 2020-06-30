@@ -87,8 +87,8 @@ class LiveRepository  implements IRepository{
             $object->price_with_discount = $data['price_with_discount'];
             $object->datetime = $data['datetime'];
             $object->max_participant = $data['max_participant'];
-            $object->attendee_pw = uniqid('at'.random_int(100,999), false);;
-            $object->moderator_pw = uniqid('mo'.random_int(100,999), false);;
+            $object->attendee_pw = uniqid('at'.random_int(100,999), false);
+            $object->moderator_pw = uniqid('mo'.random_int(100,999), false);
             $object->record = false;
             $object->duration = $data['duration'];
             $object->save();

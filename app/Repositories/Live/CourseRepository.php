@@ -68,7 +68,7 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             if(isset($data['achievements'])){
-                
+
             }
             if(isset($data['requirements'])){
 
