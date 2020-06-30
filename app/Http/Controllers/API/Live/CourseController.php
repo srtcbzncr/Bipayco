@@ -11,7 +11,7 @@ class CourseController extends Controller
     public function goalsPost($course_id,Request $request){
         $data = $request->toArray();
         $repo = new CourseRepository();
-        $resp = $repo->goalsPost();
+        $resp = $repo->goalsPost($course_id,$data);
 
         if($resp->getResult()){
             return response()->json([

@@ -59,7 +59,7 @@ class CourseRepository implements IRepository{
         // TODO: Implement setPassive() method.
     }
 
-    public function goalsPost($data){
+    public function goalsPost($course_id,$data){
         // Response variables
         $result = true;
         $error = null;
@@ -67,6 +67,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
+            // var olanları sil yenilerini ekle
             if(isset($data['achievements'])){
 
             }
