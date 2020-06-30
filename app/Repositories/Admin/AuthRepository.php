@@ -10,6 +10,7 @@ use App\Models\Auth\Guardian;
 use App\Models\Auth\Instructor;
 use App\Models\Auth\Student;
 use App\Models\Auth\User;
+use App\Models\GeneralEducation\Purchase;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\DB;
@@ -235,6 +236,14 @@ class AuthRepository implements IRepository {
                 ->paginate(10);
             foreach ($object as $key=> $item){
                 $user = User::find($item->user_id);
+                // toplam harcama bilgisini ekle
+                $total = 0;
+                $purchases = Purchase::where('user_id',$user->id)->where('deleted_at',null)->get();
+                foreach ($purchases as $purchase){
+                    $total = $total + $purchase->price;
+                }
+                $user['totalSpend'] = $total;
+
                 $object[$key]['user'] = $user;
             }
         }
@@ -356,6 +365,20 @@ class AuthRepository implements IRepository {
                 ->paginate(10);
             foreach ($object as $key=>$item){
                 $user = User::find($item->user_id);
+
+                // toplam kazançları al
+                $totalEarn = 0;
+                $ge_instructors = DB::table('ge_courses_instructors')->where('instructor_id',$item->id)->where('active',true)->where('deleted_at',null)->get();
+                foreach ($ge_instructors as $ge_instructor){
+                    $total = 0;
+                    $ge_purchases = Purchase::where('course',$ge_instructor->course_id)->where('course_type',$ge_instructor->course_type)->where('confirmation',true)->where('deleted_at',null)->get();
+                    foreach ($ge_purchases as $purchase){
+                        $total = $total + $purchase->price;
+                    }
+                    $totalEarn = $totalEarn + (($total*$ge_instructor->percent)/100);
+                }
+                $user['totalEearn'] = $totalEarn;
+
                 $object[$key]['user'] = $user;
             }
         }
