@@ -95,13 +95,15 @@ class CourseController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'inBasket' => $resp->getData()
+                'inBasket' => $resp->getData(),
+                'message' => 'Basket kontrol bilgisi başarıyla getirildi.'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'message' => 'Bir hata oluştu.Tekrar deneyin.'
+            'message' => 'Bir hata oluştu.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
         ]);
     }
 

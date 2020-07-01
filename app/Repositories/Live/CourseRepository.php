@@ -31,7 +31,7 @@ class CourseRepository implements IRepository{
 
         }
         catch(\Exception $e){
-            $error = $e;
+            $error = $e->getMessage();;
             $result = false;
         }
 
@@ -158,7 +158,7 @@ class CourseRepository implements IRepository{
             }
         }
         catch(\Exception $e){
-            $error = $e;
+            $error = $e->getMessage();;
             $result = false;
         }
 
@@ -178,7 +178,7 @@ class CourseRepository implements IRepository{
             $object = Entry::where('live_course_id', $id)->where('deleted_at',null)->orderBy('created_at', 'desc')->take(3)->get();
         }
         catch(\Exception $e){
-            $error = $e;
+            $error = $e->getMessage();;
             $result = false;
         }
 
@@ -200,7 +200,7 @@ class CourseRepository implements IRepository{
 
         }
         catch(\Exception $e){
-            $error = $e;
+            $error = $e->getMessage();;
             $result = false;
         }
 
