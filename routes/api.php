@@ -101,7 +101,6 @@ Route::group(['prefix' => 'pe'],function (){
 
 });
 
-// todo: **** mob-çekmeceden yıldızlara. buradan
 Route::group(['prefix' => 'live'],function (){
     Route::group(['prefix' => 'course'], function(){
         Route::get('{id}', 'API\Live\CourseController@show')->name('live_course'); // live_ok
@@ -109,10 +108,10 @@ Route::group(['prefix' => 'live'],function (){
     });
 
     Route::get('/inBasket/{user_id}/{course_id}','API\Live\CourseController@inBasket')->name('live_in_basket'); // live_ok
-    Route::get('/similarCourses/{course_id}/{user_id?}','API\Live\CourseController@simularCourses')->name('live_simularCourses'); // live_not_ok
+    Route::get('/similarCourses/{course_id}/{user_id?}','API\Live\CourseController@simularCourses')->name('live_simularCourses'); // live_ok
 
 });
-// todo: buraya kadar
+
 
 Route::get('/purchases/{user_id}','API\Purchases\PurchasesController@getPurchases')->name('api_get_purchases');
 
