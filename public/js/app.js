@@ -13280,7 +13280,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "side-bar",
@@ -13302,9 +13301,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       "default": 'Deneme Sınavları'
     },
-    booksText: {
+    liveText: {
       type: String,
-      "default": 'Soru Bankaları'
+      "default": 'Canlı Yayınlar'
     },
     logo: {
       type: String,
@@ -13313,7 +13312,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     allOfCategory: String,
     generalEducationRoute: String,
     prepareLessonsRoute: String,
-    prepareExamsRoute: String
+    prepareExamsRoute: String,
+    liveRoute: String
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categories', 'crLessons', 'crExams'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCategories', 'loadCrLessons', 'loadCrExams'])),
@@ -33178,6 +33178,23 @@ var render = function() {
               )
             ])
           ]
+        )
+      ]),
+      _vm._v(" "),
+      _c("li", [
+        _c(
+          "a",
+          {
+            staticClass: "active",
+            attrs: {
+              href: _vm.liveRoute,
+              "uk-tooltip":
+                "title:" +
+                _vm.liveText +
+                "; delay: 500 ; pos: right ;animation:	uk-animation-scale-up"
+            }
+          },
+          [_c("i", { staticClass: "fas fa-podcast icon-medium" })]
         )
       ])
     ]),

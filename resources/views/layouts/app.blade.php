@@ -40,6 +40,7 @@
         <span class="uk-animation-fade tm-mobile-close-icon" uk-toggle="target: #side-nav; cls: side-nav-active"> <i class="fas fa-times icon-large"></i></span>
         <side-bar
             general-education-route="{{route('ge_index')}}"
+            live-route="{{route('live_index')}}"
             prepare-lessons-route="{{route('pl_index')}}"
             prepare-exams-route="{{route('pe_index')}}"
             home-route="{{route('home')}}"

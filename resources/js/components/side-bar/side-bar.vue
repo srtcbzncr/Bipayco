@@ -53,10 +53,9 @@
                     </div>
                 </div>
             </li>
-<!--            <li>-->
-<!--                &lt;!&ndash; blog &ndash;&gt;-->
-<!--                <a href="#" class="active" :uk-tooltip="'title:'+ booksText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-book icon-medium"></i> </a>-->
-<!--            </li>-->
+            <li>
+                <a :href="liveRoute" class="active" :uk-tooltip="'title:'+ liveText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-podcast icon-medium"></i> </a>
+            </li>
 <!--            <li>-->
 <!--                &lt;!&ndash; ui compounents &ndash;&gt;-->
 <!--                <a href="#" :uk-tooltip="'title:'+examsText +'; delay: 500 ; pos: right ;animation:	uk-animation-scale-up'"> <i class="fas fa-award icon-medium"></i> </a>-->
@@ -119,9 +118,9 @@ export default {
             type:String,
             default:'Deneme Sınavları'
         },
-        booksText:{
+        liveText:{
             type:String,
-            default:'Soru Bankaları'
+            default:'Canlı Yayınlar'
         },
         logo:{
             type:String,
@@ -131,6 +130,7 @@ export default {
         generalEducationRoute:String,
         prepareLessonsRoute:String,
         prepareExamsRoute:String,
+        liveRoute:String,
     },
     computed:{
         ...mapState([
