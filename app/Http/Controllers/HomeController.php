@@ -6,6 +6,7 @@ use App\Repositories\Curriculum\ExamRepository;
 use App\Repositories\Curriculum\LessonRepository;
 use App\Repositories\GeneralEducation\CategoryRepository;
 use App\Repositories\GeneralEducation\CourseRepository;
+use App\Repositories\Live\LiveRepository;
 use App\Repositories\PrepareLessons\CurriculumRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -108,6 +109,21 @@ class HomeController extends Controller
     }
 
     public function live_index(){
+        // Repo initializations
+        $repo = new LiveRepository();
 
+        // Operations
+        $resp = $repo->all();
+        $data = [
+            'lives' => $resp->getData(),
+        ];
+
+        // Response
+        if($resp->getResult()){
+            return view('live.index', $data);
+        }
+        else{
+            return view('error');
+        }
     }
 }

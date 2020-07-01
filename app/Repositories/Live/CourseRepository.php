@@ -162,4 +162,25 @@ class CourseRepository implements IRepository{
         return $resp;
     }
 
+    public function allLiveCourses(){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = Course::where('completed_at',null)->where('deleted_at',null)->get();
+            $object['courseCount'] = count($object);
+
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
 }
