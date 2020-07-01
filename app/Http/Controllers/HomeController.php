@@ -106,4 +106,8 @@ class HomeController extends Controller
             return view('error');
         }
     }
+
+    public function live_index(){
+
+    }
 }

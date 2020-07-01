@@ -97,7 +97,7 @@ Route::group(['prefix' => 'instructor', 'middleware' => 'auth'], function(){
         Route::get('course/create/{id?}', 'PrepareExams\CourseController@createGet')->name('pe_course_create_get'); // pe_ok
     });
     Route::group(['prefix' => 'live', 'middleware' => 'hasInstructorProfile'], function(){
-        Route::get('course/create/{id?}', 'Live\CourseController@createGet')->name('pe_course_create_get'); // pe_ok
+        Route::get('course/create/{id?}', 'Live\CourseController@createGet')->name('pe_course_create_get'); // live_ok
     });
 });
 
@@ -143,6 +143,13 @@ Route::group(['prefix' => 'pe'],function (){
         //Route::get('{id}/watch', 'PrepareLesson\CourseController@watch')->name('pl_watch');
     });
     Route::get('index', 'HomeController@pe_index')->name('pe_index'); // pe_ok
+});
+
+Route::group(['prefix' => 'live'],function (){
+    Route::group(['prefix' => 'course'], function(){
+        Route::get('{id}', 'Live\CourseController@show')->name('live_course'); // live_not_ok
+    });
+    Route::get('index', 'HomeController@live_index')->name('live_index'); // live_not_ok
 });
 
 Route::group(['prefix' => 'questionSource', 'middleware' => 'auth'],function (){
