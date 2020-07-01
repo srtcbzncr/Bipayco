@@ -377,7 +377,7 @@ class AuthRepository implements IRepository {
                     }
                     $totalEarn = $totalEarn + (($total*$ge_instructor->percent)/100);
                 }
-                $user['totalEearn'] = $totalEarn;
+                $user['totalEarn'] = $totalEarn;
 
                 $object[$key]['user'] = $user;
             }

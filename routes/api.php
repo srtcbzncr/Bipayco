@@ -26,6 +26,7 @@ Route::get('/home/pl/{user_id?}', 'API\HomeController@indexPl')->name('home_pl')
 Route::get('/home/pe/{user_id?}', 'API\HomeController@indexPe')->name('home_pe');
 Route::get('/home/books/{user_id?}', 'API\HomeController@indexBooks')->name('home_books');
 Route::get('/home/exams/{user_id?}', 'API\HomeController@indexExams')->name('home_exams');
+Route::get('/home/live/{user_id?}', 'API\HomeController@indexLives')->name('home_lives'); // live_not_ok
 
 Route::get('search/{tag}/{userId?}','API\Search\SearchController@search')->name('api_search');
 

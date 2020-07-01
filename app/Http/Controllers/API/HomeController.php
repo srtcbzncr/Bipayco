@@ -75,6 +75,27 @@ class HomeController extends Controller
         ],400);
     }
 
+    public function indexLives($user_id=null){
+        $liveCourseRepo = new \App\Repositories\Live\CourseRepository();
+
+        // Operations
+        $pePopularCoursesResp = $liveCourseRepo->getPopularCourses($user_id);
+
+        $data =  $pePopularCoursesResp->getData();
+
+        if( $pePopularCoursesResp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $data,
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $pePopularCoursesResp->getError()
+        ],400);
+    }
+
     public function indexBooks($user_id=null){
         $data = [];
         return response()->json([
@@ -156,4 +177,6 @@ class HomeController extends Controller
             'errorMessage' => $resp->getError()
         ]);
     }
+
+
 }

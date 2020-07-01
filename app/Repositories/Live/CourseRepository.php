@@ -183,4 +183,8 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+
+    public function getPopularCourses($user_id){
+
+    }
 }
