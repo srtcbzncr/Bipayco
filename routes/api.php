@@ -101,6 +101,19 @@ Route::group(['prefix' => 'pe'],function (){
 
 });
 
+// todo: **** mob-çekmeceden yıldızlara. buradan
+Route::group(['prefix' => 'live'],function (){
+    Route::group(['prefix' => 'course'], function(){
+        Route::get('{id}', 'API\Live\CourseController@show')->name('live_course'); // live_ok
+        Route::post('{id}/buy','API\Live\CourseController@buy')->name('live_course_buy'); // live_not_ok
+    });
+
+    Route::get('/inBasket/{user_id}/{course_id}','API\Live\CourseController@inBasket')->name('live_in_basket'); // live_not_ok
+    Route::get('/similarCourses/{course_id}/{user_id?}','API\Live\CourseController@simularCourses')->name('live_simularCourses'); // live_not_ok
+
+});
+// todo: buraya kadar
+
 Route::get('/purchases/{user_id}','API\Purchases\PurchasesController@getPurchases')->name('api_get_purchases');
 
 Route::prefix('profile')->group(function (){

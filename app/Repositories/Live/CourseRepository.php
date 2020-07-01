@@ -5,6 +5,7 @@ namespace App\Repositories\Live;
 
 
 use App\Models\Auth\Student;
+use App\Models\Auth\User;
 use App\Models\GeneralEducation\Purchase;
 use App\Models\Live\Course;
 use App\Models\Live\Entry;
@@ -13,6 +14,7 @@ use App\Models\UsersOperations\Favorite;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CourseRepository implements IRepository{
     public function all()
@@ -151,7 +153,7 @@ class CourseRepository implements IRepository{
 
         // Operations
         try{
-            $object = Entry::where('live_course_id', $id)->orderBy('created_at', 'desc')->take(3)->get();
+            $object = Entry::where('live_course_id', $id)->where('deleted_at',null)->orderBy('created_at', 'desc')->take(3)->get();
         }
         catch(\Exception $e){
             $error = $e;
@@ -219,6 +221,62 @@ class CourseRepository implements IRepository{
                         $object[$key]['inFavorite'] = true;
                     else
                         $object[$key]['inFavorite'] = false;
+                }
+            }
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function get_api($id,$user_id)
+    {
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $user = null;
+            if($user_id != null){
+                $user = User::find($user_id);
+                $student = Student::where('user_id',$user->id)->first();
+            }
+
+            if($user == null){
+                $object = Course::find($id);
+            }
+            else{
+                $object = Course::find($id);
+
+                $student = Student::where('user_id',$user->id)->first();
+                $controlEntry = Entry::where('student_id',$student->id)->where('live_course_id',$id)->where('deleted_at',null)->get();
+                if($controlEntry != null and count($controlEntry)>0){
+                    $object['inEntry'] = true;
+                }
+                else{
+                    $object['inEntry'] = false;
+                }
+
+                $controlBasket = Basket::where('user_id',$user->id)->where('course_id',$id)->where('course_type','App\Models\Live\Course')->get();
+                if($controlBasket != null and count($controlBasket) > 0){
+                    $object['inBasket'] = true;
+                }
+                else{
+                    $object['inBasket'] = false;
+                }
+                $controlFav = Favorite::where('user_id',$user->id)->where('course_id',$id)->where('course_type','App\Models\Live\Course')->get();
+                if($controlFav != null and count($controlFav) > 0){
+                    $object['inFavorite'] = true;
+                }
+                else{
+                    $object['inFavorite'] = false;
                 }
             }
         }
