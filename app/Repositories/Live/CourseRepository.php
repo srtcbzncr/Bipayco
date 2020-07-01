@@ -4,6 +4,7 @@
 namespace App\Repositories\Live;
 
 
+use App\Models\Auth\Instructor;
 use App\Models\Auth\Student;
 use App\Models\Auth\User;
 use App\Models\GeneralEducation\Purchase;
@@ -104,7 +105,27 @@ class CourseRepository implements IRepository{
 
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $course = Course::find($id);
+            $course->delete();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 
     public function setActive($id)
@@ -426,7 +447,33 @@ class CourseRepository implements IRepository{
             }
         }
         catch(\Exception $e){
-            $error = $e;
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function instructorsGet($id)
+    {
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $ge_courses_instructor = DB::table('ge_courses_instructors')->where('course_id',$id)->where('course_type','App\Models\Live\Course')
+                ->where('active',true)->where('deleted_at',null)->first();
+            $instructor = Instructor::find($ge_courses_instructor->instructor_id);
+            $user = User::find($instructor->user_id);
+            $ge_courses_instructor['user'] = $user;
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
             $result = false;
         }
 

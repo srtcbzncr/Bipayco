@@ -114,13 +114,57 @@ class CourseController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'data' => $resp->getData()
+                'data' => $resp->getData(),
+                'message' => 'Benzer kurslar başarıyla getirildi'
             ]);
         }
 
         return response()->json([
             'error' => true,
-            'message' => 'Bir hata oluştu.Tekrar deneyin.'
+            'message' => 'Bir hata oluştu.Tekrar deneyin.',
+            'errorMessage'=>$resp->getError()
+        ]);
+    }
+
+    public function deleteCourse($id){
+        // Initializing
+        $repo = new CourseRepository();
+
+        // Operations
+        $resp = $repo->delete($id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData(),
+                'message'=>'Kurs başarıyla silindi'
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Bir hata oluştu.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ]);
+    }
+
+    public function instructorsGet($id){
+        // Initializing
+        $repo = new CourseRepository();
+
+        // Operations
+        $resp = $repo->instructorsGet($id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData(),
+                'message'=>'Eğitmenler başarıyla getirildi'
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Bir hata oluştu.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
         ]);
     }
 
