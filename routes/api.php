@@ -105,10 +105,10 @@ Route::group(['prefix' => 'pe'],function (){
 Route::group(['prefix' => 'live'],function (){
     Route::group(['prefix' => 'course'], function(){
         Route::get('{id}', 'API\Live\CourseController@show')->name('live_course'); // live_ok
-        Route::post('{id}/buy','API\Live\CourseController@buy')->name('live_course_buy'); // live_not_ok
+        //Route::post('{id}/buy','API\Live\CourseController@buy')->name('live_course_buy'); // bu yok
     });
 
-    Route::get('/inBasket/{user_id}/{course_id}','API\Live\CourseController@inBasket')->name('live_in_basket'); // live_not_ok
+    Route::get('/inBasket/{user_id}/{course_id}','API\Live\CourseController@inBasket')->name('live_in_basket'); // live_ok
     Route::get('/similarCourses/{course_id}/{user_id?}','API\Live\CourseController@simularCourses')->name('live_simularCourses'); // live_not_ok
 
 });

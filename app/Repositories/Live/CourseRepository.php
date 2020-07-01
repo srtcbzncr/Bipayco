@@ -7,6 +7,7 @@ namespace App\Repositories\Live;
 use App\Models\Auth\Student;
 use App\Models\Auth\User;
 use App\Models\GeneralEducation\Purchase;
+use App\Models\GeneralEducation\Tag;
 use App\Models\Live\Course;
 use App\Models\Live\Entry;
 use App\Models\UsersOperations\Basket;
@@ -289,4 +290,149 @@ class CourseRepository implements IRepository{
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+
+   /* public function buy($courseId,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            // öğrenciyi purchase tablosuna kaydet.
+            $object = new Purchase();
+            $object->user_id =  $data['userId'];
+            $user = User::find($data['userId']);
+            $object->student_id = $user->student->id;
+            $object->course_id = $courseId;
+            $object->course_type = 'App\Models\Live\Course';
+            $object->price = $data['price'];
+            $object->confirmation = true;
+            $object->save();
+
+            //  öğrenciyi entry tablosuna kaydet.
+            $object = null;
+            $object = new Entry();
+            $object->course_id = $courseId;
+            $object->course_type = 'App\Models\Live\Course';
+            $object->student_id = $user->student->id;
+
+            $course = Course::find($courseId);
+            $today = date("Y/m/d");
+            $accessTime = $course->access_time;
+            $object->access_start = $today;
+            $object->access_finish = date('Y-m-d', strtotime('+ '.$accessTime.' months', strtotime($today)));
+            $object->active = true;
+            $object->save();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }*/
+
+    public function inBasket($user_id,$course_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        $control = DB::table('basket')->where('user_id',$user_id)
+            ->where('course_id',$course_id)
+            ->where('course_type','App\Models\Live\Course')->get();
+        if($control!=null and count($control)>0){
+            $object = true;
+        }
+        else{
+            $object = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getSimilarCourses($id,$user_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $course = Course::find($id);
+
+            $pe_tag = Tag::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('deleted_at',null)->get();
+            $tags = array();
+            foreach ($pe_tag as $item){
+                array_push($tags,$item->tag);
+            }
+            $courses_tag = Tag::where('deleted_at',null)->where('course_type','App\Models\Live\Course')->whereIn('tag',$tags)->get();
+            $temp_courses = array();
+            $courses = null;
+            foreach ($courses_tag as $item){
+                $temp_course = Course::find($item->course_id);
+                array_push($temp_courses,$temp_course);
+            }
+            $courses = collect($temp_courses);
+
+
+            if(count($courses)>2){
+                $object = $courses->random(2);
+            }
+            else if(count($courses)==2){
+                $object = $courses;
+            }
+            else{
+                $object = array();
+            }
+
+            if(count($object) > 0 and $user_id != null){
+                foreach ($object as $key => $item){
+
+                    $student = Student::where('user_id',$user_id)->first();
+                    $controlEntry = Entry::where('student_id',$student->id)->where('live_course_id',$item->id)->where('deleted_at',null)->get();
+                    if($controlEntry != null and count($controlEntry)>0){
+                        $object[$key]['inEntry'] = true;
+                    }
+                    else{
+                        $object[$key]['inEntry'] = false;
+                    }
+
+                    $contorlBasket = DB::table('basket')->where('user_id',$user_id)->where('course_id',$item->id)->where('course_type','App\Models\Live\Course')->get();
+                    if($contorlBasket !=  null and count($contorlBasket) > 0){
+                        $object[$key]['inBasket'] = true;
+                    }
+                    else{
+                        $object[$key]['inBasket'] = false;
+                    }
+
+                    $contorlFav = DB::table('favorite')->where('user_id',$user_id)->where('course_id',$item->id)->where('course_type','App\Models\Live\Course')->get();
+                    if($contorlFav !=  null and count($contorlFav) > 0){
+                        $object[$key]['inFavorite'] = true;
+                    }
+                    else{
+                        $object[$key]['inFavorite'] = false;
+                    }
+                }
+            }
+        }
+        catch(\Exception $e){
+            $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
 }

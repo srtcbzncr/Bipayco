@@ -64,4 +64,64 @@ class CourseController extends Controller
             'errorMessage' => $resp->getError()
         ]);
     }
+
+    /*public function buy($courseId,Request $request){
+        // initializing
+        $repo = new CourseRepository();
+        $data = $request->toArray();
+
+        // operations
+        $resp = $repo->buy($courseId,$data);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Satın alma başarısız.Tekrar deneyin',
+            'errorMessage' => $resp->getError()
+        ]);
+    }*/
+
+    public function inBasket($user_id,$course_id){
+        // Initializing
+        $repo = new CourseRepository();
+
+        // Operations
+        $resp = $repo->inBasket($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'inBasket' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Bir hata oluştu.Tekrar deneyin.'
+        ]);
+    }
+
+    public function simularCourses($course_id,$user_id=null){
+        // Initializing
+        $repo = new CourseRepository();
+
+        // Operations
+        $resp = $repo->getSimilarCourses($course_id,$user_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData()
+            ]);
+        }
+
+        return response()->json([
+            'error' => true,
+            'message' => 'Bir hata oluştu.Tekrar deneyin.'
+        ]);
+    }
+
 }
