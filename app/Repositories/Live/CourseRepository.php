@@ -5,6 +5,7 @@ namespace App\Repositories\Live;
 
 
 use App\Models\Auth\Student;
+use App\Models\GeneralEducation\Purchase;
 use App\Models\Live\Course;
 use App\Models\Live\Entry;
 use App\Models\UsersOperations\Basket;
@@ -185,6 +186,23 @@ class CourseRepository implements IRepository{
     }
 
     public function getPopularCourses($user_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
 
+        // Operations
+        try{
+            // canlı yaynının başlayacağı en yakın tarihine göre sırala
+            $object = Course::where('completed_at',null)->where('deleted_at',null)->orderBy('datetime', 'asc')->take(12)->get();
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
     }
 }
