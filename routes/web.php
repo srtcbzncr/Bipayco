@@ -147,7 +147,7 @@ Route::group(['prefix' => 'pe'],function (){
 
 Route::group(['prefix' => 'live'],function (){
     Route::group(['prefix' => 'course'], function(){
-        Route::get('{id}', 'Live\CourseController@show')->name('live_course'); // live_not_ok
+        Route::get('{id}', 'Live\CourseController@show')->name('live_course'); // live_ok
     });
     Route::get('index', 'HomeController@live_index')->name('live_index'); // live_not_ok
 });

@@ -34,6 +34,25 @@ class CourseController extends Controller
     }
 
     public function show($id){
+        // Repo initialization
+        $repo = new CourseRepository;
 
+        // Operations
+        $resp = $repo->get($id);
+        $entriesResp = $repo->getStudents($id);
+        //$similarCourses = $repo->getSimilarCourses($id);
+        $data = [
+            'course' => $resp->getData(),
+            'entries' => $entriesResp->getData(),
+            'student_count' => count($resp->getData()->entries),
+        ];
+
+        // Response
+        if($resp->getResult()){
+            return view('live.course_detail', $data);
+        }
+        else{
+            return redirect()->route('error');
+        }
     }
 }
