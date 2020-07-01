@@ -195,6 +195,32 @@ class CourseRepository implements IRepository{
         try{
             // canlı yaynının başlayacağı en yakın tarihine göre sırala
             $object = Course::where('completed_at',null)->where('deleted_at',null)->orderBy('datetime', 'asc')->take(12)->get();
+            if($user_id!=null){
+                // bu kursların favori veya sepete eklenip eklenmediği bilgisini getir.
+                foreach ($object as $key=> $course){
+
+                    $student = Student::where('user_id',$user_id)->where('deleted_at',null)->first();
+                    $controlEntry = Entry::where('student_id',$student->id)->where('live_course_id',$course->id)->where('deleted_at',null)->get();
+                    if($controlEntry != null and count($controlEntry)>0){
+                        $object[$key]['inEntry'] = true;
+                    }
+                    else{
+                        $object[$key]['inEntry'] = false;
+                    }
+
+                    $controlBasket = Basket::where('course_id',$course->id)->where('user_id',$user_id)->where('course_type','App\Models\Live\Course')->first();
+                    if($controlBasket != null)
+                        $object[$key]['inBasket'] = true;
+                    else
+                        $object[$key]['inBasket'] = false;
+
+                    $controlFavorite = Favorite::where('course_id',$course->id)->where('user_id',$user_id)->where('course_type','App\Models\Live\Course')->first();
+                    if($controlFavorite != null)
+                        $object[$key]['inFavorite'] = true;
+                    else
+                        $object[$key]['inFavorite'] = false;
+                }
+            }
         }
         catch(\Exception $e){
             $error = $e->getMessage();
