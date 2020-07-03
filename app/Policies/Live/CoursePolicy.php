@@ -23,10 +23,10 @@ class CoursePolicy
     }
 
     public function checkManager(User $user, Course $course){
-        $instructor = Instructor::where('user_id',$user->id)->first();
+        $instructor = Instructor::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
         if($instructor != null){
             $geCourseInstructor = DB::table("ge_courses_instructors")->where('course_id',$course->id)
-                ->where('instructor_id',$instructor->id)->where('course_type','App\Models\PrepareExams\Course')->first();
+                ->where('instructor_id',$instructor->id)->where('course_type','App\Models\Live\Course')->first();
             if($geCourseInstructor != null){
                 if($geCourseInstructor->is_manager == 1){
                     return true;
