@@ -299,8 +299,8 @@ Route::prefix('instructor')->group(function(){
     Route::post('live/course/create', 'API\Live\LiveController@createLiveOnBipayco')->name('api_live_course_create'); // live_ok
     Route::post('live/course/{course_id}/update', 'API\Live\LiveController@updateLiveOnBipayco')->name('api_live_course_update'); // live_ok
     Route::post('live/course/{id}/delete', 'API\Live\CourseController@deleteCourse')->name('api_live_course_delete'); // live_ok
-    Route::post('live/course/{id}/goals', 'API\Live\CourseController@goalsPost')->name('api_live_course_goals_post'); // live_not_ok
-    Route::get('live/course/{id}/goals','API\Live\CourseController@goalsGet')->name('api_live_course_goals_get'); // live_not_ok
+    Route::post('live/course/{id}/goals', 'API\Live\CourseController@goalsPost')->name('api_live_course_goals_post'); // live_ok
+    Route::get('live/course/{id}/goals','API\Live\CourseController@goalsGet')->name('api_live_course_goals_get'); // live_ok
     Route::get('live/course/{id}/instructors','API\Live\CourseController@instructorsGet')->name('api_live_course_instructors_get'); // live_ok
 
     // soru cevap bölümü
