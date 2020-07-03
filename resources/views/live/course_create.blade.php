@@ -20,7 +20,7 @@
                             </div>
                             <hr>
                             <div class="uk-margin-remove-bottom uk-margin-remove-top">
-                                <input type="text" value="{{Auth::user()->instructor->id}}" id="instructorId" hidden disabled>
+                                <input type="text" value="{{Auth::user()->id}}" id="userId" hidden disabled>
                                 <div>
                                     <div class="uk-form-label"> @lang('front/auth.course_img')  </div>
                                     @if(isset($course))

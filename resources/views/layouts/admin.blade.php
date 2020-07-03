@@ -164,7 +164,7 @@ function livePost(bool){
         formData.append('price_with_discount', document.querySelector('#price').value);
         formData.append('max_participant', document.querySelector('#maxParticipant').value);
         formData.append('datetime', document.querySelector('#liveDate').value+" "+document.querySelector('#liveTime').value);
-        formData.append('instructor_id', document.querySelector('#instructorId').value);
+        formData.append('user_id', document.querySelector('#userId').value);
         if(image.files[0]!=undefined){
             formData.append('image', image.files[0]);
         }
