@@ -93,8 +93,8 @@ class LiveRepository  implements IRepository{
             $object->duration = $data['duration'];
             $object->save();
 
-            $user = User::find($data['user_id']);
-            $instructor = $user->instructor();
+            //$user = User::find($data['user_id']);
+            $instructor = Instructor::where('user_id',$data['user_id'])->where('active',true)->where('deleted_at',null)->first();
             DB::table('ge_courses_instructors')->insert([
                 'course_id' => $object->id,
                 'course_type' => 'App\Models\Live\Course',
