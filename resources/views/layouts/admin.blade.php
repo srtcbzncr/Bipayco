@@ -175,7 +175,7 @@ function livePost(bool){
                 }).then(result=>result.data)
                 .then(result=>{
                     UIkit.notification({message:result.message, status: 'success'});
-                    setTimeout(()=>{window.location.replace('/instructor/live/course/create/'+result.result.id)},1000);
+                    setTimeout(()=>{window.location.replace('/instructor/live/course/create/'+result.data.id)},1000);
                 })
 
                 .catch((error) => {

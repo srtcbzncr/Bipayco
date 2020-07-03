@@ -97,7 +97,7 @@ Route::group(['prefix' => 'instructor', 'middleware' => 'auth'], function(){
         Route::get('course/create/{id?}', 'PrepareExams\CourseController@createGet')->name('pe_course_create_get'); // pe_ok
     });
     Route::group(['prefix' => 'live', 'middleware' => 'hasInstructorProfile'], function(){
-        Route::get('course/create/{id?}', 'Live\CourseController@createGet')->name('pe_course_create_get'); // live_ok
+        Route::get('course/create/{id?}', 'Live\CourseController@createGet')->name('live_course_create_get'); // live_ok
     });
 });
 
