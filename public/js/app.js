@@ -4213,6 +4213,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4271,6 +4274,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     ibanText: {
       type: String,
       "default": "IBAN"
+    },
+    totalEarnedText: {
+      type: String,
+      "default": "Toplam Kazanç"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminInstructor']), {
@@ -5785,6 +5792,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5835,6 +5845,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     usernameText: {
       type: String,
       "default": "Kullanıcı Adı"
+    },
+    totalSpendText: {
+      type: String,
+      "default": "Toplam Harcama"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminUsers']), {
@@ -20375,7 +20389,15 @@ var render = function() {
               _vm._v(_vm._s(_vm.referenceCodeText))
             ]),
             _vm._v(" "),
-            _c("h6", [_vm._v(_vm._s(_vm.selectedUser.reference_code))])
+            _c("h6", [_vm._v(_vm._s(_vm.selectedUser.reference_code))]),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c("div", { staticClass: "uk-form-label" }, [
+              _vm._v(_vm._s(_vm.totalEarnedText))
+            ]),
+            _vm._v(" "),
+            _c("h6", [_vm._v(_vm._s(_vm.selectedUser.user.totalEarn))])
           ]
         ),
         _vm._v(" "),
@@ -22418,7 +22440,15 @@ var render = function() {
               _vm._v(_vm._s(_vm.referenceCodeText))
             ]),
             _vm._v(" "),
-            _c("h6", [_vm._v(_vm._s(_vm.selectedUser.reference_code))])
+            _c("h6", [_vm._v(_vm._s(_vm.selectedUser.reference_code))]),
+            _vm._v(" "),
+            _c("hr"),
+            _vm._v(" "),
+            _c("div", { staticClass: "uk-form-label" }, [
+              _vm._v(_vm._s(_vm.totalSpendText))
+            ]),
+            _vm._v(" "),
+            _c("h6", [_vm._v(_vm._s(_vm.selectedUser.user.totalSpend))])
           ]
         ),
         _vm._v(" "),

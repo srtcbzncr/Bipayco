@@ -7,7 +7,6 @@
                     <ul class="uk-tab-left" uk-tab>
                         <li class="uk-active"><a href="#" class="tablinks" onclick="openTabs(event, 'courseContent')">@lang('front/auth.course')</a></li>
                         <li><a href="#" class="tablinks"  @if(!isset($course)) disabled @else onclick="openTabs(event, 'achievements')" @endif>@lang('front/auth.achievements')</a></li>
-                        <li><a href="#" class="tablinks"  @if(!isset($course)) disabled @else onclick="openTabs(event, 'lessons')" @endif>Müfredat</a></li>
                         <li><a href="#" class="tablinks"  @if(!isset($course)) disabled @else onclick="openTabs(event, 'instructors')" @endif>@lang('front/auth.instructors')</a></li>
                     </ul>
                 </div>
@@ -20,21 +19,6 @@
                                 <h4>@lang('front/auth.course_detail')</h4>
                             </div>
                             <hr>
-                            <div class="uk-form-label">@lang('front/auth.exam')</div>
-                            @if(isset($course))
-                                <select id="courseExam" class="uk-select uk-width" value="{{$course->exam->id}}">
-                                    @foreach($exams as $exam)
-                                        <option value="{{$exam->id}}">{{$exam->name}}</option>
-                                    @endforeach
-                                </select>
-                            @else
-                                <select id="courseExam" class="uk-select uk-width">
-                                    <option selected disabled hidden>@lang('front/auth.exam')</option>
-                                    @foreach($exams as $exam)
-                                        <option value="{{$exam->id}}">{{$exam->name}}</option>
-                                    @endforeach
-                                </select>
-                            @endif
                             <div class="uk-margin-remove-bottom uk-margin-remove-top">
                                 <input type="text" value="{{Auth::user()->instructor->id}}" id="instructorId" hidden disabled>
                                 <div>
@@ -74,7 +58,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <div class="uk-grid uk-margin-remove-top uk-child-width-1-2@m">
+                            <div>
                                 <div>
                                     <div class="uk-form-label"> @lang('front/auth.price')  </div>
 {{--                                    <input class="uk-input form-control @error('price') is-invalid @enderror" type="text" id="price"  @if(isset($course)) value="{{$course->price}}" @endif required>--}}
@@ -112,33 +96,55 @@
                                         </span>
                                     @enderror
                                 </div>
+                            </div>
+                            <div class="uk-grid uk-margin-remove-top uk-child-width-1-2@m">
                                 <div>
-                                    <div class="uk-form-label"> @lang('front/auth.access_time') (@lang('front/auth.month'))  </div>
-                                    <input class="uk-input form-control @error('accessTime') is-invalid @enderror" type="number" min="1" id="accessTime"  @if(isset($course)) value="{{$course->access_time}}" @endif required>
+                                    <div class="uk-form-label"> @lang('front/auth.start_date') (@lang('front/auth.month'))  </div>
+                                    <input class="uk-input form-control @error('accessTime') is-invalid @enderror" type="date" min="1" id="liveDate"  @if(isset($course)) value="{{$course->datetime}}" @endif required>
                                     @error('accessTime')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
                                     @enderror
                                 </div>
+                                <div>
+                                    <div class="uk-form-label"> @lang('front/auth.start_time')</div>
+                                    <input class="uk-input form-control @error('liveTime') is-invalid @enderror" type="time" min="1" id="liveTime"  @if(isset($course)) value="{{$course->datetime}}" @endif required>
+                                    @error('liveTime')
+                                    <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                </div>
                             </div>
-                            <div>
-                                <div class="uk-form-label"> @lang('front/auth.passing_test_point')</div>
-                                <input class="uk-input form-control @error('name') is-invalid @enderror" type="text" id="score"  @if(isset($course)) value="{{$course->score}}" @endif required>
-                                @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            <div class="uk-margin uk-flex justify-content-start align-items-center">
-                                <label>
-                                    <input class="uk-checkbox" type="checkbox"  @if(isset($course) && $course->certificate) checked @endif id="certificate">
-                                    <span class="checkmark uk-text-small">@lang('front/auth.has_certificate')</span>
-                                </label>
-                            </div>
+                                <div class="uk-grid uk-margin-remove-top uk-child-width-1-2@m">
+                                    <div>
+                                        <div class="uk-form-label"> @lang('front/auth.max_participant_count')</div>
+                                        <input class="uk-input form-control @error('max_participant') is-invalid @enderror" type="number" min="1" id="maxParticipant"  @if(isset($course)) value="{{$course->max_participant}}" @endif required>
+                                        @error('max_participant')
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                        @enderror
+                                    </div>
+                                    <div>
+                                        <div class="uk-form-label"> @lang('front/auth.live_duration')</div>
+                                        <input class="uk-input form-control @error('duration') is-invalid @enderror" type="number" id="duration" min="1" @if(isset($course)) value="{{$course->duration}}" @endif required>
+                                        @error('duration')
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                {{--                            <div class="uk-margin uk-flex justify-content-start align-items-center">--}}
+{{--                                <label>--}}
+{{--                                    <input class="uk-checkbox" type="checkbox"  @if(isset($course) && $course->certificate) checked @endif id="certificate">--}}
+{{--                                    <span class="checkmark uk-text-small">@lang('front/auth.has_certificate')</span>--}}
+{{--                                </label>--}}
+{{--                            </div>--}}
                             <div class="uk-margin">
-                                <input class="uk-button uk-button-grey button uk-margin uk-width-small@m" type="button" @if(isset($course)) onclick="coursePost('prepareExams',false)" @else onclick="coursePost('prepareExams',true)" @endif  value="@lang('front/auth.save')">
+                                <input class="uk-button uk-button-grey button uk-margin uk-width-small@m" type="button" @if(isset($course)) onclick="livePost(false)" @else onclick="livePost(true)" @endif  value="@lang('front/auth.save')">
                             </div>
                             </form>
                         </div>

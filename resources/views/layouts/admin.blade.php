@@ -154,6 +154,48 @@
                 });
         }
     }
+function livePost(bool){
+        var formData =new FormData();
+        var image=document.querySelector('#newCourseImage');
+        formData.append('name', document.querySelector('#name').value);
+        formData.append('description', document.querySelector('#description').value);
+        formData.append('price', document.querySelector('#price').value);
+        formData.append('duration', document.querySelector('#duration').value);
+        formData.append('price_with_discount', document.querySelector('#price').value);
+        formData.append('max_participant', document.querySelector('#maxParticipant').value);
+        formData.append('datetime', document.querySelector('#liveDate').value+" "+document.querySelector('#liveTime').value);
+        formData.append('instructor_id', document.querySelector('#instructorId').value);
+        if(image.files[0]!=undefined){
+            formData.append('image', image.files[0]);
+        }
+        if(bool){
+            axios.post('/api/instructor/live/course/create',
+                formData, {
+                    headers: {'Content-Type': 'multipart/form-data'}
+                }).then(result=>result.data)
+                .then(result=>{
+                    UIkit.notification({message:result.message, status: 'success'});
+                    setTimeout(()=>{window.location.replace('/instructor/live/course/create/'+result.result.id)},1000);
+                })
+
+                .catch((error) => {
+                    UIkit.notification({message:error.message, status: 'danger'});
+                });
+        }else{
+            var courseId=document.querySelector('#courseCreateId').value;
+            axios.post('/api/instructor/live/course/create/'+courseId,
+                formData, {
+                    headers: {'Content-Type': 'multipart/form-data'}
+                })
+                .then(result=>{
+                    UIkit.notification({message:result.message, status: 'success'});
+                    setTimeout(()=>{window.location.replace('/instructor/live/course/create/'+courseId)},1000);
+                })
+                .catch((error) => {
+                    UIkit.notification({message:error.message, status: 'danger'});
+                });
+        }
+    }
 
     function previewImage(input){
         if (input.files && input.files[0]) {

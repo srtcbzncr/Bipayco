@@ -66,6 +66,9 @@
                     <hr>
                     <div class="uk-form-label">{{referenceCodeText}}</div>
                     <h6>{{selectedUser.reference_code}}</h6>
+                    <hr>
+                    <div class="uk-form-label">{{totalEarnedText}}</div>
+                    <h6>{{selectedUser.user.totalEarn}}</h6>
                 </div>
                 <div class="uk-modal-footer">
                 </div>
@@ -133,6 +136,10 @@
             ibanText:{
                 type:String,
                 default:"IBAN"
+            },
+            totalEarnedText:{
+                type:String,
+                default:"Toplam Kazanç"
             }
         },
         computed:{

@@ -251,5 +251,10 @@ return [
     'no_content'=>'İçerik bulunmuyor',
     'made_payments'=>'Yapılan Ödemeler',
     'pending_payments'=>'Bekleyen Ödemeler',
-    'purchases'=>'Satın Alımlar'
+    'purchases'=>'Satın Alımlar',
+    'live_streams'=>'Canlı Yayınlarım',
+    'start_date'=>'Başlangıç Tarihi',
+    'start_time'=>'Başlangıç Saati',
+    'live_duration'=>'Canlı Yayın Süresi',
+    'max_participant_count'=>'Maksimium Katılımcı Sayısı'
 ];

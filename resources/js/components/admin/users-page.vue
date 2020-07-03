@@ -60,6 +60,9 @@
                     <hr>
                     <div class="uk-form-label">{{referenceCodeText}}</div>
                     <h6>{{selectedUser.reference_code}}</h6>
+                    <hr>
+                    <div class="uk-form-label">{{totalSpendText}}</div>
+                    <h6>{{selectedUser.user.totalSpend}}</h6>
                 </div>
                 <div class="uk-modal-footer">
                 </div>
@@ -119,6 +122,10 @@
             usernameText:{
                 type:String,
                 default:"Kullanıcı Adı"
+            },
+            totalSpendText:{
+                type:String,
+                default:"Toplam Harcama"
             }
         },
         computed:{
