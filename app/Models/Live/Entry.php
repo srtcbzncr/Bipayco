@@ -12,5 +12,5 @@ class Entry extends Model
         'password' # attendee or moderator
     ];
     public $timestamps = true;
-    protected $table="live_entry";
+    protected $table="live_entries";
 }
