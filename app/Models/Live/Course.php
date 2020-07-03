@@ -22,4 +22,12 @@ class Course extends Model
     ];
     public $timestamps = true;
     protected $table="live_courses";
+
+    public function entries(){
+        return $this->hasMany('App\Models\Live\Entry', 'live_course_id','id');
+    }
+
+    public function studentCount(){
+        return $this->entries->count();
+    }
 }
