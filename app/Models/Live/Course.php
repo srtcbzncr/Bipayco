@@ -28,6 +28,6 @@ class Course extends Model
     }
 
     public function studentCount(){
-        return $this->entries->count();
+        return $this->entries->where('deleted_at',null)->count();
     }
 }
