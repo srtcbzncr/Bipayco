@@ -21,6 +21,7 @@
                             <hr>
                             <div class="uk-margin-remove-bottom uk-margin-remove-top">
                                 <input type="text" value="{{Auth::user()->id}}" id="userId" hidden disabled>
+                                <input type="text" value="{{Auth::user()->instructor->id}}" id="instructorId" hidden disabled>
                                 <div>
                                     <div class="uk-form-label"> @lang('front/auth.course_img')  </div>
                                     @if(isset($course))
@@ -160,7 +161,7 @@
                                     add-default-text="@lang('front/auth.add_achievement')"
                                     field="achievements"
                                     course-id="{{$course->id}}"
-                                    module-name="prepareExams"
+                                    module-name="live"
                                 > </add-list>
                                 <div class="uk-margin-top">
                                     <h4>@lang('front/auth.requirements')</h4>
@@ -172,7 +173,7 @@
                                     add-default-text="@lang('front/auth.add_requirement')"
                                     field="requirements"
                                     course-id="{{$course->id}}"
-                                    module-name="prepareExams"
+                                    module-name="live"
                                 > </add-list>
                                 <div class="uk-margin-top">
                                     <h4>@lang('front/auth.tags')</h4>
@@ -184,93 +185,36 @@
                                     add-default-text="@lang('front/auth.add_tag')"
                                     field="tags"
                                     course-id="{{$course->id}}"
-                                    module-name="prepareExams"
+                                    module-name="live"
                                 > </add-list>
                                 <div class=uk-margin">
-                                    <input class="uk-button uk-button-grey uk-margin uk-width-small@m" type="button" onclick="achievementsPost('prepareExams',{{$course->id}})"  value="@lang('front/auth.save')">
+                                    <input class="uk-button uk-button-grey uk-margin uk-width-small@m" type="button" onclick="achievementsPost('live',{{$course->id}})"  value="@lang('front/auth.save')">
                                 </div>
-                            </div>
-                            <div id="lessons" class="tabcontent  animation: uk-animation-slide-right-medium">
-                                <div class='lessonSettings addLesson sectionSettings'>
-                                    <div class="uk-margin-top">
-                                        <h4>@lang('front/auth.lessons')</h4>
-                                    </div>
-                                    <hr>
-                                    <add-section
-                                        preview-text="@lang('front/auth.preview')"
-                                        section-text="@lang('front/auth.section')"
-                                        add-default-section-text="@lang('front/auth.add_section')"
-                                        add-default-lesson-text="@lang('front/auth.add_lessons')"
-                                        add-text="@lang('front/auth.add')"
-                                        save-text="@lang('front/auth.save')"
-                                        select-file-text="@lang('front/auth.select_file')"
-                                        saved-success-text="@lang('front/auth.saved_successful')"
-                                        course-id="{{$course->id}}"
-                                        instructor-id="{{Auth::user()->instructor->id}}"
-                                        module-name="prepareExams"
-                                    > </add-section>
-                                </div>
-                                <add-lesson
-                                    course-id="{{$course->id}}"
-                                    not-added-lesson-text="@lang('front/auth.not_uploaded_lesson')"
-                                    file-type-text="@lang('front/auth.file_type')"
-                                    pdf-text="@lang('front/auth.pdf')"
-                                    video-text="@lang('front/auth.video')"
-                                    save-text="@lang('front/auth.save')"
-                                    cancel-text="@lang('front/auth.cancel')"
-                                    uploading-text="@lang('front/auth.uploading')"
-                                    continue-text="@lang('front/auth.continue')"
-                                    preview-text="@lang('front/auth.preview')"
-                                    add-source-text="@lang('front/auth.add_source')"
-                                    add-lesson-text="@lang('front/auth.add_lesson')"
-                                    upload-document-text="@lang('front/auth.upload_document')"
-                                    upload-video-text="@lang('front/auth.upload_video')"
-                                    lesson-name-text="@lang('front/auth.lesson_name')"
-                                    module-name="prepareExams"
-                                > </add-lesson>
-                                <lesson-settings
-                                    course-id="{{$course->id}}"
-                                    edit-lesson-text="@lang('front/auth.edit_lesson')"
-                                    lesson-name-text="@lang('front/auth.lesson_name')"
-                                    sources-text="@lang('front/auth.sources')"
-                                    is-preview-text="@lang('front/auth.preview')"
-                                    save-text="@lang('front/auth.save')"
-                                    cancel-text="@lang('front/auth.cancel')"
-                                    add-source-text="@lang('front/auth.add_source')"
-                                    module-name="prepareExams"
-                                > </lesson-settings>
-                                <section-settings
-                                    preview-text="@lang('front/auth.preview')"
-                                    section-text="@lang('front/auth.section')"
-                                    add-default-section-text="@lang('front/auth.add_section')"
-                                    add-default-lesson-text="@lang('front/auth.add_lessons')"
-                                    add-text="@lang('front/auth.add')"
-                                    save-text="@lang('front/auth.save')"
-                                    select-file-text="@lang('front/auth.select_file')"
-                                    saved-success-text="@lang('front/auth.saved_successful')"
-                                    course-id="{{$course->id}}"
-                                    instructor-id="{{Auth::user()->instructor->id}}"
-                                    module-name="prepareExams"
-                                > </section-settings>
                             </div>
                             <div id="instructors" class="tabcontent  animation: uk-animation-slide-right-medium">
                                 <div class="uk-margin-top">
                                     <h4>@lang('front/auth.instructors')</h4>
                                 </div>
                                 <hr>
-                                <instructor-area
-                                    user-img="{{Auth::user()->avatar}}"
-                                    user-name="{{Auth::user()-> first_name}} {{Auth::user()->last_name}}"
-                                    user-id="{{Auth::user()->instructor->id}}"
-                                    addtinstructor-text="@lang('front/auth.add_instructor')"
-                                    instructor-text="@lang('front/auth.instructor')"
-                                    percent-text="@lang('front/auth.percent')"
-                                    manager-text="@lang('front/auth.manager')"
-                                    add-text="@lang('front/auth.add')"
-                                    course-id="{{$course->id}}"
-                                    save-text="@lang('front/auth.save')"
-                                    module-name="prepareExams"
-                                > </instructor-area>
+                                <div class="uk-margin-medium">
+                                    <hr class="uk-hidden@m">
+                                    <div class="uk-grid uk-visible@m">
+                                        <div class="uk-width-3-5@m ">
+                                            <b class="uk-margin-left">@lang('front/auth.instructor')</b>
+                                        </div>
+                                    </div>
+                                    <div class="uk-margin-small" id="instructorsArea">
+                                        <div class="uk-grid align-items-center">
+                                            <div class="uk-width-3-5@m uk-margin-small-bottom">
+                                                <div class="uk-form-label uk-hidden@m"> @lang('front/auth.instructor')</div>
+                                                <div class="uk-flex align-items-center">
+                                                    <img class="user-profile-tiny uk-circle" src="{{Auth::user()->avatar}}">
+                                                    <p class="uk-margin-left uk-margin-remove-bottom uk-margin-remove-top uk-margin-remove-right"><b>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</b> <span>(@lang('front/auth.manager'))</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         @endif
                     </div>

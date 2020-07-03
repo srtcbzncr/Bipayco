@@ -154,7 +154,7 @@
                 });
         }
     }
-function livePost(bool){
+    function livePost(bool){
         var formData =new FormData();
         var image=document.querySelector('#newCourseImage');
         formData.append('name', document.querySelector('#name').value);
@@ -165,6 +165,8 @@ function livePost(bool){
         formData.append('max_participant', document.querySelector('#maxParticipant').value);
         formData.append('datetime', document.querySelector('#liveDate').value+" "+document.querySelector('#liveTime').value);
         formData.append('user_id', document.querySelector('#userId').value);
+        formData.append('instructor_id',document.querySelector('#instructorId').value);
+
         if(image.files[0]!=undefined){
             formData.append('image', image.files[0]);
         }
@@ -183,7 +185,7 @@ function livePost(bool){
                 });
         }else{
             var courseId=document.querySelector('#courseCreateId').value;
-            axios.post('/api/instructor/live/course/create/'+courseId,
+            axios.post('/api/instructor/live/course/'+courseId+'/update',
                 formData, {
                     headers: {'Content-Type': 'multipart/form-data'}
                 })
@@ -227,6 +229,10 @@ function livePost(bool){
         formData.append('requirements', requirementList);
         formData.append('tags', tagList);
         formData.append('instructor_id', document.getElementById('instructorId').value);
+        for (var pair of formData) {
+            console.log(pair[0]);
+            console.log(pair[1]);
+        }
         axios.post('/api/instructor/'+moduleName+'/course/'+courseId+'/goals', formData)
             .then(response=>{
                 UIkit.notification({message:response.data.result, status: 'success'});

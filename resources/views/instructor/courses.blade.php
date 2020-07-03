@@ -143,16 +143,18 @@
     <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium  uk-margin-large-bottom" uk-slider>
         <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid">
             @foreach($data['live'] as $course)
+                @if($course!=null)
                 <li>
                     <instructor-courses-card
                         :course="{{$course}}"
                         user-id="{{Auth::user()->id}}"
                         module-name="live"
-                        student-count="0"
+                        student-count="{{$course->studentCount()}}"
                         course-route="{{route('live_course', $course->id)}}"
                         edit-course-route="{{route('live_course_create_get',$course->id)}}"
                     ></instructor-courses-card>
                 </li>
+                @endif
             @endforeach
         </ul>
         <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-previous uk-slider-item="previous"></a>

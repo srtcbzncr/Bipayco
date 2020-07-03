@@ -9249,6 +9249,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "homepage-content",
@@ -9311,6 +9312,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         case 'prepareExams':
           {
             this.module = 'pe';
+            break;
+          }
+
+        case 'live':
+          {
+            this.module = 'live';
             break;
           }
 
@@ -27427,6 +27434,20 @@ var render = function() {
               }
             },
             [_vm._v(_vm._s(_vm.prepareExamsText))]
+          )
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "a",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.changeModule("live")
+                }
+              }
+            },
+            [_vm._v(_vm._s(_vm.liveStreamsText))]
           )
         ])
       ]

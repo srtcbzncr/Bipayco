@@ -4,6 +4,7 @@
             <li><a @click="changeModule('generalEducation')">{{generalEducationText}}</a></li>
             <li><a @click="changeModule('prepareLessons')">{{prepareLessonsText}}</a></li>
             <li><a @click="changeModule('prepareExams')">{{prepareExamsText}}</a></li>
+            <li><a @click="changeModule('live')">{{liveStreamsText}}</a></li>
         </ul>
         <ul class="uk-margin uk-margin-medium-top">
             <li>
@@ -113,6 +114,10 @@
                     }
                     case 'prepareExams':{
                         this.module='pe';
+                        break;
+                    }
+                    case 'live':{
+                        this.module='live';
                         break;
                     }
                     default:{
