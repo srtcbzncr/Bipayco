@@ -470,10 +470,10 @@ class CourseRepository implements IRepository{
             $instructor = Instructor::find($ge_courses_instructor->instructor_id);
             $user = User::find($instructor->user_id);
 
+            $instructor['user'] = $user;
             $instructor['percent'] = $ge_courses_instructor->percent;
             $instructor['is_manager'] = true;
-            $user['instructor'] = $instructor;
-            $object['user'] = $user;
+            $object = $instructor;
         }
         catch(\Exception $e){
             DB::rollBack();
