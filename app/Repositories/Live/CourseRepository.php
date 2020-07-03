@@ -7,7 +7,9 @@ namespace App\Repositories\Live;
 use App\Models\Auth\Instructor;
 use App\Models\Auth\Student;
 use App\Models\Auth\User;
+use App\Models\GeneralEducation\Achievement;
 use App\Models\GeneralEducation\Purchase;
+use App\Models\GeneralEducation\Requirement;
 use App\Models\GeneralEducation\Tag;
 use App\Models\Live\Course;
 use App\Models\Live\Entry;
@@ -147,17 +149,96 @@ class CourseRepository implements IRepository{
         // Operations
         try{
             // var olanları sil yenilerini ekle
-            if(isset($data['achievements'])){
+            DB::beginTransaction();
 
+            $tempAchievements = Achievement::where('course_id',$course_id)->where('course_type','App\Models\Live\Course')
+                ->where('active',true)->where('deleted_at',null)->get();
+            foreach ($tempAchievements as $achievement){
+                $achievement->delete();
             }
-            if(isset($data['requirements'])){
 
+            $tempRequirements = Requirement::where('course_id',$course_id)->where('course_type','App\Models\Live\Course')
+                ->where('active',true)->where('deleted_at',null)->get();
+            foreach ($tempRequirements as $requirement){
+                $requirement->delete();
             }
-            if(isset($data['tags'])){
 
+            $tempTags = Tag::where('course_id',$course_id)->where('course_type','App\Models\Live\Course')->where('deleted_at',null)->get();
+            foreach ($tempTags as $tag){
+                $tag->delete();
             }
+
+            if(isset($data['achievements']) && $data['achievements']!=null){
+                $achievements = explode(',',$data['achievements']);
+                foreach ($achievements as $achievement){
+                    $temp = new Achievement();
+                    $temp->course_id = $course_id;
+                    $temp->course_type = 'App\Models\Live\Course';
+                    $temp->content = $achievement;
+                    $temp->active = true;
+                    $temp->save();
+                }
+            }
+            if(isset($data['requirements']) && $data['requirements']!=null){
+                $requirements = explode(',',$data['requirements']);
+                foreach ($requirements as $requirement){
+                    $temp = new Requirement();
+                    $temp->course_id = $course_id;
+                    $temp->course_type = 'App\Models\Live\Course';
+                    $temp->content = $requirement;
+                    $temp->active = true;
+                    $temp->save();
+                }
+            }
+            if(isset($data['tags']) && $data['tags']!=null){
+                $tags = explode(',',$data['tags']);
+                foreach ($tags as $tag){
+                    $temp = new Tag();
+                    $temp->course_id = $course_id;
+                    $temp->course_type = 'App\Models\Live\Course';
+                    $temp->tag = $tag;
+                    $temp->save();
+                }
+            }
+            DB::commit();
         }
         catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function goalsGet($course_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            // var olanları sil yenilerini ekle
+            DB::beginTransaction();
+
+            $tempAchievements = Achievement::where('course_id',$course_id)->where('course_type','App\Models\Live\Course')
+                ->where('active',true)->where('deleted_at',null)->get();
+
+            $tempRequirements = Requirement::where('course_id',$course_id)->where('course_type','App\Models\Live\Course')
+                ->where('active',true)->where('deleted_at',null)->get();
+
+            $tempTags = Tag::where('course_id',$course_id)->where('course_type','App\Models\Live\Course')->where('deleted_at',null)->get();
+
+            $object = array();
+            $object['achievements'] = $tempAchievements;
+            $object['requirements'] = $tempRequirements;
+            $object['tags'] = $tempTags;
+        }
+        catch(\Exception $e){
+            DB::rollBack();
             $error = $e->getMessage();;
             $result = false;
         }

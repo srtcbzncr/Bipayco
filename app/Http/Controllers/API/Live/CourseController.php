@@ -29,7 +29,21 @@ class CourseController extends Controller
     }
 
     public function goalsGet($course_id){
+        $repo = new CourseRepository();
+        $resp = $repo->goalsGet($course_id);
 
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData(),
+                'message' => 'Kazanımlar başarıyla getirildi.'
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'errorMessage' => $resp->getError(),
+            'message' => 'Kazanımlar getirilirken bir hata meydana geldi. Tekrar deneyin.'
+        ],400);
     }
 
     public function show($id, Request $request){
