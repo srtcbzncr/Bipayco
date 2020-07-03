@@ -461,7 +461,7 @@ class CourseRepository implements IRepository{
         // Response variables
         $result = true;
         $error = null;
-        $object = null;
+        $object = array();
 
         // Operations
         try{
@@ -469,7 +469,11 @@ class CourseRepository implements IRepository{
                 ->where('active',true)->where('deleted_at',null)->first();
             $instructor = Instructor::find($ge_courses_instructor->instructor_id);
             $user = User::find($instructor->user_id);
-            $ge_courses_instructor['user'] = $user;
+
+            $instructor['percent'] = $ge_courses_instructor->percent;
+            $instructor['is_manager'] = true;
+            $user['instructor'] = $instructor;
+            $object['user'] = $user;
         }
         catch(\Exception $e){
             DB::rollBack();
