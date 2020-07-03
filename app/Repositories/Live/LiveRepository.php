@@ -116,6 +116,41 @@ class LiveRepository  implements IRepository{
         return $resp;
     }
 
+    public function updateLiveOnBipayco($course_id,$data){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $object = Course::find($course_id);
+            if(file_exists($data['image'])){
+                $imagePath = Storage::url($data['image']->store('public/images'));
+                $object->image = $imagePath;
+            }
+            $object->name = $data['name'];
+            $object->description = $data['description'];
+            $object->price = $data['price'];
+            $object->price_with_discount = $data['price_with_discount'];
+            $object->datetime = $data['datetime'];
+            $object->max_participant = $data['max_participant'];
+            $object->duration = $data['duration'];
+            $object->save();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
     public function createLiveOnBBB($user_id,$meeting_id){
         // Response variables
         $result = true;

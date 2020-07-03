@@ -27,6 +27,25 @@ class LiveController extends Controller
         ],400);
     }
 
+    public function updateLiveOnBipayco($course_id,Request $request){
+        $data = $request->toArray();
+        $repo = new LiveRepository();
+
+        $resp = $repo->updateLiveOnBipayco($course_id,$data);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data' => $resp->getData(),
+                'message' => 'Canlı yayın başarıyla güncellendi.'
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'errorMessage', $resp->getError(),
+            'message' => 'Canlı yayın güncellenirken bir hata meydana geldi.Tekrar deneyin.'
+        ],400);
+    }
+
     public function createLiveOnBBB($user_id,$meeting_id){
         $repo = new LiveRepository();
 
