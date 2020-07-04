@@ -8437,6 +8437,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -8474,6 +8481,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     module: {
       type: String,
       required: true
+    },
+    liveStreamText: {
+      type: String,
+      "default": "Canlı Yayın"
+    },
+    expectedDateText: {
+      type: String,
+      "default": "Planlanan Tarih"
     }
   },
   computed: {
@@ -9250,6 +9265,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "homepage-content",
@@ -9280,6 +9299,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       "default": "Sınavlara Hazırlık"
     },
+    liveStreamsText: {
+      type: String,
+      "default": "Canlı Yayınlar"
+    },
     noContentText: {
       type: String,
       "default": "İçerik Bulunmamaktadır"
@@ -9287,6 +9310,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     seeMoreText: {
       type: String,
       "default": "Daha Fazlasını Gör"
+    },
+    liveStreamText: {
+      type: String,
+      "default": "Canlı Yayın"
+    },
+    expectedDateText: {
+      type: String,
+      "default": "Planlanan Tarih"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseCard', 'urlForCourseCard']), {
@@ -25962,6 +25993,44 @@ var render = function() {
               ])
             : _vm._e(),
           _vm._v(" "),
+          _vm.moduleName == "live"
+            ? _c("div", [
+                _c(
+                  "h4",
+                  {
+                    staticClass: "uk-height-small",
+                    staticStyle: {
+                      overflow: "hidden",
+                      "text-overflow": "ellipsis",
+                      display: "-webkit-box",
+                      "line-height": "25px",
+                      "max-height": "25px",
+                      "-webkit-line-clamp": "1",
+                      "-webkit-box-orient": "vertical"
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.course.name))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  {
+                    staticClass: "uk-height-small",
+                    staticStyle: {
+                      overflow: "hidden",
+                      "text-overflow": "ellipsis",
+                      display: "-webkit-box",
+                      "line-height": "16px",
+                      "max-height": "16px",
+                      "-webkit-line-clamp": "1",
+                      "-webkit-box-orient": "vertical"
+                    }
+                  },
+                  [_vm._v(_vm._s(_vm.liveStreamText))]
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _c(
             "p",
             {
@@ -25979,20 +26048,32 @@ var render = function() {
             [_vm._v(" " + _vm._s(_vm.course.description) + " ")]
           ),
           _vm._v(" "),
-          _c(
-            "div",
-            { staticClass: "uk-width" },
-            [
-              _c("stars-rating", {
-                attrs: {
-                  rating: Number(_vm.course.point),
-                  "style-full-star-color": _vm.styleFullStarColor,
-                  "style-empty-star-color": _vm.styleEmptyStarColor
-                }
-              })
-            ],
-            1
-          ),
+          _vm.moduleName != "live"
+            ? _c(
+                "div",
+                { staticClass: "uk-width" },
+                [
+                  _c("stars-rating", {
+                    attrs: {
+                      rating: Number(_vm.course.point),
+                      "style-full-star-color": _vm.styleFullStarColor,
+                      "style-empty-star-color": _vm.styleEmptyStarColor
+                    }
+                  })
+                ],
+                1
+              )
+            : _c("div", { staticClass: "uk-width" }, [
+                _c("p", [
+                  _c("span", { staticClass: "fas fa-calendar-alt" }),
+                  _vm._v(
+                    " " +
+                      _vm._s(_vm.expectedDateText) +
+                      ": " +
+                      _vm._s(new Date(_vm.course.datetime).toLocaleString())
+                  )
+                ])
+              ]),
           _vm._v(" "),
           _c("hr", { staticClass: "uk-margin-remove-top" }),
           _vm._v(" "),
@@ -27495,7 +27576,9 @@ var render = function() {
                               "module-name": _vm.moduleName,
                               "is-login": "",
                               "user-id": _vm.userId,
-                              module: _vm.module
+                              module: _vm.module,
+                              "live-stream-text": _vm.liveStreamText,
+                              "expected-date-text": _vm.expectedDateText
                             }
                           })
                         : _c("course-card", {
@@ -27505,7 +27588,9 @@ var render = function() {
                               "style-empty-star-color": "#C1C1C1",
                               "course-id": course.id,
                               "module-name": _vm.moduleName,
-                              module: _vm.module
+                              module: _vm.module,
+                              "live-stream-text": _vm.liveStreamText,
+                              "expected-date-text": _vm.expectedDateText
                             }
                           })
                     ],

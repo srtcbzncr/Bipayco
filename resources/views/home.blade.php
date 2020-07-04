@@ -50,5 +50,8 @@
         general-education-text="@lang('front/auth.general_education')"
         prepare-lessons-text="@lang('front/auth.prepare_for_lessons')"
         prepare-exams-text="@lang('front/auth.prepare_for_exams')"
+        live-streams-text="@lang('front/auth.live_streams')"
+        live-stream-text="@lang('front/auth.live_stream')"
+        expected-date-text="@lang('front/auth.expected_date')"
     ></homepage-content>
 @endsection

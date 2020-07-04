@@ -24,6 +24,8 @@
                                 is-login
                                 :user-id="userId"
                                 :module="module"
+                                :live-stream-text="liveStreamText"
+                                :expected-date-text="expectedDateText"
                             ></course-card>
                             <course-card
                                 v-else
@@ -33,6 +35,8 @@
                                 :course-id="course.id"
                                 :module-name="moduleName"
                                 :module="module"
+                                :live-stream-text="liveStreamText"
+                                :expected-date-text="expectedDateText"
                             ></course-card>
                         </div>
                     </div>
@@ -78,6 +82,10 @@
                 type:String,
                 default:"Sınavlara Hazırlık"
             },
+            liveStreamsText:{
+                type:String,
+                default:"Canlı Yayınlar"
+            },
             noContentText:{
                 type:String,
                 default:"İçerik Bulunmamaktadır"
@@ -85,6 +93,14 @@
             seeMoreText:{
                 type:String,
                 default:"Daha Fazlasını Gör"
+            },
+            liveStreamText:{
+                type:String,
+                default:"Canlı Yayın"
+            },
+            expectedDateText:{
+                type:String,
+                default:"Planlanan Tarih"
             }
         },
         computed:{

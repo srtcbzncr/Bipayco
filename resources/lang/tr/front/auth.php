@@ -253,9 +253,11 @@ return [
     'pending_payments'=>'Bekleyen Ödemeler',
     'purchases'=>'Satın Alımlar',
     'live_streams'=>'Canlı Yayınlar',
+    'live_stream'=>'Canlı Yayın',
     'start_date'=>'Başlangıç Tarihi',
     'start_time'=>'Başlangıç Saati',
     'live_duration'=>'Canlı Yayın Süresi',
     'max_participant_count'=>'Maksimium Katılımcı Sayısı',
+    'expected_date'=>'Planlanan Tarih',
 
 ];

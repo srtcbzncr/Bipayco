@@ -29,9 +29,16 @@
                     <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 25px; max-height: 25px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{course.name}}</h4>
                     <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{exam.name}}</p>
                 </div>
+                <div v-if="moduleName=='live'">
+                    <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 25px; max-height: 25px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{course.name}}</h4>
+                    <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{liveStreamText}}</p>
+                </div>
                 <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;" class="uk-height-small"> {{course.description}} </p>
-                <div class="uk-width">
+                <div class="uk-width" v-if="moduleName!='live'">
                     <stars-rating :rating="Number(course.point)" :style-full-star-color="styleFullStarColor" :style-empty-star-color="styleEmptyStarColor" > </stars-rating>
+                </div>
+                <div class="uk-width" v-else>
+                    <p><span class="fas fa-calendar-alt"></span> {{expectedDateText}}: {{new Date(course.datetime).toLocaleString()}}</p>
                 </div>
                 <hr class="uk-margin-remove-top">
                 <div class="uk-flex justify-content-end uk-child-width-1-2">
@@ -89,6 +96,14 @@ export default {
             type:String,
             required:true,
         },
+        liveStreamText:{
+            type:String,
+            default:"Canlı Yayın"
+        },
+        expectedDateText:{
+            type:String,
+            default:"Planlanan Tarih"
+        }
     },
     computed:{
         image(){
