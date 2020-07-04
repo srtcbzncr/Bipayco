@@ -100,8 +100,8 @@
                             </div>
                             <div class="uk-grid uk-margin-remove-top uk-child-width-1-2@m">
                                 <div>
-                                    <div class="uk-form-label"> @lang('front/auth.start_date') (@lang('front/auth.month'))  </div>
-                                    <input class="uk-input form-control @error('accessTime') is-invalid @enderror" type="date" min="1" id="liveDate"  @if(isset($course)) value="{{$course->datetime}}" @endif required>
+                                    <div class="uk-form-label"> @lang('front/auth.start_date') </div>
+                                    <input class="uk-input form-control @error('accessTime') is-invalid @enderror" type="date" min="1" id="liveDate"  @if(isset($course)) value="{{date("Y-m-d", strtotime($course->datetime))}}" @endif required>
                                     @error('accessTime')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -110,7 +110,7 @@
                                 </div>
                                 <div>
                                     <div class="uk-form-label"> @lang('front/auth.start_time')</div>
-                                    <input class="uk-input form-control @error('liveTime') is-invalid @enderror" type="time" min="1" id="liveTime"  @if(isset($course)) value="{{$course->datetime}}" @endif required>
+                                    <input class="uk-input form-control @error('liveTime') is-invalid @enderror" type="time" min="1" id="liveTime"  @if(isset($course)) value="{{date("H:i", strtotime($course->datetime))}}" @endif required>
                                     @error('liveTime')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -129,7 +129,7 @@
                                         @enderror
                                     </div>
                                     <div>
-                                        <div class="uk-form-label"> @lang('front/auth.live_duration')</div>
+                                        <div class="uk-form-label"> @lang('front/auth.live_duration') (@lang('front/auth.hour(s)'))</div>
                                         <input class="uk-input form-control @error('duration') is-invalid @enderror" type="number" id="duration" min="1" @if(isset($course)) value="{{$course->duration}}" @endif required>
                                         @error('duration')
                                         <span class="invalid-feedback" role="alert">
