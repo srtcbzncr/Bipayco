@@ -229,13 +229,13 @@
         formData.append('requirements', requirementList);
         formData.append('tags', tagList);
         formData.append('instructor_id', document.getElementById('instructorId').value);
-        for (var pair of formData) {
-            console.log(pair[0]);
-            console.log(pair[1]);
-        }
         axios.post('/api/instructor/'+moduleName+'/course/'+courseId+'/goals', formData)
             .then(response=>{
-                UIkit.notification({message:response.data.result, status: 'success'});
+                if(response.data.result!=null){
+                    UIkit.notification({message:response.data.result, status: 'success'});
+                }else{
+                    UIkit.notification({message:response.data.message, status: 'success'});
+                }
             })
             .catch((error) => {
                 UIkit.notification({message:error.message, status: 'danger'});

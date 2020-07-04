@@ -31032,8 +31032,8 @@ var render = function() {
                   overflow: "hidden",
                   "text-overflow": "ellipsis",
                   display: "-webkit-box",
-                  "line-height": "16px",
-                  "max-height": "16px",
+                  "line-height": "25px",
+                  "max-height": "25px",
                   "-webkit-line-clamp": "1",
                   "-webkit-box-orient": "vertical"
                 }
@@ -31096,7 +31096,7 @@ var render = function() {
           _c(
             "div",
             {
-              staticClass: "uk-flex justify-content-between align-items-center "
+              staticClass: "uk-flex justify-content-around align-items-center "
             },
             [
               _c(
@@ -31108,23 +31108,25 @@ var render = function() {
                 [_c("i", { staticClass: "fas fa-cog" })]
               ),
               _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "uk-button-text uk-button",
-                  attrs: { href: "#" },
-                  on: { click: _vm.activationCourse }
-                },
-                [
-                  _c("i", {
-                    staticClass: "fas",
-                    class: {
-                      "fa-times-circle": _vm.course.active,
-                      "fa-check-circle": !_vm.course.active
-                    }
-                  })
-                ]
-              ),
+              _vm.moduleName != "live"
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "uk-button-text uk-button",
+                      attrs: { href: "#" },
+                      on: { click: _vm.activationCourse }
+                    },
+                    [
+                      _c("i", {
+                        staticClass: "fas",
+                        class: {
+                          "fa-times-circle": _vm.course.active,
+                          "fa-check-circle": !_vm.course.active
+                        }
+                      })
+                    ]
+                  )
+                : _vm._e(),
               _vm._v(" "),
               _c(
                 "a",
