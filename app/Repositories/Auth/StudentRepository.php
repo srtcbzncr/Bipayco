@@ -413,7 +413,7 @@ class StudentRepository implements IRepository{
 
     private function entryLive($user,$course){
         $entry = \App\Models\Live\Entry::where('student_id', $user->student->id)->where('live_course_id', $course->id)->first();
-        if($entry != null and $course->completed_at != null){
+        if($entry != null and $course->completed_at == null){
             return true;
         }
         else{
