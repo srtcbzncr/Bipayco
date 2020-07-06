@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\Live;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\Live\CourseRepository;
+use App\Repositories\Live\LiveRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -182,6 +183,30 @@ class CourseController extends Controller
             'message' => 'Bir hata oluştu.Tekrar deneyin.',
             'errorMessage' => $resp->getError()
         ]);
+    }
+
+    public function allLives($user_id=null){
+        // Repo initializations
+        $repo = new LiveRepository();
+
+        // Operations
+        $resp = $repo->allLives($user_id);
+
+        // Response
+        if($resp->getResult()){
+            return response()->json([
+               'error' => false,
+               'data' => $resp->getData(),
+               'message' => 'Kurslar başarıyla getirildi'
+            ]);
+        }
+        else{
+            return response()->json([
+                'error' => true,
+                'errorMessage'=> $resp->getError(),
+                'message' => 'Kurslar getirilirken bir hata meydana geldi.Tekrar deneyin.'
+            ],400);
+        }
     }
 
 }

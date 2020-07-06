@@ -117,7 +117,7 @@ class HomeController extends Controller
 
         // Response
         if($resp->getResult()){
-            return view('live.index')->with('lives',$resp->getData());
+            return view('live.index')->with('course_count',count($resp->getData()));
         }
         else{
             return view('error');

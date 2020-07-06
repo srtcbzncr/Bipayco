@@ -8,6 +8,8 @@ use App\Models\Auth\Instructor;
 use App\Models\Auth\User;
 use App\Models\Live\Course;
 use App\Models\Live\Entry;
+use App\Models\UsersOperations\Basket;
+use App\Models\UsersOperations\Favorite;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\DB;
@@ -31,6 +33,44 @@ class LiveRepository  implements IRepository{
         }
         catch(\Exception $e){
             $error = $e;
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function allLives($user_id)
+    {
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = Course::where('deleted_at',null)->paginate(9);
+            foreach ($object as $key => $item){
+                $basketControl = Basket::where('user_id',$user_id)->where('course_id',$item->id)->where('course_type','App\Models\Live\Course')->get();
+                if($basketControl!=null and count($basketControl)>0){
+                    $object[$key]['inBasket'] = true;
+                }
+                else{
+                    $object[$key]['inBasket'] = false;
+                }
+
+                $favoriteControl = Favorite::where('user_id',$user_id)->where('course_id',$item->id)->where('course_type','App\Models\Live\Course')->get();
+                if($favoriteControl!=null and count($favoriteControl)>0){
+                    $object[$key]['inFavorite'] = true;
+                }
+                else{
+                    $object[$key]['inFavorite'] = false;
+                }
+            }
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
             $result = false;
         }
 
