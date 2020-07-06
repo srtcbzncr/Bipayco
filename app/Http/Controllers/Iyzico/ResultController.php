@@ -26,6 +26,7 @@ class ResultController extends Controller
             }
         }
         else{
+            dd($resp->getResult());
             return redirect()->back()->with('error', __('auth.payment_error').$resp->getError());
         }
     }

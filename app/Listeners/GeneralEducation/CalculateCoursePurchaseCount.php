@@ -27,9 +27,13 @@ class CalculateCoursePurchaseCount
      */
     public function handle(NewPurchase $event)
     {
-        $course = $event->purchase->course;
-        $count = $course->purchase_count;
-        $course->purchase_count = $count + 1;
-        $course->save();
+        try {
+            $course = $event->purchase->course;
+            $count = $course->purchase_count;
+            $course->purchase_count = $count + 1;
+            $course->save();
+        }catch (\Exception $e){
+        }
+
     }
 }
