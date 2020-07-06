@@ -27,7 +27,7 @@ class LiveRepository  implements IRepository{
 
         // Operations
         try{
-            $object = Course::all()->paginate(10);
+            $object = Course::where('deleted_at',null)->paginate(9);
         }
         catch(\Exception $e){
             $error = $e;

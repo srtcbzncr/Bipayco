@@ -114,13 +114,10 @@ class HomeController extends Controller
 
         // Operations
         $resp = $repo->all();
-        $data = [
-            'lives' => $resp->getData(),
-        ];
-
+        
         // Response
         if($resp->getResult()){
-            return view('live.index', $data);
+            return view('live.index')->with('lives',$resp->getData());
         }
         else{
             return view('error');
