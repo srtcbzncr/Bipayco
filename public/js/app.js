@@ -11816,6 +11816,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "instructor-courses-card",
@@ -11937,6 +11938,9 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       });
+    },
+    startStream: function startStream() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/instructor/live/course/' + this.course.id + '/createOnBBB/' + this.userId);
     }
   }
 });
@@ -31791,7 +31795,15 @@ var render = function() {
                       })
                     ]
                   )
-                : _vm._e(),
+                : _c(
+                    "a",
+                    {
+                      staticClass: "uk-button-text uk-button",
+                      attrs: { href: "#" },
+                      on: { click: _vm.startStream }
+                    },
+                    [_c("i", { staticClass: "fas fa-video" })]
+                  ),
               _vm._v(" "),
               _c(
                 "a",

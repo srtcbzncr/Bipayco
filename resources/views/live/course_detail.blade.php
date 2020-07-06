@@ -18,6 +18,7 @@
             <div class="uk-width-1-2@m uk-padding uk-margin-medium-top">
                 <h2 class="uk-light uk-text-uppercase uk-text-bold uk-text-white"> {{$course->name}} </h2>
                 <!-- students images  -->
+                <p class="uk-light uk-text-uppercase uk-text-bold uk-text-white">{{date("Y-m-d H:i", strtotime($course->datetime))}}</p>
                 <div class="avatar-group uk-margin uk-margin-remove-top" uk-scrollspy="target: > img; cls:uk-animation-slide-right; delay: 200">
                     @foreach($entries as $entry)
                         <img src="{{$entry->student->user->avatar}}">
