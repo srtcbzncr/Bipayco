@@ -32,9 +32,11 @@ class AuthController extends Controller
             $geCourses = $courses->getData()['ge'];
             $plCourses = $courses->getData()['pl'];
             $peCourses = $courses->getData()['pe'];
+            $liveCourses = $courses->getData()['live'];
             $geCoursesResp = array();
             $plCoursesResp = array();
             $peCoursesResp = array();
+            $liveCoursesResp = array();
             foreach($geCourses as $course){
                 array_push($geCoursesResp, ['course' => $course, 'progress' => $geCourseRepo->calculateProgress($course->id, $user->id)->getData()]);
             }
@@ -44,10 +46,14 @@ class AuthController extends Controller
             foreach($peCourses as $course){
                 array_push($peCoursesResp, ['course' => $course, 'progress' => $peCourseRepo->calculateProgress($course->id, $user->id)->getData()]);
             }
+            foreach($liveCourses as $course){
+                array_push($liveCoursesResp, ['course' => $course]);
+            }
             return response()->json(['error' => false, 'courses' => [
                 'ge' => $geCoursesResp,
                 'pl' => $plCoursesResp,
                 'pe' => $peCoursesResp,
+                'live' => $liveCoursesResp,
                 'books' => array(),
                 'exams' => array(),
                 'homeworks' => array(),

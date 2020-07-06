@@ -335,10 +335,12 @@ class StudentRepository implements IRepository{
             $geCourses = DB::select('SELECT * FROM ge_courses WHERE id IN(SELECT course_id FROM ge_entries WHERE student_id='.$id.' AND course_type="App\\\\Models\\\\GeneralEducation\\\\Course")');
             $plCourses = DB::select('SELECT * FROM pl_courses WHERE id IN(SELECT course_id FROM ge_entries WHERE student_id='.$id.' AND course_type="App\\\\Models\\\\PrepareLessons\\\\Course")');
             $peCourses = DB::select('SELECT * FROM pe_courses WHERE id IN(SELECT course_id FROM ge_entries WHERE student_id='.$id.' AND course_type="App\\\\Models\\\\PrepareExams\\\\Course")');
+            $liveCourses = DB::select('SELECT * FROM live_courses WHERE id IN(SELECT live_course_id FROM live_entries WHERE student_id='.$id.')');
 
             $tempGeCourses = array();
             $tempPlCourses = array();
             $tempPeCourses = array();
+            $tempLiveCourses = array();
             foreach ($geCourses as $key=>$course){
                 if($this->entryGe($user,$course)){
                     $tempGeCourses[$key] = $course;
@@ -354,11 +356,17 @@ class StudentRepository implements IRepository{
                     $tempPeCourses[$key] = $course;
                 }
             }
+            foreach ($liveCourses as $key=>$course){
+                if($this->entryLive($user,$course)){
+                    $tempLiveCourses[$key] = $course;
+                }
+            }
 
             $object = [
                 'ge' => $tempGeCourses,
                 'pl' => $tempPlCourses,
-                'pe' => $tempPeCourses
+                'pe' => $tempPeCourses,
+                'live' => $tempLiveCourses
             ];
         }
         catch(\Exception $e){
@@ -396,6 +404,16 @@ class StudentRepository implements IRepository{
         $now = date('Y-m-d', time());
         $entry = Entry::where('student_id', $user->student->id)->where('course_type', \App\Models\PrepareExams\Course::class)->where('course_id', $course->id)->where('active', true)->first();
         if($entry != null and date('Y-m-d',strtotime($entry->access_start))<=$now and date('Y-m-d',strtotime($entry->access_finish))>=$now){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    private function entryLive($user,$course){
+        $entry = \App\Models\Live\Entry::where('student_id', $user->student->id)->where('live_course_id', $course->id)->where('active', true)->first();
+        if($entry != null and $course->completed_at != null){
             return true;
         }
         else{
