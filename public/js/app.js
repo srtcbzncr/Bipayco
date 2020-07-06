@@ -6296,6 +6296,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-progress-card",
@@ -6319,6 +6346,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     noContent: {
       type: String,
       "default": 'Hiç Kursa Sahip Değilsin'
+    },
+    liveStreamsText: {
+      type: String,
+      "default": "Canlı Yayınlar"
+    },
+    expectedDateText: {
+      type: String,
+      "default": "Planlanan Tarih"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['myCourses'])),
@@ -7011,6 +7046,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -7047,9 +7083,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             return "exams";
           }
 
-        case "books":
+        case "live":
           {
-            return "books";
+            return "live";
           }
 
         default:
@@ -14257,6 +14293,26 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "top-bar",
@@ -14280,6 +14336,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     myCoursesText: {
       type: String,
       "default": "Kurslarım"
+    },
+    liveStreamsText: {
+      type: String,
+      "default": "Canlı Yayınlar"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['myCourses'])),
@@ -22882,6 +22942,166 @@ var render = function() {
   return _vm.myCourses.courses
     ? _c("div", [
         _c("h3", { staticClass: "uk-heading-line uk-text-center" }, [
+          _c("span", [_vm._v(" " + _vm._s(_vm.liveStreamsText) + " ")])
+        ]),
+        _vm._v(" "),
+        _vm.myCourses.courses.live && _vm.myCourses.courses.live.length > 0
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "uk-position-relative uk-visible-toggle  uk-container uk-padding-medium",
+                attrs: { "uk-slider": "" }
+              },
+              [
+                _c(
+                  "ul",
+                  {
+                    staticClass:
+                      "uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m uk-grid"
+                  },
+                  _vm._l(_vm.myCourses.courses.live, function(myCourse) {
+                    return _c("li", [
+                      _c("div", { staticClass: "uk-grid-margin" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "uk-link-reset",
+                            attrs: {
+                              href: "/live/course/" + myCourse.course.id
+                            }
+                          },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "uk-card-default uk-padding-small border-radius-6 scale-up"
+                              },
+                              [
+                                _c("img", {
+                                  staticClass:
+                                    "uk-background-center-center uk-background-cover uk-height-small uk-panel uk-flex uk-flex-center uk-flex-middle",
+                                  attrs: { src: myCourse.course.image }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  {
+                                    staticClass:
+                                      "uk-margin-small-top uk-height-small uk-margin-remove-bottom uk-text-bold",
+                                    staticStyle: {
+                                      overflow: "hidden",
+                                      "text-overflow": "ellipsis",
+                                      display: "-webkit-box",
+                                      "line-height": "16px",
+                                      "max-height": "16px",
+                                      "-webkit-line-clamp": "1",
+                                      "-webkit-box-orient": "vertical"
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      " " + _vm._s(myCourse.course.name) + " "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  {
+                                    staticClass:
+                                      "uk-text-small uk-height-small uk-margin-remove",
+                                    staticStyle: {
+                                      overflow: "hidden",
+                                      "text-overflow": "ellipsis",
+                                      display: "-webkit-box",
+                                      "line-height": "16px",
+                                      "max-height": "32px",
+                                      "-webkit-line-clamp": "2",
+                                      "-webkit-box-orient": "vertical"
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      " " +
+                                        _vm._s(myCourse.course.description) +
+                                        " "
+                                    )
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  {
+                                    staticClass:
+                                      "uk-text-small uk-height-small uk-margin-remove",
+                                    staticStyle: {
+                                      overflow: "hidden",
+                                      "text-overflow": "ellipsis",
+                                      display: "-webkit-box",
+                                      "line-height": "16px",
+                                      "max-height": "32px",
+                                      "-webkit-line-clamp": "2",
+                                      "-webkit-box-orient": "vertical"
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      _vm._s(_vm.expectedDateText) +
+                                        ": " +
+                                        _vm._s(myCourse.course.datetime) +
+                                        " "
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ])
+                    ])
+                  }),
+                  0
+                ),
+                _vm._v(" "),
+                _c("a", {
+                  staticClass:
+                    "uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+                  attrs: {
+                    href: "#",
+                    "uk-slidenav-previous": "",
+                    "uk-slider-item": "previous"
+                  }
+                }),
+                _vm._v(" "),
+                _c("a", {
+                  staticClass:
+                    "uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+                  attrs: {
+                    href: "#",
+                    "uk-slidenav-next": "",
+                    "uk-slider-item": "next"
+                  }
+                }),
+                _vm._v(" "),
+                _vm._m(0)
+              ]
+            )
+          : _c(
+              "div",
+              {
+                staticClass:
+                  "uk-text-center uk-margin-large-top uk-margin-large-bottom"
+              },
+              [
+                _c("h4", { staticClass: "uk-text-center text-secondary" }, [
+                  _vm._v(_vm._s(_vm.noContent))
+                ])
+              ]
+            ),
+        _vm._v(" "),
+        _c("h3", { staticClass: "uk-heading-line uk-text-center" }, [
           _c("span", [_vm._v(" " + _vm._s(_vm.generalEducationText) + " ")])
         ]),
         _vm._v(" "),
@@ -23006,7 +23226,7 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm._m(0)
+                _vm._m(1)
               ]
             )
           : _c(
@@ -23147,7 +23367,7 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm._m(2)
               ]
             )
           : _c(
@@ -23288,7 +23508,7 @@ var render = function() {
                   }
                 }),
                 _vm._v(" "),
-                _vm._m(2)
+                _vm._m(3)
               ]
             )
           : _c(
@@ -23307,6 +23527,20 @@ var render = function() {
     : _vm._e()
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "ul",
+      { staticClass: "uk-slider-nav uk-dotnav uk-flex-center uk-margin" },
+      [
+        _c("li", { attrs: { "uk-slider-item": "0" } }, [
+          _c("a", { attrs: { href: "#" } })
+        ])
+      ]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -24375,9 +24609,21 @@ var render = function() {
                         [_vm._v(_vm._s(_vm.course.name))]
                       ),
                       _vm._v(" "),
-                      _c("stars-rating", {
-                        attrs: { rating: _vm.course.point }
-                      })
+                      _vm.moduleName != "live"
+                        ? _c("stars-rating", {
+                            attrs: { rating: _vm.course.point }
+                          })
+                        : _c("p", [
+                            _c("span", { staticClass: "fas fa-calendar-alt" }),
+                            _vm._v(
+                              " " +
+                                _vm._s(_vm.expectedDateText) +
+                                ": " +
+                                _vm._s(
+                                  new Date(_vm.course.datetime).toLocaleString()
+                                )
+                            )
+                          ])
                     ],
                     1
                   ),
@@ -26058,9 +26304,11 @@ var render = function() {
     "div",
     { staticClass: "uk-width-1-3@m uk-visible@m" },
     [
-      _c("h3", { staticClass: "uk-text-bold uk-margin-small-left" }, [
-        _vm._v(_vm._s(_vm.relatedCoursesText))
-      ]),
+      _vm.courseCard.length > 0
+        ? _c("h3", { staticClass: "uk-text-bold uk-margin-small-left" }, [
+            _vm._v(_vm._s(_vm.relatedCoursesText))
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _vm._l(_vm.courseCard, function(course) {
         return _c(
@@ -34409,7 +34657,8 @@ var render = function() {
       _c("hr", { staticClass: " uk-margin-remove" }),
       _vm._v(" "),
       _vm.myCourses.courses != null &&
-      _vm.myCourses.courses.ge.length +
+      _vm.myCourses.courses.live.length +
+        _vm.myCourses.courses.ge.length +
         _vm.myCourses.courses.pl.length +
         _vm.myCourses.courses.pe.length >
         0
@@ -34437,6 +34686,146 @@ var render = function() {
                       }
                     },
                     [
+                      _vm.myCourses.courses.live.length > 0
+                        ? _c(
+                            "h5",
+                            {
+                              staticClass:
+                                "uk-heading-line uk-width uk-text-center"
+                            },
+                            [
+                              _c("span", [
+                                _vm._v(" " + _vm._s(_vm.liveStreamsText) + " ")
+                              ])
+                            ]
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm._l(_vm.myCourses.courses.live, function(myCourse) {
+                        return _c("div", [
+                          _c(
+                            "a",
+                            {
+                              staticClass: "uk-link-reset",
+                              attrs: {
+                                href: "/live/course/" + myCourse.course.id
+                              }
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "uk-padding-small uk-card-default border-radius-6 uk-flex uk-flex-column"
+                                },
+                                [
+                                  _c("progress", {
+                                    staticClass:
+                                      "uk-progress progress-green uk-margin-small-bottom uk-width",
+                                    staticStyle: { height: "7px" },
+                                    attrs: { max: "100" },
+                                    domProps: { value: myCourse.progress }
+                                  }),
+                                  _vm._v(" "),
+                                  _c(
+                                    "div",
+                                    {
+                                      staticClass:
+                                        "uk-flex align-items-center justify-content-between uk-width"
+                                    },
+                                    [
+                                      _c(
+                                        "div",
+                                        {
+                                          staticClass:
+                                            "uk-card-media-left uk-width-1-3 uk-cover-container uk-margin-small-right"
+                                        },
+                                        [
+                                          _c("img", {
+                                            attrs: {
+                                              src: myCourse.course.image,
+                                              alt: "",
+                                              "uk-cover": ""
+                                            }
+                                          }),
+                                          _vm._v(" "),
+                                          _c("canvas", {
+                                            attrs: {
+                                              width: "600",
+                                              height: "400"
+                                            }
+                                          })
+                                        ]
+                                      ),
+                                      _vm._v(" "),
+                                      _c(
+                                        "div",
+                                        { staticClass: "uk-width-2-3" },
+                                        [
+                                          _c(
+                                            "h5",
+                                            {
+                                              staticClass: "uk-margin-remove",
+                                              staticStyle: {
+                                                overflow: "hidden",
+                                                "text-overflow": "ellipsis",
+                                                display: "-webkit-box",
+                                                "line-height": "16px",
+                                                "max-height": "16px",
+                                                "-webkit-line-clamp": "1",
+                                                "-webkit-box-orient": "vertical"
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                _vm._s(myCourse.course.name) +
+                                                  " "
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c("hr", {
+                                            staticClass: "uk-margin-remove"
+                                          }),
+                                          _vm._v(" "),
+                                          _c(
+                                            "p",
+                                            {
+                                              staticClass: "uk-margin-remove",
+                                              staticStyle: {
+                                                overflow: "hidden",
+                                                "text-overflow": "ellipsis",
+                                                display: "-webkit-box",
+                                                "line-height": "16px",
+                                                "max-height": "32px",
+                                                "-webkit-line-clamp": "2",
+                                                "-webkit-box-orient": "vertical"
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                " " +
+                                                  _vm._s(
+                                                    myCourse.course.description
+                                                  )
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            ]
+                          )
+                        ])
+                      }),
+                      _vm._v(" "),
+                      _vm.myCourses.courses.live.length > 0
+                        ? _c("hr", { staticClass: "uk-width" })
+                        : _vm._e(),
+                      _vm._v(" "),
                       _vm._l(_vm.myCourses.courses.ge, function(myCourse) {
                         return _c("div", [
                           _c(

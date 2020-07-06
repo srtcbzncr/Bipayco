@@ -33,6 +33,8 @@
                     prepare-lessons-text="@lang('front/auth.prepare_for_lessons')"
                     prepare-exams-text="@lang('front/auth.prepare_for_exams')"
                     general-education-text="@lang('front/auth.general_education')"
+                    live-streams-text="@lang('front/auth.live_streams')"
+                    expected-date-text="@lang('front/auth.expected_date')"
                 ></course-progress-card>
 {{--                <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.homeworks') </span></h3>--}}
 {{--                <course-progress-card user-id="{{Auth::user()->id}}" no-content="@lang('front/auth.not_found_content')" homeworks></course-progress-card>--}}

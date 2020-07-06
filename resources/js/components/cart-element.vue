@@ -10,7 +10,8 @@
                     <div class="uk-card-body">
                         <div class="uk-card-title">
                             <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 25px; max-height: 25px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-margin-remove">{{course.name}}</h4>
-                            <stars-rating :rating="course.point"></stars-rating>
+                            <stars-rating v-if="moduleName!='live'" :rating="course.point"></stars-rating>
+                            <p v-else><span class="fas fa-calendar-alt"></span> {{expectedDateText}}: {{new Date(course.datetime).toLocaleString()}}</p>
                         </div>
                         <hr class="uk-margin-remove">
                         <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{course.description}}</p>
@@ -65,8 +66,8 @@
                     case "exams":{
                         return "exams";
                     }
-                    case "books":{
-                        return "books";
+                    case "live":{
+                        return "live";
                     }
                     default:{
                         return "ge";

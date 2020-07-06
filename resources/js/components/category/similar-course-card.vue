@@ -1,6 +1,6 @@
 <template>
     <div class="uk-width-1-3@m uk-visible@m">
-        <h3 class="uk-text-bold uk-margin-small-left">{{relatedCoursesText}}</h3>
+        <h3 v-if='courseCard.length>0' class="uk-text-bold uk-margin-small-left">{{relatedCoursesText}}</h3>
         <div v-for="course in courseCard" class="uk-padding-small">
             <course-card
                 v-if="authCheck"
