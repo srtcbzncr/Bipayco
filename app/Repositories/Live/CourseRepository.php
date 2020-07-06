@@ -55,9 +55,33 @@ class CourseRepository implements IRepository{
             $user = Auth::user();
             if($user == null){
                 $object = Course::find($id);
+
+                $achs = Achievement::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('active',true)->where('deleted_at',null)->get();
+                $reqs = Requirement::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('active',true)->where('deleted_at',null)->get();
+                $tags = Tag::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('deleted_at',null)->get();
+                $object['achievements'] = $achs;
+                $object['requirements'] = $reqs;
+                $object['tags'] = $tags;
+
+                $instructor = Instructor::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+                $instructor['user'] = $user;
+                $object['instructor'] = $instructor;
             }
             else{
                 $object = Course::find($id);
+
+                $achs = Achievement::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('active',true)->where('deleted_at',null)->get();
+                $reqs = Requirement::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('active',true)->where('deleted_at',null)->get();
+                $tags = Tag::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('deleted_at',null)->get();
+                $object['achievements'] = $achs;
+                $object['requirements'] = $reqs;
+                $object['tags'] = $tags;
+
+                $instructor = Instructor::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+                $instructor['user'] = $user;
+                $object['instructor'] = $instructor;
+
+
                 $student = Student::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
 
                 $live_entry = Entry::where('student_id',$student->id)->where('live_course_id',$id)->where('deleted_at',null)->first();
