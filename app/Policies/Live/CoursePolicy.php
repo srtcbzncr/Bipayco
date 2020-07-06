@@ -3,8 +3,10 @@
 namespace App\Policies\Live;
 
 use App\Models\Auth\Instructor;
+use App\Models\Auth\Student;
 use App\Models\Auth\User;
 use App\Models\Live\Course;
+use App\Models\Live\Entry;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\DB;
 
@@ -38,6 +40,17 @@ class CoursePolicy
             else{
                 return false;
             }
+        }
+        else{
+            return false;
+        }
+    }
+
+    public function entryControl(User $user, Course $course){
+        $student = Student::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        $entryControl = Entry::where('live_course_id',$course->id)->where('deleted_at',null)->where('student_id',$student->id);
+        if($entryControl != null){
+            return true;
         }
         else{
             return false;
