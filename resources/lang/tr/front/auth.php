@@ -259,5 +259,6 @@ return [
     'live_duration'=>'Canlı Yayın Süresi',
     'max_participant_count'=>'Maksimium Katılımcı Sayısı',
     'expected_date'=>'Planlanan Tarih',
-
+    'open_live_stream'=>'Canlı Yayını Aç',
+    'live_stream_password'=>'Canlı Yayın Şifresi'
 ];

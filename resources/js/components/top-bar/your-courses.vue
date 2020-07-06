@@ -13,13 +13,13 @@
                     <div  v-for="myCourse in myCourses.courses.live">
                         <a :href="'/live/course/'+myCourse.course.id" class="uk-link-reset">
                             <div class="uk-padding-small uk-card-default border-radius-6 uk-flex uk-flex-column">
-                                <progress class="uk-progress progress-green uk-margin-small-bottom uk-width" :value="myCourse.progress" max="100" style="height: 7px;"></progress>
                                 <div class="uk-flex align-items-center justify-content-between uk-width">
                                     <div class="uk-card-media-left uk-width-1-3 uk-cover-container uk-margin-small-right">
                                         <img :src="myCourse.course.image" alt="" uk-cover>
                                         <canvas width="600" height="400"></canvas>
                                     </div>
                                     <div class="uk-width-2-3">
+                                        <p class="uk-margin-remove" style="font-size:12px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"> {{new Date(myCourse.course.datetime).toLocaleString()}}</p>
                                         <h5 class="uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;">{{myCourse.course.name}} </h5>
                                         <hr class="uk-margin-remove">
                                         <p class="uk-margin-remove" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;"> {{myCourse.course.description}}</p>

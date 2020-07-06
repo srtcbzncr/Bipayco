@@ -17,6 +17,7 @@
                 <div class="uk-flex justify-content-around align-items-center ">
                     <a class="uk-button-text uk-button" :href="editCourseRoute"><i class="fas fa-cog"></i></a>
                     <a v-if="moduleName!='live'" class="uk-button-text uk-button" href="#" @click="activationCourse"><i class="fas" :class="{'fa-times-circle':course.active, 'fa-check-circle':!course.active}"></i></a>
+                    <a v-else class="uk-button-text uk-button" href="#" @click="startStream"><i class="fas fa-video" ></i></a>
                     <a class="uk-button uk-button-text" href="#" @click="deleteCourse"> <i class="fas fa-trash"></i></a>
                 </div>
             </div>
@@ -125,6 +126,9 @@
                         }
                     })
 
+            },
+            startStream:function () {
+                Axios.get('/api/instructor/live/course/'+this.course.id+'/createOnBBB/'+this.userId);
             }
         }
     }

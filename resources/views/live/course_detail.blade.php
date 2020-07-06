@@ -25,16 +25,13 @@
                     <span class="uk-text-bold uk-light"> {{$student_count}} @lang('front/auth.enrolled_student')</span>
                 </div>
                 @if(Auth::check() && Auth::user()->can('entryControl', $course))
-                    <div class="uk-grid-small" uk-grid>
-                        <div class="uk-width-auto">
-                            <a class="uk-button uk-button-white uk-float-left"> @lang('front/auth.continue')</a>
-                        </div>
-                        <div class="uk-width-expand">
-                            <span class="uk-light uk-text-small uk-text-bold"> @lang('front/auth.my_progress') </span>
-                            <progress id="js-progressbar" class="uk-progress progress-green uk-margin-small-bottom uk-margin-small-top" value="{{$course->progress}}" max="100" style="height: 8px;"> </progress>
-                        </div>
-                    </div>
                 @else
+                    <live-stream-button
+                        open-stream-text="@lang('front/auth.open_live_stream')"
+                        stream-password-text="@lang('front/auth.live_stream_password')"
+                        user-id="{{Auth::user()->id}}"
+                        course-id="{{$course->id}}"
+                    ></live-stream-button>
                     <add-cart-button
                         module-name="live"
                         module="live"
