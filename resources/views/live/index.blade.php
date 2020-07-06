@@ -1,20 +1,27 @@
 @extends('layouts.app')
 @section('content')
-    <div class="uk-container">
-        <div class=" uk-margin-medium-top uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-margin" uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div ; delay: 200" uk-grid>
-            @foreach($lives as $live)
-                <div>
-                    <category-card
-                        background-color="#3b8895"
-                        sub-category-name="{{$live->name}}"
-                        explore="@lang('front/auth.explore')"
-                        sub-category-route="{{route('pe_sub_category_courses', $live->id)}}"
-{{--                        sub-category-img="{{$exam->symbol}}"--}}
-                        course="@lang('front/auth.course')"
-                        course-count="{{$live->courseCount}}"
-                    ></category-card>
+    <div class="hero-bg" style=" margin-top: -80px">
+        <div uk-grid>
+            <div class="uk-width-1-2@m">
+                <h1 class="uk-animation-fade">@lang('front/auth.live_streams')</h1>
+                <div class="uk-visible@m uk-animation-slide-bottom-small uk-margin-medium-top" uk-grid>
+                    <div class="uk-width-1-3@m uk-flex align-items-center">
+                        <i class="fas fa-book-open icon-xxlarge text-white uk-margin-small-right"></i>
+                        <span class="uk-text-middle uk-text-white"> @lang('front/auth.live_stream') </span>
+                    </div>
                 </div>
-            @endforeach
+            </div>
+            <div class="uk-width-1-2@m uk-visible@m">
+            </div>
         </div>
     </div>
+    <live-index-page
+        has-no-content="@lang('front/auth.not_found_content')"
+        module-name="live"
+        module="live"
+        @if(Auth::check())
+        is-login
+        user-id="{{Auth::user()->id}}"
+        @endif
+    ></live-index-page>
 @endsection

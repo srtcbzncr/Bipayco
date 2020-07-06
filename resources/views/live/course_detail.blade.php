@@ -17,8 +17,6 @@
             </div>
             <div class="uk-width-1-2@m uk-padding uk-margin-medium-top">
                 <h2 class="uk-light uk-text-uppercase uk-text-bold uk-text-white"> {{$course->name}} </h2>
-
-                <stars-rating :rating="{{$course->point}}" style-full-star-color="#F4C150" style-rate-color="color:#C1C1C1" style-empty-star-color="#C1C1C1"></stars-rating>
                 <!-- students images  -->
                 <div class="avatar-group uk-margin uk-margin-remove-top" uk-scrollspy="target: > img; cls:uk-animation-slide-right; delay: 200">
                     @foreach($entries as $entry)
@@ -29,7 +27,7 @@
                 @if(Auth::check() && Auth::user()->can('entryControl', $course))
                     <div class="uk-grid-small" uk-grid>
                         <div class="uk-width-auto">
-                            <a class="uk-button uk-button-white uk-float-left" href="{{route('learn_pe_course_get', $course->id)}}"> @lang('front/auth.continue')</a>
+                            <a class="uk-button uk-button-white uk-float-left"> @lang('front/auth.continue')</a>
                         </div>
                         <div class="uk-width-expand">
                             <span class="uk-light uk-text-small uk-text-bold"> @lang('front/auth.my_progress') </span>
@@ -75,7 +73,7 @@
                     <h4> @lang('front/auth.requirements')</h4>
                     <ul class="uk-list uk-list-bullet">
                         @forelse($course->requirements as $requirement)
-                            <li>{{$requirement->content}}</li>
+                                <li>{{$requirement->content}}</li>
                         @empty
                             <p>@lang('front/auth.have_no_requirement')</p>
                         @endforelse
@@ -92,24 +90,22 @@
                 <!-- Instructor  -->
                 <div id="Instructor" class="tabcontent animation: uk-animation-slide-right-medium">
                     <h2 class="uk-heading-line uk-text-center"><span> @lang('front/auth.meet_instructor')  </span></h2>
-                    @foreach($course->instructors as $instructor)
-                        <div class="uk-grid-small  uk-margin-medium-top uk-padding-small" uk-grid>
-                            <div class="uk-width-1-4@m uk-first-column">
-                                <a href="{{route('instructor_profile', $instructor->id)}}">
-                                    <img src="{{asset($instructor->user->avatar)}}" class="uk-margin uk-height-small uk-width-small uk-border-circle">
-                                </a>
-                                <div class="uk-text-small uk-margin-small-top">
-                                    <p> <i class="fas fa-play"></i> {{$instructor->courseCount()}} @lang('front/auth.course') </p>
-                                </div>
-                            </div>
-                            <div class="uk-width-3-4@m uk-padding-remove-left">
-                                <h4 class="uk-margin-remove"> {{$instructor->user->first_name}} {{$instructor->user->last_name}} </h4>
-                                <span class="uk-text-small">  {{$instructor->title}} </span>
-                                <hr class="uk-margin-small">
-                                <p class="uk-margin-remove-top uk-margin-small-bottom">{{$instructor->bio}}</p>
+                    <div class="uk-grid-small  uk-margin-medium-top uk-padding-small" uk-grid>
+                        <div class="uk-width-1-4@m uk-first-column">
+                            <a href="{{route('instructor_profile', $instructor->id)}}">
+                                <img src="{{asset($instructor->user->avatar)}}" class="uk-margin uk-height-small uk-width-small uk-border-circle">
+                            </a>
+                            <div class="uk-text-small uk-margin-small-top">
+                                <p> <i class="fas fa-play"></i> {{$instructor->courseCount()}} @lang('front/auth.course') </p>
                             </div>
                         </div>
-                    @endforeach
+                        <div class="uk-width-3-4@m uk-padding-remove-left">
+                            <h4 class="uk-margin-remove"> {{$instructor->user->first_name}} {{$instructor->user->last_name}} </h4>
+                            <span class="uk-text-small">  {{$instructor->title}} </span>
+                            <hr class="uk-margin-small">
+                            <p class="uk-margin-remove-top uk-margin-small-bottom">{{$instructor->bio}}</p>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -120,8 +116,8 @@
                 user-id="{{Auth::user()->id}}"
                 @endif
                 course-id="{{$course->id}}"
-                module-name="prepareExams"
-                module="pe"
+                module-name="live"
+                module="live"
                 related-courses-text="@lang('front/auth.related_courses')"
             > </similar-course-card>
         </div>
