@@ -509,8 +509,11 @@ class CourseRepository implements IRepository{
             $temp_courses = array();
             $courses = null;
             foreach ($courses_tag as $item){
-                $temp_course = Course::find($item->course_id);
-                array_push($temp_courses,$temp_course);
+                if($item->course_id!=$id){
+                    $temp_course = Course::find($item->course_id);
+                    array_push($temp_courses,$temp_course);
+                }
+
             }
             $courses = collect($temp_courses);
 
