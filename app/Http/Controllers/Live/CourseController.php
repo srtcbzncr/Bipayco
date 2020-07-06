@@ -44,7 +44,7 @@ class CourseController extends Controller
         $data = [
             'course' => $resp->getData(),
             'entries' => $entriesResp->getData(),
-            'student_count' => count($resp->getData()->entries),
+            'student_count' => count($entriesResp->getData()),
         ];
 
         // Response
