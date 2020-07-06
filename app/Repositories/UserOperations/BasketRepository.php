@@ -590,7 +590,7 @@ class BasketRepository implements IRepository
                             $object->price = $coursesPrice[$i];
                             $object->confirmation = true;
                             $object->save();
-            
+
                             // iyzico basket items ekle.
                             $iyzicoBasketItemsTemp = BasketItems::find($iyzicoBasketItems[$i]->id);
                             $iyzicoBasketItemsTemp->purchase_id = $object->id;
