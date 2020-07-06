@@ -56,9 +56,9 @@ class CourseRepository implements IRepository{
             if($user == null){
                 $object = Course::find($id);
 
-                $achs = Achievement::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('active',true)->where('deleted_at',null)->get()->toArray();
-                $reqs = Requirement::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('active',true)->where('deleted_at',null)->get()->toArray();
-                $tags = Tag::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('deleted_at',null)->get()->toArray();
+                $achs = Achievement::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('active',true)->where('deleted_at',null)->get();
+                $reqs = Requirement::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('active',true)->where('deleted_at',null)->get();
+                $tags = Tag::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('deleted_at',null)->get();
                 $object['achievements'] = $achs;
                 $object['requirements'] = $reqs;
                 $object['tags'] = $tags;
@@ -70,9 +70,9 @@ class CourseRepository implements IRepository{
             else{
                 $object = Course::find($id);
 
-                $achs = Achievement::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('active',true)->where('deleted_at',null)->get()->toArray();
-                $reqs = Requirement::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('active',true)->where('deleted_at',null)->get()->toArray();
-                $tags = Tag::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('deleted_at',null)->get()->toArray();
+                $achs = Achievement::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('active',true)->where('deleted_at',null)->get();
+                $reqs = Requirement::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('active',true)->where('deleted_at',null)->get();
+                $tags = Tag::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('deleted_at',null)->get();
                 $object['achievements'] = $achs;
                 $object['requirements'] = $reqs;
                 $object['tags'] = $tags;
