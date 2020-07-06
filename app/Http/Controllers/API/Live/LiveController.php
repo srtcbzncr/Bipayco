@@ -46,7 +46,7 @@ class LiveController extends Controller
         ],400);
     }
 
-    public function createLiveOnBBB($user_id,$meeting_id){
+    public function createLiveOnBBB($meeting_id,$user_id){
         $repo = new LiveRepository();
 
         $resp=$repo->createLiveOnBBB($user_id,$meeting_id);

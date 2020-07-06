@@ -160,16 +160,16 @@ class LiveRepository  implements IRepository{
         // Operations
         try{
             $live = Course::find($meeting_id);
-            $object = new CreateMeetingParameters($meeting_id, $live->name);
-            $object->setModeratorPassword($live->moderator_pw);
-            $object->setAttendeePassword($live->attendee_pw);
-            $object->setDuration($live->duration);
-            $object->setMaxParticipants($live->max_participant);
+            $params = new CreateMeetingParameters($meeting_id, $live->name);
+            $params->setModeratorPassword($live->moderator_pw);
+            $params->setAttendeePassword($live->attendee_pw);
+            $params->setDuration($live->duration);
+            $params->setMaxParticipants($live->max_participant);
 
-            $object->setBreakout(false); # dinlenme odası yok bu yüzden aşağıdaki brekout verileri direkt default 0 verdim.
-            $object->setFreeJoin(false);
+            $params->setBreakout(false); # dinlenme odası yok bu yüzden aşağıdaki brekout verileri direkt default 0 verdim.
+            $params->setFreeJoin(false);
 
-            BigBlueButton::create($object);
+            $object=BigBlueButton::create($params);
         }
         catch(\Exception $e){
             $error = $e->getMessage();
