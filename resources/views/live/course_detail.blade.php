@@ -92,16 +92,16 @@
                     <h2 class="uk-heading-line uk-text-center"><span> @lang('front/auth.meet_instructor')  </span></h2>
                     <div class="uk-grid-small  uk-margin-medium-top uk-padding-small" uk-grid>
                         <div class="uk-width-1-4@m uk-first-column">
-                            <a href="{{route('instructor_profile', $instructor->id)}}">
-                                <img src="{{asset($instructor->user->avatar)}}" class="uk-margin uk-height-small uk-width-small uk-border-circle">
+                            <a href="{{route('instructor_profile', $course->instructor->id)}}">
+                                <img src="{{asset($course->instructor->user->avatar)}}" class="uk-margin uk-height-small uk-width-small uk-border-circle">
                             </a>
                             <div class="uk-text-small uk-margin-small-top">
-                                <p> <i class="fas fa-play"></i> {{$instructor->courseCount()}} @lang('front/auth.course') </p>
+                                <p> <i class="fas fa-play"></i> {{$course->instructor->courseCount()}} @lang('front/auth.course') </p>
                             </div>
                         </div>
                         <div class="uk-width-3-4@m uk-padding-remove-left">
-                            <h4 class="uk-margin-remove"> {{$instructor->user->first_name}} {{$instructor->user->last_name}} </h4>
-                            <span class="uk-text-small">  {{$instructor->title}} </span>
+                            <h4 class="uk-margin-remove"> {{$course->instructor->user->first_name}} {{$course->instructor->user->last_name}} </h4>
+                            <span class="uk-text-small">  {{$course->instructor->title}} </span>
                             <hr class="uk-margin-small">
                             <p class="uk-margin-remove-top uk-margin-small-bottom">{{$instructor->bio}}</p>
                         </div>
