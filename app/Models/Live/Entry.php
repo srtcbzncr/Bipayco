@@ -13,4 +13,8 @@ class Entry extends Model
     ];
     public $timestamps = true;
     protected $table="live_entries";
+
+    public function student(){
+        return $this->belongsTo('App\Models\Auth\Student','student_id','id');
+    }
 }
