@@ -63,4 +63,22 @@ class LiveController extends Controller
             'message' => 'Canlı yayın başlatılırken bir hata meydana geldi.Tekrar deneyin.'
         ],400);
     }
+
+    public function joinLive($meeting_id,$user_id){
+        $repo = new LiveRepository();
+
+        $resp=$repo->joinLive($user_id,$meeting_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'data', $resp->getData(),
+                'message' => 'Canlı yayına giriş yapıldı.'
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'errorMessage', $resp->getError(),
+            'message' => 'Canlı yayına giriş yapılırken bir hata meydana geldi.Tekrar deneyin.'
+        ],400);
+    }
 }
