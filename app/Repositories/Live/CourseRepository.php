@@ -63,8 +63,10 @@ class CourseRepository implements IRepository{
                 $object['requirements'] = $reqs;
                 $object['tags'] = $tags;
 
-                $instructor = Instructor::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
-                $instructor['user'] = $user;
+                $ge_instructor = DB::table('ge_courses_instructors')->where('course_id',$id)->where('course_type','App\Models\Live\Course')
+                    ->where('is_manager',true)->where('active',true)->where('deleted_at',null)->first();
+                $instructor = Instructor::find($ge_instructor->instructor_id);
+                $instructor['user'] = User::find($instructor->user_id);
                 $object['instructor'] = $instructor;
             }
             else{
@@ -77,8 +79,10 @@ class CourseRepository implements IRepository{
                 $object['requirements'] = $reqs;
                 $object['tags'] = $tags;
 
-                $instructor = Instructor::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
-                $instructor['user'] = $user;
+                $ge_instructor = DB::table('ge_courses_instructors')->where('course_id',$id)->where('course_type','App\Models\Live\Course')
+                    ->where('is_manager',true)->where('active',true)->where('deleted_at',null)->first();
+                $instructor = Instructor::find($ge_instructor->instructor_id);
+                $instructor['user'] = User::find($instructor->user_id);
                 $object['instructor'] = $instructor;
 
 

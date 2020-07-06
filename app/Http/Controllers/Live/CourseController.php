@@ -46,6 +46,7 @@ class CourseController extends Controller
             'entries' => $entriesResp->getData(),
             'student_count' => count($entriesResp->getData()),
         ];
+        
 
         // Response
         if($resp->getResult() and $entriesResp->getResult()){
