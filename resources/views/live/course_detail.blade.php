@@ -103,7 +103,7 @@
                             <h4 class="uk-margin-remove"> {{$course->instructor->user->first_name}} {{$course->instructor->user->last_name}} </h4>
                             <span class="uk-text-small">  {{$course->instructor->title}} </span>
                             <hr class="uk-margin-small">
-                            <p class="uk-margin-remove-top uk-margin-small-bottom">{{$instructor->bio}}</p>
+                            <p class="uk-margin-remove-top uk-margin-small-bottom">{{$course->instructor->bio}}</p>
                         </div>
                     </div>
                 </div>
