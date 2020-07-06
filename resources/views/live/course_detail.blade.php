@@ -19,9 +19,9 @@
                 <h2 class="uk-light uk-text-uppercase uk-text-bold uk-text-white"> {{$course->name}} </h2>
                 <!-- students images  -->
                 <div class="avatar-group uk-margin uk-margin-remove-top" uk-scrollspy="target: > img; cls:uk-animation-slide-right; delay: 200">
-{{--                    @foreach($entries as $entry)--}}
-{{--                        <img src="{{$entry->student->user->avatar}}">--}}
-{{--                    @endforeach--}}
+                    @foreach($entries as $entry)
+                        <img src="{{$entry->student->user->avatar}}">
+                    @endforeach
                     <span class="uk-text-bold uk-light"> {{$student_count}} @lang('front/auth.enrolled_student')</span>
                 </div>
                 @if(Auth::check() && Auth::user()->can('entryControl', $course))
