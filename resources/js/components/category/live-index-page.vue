@@ -1,6 +1,6 @@
 <template>
     <div class="uk-container">
-        <div v-if="courseCount>0">
+        <div v-if="courseCard.data&&courseCard.data.length>0">
             <div class="uk-clearfix boundary-align uk-margin-medium-top">
                 <div class="uk-float-left section-heading none-border">
                     <h2>{{liveStreamsText}}</h2>
@@ -27,15 +27,15 @@
                 <li v-for="page in pageNumber">
                     <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
                     <button v-else-if="page==courseCard.current_page" class="uk-background-default uk-disabled">{{page}}</button>
-                    <button v-else @click="loadNewPage('/api/')">{{page}}</button>
+                    <button v-else @click="loadNewPage(urlCreate(userId,page))">{{page}}</button>
                 </li>
                 <li>
                     <button v-show="courseCard.current_page<courseCard.last_page" @click="loadNewPage(courseCard.next_page_url)"> > </button>
                 </li>
             </ul>
         </div>
-        <div v-if="courseCount<=0" class="uk-flex uk-flex-center align-items-center justify-content-center uk-margin-large-top">
-            <h2>{{hasNoContent}}</h2>
+        <div v-if="!(courseCard.data&&courseCard.data.length>0)" class="uk-flex uk-flex-center align-items-center justify-content-center uk-margin-large-top">
+            <h2>{{hasNoContentText}}</h2>
         </div>
     </div>
 </template>
@@ -46,16 +46,13 @@
     export default {
         name: "live-index-page",
         created() {
-            if (this.courseCount>0) {
-                var sort='getBy'+this.name+'FilterByTrending';
-                var url;
-                if(this.userId!=''){
-                    url='/api/course/'+sort+'/'+this.id+'/'+this.userId;
-                }else{
-                    url='/api/course/'+sort+'/'+this.id;
-                }
-                this.$store.dispatch('loadUrlForCourseCard', url);
+            var url;
+            if(this.userId!=''){
+                url='/api/home/live/all_courses/'+this.userId;
+            }else{
+                url='/api/home/live/all_courses/';
             }
+            this.$store.dispatch('loadUrlForCourseCard', url);
         },
         data(){
             return {
@@ -63,6 +60,10 @@
             }
         },
         props:{
+            hasNoContentText:{
+                type:String,
+                default: "İçerik Bulunmuyor"
+            },
             moduleName:{
                 type:String,
                 required:true,
@@ -78,6 +79,10 @@
             userId:{
                 type:String,
                 default:""
+            },
+            liveStreamsText:{
+                type:String,
+                default:"Canlı Yayınlar"
             }
         },
         computed:{
@@ -114,18 +119,18 @@
                 'loadUrlForCourseCard',
                 'loadNewPageCourses'
             ]),
-            urlCreate:function(sortBy,id,userId,page){
+            urlCreate:function(userId,page){
                 if(userId!=''){
-                    return '/api/course/'+sortBy+'/'+id+'/'+userId+'?page='+page;
+                    return '/api/home/live/all_courses/'+userId+'?page='+page;
                 }else{
-                    return '/api/course/'+sortBy+'/'+id+'?page='+page;
+                    return '/api/home/live/all_courses/'+id+'?page='+page;
                 }
             },
             loadCourseList: function(){
                 if(this.userId!=''){
-                    this.$store.dispatch('loadUrlForCourseCard', '/api/course/'+this.id+'/'+this.userId);
+                    this.$store.dispatch('loadUrlForCourseCard', '/api/home/live/all_courses/'+this.userId);
                 }else{
-                    this.$store.dispatch('loadUrlForCourseCard', '/api/course/'+this.id);
+                    this.$store.dispatch('loadUrlForCourseCard', '/api/home/live/all_courses/');
                 }
             },
             loadNewPage: function(name,newPageNumber){

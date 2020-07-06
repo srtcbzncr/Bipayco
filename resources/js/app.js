@@ -74,6 +74,7 @@ Vue.component('students-page', require('./components/guardian/students-page.vue'
 Vue.component('student-profile-page', require('./components/guardian/student-profile-page.vue').default);
 
 Vue.component('course-card-pagination', require('./components/category/course-card-pagination.vue').default);
+Vue.component('live-index-page', require('./components/category/live-index-page.vue').default);
 Vue.component('lesson-pagination', require('./components/category/lesson-pagination.vue').default);
 Vue.component('course-review', require('./components/category/course-review.vue').default);
 Vue.component('course-previews', require('./components/category/course-previews.vue').default);
