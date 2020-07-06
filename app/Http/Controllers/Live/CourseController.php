@@ -48,7 +48,7 @@ class CourseController extends Controller
         ];
 
         // Response
-        if($resp->getResult()){
+        if($resp->getResult() and $entriesResp->getResult()){
             return view('live.course_detail', $data);
         }
         else{

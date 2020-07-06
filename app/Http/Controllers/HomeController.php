@@ -114,7 +114,7 @@ class HomeController extends Controller
 
         // Operations
         $resp = $repo->all();
-        
+
         // Response
         if($resp->getResult()){
             return view('live.index')->with('lives',$resp->getData());
