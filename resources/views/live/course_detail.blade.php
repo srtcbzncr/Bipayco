@@ -25,13 +25,13 @@
                     <span class="uk-text-bold uk-light"> {{$student_count}} @lang('front/auth.enrolled_student')</span>
                 </div>
                 @if(Auth::check() && Auth::user()->can('entryControl', $course))
-                @else
                     <live-stream-button
                         open-stream-text="@lang('front/auth.open_live_stream')"
                         stream-password-text="@lang('front/auth.live_stream_password')"
                         user-id="{{Auth::user()->id}}"
                         course-id="{{$course->id}}"
                     ></live-stream-button>
+                @else
                     <add-cart-button
                         module-name="live"
                         module="live"
