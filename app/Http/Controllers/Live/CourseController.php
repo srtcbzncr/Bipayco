@@ -46,7 +46,7 @@ class CourseController extends Controller
             'entries' => $entriesResp->getData(),
             'student_count' => count($entriesResp->getData()),
         ];
-
+dd($data);
         // Response
         if($resp->getResult() and $entriesResp->getResult()){
             return view('live.course_detail', $data);
