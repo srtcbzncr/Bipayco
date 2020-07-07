@@ -222,7 +222,7 @@ class LiveRepository  implements IRepository{
         return $resp;
     }
 
-    public function joinLive($user_id,$meeting_id){
+    public function joinLive($user_id,$course_id){
         // Response variables
         $result = true;
         $error = null;
@@ -231,14 +231,14 @@ class LiveRepository  implements IRepository{
         // Operations
         try{
             $user = User::find($user_id);
-            $live = Course::find($meeting_id);
+            $live = Course::find($course_id);
             $instructor = $user->instructor();
             if($instructor!=null){
-                $control = DB::table('ge_courses_instructors')->where('course_id',$meeting_id)->where('course_type', 'App\Models\Live\Course')
+                $control = DB::table('ge_courses_instructors')->where('course_id',$course_id)->where('course_type', 'App\Models\Live\Course')
                     ->where('instructor_id',$instructor->id)->where('active',true)->where('deleted_at',null)->first();
                 if($control!=null){
                     $object=BigBlueButton::join([
-                        'meetingID' => $meeting_id,
+                        'meetingID' => $live->meeting_id,
                         'fullName' => $user->first_name.' '.$user->last_name,
                         'password' => $live->moderator_pw, //which user role want to join set password here
                         'redirect' => false, //it will not redirect into bigblueservr
@@ -246,10 +246,10 @@ class LiveRepository  implements IRepository{
                 }
 
                 $student = $user->student();
-                $live_entry_control = Entry::where('student_id',$student->id)->where('live_course_id',$meeting_id)->where('deleted_at',null)->first();
+                $live_entry_control = Entry::where('student_id',$student->id)->where('live_course_id',$course_id)->where('deleted_at',null)->first();
                 if($live_entry_control!=null){
                     $object=BigBlueButton::join([
-                        'meetingID' => $meeting_id,
+                        'meetingID' => $live->meeting_id,
                         'fullName' => $user->first_name.' '.$user->last_name,
                         'password' => $live->attendee_pw, //which user role want to join set password here
                         'redirect' => false, //it will not redirect into bigblueservr
@@ -258,10 +258,10 @@ class LiveRepository  implements IRepository{
             }
             else{
                 $student = $user->student();
-                $live_entry_control = Entry::where('student_id',$student->id)->where('live_course_id',$meeting_id)->where('deleted_at',null)->first();
+                $live_entry_control = Entry::where('student_id',$student->id)->where('live_course_id',$course_id)->where('deleted_at',null)->first();
                 if($live_entry_control!=null){
                     $object=BigBlueButton::join([
-                        'meetingID' => $meeting_id,
+                        'meetingID' => $live->meeting_id,
                         'fullName' => $user->first_name.' '.$user->last_name,
                         'password' => $live->attendee_pw, //which user role want to join set password here
                         'redirect' => false, //it will not redirect into bigblueservr

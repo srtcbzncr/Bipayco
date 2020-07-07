@@ -52,12 +52,33 @@ class LiveController extends Controller
         $resp=$repo->createLiveOnBBB($user_id,$course_id);
         if($resp->getResult()){
             $data = $resp->getData();
-            return $data;
-            return response()->json([
-                'error' => false,
-                'data', $resp->getData(),
-                'message' => 'Canlı yayın başlatıldı.'
-            ]);
+            if($data['returncode'] == "SUCCESS"){
+                // eğitmmen olarak join yap
+                $resp_join = $repo->joinLive($user_id,$course_id);
+                $data_join = $resp_join->getData();
+                if($data_join['returncode'] == "SUCCESS"){
+                    return response()->json([
+                        'error' => false,
+                        'data' => $data_join,
+                        'message' => 'Canlı yayına başarıyla katılım gerçekleşti.'
+
+                    ],400);
+                }
+                else{
+                    return response()->json([
+                        'error' => true,
+                        'message' => 'Canlı yayına katılırken bir hata meydana geldi.',
+                        'errorMessage' => 'return code: '.$data_join['returncode'].' message key: '.$data_join['messageKey'].' message: '.$data_join['message']
+                    ],400);
+                }
+            }
+            else{
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Canlı yayın başlatılırken bir hata meydana geldi.',
+                    'errorMessage' => 'return code: '.$data['returncode'].' message key: '.$data['messageKey'].' message: '.$data['message']
+                ],400);
+            }
         }
         return response()->json([
             'error' => true,
@@ -66,16 +87,27 @@ class LiveController extends Controller
         ],400);
     }
 
-    public function joinLive($meeting_id,$user_id){
+    public function joinLive($course_id,$user_id){
         $repo = new LiveRepository();
 
-        $resp=$repo->joinLive($user_id,$meeting_id);
+        $resp=$repo->joinLive($user_id,$course_id);
         if($resp->getResult()){
-            return response()->json([
-                'error' => false,
-                'data', $resp->getData(),
-                'message' => 'Canlı yayına giriş yapıldı.'
-            ]);
+            $data = $resp->getData();
+            if($data['returncode'] == 'SUCCESS'){
+                return response()->json([
+                    'error' => false,
+                    'data' => $data,
+                    'message' => 'Canlı yayına başarıyla katılım gerçekleşti.'
+
+                ],400);
+            }
+            else{
+                return response()->json([
+                    'error' => true,
+                    'message' => 'Canlı yayına katılırken bir hata meydana geldi.',
+                    'errorMessage' => 'return code: '.$data['returncode'].' message key: '.$data['messageKey'].' message: '.$data['message']
+                ],400);
+            }
         }
         return response()->json([
             'error' => true,
