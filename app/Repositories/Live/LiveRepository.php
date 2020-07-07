@@ -200,17 +200,34 @@ class LiveRepository  implements IRepository{
 
         // Operations
         try{
-            $live = Course::find($course_id);
-            $params = new CreateMeetingParameters($live->meeting_id, $live->name);
-            $params->setModeratorPassword($live->moderator_pw);
-            $params->setAttendeePassword($live->attendee_pw);
-            $params->setDuration($live->duration);
-            $params->setMaxParticipants($live->max_participant);
+            $flag = false;
+            $instructor = Instructor::where('user_id',$user_id)->where('active',true)->where('deleted_at',null)->first();
+            if($instructor!=null){
+                $ge_instructor_course = DB::table('ge_courses_instructors')->where('course_id',$course_id)
+                    ->where('course_type','App\Models\Live\Course')->where('instructor_id',$instructor->id)
+                    ->where('active',true)->where('deleted_at',null)->first();
+                if($ge_instructor_course!=null){
+                    $flag = true;
+                }
+            }
 
-            $params->setBreakout(false); # dinlenme odası yok bu yüzden aşağıdaki brekout verileri direkt default 0 verdim.
-            $params->setFreeJoin(false);
+            if($flag==false){
+                $result = false;
+                $error = 'Eğitmen kimlik doğrulama hatası';
+            }
+            else{
+                $live = Course::find($course_id);
+                $params = new CreateMeetingParameters($live->meeting_id, $live->name);
+                $params->setModeratorPassword($live->moderator_pw);
+                $params->setAttendeePassword($live->attendee_pw);
+                $params->setDuration($live->duration);
+                $params->setMaxParticipants($live->max_participant);
 
-            $object=BigBlueButton::create($params);
+                $params->setBreakout(false); # dinlenme odası yok bu yüzden aşağıdaki brekout verileri direkt default 0 verdim.
+                $params->setFreeJoin(false);
+
+                $object=BigBlueButton::create($params);
+            }
         }
         catch(\Exception $e){
             $error = $e->getMessage();
