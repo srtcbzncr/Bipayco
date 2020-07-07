@@ -131,6 +131,7 @@ class LiveRepository  implements IRepository{
             $object->moderator_pw = uniqid('mo'.random_int(100,999), false);
             $object->record = false;
             $object->duration = $data['duration'];
+            $object->meeting_id = uniqid('mi'.random_int(100,999), false);
             $object->save();
 
             //$user = User::find($data['user_id']);
@@ -191,7 +192,7 @@ class LiveRepository  implements IRepository{
         return $resp;
     }
 
-    public function createLiveOnBBB($user_id,$meeting_id){
+    public function createLiveOnBBB($user_id,$course_id){
         // Response variables
         $result = true;
         $error = null;
@@ -199,8 +200,8 @@ class LiveRepository  implements IRepository{
 
         // Operations
         try{
-            $live = Course::find($meeting_id);
-            $params = new CreateMeetingParameters($meeting_id, $live->name);
+            $live = Course::find($course_id);
+            $params = new CreateMeetingParameters($live->meeting_id, $live->name);
             $params->setModeratorPassword($live->moderator_pw);
             $params->setAttendeePassword($live->attendee_pw);
             $params->setDuration($live->duration);

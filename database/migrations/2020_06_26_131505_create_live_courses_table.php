@@ -27,6 +27,7 @@ class CreateLiveCoursesTable extends Migration
             $table->boolean('record')->default(false);
             $table->integer('duration');
             $table->dateTime('completed_at')->nullable(true);
+            $table->string('meeting_id')->nullable(true);
             $table->timestamps();
             $table->softDeletes();
         });

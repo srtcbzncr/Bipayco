@@ -46,11 +46,13 @@ class LiveController extends Controller
         ],400);
     }
 
-    public function createLiveOnBBB($meeting_id,$user_id){
+    public function createLiveOnBBB($course_id,$user_id){
         $repo = new LiveRepository();
 
-        $resp=$repo->createLiveOnBBB($user_id,$meeting_id);
+        $resp=$repo->createLiveOnBBB($user_id,$course_id);
         if($resp->getResult()){
+            $data = $resp->getData();
+            return $data;
             return response()->json([
                 'error' => false,
                 'data', $resp->getData(),

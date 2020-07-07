@@ -18,7 +18,8 @@ class Course extends Model
         'moderator_pw',
         'record', # default false olacak.
         'duration', # dakika cinsinden
-        'completed_at' # eğer canlı yayın yapılmazsa burası null olacak. Canlı yayın yapılırsa yapıldığı tarih-saat buraya eklenecek
+        'completed_at', # eğer canlı yayın yapılmazsa burası null olacak. Canlı yayın yapılırsa yapıldığı tarih-saat buraya eklenecek
+        'meeting_id'
     ];
     public $timestamps = true;
     protected $table="live_courses";
