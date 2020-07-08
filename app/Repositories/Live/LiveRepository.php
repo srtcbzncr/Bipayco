@@ -273,6 +273,10 @@ class LiveRepository  implements IRepository{
                             'redirect' => true, //it will not redirect into bigblueservr
                         ]);
                     }
+                    else{
+                        $error = 'Kursa sahip olmadığın için katılamazsın';
+                        $result = false;
+                    }
                 }
             }
             else{
@@ -285,6 +289,10 @@ class LiveRepository  implements IRepository{
                         'password' => $live->attendee_pw, //which user role want to join set password here
                         'redirect' => true, //it will not redirect into bigblueservr
                     ]);
+                }
+                else{
+                    $error = 'Kursa sahip olmadığın için katılamazsın';
+                    $result = false;
                 }
             }
         }
