@@ -162,42 +162,55 @@ const mutations={
     },
     setAdminCity(state, city){
         state.adminCity=city.data;
+        state.loadingStatus=true;
     },
     setAdminDistrict(state, district){
         state.adminDistrict=district.data;
+        state.loadingStatus=true;
     },
     setAdminLesson(state, lesson){
         state.adminLesson=lesson.data;
+        state.loadingStatus=true;
     },
     setAdminSubject(state, subject){
         state.adminSubject=subject.data;
+        state.loadingStatus=true;
     },
     setAdminGrade(state, grade){
         state.adminGrade=grade.data;
+        state.loadingStatus=true;
     },
     setAdminAdmins(state, admins){
         state.adminAdmins=admins.data;
+        state.loadingStatus=true;
     },
     setAdminInstructor(state, instructors){
         state.adminInstructor=instructors.data;
+        state.loadingStatus=true;
     },
     setAdminUsers(state, users){
         state.adminUsers=users.data;
+        state.loadingStatus=true;
     },
     setAdminSales(state, sales){
         state.adminSales=sales.data;
+        state.loadingStatus=true;
     },
     setAdminGuardian(state, guardians){
         state.adminGuardian=guardians.data;
+        state.loadingStatus=true;
     },
     setAdminExam(state, exam){
         state.adminExam=exam.data;
+        state.loadingStatus=true;
     },
     setAdminCategory(state, category){
         state.adminCategory=category.data;
+        state.loadingStatus=true;
     },
     setAdminSubCategory(state, subCategory){
         state.adminSubCategory=subCategory.data;
+        state.loadingStatus=true;
     },
     setCrLessons(state, lessons){
         state.crLessons=lessons.data;

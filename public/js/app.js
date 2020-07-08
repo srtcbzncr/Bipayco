@@ -1939,6 +1939,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2008,7 +2011,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Kullanıcı Adı"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminAdmins']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminAdmins', 'loadingStatus']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
@@ -2264,6 +2267,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2355,7 +2361,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       required: true
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminCategory']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminCategory', 'loadingStatus']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
@@ -17718,7 +17724,16 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            _vm.adminAdmins.data && _vm.adminAdmins.data.length > 0
+            !_vm.loadingStatus
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+                  },
+                  [_c("div", { staticClass: "loader" })]
+                )
+              : _vm.adminAdmins.data && _vm.adminAdmins.data.length > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.nameText))]),
@@ -18127,7 +18142,16 @@ var render = function() {
             attrs: { id: "categoryTable", cellspacing: "0" }
           },
           [
-            _vm.adminCategory.data && _vm.adminCategory.data.length > 0
+            !_vm.loadingStatus
+              ? _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+                  },
+                  [_c("div", { staticClass: "loader" })]
+                )
+              : _vm.adminCategory.data && _vm.adminCategory.data.length > 0
               ? _c("thead", [
                   _c("tr", [
                     _c("th", [_vm._v(_vm._s(_vm.categoryNameText))]),
@@ -55850,42 +55874,55 @@ var mutations = {
   },
   setAdminCity: function setAdminCity(state, city) {
     state.adminCity = city.data;
+    state.loadingStatus = true;
   },
   setAdminDistrict: function setAdminDistrict(state, district) {
     state.adminDistrict = district.data;
+    state.loadingStatus = true;
   },
   setAdminLesson: function setAdminLesson(state, lesson) {
     state.adminLesson = lesson.data;
+    state.loadingStatus = true;
   },
   setAdminSubject: function setAdminSubject(state, subject) {
     state.adminSubject = subject.data;
+    state.loadingStatus = true;
   },
   setAdminGrade: function setAdminGrade(state, grade) {
     state.adminGrade = grade.data;
+    state.loadingStatus = true;
   },
   setAdminAdmins: function setAdminAdmins(state, admins) {
     state.adminAdmins = admins.data;
+    state.loadingStatus = true;
   },
   setAdminInstructor: function setAdminInstructor(state, instructors) {
     state.adminInstructor = instructors.data;
+    state.loadingStatus = true;
   },
   setAdminUsers: function setAdminUsers(state, users) {
     state.adminUsers = users.data;
+    state.loadingStatus = true;
   },
   setAdminSales: function setAdminSales(state, sales) {
     state.adminSales = sales.data;
+    state.loadingStatus = true;
   },
   setAdminGuardian: function setAdminGuardian(state, guardians) {
     state.adminGuardian = guardians.data;
+    state.loadingStatus = true;
   },
   setAdminExam: function setAdminExam(state, exam) {
     state.adminExam = exam.data;
+    state.loadingStatus = true;
   },
   setAdminCategory: function setAdminCategory(state, category) {
     state.adminCategory = category.data;
+    state.loadingStatus = true;
   },
   setAdminSubCategory: function setAdminSubCategory(state, subCategory) {
     state.adminSubCategory = subCategory.data;
+    state.loadingStatus = true;
   },
   setCrLessons: function setCrLessons(state, lessons) {
     state.crLessons = lessons.data;
