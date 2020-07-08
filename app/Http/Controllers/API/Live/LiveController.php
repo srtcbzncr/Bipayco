@@ -68,7 +68,7 @@ class LiveController extends Controller
                     $email = $user->email;
                     $dataEmail['name'] = $name;
                     $dataEmail['email'] = $email;
-                    Event::fire(new StartLiveEvent($dataEmail));
+                    \event(new StartLiveEvent($dataEmail));
                 }
 
 
