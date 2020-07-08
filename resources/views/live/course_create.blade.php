@@ -129,7 +129,7 @@
                                         @enderror
                                     </div>
                                     <div>
-                                        <div class="uk-form-label"> @lang('front/auth.live_duration') (@lang('front/auth.hour(s)'))</div>
+                                        <div class="uk-form-label"> @lang('front/auth.live_duration') (@lang('front/auth.minute(s)'))</div>
                                         <input class="uk-input form-control @error('duration') is-invalid @enderror" type="number" id="duration" min="1" @if(isset($course)) value="{{$course->duration}}" @endif required>
                                         @error('duration')
                                         <span class="invalid-feedback" role="alert">
