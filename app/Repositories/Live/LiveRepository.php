@@ -259,7 +259,7 @@ class LiveRepository  implements IRepository{
                         'meetingID' => $live->meeting_id,
                         'userName' => $user->first_name.' '.$user->last_name,
                         'password' => $live->moderator_pw, //which user role want to join set password here
-                        'redirect' => false, //it will not redirect into bigblueservr
+                        'redirect' => true, //it will not redirect into bigblueservr
                     ]);
                 }
                 else{
@@ -270,7 +270,7 @@ class LiveRepository  implements IRepository{
                             'meetingID' => $live->meeting_id,
                             'fullName' => $user->first_name.' '.$user->last_name,
                             'password' => $live->attendee_pw, //which user role want to join set password here
-                            'redirect' => false, //it will not redirect into bigblueservr
+                            'redirect' => true, //it will not redirect into bigblueservr
                         ]);
                     }
                 }
@@ -283,7 +283,7 @@ class LiveRepository  implements IRepository{
                         'meetingID' => $live->meeting_id,
                         'fullName' => $user->first_name.' '.$user->last_name,
                         'password' => $live->attendee_pw, //which user role want to join set password here
-                        'redirect' => false, //it will not redirect into bigblueservr
+                        'redirect' => true, //it will not redirect into bigblueservr
                     ]);
                 }
             }
