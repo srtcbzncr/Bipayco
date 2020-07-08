@@ -82,7 +82,7 @@ class LiveController extends Controller
                         'data' => $data_join,
                         'message' => 'Canlı yayına başarıyla katılım gerçekleşti.'
 
-                    ],400);
+                    ],200);
                 }
                 else{
                     return response()->json([
