@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers\API\Live;
 
+use App\Events\Live\StartLiveEvent;
 use App\Http\Controllers\Controller;
+use App\Models\Auth\Student;
+use App\Models\Auth\User;
+use App\Models\Live\Entry;
 use App\Repositories\Live\LiveRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 
 class LiveController extends Controller
 {
@@ -53,6 +58,20 @@ class LiveController extends Controller
         if($resp->getResult()){
             $data = $resp->getData();
             if($data['returncode'] == "SUCCESS"){
+                // kursa sahip olan kişilere mail gönder.
+                $entries = Entry::where('live_course_id',$course_id)->where('deleted_at',null)->get();
+                foreach ($entries as $entry){
+                    $student = Student::find($entry->student_id);
+                    $user = User::find($student->user_id);
+
+                    $name = $user->first_name.' '.$user->last_name;
+                    $email = $user->email;
+                    $dataEmail['name'] = $name;
+                    $dataEmail['email'] = $email;
+                    Event::fire(new StartLiveEvent($dataEmail));
+                }
+
+
                 // eğitmmen olarak join yap
                 $resp_join = $repo->joinLive($user_id,$course_id);
                 $data_join = $resp_join->getData();

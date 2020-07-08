@@ -59,6 +59,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         'App\Events\Auth\AdminRegisterEvent' => [
             'App\Listeners\Auth\AdminRegisterListener'
+        ],
+        'App\Events\Live\StartLiveEvent' => [
+            'App\Listeners\Live\StartLiveListener'
         ]
     ];
 
