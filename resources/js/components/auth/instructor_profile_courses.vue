@@ -5,10 +5,54 @@
             <p class="uk-margin-remove-top uk-margin-small-bottom">{{bio}}</p>
         </div>
         <h3 class="uk-heading-line uk-text-center uk-margin-large-top"><span>{{generalEducationText}} </span></h3>
-        <div v-if="courseCard.ge&&courseCard.ge.length<=0" class="uk-flex uk-flex-center">
+        <div v-if="!loadingStatus" class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
+            <div class="loader"></div>
+        </div>
+        <div v-else-if="courseCard.live&&courseCard.live.length<=0" class="uk-flex uk-flex-center">
             <h2>{{haveNoCourseText}}</h2>
         </div>
-        <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
+        <div v-else class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
+            <ul class="uk-slider-items uk-child-width-1-2@s uk-grid">
+                <li v-if="courseCard.live" v-for="course in courseCard.live">
+                    <!-- course card -->
+                    <course-card
+                        v-if="authCheck"
+                        :course="course"
+                        style-full-star-color="#F4C150"
+                        style-empty-star-color="#C1C1C1"
+                        :course-id="course.id"
+                        module-name="live"
+                        is-login
+                        :user-id="userId"
+                        module="live"
+                    ></course-card>
+                    <course-card
+                        v-else
+                        :course="course"
+                        style-full-star-color="#F4C150"
+                        style-empty-star-color="#C1C1C1"
+                        :course-id="course.id"
+                        module-name="live"
+                        module="live"
+                    ></course-card>
+                </li>
+            </ul>
+            <a class="uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button" href="#" uk-slidenav-next uk-slider-item="next"></a>
+            <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin">
+                <li uk-slider-item="0" class="">
+                    <a href="#"></a>
+                </li>
+            </ul>
+        </div>
+        <h3 class="uk-heading-line uk-text-center uk-margin-large-top"><span>{{generalEducationText}} </span></h3>
+        <div v-if="!loadingStatus" class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
+            <div class="loader"></div>
+        </div>
+        <div v-else-if="courseCard.ge&&courseCard.ge.length<=0" class="uk-flex uk-flex-center">
+            <h2>{{haveNoCourseText}}</h2>
+        </div>
+        <div v-else class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
             <ul class="uk-slider-items uk-child-width-1-2@s uk-grid">
                 <li v-if="courseCard.ge" v-for="course in courseCard.ge">
                     <!-- course card -->
@@ -43,10 +87,13 @@
             </ul>
         </div>
         <h3 class="uk-heading-line uk-text-center uk-margin-large-top"><span>{{prepareLessonsText}}</span></h3>
-        <div v-if="courseCard.pl&&courseCard.pl.length<=0" class="uk-flex uk-flex-center">
+        <div v-if="!loadingStatus" class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
+            <div class="loader"></div>
+        </div>
+        <div v-else-if="courseCard.pl&&courseCard.pl.length<=0" class="uk-flex uk-flex-center">
             <h2>{{haveNoCourseText}}</h2>
         </div>
-        <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
+        <div v-else class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
             <ul class="uk-slider-items uk-child-width-1-2@s uk-grid">
                 <li v-if="courseCard.pl" v-for="course in courseCard.pl">
                     <!-- course card -->
@@ -81,10 +128,13 @@
             </ul>
         </div>
         <h3 class="uk-heading-line uk-text-center uk-margin-large-top"><span>{{prepareExamsText}}</span></h3>
-        <div v-if="courseCard.pe&&courseCard.pe.length<=0" class="uk-flex uk-flex-center">
+        <div v-if="!loadingStatus" class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
+            <div class="loader"></div>
+        </div>
+        <div v-else-if="courseCard.pe&&courseCard.pe.length<=0" class="uk-flex uk-flex-center">
             <h2>{{haveNoCourseText}}</h2>
         </div>
-        <div class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
+        <div v-else class="uk-position-relative uk-visible-toggle  uk-container uk-padding-medium" uk-slider>
             <ul class="uk-slider-items uk-child-width-1-2@s uk-grid">
                 <li v-if="courseCard.pe" v-for="course in courseCard.pe">
                     <!-- course card -->

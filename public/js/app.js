@@ -6677,6 +6677,56 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "instructor_profile_courses",
@@ -24106,78 +24156,179 @@ var render = function() {
       [_c("span", [_vm._v(_vm._s(_vm.generalEducationText) + " ")])]
     ),
     _vm._v(" "),
-    _vm.courseCard.ge && _vm.courseCard.ge.length <= 0
+    !_vm.loadingStatus
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+          },
+          [_c("div", { staticClass: "loader" })]
+        )
+      : _vm.courseCard.live && _vm.courseCard.live.length <= 0
       ? _c("div", { staticClass: "uk-flex uk-flex-center" }, [
           _c("h2", [_vm._v(_vm._s(_vm.haveNoCourseText))])
         ])
-      : _vm._e(),
+      : _c(
+          "div",
+          {
+            staticClass:
+              "uk-position-relative uk-visible-toggle  uk-container uk-padding-medium",
+            attrs: { "uk-slider": "" }
+          },
+          [
+            _c(
+              "ul",
+              { staticClass: "uk-slider-items uk-child-width-1-2@s uk-grid" },
+              _vm._l(_vm.courseCard.live, function(course) {
+                return _vm.courseCard.live
+                  ? _c(
+                      "li",
+                      [
+                        _vm.authCheck
+                          ? _c("course-card", {
+                              attrs: {
+                                course: course,
+                                "style-full-star-color": "#F4C150",
+                                "style-empty-star-color": "#C1C1C1",
+                                "course-id": course.id,
+                                "module-name": "live",
+                                "is-login": "",
+                                "user-id": _vm.userId,
+                                module: "live"
+                              }
+                            })
+                          : _c("course-card", {
+                              attrs: {
+                                course: course,
+                                "style-full-star-color": "#F4C150",
+                                "style-empty-star-color": "#C1C1C1",
+                                "course-id": course.id,
+                                "module-name": "live",
+                                module: "live"
+                              }
+                            })
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c("a", {
+              staticClass:
+                "uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+              attrs: {
+                href: "#",
+                "uk-slidenav-previous": "",
+                "uk-slider-item": "previous"
+              }
+            }),
+            _vm._v(" "),
+            _c("a", {
+              staticClass:
+                "uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+              attrs: {
+                href: "#",
+                "uk-slidenav-next": "",
+                "uk-slider-item": "next"
+              }
+            }),
+            _vm._v(" "),
+            _vm._m(0)
+          ]
+        ),
     _vm._v(" "),
     _c(
-      "div",
-      {
-        staticClass:
-          "uk-position-relative uk-visible-toggle  uk-container uk-padding-medium",
-        attrs: { "uk-slider": "" }
-      },
-      [
-        _c(
-          "ul",
-          { staticClass: "uk-slider-items uk-child-width-1-2@s uk-grid" },
-          _vm._l(_vm.courseCard.ge, function(course) {
-            return _vm.courseCard.ge
-              ? _c(
-                  "li",
-                  [
-                    _vm.authCheck
-                      ? _c("course-card", {
-                          attrs: {
-                            course: course,
-                            "style-full-star-color": "#F4C150",
-                            "style-empty-star-color": "#C1C1C1",
-                            "course-id": course.id,
-                            "module-name": "generalEducation",
-                            "is-login": "",
-                            "user-id": _vm.userId,
-                            module: "ge"
-                          }
-                        })
-                      : _c("course-card", {
-                          attrs: {
-                            course: course,
-                            "style-full-star-color": "#F4C150",
-                            "style-empty-star-color": "#C1C1C1",
-                            "course-id": course.id,
-                            "module-name": "generalEducation",
-                            module: "ge"
-                          }
-                        })
-                  ],
-                  1
-                )
-              : _vm._e()
-          }),
-          0
-        ),
-        _vm._v(" "),
-        _c("a", {
-          staticClass:
-            "uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
-          attrs: {
-            href: "#",
-            "uk-slidenav-previous": "",
-            "uk-slider-item": "previous"
-          }
-        }),
-        _vm._v(" "),
-        _c("a", {
-          staticClass:
-            "uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
-          attrs: { href: "#", "uk-slidenav-next": "", "uk-slider-item": "next" }
-        }),
-        _vm._v(" "),
-        _vm._m(0)
-      ]
+      "h3",
+      { staticClass: "uk-heading-line uk-text-center uk-margin-large-top" },
+      [_c("span", [_vm._v(_vm._s(_vm.generalEducationText) + " ")])]
     ),
+    _vm._v(" "),
+    !_vm.loadingStatus
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+          },
+          [_c("div", { staticClass: "loader" })]
+        )
+      : _vm.courseCard.ge && _vm.courseCard.ge.length <= 0
+      ? _c("div", { staticClass: "uk-flex uk-flex-center" }, [
+          _c("h2", [_vm._v(_vm._s(_vm.haveNoCourseText))])
+        ])
+      : _c(
+          "div",
+          {
+            staticClass:
+              "uk-position-relative uk-visible-toggle  uk-container uk-padding-medium",
+            attrs: { "uk-slider": "" }
+          },
+          [
+            _c(
+              "ul",
+              { staticClass: "uk-slider-items uk-child-width-1-2@s uk-grid" },
+              _vm._l(_vm.courseCard.ge, function(course) {
+                return _vm.courseCard.ge
+                  ? _c(
+                      "li",
+                      [
+                        _vm.authCheck
+                          ? _c("course-card", {
+                              attrs: {
+                                course: course,
+                                "style-full-star-color": "#F4C150",
+                                "style-empty-star-color": "#C1C1C1",
+                                "course-id": course.id,
+                                "module-name": "generalEducation",
+                                "is-login": "",
+                                "user-id": _vm.userId,
+                                module: "ge"
+                              }
+                            })
+                          : _c("course-card", {
+                              attrs: {
+                                course: course,
+                                "style-full-star-color": "#F4C150",
+                                "style-empty-star-color": "#C1C1C1",
+                                "course-id": course.id,
+                                "module-name": "generalEducation",
+                                module: "ge"
+                              }
+                            })
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c("a", {
+              staticClass:
+                "uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+              attrs: {
+                href: "#",
+                "uk-slidenav-previous": "",
+                "uk-slider-item": "previous"
+              }
+            }),
+            _vm._v(" "),
+            _c("a", {
+              staticClass:
+                "uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+              attrs: {
+                href: "#",
+                "uk-slidenav-next": "",
+                "uk-slider-item": "next"
+              }
+            }),
+            _vm._v(" "),
+            _vm._m(1)
+          ]
+        ),
     _vm._v(" "),
     _c(
       "h3",
@@ -24185,78 +24336,89 @@ var render = function() {
       [_c("span", [_vm._v(_vm._s(_vm.prepareLessonsText))])]
     ),
     _vm._v(" "),
-    _vm.courseCard.pl && _vm.courseCard.pl.length <= 0
+    !_vm.loadingStatus
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+          },
+          [_c("div", { staticClass: "loader" })]
+        )
+      : _vm.courseCard.pl && _vm.courseCard.pl.length <= 0
       ? _c("div", { staticClass: "uk-flex uk-flex-center" }, [
           _c("h2", [_vm._v(_vm._s(_vm.haveNoCourseText))])
         ])
-      : _vm._e(),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass:
-          "uk-position-relative uk-visible-toggle  uk-container uk-padding-medium",
-        attrs: { "uk-slider": "" }
-      },
-      [
-        _c(
-          "ul",
-          { staticClass: "uk-slider-items uk-child-width-1-2@s uk-grid" },
-          _vm._l(_vm.courseCard.pl, function(course) {
-            return _vm.courseCard.pl
-              ? _c(
-                  "li",
-                  [
-                    _vm.authCheck
-                      ? _c("course-card", {
-                          attrs: {
-                            course: course,
-                            "style-full-star-color": "#F4C150",
-                            "style-empty-star-color": "#C1C1C1",
-                            "course-id": course.id,
-                            "module-name": "prepareLessons",
-                            "is-login": "",
-                            "user-id": _vm.userId,
-                            module: "pl"
-                          }
-                        })
-                      : _c("course-card", {
-                          attrs: {
-                            course: course,
-                            "style-full-star-color": "#F4C150",
-                            "style-empty-star-color": "#C1C1C1",
-                            "course-id": course.id,
-                            "module-name": "prepareLessons",
-                            module: "pl"
-                          }
-                        })
-                  ],
-                  1
-                )
-              : _vm._e()
-          }),
-          0
+      : _c(
+          "div",
+          {
+            staticClass:
+              "uk-position-relative uk-visible-toggle  uk-container uk-padding-medium",
+            attrs: { "uk-slider": "" }
+          },
+          [
+            _c(
+              "ul",
+              { staticClass: "uk-slider-items uk-child-width-1-2@s uk-grid" },
+              _vm._l(_vm.courseCard.pl, function(course) {
+                return _vm.courseCard.pl
+                  ? _c(
+                      "li",
+                      [
+                        _vm.authCheck
+                          ? _c("course-card", {
+                              attrs: {
+                                course: course,
+                                "style-full-star-color": "#F4C150",
+                                "style-empty-star-color": "#C1C1C1",
+                                "course-id": course.id,
+                                "module-name": "prepareLessons",
+                                "is-login": "",
+                                "user-id": _vm.userId,
+                                module: "pl"
+                              }
+                            })
+                          : _c("course-card", {
+                              attrs: {
+                                course: course,
+                                "style-full-star-color": "#F4C150",
+                                "style-empty-star-color": "#C1C1C1",
+                                "course-id": course.id,
+                                "module-name": "prepareLessons",
+                                module: "pl"
+                              }
+                            })
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c("a", {
+              staticClass:
+                "uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+              attrs: {
+                href: "#",
+                "uk-slidenav-previous": "",
+                "uk-slider-item": "previous"
+              }
+            }),
+            _vm._v(" "),
+            _c("a", {
+              staticClass:
+                "uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+              attrs: {
+                href: "#",
+                "uk-slidenav-next": "",
+                "uk-slider-item": "next"
+              }
+            }),
+            _vm._v(" "),
+            _vm._m(2)
+          ]
         ),
-        _vm._v(" "),
-        _c("a", {
-          staticClass:
-            "uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
-          attrs: {
-            href: "#",
-            "uk-slidenav-previous": "",
-            "uk-slider-item": "previous"
-          }
-        }),
-        _vm._v(" "),
-        _c("a", {
-          staticClass:
-            "uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
-          attrs: { href: "#", "uk-slidenav-next": "", "uk-slider-item": "next" }
-        }),
-        _vm._v(" "),
-        _vm._m(1)
-      ]
-    ),
     _vm._v(" "),
     _c(
       "h3",
@@ -24264,81 +24426,106 @@ var render = function() {
       [_c("span", [_vm._v(_vm._s(_vm.prepareExamsText))])]
     ),
     _vm._v(" "),
-    _vm.courseCard.pe && _vm.courseCard.pe.length <= 0
+    !_vm.loadingStatus
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+          },
+          [_c("div", { staticClass: "loader" })]
+        )
+      : _vm.courseCard.pe && _vm.courseCard.pe.length <= 0
       ? _c("div", { staticClass: "uk-flex uk-flex-center" }, [
           _c("h2", [_vm._v(_vm._s(_vm.haveNoCourseText))])
         ])
-      : _vm._e(),
-    _vm._v(" "),
-    _c(
-      "div",
-      {
-        staticClass:
-          "uk-position-relative uk-visible-toggle  uk-container uk-padding-medium",
-        attrs: { "uk-slider": "" }
-      },
-      [
-        _c(
-          "ul",
-          { staticClass: "uk-slider-items uk-child-width-1-2@s uk-grid" },
-          _vm._l(_vm.courseCard.pe, function(course) {
-            return _vm.courseCard.pe
-              ? _c(
-                  "li",
-                  [
-                    _vm.authCheck
-                      ? _c("course-card", {
-                          attrs: {
-                            course: course,
-                            "style-full-star-color": "#F4C150",
-                            "style-empty-star-color": "#C1C1C1",
-                            "course-id": course.id,
-                            "module-name": "prepareExams",
-                            "is-login": "",
-                            "user-id": _vm.userId,
-                            module: "pe"
-                          }
-                        })
-                      : _c("course-card", {
-                          attrs: {
-                            course: course,
-                            "style-full-star-color": "#F4C150",
-                            "style-empty-star-color": "#C1C1C1",
-                            "course-id": course.id,
-                            "module-name": "prepareExams",
-                            module: "pe"
-                          }
-                        })
-                  ],
-                  1
-                )
-              : _vm._e()
-          }),
-          0
-        ),
-        _vm._v(" "),
-        _c("a", {
-          staticClass:
-            "uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
-          attrs: {
-            href: "#",
-            "uk-slidenav-previous": "",
-            "uk-slider-item": "previous"
-          }
-        }),
-        _vm._v(" "),
-        _c("a", {
-          staticClass:
-            "uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
-          attrs: { href: "#", "uk-slidenav-next": "", "uk-slider-item": "next" }
-        }),
-        _vm._v(" "),
-        _vm._m(2)
-      ]
-    )
+      : _c(
+          "div",
+          {
+            staticClass:
+              "uk-position-relative uk-visible-toggle  uk-container uk-padding-medium",
+            attrs: { "uk-slider": "" }
+          },
+          [
+            _c(
+              "ul",
+              { staticClass: "uk-slider-items uk-child-width-1-2@s uk-grid" },
+              _vm._l(_vm.courseCard.pe, function(course) {
+                return _vm.courseCard.pe
+                  ? _c(
+                      "li",
+                      [
+                        _vm.authCheck
+                          ? _c("course-card", {
+                              attrs: {
+                                course: course,
+                                "style-full-star-color": "#F4C150",
+                                "style-empty-star-color": "#C1C1C1",
+                                "course-id": course.id,
+                                "module-name": "prepareExams",
+                                "is-login": "",
+                                "user-id": _vm.userId,
+                                module: "pe"
+                              }
+                            })
+                          : _c("course-card", {
+                              attrs: {
+                                course: course,
+                                "style-full-star-color": "#F4C150",
+                                "style-empty-star-color": "#C1C1C1",
+                                "course-id": course.id,
+                                "module-name": "prepareExams",
+                                module: "pe"
+                              }
+                            })
+                      ],
+                      1
+                    )
+                  : _vm._e()
+              }),
+              0
+            ),
+            _vm._v(" "),
+            _c("a", {
+              staticClass:
+                "uk-position-center-left uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+              attrs: {
+                href: "#",
+                "uk-slidenav-previous": "",
+                "uk-slider-item": "previous"
+              }
+            }),
+            _vm._v(" "),
+            _c("a", {
+              staticClass:
+                "uk-position-center-right uk-position-small uk-hidden-hover uk-hidden-hover uk-icon-button",
+              attrs: {
+                href: "#",
+                "uk-slidenav-next": "",
+                "uk-slider-item": "next"
+              }
+            }),
+            _vm._v(" "),
+            _vm._m(3)
+          ]
+        )
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "ul",
+      { staticClass: "uk-slider-nav uk-dotnav uk-flex-center uk-margin" },
+      [
+        _c("li", { attrs: { "uk-slider-item": "0" } }, [
+          _c("a", { attrs: { href: "#" } })
+        ])
+      ]
+    )
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
