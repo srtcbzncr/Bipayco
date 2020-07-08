@@ -130,7 +130,7 @@
             startStream:function () {
                 Axios.get('/api/instructor/live/course/'+this.course.id+'/createOnBBB/'+this.userId)
                 .then((res)=>{
-                    window.location.replace(res.data);
+                    window.location.replace(res.data.data);
                 });
             }
         }
