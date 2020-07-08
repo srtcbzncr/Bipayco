@@ -6466,6 +6466,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-card-pagination",
@@ -6488,7 +6491,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "İçerik Bulunmamaktadır"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseCard']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseCard', 'loadingStatus']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
@@ -12057,7 +12060,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     startStream: function startStream() {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/instructor/live/course/' + this.course.id + '/createOnBBB/' + this.userId).then(function (res) {
-        console.log(res); // window.location.replace(res.data.data)
+        window.location.replace(res.data);
       });
     }
   }
@@ -23998,7 +24001,16 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _vm.courseCard.data && _vm.courseCard.data.length > 0
+    !_vm.loadingStatus
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+          },
+          [_c("div", { staticClass: "loader" })]
+        )
+      : _vm.courseCard.data && _vm.courseCard.data.length > 0
       ? _c("div", [
           _c(
             "div",

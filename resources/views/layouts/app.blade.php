@@ -284,11 +284,11 @@
         }
     })(window, document);
 
-    // Preloader
-    var spinneroverlay = document.getElementById("spinneroverlay");
-    window.addEventListener('load', function(){
-      spinneroverlay.style.display = 'none';
-    });
+    // // Preloader
+    // var spinneroverlay = document.getElementById("spinneroverlay");
+    // window.addEventListener('load', function(){
+    //   spinneroverlay.style.display = 'none';
+    // });
 
     //scrollTop
     // When the user scrolls down 20px from the top of the document, show the button

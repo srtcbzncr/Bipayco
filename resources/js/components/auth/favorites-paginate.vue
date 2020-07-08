@@ -6,7 +6,10 @@
                 <p></p>
             </div>
         </div>
-        <div v-if="courseCard.data&&courseCard.data.length>0">
+        <div v-if="!loadingStatus" class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
+            <div class="loader"></div>
+        </div>
+        <div v-else-if="courseCard.data&&courseCard.data.length>0">
             <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-margin" uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div ; delay: 200" uk-grid>
                 <div v-for="course in courseCard.data">
                     <course-card
@@ -66,7 +69,8 @@
         },
         computed:{
             ...mapState([
-                'courseCard'
+                'courseCard',
+                'loadingStatus'
             ]),
             pageNumber(){
                 var pages=['1'];
