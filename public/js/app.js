@@ -8351,7 +8351,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     joinStream: function joinStream() {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/instructor/live/course/' + this.courseId + '/join/' + this.userId).then(function (res) {
-        console.log(res); // window.location.replace(res.data.data);
+        window.location.replace(res.data.data);
       });
     }
   }

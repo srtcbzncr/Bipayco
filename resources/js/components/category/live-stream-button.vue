@@ -41,8 +41,7 @@
             joinStream:function () {
                 Axios.get('/api/instructor/live/course/'+this.courseId+'/join/'+this.userId)
                     .then((res)=>{
-                        console.log(res);
-                        // window.location.replace(res.data.data);
+                        window.location.replace(res.data.data);
                     });
             }
         },
