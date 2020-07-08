@@ -129,7 +129,7 @@
             },
             startStream:function () {
                 Axios.get('/api/instructor/live/course/'+this.course.id+'/createOnBBB/'+this.userId)
-                .then((res)=>{console.lg(res)});
+                .then((res)=>{console.log(res)});
             }
         }
     }
