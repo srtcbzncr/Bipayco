@@ -169,9 +169,9 @@ class FavoriteRepository implements IRepository
             $object = array();
             foreach ($courses as $key=> $course){
                 if($course->course_type == 'App\Models\GeneralEducation\Course'){
-                    $tempCourse = Course::find($course->id);
+                    $tempCourse = Course::find($course->course_id);
                     $tempCourse['course_type'] = 'generalEducation';
-                    $basketControl = Basket::where('user_id',$user_id)->where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
+                    $basketControl = Basket::where('user_id',$user_id)->where('course_id',$course->course_id)->where('course_type','App\Models\GeneralEducation\Course')->get();
                     if($basketControl !=null and count($basketControl)>0){
                         $tempCourse['inBasket'] = true;
                     }
@@ -186,9 +186,9 @@ class FavoriteRepository implements IRepository
                     $courses[$key]['course'] = $tempCourse;
                 }
                 else if($course->course_type == 'App\Models\PrepareLessons\Course'){
-                    $tempCourse = \App\Models\PrepareLessons\Course::find($course->id);
+                    $tempCourse = \App\Models\PrepareLessons\Course::find($course->course_id);
                     $tempCourse['course_type'] = 'prepareLessons';
-                    $basketControl = Basket::where('user_id',$user_id)->where('course_id',$course->id)->where('course_type','App\Models\PrepareLessons\Course')->get();
+                    $basketControl = Basket::where('user_id',$user_id)->where('course_id',$course->course_id)->where('course_type','App\Models\PrepareLessons\Course')->get();
                     if($basketControl !=null and count($basketControl)>0){
                         $tempCourse['inBasket'] = true;
                     }
@@ -203,9 +203,9 @@ class FavoriteRepository implements IRepository
                     $courses[$key]['course'] = $tempCourse;
                 }
                 else if($course->course_type == 'App\Models\PrepareExams\Course'){
-                    $tempCourse = \App\Models\PrepareExams\Course::find($course->id);
+                    $tempCourse = \App\Models\PrepareExams\Course::find($course->course_id);
                     $tempCourse['course_type'] = 'prepareExams';
-                    $basketControl = Basket::where('user_id',$user_id)->where('course_id',$course->id)->where('course_type','App\Models\PrepareExams\Course')->get();
+                    $basketControl = Basket::where('user_id',$user_id)->where('course_id',$course->course_id)->where('course_type','App\Models\PrepareExams\Course')->get();
                     if($basketControl !=null and count($basketControl)>0){
                         $tempCourse['inBasket'] = true;
                     }
@@ -218,9 +218,9 @@ class FavoriteRepository implements IRepository
                     $courses[$key]['course'] = $tempCourse;
                 }
                 else if($course->course_type == 'App\Models\Live\Course'){
-                    $tempCourse = \App\Models\Live\Course::find($course->id);
+                    $tempCourse = \App\Models\Live\Course::find($course->course_id);
                     $tempCourse['course_type'] = 'live';
-                    $basketControl = Basket::where('user_id',$user_id)->where('course_id',$course->id)->where('course_type','App\Models\Live\Course')->get();
+                    $basketControl = Basket::where('user_id',$user_id)->where('course_id',$course->course_id)->where('course_type','App\Models\Live\Course')->get();
                     if($basketControl !=null and count($basketControl)>0){
                         $tempCourse['inBasket'] = true;
                     }
@@ -257,9 +257,9 @@ class FavoriteRepository implements IRepository
             $object = array();
             foreach ($courses as $key=> $course){
                 if($course->course_type == 'App\Models\GeneralEducation\Course'){
-                    $tempCourse = Course::find($course->id);
+                    $tempCourse = Course::find($course->course_id);
                     $tempCourse['course_type'] = 'generalEducation';
-                    $basketControl = Basket::where('user_id',$user_id)->where('course_id',$course->id)->where('course_type','App\Models\GeneralEducation\Course')->get();
+                    $basketControl = Basket::where('user_id',$user_id)->where('course_id',$course->course_id)->where('course_type','App\Models\GeneralEducation\Course')->get();
                     if($basketControl !=null and count($basketControl)>0){
                         $tempCourse['inBasket'] = true;
                     }
@@ -275,9 +275,9 @@ class FavoriteRepository implements IRepository
 
                 }
                 else if($course->course_type == 'App\Models\PrepareLessons\Course'){
-                    $tempCourse = \App\Models\PrepareLessons\Course::find($course->id);
+                    $tempCourse = \App\Models\PrepareLessons\Course::find($course->course_id);
                     $tempCourse['course_type'] = 'prepareLessons';
-                    $basketControl = Basket::where('user_id',$user_id)->where('course_id',$course->id)->where('course_type','App\Models\PrepareLessons\Course')->get();
+                    $basketControl = Basket::where('user_id',$user_id)->where('course_id',$course->course_id)->where('course_type','App\Models\PrepareLessons\Course')->get();
                     if($basketControl !=null and count($basketControl)>0){
                         $tempCourse['inBasket'] = true;
                     }
@@ -292,9 +292,9 @@ class FavoriteRepository implements IRepository
                     $courses[$key]['course'] = $tempCourse;
                 }
                 else if($course->course_type == 'App\Models\PrepareExams\Course'){
-                    $tempCourse = \App\Models\PrepareExams\Course::find($course->id);
+                    $tempCourse = \App\Models\PrepareExams\Course::find($course->course_id);
                     $tempCourse['course_type'] = 'prepareExams';
-                    $basketControl = Basket::where('user_id',$user_id)->where('course_id',$course->id)->where('course_type','App\Models\PrepareExams\Course')->get();
+                    $basketControl = Basket::where('user_id',$user_id)->where('course_id',$course->course_id)->where('course_type','App\Models\PrepareExams\Course')->get();
                     if($basketControl !=null and count($basketControl)>0){
                         $tempCourse['inBasket'] = true;
                     }
@@ -307,9 +307,9 @@ class FavoriteRepository implements IRepository
                     $courses[$key]['course'] = $tempCourse;
                 }
                 else if($course->course_type == 'App\Models\Live\Course'){
-                    $tempCourse = \App\Models\Live\Course::find($course->id);
+                    $tempCourse = \App\Models\Live\Course::find($course->course_id);
                     $tempCourse['course_type'] = 'live';
-                    $basketControl = Basket::where('user_id',$user_id)->where('course_id',$course->id)->where('course_type','App\Models\Live\Course')->get();
+                    $basketControl = Basket::where('user_id',$user_id)->where('course_id',$course->course_id)->where('course_type','App\Models\Live\Course')->get();
                     if($basketControl !=null and count($basketControl)>0){
                         $tempCourse['inBasket'] = true;
                     }
