@@ -115,6 +115,7 @@ class InstructorRepository implements IRepository{
                 $courses['ge'] = array();
                 $courses['pl'] = array();
                 $courses['pe'] = array();
+                $courses['live'] = array();
                 $ge_courses_instructors = DB::table('ge_courses_instructors')->where('instructor_id',$id)
                     ->where('active',true)->where('deleted_at',null)->get();
                 foreach ($ge_courses_instructors as $key => $item){
@@ -204,6 +205,32 @@ class InstructorRepository implements IRepository{
                         $course['inFavorite'] = $inFavorite;
                         array_push($courses['pe'],$course);
                     }
+                    else if($item->course_type == "App\Models\Live\Course"){
+                        $course = \App\Models\Live\Course::find($item->course_id);
+
+                        $inBasket = null;
+                        $inFavorite = null;
+                        if($user_id!=null){
+                            $basketControl = Basket::where('course_id',$course->id)->where('course_type','App\Models\Live\Course')->where('user_id',$user_id)->get();
+                            $favoriteControl = Favorite::where('course_id',$course->id)->where('course_type','App\Models\Live\Course')->where('user_id',$user_id)->get();
+                            if($basketControl!=null and count($basketControl)>0){
+                                $inBasket=true;
+                            }
+                            else{
+                                $inBasket = false;
+                            }
+                            if($favoriteControl!=null and count($favoriteControl)>0){
+                                $inFavorite=true;
+                            }
+                            else{
+                                $inFavorite = false;
+                            }
+                        }
+
+                        $course['inBasket'] = $inBasket;
+                        $course['inFavorite'] = $inFavorite;
+                        array_push($courses['live'],$course);
+                    }
                 }
 
                 $object = $courses;
@@ -213,6 +240,7 @@ class InstructorRepository implements IRepository{
                 $courses['ge'] = array();
                 $courses['pl'] = array();
                 $courses['pe'] = array();
+                $courses['live'] = array();
                 $ge_courses_instructors = DB::table('ge_courses_instructors')->where('instructor_id',$id)
                     ->where('active',true)->where('deleted_at',null)->get();
                 foreach ($ge_courses_instructors as $key => $item){
@@ -239,6 +267,10 @@ class InstructorRepository implements IRepository{
 
                         $course['exam'] = $exam;
                         array_push($courses['pe'],$course);
+                    }
+                    else if($item->course_type == "App\Models\Live\Course"){
+                        $course = \App\Models\Live\Course::find($item->course_id);
+                        array_push($courses['live'],$course);
                     }
                 }
 
