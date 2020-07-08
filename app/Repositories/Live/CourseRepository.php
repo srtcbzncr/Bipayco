@@ -19,6 +19,7 @@ use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use JoisarJignesh\Bigbluebutton\Facades\Bigbluebutton;
 
 class CourseRepository implements IRepository{
     public function all()
@@ -71,6 +72,12 @@ class CourseRepository implements IRepository{
             }
             else{
                 $object = Course::find($id);
+
+                // kurs başladımı kontrol (is_meeting?)
+                $is_meeting=Bigbluebutton::isMeetingRunning([
+                    'meetingID' => $object->meeting_id,
+                ]);
+                $object['isMeeting'] = $is_meeting;
 
                 $achs = Achievement::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('active',true)->where('deleted_at',null)->get();
                 $reqs = Requirement::where('course_id',$id)->where('course_type','App\Models\Live\Course')->where('active',true)->where('deleted_at',null)->get();
