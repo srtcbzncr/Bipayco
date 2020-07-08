@@ -56,7 +56,8 @@ class LiveController extends Controller
                 // eğitmmen olarak join yap
                 $resp_join = $repo->joinLive($user_id,$course_id);
                 $data_join = $resp_join->getData();
-                if($data_join['returncode'] == "SUCCESS"){
+
+                if($data_join!= null){
                     return response()->json([
                         'error' => false,
                         'data' => $data_join,
