@@ -149,6 +149,8 @@ const mutations={
     },
     setShoppingCart(state,item){
         state.shoppingCart=item.data;
+        state.loadingStatus=true;
+
     },
     setCourseCard(state,course){
         state.courseCard=course.data;

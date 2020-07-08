@@ -30,6 +30,7 @@
                 prepare-lessons-text="@lang('front/auth.prepare_for_lessons')"
                 prepare-exams-text="@lang('front/auth.prepare_for_exams')"
                 general-education-text="@lang('front/auth.general_education')"
+                live-streams-text="@lang('front/auth.live_stream')"
             ></instructor-profile-courses>
         </div>
     </div>

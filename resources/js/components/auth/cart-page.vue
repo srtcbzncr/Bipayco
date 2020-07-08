@@ -35,14 +35,17 @@
         <div class="uk-width-3-4@m">
             <div>
                 <h3> {{courseInCartText}} </h3>
-                <div v-for="item in shoppingCart">
+                <div v-if="!loadingStatus" class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
+                    <div class="loader"></div>
+                </div>
+                <div v-else-if="shoppingCart.length>0" v-for="item in shoppingCart">
                     <cart-element
                         :course="item.course"
                         :user-id="userId"
                         :moduleName="item.course_type"
                     ></cart-element>
                 </div>
-                <div v-if="shoppingCart.length<=0" class="uk-flex align-items-center justify-content-center">
+                <div v-else class="uk-flex align-items-center justify-content-center">
                     <h2>{{noContentText}}</h2>
                 </div>
             </div>
@@ -156,7 +159,8 @@
         },
         computed: {
             ...mapState([
-                'shoppingCart'
+                'shoppingCart',
+                'loadingStatus'
             ]),
             cartAmount(){
                 var amount=0;

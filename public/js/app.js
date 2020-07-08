@@ -6070,6 +6070,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
@@ -6174,7 +6177,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       required: true
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['shoppingCart']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['shoppingCart', 'loadingStatus']), {
     cartAmount: function cartAmount() {
       var amount = 0;
 
@@ -6763,12 +6766,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       "default": "Genel Eğitim"
     },
+    liveStreamsText: {
+      type: String,
+      "default": "Canlı Yayınlar"
+    },
     haveNoCourseText: {
       type: String,
       "default": "Hiç Kurs Bulunmuyor"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseCard', 'urlForCourseCard'])),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseCard', 'urlForCourseCard', 'loadingStatus'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadCourseCard', 'loadUrlForCourseCard'])),
   created: function created() {
     if (this.userId != '') {
@@ -12050,7 +12057,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     startStream: function startStream() {
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/instructor/live/course/' + this.course.id + '/createOnBBB/' + this.userId).then(function (res) {
-        window.location.replace(res.data.data);
+        console.log(res); // window.location.replace(res.data.data)
       });
     }
   }
@@ -23253,24 +23260,32 @@ var render = function() {
         [
           _c("h3", [_vm._v(" " + _vm._s(_vm.courseInCartText) + " ")]),
           _vm._v(" "),
-          _vm._l(_vm.shoppingCart, function(item) {
-            return _c(
-              "div",
-              [
-                _c("cart-element", {
-                  attrs: {
-                    course: item.course,
-                    "user-id": _vm.userId,
-                    moduleName: item.course_type
-                  }
-                })
-              ],
-              1
-            )
-          }),
-          _vm._v(" "),
-          _vm.shoppingCart.length <= 0
+          !_vm.loadingStatus
             ? _c(
+                "div",
+                {
+                  staticClass:
+                    "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+                },
+                [_c("div", { staticClass: "loader" })]
+              )
+            : _vm.shoppingCart.length > 0
+            ? _vm._l(_vm.shoppingCart, function(item) {
+                return _c(
+                  "div",
+                  [
+                    _c("cart-element", {
+                      attrs: {
+                        course: item.course,
+                        "user-id": _vm.userId,
+                        moduleName: item.course_type
+                      }
+                    })
+                  ],
+                  1
+                )
+              })
+            : _c(
                 "div",
                 {
                   staticClass:
@@ -23278,7 +23293,6 @@ var render = function() {
                 },
                 [_c("h2", [_vm._v(_vm._s(_vm.noContentText))])]
               )
-            : _vm._e()
         ],
         2
       )
@@ -24153,7 +24167,7 @@ var render = function() {
     _c(
       "h3",
       { staticClass: "uk-heading-line uk-text-center uk-margin-large-top" },
-      [_c("span", [_vm._v(_vm._s(_vm.generalEducationText) + " ")])]
+      [_c("span", [_vm._v(_vm._s(_vm.liveStreamsText) + " ")])]
     ),
     _vm._v(" "),
     !_vm.loadingStatus
@@ -56264,6 +56278,7 @@ var mutations = {
   },
   setShoppingCart: function setShoppingCart(state, item) {
     state.shoppingCart = item.data;
+    state.loadingStatus = true;
   },
   setCourseCard: function setCourseCard(state, course) {
     state.courseCard = course.data;

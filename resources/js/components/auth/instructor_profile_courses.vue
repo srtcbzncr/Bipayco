@@ -4,7 +4,7 @@
         <div class="uk-margin-medium-top uk-padding-small">
             <p class="uk-margin-remove-top uk-margin-small-bottom">{{bio}}</p>
         </div>
-        <h3 class="uk-heading-line uk-text-center uk-margin-large-top"><span>{{generalEducationText}} </span></h3>
+        <h3 class="uk-heading-line uk-text-center uk-margin-large-top"><span>{{liveStreamsText}} </span></h3>
         <div v-if="!loadingStatus" class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
             <div class="loader"></div>
         </div>
@@ -209,6 +209,10 @@
                 type:String,
                 default:"Genel Eğitim"
             },
+            liveStreamsText:{
+                type:String,
+                default:"Canlı Yayınlar"
+            },
             haveNoCourseText:{
                 type:String,
                 default:"Hiç Kurs Bulunmuyor"
@@ -218,6 +222,7 @@
             ...mapState([
                 'courseCard',
                 'urlForCourseCard',
+                'loadingStatus'
             ]),
         },
         methods: {
