@@ -69,7 +69,7 @@ class LiveController extends Controller
                     return response()->json([
                         'error' => true,
                         'message' => 'Canlı yayına katılırken bir hata meydana geldi.',
-                        'errorMessage' => 'return code: '.$data_join['returncode'].' message key: '.$data_join['messageKey'].' message: '.$data_join['message']
+                       // 'errorMessage' => 'return code: '.$data_join['returncode'].' message key: '.$data_join['messageKey'].' message: '.$data_join['message']
                     ],400);
                 }
             }
@@ -94,7 +94,7 @@ class LiveController extends Controller
         $resp=$repo->joinLive($user_id,$course_id);
         if($resp->getResult()){
             $data = $resp->getData();
-            if($data['returncode'] == 'SUCCESS'){
+            if($data!= null){
                 return response()->json([
                     'error' => false,
                     'data' => $data,
@@ -106,7 +106,6 @@ class LiveController extends Controller
                 return response()->json([
                     'error' => true,
                     'message' => 'Canlı yayına katılırken bir hata meydana geldi.',
-                    'errorMessage' => 'return code: '.$data['returncode'].' message key: '.$data['messageKey'].' message: '.$data['message']
                 ],400);
             }
         }
