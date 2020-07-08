@@ -11940,7 +11940,9 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     startStream: function startStream() {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/instructor/live/course/' + this.course.id + '/createOnBBB/' + this.userId);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/instructor/live/course/' + this.course.id + '/createOnBBB/' + this.userId).then(function (res) {
+        console.lg(res);
+      });
     }
   }
 });
