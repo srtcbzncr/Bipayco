@@ -68,7 +68,7 @@ class LiveController extends Controller
                     $email = $user->email;
                     $dataEmail['name'] = $name;
                     $dataEmail['email'] = $email;
-                    //\event(new StartLiveEvent($dataEmail));
+                    \event(new StartLiveEvent($dataEmail));
                 }
 
 
@@ -119,7 +119,7 @@ class LiveController extends Controller
                     'data' => $data,
                     'message' => 'Canlı yayına başarıyla katılım gerçekleşti.'
 
-                ],400);
+                ],200);
             }
             else{
                 return response()->json([
