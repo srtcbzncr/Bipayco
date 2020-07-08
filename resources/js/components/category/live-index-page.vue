@@ -1,6 +1,9 @@
 <template>
     <div class="uk-container">
-        <div v-if="courseCard.data&&courseCard.data.length>0">
+        <div v-if="!loadingStatus" class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
+            <div class="loader"></div>
+        </div>
+        <div v-else-if="courseCard.data&&courseCard.data.length>0">
             <div class="uk-clearfix boundary-align uk-margin-medium-top">
                 <div class="uk-float-left section-heading none-border">
                     <h2>{{liveStreamsText}}</h2>
@@ -34,7 +37,7 @@
                 </li>
             </ul>
         </div>
-        <div v-if="!(courseCard.data&&courseCard.data.length>0)" class="uk-flex uk-flex-center align-items-center justify-content-center uk-margin-large-top">
+        <div v-else class="uk-flex uk-flex-center align-items-center justify-content-center uk-margin-large-top">
             <h2>{{hasNoContentText}}</h2>
         </div>
     </div>
@@ -87,7 +90,8 @@
         },
         computed:{
             ...mapState([
-                'courseCard'
+                'courseCard',
+                'loadingStatus'
             ]),
             pageNumber(){
                 var pages=['1'];

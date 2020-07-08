@@ -53,9 +53,6 @@
             all-of-category="@lang('front/auth.all_of_category')"
         ></side-bar>
     </div>
-    <div id="spinneroverlay">
-        <div class="spinner"></div>
-    </div>
     <div class="app">
         <main class="uk-height-viewport">
             <!--  Top bar nav -->

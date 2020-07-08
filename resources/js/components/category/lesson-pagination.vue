@@ -15,7 +15,10 @@
                 </div>
             </li>
         </ul>
-        <div v-if="courseCount>0&&courseCard.data">
+        <div v-if="!loadingStatus" class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
+            <div class="loader"></div>
+        </div>
+        <div v-else-if="courseCount>0&&courseCard.data">
             <div class="uk-clearfix boundary-align uk-margin-medium-top">
                 <div class="uk-float-left section-heading none-border">
                     <h2>{{gradeName}}</h2>
@@ -148,7 +151,8 @@
         computed:{
             ...mapState([
                 'categoryCourses',
-                'courseCard'
+                'courseCard',
+                'loadingStatus'
             ]),
             sortBy(){
                 return this.sort+'/'+this.gradeId;

@@ -1,11 +1,8 @@
 <template>
     <div class="uk-grid-small" uk-grid>
         <div class="uk-width-auto">
-            <a href="" class="uk-button uk-button-white uk-float-left"> {{openStreamText}}</a>
-        </div>
-        <div class="uk-width-expand">
-            <span class="uk-light uk-text-small uk-text-bold"> {{streamPasswordText}}</span>
-            <h4 class="uk-light uk-margin-remove">772383</h4>
+            <button v-if="isStreamStarted" @click="joinStream" class="uk-button uk-button-white uk-float-left"> {{openStreamText}}</button>
+            <button v-else class="uk-button uk-disabled uk-button-white uk-float-left"> {{streamNotStartedText}}</button>
         </div>
     </div>
 </template>
@@ -30,14 +27,25 @@
             courseId:{
                 type:String,
                 required:true,
+            },
+            isStreamStarted:{
+                type:String,
+                required:true,
+            },
+            streamNotStartedText:{
+                type:String,
+                default:"Canlı Yayın Henüz Başlamadı"
             }
         },
         methods:{
-
+            joinStream:function () {
+                Axios.get('/api/instructor/live/course/'+this.courseId+'/join/'+this.userId)
+                    .then((res)=>{
+                        console.log(res);
+                        // window.location.replace(res.data.data);
+                    });
+            }
         },
-        created() {
-            Axios.get('/api/instructor/live/course/'+this.courseId+'/join/'+this.userId)
-        }
     }
 </script>
 

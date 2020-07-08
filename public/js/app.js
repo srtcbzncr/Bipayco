@@ -7371,6 +7371,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-card-pagination",
@@ -7440,7 +7443,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": ""
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categoryCourses', 'courseCard']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categoryCourses', 'courseCard', 'loadingStatus']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
@@ -7891,6 +7894,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "lesson-pagination",
@@ -7970,7 +7976,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Dahası"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categoryCourses', 'courseCard']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['categoryCourses', 'courseCard', 'loadingStatus']), {
     sortBy: function sortBy() {
       return this.sort + '/' + this.gradeId;
     },
@@ -8092,6 +8098,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "live-index-page",
@@ -8137,7 +8146,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Canlı Yayınlar"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseCard']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseCard', 'loadingStatus']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
@@ -8211,9 +8220,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "live-stream-button",
@@ -8233,11 +8239,22 @@ __webpack_require__.r(__webpack_exports__);
     courseId: {
       type: String,
       required: true
+    },
+    isStreamStarted: {
+      type: String,
+      required: true
+    },
+    streamNotStartedText: {
+      type: String,
+      "default": "Canlı Yayın Henüz Başlamadı"
     }
   },
-  methods: {},
-  created: function created() {
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/instructor/live/course/' + this.courseId + '/join/' + this.userId);
+  methods: {
+    joinStream: function joinStream() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/instructor/live/course/' + this.courseId + '/join/' + this.userId).then(function (res) {
+        console.log(res); // window.location.replace(res.data.data);
+      });
+    }
   }
 });
 
@@ -9514,6 +9531,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "homepage-content",
@@ -9565,7 +9585,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Planlanan Tarih"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseCard', 'urlForCourseCard']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])(['courseCard', 'urlForCourseCard', 'loadingStatus']), {
     url: function url() {
       if (this.userId != '') {
         return '/api/home/' + this.module + '/' + this.userId;
@@ -24915,7 +24935,16 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "uk-container" }, [
-    _vm.courseCount > 0
+    !_vm.loadingStatus
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+          },
+          [_c("div", { staticClass: "loader" })]
+        )
+      : _vm.courseCount > 0
       ? _c("div", [
           _c(
             "div",
@@ -25179,10 +25208,7 @@ var render = function() {
             2
           )
         ])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.courseCount <= 0
-      ? _c(
+      : _c(
           "div",
           {
             staticClass:
@@ -25190,7 +25216,6 @@ var render = function() {
           },
           [_c("h2", [_vm._v(_vm._s(_vm.hasNoContent))])]
         )
-      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -25772,7 +25797,16 @@ var render = function() {
       2
     ),
     _vm._v(" "),
-    _vm.courseCount > 0 && _vm.courseCard.data
+    !_vm.loadingStatus
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+          },
+          [_c("div", { staticClass: "loader" })]
+        )
+      : _vm.courseCount > 0 && _vm.courseCard.data
       ? _c("div", [
           _c(
             "div",
@@ -26066,7 +26100,16 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "uk-container" }, [
-    _vm.courseCard.data && _vm.courseCard.data.length > 0
+    !_vm.loadingStatus
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+          },
+          [_c("div", { staticClass: "loader" })]
+        )
+      : _vm.courseCard.data && _vm.courseCard.data.length > 0
       ? _c("div", [
           _c(
             "div",
@@ -26194,10 +26237,7 @@ var render = function() {
             2
           )
         ])
-      : _vm._e(),
-    _vm._v(" "),
-    !(_vm.courseCard.data && _vm.courseCard.data.length > 0)
-      ? _c(
+      : _c(
           "div",
           {
             staticClass:
@@ -26205,7 +26245,6 @@ var render = function() {
           },
           [_c("h2", [_vm._v(_vm._s(_vm.hasNoContentText))])]
         )
-      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -26232,22 +26271,22 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "uk-grid-small", attrs: { "uk-grid": "" } }, [
     _c("div", { staticClass: "uk-width-auto" }, [
-      _c(
-        "a",
-        {
-          staticClass: "uk-button uk-button-white uk-float-left",
-          attrs: { href: "" }
-        },
-        [_vm._v(" " + _vm._s(_vm.openStreamText))]
-      )
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "uk-width-expand" }, [
-      _c("span", { staticClass: "uk-light uk-text-small uk-text-bold" }, [
-        _vm._v(" " + _vm._s(_vm.streamPasswordText))
-      ]),
-      _vm._v(" "),
-      _c("h4", { staticClass: "uk-light uk-margin-remove" }, [_vm._v("772383")])
+      _vm.isStreamStarted
+        ? _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-white uk-float-left",
+              on: { click: _vm.joinStream }
+            },
+            [_vm._v(" " + _vm._s(_vm.openStreamText))]
+          )
+        : _c(
+            "button",
+            {
+              staticClass: "uk-button uk-disabled uk-button-white uk-float-left"
+            },
+            [_vm._v(" " + _vm._s(_vm.streamNotStartedText))]
+          )
     ])
   ])
 }
@@ -28207,7 +28246,16 @@ var render = function() {
     _vm._v(" "),
     _c("ul", { staticClass: "uk-margin uk-margin-medium-top" }, [
       _c("li", [
-        _vm.courseCard == null || _vm.courseCard.length < 1
+        !_vm.loadingStatus
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+              },
+              [_c("div", { staticClass: "loader" })]
+            )
+          : _vm.courseCard == null || _vm.courseCard.length < 1
           ? _c(
               "div",
               {

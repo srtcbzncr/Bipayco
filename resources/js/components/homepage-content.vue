@@ -8,7 +8,10 @@
         </ul>
         <ul class="uk-margin uk-margin-medium-top">
             <li>
-                <div v-if="courseCard==null || courseCard.length<1" class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
+                <div v-if="!loadingStatus" class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
+                    <div class="loader"></div>
+                </div>
+                <div v-else-if="courseCard==null || courseCard.length<1" class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
                     <h4 class="uk-text-bold uk-margin-remove-top">{{noContentText}}</h4>
                 </div>
                 <div v-else>
@@ -107,6 +110,7 @@
             ...mapState([
                'courseCard',
                 'urlForCourseCard',
+                'loadingStatus'
             ]),
             url(){
                 if(this.userId!=''){

@@ -31,6 +31,7 @@
                         stream-password-text="@lang('front/auth.live_stream_password')"
                         user-id="{{Auth::user()->id}}"
                         course-id="{{$course->id}}"
+                        is-stream-started="{{$redirect}}"
                     ></live-stream-button>
                 @else
                     <add-cart-button
