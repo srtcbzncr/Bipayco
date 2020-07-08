@@ -75,6 +75,9 @@ class FavoriteRepository implements IRepository
             else if($data['module_name'] == 'prepareExams'){
                 $favorite->course_type = 'App\Models\PrepareExams\Course';
             }
+            else if($data['module_name'] == 'live'){
+                $favorite->course_type = 'App\Models\Live\Course';
+            }
             else if($data['module_name'] == 'pre'){
             }
             else if($data['module_name'] == 'qb'){
@@ -112,6 +115,8 @@ class FavoriteRepository implements IRepository
                 $type = "App\Models\PrepareLessons\Course";
             else if($data['module_name'] == 'prepareExams')
                 $type = "App\Models\PrepareExams\Course";
+            else if($data['module_name'] == 'live')
+                $type = "App\Models\Live\Course";
 
             DB::table('favorite')->where('user_id',$data['user_id'])
                 ->where('course_id',$data['course_id'])
@@ -212,6 +217,19 @@ class FavoriteRepository implements IRepository
                     $tempCourse['exam'] = $exam;
                     $courses[$key]['course'] = $tempCourse;
                 }
+                else if($course->course_type == 'App\Models\Live\Course'){
+                    $tempCourse = \App\Models\Live\Course::find($course->id);
+                    $tempCourse['course_type'] = 'prepareExams';
+                    $basketControl = Basket::where('user_id',$user_id)->where('course_id',$course->id)->where('course_type','App\Models\Live\Course')->get();
+                    if($basketControl !=null and count($basketControl)>0){
+                        $tempCourse['inBasket'] = true;
+                    }
+                    else{
+                        $tempCourse['inBasket'] = false;
+                    }
+                    $tempCourse['inFavorite'] = true;
+                    $courses[$key]['course'] = $tempCourse;
+                }
             }
 
             $object = $courses;
@@ -286,6 +304,19 @@ class FavoriteRepository implements IRepository
                     $tempCourse['inFavorite'] = true;
                     $exam = Exam::find($tempCourse->exam_id);
                     $tempCourse['exam'] = $exam;
+                    $courses[$key]['course'] = $tempCourse;
+                }
+                else if($course->course_type == 'App\Models\Live\Course'){
+                    $tempCourse = \App\Models\Live\Course::find($course->id);
+                    $tempCourse['course_type'] = 'prepareExams';
+                    $basketControl = Basket::where('user_id',$user_id)->where('course_id',$course->id)->where('course_type','App\Models\Live\Course')->get();
+                    if($basketControl !=null and count($basketControl)>0){
+                        $tempCourse['inBasket'] = true;
+                    }
+                    else{
+                        $tempCourse['inBasket'] = false;
+                    }
+                    $tempCourse['inFavorite'] = true;
                     $courses[$key]['course'] = $tempCourse;
                 }
             }
