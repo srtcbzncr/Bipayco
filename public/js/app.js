@@ -2645,6 +2645,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2705,7 +2708,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Şehir Düzenle"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminCity']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminCity', 'loadingStatus']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
@@ -3000,6 +3003,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3070,7 +3076,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Vazgeç"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminDistrict']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminDistrict', 'loadingStatus']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
@@ -3329,6 +3335,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3388,7 +3397,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Sınıf Düzenle"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminExam']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminExam', 'loadingStatus']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
@@ -3646,6 +3655,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3705,7 +3717,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Sınıf Düzenle"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminGrade']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminGrade', 'loadingStatus']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
@@ -3964,6 +3976,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4016,7 +4031,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Kullanıcı Adı"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminGuardian']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminGuardian', 'loadingStatus']), {
     selectedUser: function selectedUser() {
       if (this.selectedIndex >= 0) {
         return this.adminGuardian.data[this.selectedIndex];
@@ -4222,6 +4237,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4286,7 +4304,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Toplam Kazanç"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminInstructor']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminInstructor', 'loadingStatus']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
@@ -4482,6 +4500,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4545,7 +4566,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "İkon Seçiniz"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminLesson']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminLesson', 'loadingStatus']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
@@ -4865,6 +4886,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4954,7 +4978,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return this.selectedSale;
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSales']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSales', 'loadingStatus']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
@@ -5026,6 +5050,9 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
 //
 //
 //
@@ -5240,7 +5267,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       required: true
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSubCategory']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSubCategory', 'loadingStatus']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
@@ -5528,6 +5555,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5611,7 +5641,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "İkon"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSubject']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSubject', 'loadingStatus']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
@@ -5801,6 +5831,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5857,7 +5890,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "Toplam Harcama"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminUsers']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminUsers', 'loadingStatus']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
@@ -17716,132 +17749,138 @@ var render = function() {
           "uk-background-default uk-padding-remove uk-margin-small-top border-radius-6"
       },
       [
-        _c(
-          "table",
-          {
-            staticClass:
-              "uk-table uk-table-hover uk-table-striped uk-width uk-height",
-            attrs: { id: "categoryTable", cellspacing: "0" }
-          },
-          [
-            !_vm.loadingStatus
-              ? _c(
-                  "div",
-                  {
-                    staticClass:
-                      "uk-container uk-flex uk-flex-center uk-margin-medium-top"
-                  },
-                  [_c("div", { staticClass: "loader" })]
-                )
-              : _vm.adminAdmins.data && _vm.adminAdmins.data.length > 0
-              ? _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v(_vm._s(_vm.nameText))]),
-                    _vm._v(" "),
-                    _c("th")
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.adminAdmins.data && _vm.adminAdmins.data.length > 0
-              ? _c(
-                  "tbody",
-                  _vm._l(_vm.adminAdmins.data, function(item, index) {
-                    return _c("tr", [
-                      _c(
-                        "td",
-                        {
-                          staticClass: "uk-width-3-4 clickable",
-                          on: {
-                            click: function($event) {
-                              return _vm.openInfo(index)
-                            }
-                          }
-                        },
-                        [
-                          _c("p", [
-                            _vm._v(
-                              _vm._s(item.user.first_name) +
-                                " " +
-                                _vm._s(item.user.last_name)
-                            )
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "uk-flex flex-wrap align-items-center justify-content-around"
-                        },
-                        [
-                          !item.active
-                            ? _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.activateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.activateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-check-circle"
-                                  })
-                                ]
-                              )
-                            : _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.deactivateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.deactivateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-times-circle"
-                                  })
-                                ]
-                              ),
-                          _vm._v(" "),
+        !_vm.loadingStatus
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+              },
+              [_c("div", { staticClass: "loader" })]
+            )
+          : _c(
+              "table",
+              {
+                staticClass:
+                  "uk-table uk-table-hover uk-table-striped uk-width uk-height",
+                attrs: { id: "categoryTable", cellspacing: "0" }
+              },
+              [
+                _vm.adminAdmins.data && _vm.adminAdmins.data.length > 0
+                  ? _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v(_vm._s(_vm.nameText))]),
+                        _vm._v(" "),
+                        _c("th")
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.adminAdmins.data && _vm.adminAdmins.data.length > 0
+                  ? _c(
+                      "tbody",
+                      _vm._l(_vm.adminAdmins.data, function(item, index) {
+                        return _c("tr", [
                           _c(
-                            "a",
+                            "td",
                             {
-                              attrs: { "uk-tooltip": _vm.deleteText },
+                              staticClass: "uk-width-3-4 clickable",
                               on: {
                                 click: function($event) {
-                                  return _vm.deleteItem(item.id)
+                                  return _vm.openInfo(index)
                                 }
                               }
                             },
                             [
-                              _c("i", {
-                                staticClass: "fas fa-trash text-danger"
-                              })
+                              _c("p", [
+                                _vm._v(
+                                  _vm._s(item.user.first_name) +
+                                    " " +
+                                    _vm._s(item.user.last_name)
+                                )
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass:
+                                "uk-flex flex-wrap align-items-center justify-content-around"
+                            },
+                            [
+                              !item.active
+                                ? _c(
+                                    "a",
+                                    {
+                                      attrs: { "uk-tooltip": _vm.activateText },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.activateItem(item.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-check-circle"
+                                      })
+                                    ]
+                                  )
+                                : _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        "uk-tooltip": _vm.deactivateText
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deactivateItem(item.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-times-circle"
+                                      })
+                                    ]
+                                  ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.deleteText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-trash text-danger"
+                                  })
+                                ]
+                              )
                             ]
                           )
-                        ]
-                      )
-                    ])
-                  }),
-                  0
-                )
-              : _c(
-                  "div",
-                  {
-                    staticClass:
-                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
-                  },
-                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
-                )
-          ]
-        )
+                        ])
+                      }),
+                      0
+                    )
+                  : _c(
+                      "div",
+                      {
+                        staticClass:
+                          " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                      },
+                      [
+                        _c("h4", [
+                          _vm._v(" " + _vm._s(_vm.noContentText) + " ")
+                        ])
+                      ]
+                    )
+              ]
+            )
       ]
     ),
     _vm._v(" "),
@@ -18134,152 +18173,158 @@ var render = function() {
           "uk-background-default uk-padding-remove uk-margin-small-top border-radius-6"
       },
       [
-        _c(
-          "table",
-          {
-            staticClass:
-              "uk-table uk-table-hover uk-table-striped uk-width uk-height",
-            attrs: { id: "categoryTable", cellspacing: "0" }
-          },
-          [
-            !_vm.loadingStatus
-              ? _c(
-                  "div",
-                  {
-                    staticClass:
-                      "uk-container uk-flex uk-flex-center uk-margin-medium-top"
-                  },
-                  [_c("div", { staticClass: "loader" })]
-                )
-              : _vm.adminCategory.data && _vm.adminCategory.data.length > 0
-              ? _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v(_vm._s(_vm.categoryNameText))]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v(_vm._s(_vm.descriptionText))]),
-                    _vm._v(" "),
-                    _c("th")
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.adminCategory.data && _vm.adminCategory.data.length > 0
-              ? _c(
-                  "tbody",
-                  _vm._l(_vm.adminCategory.data, function(item, index) {
-                    return _c("tr", [
-                      _c(
-                        "td",
-                        {
-                          staticClass: "uk-width-1-4",
-                          on: {
-                            click: function($event) {
-                              return _vm.routeSubCategories(item.id)
-                            }
-                          }
-                        },
-                        [_c("p", [_vm._v(_vm._s(item.name))])]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass: "uk-width-1-2",
-                          on: {
-                            click: function($event) {
-                              return _vm.routeSubCategories(item.id)
-                            }
-                          }
-                        },
-                        [_c("p", [_vm._v(_vm._s(item.description))])]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "uk-flex flex-wrap align-items-center justify-content-around"
-                        },
-                        [
+        !_vm.loadingStatus
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+              },
+              [_c("div", { staticClass: "loader" })]
+            )
+          : _c(
+              "table",
+              {
+                staticClass:
+                  "uk-table uk-table-hover uk-table-striped uk-width uk-height",
+                attrs: { id: "categoryTable", cellspacing: "0" }
+              },
+              [
+                _vm.adminCategory.data && _vm.adminCategory.data.length > 0
+                  ? _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v(_vm._s(_vm.categoryNameText))]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v(_vm._s(_vm.descriptionText))]),
+                        _vm._v(" "),
+                        _c("th")
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.adminCategory.data && _vm.adminCategory.data.length > 0
+                  ? _c(
+                      "tbody",
+                      _vm._l(_vm.adminCategory.data, function(item, index) {
+                        return _c("tr", [
                           _c(
-                            "a",
+                            "td",
                             {
-                              attrs: { "uk-tooltip": _vm.editText },
+                              staticClass: "uk-width-1-4",
                               on: {
                                 click: function($event) {
-                                  return _vm.openSettings(item.id, index)
+                                  return _vm.routeSubCategories(item.id)
                                 }
                               }
                             },
-                            [_c("i", { staticClass: "fas fa-cog" })]
+                            [_c("p", [_vm._v(_vm._s(item.name))])]
                           ),
                           _vm._v(" "),
-                          !item.active
-                            ? _c(
+                          _c(
+                            "td",
+                            {
+                              staticClass: "uk-width-1-2",
+                              on: {
+                                click: function($event) {
+                                  return _vm.routeSubCategories(item.id)
+                                }
+                              }
+                            },
+                            [_c("p", [_vm._v(_vm._s(item.description))])]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass:
+                                "uk-flex flex-wrap align-items-center justify-content-around"
+                            },
+                            [
+                              _c(
                                 "a",
                                 {
-                                  attrs: { "uk-tooltip": _vm.activateText },
+                                  attrs: { "uk-tooltip": _vm.editText },
                                   on: {
                                     click: function($event) {
-                                      return _vm.activateItem(item.id)
+                                      return _vm.openSettings(item.id, index)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-cog" })]
+                              ),
+                              _vm._v(" "),
+                              !item.active
+                                ? _c(
+                                    "a",
+                                    {
+                                      attrs: { "uk-tooltip": _vm.activateText },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.activateItem(item.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-check-circle"
+                                      })
+                                    ]
+                                  )
+                                : _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        "uk-tooltip": _vm.deactivateText
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deactivateItem(item.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-times-circle"
+                                      })
+                                    ]
+                                  ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.deleteText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteItem(item.id)
                                     }
                                   }
                                 },
                                 [
                                   _c("i", {
-                                    staticClass: "fas fa-check-circle"
+                                    staticClass: "fas fa-trash text-danger"
                                   })
                                 ]
                               )
-                            : _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.deactivateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.deactivateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-times-circle"
-                                  })
-                                ]
-                              ),
-                          _vm._v(" "),
-                          _c(
-                            "a",
-                            {
-                              attrs: { "uk-tooltip": _vm.deleteText },
-                              on: {
-                                click: function($event) {
-                                  return _vm.deleteItem(item.id)
-                                }
-                              }
-                            },
-                            [
-                              _c("i", {
-                                staticClass: "fas fa-trash text-danger"
-                              })
                             ]
                           )
-                        ]
-                      )
-                    ])
-                  }),
-                  0
-                )
-              : _c(
-                  "div",
-                  {
-                    staticClass:
-                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
-                  },
-                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
-                )
-          ]
-        )
+                        ])
+                      }),
+                      0
+                    )
+                  : _c(
+                      "div",
+                      {
+                        staticClass:
+                          " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                      },
+                      [
+                        _c("h4", [
+                          _vm._v(" " + _vm._s(_vm.noContentText) + " ")
+                        ])
+                      ]
+                    )
+              ]
+            )
       ]
     ),
     _vm._v(" "),
@@ -18657,143 +18702,158 @@ var render = function() {
           "uk-background-default uk-padding-remove uk-margin-small-top border-radius-6"
       },
       [
-        _c(
-          "table",
-          {
-            staticClass:
-              "uk-table uk-table-hover uk-table-striped uk-width uk-height",
-            attrs: { id: "categoryTable", cellspacing: "0" }
-          },
-          [
-            _vm.adminCity.data && _vm.adminCity.data.length > 0
-              ? _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v(_vm._s(_vm.cityNameText))]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v(_vm._s(_vm.cityCodeText))]),
-                    _vm._v(" "),
-                    _c("th")
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.adminCity.data && _vm.adminCity.data.length > 0
-              ? _c(
-                  "tbody",
-                  _vm._l(_vm.adminCity.data, function(item) {
-                    return _c("tr", [
-                      _c(
-                        "td",
-                        {
-                          staticClass: "uk-width-1-4",
-                          on: {
-                            click: function($event) {
-                              return _vm.routeDistricts(item.id)
-                            }
-                          }
-                        },
-                        [_c("p", [_vm._v(_vm._s(item.name))])]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass: "uk-width-1-2",
-                          on: {
-                            click: function($event) {
-                              return _vm.routeDistricts(item.id)
-                            }
-                          }
-                        },
-                        [_c("p", [_vm._v(_vm._s(item.code))])]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "uk-flex flex-wrap align-items-center justify-content-around"
-                        },
-                        [
+        !_vm.loadingStatus
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+              },
+              [_c("div", { staticClass: "loader" })]
+            )
+          : _c(
+              "table",
+              {
+                staticClass:
+                  "uk-table uk-table-hover uk-table-striped uk-width uk-height",
+                attrs: { id: "categoryTable", cellspacing: "0" }
+              },
+              [
+                _vm.adminCity.data && _vm.adminCity.data.length > 0
+                  ? _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v(_vm._s(_vm.cityNameText))]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v(_vm._s(_vm.cityCodeText))]),
+                        _vm._v(" "),
+                        _c("th")
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.adminCity.data && _vm.adminCity.data.length > 0
+                  ? _c(
+                      "tbody",
+                      _vm._l(_vm.adminCity.data, function(item) {
+                        return _c("tr", [
                           _c(
-                            "a",
+                            "td",
                             {
-                              attrs: { "uk-tooltip": _vm.editText },
+                              staticClass: "uk-width-1-4",
                               on: {
                                 click: function($event) {
-                                  return _vm.openSettings(item.id)
+                                  return _vm.routeDistricts(item.id)
                                 }
                               }
                             },
-                            [_c("i", { staticClass: "fas fa-cog" })]
+                            [_c("p", [_vm._v(_vm._s(item.name))])]
                           ),
                           _vm._v(" "),
-                          !item.active
-                            ? _c(
+                          _c(
+                            "td",
+                            {
+                              staticClass: "uk-width-1-2",
+                              on: {
+                                click: function($event) {
+                                  return _vm.routeDistricts(item.id)
+                                }
+                              }
+                            },
+                            [_c("p", [_vm._v(_vm._s(item.code))])]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass:
+                                "uk-flex flex-wrap align-items-center justify-content-around"
+                            },
+                            [
+                              _c(
                                 "a",
                                 {
-                                  attrs: { "uk-tooltip": _vm.activateText },
+                                  attrs: { "uk-tooltip": _vm.editText },
                                   on: {
                                     click: function($event) {
-                                      return _vm.activateItem(item.id)
+                                      return _vm.openSettings(item.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-cog" })]
+                              ),
+                              _vm._v(" "),
+                              !item.active
+                                ? _c(
+                                    "a",
+                                    {
+                                      attrs: { "uk-tooltip": _vm.activateText },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.activateItem(item.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-check-circle"
+                                      })
+                                    ]
+                                  )
+                                : _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        "uk-tooltip": _vm.deactivateText
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deactivateItem(item.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-times-circle"
+                                      })
+                                    ]
+                                  ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.deleteText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteItem(item.id)
                                     }
                                   }
                                 },
                                 [
                                   _c("i", {
-                                    staticClass: "fas fa-check-circle"
+                                    staticClass: "fas fa-trash text-danger"
                                   })
                                 ]
                               )
-                            : _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.deactivateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.deactivateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-times-circle"
-                                  })
-                                ]
-                              ),
-                          _vm._v(" "),
-                          _c(
-                            "a",
-                            {
-                              attrs: { "uk-tooltip": _vm.deleteText },
-                              on: {
-                                click: function($event) {
-                                  return _vm.deleteItem(item.id)
-                                }
-                              }
-                            },
-                            [
-                              _c("i", {
-                                staticClass: "fas fa-trash text-danger"
-                              })
                             ]
                           )
-                        ]
-                      )
-                    ])
-                  }),
-                  0
-                )
-              : _c(
-                  "div",
-                  {
-                    staticClass:
-                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
-                  },
-                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
-                )
-          ]
-        )
+                        ])
+                      }),
+                      0
+                    )
+                  : _c(
+                      "div",
+                      {
+                        staticClass:
+                          " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                      },
+                      [
+                        _c("h4", [
+                          _vm._v(" " + _vm._s(_vm.noContentText) + " ")
+                        ])
+                      ]
+                    )
+              ]
+            )
       ]
     ),
     _vm._v(" "),
@@ -19118,119 +19178,134 @@ var render = function() {
           "uk-background-default uk-padding-remove uk-margin-small-top border-radius-6"
       },
       [
-        _c(
-          "table",
-          {
-            staticClass:
-              "uk-table uk-table-hover uk-table-striped uk-width uk-height",
-            attrs: { id: "categoryTable", cellspacing: "0" }
-          },
-          [
-            _vm.adminDistrict.data && _vm.adminDistrict.data.length > 0
-              ? _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v(_vm._s(_vm.districtNameText))]),
-                    _vm._v(" "),
-                    _c("th")
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.adminDistrict.data && _vm.adminDistrict.data.length > 0
-              ? _c(
-                  "tbody",
-                  _vm._l(_vm.adminDistrict.data, function(item) {
-                    return _c("tr", [
-                      _c("td", { staticClass: "uk-width-3-4" }, [
-                        _c("p", [_vm._v(_vm._s(item.name))])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "uk-flex flex-wrap align-items-center justify-content-around"
-                        },
-                        [
-                          _c(
-                            "a",
-                            {
-                              attrs: { "uk-tooltip": _vm.editText },
-                              on: {
-                                click: function($event) {
-                                  return _vm.openSettings(item.id)
-                                }
-                              }
-                            },
-                            [_c("i", { staticClass: "fas fa-cog" })]
-                          ),
+        !_vm.loadingStatus
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+              },
+              [_c("div", { staticClass: "loader" })]
+            )
+          : _c(
+              "table",
+              {
+                staticClass:
+                  "uk-table uk-table-hover uk-table-striped uk-width uk-height",
+                attrs: { id: "categoryTable", cellspacing: "0" }
+              },
+              [
+                _vm.adminDistrict.data && _vm.adminDistrict.data.length > 0
+                  ? _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v(_vm._s(_vm.districtNameText))]),
+                        _vm._v(" "),
+                        _c("th")
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.adminDistrict.data && _vm.adminDistrict.data.length > 0
+                  ? _c(
+                      "tbody",
+                      _vm._l(_vm.adminDistrict.data, function(item) {
+                        return _c("tr", [
+                          _c("td", { staticClass: "uk-width-3-4" }, [
+                            _c("p", [_vm._v(_vm._s(item.name))])
+                          ]),
                           _vm._v(" "),
-                          !item.active
-                            ? _c(
+                          _c(
+                            "td",
+                            {
+                              staticClass:
+                                "uk-flex flex-wrap align-items-center justify-content-around"
+                            },
+                            [
+                              _c(
                                 "a",
                                 {
-                                  attrs: { "uk-tooltip": _vm.activateText },
+                                  attrs: { "uk-tooltip": _vm.editText },
                                   on: {
                                     click: function($event) {
-                                      return _vm.activateItem(item.id)
+                                      return _vm.openSettings(item.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-cog" })]
+                              ),
+                              _vm._v(" "),
+                              !item.active
+                                ? _c(
+                                    "a",
+                                    {
+                                      attrs: { "uk-tooltip": _vm.activateText },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.activateItem(item.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-check-circle"
+                                      })
+                                    ]
+                                  )
+                                : _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        "uk-tooltip": _vm.deactivateText
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deactivateItem(item.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-times-circle"
+                                      })
+                                    ]
+                                  ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.deleteText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteItem(item.id)
                                     }
                                   }
                                 },
                                 [
                                   _c("i", {
-                                    staticClass: "fas fa-check-circle"
+                                    staticClass: "fas fa-trash text-danger"
                                   })
                                 ]
                               )
-                            : _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.deactivateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.deactivateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-times-circle"
-                                  })
-                                ]
-                              ),
-                          _vm._v(" "),
-                          _c(
-                            "a",
-                            {
-                              attrs: { "uk-tooltip": _vm.deleteText },
-                              on: {
-                                click: function($event) {
-                                  return _vm.deleteItem(item.id)
-                                }
-                              }
-                            },
-                            [
-                              _c("i", {
-                                staticClass: "fas fa-trash text-danger"
-                              })
                             ]
                           )
-                        ]
-                      )
-                    ])
-                  }),
-                  0
-                )
-              : _c(
-                  "div",
-                  {
-                    staticClass:
-                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
-                  },
-                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
-                )
-          ]
-        )
+                        ])
+                      }),
+                      0
+                    )
+                  : _c(
+                      "div",
+                      {
+                        staticClass:
+                          " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                      },
+                      [
+                        _c("h4", [
+                          _vm._v(" " + _vm._s(_vm.noContentText) + " ")
+                        ])
+                      ]
+                    )
+              ]
+            )
       ]
     ),
     _vm._v(" "),
@@ -19453,85 +19528,98 @@ var render = function() {
           "uk-background-default uk-padding-remove uk-margin-small-top border-radius-6"
       },
       [
-        _c(
-          "table",
-          {
-            staticClass:
-              "uk-table uk-table-hover uk-table-striped uk-width uk-height",
-            attrs: { id: "categoryTable", cellspacing: "0" }
-          },
-          [
-            _vm.adminExam.data && _vm.adminExam.data.length > 0
-              ? _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v(_vm._s(_vm.examNameText))]),
-                    _vm._v(" "),
-                    _c("th")
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.adminExam.data && _vm.adminExam.data.length > 0
-              ? _c(
-                  "tbody",
-                  _vm._l(_vm.adminExam.data, function(item) {
-                    return _c("tr", [
-                      _c("td", { staticClass: "uk-width-3-4" }, [
-                        _c("p", [_vm._v(_vm._s(item.name))])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "uk-flex flex-wrap align-items-center justify-content-around"
-                        },
-                        [
-                          _c(
-                            "a",
-                            {
-                              attrs: { "uk-tooltip": _vm.editText },
-                              on: {
-                                click: function($event) {
-                                  return _vm.openSettings(item.id)
-                                }
-                              }
-                            },
-                            [_c("i", { staticClass: "fas fa-cog" })]
-                          ),
+        !_vm.loadingStatus
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+              },
+              [_c("div", { staticClass: "loader" })]
+            )
+          : _c(
+              "table",
+              {
+                staticClass:
+                  "uk-table uk-table-hover uk-table-striped uk-width uk-height",
+                attrs: { id: "categoryTable", cellspacing: "0" }
+              },
+              [
+                _vm.adminExam.data && _vm.adminExam.data.length > 0
+                  ? _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v(_vm._s(_vm.examNameText))]),
+                        _vm._v(" "),
+                        _c("th")
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.adminExam.data && _vm.adminExam.data.length > 0
+                  ? _c(
+                      "tbody",
+                      _vm._l(_vm.adminExam.data, function(item) {
+                        return _c("tr", [
+                          _c("td", { staticClass: "uk-width-3-4" }, [
+                            _c("p", [_vm._v(_vm._s(item.name))])
+                          ]),
                           _vm._v(" "),
                           _c(
-                            "a",
+                            "td",
                             {
-                              attrs: { "uk-tooltip": _vm.deleteText },
-                              on: {
-                                click: function($event) {
-                                  return _vm.deleteItem(item.id)
-                                }
-                              }
+                              staticClass:
+                                "uk-flex flex-wrap align-items-center justify-content-around"
                             },
                             [
-                              _c("i", {
-                                staticClass: "fas fa-trash text-danger"
-                              })
+                              _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.editText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.openSettings(item.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-cog" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.deleteText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-trash text-danger"
+                                  })
+                                ]
+                              )
                             ]
                           )
-                        ]
-                      )
-                    ])
-                  }),
-                  0
-                )
-              : _c(
-                  "div",
-                  {
-                    staticClass:
-                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
-                  },
-                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
-                )
-          ]
-        )
+                        ])
+                      }),
+                      0
+                    )
+                  : _c(
+                      "div",
+                      {
+                        staticClass:
+                          " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                      },
+                      [
+                        _c("h4", [
+                          _vm._v(" " + _vm._s(_vm.noContentText) + " ")
+                        ])
+                      ]
+                    )
+              ]
+            )
       ]
     ),
     _vm._v(" "),
@@ -19789,85 +19877,98 @@ var render = function() {
           "uk-background-default uk-padding-remove uk-margin-small-top border-radius-6"
       },
       [
-        _c(
-          "table",
-          {
-            staticClass:
-              "uk-table uk-table-hover uk-table-striped uk-width uk-height",
-            attrs: { id: "categoryTable", cellspacing: "0" }
-          },
-          [
-            _vm.adminGrade.data && _vm.adminGrade.data.length > 0
-              ? _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v(_vm._s(_vm.gradeNameText))]),
-                    _vm._v(" "),
-                    _c("th")
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.adminGrade.data && _vm.adminGrade.data.length > 0
-              ? _c(
-                  "tbody",
-                  _vm._l(_vm.adminGrade.data, function(item) {
-                    return _c("tr", [
-                      _c("td", { staticClass: "uk-width-3-4" }, [
-                        _c("p", [_vm._v(_vm._s(item.name))])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "uk-flex flex-wrap align-items-center justify-content-around"
-                        },
-                        [
-                          _c(
-                            "a",
-                            {
-                              attrs: { "uk-tooltip": _vm.editText },
-                              on: {
-                                click: function($event) {
-                                  return _vm.openSettings(item.id)
-                                }
-                              }
-                            },
-                            [_c("i", { staticClass: "fas fa-cog" })]
-                          ),
+        !_vm.loadingStatus
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+              },
+              [_c("div", { staticClass: "loader" })]
+            )
+          : _c(
+              "table",
+              {
+                staticClass:
+                  "uk-table uk-table-hover uk-table-striped uk-width uk-height",
+                attrs: { id: "categoryTable", cellspacing: "0" }
+              },
+              [
+                _vm.adminGrade.data && _vm.adminGrade.data.length > 0
+                  ? _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v(_vm._s(_vm.gradeNameText))]),
+                        _vm._v(" "),
+                        _c("th")
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.adminGrade.data && _vm.adminGrade.data.length > 0
+                  ? _c(
+                      "tbody",
+                      _vm._l(_vm.adminGrade.data, function(item) {
+                        return _c("tr", [
+                          _c("td", { staticClass: "uk-width-3-4" }, [
+                            _c("p", [_vm._v(_vm._s(item.name))])
+                          ]),
                           _vm._v(" "),
                           _c(
-                            "a",
+                            "td",
                             {
-                              attrs: { "uk-tooltip": _vm.deleteText },
-                              on: {
-                                click: function($event) {
-                                  return _vm.deleteItem(item.id)
-                                }
-                              }
+                              staticClass:
+                                "uk-flex flex-wrap align-items-center justify-content-around"
                             },
                             [
-                              _c("i", {
-                                staticClass: "fas fa-trash text-danger"
-                              })
+                              _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.editText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.openSettings(item.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-cog" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.deleteText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-trash text-danger"
+                                  })
+                                ]
+                              )
                             ]
                           )
-                        ]
-                      )
-                    ])
-                  }),
-                  0
-                )
-              : _c(
-                  "div",
-                  {
-                    staticClass:
-                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
-                  },
-                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
-                )
-          ]
-        )
+                        ])
+                      }),
+                      0
+                    )
+                  : _c(
+                      "div",
+                      {
+                        staticClass:
+                          " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                      },
+                      [
+                        _c("h4", [
+                          _vm._v(" " + _vm._s(_vm.noContentText) + " ")
+                        ])
+                      ]
+                    )
+              ]
+            )
       ]
     ),
     _vm._v(" "),
@@ -20111,123 +20212,138 @@ var render = function() {
           "uk-background-default uk-padding-remove uk-margin-small-top border-radius-6"
       },
       [
-        _c(
-          "table",
-          {
-            staticClass:
-              "uk-table uk-table-hover uk-table-striped uk-width uk-height",
-            attrs: { id: "categoryTable", cellspacing: "0" }
-          },
-          [
-            _vm.adminGuardian.data && _vm.adminGuardian.data.length > 0
-              ? _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v(_vm._s(_vm.nameText))]),
-                    _vm._v(" "),
-                    _c("th")
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.adminGuardian.data && _vm.adminGuardian.data.length > 0
-              ? _c(
-                  "tbody",
-                  _vm._l(_vm.adminGuardian.data, function(item, index) {
-                    return _c("tr", [
-                      _c(
-                        "td",
-                        {
-                          staticClass: "uk-width-3-4 clickable",
-                          on: {
-                            click: function($event) {
-                              return _vm.openInfo(index)
-                            }
-                          }
-                        },
-                        [
-                          _c("p", [
-                            _vm._v(
-                              _vm._s(item.user.first_name) +
-                                " " +
-                                _vm._s(item.user.last_name)
-                            )
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "uk-flex flex-wrap align-items-center justify-content-around"
-                        },
-                        [
-                          !item.active
-                            ? _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.activateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.activateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-check-circle"
-                                  })
-                                ]
-                              )
-                            : _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.deactivateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.deactivateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-times-circle"
-                                  })
-                                ]
-                              ),
-                          _vm._v(" "),
+        !_vm.loadingStatus
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+              },
+              [_c("div", { staticClass: "loader" })]
+            )
+          : _c(
+              "table",
+              {
+                staticClass:
+                  "uk-table uk-table-hover uk-table-striped uk-width uk-height",
+                attrs: { id: "categoryTable", cellspacing: "0" }
+              },
+              [
+                _vm.adminGuardian.data && _vm.adminGuardian.data.length > 0
+                  ? _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v(_vm._s(_vm.nameText))]),
+                        _vm._v(" "),
+                        _c("th")
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.adminGuardian.data && _vm.adminGuardian.data.length > 0
+                  ? _c(
+                      "tbody",
+                      _vm._l(_vm.adminGuardian.data, function(item, index) {
+                        return _c("tr", [
                           _c(
-                            "a",
+                            "td",
                             {
-                              attrs: { "uk-tooltip": _vm.deleteText },
+                              staticClass: "uk-width-3-4 clickable",
                               on: {
                                 click: function($event) {
-                                  return _vm.deleteItem(item.id)
+                                  return _vm.openInfo(index)
                                 }
                               }
                             },
                             [
-                              _c("i", {
-                                staticClass: "fas fa-trash text-danger"
-                              })
+                              _c("p", [
+                                _vm._v(
+                                  _vm._s(item.user.first_name) +
+                                    " " +
+                                    _vm._s(item.user.last_name)
+                                )
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass:
+                                "uk-flex flex-wrap align-items-center justify-content-around"
+                            },
+                            [
+                              !item.active
+                                ? _c(
+                                    "a",
+                                    {
+                                      attrs: { "uk-tooltip": _vm.activateText },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.activateItem(item.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-check-circle"
+                                      })
+                                    ]
+                                  )
+                                : _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        "uk-tooltip": _vm.deactivateText
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deactivateItem(item.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-times-circle"
+                                      })
+                                    ]
+                                  ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.deleteText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-trash text-danger"
+                                  })
+                                ]
+                              )
                             ]
                           )
-                        ]
-                      )
-                    ])
-                  }),
-                  0
-                )
-              : _c(
-                  "div",
-                  {
-                    staticClass:
-                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
-                  },
-                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
-                )
-          ]
-        )
+                        ])
+                      }),
+                      0
+                    )
+                  : _c(
+                      "div",
+                      {
+                        staticClass:
+                          " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                      },
+                      [
+                        _c("h4", [
+                          _vm._v(" " + _vm._s(_vm.noContentText) + " ")
+                        ])
+                      ]
+                    )
+              ]
+            )
       ]
     ),
     _vm._v(" "),
@@ -20440,123 +20556,138 @@ var render = function() {
           "uk-background-default uk-padding-remove uk-margin-small-top border-radius-6"
       },
       [
-        _c(
-          "table",
-          {
-            staticClass:
-              "uk-table uk-table-hover uk-table-striped uk-width uk-height",
-            attrs: { id: "categoryTable", cellspacing: "0" }
-          },
-          [
-            _vm.adminInstructor.data && _vm.adminInstructor.data.length > 0
-              ? _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v(_vm._s(_vm.nameText))]),
-                    _vm._v(" "),
-                    _c("th")
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.adminInstructor.data && _vm.adminInstructor.data.length > 0
-              ? _c(
-                  "tbody",
-                  _vm._l(_vm.adminInstructor.data, function(item, index) {
-                    return _c("tr", [
-                      _c(
-                        "td",
-                        {
-                          staticClass: "uk-width-3-4 clickable",
-                          on: {
-                            click: function($event) {
-                              return _vm.openInfo(index)
-                            }
-                          }
-                        },
-                        [
-                          _c("p", [
-                            _vm._v(
-                              _vm._s(item.user.first_name) +
-                                " " +
-                                _vm._s(item.user.last_name)
-                            )
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "uk-flex flex-wrap align-items-center justify-content-around"
-                        },
-                        [
-                          !item.active
-                            ? _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.activateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.activateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-check-circle"
-                                  })
-                                ]
-                              )
-                            : _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.deactivateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.deactivateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-times-circle"
-                                  })
-                                ]
-                              ),
-                          _vm._v(" "),
+        !_vm.loadingStatus
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+              },
+              [_c("div", { staticClass: "loader" })]
+            )
+          : _c(
+              "table",
+              {
+                staticClass:
+                  "uk-table uk-table-hover uk-table-striped uk-width uk-height",
+                attrs: { id: "categoryTable", cellspacing: "0" }
+              },
+              [
+                _vm.adminInstructor.data && _vm.adminInstructor.data.length > 0
+                  ? _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v(_vm._s(_vm.nameText))]),
+                        _vm._v(" "),
+                        _c("th")
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.adminInstructor.data && _vm.adminInstructor.data.length > 0
+                  ? _c(
+                      "tbody",
+                      _vm._l(_vm.adminInstructor.data, function(item, index) {
+                        return _c("tr", [
                           _c(
-                            "a",
+                            "td",
                             {
-                              attrs: { "uk-tooltip": _vm.deleteText },
+                              staticClass: "uk-width-3-4 clickable",
                               on: {
                                 click: function($event) {
-                                  return _vm.deleteItem(item.id)
+                                  return _vm.openInfo(index)
                                 }
                               }
                             },
                             [
-                              _c("i", {
-                                staticClass: "fas fa-trash text-danger"
-                              })
+                              _c("p", [
+                                _vm._v(
+                                  _vm._s(item.user.first_name) +
+                                    " " +
+                                    _vm._s(item.user.last_name)
+                                )
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass:
+                                "uk-flex flex-wrap align-items-center justify-content-around"
+                            },
+                            [
+                              !item.active
+                                ? _c(
+                                    "a",
+                                    {
+                                      attrs: { "uk-tooltip": _vm.activateText },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.activateItem(item.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-check-circle"
+                                      })
+                                    ]
+                                  )
+                                : _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        "uk-tooltip": _vm.deactivateText
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deactivateItem(item.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-times-circle"
+                                      })
+                                    ]
+                                  ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.deleteText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-trash text-danger"
+                                  })
+                                ]
+                              )
                             ]
                           )
-                        ]
-                      )
-                    ])
-                  }),
-                  0
-                )
-              : _c(
-                  "div",
-                  {
-                    staticClass:
-                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
-                  },
-                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
-                )
-          ]
-        )
+                        ])
+                      }),
+                      0
+                    )
+                  : _c(
+                      "div",
+                      {
+                        staticClass:
+                          " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                      },
+                      [
+                        _c("h4", [
+                          _vm._v(" " + _vm._s(_vm.noContentText) + " ")
+                        ])
+                      ]
+                    )
+              ]
+            )
       ]
     ),
     _vm._v(" "),
@@ -20807,94 +20938,107 @@ var render = function() {
           "uk-background-default uk-padding-remove uk-margin-small-top border-radius-6"
       },
       [
-        _c(
-          "table",
-          {
-            staticClass:
-              "uk-table uk-table-hover uk-table-striped uk-width uk-height",
-            attrs: { id: "categoryTable", cellspacing: "0" }
-          },
-          [
-            _vm.adminLesson.data && _vm.adminLesson.data.length > 0
-              ? _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v(_vm._s(_vm.lessonNameText))]),
-                    _vm._v(" "),
-                    _c("th")
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.adminLesson.data && _vm.adminLesson.data.length > 0
-              ? _c(
-                  "tbody",
-                  _vm._l(_vm.adminLesson.data, function(item) {
-                    return _c("tr", [
-                      _c(
-                        "td",
-                        {
-                          staticClass: "uk-width-3-4",
-                          on: {
-                            click: function($event) {
-                              return _vm.routeSubjects(item.id)
-                            }
-                          }
-                        },
-                        [_c("p", [_vm._v(_vm._s(item.name))])]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "uk-flex flex-wrap align-items-center justify-content-around"
-                        },
-                        [
+        !_vm.loadingStatus
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+              },
+              [_c("div", { staticClass: "loader" })]
+            )
+          : _c(
+              "table",
+              {
+                staticClass:
+                  "uk-table uk-table-hover uk-table-striped uk-width uk-height",
+                attrs: { id: "categoryTable", cellspacing: "0" }
+              },
+              [
+                _vm.adminLesson.data && _vm.adminLesson.data.length > 0
+                  ? _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v(_vm._s(_vm.lessonNameText))]),
+                        _vm._v(" "),
+                        _c("th")
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.adminLesson.data && _vm.adminLesson.data.length > 0
+                  ? _c(
+                      "tbody",
+                      _vm._l(_vm.adminLesson.data, function(item) {
+                        return _c("tr", [
                           _c(
-                            "a",
+                            "td",
                             {
-                              attrs: { "uk-tooltip": _vm.editText },
+                              staticClass: "uk-width-3-4",
                               on: {
                                 click: function($event) {
-                                  return _vm.openSettings(item.id)
+                                  return _vm.routeSubjects(item.id)
                                 }
                               }
                             },
-                            [_c("i", { staticClass: "fas fa-cog" })]
+                            [_c("p", [_vm._v(_vm._s(item.name))])]
                           ),
                           _vm._v(" "),
                           _c(
-                            "a",
+                            "td",
                             {
-                              attrs: { "uk-tooltip": _vm.deleteText },
-                              on: {
-                                click: function($event) {
-                                  return _vm.deleteItem(item.id)
-                                }
-                              }
+                              staticClass:
+                                "uk-flex flex-wrap align-items-center justify-content-around"
                             },
                             [
-                              _c("i", {
-                                staticClass: "fas fa-trash text-danger"
-                              })
+                              _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.editText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.openSettings(item.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-cog" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.deleteText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-trash text-danger"
+                                  })
+                                ]
+                              )
                             ]
                           )
-                        ]
-                      )
-                    ])
-                  }),
-                  0
-                )
-              : _c(
-                  "div",
-                  {
-                    staticClass:
-                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
-                  },
-                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
-                )
-          ]
-        )
+                        ])
+                      }),
+                      0
+                    )
+                  : _c(
+                      "div",
+                      {
+                        staticClass:
+                          " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                      },
+                      [
+                        _c("h4", [
+                          _vm._v(" " + _vm._s(_vm.noContentText) + " ")
+                        ])
+                      ]
+                    )
+              ]
+            )
       ]
     ),
     _vm._v(" "),
@@ -21229,84 +21373,111 @@ var render = function() {
           "uk-background-default uk-padding-remove uk-margin-small-top border-radius-6"
       },
       [
-        _c(
-          "table",
-          {
-            staticClass:
-              "uk-table uk-table-hover uk-table-striped uk-width uk-height",
-            attrs: { id: "categoryTable", cellspacing: "0" }
-          },
-          [
-            _vm.adminSales.data && _vm.adminSales.data.length > 0
-              ? _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v(_vm._s(_vm.nameText))]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v(_vm._s(_vm.paymentIdText))]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v(_vm._s(_vm.paymentStatusText))]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v(_vm._s(_vm.dateText))])
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.adminSales.data && _vm.adminSales.data.length > 0
-              ? _c(
-                  "tbody",
-                  _vm._l(_vm.adminSales.data, function(item) {
-                    return _c(
-                      "tr",
+        !_vm.loadingStatus
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+              },
+              [_c("div", { staticClass: "loader" })]
+            )
+          : _c(
+              "table",
+              {
+                staticClass:
+                  "uk-table uk-table-hover uk-table-striped uk-width uk-height",
+                attrs: { id: "categoryTable", cellspacing: "0" }
+              },
+              [
+                _vm.adminSales.data && _vm.adminSales.data.length > 0
+                  ? _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v(_vm._s(_vm.nameText))]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v(_vm._s(_vm.paymentIdText))]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v(_vm._s(_vm.paymentStatusText))]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v(_vm._s(_vm.dateText))])
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.adminSales.data && _vm.adminSales.data.length > 0
+                  ? _c(
+                      "tbody",
+                      _vm._l(_vm.adminSales.data, function(item) {
+                        return _c(
+                          "tr",
+                          {
+                            on: {
+                              click: function($event) {
+                                return _vm.openInfo(item.payment_id)
+                              }
+                            }
+                          },
+                          [
+                            _c(
+                              "td",
+                              { staticClass: "uk-width-1-4 clickable" },
+                              [
+                                _c("p", [
+                                  _vm._v(
+                                    _vm._s(item.user.first_name) +
+                                      " " +
+                                      _vm._s(item.user.last_name)
+                                  )
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              { staticClass: "uk-width-1-4 clickable" },
+                              [_c("p", [_vm._v(_vm._s(item.payment_id))])]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              { staticClass: "uk-width-1-4 clickable" },
+                              [_c("p", [_vm._v(_vm._s(item.payment_status))])]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "td",
+                              { staticClass: "uk-width-1-4 clickable" },
+                              [
+                                _c("p", [
+                                  _vm._v(
+                                    _vm._s(
+                                      new Date(
+                                        item.updated_at
+                                      ).toLocaleDateString()
+                                    )
+                                  )
+                                ])
+                              ]
+                            )
+                          ]
+                        )
+                      }),
+                      0
+                    )
+                  : _c(
+                      "div",
                       {
-                        on: {
-                          click: function($event) {
-                            return _vm.openInfo(item.payment_id)
-                          }
-                        }
+                        staticClass:
+                          " uk-width uk-height-small uk-flex align-items-center justify-content-center"
                       },
                       [
-                        _c("td", { staticClass: "uk-width-1-4 clickable" }, [
-                          _c("p", [
-                            _vm._v(
-                              _vm._s(item.user.first_name) +
-                                " " +
-                                _vm._s(item.user.last_name)
-                            )
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "uk-width-1-4 clickable" }, [
-                          _c("p", [_vm._v(_vm._s(item.payment_id))])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "uk-width-1-4 clickable" }, [
-                          _c("p", [_vm._v(_vm._s(item.payment_status))])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "uk-width-1-4 clickable" }, [
-                          _c("p", [
-                            _vm._v(
-                              _vm._s(
-                                new Date(item.updated_at).toLocaleDateString()
-                              )
-                            )
-                          ])
+                        _c("h4", [
+                          _vm._v(" " + _vm._s(_vm.noContentText) + " ")
                         ])
                       ]
                     )
-                  }),
-                  0
-                )
-              : _c(
-                  "div",
-                  {
-                    staticClass:
-                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
-                  },
-                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
-                )
-          ]
-        )
+              ]
+            )
       ]
     ),
     _vm._v(" "),
@@ -21655,125 +21826,142 @@ var render = function() {
           "uk-background-default uk-padding-remove uk-margin-small-top border-radius-6"
       },
       [
-        _c(
-          "table",
-          {
-            staticClass:
-              "uk-table uk-table-hover uk-table-striped uk-width uk-height",
-            attrs: { id: "categoryTable", cellspacing: "0" }
-          },
-          [
-            _vm.adminSubCategory.data && _vm.adminSubCategory.data.length > 0
-              ? _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v(_vm._s(_vm.subCategoryNameText))]),
-                    _vm._v(" "),
-                    _c("th", [_vm._v(_vm._s(_vm.descriptionText))]),
-                    _vm._v(" "),
-                    _c("th")
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.adminSubCategory.data && _vm.adminSubCategory.data.length > 0
-              ? _c(
-                  "tbody",
-                  _vm._l(_vm.adminSubCategory.data, function(item) {
-                    return _c("tr", [
-                      _c("td", { staticClass: "uk-width-1-4" }, [
-                        _c("p", [_vm._v(_vm._s(item.name))])
-                      ]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "uk-width-1-2" }, [
-                        _c("p", [_vm._v(_vm._s(item.description))])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "uk-flex flex-wrap align-items-center justify-content-around"
-                        },
-                        [
-                          _c(
-                            "a",
-                            {
-                              attrs: { "uk-tooltip": _vm.editText },
-                              on: {
-                                click: function($event) {
-                                  return _vm.openSettings(item.id)
-                                }
-                              }
-                            },
-                            [_c("i", { staticClass: "fas fa-cog" })]
-                          ),
+        !_vm.loadingStatus
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+              },
+              [_c("div", { staticClass: "loader" })]
+            )
+          : _c(
+              "table",
+              {
+                staticClass:
+                  "uk-table uk-table-hover uk-table-striped uk-width uk-height",
+                attrs: { id: "categoryTable", cellspacing: "0" }
+              },
+              [
+                _vm.adminSubCategory.data &&
+                _vm.adminSubCategory.data.length > 0
+                  ? _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v(_vm._s(_vm.subCategoryNameText))]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v(_vm._s(_vm.descriptionText))]),
+                        _vm._v(" "),
+                        _c("th")
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.adminSubCategory.data &&
+                _vm.adminSubCategory.data.length > 0
+                  ? _c(
+                      "tbody",
+                      _vm._l(_vm.adminSubCategory.data, function(item) {
+                        return _c("tr", [
+                          _c("td", { staticClass: "uk-width-1-4" }, [
+                            _c("p", [_vm._v(_vm._s(item.name))])
+                          ]),
                           _vm._v(" "),
-                          !item.active
-                            ? _c(
+                          _c("td", { staticClass: "uk-width-1-2" }, [
+                            _c("p", [_vm._v(_vm._s(item.description))])
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass:
+                                "uk-flex flex-wrap align-items-center justify-content-around"
+                            },
+                            [
+                              _c(
                                 "a",
                                 {
-                                  attrs: { "uk-tooltip": _vm.activateText },
+                                  attrs: { "uk-tooltip": _vm.editText },
                                   on: {
                                     click: function($event) {
-                                      return _vm.activateItem(item.id)
+                                      return _vm.openSettings(item.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-cog" })]
+                              ),
+                              _vm._v(" "),
+                              !item.active
+                                ? _c(
+                                    "a",
+                                    {
+                                      attrs: { "uk-tooltip": _vm.activateText },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.activateItem(item.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-check-circle"
+                                      })
+                                    ]
+                                  )
+                                : _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        "uk-tooltip": _vm.deactivateText
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deactivateItem(item.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-times-circle"
+                                      })
+                                    ]
+                                  ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.deleteText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteItem(item.id)
                                     }
                                   }
                                 },
                                 [
                                   _c("i", {
-                                    staticClass: "fas fa-check-circle"
+                                    staticClass: "fas fa-trash text-danger"
                                   })
                                 ]
                               )
-                            : _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.deactivateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.deactivateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-times-circle"
-                                  })
-                                ]
-                              ),
-                          _vm._v(" "),
-                          _c(
-                            "a",
-                            {
-                              attrs: { "uk-tooltip": _vm.deleteText },
-                              on: {
-                                click: function($event) {
-                                  return _vm.deleteItem(item.id)
-                                }
-                              }
-                            },
-                            [
-                              _c("i", {
-                                staticClass: "fas fa-trash text-danger"
-                              })
                             ]
                           )
-                        ]
-                      )
-                    ])
-                  }),
-                  0
-                )
-              : _c(
-                  "div",
-                  {
-                    staticClass:
-                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
-                  },
-                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
-                )
-          ]
-        )
+                        ])
+                      }),
+                      0
+                    )
+                  : _c(
+                      "div",
+                      {
+                        staticClass:
+                          " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                      },
+                      [
+                        _c("h4", [
+                          _vm._v(" " + _vm._s(_vm.noContentText) + " ")
+                        ])
+                      ]
+                    )
+              ]
+            )
       ]
     ),
     _vm._v(" "),
@@ -22183,85 +22371,98 @@ var render = function() {
           "uk-background-default uk-padding-remove uk-margin-small-top border-radius-6"
       },
       [
-        _c(
-          "table",
-          {
-            staticClass:
-              "uk-table uk-table-hover uk-table-striped uk-width uk-height",
-            attrs: { id: "categoryTable", cellspacing: "0" }
-          },
-          [
-            _vm.adminSubject.data && _vm.adminSubject.data.length > 0
-              ? _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v(_vm._s(_vm.subjectNameText))]),
-                    _vm._v(" "),
-                    _c("th")
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.adminSubject.data && _vm.adminSubject.data.length > 0
-              ? _c(
-                  "tbody",
-                  _vm._l(_vm.adminSubject.data, function(item) {
-                    return _c("tr", [
-                      _c("td", { staticClass: "uk-width-3-4" }, [
-                        _c("p", [_vm._v(_vm._s(item.name))])
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "uk-flex flex-wrap align-items-center justify-content-around"
-                        },
-                        [
-                          _c(
-                            "a",
-                            {
-                              attrs: { "uk-tooltip": _vm.editText },
-                              on: {
-                                click: function($event) {
-                                  return _vm.openSettings(item.id)
-                                }
-                              }
-                            },
-                            [_c("i", { staticClass: "fas fa-cog" })]
-                          ),
+        !_vm.loadingStatus
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+              },
+              [_c("div", { staticClass: "loader" })]
+            )
+          : _c(
+              "table",
+              {
+                staticClass:
+                  "uk-table uk-table-hover uk-table-striped uk-width uk-height",
+                attrs: { id: "categoryTable", cellspacing: "0" }
+              },
+              [
+                _vm.adminSubject.data && _vm.adminSubject.data.length > 0
+                  ? _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v(_vm._s(_vm.subjectNameText))]),
+                        _vm._v(" "),
+                        _c("th")
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.adminSubject.data && _vm.adminSubject.data.length > 0
+                  ? _c(
+                      "tbody",
+                      _vm._l(_vm.adminSubject.data, function(item) {
+                        return _c("tr", [
+                          _c("td", { staticClass: "uk-width-3-4" }, [
+                            _c("p", [_vm._v(_vm._s(item.name))])
+                          ]),
                           _vm._v(" "),
                           _c(
-                            "a",
+                            "td",
                             {
-                              attrs: { "uk-tooltip": _vm.deleteText },
-                              on: {
-                                click: function($event) {
-                                  return _vm.deleteItem(item.id)
-                                }
-                              }
+                              staticClass:
+                                "uk-flex flex-wrap align-items-center justify-content-around"
                             },
                             [
-                              _c("i", {
-                                staticClass: "fas fa-trash text-danger"
-                              })
+                              _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.editText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.openSettings(item.id)
+                                    }
+                                  }
+                                },
+                                [_c("i", { staticClass: "fas fa-cog" })]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.deleteText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-trash text-danger"
+                                  })
+                                ]
+                              )
                             ]
                           )
-                        ]
-                      )
-                    ])
-                  }),
-                  0
-                )
-              : _c(
-                  "div",
-                  {
-                    staticClass:
-                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
-                  },
-                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
-                )
-          ]
-        )
+                        ])
+                      }),
+                      0
+                    )
+                  : _c(
+                      "div",
+                      {
+                        staticClass:
+                          " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                      },
+                      [
+                        _c("h4", [
+                          _vm._v(" " + _vm._s(_vm.noContentText) + " ")
+                        ])
+                      ]
+                    )
+              ]
+            )
       ]
     ),
     _vm._v(" "),
@@ -22509,123 +22710,138 @@ var render = function() {
           "uk-background-default uk-padding-remove uk-margin-small-top border-radius-6"
       },
       [
-        _c(
-          "table",
-          {
-            staticClass:
-              "uk-table uk-table-hover uk-table-striped uk-width uk-height",
-            attrs: { id: "categoryTable", cellspacing: "0" }
-          },
-          [
-            _vm.adminUsers.data && _vm.adminUsers.data.length > 0
-              ? _c("thead", [
-                  _c("tr", [
-                    _c("th", [_vm._v(_vm._s(_vm.nameText))]),
-                    _vm._v(" "),
-                    _c("th")
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.adminUsers.data && _vm.adminUsers.data.length > 0
-              ? _c(
-                  "tbody",
-                  _vm._l(_vm.adminUsers.data, function(item, index) {
-                    return _c("tr", [
-                      _c(
-                        "td",
-                        {
-                          staticClass: "uk-width-3-4 clickable",
-                          on: {
-                            click: function($event) {
-                              return _vm.openInfo(index)
-                            }
-                          }
-                        },
-                        [
-                          _c("p", [
-                            _vm._v(
-                              _vm._s(item.user.first_name) +
-                                " " +
-                                _vm._s(item.user.last_name)
-                            )
-                          ])
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "td",
-                        {
-                          staticClass:
-                            "uk-flex flex-wrap align-items-center justify-content-around"
-                        },
-                        [
-                          !item.active
-                            ? _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.activateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.activateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-check-circle"
-                                  })
-                                ]
-                              )
-                            : _c(
-                                "a",
-                                {
-                                  attrs: { "uk-tooltip": _vm.deactivateText },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.deactivateItem(item.id)
-                                    }
-                                  }
-                                },
-                                [
-                                  _c("i", {
-                                    staticClass: "fas fa-times-circle"
-                                  })
-                                ]
-                              ),
-                          _vm._v(" "),
+        !_vm.loadingStatus
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+              },
+              [_c("div", { staticClass: "loader" })]
+            )
+          : _c(
+              "table",
+              {
+                staticClass:
+                  "uk-table uk-table-hover uk-table-striped uk-width uk-height",
+                attrs: { id: "categoryTable", cellspacing: "0" }
+              },
+              [
+                _vm.adminUsers.data && _vm.adminUsers.data.length > 0
+                  ? _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v(_vm._s(_vm.nameText))]),
+                        _vm._v(" "),
+                        _c("th")
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.adminUsers.data && _vm.adminUsers.data.length > 0
+                  ? _c(
+                      "tbody",
+                      _vm._l(_vm.adminUsers.data, function(item, index) {
+                        return _c("tr", [
                           _c(
-                            "a",
+                            "td",
                             {
-                              attrs: { "uk-tooltip": _vm.deleteText },
+                              staticClass: "uk-width-3-4 clickable",
                               on: {
                                 click: function($event) {
-                                  return _vm.deleteItem(item.id)
+                                  return _vm.openInfo(index)
                                 }
                               }
                             },
                             [
-                              _c("i", {
-                                staticClass: "fas fa-trash text-danger"
-                              })
+                              _c("p", [
+                                _vm._v(
+                                  _vm._s(item.user.first_name) +
+                                    " " +
+                                    _vm._s(item.user.last_name)
+                                )
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass:
+                                "uk-flex flex-wrap align-items-center justify-content-around"
+                            },
+                            [
+                              !item.active
+                                ? _c(
+                                    "a",
+                                    {
+                                      attrs: { "uk-tooltip": _vm.activateText },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.activateItem(item.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-check-circle"
+                                      })
+                                    ]
+                                  )
+                                : _c(
+                                    "a",
+                                    {
+                                      attrs: {
+                                        "uk-tooltip": _vm.deactivateText
+                                      },
+                                      on: {
+                                        click: function($event) {
+                                          return _vm.deactivateItem(item.id)
+                                        }
+                                      }
+                                    },
+                                    [
+                                      _c("i", {
+                                        staticClass: "fas fa-times-circle"
+                                      })
+                                    ]
+                                  ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.deleteText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.deleteItem(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-trash text-danger"
+                                  })
+                                ]
+                              )
                             ]
                           )
-                        ]
-                      )
-                    ])
-                  }),
-                  0
-                )
-              : _c(
-                  "div",
-                  {
-                    staticClass:
-                      " uk-width uk-height-small uk-flex align-items-center justify-content-center"
-                  },
-                  [_c("h4", [_vm._v(" " + _vm._s(_vm.noContentText) + " ")])]
-                )
-          ]
-        )
+                        ])
+                      }),
+                      0
+                    )
+                  : _c(
+                      "div",
+                      {
+                        staticClass:
+                          " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                      },
+                      [
+                        _c("h4", [
+                          _vm._v(" " + _vm._s(_vm.noContentText) + " ")
+                        ])
+                      ]
+                    )
+              ]
+            )
       ]
     ),
     _vm._v(" "),

@@ -12,7 +12,10 @@
             </div>
         </div>
         <div class="uk-background-default uk-padding-remove uk-margin-small-top border-radius-6">
-            <table id="categoryTable" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0">
+            <div v-if="!loadingStatus" class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
+                <div class="loader"></div>
+            </div>
+            <table v-else id="categoryTable" class="uk-table uk-table-hover uk-table-striped uk-width uk-height" cellspacing="0">
                 <thead v-if="adminDistrict.data&&adminDistrict.data.length>0">
                 <tr>
                     <th>{{districtNameText}}</th>
@@ -146,7 +149,8 @@
         },
         computed:{
             ...mapState([
-                'adminDistrict'
+                'adminDistrict',
+                'loadingStatus'
             ]),
             pageNumber(){
                 var pages=['1'];
