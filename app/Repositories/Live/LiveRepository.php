@@ -268,7 +268,7 @@ class LiveRepository  implements IRepository{
                     if($live_entry_control!=null){
                         $object=BigBlueButton::join([
                             'meetingID' => $live->meeting_id,
-                            'fullName' => $user->first_name.' '.$user->last_name,
+                            'userName' => $user->first_name.' '.$user->last_name,
                             'password' => $live->attendee_pw, //which user role want to join set password here
                             'redirect' => true, //it will not redirect into bigblueservr
                         ]);
@@ -285,7 +285,7 @@ class LiveRepository  implements IRepository{
                 if($live_entry_control!=null){
                     $object=BigBlueButton::join([
                         'meetingID' => $live->meeting_id,
-                        'fullName' => $user->first_name.' '.$user->last_name,
+                        'userName' => $user->first_name.' '.$user->last_name,
                         'password' => $live->attendee_pw, //which user role want to join set password here
                         'redirect' => true, //it will not redirect into bigblueservr
                     ]);
