@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Auth\Admin;
+use App\Repositories\Admin\DashboardRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -13,7 +14,16 @@ class HomeController extends Controller
         $user = Auth::user();
         $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
         if($admin != null){
-            return view('admin.dashboard');
+            $repo = new DashboardRepository();
+            $resp = $repo->getDataForDashboard($admin->id);
+            if($resp->getResult()){
+                $data = $resp->getData();
+                return view('admin.dashboard')->with('data',$data);
+            }
+            else{
+                return redirect()->back();
+            }
+
         }
         else{
             return redirect()->back();
