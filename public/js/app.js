@@ -4755,11 +4755,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "registered-profile",
   props: {
@@ -21336,27 +21331,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "a",
-      { staticClass: "uk-link-reset", attrs: { href: _vm.profilePath } },
-      [
-        _c("div", { staticClass: "uk-padding-remove uk-text-center" }, [
-          _c("img", {
-            staticClass:
-              "uk-width-2-3 uk-margin-top uk-margin-small-bottom uk-border-circle uk-align-center uk-box-shadow-large",
-            attrs: { alt: "Image", src: _vm.imgPath }
-          }),
-          _vm._v(" "),
-          _c(
-            "h5",
-            { staticClass: "uk-margin-remove-bottom uk-margin-remove-top " },
-            [_vm._v(_vm._s(_vm.username))]
-          )
-        ])
-      ]
-    )
-  ])
+  return _c("div")
 }
 var staticRenderFns = []
 render._withStripped = true

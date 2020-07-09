@@ -260,5 +260,12 @@ return [
     'max_participant_count'=>'Maksimium Katılımcı Sayısı',
     'expected_date'=>'Planlanan Tarih',
     'open_live_stream'=>'Canlı Yayını Aç',
-    'live_stream_password'=>'Canlı Yayın Şifresi'
+    'live_stream_password'=>'Canlı Yayın Şifresi',
+    'user'=>'Kullanıcı',
+    'registered_users'=>'Kayıtlı Kullanıcılar',
+    'last_registered_users'=>'Son kayıtlı kullanıcılar',
+    'registered_instructors'=>'Kayıtlı eğitmenler',
+    'last_registered_instructors'=>'Son kayıtlı eğitmenler',
+    'total_purchase'=>'Toplam Satış',
+
 ];
