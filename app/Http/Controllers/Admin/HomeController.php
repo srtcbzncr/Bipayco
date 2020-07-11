@@ -7,6 +7,7 @@ use App\Models\Auth\Admin;
 use App\Repositories\Admin\DashboardRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -186,5 +187,54 @@ class HomeController extends Controller
 
     public function contracts(){
         return view('admin.contracts');
+    }
+
+    public function contractPost(Request $request){
+        dd($request->toArray());
+        if($request->hasFile('cookies_policy')){
+            $file = $request->file('cookies_policy');
+            Storage::disk('contracts')->putFileAs('', $file,'cookiesPolicy.pdf');
+        }
+        else if($request->hasFile('who_we_are')){
+            $file = $request->file('who_we_are');
+            Storage::disk('contracts')->putFileAs('', $file,'whoWeAre.pdf');
+        }
+        else if($request->hasFile('pre_information_form')){
+            $file = $request->file('pre_information_form');
+            Storage::disk('contracts')->putFileAs('', $file,'preInformationForm.pdf');
+        }
+        else if($request->hasFile('faq')){
+            $file = $request->file('faq');
+            Storage::disk('contracts')->putFileAs('', $file,'faq.pdf');
+        }
+        else if($request->hasFile('subscription')){
+            $file = $request->file('subscription');
+            Storage::disk('contracts')->putFileAs('', $file,'subscription.pdf');
+        }
+        else if($request->hasFile('sales')){
+            $file = $request->file('sales');
+            Storage::disk('contracts')->putFileAs('', $file,'salesContract.pdf');
+        }
+        else if($request->hasFile('kvkk_illuminate')){
+            $file = $request->file('kvkk_illuminate');
+            Storage::disk('contracts')->putFileAs('', $file,'kvkkAydinlatma.pdf');
+        }
+        else if($request->hasFile('intellectual_property_policy')){
+            $file = $request->file('intellectual_property_policy');
+            Storage::disk('contracts')->putFileAs('', $file,'fikriMulkiyetPolitikasi.pdf');
+        }
+        else if($request->hasFile('privacy_terms')){
+            $file = $request->file('privacy_terms');
+            Storage::disk('contracts')->putFileAs('', $file,'gizlilikPolitikasi.pdf');
+        }
+        else if($request->hasFile('term_of_use')){
+            $file = $request->file('term_of_use');
+            Storage::disk('contracts')->putFileAs('', $file,'kullanimKosullari.pdf');
+        }
+        else if($request->hasFile('member_obligations')){
+            $file = $request->file('member_obligations');
+            Storage::disk('contracts')->putFileAs('', $file,'uyeHukumleri.pdf');
+        }
+
     }
 }
