@@ -183,4 +183,8 @@ class HomeController extends Controller
     public function instructorsFeeWithReferenceCode(){
         return view('admin.promotion_payment');
     }
+
+    public function contracts(){
+        return view('admin.contracts');
+    }
 }
