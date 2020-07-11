@@ -6209,7 +6209,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     couponControl: function couponControl() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/basket/referenceControl/' + this.couponCode).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/basket/referenceControl/' + this.userId + '/' + this.couponCode).then(function (res) {
         _this2.usedCoupon = res.data.data;
 
         if (!res.data.data) {
