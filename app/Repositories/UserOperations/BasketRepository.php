@@ -321,7 +321,7 @@ class BasketRepository implements IRepository
 
         // Operations
         try {
-
+            DB::beginTransaction();
             $instructor = Instructor::where('reference_code',$referenceCode)->where('active',true)
                 ->where('deleted_at',null)->first();
             if($instructor != null){
@@ -337,8 +337,9 @@ class BasketRepository implements IRepository
             else{
                 $object = false;
             }
-
+            DB::commit();
         }catch(\Exception $e){
+            DB::rollBack();
             $error = $e->getMessage();
             $result = false;
         }
