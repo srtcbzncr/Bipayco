@@ -278,6 +278,8 @@ return [
     'intellectual_property_policy'=>'Fikri Mülkiyet Politikası',
     'faq'=>'SSS',
     'frequently_asked_questions'=>'Sıkça Sorulan Sorular',
-    'member_obligations'=>'Üye Yükümlülükleri ve Koşulları'
+    'member_obligations'=>'Üye Yükümlülükleri ve Koşulları',
+    'promotion_payments'=>'Promosyon Ödemeleri',
+    'contracts'=>'Sözleşmeler',
 
 ];

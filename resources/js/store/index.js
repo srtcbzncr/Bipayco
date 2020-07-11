@@ -76,6 +76,7 @@ const state={
     adminGuardian:{},
     adminUsers:{},
     adminSales:{},
+    adminPromotionPayments:{},
     adminCategory:{},
     adminSubCategory:{},
     crLessons:{},
@@ -196,6 +197,10 @@ const mutations={
     },
     setAdminSales(state, sales){
         state.adminSales=sales.data;
+        state.loadingStatus=true;
+    },
+    setPromotionPayments(state, payment){
+        state.adminPromotionPayments=payment.data;
         state.loadingStatus=true;
     },
     setAdminGuardian(state, guardians){
@@ -397,6 +402,10 @@ const actions={
     loadAdminSales({commit}, userId){
         Axios.get('/api/admin/purchase/getPurchases/'+userId)
             .then(response=>commit('setAdminSales', response.data));
+    },
+    loadAdminPromotionPayments({commit}, userId){
+        Axios.get('/api/admin/purchase/getInstructorsEarnByReferenceCode/'+userId)
+            .then(response=>commit('setPromotionPayments', response.data));
     },
     loadAdminDistrict({commit}, cityId){
         Axios.get('/api/admin/bs/city/'+cityId+'/districts')

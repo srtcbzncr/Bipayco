@@ -222,7 +222,7 @@
             ]),
             loadNewPage: function(name){
                 this.$store.dispatch('loadAdminNewPage',[name, 'setAdminSales']);
-                selectedSale=null;
+                this.selectedSale=null;
             },
             openInfo:function (id) {
                 Axios.get('/api/admin/purchase/getPurchaseDetail/'+id)

@@ -59,6 +59,9 @@
                     <a href="{{route('admin_purchases')}}"> <i class="fas fa-money-bill-wave"></i>  @lang('front/auth.purchases') </a>
                 </li>
                 <li>
+                    <a href="{{route('admin_instructorsFeeWithReferenceCode')}}"> <i class="fas fa-wallet"></i>  @lang('front/auth.promotion_payments') </a>
+                </li>
+                <li>
                     <a href="{{route('admin_admins')}}"> <i class="fas fa-user-tie"></i>  @lang('front/auth.admins') </a>
                 </li>
                 <li>
@@ -84,6 +87,9 @@
                 </li>
                 <li>
                     <a href="{{route('admin_get_exam')}}"> <i class="fas fa-stream"></i>@lang('front/auth.pe_exams')</a>
+                </li>
+                <li>
+                    <a href="{{route('admin_contracts')}}"> <i class="fas fa-file-signature"></i>@lang('front/auth.contracts')</a>
                 </li>
                 <li>
                     <a href="{{route('student_profile', Auth::user()->id)}}"> <i class="fas fa-graduation-cap"></i>@lang('front/auth.student_mode')</a>

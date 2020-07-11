@@ -15,7 +15,7 @@
                     <h4 class="uk-text-bold uk-margin-remove-top">{{noContentText}}</h4>
                 </div>
                 <div v-else>
-                    <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-margin uk-padding-remove" uk-scrollspy="cls: uk-animation-slide-bottom-small; target: > div ; delay: 200" uk-grid>
+                    <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-grid-match uk-margin uk-padding-remove" uk-grid>
                         <div v-for="course in courseCard" class="uk-padding-small uk-margin-remove">
                             <course-card
                                 v-if="authCheck"
