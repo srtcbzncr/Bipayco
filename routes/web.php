@@ -60,6 +60,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
     Route::get('/contracts','Admin\HomeController@contracts')->name('admin_contracts');
     Route::post('/contract_post','Admin\HomeController@contractPost')->name('admin_contract_post');
+    Route::get('/purchase_detail/{instructor_id}','Admin\HomeController@purchaseDetail')->name('admin_purchases_detail');
+
 });
 
 Route::group(['prefix' => 'guardian' , 'middleware' => 'auth'],  function (){

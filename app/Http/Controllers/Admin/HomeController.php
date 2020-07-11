@@ -214,7 +214,11 @@ class HomeController extends Controller
     }
 
     public function contractPost(Request $request){
-        dd($request->toArray());
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin==null){
+            return redirect()->back();
+        }
         if($request->hasFile('cookies_policy')){
             $file = $request->file('cookies_policy');
             Storage::disk('contracts')->putFileAs('', $file,'cookiesPolicy.pdf');
@@ -260,5 +264,16 @@ class HomeController extends Controller
             Storage::disk('contracts')->putFileAs('', $file,'uyeHukumleri.pdf');
         }
 
+    }
+
+    public function purchaseDetail($instructor_id){
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin != null){
+            return view('admin.instructor_payment_detail')->with('instructor_id',$instructor_id);
+        }
+        else{
+            return redirect()->back();
+        }
     }
 }
