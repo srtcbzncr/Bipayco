@@ -59,6 +59,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::get('/instructorsFeeWithReferenceCode','Admin\HomeController@instructorsFeeWithReferenceCode')->name('admin_instructorsFeeWithReferenceCode');
 
     Route::get('/contracts','Admin\HomeController@contracts')->name('admin_contracts');
+    Route::post('/contract_post','Admin\HomeController@contractPost')->name('admin_contract_post');
 });
 
 Route::group(['prefix' => 'guardian' , 'middleware' => 'auth'],  function (){
