@@ -9,6 +9,7 @@ use App\Models\Auth\User;
 use App\Repositories\Admin\DashboardRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
@@ -275,7 +276,13 @@ class HomeController extends Controller
             $instructor = Instructor::find($instructor_id);
             $user = User::find($instructor->id);
             $instructor['user'] = $user;
-            return view('admin.instructor_payment_detail')->with('instructor',$instructor);
+
+            $object = DB::table('instructor_fee_share')->where('instructor_id',$instructor_id)->where('confirm',false)->where('active',true)->get();
+            $total = 0;
+            foreach ($object as $item){
+                $total+=$item->fee;
+            }
+            return view('admin.instructor_payment_detail')->with('instructor',$instructor)->with('total',$total);
         }
         else{
             return redirect()->back();
