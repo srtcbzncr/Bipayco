@@ -196,7 +196,7 @@
                 window.location.replace(this.invoiceInfoRoute+'?user_id='+this.userId+'&coupon='+this.coupon);
             },
             couponControl:function () {
-                Axios.get('/api/basket/referenceControl/'+this.couponCode)
+                Axios.get('/api/basket/referenceControl/'+this.userId+'/'+this.couponCode)
                 .then((res)=>{
                     this.usedCoupon=res.data.data;
                     if(!res.data.data){

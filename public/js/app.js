@@ -15726,7 +15726,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nh6[data-v-3a55b63f]{\n    margin:0\n}\n.clickable[data-v-3a55b63f]{\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\nh6[data-v-3a55b63f]{\r\n    margin:0\n}\n.clickable[data-v-3a55b63f]{\r\n    cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
