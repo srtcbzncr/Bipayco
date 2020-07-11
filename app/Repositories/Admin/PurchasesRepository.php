@@ -5,6 +5,7 @@ namespace App\Repositories\Admin;
 
 
 use App\Models\Auth\Admin;
+use App\Models\Auth\Instructor;
 use App\Models\Auth\User;
 use App\Models\Curriculum\Exam;
 use App\Models\Curriculum\Lesson;
@@ -201,6 +202,97 @@ class PurchasesRepository implements IRepository
             }
         }
         catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getInstructorsEarnByReferenceCode($user_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+           $object = DB::table('instructor_fee_share')->where('confirm',false)->where('active',true)
+               ->groupBy('instructor_id')->paginate(10);
+           foreach ($object as $key => $item){
+               $total = 0;
+               $temp = DB::table('instructor_fee_share')->where('confirm',false)->where('instructor_id',$item->instructor_id)->where('active',true)->get();
+               foreach ($temp as $item2){
+                   $total+=$item2->fee;
+               }
+               $instructor = Instructor::find($item->instructor_id);
+               $user = User::find($instructor->id);
+               $instructor['user'] = $user;
+               $instructor['fee'] = $total;
+               $object[$key] = $instructor;
+           }
+
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function getInstructorEarnByReferenceCode($user_id,$instructor_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = DB::table('instructor_fee_share')->where('instructor_id',$instructor_id)->where('confirm',false)->where('active',true)->paginate(10);
+            foreach ($object as $key => $item){
+                $instructor = Instructor::find($item->instructor_id);
+                $user = User::find($instructor->id);
+                $instructor['user'] = $user;
+                $object[$key]->instructor = $instructor;
+            }
+
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function confirmInstructorPriceByReferenceCode($user_id,$instructor_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            DB::beginTransaction();
+            $object = DB::table('instructor_fee_share')->where('instructor_id',$instructor_id)->where('confirm',false)->where('active',true)->get();
+            foreach ($object as $key => $item){
+                DB::table('instructor_fee_share')->where('id', $item->id)
+                    ->update([
+                       'confirm' => true
+                    ]);
+            }
+            $object = DB::table('instructor_fee_share')->where('instructor_id',$instructor_id)->where('confirm',true)->where('active',true)->get();
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
             $error = $e->getMessage();
             $result = false;
         }

@@ -58,4 +58,55 @@ class PurchasesController extends Controller
             'errorMessage'=>$resp->getError()
         ],400);
     }
+
+    public function getInstructorsEarnByReferenceCode($user_id){
+        $repo = new PurchasesRepository();
+        $resp = $repo->getInstructorsEarnByReferenceCode($user_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Eğitmenlerin referans kodu ile kazançları başarıyla getirildi',
+                'data' => $resp->getData()
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Eğitmenlerin referans kodu ile kazançları getirilirken bir hata meydana geldi.Tekrar deneyin',
+            'errorMessage'=>$resp->getError()
+        ],400);
+    }
+
+    public function getInstructorEarnByReferenceCode($user_id,$instructor_id){
+        $repo = new PurchasesRepository();
+        $resp = $repo->getInstructorEarnByReferenceCode($user_id,$instructor_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Eğitmenin referans kodu ile kazançları başarıyla getirildi',
+                'data' => $resp->getData()
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Eğitmenin referans kodu ile kazançları getirilirken bir hata meydana geldi.Tekrar deneyin',
+            'errorMessage'=>$resp->getError()
+        ],400);
+    }
+
+    public function confirmInstructorPriceByReferenceCode($user_id,$instructor_id){
+        $repo = new PurchasesRepository();
+        $resp = $repo->confirmInstructorPriceByReferenceCode($user_id,$instructor_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Eğitmenin ücreti başarıyla onaylandı',
+                'data' => $resp->getData()
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Eğitmenin ücreti onaylanırken bir hata meydana geldi.Tekrar deneyin',
+            'errorMessage'=>$resp->getError()
+        ],400);
+    }
 }

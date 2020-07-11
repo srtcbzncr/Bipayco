@@ -506,6 +506,11 @@ Route::prefix('admin')->group(function (){
        Route::get('getPurchases/{user_id}','API\Admin\PurchasesController@getPurchases')->name('api_get_purchases');
        Route::get('getPurchaseDetail/{payment_id}','API\Admin\PurchasesController@getPurchaseDetail')->name('api_get_purchase_detail');
        Route::get('getPurchasesAsDate/{user_id}','API\Admin\PurchasesController@getPurchasesAsDate')->name('api_get_purchases_as_date');
+
+       Route::get('getInstructorsEarnByReferenceCode/{user_id}','API\Admin\PurchasesController@getInstructorsEarnByReferenceCode')->name('api_getInstructorsEarnByReferenceCode');
+       Route::get('getInstructorEarnByReferenceCode/{user_id}/{instructor_id}','API\Admin\PurchasesController@getInstructorEarnByReferenceCode')->name('api_getInstructorEarnByReferenceCode');
+       Route::post('confirmInstructorPriceByReferenceCode/{user_id}/{instructor_id}','API\Admin\PurchasesController@confirmInstructorPriceByReferenceCode')->name('api_confirmInstructorPriceByReferenceCode');
+
    });
 
 });
