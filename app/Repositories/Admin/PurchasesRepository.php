@@ -263,19 +263,19 @@ class PurchasesRepository implements IRepository
                 $purchase = Purchase::find($item->purchase_id);
                 if($purchase->course_type == 'App\Models\GeneralEducation\Course'){
                     $course = Course::find($purchase->course_id);
-                    $object[$key]['course'] = $course;
+                    $object[$key]->course = $course;
                 }
                 else if($purchase->course_type == 'App\Models\PrepareLessons\Course'){
                     $course = \App\Models\PrepareLessons\Course::find($purchase->course_id);
-                    $object[$key]['course'] = $course;
+                    $object[$key]->course = $course;
                 }
                 else if($purchase->course_type == 'App\Models\PrepareExams\Course'){
                     $course = \App\Models\PrepareExams\Course::find($purchase->course_id);
-                    $object[$key]['course'] = $course;
+                    $object[$key]->course = $course;
                 }
                 else if($purchase->course_type == 'App\Models\Live\Course'){
                     $course = \App\Models\Live\Course::find($purchase->course_id);
-                    $object[$key]['course'] = $course;
+                    $object[$key]->course = $course;
                 }
             }
 
