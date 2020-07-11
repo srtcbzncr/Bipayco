@@ -357,7 +357,7 @@ Route::prefix('basket')->group(function (){
     Route::get('/show/{user_id}','API\Basket\BasketController@show')->name('show_basket');
     Route::post('/buy/{userId}','API\Basket\BasketController@buy')->name('buy_courses');
 
-    Route::get('/referenceControl/{referenceCode}','API\Basket\BasketController@referenceControl')->name('api_reference_control');
+    Route::get('/referenceControl/{user_id}/{referenceCode}','API\Basket\BasketController@referenceControl')->name('api_reference_control');
     Route::post('/checkOut','API\Basket\BasketController@checkOut')->name('api_check_out');
 });
 Route::prefix('favorite')->group(function (){

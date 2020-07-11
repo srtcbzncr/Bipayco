@@ -116,12 +116,12 @@ class BasketController extends Controller
         ]);
     }
 
-    public function referenceControl($referenceCode){
+    public function referenceControl($user_id,$referenceCode){
         // initializing
         $repo = new BasketRepository();
 
         // operations
-        $resp = $repo->referenceControl($referenceCode);
+        $resp = $repo->referenceControl($user_id,$referenceCode);
         if($resp->getResult()){
             return response()->json([
                 'error' => false,

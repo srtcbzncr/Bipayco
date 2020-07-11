@@ -313,7 +313,7 @@ class BasketRepository implements IRepository
         return $resp;
     }
 
-    public function referenceControl($referenceCode){
+    public function referenceControl($user_id,$referenceCode){
         // Response variables
         $result = true;
         $error = null;
@@ -326,6 +326,13 @@ class BasketRepository implements IRepository
                 ->where('deleted_at',null)->first();
             if($instructor != null){
                 $object = true;
+                DB::table('instructor_fee_share')->insert([
+                    'user_id' => $user_id,
+                    'instructor_id' => $instructor->id,
+                    'reference_code' => $referenceCode,
+                    'confirm' => false,
+                    'active' => false
+                ]);
             }
             else{
                 $object = false;
@@ -481,6 +488,11 @@ class BasketRepository implements IRepository
                         $iyzicoBasketItems[$i]->save();
                     }
 
+                    // warning
+                    $instructor_fee_share_temp = DB::table('instructor_fee_share')->where('user_id',$data['user_id'])->where('active',false)
+                        ->where('deleted_at',null)->orderBy('created_at','desc')->first();
+                    $instructor_id_final = $instructor_fee_share_temp->instructor_id;
+
                     // ge_purchase ve ge_entries tablosuna ekle
                     for($i=0;$i<count($coursesId);$i++){
                         // öğrenciyi purchase tablosuna kaydet.
@@ -494,6 +506,25 @@ class BasketRepository implements IRepository
                             $object->price = $coursesPrice[$i];
                             $object->confirmation = true;
                             $object->save();
+
+                            // $instructor_fee_share tablosuna kayıt
+                            $instructor_fee_share = DB::table('instructor_fee_share')->where('user_id',$data['user_id'])->where('active',false)
+                                ->where('deleted_at',null)->orderBy('created_at','desc')->first();
+                            if($instructor_fee_share!=null){
+                                $instructor_fee_share->purchase_id = $object->id;
+                                $instructor_fee_share->fee = $coursesPrice[$i];
+                                $instructor_fee_share->active = true;
+                                $instructor_fee_share->save();
+                            }
+                            else{
+                                DB::table('instructor_fee_share')->insert([
+                                    'user_id' => $data['user_id'],
+                                    'instructor_id' => $instructor_id_final,
+                                    'purchase_id' => $object->id,
+                                    'fee' => $coursesPrice[$i],
+                                    'active' => true,
+                                ]);
+                            }
 
                             // iyzico basket items ekle.
                             $iyzicoBasketItemsTemp = BasketItems::find($iyzicoBasketItems[$i]->id);
@@ -527,6 +558,25 @@ class BasketRepository implements IRepository
                             $object->confirmation = true;
                             $object->save();
 
+                            // $instructor_fee_share tablosuna kayıt
+                            $instructor_fee_share = DB::table('instructor_fee_share')->where('user_id',$data['user_id'])->where('active',false)
+                                ->where('deleted_at',null)->orderBy('created_at','desc')->first();
+                            if($instructor_fee_share!=null){
+                                $instructor_fee_share->purchase_id = $object->id;
+                                $instructor_fee_share->fee = $coursesPrice[$i];
+                                $instructor_fee_share->active = true;
+                                $instructor_fee_share->save();
+                            }
+                            else{
+                                DB::table('instructor_fee_share')->insert([
+                                    'user_id' => $data['user_id'],
+                                    'instructor_id' => $instructor_id_final,
+                                    'purchase_id' => $object->id,
+                                    'fee' => $coursesPrice[$i],
+                                    'active' => true
+                                ]);
+                            }
+
                             // iyzico basket items ekle.
                             $iyzicoBasketItemsTemp = BasketItems::find($iyzicoBasketItems[$i]->id);
                             $iyzicoBasketItemsTemp->purchase_id = $object->id;
@@ -558,6 +608,25 @@ class BasketRepository implements IRepository
                             $object->price = $coursesPrice[$i];
                             $object->confirmation = true;
                             $object->save();
+
+                            // $instructor_fee_share tablosuna kayıt
+                            $instructor_fee_share = DB::table('instructor_fee_share')->where('user_id',$data['user_id'])->where('active',false)
+                                ->where('deleted_at',null)->orderBy('created_at','desc')->first();
+                            if($instructor_fee_share!=null){
+                                $instructor_fee_share->purchase_id = $object->id;
+                                $instructor_fee_share->fee = $coursesPrice[$i];
+                                $instructor_fee_share->active = true;
+                                $instructor_fee_share->save();
+                            }
+                            else{
+                                DB::table('instructor_fee_share')->insert([
+                                    'user_id' => $data['user_id'],
+                                    'instructor_id' => $instructor_id_final,
+                                    'purchase_id' => $object->id,
+                                    'fee' => $coursesPrice[$i],
+                                    'active' => true
+                                ]);
+                            }
 
                             // iyzico basket items ekle.
                             $iyzicoBasketItemsTemp = BasketItems::find($iyzicoBasketItems[$i]->id);
@@ -591,7 +660,26 @@ class BasketRepository implements IRepository
                             $object->confirmation = true;
                             $object->save();
 
-                            // iyzico basket items ekle.
+                            // $instructor_fee_share tablosuna kayıt
+                            $instructor_fee_share = DB::table('instructor_fee_share')->where('user_id',$data['user_id'])->where('active',false)
+                                ->where('deleted_at',null)->orderBy('created_at','desc')->first();
+                            if($instructor_fee_share!=null){
+                                $instructor_fee_share->purchase_id = $object->id;
+                                $instructor_fee_share->fee = $coursesPrice[$i];
+                                $instructor_fee_share->active = true;
+                                $instructor_fee_share->save();
+                            }
+                            else{
+                                DB::table('instructor_fee_share')->insert([
+                                    'user_id' => $data['user_id'],
+                                    'instructor_id' => $instructor_id_final,
+                                    'purchase_id' => $object->id,
+                                    'fee' => $coursesPrice[$i],
+                                    'active' => true
+                                ]);
+                            }
+
+                                // iyzico basket items ekle.
                             $iyzicoBasketItemsTemp = BasketItems::find($iyzicoBasketItems[$i]->id);
                             $iyzicoBasketItemsTemp->purchase_id = $object->id;
                             $iyzicoBasketItemsTemp->save();
