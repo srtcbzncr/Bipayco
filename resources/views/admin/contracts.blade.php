@@ -10,7 +10,7 @@
                         <input id="cookies" name="cookies_policy" type="file" accept="application/pdf,application/vnd.ms-excel" required>
                         <input class="uk-input" type="text" tabindex="-1" placeholder="@lang('front/auth.select_file')" disabled>
                     </div>
-                    <button class="uk-button uk-button-secondary uk-width-1-6@m">@lang('front/auth.save')</button>
+                    <button class="uk-button uk-button-secondary uk-width-1-6@m" type="submit">@lang('front/auth.save')</button>
                 </div>
             </form>
             <h3>@lang('front/auth.subscription_contract')</h3>
