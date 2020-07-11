@@ -255,10 +255,10 @@ class PurchasesRepository implements IRepository
         try{
             $object = DB::table('instructor_fee_share')->where('instructor_id',$instructor_id)->where('confirm',false)->where('active',true)->paginate(10);
             foreach ($object as $key => $item){
-                $instructor = Instructor::find($item->instructor_id);
+              /*  $instructor = Instructor::find($item->instructor_id);
                 $user = User::find($instructor->id);
                 $instructor['user'] = $user;
-                $object[$key]->instructor = $instructor;
+                $object[$key]->instructor = $instructor;*/
 
                 $purchase = Purchase::find($item->purchase_id);
                 if($purchase->course_type == 'App\Models\GeneralEducation\Course'){
