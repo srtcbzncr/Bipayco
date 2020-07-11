@@ -17,7 +17,7 @@
                     <td class="uk-width-1-2 clickable"><p>{{item.user.first_name}} {{item.user.last_name}}</p></td>
                     <td class="uk-width-1-4 clickable"><p>{{item.fee}} <span class="fas fa-lira-sign icon-tiny"></span></p> </td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-around">
-                        <a @click="paidPost(item.id)" :uk-tooltip="paidText"><i class="fas fa-file-invoice-dollar"></i></a>
+                        <a @click="paidPost(item.id)" :uk-tooltip="markAsPaidText"><i class="fas fa-file-invoice-dollar"></i></a>
                     </td>
                 </tr>
                 </tbody>
@@ -96,7 +96,6 @@
         name: "promotion-payment-page",
         data(){
             return{
-                purchaseAsDate:{},
                 selected:null,
                 selectedPage:"/api/admin/auth/student/show?page=1",
             }
@@ -138,9 +137,9 @@
                 type: String,
                 default: "Ödeme Durumu"
             },
-            paidText:{
+            markAsPaidText:{
                 type:String,
-                default:"Ödendi",
+                default:"Ödendi Olarak İşaretle",
             },
             dateText: {
                 type: String,

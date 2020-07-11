@@ -4855,7 +4855,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   name: "promotion-payment-page",
   data: function data() {
     return {
-      purchaseAsDate: {},
       selected: null,
       selectedPage: "/api/admin/auth/student/show?page=1"
     };
@@ -4897,9 +4896,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       "default": "Ödeme Durumu"
     },
-    paidText: {
+    markAsPaidText: {
       type: String,
-      "default": "Ödendi"
+      "default": "Ödendi Olarak İşaretle"
     },
     dateText: {
       type: String,
@@ -21740,7 +21739,7 @@ var render = function() {
                                 _c(
                                   "a",
                                   {
-                                    attrs: { "uk-tooltip": _vm.paidText },
+                                    attrs: { "uk-tooltip": _vm.markAsPaidText },
                                     on: {
                                       click: function($event) {
                                         return _vm.paidPost(item.id)
