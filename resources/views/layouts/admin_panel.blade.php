@@ -59,7 +59,7 @@
                     <a href="{{route('admin_purchases')}}"> <i class="fas fa-money-bill-wave"></i>  @lang('front/auth.purchases') </a>
                 </li>
                 <li>
-                    <a href="{{route('admin_instructorsFeeWithReferenceCode')}}"> <i class="fas fa-wallet"></i>  @lang('front/auth.promotion_payments') </a>
+                    <a href="{{route('admin_instructorsFeeWithReferenceCode')}}"> <i class="fas fa-wallet"></i>  @lang('front/auth.commission_payments') </a>
                 </li>
                 <li>
                     <a href="{{route('admin_admins')}}"> <i class="fas fa-user-tie"></i>  @lang('front/auth.admins') </a>

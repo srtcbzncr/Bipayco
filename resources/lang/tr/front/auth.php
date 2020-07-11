@@ -279,7 +279,7 @@ return [
     'faq'=>'SSS',
     'frequently_asked_questions'=>'Sıkça Sorulan Sorular',
     'member_obligations'=>'Üye Yükümlülükleri ve Koşulları',
-    'promotion_payments'=>'Promosyon Ödemeleri',
+    'commission_payments'=>'Komisyon Ödemeleri',
     'contracts'=>'Sözleşmeler',
 
 ];

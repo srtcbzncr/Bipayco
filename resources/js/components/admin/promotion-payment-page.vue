@@ -1,5 +1,6 @@
 <template>
     <div class="uk-margin-medium-top">
+
         <div class="uk-background-default uk-padding-remove uk-margin-small-top border-radius-6">
             <div v-if="!loadingStatus" class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
                 <div class="loader"></div>
@@ -13,11 +14,12 @@
                 </tr>
                 </thead>
                 <tbody v-if="adminPromotionPayments.data&&adminPromotionPayments.data.length>0">
-                <tr v-for="item in adminPromotionPayments.data"  @click="openInfo(item.id)">
-                    <td class="uk-width-1-2 clickable"><p>{{item.user.first_name}} {{item.user.last_name}}</p></td>
-                    <td class="uk-width-1-4 clickable"><p>{{item.fee}} <span class="fas fa-lira-sign icon-tiny"></span></p> </td>
+                <tr v-for="item in adminPromotionPayments.data">
+                    <td class="uk-width-1-2 clickable" @click="openInfo(item.id)"><p>{{item.user.first_name}} {{item.user.last_name}}</p></td>
+                    <td class="uk-width-1-4 clickable" @click="openInfo(item.id)"><p>{{item.fee.toFixed(2)}} <span class="fas fa-lira-sign icon-tiny"></span></p> </td>
                     <td class="uk-flex flex-wrap align-items-center justify-content-around">
                         <a @click="paidPost(item.id)" :uk-tooltip="markAsPaidText"><i class="fas fa-file-invoice-dollar"></i></a>
+                        <a @click="openDetail(item.id)" :uk-tooltip="seeMoreDetailText"><i class="fas fa-arrow-alt-circle-right"></i></a>
                     </td>
                 </tr>
                 </tbody>
@@ -32,55 +34,34 @@
             </li>
             <li v-for="page in pageNumber">
                 <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
-                <button v-else-if="page==adminPromotionPayments.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/admin/purchase/getPurchases/'+this.userId+'?page='+page)">{{page}}</button>
-                <button v-else @click="loadNewPage('/api/admin/purchase/getPurchases/'+this.userId+'?page='+page)">{{page}}</button>
+                <button v-else-if="page==adminPromotionPayments.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/admin/purchase/getInstructorsEarnByReferenceCode/'+this.userId+'?page='+page)">{{page}}</button>
+                <button v-else @click="loadNewPage('/api/admin/purchase/getInstructorsEarnByReferenceCode/'+this.userId+'?page='+page)">{{page}}</button>
             </li>
             <li>
                 <button v-show="adminPromotionPayments.current_page<adminPromotionPayments.last_page" @click="loadNewPage(adminPromotionPayments.next_page_url)"> > </button>
             </li>
         </ul>
-        <div id="saleInfoArea" uk-modal>
+        <div id="selectedInfoArea" uk-modal>
             <div class="uk-modal-dialog">
                 <button class="uk-modal-close-default" type="button" uk-close></button>
                 <div class="uk-modal-header">
-                    <h2 class="uk-modal-title">{{saleInfoText}}</h2>
+                    <h2 class="uk-modal-title">{{instructorInfoText}}</h2>
                 </div>
                 <div class="uk-modal-body" v-if="selected!=null" uk-overflow-auto>
                     <div class="uk-flex align-items-center justify-content-center uk-margin-small-bottom">
-                        <img :src="selected.instructor.user.avatar" class="uk-height-small uk-width-small uk-border-circle">
+                        <img :src="selected.user.avatar" class="uk-height-small uk-width-small uk-border-circle">
                     </div>
                     <div class="uk-form-label">{{nameText}}</div>
-                    <h6>{{selected.instructor.user.first_name}} {{selected.instructor.user.last_name}}</h6>
+                    <h6>{{selected.user.first_name}} {{selected.user.last_name}}</h6>
                     <hr>
                     <div class="uk-form-label">{{ibanText}}</div>
-                    <h6>{{selected.instructor.iban}}</h6>
+                    <h6>{{selected.iban}}</h6>
                     <hr>
                     <div class="uk-form-label">{{emailText}}</div>
-                    <h6>{{selected.instructor.user.email}}</h6>
+                    <h6>{{selected.user.email}}</h6>
                     <hr>
                     <div class="uk-form-label">{{phoneText}}</div>
-                    <h6>{{selected.instructor.user.phone_number}}</h6>
-                    <hr>
-                    <div class="uk-form-label">{{productsText}}</div>
-                    <div v-for="item in selectedSale.itemTransactions" class="uk-margin-small-bottom">
-                        <div class="uk-grid align-items-center ">
-                            <div class="uk-width uk-flex align-items-center">
-                                <div class="uk-margin-small-left uk-card-media-left uk-cover-container uk-width-1-4">
-                                    <img :src="item.course.image" alt="" uk-cover>
-                                    <canvas width="600" height="400"></canvas>
-                                </div>
-                                <div class="uk-margin-left uk-width-3-4">
-                                    <h5 class="uk-margin-remove-vertical uk-margin-remove-right" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{item.course.name}}</h5>
-                                    <p>{{transactionIdText}}: {{item.paymentTransactionId}}</p>
-                                    <p>{{transactionStatusText}}: {{item.transactionStatus}}</p>
-                                    <p>{{transactionPriceText}}: {{item.paidPrice}} <span class="fas fa-lira-sign icon-tiny"></span></p>
-                                    <p>{{iyzicoCommissionText}}: {{item.iyziCommissionFee}} <span class="fas fa-lira-sign icon-tiny"></span></p>
-                                    <p>{{merchantPayoutAmountText}}: {{item.merchantPayoutAmount}} <span class="fas fa-lira-sign icon-tiny"></span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
+                    <h6>{{selected.user.phone_number}}</h6>
                 </div>
                 <div class="uk-modal-footer">
                 </div>
@@ -97,7 +78,7 @@
         data(){
             return{
                 selected:null,
-                selectedPage:"/api/admin/auth/student/show?page=1",
+                selectedPage:"/api/admin/purchase/getInstructorsEarnByReferenceCode/"+this.userId+"?page=1",
             }
         },
         props: {
@@ -109,18 +90,6 @@
                 type: String,
                 default: "İçerik Bulunmuyor"
             },
-            monthlyText: {
-                type: String,
-                default: "Aylık"
-            },
-            yearlyText: {
-                type: String,
-                default: "Yıllık"
-            },
-            totalText: {
-                type: String,
-                default: "Toplam"
-            },
             nameText: {
                 type: String,
                 default: "Adı"
@@ -129,53 +98,29 @@
                 type: String,
                 default: "Ödenecek Tutar"
             },
-            saleInfoText: {
+            ibanText: {
                 type: String,
-                default: "Satış Bilgisi"
-            },
-            paymentStatusText: {
-                type: String,
-                default: "Ödeme Durumu"
+                default: "Iban"
             },
             markAsPaidText:{
                 type:String,
                 default:"Ödendi Olarak İşaretle",
             },
-            dateText: {
-                type: String,
-                default: "Tarih"
-            },
-            statusText:{
+            seeMoreDetailText:{
                 type:String,
-                default:"Durum",
+                default:"Daha Fazla Detay Gör"
             },
-            iyzicoCommissionText:{
+            phoneText:{
                 type:String,
-                default:"İyzico Komisyon Tutarı",
+                default:"Telefon"
             },
-            totalPriceText:{
+            emailText:{
                 type:String,
-                default:"Toplam Tutar"
+                default:"Eposta"
             },
-            transactionIdText:{
+            instructorInfoText:{
                 type:String,
-                default:"İşlem Numarası"
-            },
-            transactionStatusText:{
-                type:String,
-                default:"İşlem Durumu"
-            },
-            merchantPayoutAmountText:{
-                type:String,
-                default:"Satıcı Ödeme Tutarı"
-            },
-            transactionPriceText:{
-                type:String,
-                default:"İşlem Tutarı"
-            },
-            productsText:{
-                type:String,
-                default:"Ürünler"
+                default:"Eğitmen Bilgisi"
             }
         },
         watch:{
@@ -216,14 +161,17 @@
                 'loadAdminNewPage'
             ]),
             loadNewPage: function(name){
-                this.$store.dispatch('loadAdminNewPage',[name, 'setAdminSales']);
                 this.selectedPage=name;
                 this.selected=null;
+                this.$store.dispatch('loadAdminNewPage',[name, 'setAdminPromotionPayments']);
             },
-            openInfo:function (id) {
-                Axios.get('/api/admin/purchase/getInstructorEarnByReferenceCode/'+this.userId+'/'+id)
+            openDetail:function (id) {
+                window.location.replace('/admin/purchase_detail/'+id);
+            },
+            openInfo:function(id){
+                Axios.get('/api/admin/auth/instructor/get/'+id)
                     .then((res)=>{this.selected=res.data.data});
-                UIkit.modal('#saleInfoArea').show();
+                UIkit.modal('#selectedInfoArea').show();
             },
             paidPost:function (id) {
                 Axios.post('/api/admin/purchase/confirmInstructorPriceByReferenceCode/'+this.userId+'/'+id)

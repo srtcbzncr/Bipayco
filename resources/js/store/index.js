@@ -77,6 +77,7 @@ const state={
     adminUsers:{},
     adminSales:{},
     adminPromotionPayments:{},
+    adminPromotionPurchaseDetail:{},
     adminCategory:{},
     adminSubCategory:{},
     crLessons:{},
@@ -199,8 +200,12 @@ const mutations={
         state.adminSales=sales.data;
         state.loadingStatus=true;
     },
-    setPromotionPayments(state, payment){
+    setAdminPromotionPayments(state, payment){
         state.adminPromotionPayments=payment.data;
+        state.loadingStatus=true;
+    },
+    setAdminPromotionPurchaseDetail(state, payment){
+        state.adminPromotionPurchaseDetail=payment.data;
         state.loadingStatus=true;
     },
     setAdminGuardian(state, guardians){
@@ -405,7 +410,11 @@ const actions={
     },
     loadAdminPromotionPayments({commit}, userId){
         Axios.get('/api/admin/purchase/getInstructorsEarnByReferenceCode/'+userId)
-            .then(response=>commit('setPromotionPayments', response.data));
+            .then(response=>commit('setAdminPromotionPayments', response.data));
+    },
+    loadAdminPromotionPurchaseDetail({commit}, [userId, instructorId]){
+        Axios.get('/api/admin/purchase/getInstructorEarnByReferenceCode/'+userId+'/'+instructorId)
+            .then(response=>commit('setAdminPromotionPurchaseDetail', response.data));
     },
     loadAdminDistrict({commit}, cityId){
         Axios.get('/api/admin/bs/city/'+cityId+'/districts')

@@ -4140,6 +4140,219 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/instructor-payment-detail-page.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/instructor-payment-detail-page.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "instructor-payment-detail-page",
+  data: function data() {
+    return {
+      selectedPage: '/api/admin/purchase/getInstructorEarnByReferenceCode/' + this.userId + '/' + this.selectedInstructor.id + '?page=1',
+      selectedPurchase: null
+    };
+  },
+  props: {
+    promotionPaymentRoute: {
+      type: String,
+      required: true
+    },
+    selectedInstructor: {
+      type: Object,
+      required: true
+    },
+    userId: {
+      type: String,
+      required: true
+    },
+    ibanText: {
+      type: String,
+      "default": "Iban"
+    },
+    productNameText: {
+      type: String,
+      "default": "Ürün Adı"
+    },
+    productPriceText: {
+      type: String,
+      "default": "Ürün Fiyatı"
+    },
+    instructorCommissionText: {
+      type: String,
+      "default": "Eğitmen Komisyonu"
+    },
+    phoneText: {
+      type: String,
+      "default": "Telefon"
+    },
+    emailText: {
+      type: String,
+      "default": "Eposta"
+    },
+    nameText: {
+      type: String,
+      "default": "Ad"
+    },
+    noContentText: {
+      type: String,
+      "default": "İçerik Bulunmuyor"
+    },
+    backText: {
+      type: String,
+      "default": "Geri"
+    },
+    identificationNumberText: {
+      type: String,
+      "default": "Kimlik Numarası"
+    },
+    totalCommissionAmountText: {
+      type: String,
+      "default": "Toplam Komisyon Tutarı"
+    }
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminPromotionPurchaseDetail', 'loadingStatus']), {
+    pageNumber: function pageNumber() {
+      var pages = ['1'];
+      var index = 2;
+
+      for (var i = 2; index <= this.adminPromotionPurchaseDetail.last_page; i++) {
+        if (i == 2 && this.adminPromotionPurchaseDetail.current_page - 2 > 3) {
+          pages.push('...');
+
+          if (this.adminPromotionPurchaseDetail.current_page + 3 > this.adminPromotionPurchaseDetail.last_page) {
+            index = this.adminPromotionPurchaseDetail.last_page - 6;
+          } else {
+            index = this.adminPromotionPurchaseDetail.current_page - 2;
+          }
+        } else if (i == 8 && this.adminPromotionPurchaseDetail.current_page + 2 < this.adminPromotionPurchaseDetail.last_page - 2) {
+          pages.push('...');
+          index = this.adminPromotionPurchaseDetail.last_page;
+        } else {
+          pages.push(index);
+          index++;
+        }
+      }
+
+      return pages;
+    }
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminPromotionPurchaseDetail', 'loadAdminNewPage']), {
+    routePromotionPayment: function routePromotionPayment() {
+      window.location.replace(this.promotionPaymentRoute);
+    },
+    loadNewPage: function loadNewPage(name) {
+      this.selectedPage = name;
+      this.$store.dispatch('loadAdminNewPage', [name, 'setAdminPromotionPurchaseDetail']);
+    }
+  }),
+  created: function created() {
+    this.$store.dispatch('loadAdminPromotionPurchaseDetail', [this.userId, this.selectedInstructor.id]);
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/instructors-page.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/instructors-page.vue?vue&type=script&lang=js& ***!
@@ -4830,25 +5043,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -4856,7 +5050,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       selected: null,
-      selectedPage: "/api/admin/auth/student/show?page=1"
+      selectedPage: "/api/admin/purchase/getInstructorsEarnByReferenceCode/" + this.userId + "?page=1"
     };
   },
   props: {
@@ -4868,18 +5062,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       "default": "İçerik Bulunmuyor"
     },
-    monthlyText: {
-      type: String,
-      "default": "Aylık"
-    },
-    yearlyText: {
-      type: String,
-      "default": "Yıllık"
-    },
-    totalText: {
-      type: String,
-      "default": "Toplam"
-    },
     nameText: {
       type: String,
       "default": "Adı"
@@ -4888,53 +5070,29 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       "default": "Ödenecek Tutar"
     },
-    saleInfoText: {
+    ibanText: {
       type: String,
-      "default": "Satış Bilgisi"
-    },
-    paymentStatusText: {
-      type: String,
-      "default": "Ödeme Durumu"
+      "default": "Iban"
     },
     markAsPaidText: {
       type: String,
       "default": "Ödendi Olarak İşaretle"
     },
-    dateText: {
+    seeMoreDetailText: {
       type: String,
-      "default": "Tarih"
+      "default": "Daha Fazla Detay Gör"
     },
-    statusText: {
+    phoneText: {
       type: String,
-      "default": "Durum"
+      "default": "Telefon"
     },
-    iyzicoCommissionText: {
+    emailText: {
       type: String,
-      "default": "İyzico Komisyon Tutarı"
+      "default": "Eposta"
     },
-    totalPriceText: {
+    instructorInfoText: {
       type: String,
-      "default": "Toplam Tutar"
-    },
-    transactionIdText: {
-      type: String,
-      "default": "İşlem Numarası"
-    },
-    transactionStatusText: {
-      type: String,
-      "default": "İşlem Durumu"
-    },
-    merchantPayoutAmountText: {
-      type: String,
-      "default": "Satıcı Ödeme Tutarı"
-    },
-    transactionPriceText: {
-      type: String,
-      "default": "İşlem Tutarı"
-    },
-    productsText: {
-      type: String,
-      "default": "Ürünler"
+      "default": "Eğitmen Bilgisi"
     }
   },
   watch: {
@@ -4970,17 +5128,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['loadAdminPromotionPayments', 'loadAdminNewPage']), {
     loadNewPage: function loadNewPage(name) {
-      this.$store.dispatch('loadAdminNewPage', [name, 'setAdminSales']);
       this.selectedPage = name;
       this.selected = null;
+      this.$store.dispatch('loadAdminNewPage', [name, 'setAdminPromotionPayments']);
+    },
+    openDetail: function openDetail(id) {
+      window.location.replace('/admin/purchase_detail/' + id);
     },
     openInfo: function openInfo(id) {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/purchase/getInstructorEarnByReferenceCode/' + this.userId + '/' + id).then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/auth/instructor/get/' + id).then(function (res) {
         _this.selected = res.data.data;
       });
-      UIkit.modal('#saleInfoArea').show();
+      UIkit.modal('#selectedInfoArea').show();
     },
     paidPost: function paidPost(id) {
       var _this2 = this;
@@ -20906,6 +21067,359 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/instructor-payment-detail-page.vue?vue&type=template&id=0fd5c39f&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/instructor-payment-detail-page.vue?vue&type=template&id=0fd5c39f&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "uk-margin-large-top" }, [
+    _c("div", { staticClass: "text-left" }, [
+      _c(
+        "a",
+        {
+          staticClass: "uk-flex align-item-center",
+          on: { click: _vm.routePromotionPayment }
+        },
+        [
+          _c("i", {
+            staticClass:
+              "fas fa-arrow-alt-circle-left icon-medium uk-margin-small-right"
+          }),
+          _vm._v(" "),
+          _c("h6", { staticClass: "uk-margin-remove" }, [
+            _vm._v(_vm._s(_vm.backText))
+          ])
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", [
+      _c(
+        "div",
+        {
+          staticClass:
+            "uk-flex align-items-center justify-content-center uk-margin-medium-bottom"
+        },
+        [
+          _c("img", {
+            staticClass: "uk-height-small uk-width-small uk-border-circle",
+            attrs: { src: _vm.selectedInstructor.user.avatar }
+          })
+        ]
+      )
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass:
+          "uk-child-width-1-2@m uk-grid-divider uk-padding-small uk-padding-remove-vertical",
+        attrs: { "uk-grid": "" }
+      },
+      [
+        _c("div", [
+          _c("div", { staticClass: "uk-form-label" }, [
+            _vm._v(_vm._s(_vm.nameText))
+          ]),
+          _vm._v(" "),
+          _c("h6", [
+            _vm._v(
+              _vm._s(_vm.selectedInstructor.user.first_name) +
+                " " +
+                _vm._s(_vm.selectedInstructor.user.last_name)
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c("div", { staticClass: "uk-form-label" }, [
+            _vm._v(_vm._s(_vm.ibanText))
+          ]),
+          _vm._v(" "),
+          _c("h6", [_vm._v(_vm._s(_vm.selectedInstructor.iban))])
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass:
+          "uk-child-width-1-2@m uk-grid-divider uk-padding-small uk-padding-remove-vertical",
+        attrs: { "uk-grid": "" }
+      },
+      [
+        _c("div", [
+          _c("div", { staticClass: "uk-form-label" }, [
+            _vm._v(_vm._s(_vm.emailText))
+          ]),
+          _vm._v(" "),
+          _c("h6", [_vm._v(_vm._s(_vm.selectedInstructor.user.email))])
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c("div", { staticClass: "uk-form-label" }, [
+            _vm._v(_vm._s(_vm.phoneText))
+          ]),
+          _vm._v(" "),
+          _c("h6", [_vm._v(_vm._s(_vm.selectedInstructor.user.phone_number))])
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c("hr"),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass:
+          "uk-child-width-1-2@m uk-grid-divider uk-padding-small uk-padding-remove-vertical",
+        attrs: { "uk-grid": "" }
+      },
+      [
+        _c("div", [
+          _c("div", { staticClass: "uk-form-label" }, [
+            _vm._v(_vm._s(_vm.identificationNumberText))
+          ]),
+          _vm._v(" "),
+          _c("h6", [
+            _vm._v(_vm._s(_vm.selectedInstructor.identification_number))
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c("div", { staticClass: "uk-form-label" }, [
+            _vm._v(_vm._s(_vm.totalCommissionAmountText))
+          ]),
+          _vm._v(" "),
+          _c("h6", [
+            _vm._v(_vm._s(_vm.selectedInstructor.user.phone_number) + " "),
+            _c("span", { staticClass: "fas fa-lira-sign icon-tiny" })
+          ])
+        ])
+      ]
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass:
+          "uk-background-default uk-padding-remove uk-margin-medium-top border-radius-6"
+      },
+      [
+        !_vm.loadingStatus
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+              },
+              [_c("div", { staticClass: "loader" })]
+            )
+          : _c(
+              "table",
+              {
+                staticClass:
+                  "uk-table uk-table-hover uk-table-striped uk-width uk-height",
+                attrs: { id: "categoryTable", cellspacing: "0" }
+              },
+              [
+                _vm.adminPromotionPurchaseDetail.data &&
+                _vm.adminPromotionPurchaseDetail.data.length > 0
+                  ? _c("thead", [
+                      _c("tr", [
+                        _c("th", [_vm._v(_vm._s(_vm.productNameText))]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v(_vm._s(_vm.productPriceText))]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v(_vm._s(_vm.instructorCommissionText))])
+                      ])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.adminPromotionPurchaseDetail.data &&
+                _vm.adminPromotionPurchaseDetail.data.length > 0
+                  ? _c(
+                      "tbody",
+                      _vm._l(_vm.adminPromotionPurchaseDetail.data, function(
+                        item
+                      ) {
+                        return _c("tr", [
+                          _c("td", { staticClass: "uk-width-1-2" }, [
+                            _c("p", [_vm._v(_vm._s(item.course.name))])
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "uk-width-1-2" }, [
+                            _c("p", [
+                              _vm._v(
+                                _vm._s(item.course.price_with_discount) + " "
+                              ),
+                              _c("span", {
+                                staticClass: "fas fa-lira-sign icon-tiny"
+                              })
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("td", { staticClass: "uk-width-1-4" }, [
+                            _c("p", [
+                              _vm._v(_vm._s(item.fee) + " "),
+                              _c("span", {
+                                staticClass: "fas fa-lira-sign icon-tiny"
+                              })
+                            ])
+                          ])
+                        ])
+                      }),
+                      0
+                    )
+                  : _c(
+                      "div",
+                      {
+                        staticClass:
+                          " uk-width uk-height-small uk-flex align-items-center justify-content-center"
+                      },
+                      [
+                        _c("h4", [
+                          _vm._v(" " + _vm._s(_vm.noContentText) + " ")
+                        ])
+                      ]
+                    )
+              ]
+            )
+      ]
+    ),
+    _vm._v(" "),
+    _vm.adminPromotionPurchaseDetail.data &&
+    _vm.adminPromotionPurchaseDetail.data.length > 0
+      ? _c(
+          "ul",
+          {
+            staticClass:
+              "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+          },
+          [
+            _c("li", [
+              _c(
+                "button",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value: _vm.adminPromotionPurchaseDetail.current_page > 1,
+                      expression: "adminPromotionPurchaseDetail.current_page>1"
+                    }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(
+                        _vm.adminPromotionPurchaseDetail.prev_page_url
+                      )
+                    }
+                  }
+                },
+                [_vm._v(" < ")]
+              )
+            ]),
+            _vm._v(" "),
+            _vm._l(_vm.pageNumber, function(page) {
+              return _c("li", [
+                page == "..."
+                  ? _c("button", { staticClass: "uk-disabled" }, [
+                      _vm._v(_vm._s(page))
+                    ])
+                  : page == _vm.adminPromotionPurchaseDetail.current_page
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "uk-background-default uk-disabled",
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/purchase/getInstructorsEarnByReferenceCode/" +
+                                this.userId +
+                                "/" +
+                                this.selectedInstructor.id +
+                                "?page=" +
+                                page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+                  : _c(
+                      "button",
+                      {
+                        on: {
+                          click: function($event) {
+                            return _vm.loadNewPage(
+                              "/api/admin/purchase/getInstructorsEarnByReferenceCode/" +
+                                this.userId +
+                                "/" +
+                                this.selectedInstructor.id +
+                                "?page=" +
+                                page
+                            )
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(page))]
+                    )
+              ])
+            }),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "button",
+                {
+                  directives: [
+                    {
+                      name: "show",
+                      rawName: "v-show",
+                      value:
+                        _vm.adminPromotionPurchaseDetail.current_page <
+                        _vm.adminPromotionPurchaseDetail.last_page,
+                      expression:
+                        "adminPromotionPurchaseDetail.current_page<adminPromotionPurchaseDetail.last_page"
+                    }
+                  ],
+                  on: {
+                    click: function($event) {
+                      return _vm.loadNewPage(
+                        _vm.adminPromotionPurchaseDetail.next_page_url
+                      )
+                    }
+                  }
+                },
+                [_vm._v(" > ")]
+              )
+            ])
+          ],
+          2
+        )
+      : _vm._e()
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/instructors-page.vue?vue&type=template&id=72389a51&scoped=true&":
 /*!*************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/admin/instructors-page.vue?vue&type=template&id=72389a51&scoped=true& ***!
@@ -21692,70 +22206,93 @@ var render = function() {
                   ? _c(
                       "tbody",
                       _vm._l(_vm.adminPromotionPayments.data, function(item) {
-                        return _c(
-                          "tr",
-                          {
-                            on: {
-                              click: function($event) {
-                                return _vm.openInfo(item.id)
+                        return _c("tr", [
+                          _c(
+                            "td",
+                            {
+                              staticClass: "uk-width-1-2 clickable",
+                              on: {
+                                click: function($event) {
+                                  return _vm.openInfo(item.id)
+                                }
                               }
-                            }
-                          },
-                          [
-                            _c(
-                              "td",
-                              { staticClass: "uk-width-1-2 clickable" },
-                              [
-                                _c("p", [
-                                  _vm._v(
-                                    _vm._s(item.user.first_name) +
-                                      " " +
-                                      _vm._s(item.user.last_name)
-                                  )
-                                ])
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              { staticClass: "uk-width-1-4 clickable" },
-                              [
-                                _c("p", [
-                                  _vm._v(_vm._s(item.fee) + " "),
-                                  _c("span", {
-                                    staticClass: "fas fa-lira-sign icon-tiny"
-                                  })
-                                ])
-                              ]
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "td",
-                              {
-                                staticClass:
-                                  "uk-flex flex-wrap align-items-center justify-content-around"
-                              },
-                              [
-                                _c(
-                                  "a",
-                                  {
-                                    attrs: { "uk-tooltip": _vm.markAsPaidText },
-                                    on: {
-                                      click: function($event) {
-                                        return _vm.paidPost(item.id)
-                                      }
-                                    }
-                                  },
-                                  [
-                                    _c("i", {
-                                      staticClass: "fas fa-file-invoice-dollar"
-                                    })
-                                  ]
+                            },
+                            [
+                              _c("p", [
+                                _vm._v(
+                                  _vm._s(item.user.first_name) +
+                                    " " +
+                                    _vm._s(item.user.last_name)
                                 )
-                              ]
-                            )
-                          ]
-                        )
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass: "uk-width-1-4 clickable",
+                              on: {
+                                click: function($event) {
+                                  return _vm.openInfo(item.id)
+                                }
+                              }
+                            },
+                            [
+                              _c("p", [
+                                _vm._v(_vm._s(item.fee.toFixed(2)) + " "),
+                                _c("span", {
+                                  staticClass: "fas fa-lira-sign icon-tiny"
+                                })
+                              ])
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "td",
+                            {
+                              staticClass:
+                                "uk-flex flex-wrap align-items-center justify-content-around"
+                            },
+                            [
+                              _c(
+                                "a",
+                                {
+                                  attrs: { "uk-tooltip": _vm.markAsPaidText },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.paidPost(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-file-invoice-dollar"
+                                  })
+                                ]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  attrs: {
+                                    "uk-tooltip": _vm.seeMoreDetailText
+                                  },
+                                  on: {
+                                    click: function($event) {
+                                      return _vm.openDetail(item.id)
+                                    }
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-arrow-alt-circle-right"
+                                  })
+                                ]
+                              )
+                            ]
+                          )
+                        ])
                       }),
                       0
                     )
@@ -21823,7 +22360,7 @@ var render = function() {
                         on: {
                           click: function($event) {
                             return _vm.loadNewPage(
-                              "/api/admin/purchase/getPurchases/" +
+                              "/api/admin/purchase/getInstructorsEarnByReferenceCode/" +
                                 this.userId +
                                 "?page=" +
                                 page
@@ -21839,7 +22376,7 @@ var render = function() {
                         on: {
                           click: function($event) {
                             return _vm.loadNewPage(
-                              "/api/admin/purchase/getPurchases/" +
+                              "/api/admin/purchase/getInstructorsEarnByReferenceCode/" +
                                 this.userId +
                                 "?page=" +
                                 page
@@ -21883,7 +22420,7 @@ var render = function() {
         )
       : _vm._e(),
     _vm._v(" "),
-    _c("div", { attrs: { id: "saleInfoArea", "uk-modal": "" } }, [
+    _c("div", { attrs: { id: "selectedInfoArea", "uk-modal": "" } }, [
       _c("div", { staticClass: "uk-modal-dialog" }, [
         _c("button", {
           staticClass: "uk-modal-close-default",
@@ -21892,7 +22429,7 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "uk-modal-header" }, [
           _c("h2", { staticClass: "uk-modal-title" }, [
-            _vm._v(_vm._s(_vm.saleInfoText))
+            _vm._v(_vm._s(_vm.instructorInfoText))
           ])
         ]),
         _vm._v(" "),
@@ -21914,7 +22451,7 @@ var render = function() {
                     _c("img", {
                       staticClass:
                         "uk-height-small uk-width-small uk-border-circle",
-                      attrs: { src: _vm.selected.instructor.user.avatar }
+                      attrs: { src: _vm.selected.user.avatar }
                     })
                   ]
                 ),
@@ -21925,9 +22462,9 @@ var render = function() {
                 _vm._v(" "),
                 _c("h6", [
                   _vm._v(
-                    _vm._s(_vm.selected.instructor.user.first_name) +
+                    _vm._s(_vm.selected.user.first_name) +
                       " " +
-                      _vm._s(_vm.selected.instructor.user.last_name)
+                      _vm._s(_vm.selected.user.last_name)
                   )
                 ]),
                 _vm._v(" "),
@@ -21937,7 +22474,7 @@ var render = function() {
                   _vm._v(_vm._s(_vm.ibanText))
                 ]),
                 _vm._v(" "),
-                _c("h6", [_vm._v(_vm._s(_vm.selected.instructor.iban))]),
+                _c("h6", [_vm._v(_vm._s(_vm.selected.iban))]),
                 _vm._v(" "),
                 _c("hr"),
                 _vm._v(" "),
@@ -21945,7 +22482,7 @@ var render = function() {
                   _vm._v(_vm._s(_vm.emailText))
                 ]),
                 _vm._v(" "),
-                _c("h6", [_vm._v(_vm._s(_vm.selected.instructor.user.email))]),
+                _c("h6", [_vm._v(_vm._s(_vm.selected.user.email))]),
                 _vm._v(" "),
                 _c("hr"),
                 _vm._v(" "),
@@ -21953,128 +22490,8 @@ var render = function() {
                   _vm._v(_vm._s(_vm.phoneText))
                 ]),
                 _vm._v(" "),
-                _c("h6", [
-                  _vm._v(_vm._s(_vm.selected.instructor.user.phone_number))
-                ]),
-                _vm._v(" "),
-                _c("hr"),
-                _vm._v(" "),
-                _c("div", { staticClass: "uk-form-label" }, [
-                  _vm._v(_vm._s(_vm.productsText))
-                ]),
-                _vm._v(" "),
-                _vm._l(_vm.selectedSale.itemTransactions, function(item) {
-                  return _c("div", { staticClass: "uk-margin-small-bottom" }, [
-                    _c("div", { staticClass: "uk-grid align-items-center " }, [
-                      _c(
-                        "div",
-                        { staticClass: "uk-width uk-flex align-items-center" },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "uk-margin-small-left uk-card-media-left uk-cover-container uk-width-1-4"
-                            },
-                            [
-                              _c("img", {
-                                attrs: {
-                                  src: item.course.image,
-                                  alt: "",
-                                  "uk-cover": ""
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("canvas", {
-                                attrs: { width: "600", height: "400" }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "div",
-                            { staticClass: "uk-margin-left uk-width-3-4" },
-                            [
-                              _c(
-                                "h5",
-                                {
-                                  staticClass:
-                                    "uk-margin-remove-vertical uk-margin-remove-right",
-                                  staticStyle: {
-                                    overflow: "hidden",
-                                    "text-overflow": "ellipsis",
-                                    display: "-webkit-box",
-                                    "line-height": "16px",
-                                    "max-height": "32px",
-                                    "-webkit-line-clamp": "2",
-                                    "-webkit-box-orient": "vertical"
-                                  }
-                                },
-                                [_vm._v(_vm._s(item.course.name))]
-                              ),
-                              _vm._v(" "),
-                              _c("p", [
-                                _vm._v(
-                                  _vm._s(_vm.transactionIdText) +
-                                    ": " +
-                                    _vm._s(item.paymentTransactionId)
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("p", [
-                                _vm._v(
-                                  _vm._s(_vm.transactionStatusText) +
-                                    ": " +
-                                    _vm._s(item.transactionStatus)
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c("p", [
-                                _vm._v(
-                                  _vm._s(_vm.transactionPriceText) +
-                                    ": " +
-                                    _vm._s(item.paidPrice) +
-                                    " "
-                                ),
-                                _c("span", {
-                                  staticClass: "fas fa-lira-sign icon-tiny"
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("p", [
-                                _vm._v(
-                                  _vm._s(_vm.iyzicoCommissionText) +
-                                    ": " +
-                                    _vm._s(item.iyziCommissionFee) +
-                                    " "
-                                ),
-                                _c("span", {
-                                  staticClass: "fas fa-lira-sign icon-tiny"
-                                })
-                              ]),
-                              _vm._v(" "),
-                              _c("p", [
-                                _vm._v(
-                                  _vm._s(_vm.merchantPayoutAmountText) +
-                                    ": " +
-                                    _vm._s(item.merchantPayoutAmount) +
-                                    " "
-                                ),
-                                _c("span", {
-                                  staticClass: "fas fa-lira-sign icon-tiny"
-                                })
-                              ])
-                            ]
-                          )
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("hr")
-                  ])
-                })
-              ],
-              2
+                _c("h6", [_vm._v(_vm._s(_vm.selected.user.phone_number))])
+              ]
             )
           : _vm._e(),
         _vm._v(" "),
@@ -52193,6 +52610,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('grade-page', __webpack_req
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('subject-page', __webpack_require__(/*! ./components/admin/subjects-page.vue */ "./resources/js/components/admin/subjects-page.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('sales-page', __webpack_require__(/*! ./components/admin/sales-page.vue */ "./resources/js/components/admin/sales-page.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('promotion-payment-page', __webpack_require__(/*! ./components/admin/promotion-payment-page.vue */ "./resources/js/components/admin/promotion-payment-page.vue")["default"]);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('instructor-payment-detail-page', __webpack_require__(/*! ./components/admin/instructor-payment-detail-page.vue */ "./resources/js/components/admin/instructor-payment-detail-page.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('students-page', __webpack_require__(/*! ./components/guardian/students-page.vue */ "./resources/js/components/guardian/students-page.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('student-profile-page', __webpack_require__(/*! ./components/guardian/student-profile-page.vue */ "./resources/js/components/guardian/student-profile-page.vue")["default"]);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('course-card-pagination', __webpack_require__(/*! ./components/category/course-card-pagination.vue */ "./resources/js/components/category/course-card-pagination.vue")["default"]);
@@ -52859,6 +53277,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_guardians_page_vue_vue_type_template_id_e053d9f6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_guardians_page_vue_vue_type_template_id_e053d9f6_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/instructor-payment-detail-page.vue":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/admin/instructor-payment-detail-page.vue ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _instructor_payment_detail_page_vue_vue_type_template_id_0fd5c39f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./instructor-payment-detail-page.vue?vue&type=template&id=0fd5c39f&scoped=true& */ "./resources/js/components/admin/instructor-payment-detail-page.vue?vue&type=template&id=0fd5c39f&scoped=true&");
+/* harmony import */ var _instructor_payment_detail_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./instructor-payment-detail-page.vue?vue&type=script&lang=js& */ "./resources/js/components/admin/instructor-payment-detail-page.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _instructor_payment_detail_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _instructor_payment_detail_page_vue_vue_type_template_id_0fd5c39f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _instructor_payment_detail_page_vue_vue_type_template_id_0fd5c39f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "0fd5c39f",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/admin/instructor-payment-detail-page.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/instructor-payment-detail-page.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/admin/instructor-payment-detail-page.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_instructor_payment_detail_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./instructor-payment-detail-page.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/instructor-payment-detail-page.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_instructor_payment_detail_page_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/admin/instructor-payment-detail-page.vue?vue&type=template&id=0fd5c39f&scoped=true&":
+/*!*********************************************************************************************************************!*\
+  !*** ./resources/js/components/admin/instructor-payment-detail-page.vue?vue&type=template&id=0fd5c39f&scoped=true& ***!
+  \*********************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_instructor_payment_detail_page_vue_vue_type_template_id_0fd5c39f_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./instructor-payment-detail-page.vue?vue&type=template&id=0fd5c39f&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/admin/instructor-payment-detail-page.vue?vue&type=template&id=0fd5c39f&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_instructor_payment_detail_page_vue_vue_type_template_id_0fd5c39f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_instructor_payment_detail_page_vue_vue_type_template_id_0fd5c39f_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -57049,6 +57536,7 @@ var state = {
   adminUsers: {},
   adminSales: {},
   adminPromotionPayments: {},
+  adminPromotionPurchaseDetail: {},
   adminCategory: {},
   adminSubCategory: {},
   crLessons: {},
@@ -57172,8 +57660,12 @@ var mutations = {
     state.adminSales = sales.data;
     state.loadingStatus = true;
   },
-  setPromotionPayments: function setPromotionPayments(state, payment) {
+  setAdminPromotionPayments: function setAdminPromotionPayments(state, payment) {
     state.adminPromotionPayments = payment.data;
+    state.loadingStatus = true;
+  },
+  setAdminPromotionPurchaseDetail: function setAdminPromotionPurchaseDetail(state, payment) {
+    state.adminPromotionPurchaseDetail = payment.data;
     state.loadingStatus = true;
   },
   setAdminGuardian: function setAdminGuardian(state, guardians) {
@@ -57501,70 +57993,81 @@ var actions = {
   loadAdminPromotionPayments: function loadAdminPromotionPayments(_ref56, userId) {
     var commit = _ref56.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/purchase/getInstructorsEarnByReferenceCode/' + userId).then(function (response) {
-      return commit('setPromotionPayments', response.data);
+      return commit('setAdminPromotionPayments', response.data);
     });
   },
-  loadAdminDistrict: function loadAdminDistrict(_ref57, cityId) {
+  loadAdminPromotionPurchaseDetail: function loadAdminPromotionPurchaseDetail(_ref57, _ref58) {
     var commit = _ref57.commit;
+
+    var _ref59 = _slicedToArray(_ref58, 2),
+        userId = _ref59[0],
+        instructorId = _ref59[1];
+
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/purchase/getInstructorEarnByReferenceCode/' + userId + '/' + instructorId).then(function (response) {
+      return commit('setAdminPromotionPurchaseDetail', response.data);
+    });
+  },
+  loadAdminDistrict: function loadAdminDistrict(_ref60, cityId) {
+    var commit = _ref60.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/admin/bs/city/' + cityId + '/districts').then(function (response) {
       return commit('setAdminDistrict', response.data);
     });
   },
-  loadAdminNewPage: function loadAdminNewPage(_ref58, _ref59) {
-    var commit = _ref58.commit;
+  loadAdminNewPage: function loadAdminNewPage(_ref61, _ref62) {
+    var commit = _ref61.commit;
 
-    var _ref60 = _slicedToArray(_ref59, 2),
-        url = _ref60[0],
-        mutationName = _ref60[1];
+    var _ref63 = _slicedToArray(_ref62, 2),
+        url = _ref63[0],
+        mutationName = _ref63[1];
 
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
       return commit(mutationName, response.data);
     });
   },
-  loadCrLessons: function loadCrLessons(_ref61) {
-    var commit = _ref61.commit;
+  loadCrLessons: function loadCrLessons(_ref64) {
+    var commit = _ref64.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/pl/lessons').then(function (response) {
       return commit('setCrLessons', response.data);
     });
   },
-  loadCrExams: function loadCrExams(_ref62) {
-    var commit = _ref62.commit;
+  loadCrExams: function loadCrExams(_ref65) {
+    var commit = _ref65.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/pe/exams').then(function (response) {
       return commit('setCrExams', response.data);
     });
   },
-  loadGuardianStudents: function loadGuardianStudents(_ref63, userId) {
-    var commit = _ref63.commit;
+  loadGuardianStudents: function loadGuardianStudents(_ref66, userId) {
+    var commit = _ref66.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/guardian/getStudents/' + userId).then(function (response) {
       return commit('setGuardianStudents', response.data);
     });
   },
-  loadGuardianStudentList: function loadGuardianStudentList(_ref64, userId) {
-    var commit = _ref64.commit;
+  loadGuardianStudentList: function loadGuardianStudentList(_ref67, userId) {
+    var commit = _ref67.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/guardian/getStudentsList/' + userId).then(function (response) {
       return commit('setGuardianStudentList', response.data);
     });
   },
-  loadGuardianNewPage: function loadGuardianNewPage(_ref65, apiUrl) {
-    var commit = _ref65.commit;
+  loadGuardianNewPage: function loadGuardianNewPage(_ref68, apiUrl) {
+    var commit = _ref68.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(apiUrl).then(function (response) {
       return commit('setGuardianStudents', response.data);
     });
   },
-  loadPurchaseHistory: function loadPurchaseHistory(_ref66, userId) {
-    var commit = _ref66.commit;
+  loadPurchaseHistory: function loadPurchaseHistory(_ref69, userId) {
+    var commit = _ref69.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/purchases/' + userId).then(function (response) {
       return commit('setPurchaseHistory', response.data);
     });
   },
-  loadPurchaseHistoryNewPage: function loadPurchaseHistoryNewPage(_ref67, apiUrl) {
-    var commit = _ref67.commit;
+  loadPurchaseHistoryNewPage: function loadPurchaseHistoryNewPage(_ref70, apiUrl) {
+    var commit = _ref70.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(apiUrl).then(function (response) {
       return commit('setPurchaseHistory', response.data);
     });
   },
-  loadQuestionAnswerData: function loadQuestionAnswerData(_ref68, url) {
-    var commit = _ref68.commit;
+  loadQuestionAnswerData: function loadQuestionAnswerData(_ref71, url) {
+    var commit = _ref71.commit;
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(url).then(function (response) {
       return commit('setQuestionAnswerData', response.data);
     });

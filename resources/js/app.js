@@ -70,6 +70,7 @@ Vue.component('grade-page', require('./components/admin/grades-page.vue').defaul
 Vue.component('subject-page', require('./components/admin/subjects-page.vue').default);
 Vue.component('sales-page', require('./components/admin/sales-page.vue').default);
 Vue.component('promotion-payment-page', require('./components/admin/promotion-payment-page.vue').default);
+Vue.component('instructor-payment-detail-page', require('./components/admin/instructor-payment-detail-page.vue').default);
 
 Vue.component('students-page', require('./components/guardian/students-page.vue').default);
 Vue.component('student-profile-page', require('./components/guardian/student-profile-page.vue').default);
