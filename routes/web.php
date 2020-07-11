@@ -55,6 +55,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::get('/admins','Admin\HomeController@admins')->name('admin_admins');
 
     Route::get('/purchases','Admin\HomeController@purchases')->name('admin_purchases');
+
+    Route::get('/instructorsFeeWithReferenceCode','Admin\HomeController@instructorsFeeWithReferenceCode')->name('admin_instructorsFeeWithReferenceCode');
 });
 
 Route::group(['prefix' => 'guardian' , 'middleware' => 'auth'],  function (){
