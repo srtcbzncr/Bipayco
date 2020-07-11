@@ -329,7 +329,6 @@ class BasketRepository implements IRepository
                 DB::table('instructor_fee_share')->insert([
                     'user_id' => $user_id,
                     'instructor_id' => $instructor->id,
-                    'reference_code' => $referenceCode,
                     'confirm' => false,
                     'active' => false
                 ]);
@@ -512,17 +511,19 @@ class BasketRepository implements IRepository
                             $instructor_fee_share = DB::table('instructor_fee_share')->where('user_id',$data['user_id'])->where('active',false)
                                 ->where('deleted_at',null)->orderBy('created_at','desc')->first();
                             if($instructor_fee_share!=null){
-                                $instructor_fee_share->purchase_id = $object->id;
-                                $instructor_fee_share->fee = $coursesPrice[$i];
-                                $instructor_fee_share->active = true;
-                                $instructor_fee_share->save();
+                                DB::table('instructor_fee_share')->where('id',$instructor_fee_share->id)
+                                    ->update([
+                                        'purchase_id' => $object->id,
+                                        'fee' => $coursesPrice[$i]*0.1,
+                                        'active' => true
+                                    ]);
                             }
                             else{
                                 DB::table('instructor_fee_share')->insert([
                                     'user_id' => $data['user_id'],
                                     'instructor_id' => $instructor_id_final,
                                     'purchase_id' => $object->id,
-                                    'fee' => $coursesPrice[$i],
+                                    'fee' => $coursesPrice[$i]*0.1,
                                     'active' => true,
                                 ]);
                             }
@@ -563,17 +564,19 @@ class BasketRepository implements IRepository
                             $instructor_fee_share = DB::table('instructor_fee_share')->where('user_id',$data['user_id'])->where('active',false)
                                 ->where('deleted_at',null)->orderBy('created_at','desc')->first();
                             if($instructor_fee_share!=null){
-                                $instructor_fee_share->purchase_id = $object->id;
-                                $instructor_fee_share->fee = $coursesPrice[$i];
-                                $instructor_fee_share->active = true;
-                                $instructor_fee_share->save();
+                                DB::table('instructor_fee_share')->where('id',$instructor_fee_share->id)
+                                    ->update([
+                                        'purchase_id' => $object->id,
+                                        'fee' => $coursesPrice[$i]*0.1,
+                                        'active' => true
+                                    ]);
                             }
                             else{
                                 DB::table('instructor_fee_share')->insert([
                                     'user_id' => $data['user_id'],
                                     'instructor_id' => $instructor_id_final,
                                     'purchase_id' => $object->id,
-                                    'fee' => $coursesPrice[$i],
+                                    'fee' => $coursesPrice[$i]*0.1,
                                     'active' => true
                                 ]);
                             }
@@ -614,17 +617,19 @@ class BasketRepository implements IRepository
                             $instructor_fee_share = DB::table('instructor_fee_share')->where('user_id',$data['user_id'])->where('active',false)
                                 ->where('deleted_at',null)->orderBy('created_at','desc')->first();
                             if($instructor_fee_share!=null){
-                                $instructor_fee_share->purchase_id = $object->id;
-                                $instructor_fee_share->fee = $coursesPrice[$i];
-                                $instructor_fee_share->active = true;
-                                $instructor_fee_share->save();
+                                DB::table('instructor_fee_share')->where('id',$instructor_fee_share->id)
+                                    ->update([
+                                        'purchase_id' => $object->id,
+                                        'fee' => $coursesPrice[$i]*0.1,
+                                        'active' => true
+                                    ]);
                             }
                             else{
                                 DB::table('instructor_fee_share')->insert([
                                     'user_id' => $data['user_id'],
                                     'instructor_id' => $instructor_id_final,
                                     'purchase_id' => $object->id,
-                                    'fee' => $coursesPrice[$i],
+                                    'fee' => $coursesPrice[$i]*0.1,
                                     'active' => true
                                 ]);
                             }
@@ -665,17 +670,19 @@ class BasketRepository implements IRepository
                             $instructor_fee_share = DB::table('instructor_fee_share')->where('user_id',$data['user_id'])->where('active',false)
                                 ->where('deleted_at',null)->orderBy('created_at','desc')->first();
                             if($instructor_fee_share!=null){
-                                $instructor_fee_share->purchase_id = $object->id;
-                                $instructor_fee_share->fee = $coursesPrice[$i];
-                                $instructor_fee_share->active = true;
-                                $instructor_fee_share->save();
+                                DB::table('instructor_fee_share')->where('id',$instructor_fee_share->id)
+                                    ->update([
+                                        'purchase_id' => $object->id,
+                                        'fee' => $coursesPrice[$i]*0.1,
+                                        'active' => true
+                                    ]);
                             }
                             else{
                                 DB::table('instructor_fee_share')->insert([
                                     'user_id' => $data['user_id'],
                                     'instructor_id' => $instructor_id_final,
                                     'purchase_id' => $object->id,
-                                    'fee' => $coursesPrice[$i],
+                                    'fee' => $coursesPrice[$i]*0.1,
                                     'active' => true
                                 ]);
                             }
