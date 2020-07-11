@@ -18,7 +18,7 @@ class CreateInstructorFeeShareTable extends Migration
             $table->bigInteger('user_id');
             $table->bigInteger('instructor_id');
             $table->bigInteger('purchase_id')->nullable(true);
-            $table->integer('fee')->nullable(true);
+            $table->double('fee')->nullable(true);
             $table->boolean('confirm')->nullable(true); // eğitmene para havale edildiğinde burası true olacak.
             $table->boolean('active');
             $table->timestamps();
