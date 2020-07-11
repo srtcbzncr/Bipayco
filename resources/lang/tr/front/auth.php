@@ -267,5 +267,16 @@ return [
     'registered_instructors'=>'Kayıtlı eğitmenler',
     'last_registered_instructors'=>'Son kayıtlı eğitmenler',
     'total_purchase'=>'Toplam Satış',
+    'cookies_policy'=>'Çerez Politikası',
+    'pre_information_form'=>'Ön Bilgilendirme Formu',
+    'who_we_are'=>'Biz Kimiz?',
+    'subscription_contract'=>'Abonelik Sözleşmesi',
+    'sales_contract'=>'Satış Sözleşmesi',
+    'term_of_use'=>'Kullanım Koşulları',
+    'privacy_terms'=>'Gizlilik Koşulları',
+    'kvkk_illuminate_text'=>'KVKK Aydınlatma Metni',
+    'intellectual_property_policy'=>'Fikri Mülkiyet Politikası',
+    'faq'=>'SSS',
+    'frequently_asked_questions'=>'Sıkça Sorulan Sorular',
 
 ];
