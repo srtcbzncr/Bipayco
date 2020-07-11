@@ -524,6 +524,7 @@ class BasketRepository implements IRepository
                                     'instructor_id' => $instructor_id_final,
                                     'purchase_id' => $object->id,
                                     'fee' => $coursesPrice[$i]*0.1,
+                                    'confirm' => false,
                                     'active' => true,
                                 ]);
                             }
@@ -577,6 +578,7 @@ class BasketRepository implements IRepository
                                     'instructor_id' => $instructor_id_final,
                                     'purchase_id' => $object->id,
                                     'fee' => $coursesPrice[$i]*0.1,
+                                    'confirm' => false,
                                     'active' => true
                                 ]);
                             }
@@ -630,6 +632,7 @@ class BasketRepository implements IRepository
                                     'instructor_id' => $instructor_id_final,
                                     'purchase_id' => $object->id,
                                     'fee' => $coursesPrice[$i]*0.1,
+                                    'confirm' => false,
                                     'active' => true
                                 ]);
                             }
@@ -683,6 +686,7 @@ class BasketRepository implements IRepository
                                     'instructor_id' => $instructor_id_final,
                                     'purchase_id' => $object->id,
                                     'fee' => $coursesPrice[$i]*0.1,
+                                    'confirm' => false,
                                     'active' => true
                                 ]);
                             }

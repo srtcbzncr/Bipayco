@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Auth\Admin;
+use App\Models\Auth\Instructor;
+use App\Models\Auth\User;
 use App\Repositories\Admin\DashboardRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -270,7 +272,10 @@ class HomeController extends Controller
         $user = Auth::user();
         $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
         if($admin != null){
-            return view('admin.instructor_payment_detail')->with('instructor_id',$instructor_id);
+            $instructor = Instructor::find($instructor_id);
+            $user = User::find($instructor->id);
+            $instructor['user'] = $user;
+            return view('admin.instructor_payment_detail')->with('instructor',$instructor);
         }
         else{
             return redirect()->back();
