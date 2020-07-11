@@ -178,15 +178,39 @@ class HomeController extends Controller
     }
 
     public function purchases(){
-        return view('admin.sales');
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin != null){
+            return view('admin.sales');
+        }
+        else{
+            return redirect()->back();
+        }
+
     }
 
     public function instructorsFeeWithReferenceCode(){
-        return view('admin.promotion_payment');
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin != null){
+            return view('admin.promotion_payment');
+        }
+        else{
+            return redirect()->back();
+        }
+
     }
 
     public function contracts(){
-        return view('admin.contracts');
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin != null){
+            return view('admin.contracts');
+        }
+        else{
+            return redirect()->back();
+        }
+
     }
 
     public function contractPost(Request $request){
