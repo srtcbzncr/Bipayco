@@ -4266,6 +4266,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       type: String,
       required: true
     },
+    totalCommissionAmount: {
+      type: Number,
+      required: true
+    },
     ibanText: {
       type: String,
       "default": "Iban"
@@ -5043,6 +5047,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -5093,6 +5100,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     instructorInfoText: {
       type: String,
       "default": "Eğitmen Bilgisi"
+    },
+    identificationNumberText: {
+      type: String,
+      "default": "Kimlik Numarası"
     }
   },
   watch: {
@@ -21205,7 +21216,7 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("h6", [
-            _vm._v(_vm._s(_vm.selectedInstructor.user.phone_number) + " "),
+            _vm._v(_vm._s(_vm.totalCommissionAmount.toFixed(2)) + " "),
             _c("span", { staticClass: "fas fa-lira-sign icon-tiny" })
           ])
         ])
@@ -22467,6 +22478,14 @@ var render = function() {
                       _vm._s(_vm.selected.user.last_name)
                   )
                 ]),
+                _vm._v(" "),
+                _c("hr"),
+                _vm._v(" "),
+                _c("div", { staticClass: "uk-form-label" }, [
+                  _vm._v(_vm._s(_vm.identificationNumberText))
+                ]),
+                _vm._v(" "),
+                _c("h6", [_vm._v(_vm._s(_vm.selected.identification_number))]),
                 _vm._v(" "),
                 _c("hr"),
                 _vm._v(" "),

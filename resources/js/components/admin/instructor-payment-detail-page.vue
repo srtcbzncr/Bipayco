@@ -40,7 +40,7 @@
             </div>
             <div>
                 <div class="uk-form-label">{{totalCommissionAmountText}}</div>
-                <h6>{{selectedInstructor.user.phone_number}} <span class="fas fa-lira-sign icon-tiny"></span></h6>
+                <h6>{{totalCommissionAmount.toFixed(2)}} <span class="fas fa-lira-sign icon-tiny"></span></h6>
             </div>
         </div>
         <div class="uk-background-default uk-padding-remove uk-margin-medium-top border-radius-6">
@@ -105,6 +105,10 @@
             },
             userId:{
                 type:String,
+                required:true,
+            },
+            totalCommissionAmount:{
+                type:Number,
                 required:true,
             },
             ibanText:{

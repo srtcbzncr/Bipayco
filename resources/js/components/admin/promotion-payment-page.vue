@@ -54,6 +54,9 @@
                     <div class="uk-form-label">{{nameText}}</div>
                     <h6>{{selected.user.first_name}} {{selected.user.last_name}}</h6>
                     <hr>
+                    <div class="uk-form-label">{{identificationNumberText}}</div>
+                    <h6>{{selected.identification_number}}</h6>
+                    <hr>
                     <div class="uk-form-label">{{ibanText}}</div>
                     <h6>{{selected.iban}}</h6>
                     <hr>
@@ -121,6 +124,10 @@
             instructorInfoText:{
                 type:String,
                 default:"Eğitmen Bilgisi"
+            },
+            identificationNumberText:{
+                type:String,
+                default:"Kimlik Numarası",
             }
         },
         watch:{

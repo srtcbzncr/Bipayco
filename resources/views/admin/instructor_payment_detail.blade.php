@@ -4,5 +4,6 @@
         user-id="{{Auth::user()->id}}"
         :selected-instructor="{{$instructor}}"
         promotion-payment-route="{{route('admin_instructorsFeeWithReferenceCode')}}"
+        :total-commission-amount="{{$total}}"
     ></instructor-payment-detail-page>
 @endsection
