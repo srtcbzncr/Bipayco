@@ -107,7 +107,7 @@
                                 <a href="{{asset('/contracts/salesContract.pdf')}}" target="_blank"> Satış Sözleşmesi </a>
                             </li>
                             <li>
-                                <a href="{{asset('/contracts/kvkkAydinlatma.pdf')}}" target="_blank"> KVKK Aydınlatma Metni </a>
+
                             </li>
                         </ul>
                     </div>

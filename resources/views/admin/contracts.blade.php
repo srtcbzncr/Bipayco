@@ -112,6 +112,17 @@
                     <button class="uk-button uk-button-primary uk-padding-small uk-padding-remove-vertical uk-margin-small-top uk-margin-small-right uk-width-1-6@m" type="submit">@lang('front/auth.save')</button>
                 </div>
             </form>
+            <h3>@lang('front/auth.member_obligations')</h3>
+            <form method="POST" action="{{route('admin_contract_post')}}" enctype="multipart/form-data">
+                @csrf
+                <div class="uk-flex uk-flex-wrap align-items-center ">
+                    <div uk-form-custom="target: true" class="uk-flex uk-flex-center uk-margin-small-top uk-margin-small-right uk-width-1-2@m">
+                        <input id="member_obligations" name="member_obligations" type="file" accept="application/pdf,application/vnd.ms-excel" required>
+                        <input class="uk-input" type="text" tabindex="-1" placeholder="@lang('front/auth.select_file')" disabled>
+                    </div>
+                    <button class="uk-button uk-button-primary uk-padding-small uk-padding-remove-vertical uk-margin-small-top uk-margin-small-right uk-width-1-6@m" type="submit">@lang('front/auth.save')</button>
+                </div>
+            </form>
         </div>
     </div>
 @endsection
