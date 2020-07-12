@@ -199,11 +199,13 @@
                                     <a href="{{route('pl_index')}}"> Derslere Hazırlık Modülü </a>
                                 </li>
                                 <li>
-                                    <a href="#">Sınavlara Hazırlık Modülü  </a>
+                                    <a href="{{route('pe_index')}}">Sınavlara Hazırlık Modülü  </a>
                                 </li>
                                 <li>
+                                    <a href="{{route('live_index')}}">Canlı Yayın</a>
                                 </li>
                                 <li>
+                                    <a href="{{asset('/contracts/faq.pdf')}}">Sıkça Sorulan Sorular</a>
                                 </li>
                             </ul>
                         </div>
