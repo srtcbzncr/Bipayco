@@ -426,6 +426,18 @@ class InstructorRepository implements IRepository{
             $object->bio = $data['bio'];
             $object->iban = $data['iban'];
             $object->save();
+
+            // iyzicoya alt üye iş yeri güncelle.
+            $payment = new Payment();
+            $payment_result = $payment->updateSubMerchant($object);
+            if($payment_result->getStatus() == "success"){
+                //
+            }
+            else{
+                DB::rollBack();
+                $error = $payment_result->getErrorMessage();
+                throw new \Exception('Bir hata oluştu. Hata kodu:'.$payment_result->getErrorCode());
+            }
         }
         catch(\Exception $e){
             $error = $e;
