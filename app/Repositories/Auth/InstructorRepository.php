@@ -420,6 +420,7 @@ class InstructorRepository implements IRepository{
 
         // Operations
         try{
+            DB::beginTransaction();
             $object = Instructor::find($id);
             $object->identification_number = $data['identification_number'];
             $object->title = $data['title'];
@@ -438,8 +439,10 @@ class InstructorRepository implements IRepository{
                 $error = $payment_result->getErrorMessage();
                 throw new \Exception('Bir hata oluştu. Hata kodu:'.$payment_result->getErrorCode());
             }
+            DB::commit();
         }
         catch(\Exception $e){
+            DB::rollBack();
             $error = $e;
             $result = false;
         }
