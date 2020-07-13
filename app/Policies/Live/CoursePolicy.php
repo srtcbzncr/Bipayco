@@ -48,7 +48,7 @@ class CoursePolicy
 
     public function entryControl(User $user, Course $course){
         $student = Student::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
-        $entryControl = Entry::where('live_course_id',$course->id)->where('deleted_at',null)->where('student_id',$student->id);
+        $entryControl = Entry::where('live_course_id',$course->id)->where('deleted_at',null)->where('student_id',$student->id)->first();
         if($entryControl != null){
             return true;
         }
