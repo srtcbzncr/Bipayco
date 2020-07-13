@@ -371,7 +371,7 @@ class AuthRepository implements IRepository {
                 $ge_instructors = DB::table('ge_courses_instructors')->where('instructor_id',$item->id)->where('active',true)->where('deleted_at',null)->get();
                 foreach ($ge_instructors as $ge_instructor){
                     $total = 0;
-                    $ge_purchases = Purchase::where('course',$ge_instructor->course_id)->where('course_type',$ge_instructor->course_type)->where('confirmation',true)->where('deleted_at',null)->get();
+                    $ge_purchases = Purchase::where('course_id',$ge_instructor->course_id)->where('course_type',$ge_instructor->course_type)->where('confirmation',true)->where('deleted_at',null)->get();
                     foreach ($ge_purchases as $purchase){
                         $total = $total + $purchase->price;
                     }
