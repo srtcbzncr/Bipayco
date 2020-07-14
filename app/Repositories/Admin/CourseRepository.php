@@ -79,7 +79,7 @@ class CourseRepository implements IRepository {
 
         // Operations
         try{
-            $object = Course::where('active',true)->where('deleted_at',null)->paginate(9);
+            $object = Course::where('deleted_at',null)->paginate(9);
             foreach ($object as $key => $item){
                 $category = Category::find($item->category_id);
                 $subCat = Category::find($item->sub_category_id);
@@ -120,7 +120,7 @@ class CourseRepository implements IRepository {
 
         // Operations
         try{
-            $object = \App\Models\PrepareLessons\Course::where('active',true)->where('deleted_at',null)->paginate(9);
+            $object = \App\Models\PrepareLessons\Course::where('deleted_at',null)->paginate(9);
             foreach ($object as $key => $item){
                 $lesson = Lesson::find($item->lesson_id);
                 $grade = Grade::find($item->grade_id);
@@ -161,7 +161,7 @@ class CourseRepository implements IRepository {
 
         // Operations
         try{
-            $object = \App\Models\PrepareExams\Course::where('active',true)->where('deleted_at',null)->paginate(9);
+            $object = \App\Models\PrepareExams\Course::where('deleted_at',null)->paginate(9);
             foreach ($object as $key => $item){
                 $exam = Lesson::find($item->exam_id);
 
