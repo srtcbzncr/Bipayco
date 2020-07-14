@@ -62,6 +62,9 @@
                     <a href="{{route('admin_instructorsFeeWithReferenceCode')}}"> <i class="fas fa-wallet"></i>  @lang('front/auth.commission_payments') </a>
                 </li>
                 <li>
+                    <a href="{{route('admin_courses')}}"> <i class="fas fa-chalkboard"></i>  @lang('front/auth.courses') </a>
+                </li>
+                <li>
                     <a href="{{route('admin_admins')}}"> <i class="fas fa-user-tie"></i>  @lang('front/auth.admins') </a>
                 </li>
                 <li>

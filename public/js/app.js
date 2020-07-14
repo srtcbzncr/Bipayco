@@ -3107,7 +3107,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     var _this = this;
 
-    this.$store.dispatch('loadAdminCourseStudent', ['ge', this.userId, this.courseId]);
+    this.$store.dispatch('loadAdminCourseStudent', [this.module, this.userId, this.courseId]);
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/course/detail_' + this.module + '/' + this.userId + '/' + this.courseId).then(function (res) {
       _this.courseDetail = res.data.data;
     });
@@ -3389,7 +3389,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCourses']);
     },
     openInfo: function openInfo(courseId) {
-      window.location.replace('/admin/course_detail/' + courseId);
+      window.location.replace('/admin/course_detail/' + courseId + '/' + this.selectedModule);
     }
   }),
   created: function created() {
@@ -20265,7 +20265,11 @@ var render = function() {
             _c("h6", [
               _c(
                 "a",
-                { attrs: { href: "/ge/course/" + _vm.courseDetail.id } },
+                {
+                  attrs: {
+                    href: "/" + _vm.module + "/course/" + _vm.courseDetail.id
+                  }
+                },
                 [_vm._v(_vm._s(_vm.courseDetail.name))]
               )
             ])
@@ -20303,11 +20307,26 @@ var render = function() {
               _vm._v(_vm._s(_vm.instructorText))
             ]),
             _vm._v(" "),
-            _c("h6", [
-              _c("a", { attrs: { href: _vm.courseDetail.instructor } }, [
-                _vm._v(_vm._s(_vm.courseDetail.instructor))
-              ])
-            ])
+            _vm.courseDetail.instructor
+              ? _c("h6", [
+                  _c(
+                    "a",
+                    {
+                      attrs: {
+                        href:
+                          "/instructorProfile/" + _vm.courseDetail.instructor.id
+                      }
+                    },
+                    [
+                      _vm._v(
+                        _vm._s(_vm.courseDetail.instructor.user.first_name) +
+                          " " +
+                          _vm._s(_vm.courseDetail.instructor.user.last_name)
+                      )
+                    ]
+                  )
+                ])
+              : _vm._e()
           ])
         ]
       )

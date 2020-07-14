@@ -223,7 +223,7 @@
                 this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminCourses']);
             },
             openInfo:function (courseId) {
-                window.location.replace('/admin/course_detail/'+courseId);
+                window.location.replace('/admin/course_detail/'+courseId+'/'+this.selectedModule);
             },
         },
         created() {

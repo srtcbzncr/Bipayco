@@ -281,5 +281,5 @@ return [
     'member_obligations'=>'Üye Yükümlülükleri ve Koşulları',
     'commission_payments'=>'Komisyon Ödemeleri',
     'contracts'=>'Sözleşmeler',
-
+    'courses'=>'Kurslar',
 ];

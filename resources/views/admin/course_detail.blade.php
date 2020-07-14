@@ -3,7 +3,7 @@
     <course-students
         user-id="{{Auth::user()->id}}"
         course-id="{{$course_id}}"
-        admin-courses-route="/admin/courses"
-        module="ge"
+        admin-courses-route="{{route('admin_courses')}}"
+        module="{{$course_type}}"
     ></course-students>
 @endsection

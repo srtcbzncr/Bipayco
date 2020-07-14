@@ -16,7 +16,7 @@
             <div class="uk-child-width-1-2@m uk-grid-divider uk-padding-small uk-padding-remove-vertical" uk-grid>
                 <div>
                     <div class="uk-form-label">{{nameText}}</div>
-                    <h6><a :href="'/ge/course/'+courseDetail.id">{{courseDetail.name}}</a></h6>
+                    <h6><a :href="'/'+module+'/course/'+courseDetail.id">{{courseDetail.name}}</a></h6>
                 </div>
                 <div>
                     <div class="uk-form-label">{{pointText}}</div>
@@ -32,7 +32,7 @@
                 </div>
                 <div>
                     <div class="uk-form-label">{{instructorText}}</div>
-                    <h6><a :href="courseDetail.instructor">{{courseDetail.instructor}}</a></h6>
+                    <h6 v-if="courseDetail.instructor"><a :href="'/instructorProfile/'+courseDetail.instructor.id">{{courseDetail.instructor.user.first_name}} {{courseDetail.instructor.user.last_name}}</a></h6>
                 </div>
             </div>
         </div>
@@ -181,7 +181,7 @@
             },
         },
         created(){
-            this.$store.dispatch('loadAdminCourseStudent', ['ge', this.userId, this.courseId]);
+            this.$store.dispatch('loadAdminCourseStudent', [this.module, this.userId, this.courseId]);
             Axios.get('/api/admin/course/detail_'+this.module+'/'+this.userId+'/'+this.courseId)
             .then((res)=>{
                 this.courseDetail=res.data.data;
