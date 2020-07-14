@@ -1294,7 +1294,6 @@ class CourseRepository implements IRepository{
             DB::rollBack();
             $error = $e->getMessage();
             $result = false;
-            DB::rollBack();
         }
 
         // Response
