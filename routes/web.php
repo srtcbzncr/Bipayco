@@ -63,7 +63,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
     Route::get('/purchase_detail/{instructor_id}','Admin\HomeController@purchaseDetail')->name('admin_purchases_detail');
 
     Route::get('/courses','Admin\HomeController@courses')->name('admin_courses');
-    Route::get('/course_detail/{course_id}','Admin\HomeController@course_detail')->name('admin_courses');
+    Route::get('/course_detail/{course_id}/{course_type}','Admin\HomeController@course_detail')->name('admin_course_detail');
 
 });
 

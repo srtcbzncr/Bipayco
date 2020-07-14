@@ -311,11 +311,11 @@ class HomeController extends Controller
         }
     }
 
-    public function course_detail($course_id){
+    public function course_detail($course_id,$course_type){
         $user = Auth::user();
         $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
         if($admin != null){
-            return view('admin.course_detail')->with('course_id',$course_id);
+            return view('admin.course_detail')->with('course_id',$course_id)->with('course_type',$course_type);
         }
         else{
             return redirect()->back();
