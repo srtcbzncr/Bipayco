@@ -258,4 +258,76 @@ class CourseController extends Controller
             'errorMessage' => $resp->getError()
         ],400);
     }
+
+    public function detailGeCourse($user_id,$course_id){
+        $repo = new CourseRepository();
+
+        $resp = $repo->detailGeCourse($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Kurs başarıyla getirildi',
+                'data' => $resp->getData()
+            ],200);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Kurs getirilirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function detailPlCourse($user_id,$course_id){
+        $repo = new CourseRepository();
+
+        $resp = $repo->detailPlCourse($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Kurs başarıyla getirildi',
+                'data' => $resp->getData()
+            ],200);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Kurs getirilirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function detailPeCourse($user_id,$course_id){
+        $repo = new CourseRepository();
+
+        $resp = $repo->detailPeCourse($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Kurs başarıyla getirildi',
+                'data' => $resp->getData()
+            ],200);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Kurs getirilirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function detailLiveCourse($user_id,$course_id){
+        $repo = new CourseRepository();
+
+        $resp = $repo->detailLiveCourse($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Kurs başarıyla getirildi',
+                'data' => $resp->getData()
+            ],200);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Kurs getirilirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
 }

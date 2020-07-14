@@ -8,9 +8,11 @@ use App\Models\Auth\Instructor;
 use App\Models\Auth\User;
 use App\Models\Curriculum\Grade;
 use App\Models\Curriculum\Lesson;
+use App\Models\Curriculum\Subject;
 use App\Models\GeneralEducation\Category;
 use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\Entry;
+use App\Models\GeneralEducation\Section;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\DB;
@@ -460,6 +462,185 @@ class CourseRepository implements IRepository {
             else{
                 $object->delete();
             }
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function detailGeCourse($user_id,$course_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = Course::find($course_id);
+            $category = Category::find($object->category_id);
+            $sub_cat = Category::find($object->sub_category_id);
+            $object['category'] = $category;
+            $object['sub_category'] = $sub_cat;
+
+            $ge_instructor_course = DB::table('ge_courses_instructors')->where('course_id',$course_id)
+                ->where('course_type','App\Models\GeneralEducation\Course')->where('deleted_at',null)->get();
+            $instructor = null;
+            foreach ($ge_instructor_course as $item){
+                if($item->is_manager == true){
+                    $instructor = Instructor::find($item->instructor_id);
+                    $user = User::find($instructor->user_id);
+                    $instructor['user'] = $user;
+                    break;
+                }
+            }
+
+            $object['instructor'] = $instructor;
+
+            $sections = Section::where('course_id',$course_id)->where('active',true)->where('deleted_at',null)->orderBy('no','asc')->get();
+            foreach ($sections as $key => $section){
+                $lessons = \App\Models\GeneralEducation\Lesson::where('section_id',$section->id)->where('active',true)->where('deleted_at',null)
+                    ->orderBy('no','asc')->get();
+                $sections[$key]['lessons'] = $lessons;
+            }
+
+            $object['sections'] = $sections;
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function detailPlCourse($user_id,$course_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = \App\Models\PrepareLessons\Course::find($course_id);
+            $lesson = Lesson::find($object->lesson_id);
+            $grade = Grade::find($object->grade_id);
+            $object['lesson'] = $lesson ;
+            $object['grade'] = $grade;
+
+            $ge_instructor_course = DB::table('ge_courses_instructors')->where('course_id',$course_id)
+                ->where('course_type','App\Models\PrepareLessons\Course')->where('deleted_at',null)->get();
+            $instructor = null;
+            foreach ($ge_instructor_course as $item){
+                if($item->is_manager == true){
+                    $instructor = Instructor::find($item->instructor_id);
+                    $user = User::find($instructor->user_id);
+                    $instructor['user'] = $user;
+                    break;
+                }
+            }
+
+            $object['instructor'] = $instructor;
+
+            $sections = \App\Models\PrepareLessons\Section::where('course_id',$course_id)->where('active',true)->where('deleted_at',null)->orderBy('no','asc')->get();
+            foreach ($sections as $key => $section){
+                $subject = Subject::find($section->subject_id);
+                $lessons = \App\Models\PrepareLessons\Lesson::where('section_id',$section->id)->where('active',true)->where('deleted_at',null)
+                    ->orderBy('no','asc')->get();
+                $sections[$key]['subject'] = $subject;
+                $sections[$key]['lessons'] = $lessons;
+            }
+
+            $object['sections'] = $sections;
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function detailPeCourse($user_id,$course_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = \App\Models\PrepareExams\Course::find($course_id);
+            $exam = Lesson::find($object->exam_id);
+            $object['exam'] = $exam ;
+
+            $ge_instructor_course = DB::table('ge_courses_instructors')->where('course_id',$course_id)
+                ->where('course_type','App\Models\PrepareExams\Course')->where('deleted_at',null)->get();
+            $instructor = null;
+            foreach ($ge_instructor_course as $item){
+                if($item->is_manager == true){
+                    $instructor = Instructor::find($item->instructor_id);
+                    $user = User::find($instructor->user_id);
+                    $instructor['user'] = $user;
+                    break;
+                }
+            }
+
+            $object['instructor'] = $instructor;
+
+            $sections = \App\Models\PrepareLessons\Section::where('course_id',$course_id)->where('active',true)->where('deleted_at',null)->orderBy('no','asc')->get();
+            foreach ($sections as $key => $section){
+                $lesson = Lesson::find($section->lesson_id);
+                $subject = Subject::find($section->subject_id);
+                $lessons = \App\Models\PrepareExams\Lesson::where('section_id',$section->id)->where('active',true)->where('deleted_at',null)
+                    ->orderBy('no','asc')->get();
+                $sections[$key]['lesson'] = $lesson;
+                $sections[$key]['subject'] = $subject;
+                $sections[$key]['lessons'] = $lessons;
+            }
+
+            $object['sections'] = $sections;
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function detailLiveCourse($user_id,$course_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = \App\Models\Live\Course::find($course_id);
+
+            $ge_instructor_course = DB::table('ge_courses_instructors')->where('course_id',$course_id)
+                ->where('course_type','App\Models\Live\Course')->where('deleted_at',null)->get();
+            $instructor = null;
+            foreach ($ge_instructor_course as $item){
+                if($item->is_manager == true){
+                    $instructor = Instructor::find($item->instructor_id);
+                    $user = User::find($instructor->user_id);
+                    $instructor['user'] = $user;
+                    break;
+                }
+            }
+
+            $object['instructor'] = $instructor;
         }
         catch(\Exception $e){
             $error = $e->getMessage();
