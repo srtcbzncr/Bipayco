@@ -132,4 +132,58 @@ class CourseController extends Controller
             'errorMessage' => $resp->getError()
         ],400);
     }
+
+    public function passiveGeCourse($user_id,$course_id){
+        $repo = new CourseRepository();
+
+        $resp = $repo->passiveGeCourse($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Pasif etme başarılı',
+                'data' => $resp->getData()
+            ],200);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Pasif edilirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function passivePlCourse($user_id,$course_id){
+        $repo = new CourseRepository();
+
+        $resp = $repo->passivePlCourse($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Pasif etme başarılı',
+                'data' => $resp->getData()
+            ],200);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Pasif edilirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function passivePeCourse($user_id,$course_id){
+        $repo = new CourseRepository();
+
+        $resp = $repo->passivePeCourse($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Pasif etme başarılı',
+                'data' => $resp->getData()
+            ],200);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Pasif edilirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
 }
