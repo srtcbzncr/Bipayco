@@ -1,0 +1,9 @@
+@extends('layouts.admin_panel')
+@section('content')
+    <course-students
+        user-id="{{Auth::user()->id}}"
+        course-id="{{$course_id}}"
+        admin-courses-route="/admin/courses"
+        module="ge"
+    ></course-students>
+@endsection

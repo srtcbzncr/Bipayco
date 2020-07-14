@@ -89,6 +89,9 @@ const state={
     questionAnswerData:[],
     loadingStatus:false,
     purchaseHistory:{},
+    adminCourses:{},
+    adminCourseDetail:{},
+    adminCourseStudent:{},
 };
 const getters={};
 const mutations={
@@ -200,6 +203,14 @@ const mutations={
         state.adminSales=sales.data;
         state.loadingStatus=true;
     },
+    setAdminCourses(state, course){
+        state.adminCourses=course.data;
+        state.loadingStatus=true;
+    },
+    setAdminCourseStudent(state, student){
+        state.adminCourseStudent=student.data;
+        state.loadingStatus=true;
+    },
     setAdminPromotionPayments(state, payment){
         state.adminPromotionPayments=payment.data;
         state.loadingStatus=true;
@@ -250,7 +261,7 @@ const mutations={
     },
     setLoadingStatus(state, data){
         state.loadingStatus=data;
-    }
+    },
 };
 const actions={
     /*province.vue*/
@@ -404,6 +415,14 @@ const actions={
         Axios.get('/api/admin/auth/student/show')
             .then(response=>commit('setAdminUsers', response.data));
     },
+    loadAdminCourses({commit}, [module, userId]){
+        Axios.get('/api/admin/course/all_'+module+'_courses/'+userId)
+            .then(response=>commit('setAdminCourses', response.data));
+    },
+    loadAdminCourseStudent({commit}, [module, userId, courseId]){
+        Axios.get('/api/admin/course/students_'+module+'/'+userId+'/'+courseId)
+            .then(response=>commit('setAdminCourseStudent', response.data));
+    },
     loadAdminSales({commit}, userId){
         Axios.get('/api/admin/purchase/getPurchases/'+userId)
             .then(response=>commit('setAdminSales', response.data));
@@ -454,6 +473,9 @@ const actions={
     loadQuestionAnswerData({commit},url){
         Axios.get(url)
             .then(response=>commit('setQuestionAnswerData',response.data));
+    },
+    loadLoadingStatus({commit}, isLoaded){
+        commit('setLoadingStatus', isLoaded);
     }
 };
 

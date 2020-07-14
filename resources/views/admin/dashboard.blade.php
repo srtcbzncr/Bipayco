@@ -46,7 +46,7 @@
             <div class="uk-background-cover uk-light dashboard-card" data-src="#" uk-img>
                 <i class="fas fa-money-bill-wave icon-xxlarge"></i>
                 <p> @lang('front/auth.total_purchase') </p>
-                <h3> {{$data['purchases_count']}} <span class="fas fa-lira-sign icon-medium"></span></h3>
+                <h3> {{$data['purchases_count']}} @lang('front/auth.course')</h3>
                 <a href="{{route('admin_purchases')}}" class="uk-button"> @lang('front/auth.see_all') </a>
             </div>
         </div>
