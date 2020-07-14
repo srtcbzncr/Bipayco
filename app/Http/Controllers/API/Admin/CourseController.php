@@ -330,4 +330,76 @@ class CourseController extends Controller
             'errorMessage' => $resp->getError()
         ],400);
     }
+
+    public function studentsGe($user_id,$course_id){
+        $repo = new CourseRepository();
+
+        $resp = $repo->studentsGe($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Öğrenciler başarıyla getirildi',
+                'data' => $resp->getData()
+            ],200);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Öğrenciler getirilirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function studentsPl($user_id,$course_id){
+        $repo = new CourseRepository();
+
+        $resp = $repo->studentsPl($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Öğrenciler başarıyla getirildi',
+                'data' => $resp->getData()
+            ],200);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Öğrenciler getirilirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function studentsPe($user_id,$course_id){
+        $repo = new CourseRepository();
+
+        $resp = $repo->studentsPe($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Öğrenciler başarıyla getirildi',
+                'data' => $resp->getData()
+            ],200);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Öğrenciler getirilirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function studentsLive($user_id,$course_id){
+        $repo = new CourseRepository();
+
+        $resp = $repo->studentsLive($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Öğrenciler başarıyla getirildi',
+                'data' => $resp->getData()
+            ],200);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Öğrenciler getirilirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
 }

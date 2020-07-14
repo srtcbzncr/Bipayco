@@ -5,6 +5,7 @@ namespace App\Repositories\Admin;
 
 
 use App\Models\Auth\Instructor;
+use App\Models\Auth\Student;
 use App\Models\Auth\User;
 use App\Models\Curriculum\Grade;
 use App\Models\Curriculum\Lesson;
@@ -641,6 +642,113 @@ class CourseRepository implements IRepository {
             }
 
             $object['instructor'] = $instructor;
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function studentsGe($user_id,$course_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = Entry::where('course_id',$course_id)->where('course_type','App\Models\GeneralEducation\Course')
+                ->where('active',true)->where('deleted_at',null)->paginate(9);
+            foreach ($object as $key => $item){
+                $student = Student::find($item->student_id);
+                $user = User::find($student->user_id);
+                $student['user'] = $user;
+                $object[$key]->student = $student;
+            }
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function studentsPl($user_id,$course_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = Entry::where('course_id',$course_id)->where('course_type','App\Models\PrepareLessons\Course')
+                ->where('active',true)->where('deleted_at',null)->paginate(9);
+            foreach ($object as $key => $item){
+                $student = Student::find($item->student_id);
+                $user = User::find($student->user_id);
+                $student['user'] = $user;
+                $object[$key]->student = $student;
+            }
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function studentsPe($user_id,$course_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = Entry::where('course_id',$course_id)->where('course_type','App\Models\PrepareExams\Course')
+                ->where('active',true)->where('deleted_at',null)->paginate(9);
+            foreach ($object as $key => $item){
+                $student = Student::find($item->student_id);
+                $user = User::find($student->user_id);
+                $student['user'] = $user;
+                $object[$key]->student = $student;
+            }
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function studentsLive($user_id,$course_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = \App\Models\Live\Entry::where('live_course_id',$course_id)->where('deleted_at',null)->paginate(9);
+            foreach ($object as $key => $item){
+                $student = Student::find($item->student_id);
+                $user = User::find($student->user_id);
+                $student['user'] = $user;
+                $object[$key]->student = $student;
+            }
         }
         catch(\Exception $e){
             $error = $e->getMessage();

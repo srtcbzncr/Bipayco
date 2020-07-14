@@ -537,6 +537,11 @@ Route::prefix('admin')->group(function (){
        Route::get('/detail_pl/{user_id}/{course_id}','API\Admin\CourseController@detailPlCourse')->name('api_admin_detail_pl_course'); // ok
        Route::get('/detail_pe/{user_id}/{course_id}','API\Admin\CourseController@detailPeCourse')->name('api_admin_detail_pe_course'); // ok
        Route::get('/detail_live/{user_id}/{course_id}','API\Admin\CourseController@detailLiveCourse')->name('api_admin_detail_live_course'); // ok
+
+       Route::get('/students_ge/{user_id}/{course_id}','API\Admin\CourseController@studentsGe')->name('api_admin_students_ge'); // ok
+       Route::get('/students_pl/{user_id}/{course_id}','API\Admin\CourseController@studentsPl')->name('api_admin_students_pl'); // ok
+       Route::get('/students_pe/{user_id}/{course_id}','API\Admin\CourseController@studentsPe')->name('api_admin_students_pe'); // ok
+       Route::get('/students_live/{user_id}/{course_id}','API\Admin\CourseController@studentsLive')->name('api_admin_students_live'); // ok
    });
 
 });
