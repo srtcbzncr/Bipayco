@@ -186,4 +186,76 @@ class CourseController extends Controller
             'errorMessage' => $resp->getError()
         ],400);
     }
+
+    public function deleteGeCourse($user_id,$course_id){
+        $repo = new CourseRepository();
+
+        $resp = $repo->deleteGeCourse($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Kurs başarıyla silindi',
+                'data' => $resp->getData()
+            ],200);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Kurs silinirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function deletePlCourse($user_id,$course_id){
+        $repo = new CourseRepository();
+
+        $resp = $repo->deletePlCourse($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Kurs başarıyla silindi',
+                'data' => $resp->getData()
+            ],200);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Kurs silinirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function deletePeCourse($user_id,$course_id){
+        $repo = new CourseRepository();
+
+        $resp = $repo->deletePeCourse($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Kurs başarıyla silindi',
+                'data' => $resp->getData()
+            ],200);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Kurs silinirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function deleteLiveCourse($user_id,$course_id){
+        $repo = new CourseRepository();
+
+        $resp = $repo->deleteLiveCourse($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Kurs başarıyla silindi',
+                'data' => $resp->getData()
+            ],200);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Kurs silinirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
 }

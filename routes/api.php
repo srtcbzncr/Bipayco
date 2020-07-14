@@ -528,10 +528,10 @@ Route::prefix('admin')->group(function (){
       Route::post('/passive_pe_course/{user_id}/{course_id}','API\Admin\CourseController@passivePeCourse')->name('api_admin_passive_pe_course'); // ok
       //Route::post('/passive_live_course/{user_id}/{course_id}','API\Admin\CourseController@passiveLiveCourse')->name('api_admin_passive_live_course');
 
-       Route::post('/delete_ge_course/{user_id}/{course_id}','API\Admin\CourseController@deleteGeCourse')->name('api_admin_delete_ge_course');
-       Route::post('/delete_pl_course/{user_id}/{course_id}','API\Admin\CourseController@deletePlCourse')->name('api_admin_delete_pl_course');
-       Route::post('/delete_pe_course/{user_id}/{course_id}','API\Admin\CourseController@deletePeCourse')->name('api_admin_delete_pe_course');
-       Route::post('/delete_live_course/{user_id}/{course_id}','API\Admin\CourseController@deleteLiveCourse')->name('api_admin_delete_live_course');
+       Route::post('/delete_ge_course/{user_id}/{course_id}','API\Admin\CourseController@deleteGeCourse')->name('api_admin_delete_ge_course'); // ok
+       Route::post('/delete_pl_course/{user_id}/{course_id}','API\Admin\CourseController@deletePlCourse')->name('api_admin_delete_pl_course'); // ok
+       Route::post('/delete_pe_course/{user_id}/{course_id}','API\Admin\CourseController@deletePeCourse')->name('api_admin_delete_pe_course'); // ok
+       Route::post('/delete_live_course/{user_id}/{course_id}','API\Admin\CourseController@deleteLiveCourse')->name('api_admin_delete_live_course'); // ok
 
        Route::get('/detail_ge/{user_id}/{course_id}','API\Admin\CourseController@detailGeCourse')->name('api_admin_detail_ge_course');
        Route::get('/detail_pl/{user_id}/{course_id}','API\Admin\CourseController@detailPlCourse')->name('api_admin_detail_pl_course');

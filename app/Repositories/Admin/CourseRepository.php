@@ -10,6 +10,7 @@ use App\Models\Curriculum\Grade;
 use App\Models\Curriculum\Lesson;
 use App\Models\GeneralEducation\Category;
 use App\Models\GeneralEducation\Course;
+use App\Models\GeneralEducation\Entry;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
 use Illuminate\Support\Facades\DB;
@@ -344,6 +345,121 @@ class CourseRepository implements IRepository {
             $object = \App\Models\PrepareExams\Course::find($course_id);
             $object->active = false;
             $object->save();
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function deleteGeCourse($user_id,$course_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = Course::find($course_id);
+            $entries = Entry::where('course_id',$course_id)->where('course_type','App\Models\GeneralEducation\Course')
+                ->where('active',true)->where('deleted_at',null)->get();
+            if($entries!= null and count($entries)>0){
+                $error = "Kurs kayıtlı öğrenci olduğu için silinemez.";
+                $result = false;
+            }
+            else{
+                $object->delete();
+            }
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function deletePlCourse($user_id,$course_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = \App\Models\PrepareLessons\Course::find($course_id);
+            $entries = Entry::where('course_id',$course_id)->where('course_type','App\Models\PrepareLessons\Course')
+                ->where('active',true)->where('deleted_at',null)->get();
+            if($entries!= null and count($entries)>0){
+                $error = "Kurs kayıtlı öğrenci olduğu için silinemez.";
+                $result = false;
+            }
+            else{
+                $object->delete();
+            }
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function deletePeCourse($user_id,$course_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = \App\Models\PrepareExams\Course::find($course_id);
+            $entries = Entry::where('course_id',$course_id)->where('course_type','App\Models\PrepareExams\Course')
+                ->where('active',true)->where('deleted_at',null)->get();
+            if($entries!= null and count($entries)>0){
+                $error = "Kurs kayıtlı öğrenci olduğu için silinemez.";
+                $result = false;
+            }
+            else{
+                $object->delete();
+            }
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function deleteLiveCourse($user_id,$course_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = \App\Models\Live\Course::find($course_id);
+            $entries = \App\Models\Live\Entry::where('live_course_id',$course_id)->where('deleted_at',null)->get();
+            if($entries!= null and count($entries)>0){
+                $error = "Kurs kayıtlı öğrenci olduğu için silinemez.";
+                $result = false;
+            }
+            else{
+                $object->delete();
+            }
         }
         catch(\Exception $e){
             $error = $e->getMessage();
