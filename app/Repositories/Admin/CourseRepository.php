@@ -485,6 +485,7 @@ class CourseRepository implements IRepository {
             $object = Course::find($course_id);
             $category = Category::find($object->category_id);
             $sub_cat = Category::find($object->sub_category_id);
+            $object['course_type'] = 'ge';
             $object['category'] = $category;
             $object['sub_category'] = $sub_cat;
 
@@ -532,6 +533,7 @@ class CourseRepository implements IRepository {
             $object = \App\Models\PrepareLessons\Course::find($course_id);
             $lesson = Lesson::find($object->lesson_id);
             $grade = Grade::find($object->grade_id);
+            $object['course_type'] = 'pl';
             $object['lesson'] = $lesson ;
             $object['grade'] = $grade;
 
@@ -580,6 +582,7 @@ class CourseRepository implements IRepository {
         try{
             $object = \App\Models\PrepareExams\Course::find($course_id);
             $exam = Lesson::find($object->exam_id);
+            $object['course_type'] = 'pe';
             $object['exam'] = $exam ;
 
             $ge_instructor_course = DB::table('ge_courses_instructors')->where('course_id',$course_id)
@@ -628,6 +631,7 @@ class CourseRepository implements IRepository {
         // Operations
         try{
             $object = \App\Models\Live\Course::find($course_id);
+            $object['course_type'] = 'live';
 
             $ge_instructor_course = DB::table('ge_courses_instructors')->where('course_id',$course_id)
                 ->where('course_type','App\Models\Live\Course')->where('deleted_at',null)->get();
