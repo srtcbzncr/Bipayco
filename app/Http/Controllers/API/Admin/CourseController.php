@@ -78,4 +78,58 @@ class CourseController extends Controller
             'errorMessage' => $resp->getError()
         ],400);
     }
+
+    public function activeGeCourse($user_id,$course_id){
+        $repo = new CourseRepository();
+
+        $resp = $repo->activeGeCourse($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Aktif etme başarılı',
+                'data' => $resp->getData()
+            ],200);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Aktif edilirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function activePlCourse($user_id,$course_id){
+        $repo = new CourseRepository();
+
+        $resp = $repo->activePlCourse($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Aktif etme başarılı',
+                'data' => $resp->getData()
+            ],200);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Aktif edilirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
+
+    public function activePeCourse($user_id,$course_id){
+        $repo = new CourseRepository();
+
+        $resp = $repo->activePeCourse($user_id,$course_id);
+        if($resp->getResult()){
+            return response()->json([
+                'error' => false,
+                'message' => 'Aktif etme başarılı',
+                'data' => $resp->getData()
+            ],200);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Aktif edilirken bir hata meydana geldi.Tekrar deneyin.',
+            'errorMessage' => $resp->getError()
+        ],400);
+    }
 }
