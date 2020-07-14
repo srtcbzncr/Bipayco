@@ -98,7 +98,6 @@
             deleteCourse:function () {
                 Axios.post('/api/instructor/'+this.moduleName+'/course/'+this.course.id+'/delete', {'userId': this.userId})
                     .then(response=>{
-                        console.log(response);
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
                             setTimeout(()=>{window.location.reload();},1000);
@@ -117,7 +116,6 @@
                 }
                 Axios.post('/api/instructor/'+this.moduleName+'/course/'+this.course.id+'/'+active, {'userId': this.userId})
                     .then(response=>{
-                        console.log(response);
                         if(!response.data.error){
                             UIkit.notification({message:response.data.message, status: 'success'});
                             setTimeout(()=>{window.location.reload();},1000);

@@ -12935,8 +12935,6 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/instructor/' + this.moduleName + '/course/' + this.course.id + '/delete', {
         'userId': this.userId
       }).then(function (response) {
-        console.log(response);
-
         if (!response.data.error) {
           UIkit.notification({
             message: response.data.message,
@@ -12965,8 +12963,6 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/instructor/' + this.moduleName + '/course/' + this.course.id + '/' + active, {
         'userId': this.userId
       }).then(function (response) {
-        console.log(response);
-
         if (!response.data.error) {
           UIkit.notification({
             message: response.data.message,
