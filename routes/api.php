@@ -523,9 +523,9 @@ Route::prefix('admin')->group(function (){
       Route::post('/active_pe_course/{user_id}/{course_id}','API\Admin\CourseController@activePeCourse')->name('api_admin_active_pe_course'); // ok
       //Route::post('/active_live_course/{user_id}/{course_id}','API\Admin\CourseController@activeLiveCourse')->name('api_admin_active_live_course');
 
-      Route::post('/passive_ge_course/{user_id}/{course_id}','API\Admin\CourseController@passiveGeCourse')->name('api_admin_passive_ge_course');
-      Route::post('/passive_pl_course/{user_id}/{course_id}','API\Admin\CourseController@passivePlCourse')->name('api_admin_passive_pl_course');
-      Route::post('/passive_pe_course/{user_id}/{course_id}','API\Admin\CourseController@passivePeCourse')->name('api_admin_passive_pe_course');
+      Route::post('/passive_ge_course/{user_id}/{course_id}','API\Admin\CourseController@passiveGeCourse')->name('api_admin_passive_ge_course'); // ok
+      Route::post('/passive_pl_course/{user_id}/{course_id}','API\Admin\CourseController@passivePlCourse')->name('api_admin_passive_pl_course'); // ok
+      Route::post('/passive_pe_course/{user_id}/{course_id}','API\Admin\CourseController@passivePeCourse')->name('api_admin_passive_pe_course'); // ok
       //Route::post('/passive_live_course/{user_id}/{course_id}','API\Admin\CourseController@passiveLiveCourse')->name('api_admin_passive_live_course');
 
        Route::post('/delete_ge_course/{user_id}/{course_id}','API\Admin\CourseController@deleteGeCourse')->name('api_admin_delete_ge_course');

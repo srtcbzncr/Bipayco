@@ -288,4 +288,70 @@ class CourseRepository implements IRepository {
         $resp = new RepositoryResponse($result, $object, $error);
         return $resp;
     }
+
+    public function passiveGeCourse($user_id,$course_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = Course::find($course_id);
+            $object->active = false;
+            $object->save();
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function passivePlCourse($user_id,$course_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = \App\Models\PrepareLessons\Course::find($course_id);
+            $object->active = false;
+            $object->save();
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
+
+    public function passivePeCourse($user_id,$course_id){
+        // Response variables
+        $result = true;
+        $error = null;
+        $object = null;
+
+        // Operations
+        try{
+            $object = \App\Models\PrepareExams\Course::find($course_id);
+            $object->active = false;
+            $object->save();
+        }
+        catch(\Exception $e){
+            $error = $e->getMessage();
+            $result = false;
+        }
+
+        // Response
+        $resp = new RepositoryResponse($result, $object, $error);
+        return $resp;
+    }
 }
