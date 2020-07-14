@@ -299,4 +299,26 @@ class HomeController extends Controller
             return redirect()->back();
         }
     }
+
+    public function courses(){
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin != null){
+            return view('admin.courses');
+        }
+        else{
+            return redirect()->back();
+        }
+    }
+
+    public function course_detail($course_id){
+        $user = Auth::user();
+        $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
+        if($admin != null){
+            return view('admin.course_detail')->with('course_id',$course_id);
+        }
+        else{
+            return redirect()->back();
+        }
+    }
 }
