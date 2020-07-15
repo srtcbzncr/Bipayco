@@ -169,7 +169,10 @@
                     }
                     setMethod(response.data.error);
                     document.location.reload();
-                });
+                }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             setRate(rating){
                 this.rate=rating;

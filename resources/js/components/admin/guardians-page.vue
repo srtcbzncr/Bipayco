@@ -172,7 +172,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGuardian'])
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             openInfo:function (index) {
                 this.selectedIndex=index;
@@ -187,7 +190,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGuardian'])
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             deleteItem:function (id) {
                 Axios.post('/api/admin/auth/guardian/delete/'+id)
@@ -198,7 +204,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGuardian'])
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             loadNewPage: function(name){
                 this.selectedPage=name;

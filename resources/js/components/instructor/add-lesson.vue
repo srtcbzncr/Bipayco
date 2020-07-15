@@ -235,7 +235,10 @@
                             this.clearForm();
                         }
                     })
-                    .catch(()=>{
+                    .catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }
                         this.changeMessage(this.notAddedLessonText);
                         UIkit.toggle( {
                             target:".toggleByAxios",

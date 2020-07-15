@@ -191,7 +191,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminDistrict'])
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             activateItem:function (id) {
                 Axios.post('/api/admin/bs/district/setActive/'+id)
@@ -202,7 +205,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminDistrict'])
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             deleteItem:function (id) {
                 Axios.post('/api/admin/bs/district/delete/'+id)
@@ -213,7 +219,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminDistrict'])
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             openSettings:function (id) {
                 this.selectedDistrictId=id;
@@ -251,7 +260,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminDistrict'])
                         }
-                    });
+                    }).catch((error)=>{
+                        if(error.response) {
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }});
                 }else{
                     Axios.post('/api/admin/bs/district/create', {
                         name: this.name,
@@ -263,7 +275,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminDistrict'])
                         }
-                    });
+                    }).catch((error)=>{
+                        if(error.response) {
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }});
                 }
                 this.clearForm();
                 UIkit.modal('#addDistrictArea').hide();

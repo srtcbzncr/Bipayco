@@ -2064,6 +2064,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminAdmins']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     activateItem: function activateItem(id) {
@@ -2083,6 +2090,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminAdmins']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     deleteItem: function deleteItem(id) {
@@ -2101,6 +2115,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminAdmins']);
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
         }
       });
     },
@@ -2137,6 +2158,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           _this4.$store.dispatch('loadAdminNewPage', [_this4.selectedPage, 'setAdminAdmins']);
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
         }
       });
       this.clearForm();
@@ -2408,6 +2436,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminCategory']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     activateItem: function activateItem(id) {
@@ -2427,6 +2462,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminCategory']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     deleteItem: function deleteItem(id) {
@@ -2445,6 +2487,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminCategory']);
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
         }
       });
     },
@@ -2511,6 +2560,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminCategory']);
           }
+        })["catch"](function (error) {
+          if (error.response) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          }
         });
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/category/create', formData).then(function (response) {
@@ -2526,6 +2582,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             });
 
             _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminCategory']);
+          }
+        })["catch"](function (error) {
+          if (error.response) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
           }
         });
       }
@@ -2755,6 +2818,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminCity']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     activateItem: function activateItem(id) {
@@ -2774,6 +2844,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminCity']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     deleteItem: function deleteItem(id) {
@@ -2792,6 +2869,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminCity']);
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
         }
       });
     },
@@ -2845,6 +2929,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminCity']);
           }
+        })["catch"](function (error) {
+          if (error.response) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          }
         });
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/city/create', {
@@ -2864,6 +2955,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             });
 
             _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminCity']);
+          }
+        })["catch"](function (error) {
+          if (error.response) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
           }
         });
       }
@@ -3376,12 +3474,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminCourses']);
         }
-      })["catch"](function (response) {
-        console.log(response);
-        UIkit.notification({
-          message: response.message,
-          status: 'danger'
-        });
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     loadNewPage: function loadNewPage(page) {
@@ -3612,6 +3711,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminDistrict']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     activateItem: function activateItem(id) {
@@ -3631,6 +3737,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminDistrict']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     deleteItem: function deleteItem(id) {
@@ -3649,6 +3762,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminDistrict']);
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
         }
       });
     },
@@ -3700,6 +3820,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminDistrict']);
           }
+        })["catch"](function (error) {
+          if (error.response) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          }
         });
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/bs/district/create', {
@@ -3718,6 +3845,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             });
 
             _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminDistrict']);
+          }
+        })["catch"](function (error) {
+          if (error.response) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
           }
         });
       }
@@ -3930,6 +4064,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminExam']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     activateItem: function activateItem(id) {
@@ -3949,6 +4090,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminExam']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     deleteItem: function deleteItem(id) {
@@ -3967,6 +4115,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminExam']);
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
         }
       });
     },
@@ -4020,6 +4175,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminExam']);
           }
+        })["catch"](function (error) {
+          if (error.response) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          }
         });
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/exam/create', {
@@ -4038,6 +4200,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             });
 
             _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminExam']);
+          }
+        })["catch"](function (error) {
+          if (error.response) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
           }
         });
       }
@@ -4250,6 +4419,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminGrade']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     activateItem: function activateItem(id) {
@@ -4269,6 +4445,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminGrade']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     deleteItem: function deleteItem(id) {
@@ -4287,6 +4470,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminGrade']);
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
         }
       });
     },
@@ -4340,6 +4530,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminGrade']);
           }
+        })["catch"](function (error) {
+          if (error.response) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          }
         });
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/grade/create', {
@@ -4358,6 +4555,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             });
 
             _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminGrade']);
+          }
+        })["catch"](function (error) {
+          if (error.response) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
           }
         });
       }
@@ -4573,6 +4777,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminGuardian']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     openInfo: function openInfo(index) {
@@ -4596,6 +4807,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminGuardian']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     deleteItem: function deleteItem(id) {
@@ -4614,6 +4832,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminGuardian']);
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
         }
       });
     },
@@ -5063,6 +5288,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminInstructor']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     activateItem: function activateItem(id) {
@@ -5082,6 +5314,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminInstructor']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     deleteItem: function deleteItem(id) {
@@ -5100,6 +5339,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminInstructor']);
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
         }
       });
     },
@@ -5319,6 +5565,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminLesson']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     activateItem: function activateItem(id) {
@@ -5338,6 +5591,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminLesson']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     deleteItem: function deleteItem(id) {
@@ -5356,6 +5616,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminLesson']);
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
         }
       });
     },
@@ -5409,6 +5676,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminLesson']);
           }
+        })["catch"](function (error) {
+          if (error.response) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          }
         });
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/cr/lesson/create', {
@@ -5427,6 +5701,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             });
 
             _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminLesson']);
+          }
+        })["catch"](function (error) {
+          if (error.response) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
           }
         });
       }
@@ -5659,6 +5940,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminPromotionPayments']);
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
         }
       });
     }
@@ -6239,6 +6527,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminSubCategory']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     activateItem: function activateItem(id) {
@@ -6258,6 +6553,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminSubCategory']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     deleteItem: function deleteItem(id) {
@@ -6276,6 +6578,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminSubCategory']);
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
         }
       });
     },
@@ -6342,6 +6651,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminSubCategory']);
           }
+        })["catch"](function (error) {
+          if (error.response) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          }
         });
       } else {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/admin/ge/subCategory/create', formData).then(function (response) {
@@ -6357,6 +6673,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             });
 
             _this5.$store.dispatch('loadAdminNewPage', [_this5.selectedPage, 'setAdminSubCategory']);
+          }
+        })["catch"](function (error) {
+          if (error.response) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
           }
         });
       }
@@ -6868,6 +7191,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminUsers']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     activateItem: function activateItem(id) {
@@ -6887,6 +7217,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminUsers']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     deleteItem: function deleteItem(id) {
@@ -6905,6 +7242,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           _this3.$store.dispatch('loadAdminNewPage', [_this3.selectedPage, 'setAdminUsers']);
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
         }
       });
     },
@@ -7150,6 +7494,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this2.coupon = null;
         } else {
           _this2.coupon = _this2.couponCode;
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
         }
       });
     }
@@ -7958,8 +8309,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.selectedIndex = index;
     },
     sendRefundRequest: function sendRefundRequest() {
-      var _this = this;
-
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/rebateCourse', {
         message: this.reason,
         purchases_id: this.selectedPurchase.id,
@@ -7981,11 +8330,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             status: 'success'
           });
         }
-      })["catch"](function () {
-        UIkit.notification({
-          message: _this.errorMessageText,
-          status: 'danger'
-        });
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
       this.$store.dispatch('loadMyCourses', this.userId);
       this.$store.dispatch('loadPurchaseHistoryNewPage', this.selectedPageUrl);
@@ -8127,7 +8478,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         course_id: this.course.id,
         module_name: this.moduleName,
         user_id: this.userId
-      }).then(function (response) {
+      }).then(function () {
         _this.$store.dispatch('loadIsInCart', [_this.module, _this.userId, _this.course.id]);
 
         _this.$store.dispatch('loadShoppingCart', _this.userId);
@@ -8827,6 +9178,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
 
         document.location.reload();
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     }
   })
@@ -9475,6 +9833,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         setMethod(response.data.error);
         document.location.reload();
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     setRate: function setRate(rating) {
@@ -10134,7 +10499,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.selectedStudent = this.guardianStudentList[this.selectedStudentIndex].user;
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/guardian/courseInfo/' + this.userId + '/' + this.selectedStudent.id).then(function (res) {
         _this.studentCourses = res.data.data.allCourses;
-        console.log(_this.studentCourses);
       });
     }
   },
@@ -10175,7 +10539,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (this.hasTest) {
         axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/guardian/firstLastTestInfo/' + this.userId + '/' + this.selectedStudent.id + '/' + id + '/' + moduleNumber).then(function (res) {
           _this2.selectedTest = res.data.data;
-          console.log(res.data.data);
         });
       }
 
@@ -10435,6 +10798,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this.$store.dispatch('loadGuardianNewPage', _this.selectedPage);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     openForm: function openForm() {
@@ -10469,6 +10839,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           _this2.$store.dispatch('loadGuardianNewPage', _this2.selectedPage);
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
         }
       });
       this.clearForm();
@@ -10918,7 +11295,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this.clearForm();
         }
-      })["catch"](function () {
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
+
         _this.changeMessage(_this.notAddedLessonText);
 
         UIkit.toggle({
@@ -11749,6 +12133,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             status: 'danger'
           });
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     addSingleChoiceImgQuestion: function addSingleChoiceImgQuestion() {
@@ -11809,6 +12200,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             status: 'danger'
           });
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     addMultiChoiceTextQuestion: function addMultiChoiceTextQuestion() {
@@ -11848,6 +12246,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         } else {
           UIkit.notification({
             message: response.data.message,
+            status: 'danger'
+          });
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
             status: 'danger'
           });
         }
@@ -11894,6 +12299,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             status: 'danger'
           });
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     addFillBlankQuestion: function addFillBlankQuestion() {
@@ -11936,6 +12348,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             status: 'danger'
           });
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     addTrueFalseQuestion: function addTrueFalseQuestion() {
@@ -11971,6 +12390,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         } else {
           UIkit.notification({
             message: response.data.message,
+            status: 'danger'
+          });
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
             status: 'danger'
           });
         }
@@ -12013,6 +12439,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         } else {
           UIkit.notification({
             message: response.data.message,
+            status: 'danger'
+          });
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
             status: 'danger'
           });
         }
@@ -12060,6 +12493,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             status: 'danger'
           });
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     addRankingQuestion: function addRankingQuestion() {
@@ -12099,6 +12539,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         } else {
           UIkit.notification({
             message: response.data.message,
+            status: 'danger'
+          });
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
             status: 'danger'
           });
         }
@@ -12448,6 +12895,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           UIkit.notification({
             message: response.message,
             status: 'success'
+          });
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
           });
         }
       });
@@ -12949,6 +13403,13 @@ __webpack_require__.r(__webpack_exports__);
             status: 'danger'
           });
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     activationCourse: function activationCourse() {
@@ -12974,6 +13435,13 @@ __webpack_require__.r(__webpack_exports__);
         } else {
           UIkit.notification({
             message: response.data.message,
+            status: 'danger'
+          });
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
             status: 'danger'
           });
         }
@@ -13150,6 +13618,13 @@ __webpack_require__.r(__webpack_exports__);
             percent: 1
           });
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
       this.instructorEmail = "";
     },
@@ -13184,6 +13659,13 @@ __webpack_require__.r(__webpack_exports__);
           UIkit.notification({
             message: response.data.message,
             status: 'success'
+          });
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
           });
         }
       });
@@ -13371,6 +13853,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         } else {
           UIkit.notification({
             message: response.data.message,
+            status: 'danger'
+          });
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
             status: 'danger'
           });
         }
@@ -14067,6 +14556,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this.fetchData();
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     editAnswer: function editAnswer() {
@@ -14093,6 +14589,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           _this2.fetchData();
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
         }
       });
       document.getElementById('answerTextArea').style.display = "none";
@@ -14139,6 +14642,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           _this3.fetchData();
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
         }
       });
       this.clearForm();
@@ -14344,6 +14854,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         } else {
           UIkit.notification({
             message: response.data.message,
+            status: 'danger'
+          });
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
             status: 'danger'
           });
         }
@@ -15206,6 +15723,13 @@ __webpack_require__.r(__webpack_exports__);
 
           _this2.fetchNotification();
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
     },
     deleteNotification: function deleteNotification(id) {
@@ -15590,10 +16114,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('content', document.getElementById('questionArea').value);
       formData.append('title', document.getElementById('questionTitle').value);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/learn/' + this.moduleName + '/' + this.courseId + '/lesson/' + this.selectedLessonId + '/discussion/ask', formData).then(this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.selectedLessonId]))["catch"](function (error) {
-        UIkit.notification({
-          message: error.message,
-          status: 'danger'
-        });
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
+        }
       });
       document.getElementById('questionArea').value = "";
       document.getElementById('questionTitle').value = "";
@@ -16029,6 +16555,13 @@ __webpack_require__.r(__webpack_exports__);
               window.location.replace('/learn/pl/course/' + _this.courseId + '/lesson/' + response.data.data.nextLessonId);
             }, 3000);
           }
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          UIkit.notification({
+            message: error.response.data.errorMessage,
+            status: 'danger'
+          });
         }
       });
     }
@@ -16690,7 +17223,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nh6[data-v-3a55b63f]{\r\n    margin:0\n}\n.clickable[data-v-3a55b63f]{\r\n    cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\nh6[data-v-3a55b63f]{\n    margin:0\n}\n.clickable[data-v-3a55b63f]{\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 

@@ -260,7 +260,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubCategory'])
                         }
-                    })
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             activateItem:function (id) {
                 Axios.post('/api/admin/ge/subCategory/setActive/'+id)
@@ -271,7 +274,10 @@
                             UIkit.notification({message: response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminSubCategory'])
                         }
-                    })
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             deleteItem:function (id) {
                 Axios.post('/api/admin/ge/subCategory/delete/'+id)
@@ -282,7 +288,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubCategory'])
                         }
-                    })
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             openSettings:function (id) {
                 this.selectedSubCategoryId=id;
@@ -337,7 +346,10 @@
                                 UIkit.notification({message:response.data.message, status: 'success'});
                                 this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubCategory'])
                             }
-                        });
+                        }).catch((error)=>{
+                        if(error.response) {
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }});
                 }else{
                     Axios.post('/api/admin/ge/subCategory/create', formData)
                         .then(response=>{
@@ -347,7 +359,10 @@
                                 UIkit.notification({message:response.data.message, status: 'success'});
                                 this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminSubCategory'])
                             }
-                        });
+                        }).catch((error)=>{
+                        if(error.response) {
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }});
                 }
                 this.clearForm();
                 UIkit.modal('#addSubCategoryArea').hide();

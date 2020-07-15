@@ -239,7 +239,6 @@
                 Axios.get('/api/guardian/courseInfo/'+this.userId+'/'+this.selectedStudent.id)
                     .then((res)=>{
                         this.studentCourses=res.data.data.allCourses;
-                        console.log(this.studentCourses)
                     });
             },
         },
@@ -275,7 +274,7 @@
                     .then((res)=>{this.selectedCourse=res.data.data;});
                 if(this.hasTest){
                     Axios.get('/api/guardian/firstLastTestInfo/'+this.userId+'/'+this.selectedStudent.id+'/'+id+'/'+moduleNumber)
-                        .then((res)=>{this.selectedTest=res.data.data; console.log(res.data.data)});
+                        .then((res)=>{this.selectedTest=res.data.data;});
                 }
                 UIkit.modal('#courseDetailModal').show();
             },

@@ -205,7 +205,10 @@
                     }else{
                         this.coupon=this.couponCode;
                     }
-                })
+                }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             }
         },
         created() {

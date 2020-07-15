@@ -150,7 +150,10 @@
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
-                    })
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             clearForm:function () {
                 this.lessonSources=[];

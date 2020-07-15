@@ -620,7 +620,10 @@
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
 
             },
             addSingleChoiceImgQuestion:function () {
@@ -659,7 +662,10 @@
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             addMultiChoiceTextQuestion:function () {
                 var formData=new FormData();
@@ -688,7 +694,10 @@
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             addMultiChoiceImgQuestion:function () {
                 var formData=new FormData();
@@ -718,7 +727,10 @@
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             addFillBlankQuestion:function () {
                 var image=document.querySelector('#blankImg');
@@ -747,7 +759,10 @@
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             addTrueFalseQuestion:function(){
                 var formData=new FormData();
@@ -774,7 +789,10 @@
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             addMatchingTextQuestion:function(){
                 var formData=new FormData();
@@ -803,7 +821,10 @@
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             addMatchingImgQuestion:function(){
                 var formData=new FormData();
@@ -834,7 +855,10 @@
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             addRankingQuestion:function(){
                 var formData=new FormData();
@@ -863,7 +887,10 @@
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             loadSubjects:function () {
                 this.$store.dispatch('loadLessonSubjects', this.selectedLessonId);

@@ -87,7 +87,7 @@
                     module_name:this.moduleName,
                     user_id:this.userId,
                 })
-                    .then(response=>{
+                    .then(()=>{
                         this.$store.dispatch('loadIsInCart', [this.module, this.userId, this.course.id]);
                         this.$store.dispatch('loadShoppingCart', this.userId);
                         this.$store.dispatch('loadCourseCard');

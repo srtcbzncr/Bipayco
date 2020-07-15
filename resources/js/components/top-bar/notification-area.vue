@@ -73,7 +73,10 @@
                             this.deleteNotification(id);
                             this.fetchNotification();
                         }
-                    })
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             deleteNotification:function (id) {
                 Axios.post('/api/notification/delete/'+id)

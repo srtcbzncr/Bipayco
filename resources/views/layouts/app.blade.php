@@ -332,7 +332,10 @@
                 }else{
                     UIkit.notification({message:res.errorMessage, status: 'danger'});
                 }
-            });
+            }).catch((error)=>{
+            if(error.response) {
+                UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+            }});
         setTimeout(()=>{this.window.location.reload()}, '1500');
     }
 </script>

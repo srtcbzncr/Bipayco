@@ -214,7 +214,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadGuardianNewPage', this.selectedPage)
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             openForm:function () {
                 UIkit.modal('#addStudentArea', {
@@ -240,7 +243,10 @@
                         UIkit.notification({message:response.data.message, status: 'success'});
                         this.$store.dispatch('loadGuardianNewPage',this.selectedPage)
                     }
-                });
+                }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
                 this.clearForm();
                 UIkit.modal('#addStudentArea').hide();
             },

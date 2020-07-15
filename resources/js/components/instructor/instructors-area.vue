@@ -134,7 +134,10 @@
                                 this.instructorsInfo[0].percent-=1;
                                 this.addInstructor({instructor:response.data, percent:1});
                             }
-                        });
+                        }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
                 this.instructorEmail="";
             },
             removeInstructor:function (index) {
@@ -159,7 +162,10 @@
                         }else{
                             UIkit.notification({message:response.data.message, status: 'success'});
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             }
         },
         created() {

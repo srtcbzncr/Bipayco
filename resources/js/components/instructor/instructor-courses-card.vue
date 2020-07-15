@@ -104,7 +104,10 @@
                         }else{
                             UIkit.notification({message:response.data.errorMessage, status: 'danger'});
                         }
-                    })
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
 
             },
             activationCourse:function () {
@@ -122,7 +125,10 @@
                         }else{
                             UIkit.notification({message:response.data.message, status: 'danger'});
                         }
-                    })
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
 
             },
             startStream:function () {

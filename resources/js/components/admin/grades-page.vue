@@ -171,7 +171,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade'])
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             activateItem:function (id) {
                 Axios.post('/api/admin/cr/grade/setActive/'+id)
@@ -182,7 +185,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade'])
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             deleteItem:function (id) {
                 Axios.post('/api/admin/cr/grade/delete/'+id)
@@ -193,7 +199,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade'])
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             openSettings:function (id) {
                 this.selectedGradeId=id;
@@ -233,7 +242,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade'])
                         }
-                    });
+                    }).catch((error)=>{
+                        if(error.response) {
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }});
                 }else{
                     Axios.post('/api/admin/cr/grade/create', {
                         symbol: this.icon,
@@ -245,7 +257,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminGrade'])
                         }
-                    });
+                    }).catch((error)=>{
+                        if(error.response) {
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }});
                 }
                 this.clearForm();
                 UIkit.modal('#addGradeArea').hide();

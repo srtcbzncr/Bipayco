@@ -319,7 +319,10 @@
                                 setTimeout(()=>{window.location.replace('/learn/pl/course/'+this.courseId+'/lesson/'+response.data.data.nextLessonId);},3000);
                             }
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             }
         },
         created(){

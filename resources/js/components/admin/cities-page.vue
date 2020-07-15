@@ -178,7 +178,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCity'])
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             activateItem:function (id) {
                 Axios.post('/api/admin/bs/city/setActive/'+id)
@@ -189,7 +192,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCity'])
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             deleteItem:function (id) {
                 Axios.post('/api/admin/bs/city/delete/'+id)
@@ -200,7 +206,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCity'])
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             openSettings:function (id) {
                 this.selectedCityId=id;
@@ -240,7 +249,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCity'])
                         }
-                    });
+                    }).catch((error)=>{
+                        if(error.response) {
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }});
                 }else{
                     Axios.post('/api/admin/bs/city/create', {
                         countryId:this.countryId,
@@ -253,7 +265,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage,'setAdminCity'])
                         }
-                    });
+                    }).catch((error)=>{
+                        if(error.response) {
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }});
                 }
                 this.clearForm();
                 UIkit.modal('#addCityArea').hide();

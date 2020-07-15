@@ -163,7 +163,10 @@
                         }else{
                             UIkit.notification({message:res.data.message, status: 'success'});
                         }
-                    }).catch(()=>{UIkit.notification({message:this.errorMessageText, status: 'danger'})});
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
                 this.$store.dispatch('loadMyCourses', this.userId);
                 this.$store.dispatch('loadPurchaseHistoryNewPage', this.selectedPageUrl);
                 UIkit.modal('#reason').hide();

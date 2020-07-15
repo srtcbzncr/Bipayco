@@ -135,10 +135,10 @@
                 .then(result=>{
                     UIkit.notification({message:result.message, status: 'success'});
                     setTimeout(()=>{window.location.replace('/instructor/'+url+'/course/create/'+result.result.id)},1000);
-                })
-                .catch((error) => {
-                    UIkit.notification({message:error.message, status: 'danger'});
-                });
+                }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
         }else{
             var courseId=document.querySelector('#courseCreateId').value;
             axios.post('/api/instructor/'+moduleName+'/course/create/'+courseId,
@@ -149,9 +149,10 @@
                     UIkit.notification({message:result.message, status: 'success'});
                     setTimeout(()=>{window.location.replace('/instructor/'+url+'/course/create/'+courseId)},1000);
                 })
-                .catch((error) => {
-                    UIkit.notification({message:error.message, status: 'danger'});
-                });
+                .catch((error)=>{
+                    if(error.response){
+                        UIkit.notification({message:error.response.data.errorMessage, status: 'danger'});
+                    }});
         }
     }
     function livePost(bool){
@@ -179,10 +180,10 @@
                     UIkit.notification({message:result.message, status: 'success'});
                     setTimeout(()=>{window.location.replace('/instructor/live/course/create/'+result.data.id)},1000);
                 })
-
-                .catch((error) => {
-                    UIkit.notification({message:error.message, status: 'danger'});
-                });
+                .catch((error)=>{
+                    if(error.response){
+                        UIkit.notification({message:error.response.data.errorMessage, status: 'danger'});
+                    }});
         }else{
             var courseId=document.querySelector('#courseCreateId').value;
             axios.post('/api/instructor/live/course/'+courseId+'/update',
@@ -192,10 +193,10 @@
                 .then(result=>{
                     UIkit.notification({message:result.message, status: 'success'});
                     setTimeout(()=>{window.location.replace('/instructor/live/course/create/'+courseId)},1000);
-                })
-                .catch((error) => {
-                    UIkit.notification({message:error.message, status: 'danger'});
-                });
+                }).catch((error)=>{
+                if(error.response) {
+                    UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                }});
         }
     }
 
@@ -236,10 +237,10 @@
                 }else{
                     UIkit.notification({message:response.data.message, status: 'success'});
                 }
-            })
-            .catch((error) => {
-                UIkit.notification({message:error.message, status: 'danger'});
-            });
+            }).catch((error)=>{
+            if(error.response) {
+                UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+            }});
     }
 </script>
 <script>

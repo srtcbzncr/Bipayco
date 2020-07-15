@@ -213,10 +213,11 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminCourses'])
                         }
-                    }).catch(response=>{
-                        console.log(response);
-                        UIkit.notification({message:response.message, status: 'danger'})
-                    });
+                    }).catch((error)=>{
+                    if(error.response){
+                        UIkit.notification({message:error.response.data.errorMessage, status: 'danger'});
+                    }
+                })
             },
             loadNewPage: function(page){
                 this.page=page;

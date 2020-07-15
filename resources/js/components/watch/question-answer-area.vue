@@ -128,9 +128,10 @@
                 formData.append('title', document.getElementById('questionTitle').value);
                 axios.post('/api/learn/'+this.moduleName+'/'+this.courseId+'/lesson/'+this.selectedLessonId+'/discussion/ask', formData)
                     .then(this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.selectedLessonId]))
-                    .catch((error) => {
-                        UIkit.notification({message:error.message, status: 'danger'});
-                    });
+                    .catch((error)=>{
+                        if(error.response) {
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }});
                 document.getElementById('questionArea').value="";
                 document.getElementById('questionTitle').value="";
             },

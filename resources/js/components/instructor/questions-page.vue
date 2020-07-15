@@ -254,7 +254,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.fetchData();
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
             },
             editAnswer:function () {
                 this.answer=this.selectedQuestion.answer.content;
@@ -270,7 +273,10 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.fetchData();
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
                 document.getElementById('answerTextArea').style.display = "none";
                 document.getElementById('answered').style.display = "block";
 
@@ -307,7 +313,10 @@
                         UIkit.notification({message:response.data.message, status: 'success'});
                         this.fetchData();
                     }
-                });
+                }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
                 this.clearForm();
                 UIkit.modal('#answerArea').hide();
             },

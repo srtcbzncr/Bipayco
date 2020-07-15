@@ -134,7 +134,10 @@
                             this.$store.dispatch('loadSections',[this.moduleName, this.courseId]);
                             UIkit.notification({message:response.message, status: 'success'});
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }});
                 this.clearForm();
             },
             clearForm:function () {
