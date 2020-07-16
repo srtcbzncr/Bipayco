@@ -256,7 +256,11 @@
                         }
                     }).catch((error)=>{
                     if(error.response) {
-                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
                     }});
             },
             editAnswer:function () {
@@ -275,7 +279,11 @@
                         }
                     }).catch((error)=>{
                     if(error.response) {
-                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
                     }});
                 document.getElementById('answerTextArea').style.display = "none";
                 document.getElementById('answered').style.display = "block";
@@ -315,7 +323,11 @@
                     }
                 }).catch((error)=>{
                     if(error.response) {
-                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
                     }});
                 this.clearForm();
                 UIkit.modal('#answerArea').hide();

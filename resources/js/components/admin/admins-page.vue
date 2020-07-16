@@ -213,7 +213,11 @@
                         }
                     }).catch((error)=>{
                     if(error.response) {
-                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
                     }});
             },
             activateItem:function (id) {
@@ -227,7 +231,11 @@
                         }
                     }).catch((error)=>{
                     if(error.response) {
-                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
                     }});
             },
             deleteItem:function (id) {
@@ -241,7 +249,11 @@
                         }
                     }).catch((error)=>{
                     if(error.response) {
-                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
                     }});
             },
             openForm:function () {
@@ -271,7 +283,11 @@
                     }
                 }).catch((error)=>{
                     if(error.response) {
-                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
                     }});
                 this.clearForm();
                 UIkit.modal('#addAdminArea').hide();

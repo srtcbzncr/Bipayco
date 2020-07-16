@@ -255,6 +255,7 @@ const mutations={
     },
     setPurchaseHistory(state, purchases){
         state.purchaseHistory=purchases.data;
+        state.loadingStatus=true;
     },
     setQuestionAnswerData(state, data){
         state.questionAnswerData=data.data;

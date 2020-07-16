@@ -1,51 +1,56 @@
 <template>
     <div class="uk-container uk-margin-large-top">
-        <div v-if="purchaseHistory.data&&purchaseHistory.data.length>0" v-for="(purchase, index) in purchaseHistory.data" class="uk-margin">
-            <div class="uk-card uk-card-default border-radius-6 uk-card-small uk-margin-remove uk-grid uk-grid-collapse">
-                <a :class="{'uk-width-5-6@s':purchase.course.isRebate, 'uk-width':!(purchase.course.isRebate)}" class=" uk-padding-small card-link" :href="'/'+convertModule(purchase.course.course_type)+'/course/'+purchase.course.id">
-                    <div class="uk-flex uk-flex-wrap align-items-center">
-                        <div class="uk-card-media-left uk-cover-container uk-width-1-4@s">
-                            <img :src="purchase.course.image" alt="" uk-cover>
-                            <canvas width="600" height="400"></canvas>
-                        </div>
-                        <div class="uk-width-3-4@s">
-                            <div class="uk-card-body">
-                                <div class="uk-card-title">
-                                    <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 25px; max-height: 25px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-margin-remove">{{purchase.course.name}}</h4>
-                                    <stars-rating :rating="purchase.course.point"></stars-rating>
-                                </div>
-                                <hr class="uk-margin-remove">
-                                <h6 class="uk-margin-small">{{purchaseDate}}: {{new Date(purchase.created_at).toLocaleDateString()}}</h6>
-                                <div class="uk-float-right uk-flex text-center  ">
-                                    <h5 class="uk-margin-remove">
-                                        {{purchase.price}}
-                                        <i class="fas fa-lira-sign icon-tiny"></i>
-                                    </h5>
+        <div v-if="!loadingStatus" class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
+            <div class="loader"></div>
+        </div>
+        <div v-else>
+            <div v-if="purchaseHistory.data&&purchaseHistory.data.length>0" v-for="(purchase, index) in purchaseHistory.data" class="uk-margin">
+                <div class="uk-card uk-card-default border-radius-6 uk-card-small uk-margin-remove uk-grid uk-grid-collapse">
+                    <a :class="{'uk-width-5-6@s':purchase.course.isRebate, 'uk-width':!(purchase.course.isRebate)}" class=" uk-padding-small card-link" :href="'/'+convertModule(purchase.course.course_type)+'/course/'+purchase.course.id">
+                        <div class="uk-flex uk-flex-wrap align-items-center">
+                            <div class="uk-card-media-left uk-cover-container uk-width-1-4@s">
+                                <img :src="purchase.course.image" alt="" uk-cover>
+                                <canvas width="600" height="400"></canvas>
+                            </div>
+                            <div class="uk-width-3-4@s">
+                                <div class="uk-card-body">
+                                    <div class="uk-card-title">
+                                        <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 25px; max-height: 25px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-margin-remove">{{purchase.course.name}}</h4>
+                                        <stars-rating :rating="purchase.course.point"></stars-rating>
+                                    </div>
+                                    <hr class="uk-margin-remove">
+                                    <h6 class="uk-margin-small">{{purchaseDate}}: {{new Date(purchase.created_at).toLocaleDateString()}}</h6>
+                                    <div class="uk-float-right uk-flex text-center  ">
+                                        <h5 class="uk-margin-remove">
+                                            {{purchase.price}}
+                                            <i class="fas fa-lira-sign icon-tiny"></i>
+                                        </h5>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </a>
+                    <div v-if="purchase.course.isRebate" class="uk-width-1-6@s uk-padding-small auto-border uk-flex uk-flex-center">
+                        <button class="uk-button uk-button-link  text-danger" @click="openModal(index)">{{createRefundRequestText}}</button>
                     </div>
-                </a>
-                <div v-if="purchase.course.isRebate" class="uk-width-1-6@s uk-padding-small auto-border uk-flex uk-flex-center">
-                    <button class="uk-button uk-button-link  text-danger" @click="openModal(index)">{{createRefundRequestText}}</button>
                 </div>
             </div>
-        </div>
-        <ul v-if="purchaseHistory.data&&purchaseHistory.data.length>0" class="uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
-            <li>
-                <button v-show="purchaseHistory.current_page>1" @click="loadNewPage(purchaseHistory.prev_page_url)"> < </button>
-            </li>
-            <li v-for="page in pageNumber">
-                <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
-                <button v-else-if="page==purchaseHistory.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/purchases/'+this.userId+'?page='+page)">{{page}}</button>
-                <button v-else @click="loadNewPage('/api/purchases/'+this.userId+'?page='+page)">{{page}}</button>
-            </li>
-            <li>
-                <button v-show="purchaseHistory.current_page<purchaseHistory.last_page" @click="loadNewPage(purchaseHistory.next_page_url)"> > </button>
-            </li>
-        </ul>
-        <div v-else class="uk-flex align-items-center justify-content-center">
-            <h2>{{noContentText}}</h2>
+            <ul v-if="purchaseHistory.data&&purchaseHistory.data.length>0" class="uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove">
+                <li>
+                    <button v-show="purchaseHistory.current_page>1" @click="loadNewPage(purchaseHistory.prev_page_url)"> < </button>
+                </li>
+                <li v-for="page in pageNumber">
+                    <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
+                    <button v-else-if="page==purchaseHistory.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/purchases/'+this.userId+'?page='+page)">{{page}}</button>
+                    <button v-else @click="loadNewPage('/api/purchases/'+this.userId+'?page='+page)">{{page}}</button>
+                </li>
+                <li>
+                    <button v-show="purchaseHistory.current_page<purchaseHistory.last_page" @click="loadNewPage(purchaseHistory.next_page_url)"> > </button>
+                </li>
+            </ul>
+            <div v-else class="uk-flex align-items-center justify-content-center">
+                <h2>{{noContentText}}</h2>
+            </div>
         </div>
         <div id="reason" uk-modal>
             <div class="uk-modal-dialog">
@@ -117,7 +122,8 @@
         },
         computed:{
             ...mapState([
-                'purchaseHistory'
+                'purchaseHistory',
+                'loadingStatus'
             ]),
             pageNumber(){
                 var pages=['1'];
@@ -165,7 +171,11 @@
                         }
                     }).catch((error)=>{
                     if(error.response) {
-                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
                     }});
                 this.$store.dispatch('loadMyCourses', this.userId);
                 this.$store.dispatch('loadPurchaseHistoryNewPage', this.selectedPageUrl);

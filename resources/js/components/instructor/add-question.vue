@@ -622,7 +622,11 @@
                         }
                     }).catch((error)=>{
                     if(error.response) {
-                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
                     }});
 
             },
@@ -664,7 +668,11 @@
                         }
                     }).catch((error)=>{
                     if(error.response) {
-                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
                     }});
             },
             addMultiChoiceTextQuestion:function () {
@@ -696,7 +704,11 @@
                         }
                     }).catch((error)=>{
                     if(error.response) {
-                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
                     }});
             },
             addMultiChoiceImgQuestion:function () {
@@ -729,7 +741,11 @@
                         }
                     }).catch((error)=>{
                     if(error.response) {
-                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
                     }});
             },
             addFillBlankQuestion:function () {
@@ -761,7 +777,11 @@
                         }
                     }).catch((error)=>{
                     if(error.response) {
-                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
                     }});
             },
             addTrueFalseQuestion:function(){
@@ -791,7 +811,11 @@
                         }
                     }).catch((error)=>{
                     if(error.response) {
-                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
                     }});
             },
             addMatchingTextQuestion:function(){
@@ -823,7 +847,11 @@
                         }
                     }).catch((error)=>{
                     if(error.response) {
-                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
                     }});
             },
             addMatchingImgQuestion:function(){
@@ -857,7 +885,11 @@
                         }
                     }).catch((error)=>{
                     if(error.response) {
-                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
                     }});
             },
             addRankingQuestion:function(){
@@ -889,7 +921,11 @@
                         }
                     }).catch((error)=>{
                     if(error.response) {
-                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
                     }});
             },
             loadSubjects:function () {

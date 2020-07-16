@@ -136,9 +136,13 @@
                     UIkit.notification({message:result.message, status: 'success'});
                     setTimeout(()=>{window.location.replace('/instructor/'+url+'/course/create/'+result.result.id)},1000);
                 }).catch((error)=>{
-                    if(error.response) {
+                if(error.response) {
+                    if(error.response.errorMessage){
                         UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
-                    }});
+                    }else{
+                        UIkit.notification({message: error.response.data.message, status: 'danger'});
+                    }
+                }});
         }else{
             var courseId=document.querySelector('#courseCreateId').value;
             axios.post('/api/instructor/'+moduleName+'/course/create/'+courseId,
@@ -150,8 +154,12 @@
                     setTimeout(()=>{window.location.replace('/instructor/'+url+'/course/create/'+courseId)},1000);
                 })
                 .catch((error)=>{
-                    if(error.response){
-                        UIkit.notification({message:error.response.data.errorMessage, status: 'danger'});
+                    if(error.response) {
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
                     }});
         }
     }
@@ -181,8 +189,12 @@
                     setTimeout(()=>{window.location.replace('/instructor/live/course/create/'+result.data.id)},1000);
                 })
                 .catch((error)=>{
-                    if(error.response){
-                        UIkit.notification({message:error.response.data.errorMessage, status: 'danger'});
+                    if(error.response) {
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
                     }});
         }else{
             var courseId=document.querySelector('#courseCreateId').value;
@@ -195,7 +207,11 @@
                     setTimeout(()=>{window.location.replace('/instructor/live/course/create/'+courseId)},1000);
                 }).catch((error)=>{
                 if(error.response) {
-                    UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    if(error.response.errorMessage){
+                        UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                    }else{
+                        UIkit.notification({message: error.response.data.message, status: 'danger'});
+                    }
                 }});
         }
     }
@@ -239,7 +255,11 @@
                 }
             }).catch((error)=>{
             if(error.response) {
-                UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                if(error.response.errorMessage){
+                    UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                }else{
+                    UIkit.notification({message: error.response.data.message, status: 'danger'});
+                }
             }});
     }
 </script>

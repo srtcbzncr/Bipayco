@@ -190,7 +190,14 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminCourses'])
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
+                    }});
             },
             activateItem:function (id) {
                 Axios.post('/api/admin/course/active_'+this.selectedModule+'_course/'+this.userId+'/'+id)
@@ -201,7 +208,14 @@
                             UIkit.notification({message:response.data.message, status: 'success'});
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminCourses'])
                         }
-                    });
+                    }).catch((error)=>{
+                    if(error.response) {
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
+                    }});
             },
             deleteItem:function (id) {
                 Axios.post('/api/admin/course/delete_'+this.selectedModule+'_course/'+this.userId+'/'+id)
@@ -214,10 +228,13 @@
                             this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminCourses'])
                         }
                     }).catch((error)=>{
-                    if(error.response){
-                        UIkit.notification({message:error.response.data.errorMessage, status: 'danger'});
-                    }
-                })
+                    if(error.response) {
+                        if(error.response.errorMessage){
+                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                        }else{
+                            UIkit.notification({message: error.response.data.message, status: 'danger'});
+                        }
+                    }});
             },
             loadNewPage: function(page){
                 this.page=page;

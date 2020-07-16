@@ -130,7 +130,11 @@
                     .then(this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.selectedLessonId]))
                     .catch((error)=>{
                         if(error.response) {
-                            UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                            if(error.response.errorMessage){
+                                UIkit.notification({message: error.response.data.errorMessage, status: 'danger'});
+                            }else{
+                                UIkit.notification({message: error.response.data.message, status: 'danger'});
+                            }
                         }});
                 document.getElementById('questionArea').value="";
                 document.getElementById('questionTitle').value="";
