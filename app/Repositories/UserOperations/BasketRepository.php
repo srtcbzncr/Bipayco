@@ -12,6 +12,7 @@ use App\Models\Base\District;
 use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\Entry;
 use App\Models\GeneralEducation\Purchase;
+use App\Models\GeneralEducation\Rebate;
 use App\Models\Iyzico\BasketItems;
 use App\Models\UsersOperations\Basket;
 use App\Payment\Payment;
@@ -491,7 +492,10 @@ class BasketRepository implements IRepository
                     // warning
                     $instructor_fee_share_temp = DB::table('instructor_fee_share')->where('user_id',$data['user_id'])->where('active',false)
                         ->where('deleted_at',null)->orderBy('created_at','desc')->first();
-                    $instructor_id_final = $instructor_fee_share_temp->instructor_id;
+                    if($instructor_fee_share_temp!=null){
+                        $instructor_id_final = $instructor_fee_share_temp->instructor_id;
+                    }
+
 
                     // ge_purchase ve ge_entries tablosuna ekle
                     for($i=0;$i<count($coursesId);$i++){
@@ -727,6 +731,30 @@ class BasketRepository implements IRepository
             DB::rollBack();
             $error = " ";
             $result = false;
+
+            try {
+                $iyzicoBasket_temp = \App\Models\Iyzico\Basket::where('token',$data['token'])->where('deleted_at',null)->first();
+                $iyzicoBasketItems_temp = BasketItems::where('iyzico_basket_id',$iyzicoBasket_temp->id)->where('deleted_at',null)->get();
+                foreach ($iyzicoBasketItems_temp as $key => $item_temp){
+                    $purchase = Purchase::where('user_id',$data['user_id'])->where('course_id',$item_temp->course_id)->where('course_type',$item_temp->course_type)
+                        ->where('deleted_at',null)->orderBy('created_at','desc')->first();
+                    // rebate oluştur
+                    $rebate = new Rebate();
+                    $rebate->user_id = $data['user_id'];
+                    $rebate->purchase_id = $purchase->id;
+                    $rebate->message = "hatalı işlem ödemesi";
+                    $rebate->rebate_status = 1;
+                    $rebate->confirmation = false;
+                    $rebate->price = $purchase->price;
+                    $rebate->save();
+
+                    $payment_rebate = new Payment();
+                    $payment_rebate->rebate(Request::ip(),$purchase->price,$item_temp->payment_transaction_id,$rebate->id);
+                }
+            }catch(\Exception $e){
+
+            }
+
         }
 
         // Response
