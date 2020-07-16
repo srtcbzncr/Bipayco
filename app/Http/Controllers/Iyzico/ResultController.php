@@ -17,17 +17,17 @@ class ResultController extends Controller
 
         // operations
         $resp = $repo->result($data);
+        dd($resp);
         if($resp->getResult()){
             if($resp->getData()){
                 return view('paymentResult')->with('data',true)->with('error', __('auth.payment_successful'));
             }
             else{
-                return view('paymentResult')->with('data',false)->with('error', __('auth.payment_error').$resp->getError());
+                return view('paymentResult')->with('data',false)->with('error', __('auth.payment_error')." - ".$resp->getError());
             }
         }
         else{
-            dd($resp->getResult());
-            return redirect()->back()->with('error', __('auth.payment_error').$resp->getError());
+            return view('paymentResult')->with('data',false)->with('error', __('auth.payment_error')." - ".$resp->getError());
         }
     }
 }
