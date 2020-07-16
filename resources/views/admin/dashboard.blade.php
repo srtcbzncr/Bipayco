@@ -7,7 +7,7 @@
                 <i class="fas fa-laptop-code icon-xxlarge"></i>
                 <p>@lang('front/auth.general_education')</p>
                 <h3> {{$data['ge_courses_count']}} @lang('front/auth.course') </h3>
-                <a href="{{route('ge_index')}}" class="uk-button"> @lang('front/auth.see_all') </a>
+                <a href="{{route('admin_courses')}}" class="uk-button"> @lang('front/auth.see_all') </a>
             </div>
         </div>
         <div>
@@ -15,7 +15,7 @@
                 <i class="fas fa-school icon-xxlarge"></i>
                 <p>@lang('front/auth.prepare_for_lessons')</p>
                 <h3> {{$data['pl_courses_count']}} @lang('front/auth.course') </h3>
-                <a href="{{route('pl_index')}}" class="uk-button"> @lang('front/auth.see_all') </a>
+                <a href="{{route('admin_courses')}}" class="uk-button"> @lang('front/auth.see_all') </a>
             </div>
         </div>
         <div>
@@ -23,7 +23,7 @@
                 <i class="fas fa-user-graduate icon-xxlarge"></i>
                 <p> @lang('front/auth.prepare_for_exams') </p>
                 <h3> {{$data['pe_courses_count']}} @lang('front/auth.course') </h3>
-                <a href="{{route('pe_index')}}" class="uk-button"> @lang('front/auth.see_all') </a>
+                <a href="{{route('admin_courses')}}" class="uk-button"> @lang('front/auth.see_all') </a>
             </div>
         </div>
         <div>
