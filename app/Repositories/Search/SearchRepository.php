@@ -196,6 +196,47 @@ class SearchRepository implements IRepository
                         unset($geTags[$key]);
                     }
                 }
+                else if($item->course_type == "App\Models\Live\Course"){
+                    // yeni item zaten geTags'in içindemi kontrolü yap
+                    $flag = true;
+                    for ($i = 0; $i< count($tempCourses); $i++){
+                        if($tempCourses[$i] == $item->course_id and $tempTypes[$i] == 'live'){
+                            $flag = false;
+                            break;
+                        }
+                    }
+                    if($flag){
+                        $course = \App\Models\Live\Course::find($item->course_id);
+                        $course['type'] = "live";
+                        if($userId != null){
+                            $controlBasket = Basket::where('user_id',$userId)->where('course_id',$course->id)->where('course_type','App\Models\Live\Course')->get();
+                            if($controlBasket != null and count($controlBasket)>0){
+                                $course['inBasket'] = true;
+                            }
+                            else{
+                                $course['inBasket'] = false;
+                            }
+                            $controlFavorite= Favorite::where('user_id',$userId)->where('course_id',$course->id)->where('course_type','App\Models\Live\Course')->get();
+                            if($controlFavorite != null and count($controlFavorite)>0){
+                                $course['inFavorite'] = true;
+                            }
+                            else{
+                                $course['inFavorite'] = false;
+                            }
+                        }
+                        else{
+                            $course['inBasket'] = null;
+                            $course['inFavorite'] = null;
+                        }
+
+                        $geTags[$key] = $course;
+                        array_push($tempCourses,$course->id);
+                        array_push($tempTypes,'live');
+                    }
+                    else{
+                        unset($geTags[$key]);
+                    }
+                }
             }
 
             $object = array_chunk($geTags->toArray(),10);
