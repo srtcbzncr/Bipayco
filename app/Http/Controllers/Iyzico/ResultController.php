@@ -17,7 +17,6 @@ class ResultController extends Controller
 
         // operations
         $resp = $repo->result($data);
-        dd($resp);
         if($resp->getResult()){
             if($resp->getData()){
                 return view('paymentResult')->with('data',true)->with('error', __('auth.payment_successful'));

@@ -12,6 +12,8 @@
 */
 Route::get('/iyzico/registerSubMerchants', 'Iyzico\ConfirmController@register')->name('iyzico_register');
 Route::post('/iyzico/confirm', 'Iyzico\ConfirmController@confirm')->name('iyzico_confirm');
+Route::get('/iyzico/liveMarkCompleted', 'Iyzico\ConfirmController@liveMarkCompleted')->name('iyzico_live_mark_completed');
+Route::get('/iyzico/liveConfirm', 'Iyzico\ConfirmController@liveConfirm')->name('iyzico_live_confirm');
 Route::get('/', 'HomeController@index')->name('home'); // pe_ok
 Route::get('register', 'Auth\AuthController@registerGet')->name('registerGet');
 Route::post('register', 'Auth\AuthController@registerPost')->name('registerPost');

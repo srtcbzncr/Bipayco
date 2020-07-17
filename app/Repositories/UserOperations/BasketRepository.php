@@ -489,6 +489,8 @@ class BasketRepository implements IRepository
                         $iyzicoBasketItems[$i]->save();
                     }
 
+                    $instructor_id_final = null;
+
                     // warning
                     $instructor_fee_share_temp = DB::table('instructor_fee_share')->where('user_id',$data['user_id'])->where('active',false)
                         ->where('deleted_at',null)->orderBy('created_at','desc')->first();
@@ -523,14 +525,16 @@ class BasketRepository implements IRepository
                                     ]);
                             }
                             else{
-                                DB::table('instructor_fee_share')->insert([
-                                    'user_id' => $data['user_id'],
-                                    'instructor_id' => $instructor_id_final,
-                                    'purchase_id' => $object->id,
-                                    'fee' => $coursesPrice[$i]*0.1,
-                                    'confirm' => false,
-                                    'active' => true,
-                                ]);
+                                if($instructor_id_final != null){
+                                    DB::table('instructor_fee_share')->insert([
+                                        'user_id' => $data['user_id'],
+                                        'instructor_id' => $instructor_id_final,
+                                        'purchase_id' => $object->id,
+                                        'fee' => $coursesPrice[$i]*0.1,
+                                        'confirm' => false,
+                                        'active' => true,
+                                    ]);
+                                }
                             }
 
                             // iyzico basket items ekle.
@@ -577,14 +581,16 @@ class BasketRepository implements IRepository
                                     ]);
                             }
                             else{
-                                DB::table('instructor_fee_share')->insert([
-                                    'user_id' => $data['user_id'],
-                                    'instructor_id' => $instructor_id_final,
-                                    'purchase_id' => $object->id,
-                                    'fee' => $coursesPrice[$i]*0.1,
-                                    'confirm' => false,
-                                    'active' => true
-                                ]);
+                                if($instructor_id_final != null){
+                                    DB::table('instructor_fee_share')->insert([
+                                        'user_id' => $data['user_id'],
+                                        'instructor_id' => $instructor_id_final,
+                                        'purchase_id' => $object->id,
+                                        'fee' => $coursesPrice[$i]*0.1,
+                                        'confirm' => false,
+                                        'active' => true
+                                    ]);
+                                }
                             }
 
                             // iyzico basket items ekle.
@@ -631,14 +637,16 @@ class BasketRepository implements IRepository
                                     ]);
                             }
                             else{
-                                DB::table('instructor_fee_share')->insert([
-                                    'user_id' => $data['user_id'],
-                                    'instructor_id' => $instructor_id_final,
-                                    'purchase_id' => $object->id,
-                                    'fee' => $coursesPrice[$i]*0.1,
-                                    'confirm' => false,
-                                    'active' => true
-                                ]);
+                                if($instructor_id_final != null){
+                                    DB::table('instructor_fee_share')->insert([
+                                        'user_id' => $data['user_id'],
+                                        'instructor_id' => $instructor_id_final,
+                                        'purchase_id' => $object->id,
+                                        'fee' => $coursesPrice[$i]*0.1,
+                                        'confirm' => false,
+                                        'active' => true
+                                    ]);
+                                }
                             }
 
                             // iyzico basket items ekle.
@@ -685,14 +693,16 @@ class BasketRepository implements IRepository
                                     ]);
                             }
                             else{
-                                DB::table('instructor_fee_share')->insert([
-                                    'user_id' => $data['user_id'],
-                                    'instructor_id' => $instructor_id_final,
-                                    'purchase_id' => $object->id,
-                                    'fee' => $coursesPrice[$i]*0.1,
-                                    'confirm' => false,
-                                    'active' => true
-                                ]);
+                                if($instructor_id_final != null){
+                                    DB::table('instructor_fee_share')->insert([
+                                        'user_id' => $data['user_id'],
+                                        'instructor_id' => $instructor_id_final,
+                                        'purchase_id' => $object->id,
+                                        'fee' => $coursesPrice[$i]*0.1,
+                                        'confirm' => false,
+                                        'active' => true
+                                    ]);
+                                }
                             }
 
                                 // iyzico basket items ekle.
@@ -728,10 +738,6 @@ class BasketRepository implements IRepository
             }
             DB::commit();
         }catch(\Exception $e){
-            DB::rollBack();
-            $error = " ";
-            $result = false;
-
             try {
                 $iyzicoBasket_temp = \App\Models\Iyzico\Basket::where('token',$data['token'])->where('deleted_at',null)->first();
                 $iyzicoBasketItems_temp = BasketItems::where('iyzico_basket_id',$iyzicoBasket_temp->id)->where('deleted_at',null)->get();
@@ -754,7 +760,9 @@ class BasketRepository implements IRepository
             }catch(\Exception $e){
 
             }
-
+            DB::rollBack();
+            $error = $e->getMessage();
+            $result = false;
         }
 
         // Response
