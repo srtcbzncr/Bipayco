@@ -229,7 +229,7 @@ class LiveRepository  implements IRepository{
                     $params->setAttendeePassword($live->attendee_pw);
                     $params->setDuration($live->duration);
                     $params->setMaxParticipants($live->max_participant);
-                    $params->setEndCallbackUrl('bipayco.com/live/end_meeting/'.$live->meeting_id);
+                    $params->setEndCallbackUrl('bipayco.com/api/live/end_meeting/'.$live->meeting_id);
 
                     $params->setBreakout(false); # dinlenme odası yok bu yüzden aşağıdaki brekout verileri direkt default 0 verdim.
                     $params->setFreeJoin(false);

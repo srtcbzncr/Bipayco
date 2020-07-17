@@ -162,8 +162,6 @@ Route::group(['prefix' => 'live'],function (){
         Route::get('{id}', 'Live\CourseController@show')->name('live_course'); // live_ok
     });
     Route::get('index', 'HomeController@live_index')->name('live_index'); // live_ok
-
-    Route::get('end_meeting/{meeting_id}','HomeController@end_meeting')->name('live_end_meeting');
 });
 
 Route::group(['prefix' => 'questionSource', 'middleware' => 'auth'],function (){
