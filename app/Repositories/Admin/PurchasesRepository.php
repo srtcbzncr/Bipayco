@@ -148,6 +148,12 @@ class PurchasesRepository implements IRepository
 
                     $object->itemTransactions[$key]->course =  $course;
                 }
+                else if($item_id_split[0] == "live"){
+                    $item_id = $item_id_split[1];
+                    $course = \App\Models\Live\Course::find($item_id);
+
+                    $object->itemTransactions[$key]->course =  $course;
+                }
 
             }
         }
