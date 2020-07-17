@@ -17591,7 +17591,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nh6[data-v-1a2ffb86]{\n    margin:0\n}\n.clickable[data-v-1a2ffb86]{\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\nh6[data-v-1a2ffb86]{\r\n    margin:0\n}\n.clickable[data-v-1a2ffb86]{\r\n    cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -17686,7 +17686,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nh6[data-v-e053d9f6]{\n    margin:0;\n}\n.clickable[data-v-e053d9f6]{\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\nh6[data-v-e053d9f6]{\r\n    margin:0;\n}\n.clickable[data-v-e053d9f6]{\r\n    cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -17705,7 +17705,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nh6[data-v-72389a51]{\n    margin:0\n}\n.clickable[data-v-72389a51]{\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\nh6[data-v-72389a51]{\r\n    margin:0\n}\n.clickable[data-v-72389a51]{\r\n    cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -17800,7 +17800,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nh6[data-v-3a55b63f]{\n    margin:0\n}\n.clickable[data-v-3a55b63f]{\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\nh6[data-v-3a55b63f]{\r\n    margin:0\n}\n.clickable[data-v-3a55b63f]{\r\n    cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -17876,7 +17876,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\niframe[data-v-2bbcf957]{\n    height: 80vh;\n}\n", ""]);
+exports.push([module.i, "\niframe[data-v-2bbcf957]{\r\n    height: 80vh;\n}\r\n", ""]);
 
 // exports
 
@@ -17914,7 +17914,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nli[data-v-0c09ca36]{\n    list-style-type: none;\n}\n", ""]);
+exports.push([module.i, "\nli[data-v-0c09ca36]{\r\n    list-style-type: none;\n}\r\n", ""]);
 
 // exports
 
@@ -60689,8 +60689,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\bedri\Documents\GitHub\Bipayco\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\bedri\Documents\GitHub\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\bzncr\Bipayco\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\bzncr\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

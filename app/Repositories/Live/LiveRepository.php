@@ -221,7 +221,7 @@ class LiveRepository  implements IRepository{
                 $live = Course::find($course_id);
                 $now = Carbon::now();
                 // zaman kontrolü
-                if($live->datetime==$now->toDateTimeString()){
+                if($live->datetime <= $now->toDateTimeString()){
                     $params = new CreateMeetingParameters($live->meeting_id, $live->name);
                     $params->setModeratorPassword($live->moderator_pw);
                     $params->setAttendeePassword($live->attendee_pw);
