@@ -198,9 +198,9 @@
             loadCourseList: function(){
                 this.$store.dispatch('loadCategoryCourses',[this.sortBy, this.id, this.userId]);
                 if(this.userId!=''){
-                    this.$store.dispatch('loadUrlForCourseCard', '/api/course/'+sort+'/'+this.id+'/'+this.userId);
+                    this.$store.dispatch('loadUrlForCourseCard', '/api/course/'+this.sortBy+'/'+this.id+'/'+this.userId);
                 }else{
-                    this.$store.dispatch('loadUrlForCourseCard', '/api/course/'+sort+'/'+this.id);
+                    this.$store.dispatch('loadUrlForCourseCard', '/api/course/'+this.sortBy+'/'+this.id);
                 }
             },
             loadNewPage: function(name,newPageNumber){
