@@ -88,6 +88,20 @@ class PurchasesRepository implements IRepository
                     }
                     $purchases[$key]['course'] = $course;
                 }
+                else if($item->course_type == 'App\Models\Live\Course'){
+                    $course = \App\Models\Live\Course::find($item->course_id);
+                    $course['course_type'] = "live";
+                    $now = Carbon ::now();
+                    $created_at = Carbon ::parse($item->created_at);
+
+                    if($created_at->diffInDays($now, false)>30){
+                        $course['isRebate'] = false;
+                    }
+                    else{
+                        $course['isRebate'] = true;
+                    }
+                    $purchases[$key]['course'] = $course;
+                }
             }
             $object = $purchases;
         }
