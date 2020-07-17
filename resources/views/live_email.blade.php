@@ -174,7 +174,7 @@
                                     <table border="0" cellpadding="0" cellspacing="0">
                                         <tr>
                                             <td align="center" bgcolor="#1a82e2" style="border-radius: 6px;">
-                                                <a href="{{url('newPassword', $token)}}" target="_blank" style="display: inline-block; padding: 16px 36px;  font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Canlı Yayını Aç</a>
+                                                <a href="{{route('live_course', $course->id)}}" target="_blank" style="display: inline-block; padding: 16px 36px;  font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Canlı Yayını Aç</a>
                                             </td>
                                         </tr>
                                     </table>
@@ -189,7 +189,7 @@
                 <tr>
                     <td align="left" bgcolor="#ffffff" style="padding: 24px; font-size: 16px; line-height: 24px;">
                         <p style="margin: 0;">Eğer butonu görmüyorsan, aşağıdaki linki kullanabilirsin.</p>
-                        <p style="margin: 0;"><a href="{{url('newPassword', $token)}}" target="_blank">{{url('newPassword', $token)}}</a></p>
+                        <p style="margin: 0;"><a href="{{route('live_course', $course->id)}}" target="_blank">"{{url('live_course', $course->id)}}"</a></p>
                     </td>
                 </tr>
                 <!-- end copy -->
