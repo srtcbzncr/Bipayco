@@ -31,7 +31,7 @@ class LiveRepository  implements IRepository{
 
         // Operations
         try{
-            $object = Course::where('deleted_at',null)->paginate(9);
+            $object = Course::where('deleted_at',null)->where('completed_at',null)->paginate(9);
         }
         catch(\Exception $e){
             $error = $e;
@@ -52,7 +52,7 @@ class LiveRepository  implements IRepository{
 
         // Operations
         try{
-            $object = Course::where('deleted_at',null)->paginate(9);
+            $object = Course::where('deleted_at',null)->where('completed_at',null)->paginate(9);
             foreach ($object as $key => $item){
                 $basketControl = Basket::where('user_id',$user_id)->where('course_id',$item->id)->where('course_type','App\Models\Live\Course')->get();
                 if($basketControl!=null and count($basketControl)>0){
@@ -144,7 +144,9 @@ class LiveRepository  implements IRepository{
                 'instructor_id' => $instructor->id,
                 'is_manager' => true,
                 'percent' => 100,
-                'active' => true
+                'active' => true,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]);
             DB::commit();
         }
@@ -221,12 +223,14 @@ class LiveRepository  implements IRepository{
                 $live = Course::find($course_id);
                 $now = Carbon::now();
                 // zaman kontrolü
-                if($live->datetime==$now->toDateTimeString()){
+                if($live->datetime <= $now->toDateTimeString()){
                     $params = new CreateMeetingParameters($live->meeting_id, $live->name);
                     $params->setModeratorPassword($live->moderator_pw);
                     $params->setAttendeePassword($live->attendee_pw);
                     $params->setDuration($live->duration);
                     $params->setMaxParticipants($live->max_participant);
+                    $params->setEndCallbackUrl('https://www.bipayco.com/api/live/end_meeting/'.$live->meeting_id);
+                    $params->setLogoutUrl('https://www.bipayco.com');
 
                     $params->setBreakout(false); # dinlenme odası yok bu yüzden aşağıdaki brekout verileri direkt default 0 verdim.
                     $params->setFreeJoin(false);

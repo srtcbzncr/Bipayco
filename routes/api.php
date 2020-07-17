@@ -31,6 +31,9 @@ Route::get('/home/live/all_courses/{user_id?}', 'API\Live\CourseController@allLi
 
 Route::get('search/{tag}/{userId?}','API\Search\SearchController@search')->name('api_search');
 
+# live
+Route::get('live/end_meeting/{meeting_id}','HomeController@end_meeting')->name('live_end_meeting');
+
 #Kurs detay sayfası,kategoriler ve alt kategoriler ve
 # iki api yazılacak. 1. sepette varmı yokmu, 2. benzer kurslar.
 Route::group(['prefix' => 'ge'], function(){

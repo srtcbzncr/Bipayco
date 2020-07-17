@@ -2,8 +2,8 @@
 
 
 return [
-    'BBB_SECURITY_SALT'   => env('BBB_SECURITY_SALT', 'bhV4fgzERXl0lP4q1O9dbJJ4aWSMQyEbmc5m4ogJQw'),
-    'BBB_SERVER_BASE_URL' => env('BBB_SERVER_BASE_URL', 'https://bipayco.live/bigbluebutton/'),
+    'BBB_SECURITY_SALT'   => env('BBB_SECURITY_SALT', 'Vt3ciRt4NlP01xYU3H4PYCVzz6u13cc7PIjevPxW7Ac'),
+    'BBB_SERVER_BASE_URL' => env('BBB_SERVER_BASE_URL', 'https://www.bipayco.live/bigbluebutton/'),
     'create'              => [
         /**
          * if user does not pass attendee or moderator password then

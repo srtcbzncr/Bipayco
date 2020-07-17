@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Live\Course;
 use App\Repositories\Curriculum\ExamRepository;
 use App\Repositories\Curriculum\LessonRepository;
 use App\Repositories\GeneralEducation\CategoryRepository;
@@ -9,6 +10,7 @@ use App\Repositories\GeneralEducation\CourseRepository;
 use App\Repositories\Live\LiveRepository;
 use App\Repositories\PrepareLessons\CurriculumRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Pbmedia\LaravelFFMpeg\FFMpegFacade as FFMpeg;
 
@@ -122,5 +124,17 @@ class HomeController extends Controller
         else{
             return view('error');
         }
+    }
+
+    public function end_meeting($meeting_id){
+        try {
+            $live = Course::where('meeting_id',$meeting_id)->where('deleted_at',null)->first();
+            $now = Carbon::now();
+            $live->completed_at = $now;
+            $live->save();
+        }catch(\Exception $e){
+            print_r("hata: "+$e->getMessage());
+        }
+
     }
 }
