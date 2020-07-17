@@ -160,7 +160,7 @@
                 <!-- start copy -->
                 <tr>
                     <td align="left" bgcolor="#ffffff" style="padding: 24px; font-size: 16px; line-height: 24px;">
-                        <p style="margin: 0;">Sahip olduğun {{$course->name}} adlı canlı yayın başladı. Hadi canlı yayını kaçırma!</p>
+                        <p style="margin: 0;">Sahip olduğun {{$course->name}} adlı canlı yayın başladı. Hadi canlı yayını kaçırma! Aşağıdaki butona tıklayarak canlı yayına katılabilirsin.</p>
                     </td>
                 </tr>
                 <!-- end copy -->
