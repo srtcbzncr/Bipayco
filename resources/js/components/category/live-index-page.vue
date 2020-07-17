@@ -53,7 +53,7 @@
             if(this.userId!=''){
                 url='/api/home/live/all_courses/'+this.userId;
             }else{
-                url='/api/home/live/all_courses/';
+                url='/api/home/live/all_courses';
             }
             this.$store.dispatch('loadUrlForCourseCard', url);
         },
@@ -127,14 +127,14 @@
                 if(userId!=''){
                     return '/api/home/live/all_courses/'+userId+'?page='+page;
                 }else{
-                    return '/api/home/live/all_courses/'+id+'?page='+page;
+                    return '/api/home/live/all_courses?page='+page;
                 }
             },
             loadCourseList: function(){
                 if(this.userId!=''){
                     this.$store.dispatch('loadUrlForCourseCard', '/api/home/live/all_courses/'+this.userId);
                 }else{
-                    this.$store.dispatch('loadUrlForCourseCard', '/api/home/live/all_courses/');
+                    this.$store.dispatch('loadUrlForCourseCard', '/api/home/live/all_courses');
                 }
             },
             loadNewPage: function(name,newPageNumber){

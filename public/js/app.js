@@ -9892,7 +9892,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     if (this.userId != '') {
       url = '/api/home/live/all_courses/' + this.userId;
     } else {
-      url = '/api/home/live/all_courses/';
+      url = '/api/home/live/all_courses';
     }
 
     this.$store.dispatch('loadUrlForCourseCard', url);
@@ -9962,14 +9962,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (userId != '') {
         return '/api/home/live/all_courses/' + userId + '?page=' + page;
       } else {
-        return '/api/home/live/all_courses/' + id + '?page=' + page;
+        return '/api/home/live/all_courses?page=' + page;
       }
     },
     loadCourseList: function loadCourseList() {
       if (this.userId != '') {
         this.$store.dispatch('loadUrlForCourseCard', '/api/home/live/all_courses/' + this.userId);
       } else {
-        this.$store.dispatch('loadUrlForCourseCard', '/api/home/live/all_courses/');
+        this.$store.dispatch('loadUrlForCourseCard', '/api/home/live/all_courses');
       }
     },
     loadNewPage: function loadNewPage(name, newPageNumber) {
