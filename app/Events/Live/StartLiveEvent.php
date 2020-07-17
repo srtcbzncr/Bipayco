@@ -14,7 +14,7 @@ class StartLiveEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $to_name,$to_mail;
+    public $to_name,$to_mail,$course;
 
     /**
      * Create a new event instance.
@@ -25,6 +25,7 @@ class StartLiveEvent
     {
         $this->to_name=$data['name'];
         $this->to_mail=$data['email'];
+        $this->course=$data['course'];
     }
 
     /**

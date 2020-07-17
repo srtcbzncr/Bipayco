@@ -13,6 +13,7 @@ use App\Models\UsersOperations\Basket;
 use App\Models\UsersOperations\Favorite;
 use App\Repositories\IRepository;
 use App\Repositories\RepositoryResponse;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -218,16 +219,24 @@ class LiveRepository  implements IRepository{
             }
             else{
                 $live = Course::find($course_id);
-                $params = new CreateMeetingParameters($live->meeting_id, $live->name);
-                $params->setModeratorPassword($live->moderator_pw);
-                $params->setAttendeePassword($live->attendee_pw);
-                $params->setDuration($live->duration);
-                $params->setMaxParticipants($live->max_participant);
+                $now = Carbon::now();
+                // zaman kontrolü
+                if($live->datetime==$now->toDateTimeString()){
+                    $params = new CreateMeetingParameters($live->meeting_id, $live->name);
+                    $params->setModeratorPassword($live->moderator_pw);
+                    $params->setAttendeePassword($live->attendee_pw);
+                    $params->setDuration($live->duration);
+                    $params->setMaxParticipants($live->max_participant);
 
-                $params->setBreakout(false); # dinlenme odası yok bu yüzden aşağıdaki brekout verileri direkt default 0 verdim.
-                $params->setFreeJoin(false);
+                    $params->setBreakout(false); # dinlenme odası yok bu yüzden aşağıdaki brekout verileri direkt default 0 verdim.
+                    $params->setFreeJoin(false);
 
-                $object=BigBlueButton::create($params);
+                    $object=BigBlueButton::create($params);
+                }
+                else{
+                    $error = "Canlı yayın zamanı henüz gelmediği için başlatamazsınız.";
+                    $result = false;
+                }
             }
         }
         catch(\Exception $e){

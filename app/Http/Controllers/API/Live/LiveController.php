@@ -6,6 +6,7 @@ use App\Events\Live\StartLiveEvent;
 use App\Http\Controllers\Controller;
 use App\Models\Auth\Student;
 use App\Models\Auth\User;
+use App\Models\Live\Course;
 use App\Models\Live\Entry;
 use App\Repositories\Live\LiveRepository;
 use Illuminate\Http\Request;
@@ -66,8 +67,10 @@ class LiveController extends Controller
 
                     $name = $user->first_name.' '.$user->last_name;
                     $email = $user->email;
+                    $course = Course::find($course_id);
                     $dataEmail['name'] = $name;
                     $dataEmail['email'] = $email;
+                    $dataEmail['course'] = $course;
                     \event(new StartLiveEvent($dataEmail));
                 }
 
@@ -103,7 +106,7 @@ class LiveController extends Controller
         return response()->json([
             'error' => true,
             'errorMessage', $resp->getError(),
-            'message' => 'Canlı yayın başlatılırken bir hata meydana geldi.Tekrar deneyin.'
+            'message' => $resp->getError()
         ],400);
     }
 
