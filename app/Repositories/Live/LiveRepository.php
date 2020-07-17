@@ -31,7 +31,7 @@ class LiveRepository  implements IRepository{
 
         // Operations
         try{
-            $object = Course::where('deleted_at',null)->paginate(9);
+            $object = Course::where('deleted_at',null)->where('completed_at',null)->paginate(9);
         }
         catch(\Exception $e){
             $error = $e;
@@ -52,7 +52,7 @@ class LiveRepository  implements IRepository{
 
         // Operations
         try{
-            $object = Course::where('deleted_at',null)->paginate(9);
+            $object = Course::where('deleted_at',null)->where('completed_at',null)->paginate(9);
             foreach ($object as $key => $item){
                 $basketControl = Basket::where('user_id',$user_id)->where('course_id',$item->id)->where('course_type','App\Models\Live\Course')->get();
                 if($basketControl!=null and count($basketControl)>0){
