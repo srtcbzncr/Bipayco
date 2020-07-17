@@ -3,7 +3,7 @@
         <div v-if="!loadingStatus" class="uk-container uk-flex uk-flex-center uk-margin-medium-top">
             <div class="loader"></div>
         </div>
-        <div v-else-if="courseCount>0">
+        <div v-else-if="courseCard.data&& courseCard.data.length>0">
             <div class="uk-clearfix boundary-align uk-margin-medium-top">
                 <div class="uk-float-left section-heading none-border">
                     <h2>{{categoryName}}</h2>
@@ -62,17 +62,15 @@
     export default {
         name: "course-card-pagination",
         created() {
-            if (this.courseCount>0) {
-                var sort='getBy'+this.name+'FilterByTrending';
-                var url;
-                if(this.userId!=''){
-                    url='/api/course/'+sort+'/'+this.id+'/'+this.userId;
-                }else{
-                    url='/api/course/'+sort+'/'+this.id;
-                }
-                this.$store.dispatch('loadUrlForCourseCard', url);
-                this.$store.dispatch('loadCategoryCourses',[sort, this.id, this.userId]);
+            var sort='getBy'+this.name+'FilterByTrending';
+            var url;
+            if(this.userId!=''){
+                url='/api/course/'+sort+'/'+this.id+'/'+this.userId;
+            }else{
+                url='/api/course/'+sort+'/'+this.id;
             }
+            this.$store.dispatch('loadUrlForCourseCard', url);
+            this.$store.dispatch('loadCategoryCourses',[sort, this.id, this.userId]);
         },
         data(){
             return {
