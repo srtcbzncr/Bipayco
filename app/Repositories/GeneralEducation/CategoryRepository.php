@@ -25,7 +25,7 @@ class CategoryRepository implements IRepository{
 
         // Operations
         try{
-            $object = Category::where('active',true)->get();
+            $object = Category::where('active',true)->where('deleted_at',null)->get();
         }
         catch(\Exception $e){
             $error = $e;

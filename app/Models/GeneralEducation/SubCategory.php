@@ -21,6 +21,6 @@ class SubCategory extends Model
     }
 
     public function courseCount(){
-        return $this->courses->count();
+        return $this->courses->where('active',true)->where('deleted_at',null)->count();
     }
 }
