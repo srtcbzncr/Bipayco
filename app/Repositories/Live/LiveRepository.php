@@ -144,7 +144,9 @@ class LiveRepository  implements IRepository{
                 'instructor_id' => $instructor->id,
                 'is_manager' => true,
                 'percent' => 100,
-                'active' => true
+                'active' => true,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]);
             DB::commit();
         }
