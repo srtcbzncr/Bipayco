@@ -13,7 +13,7 @@ class StartLiveJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $name,$email;
+    public $name,$email,$course;
 
     /**
      * Create a new job instance.
@@ -24,6 +24,7 @@ class StartLiveJob implements ShouldQueue
     {
         $this->name = $veri['name'];
         $this->email = $veri['email'];
+        $this->course = $veri['course'];
     }
 
     /**
@@ -35,7 +36,8 @@ class StartLiveJob implements ShouldQueue
     {
         $to_name = $this->name;
         $to_email = $this->email;
-        $data = array('name'=>"Sanalist AŞ", "body" => "CANLI YAYIN BAŞLADI");
+        $to_course = $this->course;
+        $data = array('name'=>$to_name, "body" => "CANLI YAYIN BAŞLADI",'course' => $to_course);
         Mail::send('mail', $data, function($message) use ($to_name, $to_email) {
             $message->to($to_email, $to_name)->subject('CANLI YAYIN');
             $message->from('info@bipayco.com','Canlı Yayın Başladı Bildirisi');

@@ -30,6 +30,7 @@ class StartLiveListener
     {
         $data['name'] = $event->to_name;
         $data['email'] = $event->to_mail;
+        $data['course'] = $event->course;
         dispatch(new StartLiveJob($data));
     }
 }
