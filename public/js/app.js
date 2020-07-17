@@ -2066,10 +2066,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -2092,10 +2099,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -2118,10 +2132,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -2161,10 +2182,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
       this.clearForm();
@@ -2438,10 +2466,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -2464,10 +2499,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -2490,10 +2532,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -2562,10 +2611,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         })["catch"](function (error) {
           if (error.response) {
-            UIkit.notification({
-              message: error.response.data.errorMessage,
-              status: 'danger'
-            });
+            if (error.response.errorMessage) {
+              UIkit.notification({
+                message: error.response.data.errorMessage,
+                status: 'danger'
+              });
+            } else {
+              UIkit.notification({
+                message: error.response.data.message,
+                status: 'danger'
+              });
+            }
           }
         });
       } else {
@@ -2585,10 +2641,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         })["catch"](function (error) {
           if (error.response) {
-            UIkit.notification({
-              message: error.response.data.errorMessage,
-              status: 'danger'
-            });
+            if (error.response.errorMessage) {
+              UIkit.notification({
+                message: error.response.data.errorMessage,
+                status: 'danger'
+              });
+            } else {
+              UIkit.notification({
+                message: error.response.data.message,
+                status: 'danger'
+              });
+            }
           }
         });
       }
@@ -2820,10 +2883,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -2846,10 +2916,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -2872,10 +2949,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -2931,10 +3015,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         })["catch"](function (error) {
           if (error.response) {
-            UIkit.notification({
-              message: error.response.data.errorMessage,
-              status: 'danger'
-            });
+            if (error.response.errorMessage) {
+              UIkit.notification({
+                message: error.response.data.errorMessage,
+                status: 'danger'
+              });
+            } else {
+              UIkit.notification({
+                message: error.response.data.message,
+                status: 'danger'
+              });
+            }
           }
         });
       } else {
@@ -2958,10 +3049,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         })["catch"](function (error) {
           if (error.response) {
-            UIkit.notification({
-              message: error.response.data.errorMessage,
-              status: 'danger'
-            });
+            if (error.response.errorMessage) {
+              UIkit.notification({
+                message: error.response.data.errorMessage,
+                status: 'danger'
+              });
+            } else {
+              UIkit.notification({
+                message: error.response.data.message,
+                status: 'danger'
+              });
+            }
           }
         });
       }
@@ -3434,6 +3532,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
           _this.$store.dispatch('loadAdminNewPage', [_this.selectedPage, 'setAdminCourses']);
         }
+      })["catch"](function (error) {
+        if (error.response) {
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
+        }
       });
     },
     activateItem: function activateItem(id) {
@@ -3452,6 +3564,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           });
 
           _this2.$store.dispatch('loadAdminNewPage', [_this2.selectedPage, 'setAdminCourses']);
+        }
+      })["catch"](function (error) {
+        if (error.response) {
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -3476,10 +3602,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -3713,10 +3846,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -3739,10 +3879,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -3765,10 +3912,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -3822,10 +3976,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         })["catch"](function (error) {
           if (error.response) {
-            UIkit.notification({
-              message: error.response.data.errorMessage,
-              status: 'danger'
-            });
+            if (error.response.errorMessage) {
+              UIkit.notification({
+                message: error.response.data.errorMessage,
+                status: 'danger'
+              });
+            } else {
+              UIkit.notification({
+                message: error.response.data.message,
+                status: 'danger'
+              });
+            }
           }
         });
       } else {
@@ -3848,10 +4009,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         })["catch"](function (error) {
           if (error.response) {
-            UIkit.notification({
-              message: error.response.data.errorMessage,
-              status: 'danger'
-            });
+            if (error.response.errorMessage) {
+              UIkit.notification({
+                message: error.response.data.errorMessage,
+                status: 'danger'
+              });
+            } else {
+              UIkit.notification({
+                message: error.response.data.message,
+                status: 'danger'
+              });
+            }
           }
         });
       }
@@ -4066,10 +4234,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -4092,10 +4267,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -4118,10 +4300,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -4177,10 +4366,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         })["catch"](function (error) {
           if (error.response) {
-            UIkit.notification({
-              message: error.response.data.errorMessage,
-              status: 'danger'
-            });
+            if (error.response.errorMessage) {
+              UIkit.notification({
+                message: error.response.data.errorMessage,
+                status: 'danger'
+              });
+            } else {
+              UIkit.notification({
+                message: error.response.data.message,
+                status: 'danger'
+              });
+            }
           }
         });
       } else {
@@ -4203,10 +4399,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         })["catch"](function (error) {
           if (error.response) {
-            UIkit.notification({
-              message: error.response.data.errorMessage,
-              status: 'danger'
-            });
+            if (error.response.errorMessage) {
+              UIkit.notification({
+                message: error.response.data.errorMessage,
+                status: 'danger'
+              });
+            } else {
+              UIkit.notification({
+                message: error.response.data.message,
+                status: 'danger'
+              });
+            }
           }
         });
       }
@@ -4421,10 +4624,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -4447,10 +4657,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -4473,10 +4690,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -4532,10 +4756,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         })["catch"](function (error) {
           if (error.response) {
-            UIkit.notification({
-              message: error.response.data.errorMessage,
-              status: 'danger'
-            });
+            if (error.response.errorMessage) {
+              UIkit.notification({
+                message: error.response.data.errorMessage,
+                status: 'danger'
+              });
+            } else {
+              UIkit.notification({
+                message: error.response.data.message,
+                status: 'danger'
+              });
+            }
           }
         });
       } else {
@@ -4558,10 +4789,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         })["catch"](function (error) {
           if (error.response) {
-            UIkit.notification({
-              message: error.response.data.errorMessage,
-              status: 'danger'
-            });
+            if (error.response.errorMessage) {
+              UIkit.notification({
+                message: error.response.data.errorMessage,
+                status: 'danger'
+              });
+            } else {
+              UIkit.notification({
+                message: error.response.data.message,
+                status: 'danger'
+              });
+            }
           }
         });
       }
@@ -4779,10 +5017,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -4809,10 +5054,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -4835,10 +5087,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -5290,10 +5549,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -5316,10 +5582,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -5342,10 +5615,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -5567,10 +5847,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -5593,10 +5880,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -5619,10 +5913,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -5678,10 +5979,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         })["catch"](function (error) {
           if (error.response) {
-            UIkit.notification({
-              message: error.response.data.errorMessage,
-              status: 'danger'
-            });
+            if (error.response.errorMessage) {
+              UIkit.notification({
+                message: error.response.data.errorMessage,
+                status: 'danger'
+              });
+            } else {
+              UIkit.notification({
+                message: error.response.data.message,
+                status: 'danger'
+              });
+            }
           }
         });
       } else {
@@ -5704,10 +6012,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         })["catch"](function (error) {
           if (error.response) {
-            UIkit.notification({
-              message: error.response.data.errorMessage,
-              status: 'danger'
-            });
+            if (error.response.errorMessage) {
+              UIkit.notification({
+                message: error.response.data.errorMessage,
+                status: 'danger'
+              });
+            } else {
+              UIkit.notification({
+                message: error.response.data.message,
+                status: 'danger'
+              });
+            }
           }
         });
       }
@@ -5943,10 +6258,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     }
@@ -6529,10 +6851,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -6555,10 +6884,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -6581,10 +6917,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -6653,10 +6996,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         })["catch"](function (error) {
           if (error.response) {
-            UIkit.notification({
-              message: error.response.data.errorMessage,
-              status: 'danger'
-            });
+            if (error.response.errorMessage) {
+              UIkit.notification({
+                message: error.response.data.errorMessage,
+                status: 'danger'
+              });
+            } else {
+              UIkit.notification({
+                message: error.response.data.message,
+                status: 'danger'
+              });
+            }
           }
         });
       } else {
@@ -6676,10 +7026,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           }
         })["catch"](function (error) {
           if (error.response) {
-            UIkit.notification({
-              message: error.response.data.errorMessage,
-              status: 'danger'
-            });
+            if (error.response.errorMessage) {
+              UIkit.notification({
+                message: error.response.data.errorMessage,
+                status: 'danger'
+              });
+            } else {
+              UIkit.notification({
+                message: error.response.data.message,
+                status: 'danger'
+              });
+            }
           }
         });
       }
@@ -7193,10 +7550,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -7219,10 +7583,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -7245,10 +7616,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -7497,10 +7875,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     }
@@ -8222,6 +8607,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -8271,7 +8661,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       "default": "İade işlemi başarısız oldu. Tekrar deneyiniz"
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['purchaseHistory']), {
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['purchaseHistory', 'loadingStatus']), {
     pageNumber: function pageNumber() {
       var pages = ['1'];
       var index = 2;
@@ -8317,8 +8707,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         course_type: this.selectedPurchase.course.course_type,
         user_id: this.userId
       }).then(function (res) {
-        console.log(res);
-
         if (res.data.error) {
           UIkit.notification({
             message: res.data.message,
@@ -8332,10 +8720,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
       this.$store.dispatch('loadMyCourses', this.userId);
@@ -9180,10 +9575,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         document.location.reload();
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     }
@@ -9835,10 +10237,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         document.location.reload();
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -10800,10 +11209,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -10842,10 +11258,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
       this.clearForm();
@@ -11297,10 +11720,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
 
         _this.changeMessage(_this.notAddedLessonText);
@@ -12135,10 +12565,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -12202,10 +12639,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -12251,10 +12695,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -12301,10 +12752,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -12350,10 +12808,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -12395,10 +12860,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -12444,10 +12916,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -12495,10 +12974,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -12544,10 +13030,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -12899,10 +13392,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
       this.clearForm();
@@ -13440,10 +13940,17 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -13620,10 +14127,17 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
       this.instructorEmail = "";
@@ -13663,10 +14177,17 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     }
@@ -13858,10 +14379,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -14558,10 +15086,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -14592,10 +15127,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
       document.getElementById('answerTextArea').style.display = "none";
@@ -14645,10 +15187,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
       this.clearForm();
@@ -14859,10 +15408,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
       this.clear();
@@ -15725,10 +16281,17 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     },
@@ -16115,10 +16678,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       formData.append('title', document.getElementById('questionTitle').value);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('/api/learn/' + this.moduleName + '/' + this.courseId + '/lesson/' + this.selectedLessonId + '/discussion/ask', formData).then(this.$store.dispatch('loadLessonDiscussion', [this.moduleName, this.courseId, this.selectedLessonId]))["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
       document.getElementById('questionArea').value = "";
@@ -16558,10 +17128,17 @@ __webpack_require__.r(__webpack_exports__);
         }
       })["catch"](function (error) {
         if (error.response) {
-          UIkit.notification({
-            message: error.response.data.errorMessage,
-            status: 'danger'
-          });
+          if (error.response.errorMessage) {
+            UIkit.notification({
+              message: error.response.data.errorMessage,
+              status: 'danger'
+            });
+          } else {
+            UIkit.notification({
+              message: error.response.data.message,
+              status: 'danger'
+            });
+          }
         }
       });
     }
@@ -24343,7 +24920,11 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("p", [
-            _vm._v(_vm._s(_vm.purchaseAsDate.total_month_purchase) + " "),
+            _vm._v(
+              _vm._s(
+                Number(_vm.purchaseAsDate.total_month_purchase).toFixed(2)
+              ) + " "
+            ),
             _c("span", { staticClass: "fas fa-lira-sign icon-tiny" })
           ])
         ]),
@@ -24354,7 +24935,11 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("p", [
-            _vm._v(_vm._s(_vm.purchaseAsDate.total_year_purchase) + " "),
+            _vm._v(
+              _vm._s(
+                Number(_vm.purchaseAsDate.total_year_purchase).toFixed(2)
+              ) + " "
+            ),
             _c("span", { staticClass: "fas fa-lira-sign icon-tiny" })
           ])
         ]),
@@ -24365,7 +24950,9 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("p", [
-            _vm._v(_vm._s(_vm.purchaseAsDate.total_purchase) + " "),
+            _vm._v(
+              _vm._s(Number(_vm.purchaseAsDate.total_purchase).toFixed(2)) + " "
+            ),
             _c("span", { staticClass: "fas fa-lira-sign icon-tiny" })
           ])
         ])
@@ -27667,347 +28254,369 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "uk-container uk-margin-large-top" },
-    [
-      _vm._l(_vm.purchaseHistory.data, function(purchase, index) {
-        return _vm.purchaseHistory.data && _vm.purchaseHistory.data.length > 0
-          ? _c("div", { staticClass: "uk-margin" }, [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "uk-card uk-card-default border-radius-6 uk-card-small uk-margin-remove uk-grid uk-grid-collapse"
-                },
-                [
-                  _c(
-                    "a",
-                    {
-                      staticClass: " uk-padding-small card-link",
-                      class: {
-                        "uk-width-5-6@s": purchase.course.isRebate,
-                        "uk-width": !purchase.course.isRebate
+  return _c("div", { staticClass: "uk-container uk-margin-large-top" }, [
+    !_vm.loadingStatus
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "uk-container uk-flex uk-flex-center uk-margin-medium-top"
+          },
+          [_c("div", { staticClass: "loader" })]
+        )
+      : _c(
+          "div",
+          [
+            _vm._l(_vm.purchaseHistory.data, function(purchase, index) {
+              return _vm.purchaseHistory.data &&
+                _vm.purchaseHistory.data.length > 0
+                ? _c("div", { staticClass: "uk-margin" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "uk-card uk-card-default border-radius-6 uk-card-small uk-margin-remove uk-grid uk-grid-collapse"
                       },
-                      attrs: {
-                        href:
-                          "/" +
-                          _vm.convertModule(purchase.course.course_type) +
-                          "/course/" +
-                          purchase.course.id
-                      }
-                    },
-                    [
-                      _c(
-                        "div",
-                        {
-                          staticClass: "uk-flex uk-flex-wrap align-items-center"
-                        },
-                        [
-                          _c(
-                            "div",
-                            {
-                              staticClass:
-                                "uk-card-media-left uk-cover-container uk-width-1-4@s"
+                      [
+                        _c(
+                          "a",
+                          {
+                            staticClass: " uk-padding-small card-link",
+                            class: {
+                              "uk-width-5-6@s": purchase.course.isRebate,
+                              "uk-width": !purchase.course.isRebate
                             },
-                            [
-                              _c("img", {
-                                attrs: {
-                                  src: purchase.course.image,
-                                  alt: "",
-                                  "uk-cover": ""
-                                }
-                              }),
-                              _vm._v(" "),
-                              _c("canvas", {
-                                attrs: { width: "600", height: "400" }
-                              })
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "uk-width-3-4@s" }, [
-                            _c("div", { staticClass: "uk-card-body" }, [
-                              _c(
-                                "div",
-                                { staticClass: "uk-card-title" },
-                                [
-                                  _c(
-                                    "h4",
-                                    {
-                                      staticClass: "uk-margin-remove",
-                                      staticStyle: {
-                                        overflow: "hidden",
-                                        "text-overflow": "ellipsis",
-                                        display: "-webkit-box",
-                                        "line-height": "25px",
-                                        "max-height": "25px",
-                                        "-webkit-line-clamp": "1",
-                                        "-webkit-box-orient": "vertical"
+                            attrs: {
+                              href:
+                                "/" +
+                                _vm.convertModule(purchase.course.course_type) +
+                                "/course/" +
+                                purchase.course.id
+                            }
+                          },
+                          [
+                            _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "uk-flex uk-flex-wrap align-items-center"
+                              },
+                              [
+                                _c(
+                                  "div",
+                                  {
+                                    staticClass:
+                                      "uk-card-media-left uk-cover-container uk-width-1-4@s"
+                                  },
+                                  [
+                                    _c("img", {
+                                      attrs: {
+                                        src: purchase.course.image,
+                                        alt: "",
+                                        "uk-cover": ""
                                       }
-                                    },
-                                    [_vm._v(_vm._s(purchase.course.name))]
-                                  ),
-                                  _vm._v(" "),
-                                  _c("stars-rating", {
-                                    attrs: { rating: purchase.course.point }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c("hr", { staticClass: "uk-margin-remove" }),
-                              _vm._v(" "),
-                              _c("h6", { staticClass: "uk-margin-small" }, [
-                                _vm._v(
-                                  _vm._s(_vm.purchaseDate) +
-                                    ": " +
-                                    _vm._s(
-                                      new Date(
-                                        purchase.created_at
-                                      ).toLocaleDateString()
-                                    )
-                                )
-                              ]),
-                              _vm._v(" "),
-                              _c(
-                                "div",
-                                {
-                                  staticClass:
-                                    "uk-float-right uk-flex text-center  "
-                                },
-                                [
-                                  _c(
-                                    "h5",
-                                    { staticClass: "uk-margin-remove" },
-                                    [
-                                      _vm._v(
-                                        "\n                                    " +
-                                          _vm._s(purchase.price) +
-                                          "\n                                    "
-                                      ),
-                                      _c("i", {
+                                    }),
+                                    _vm._v(" "),
+                                    _c("canvas", {
+                                      attrs: { width: "600", height: "400" }
+                                    })
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "uk-width-3-4@s" }, [
+                                  _c("div", { staticClass: "uk-card-body" }, [
+                                    _c(
+                                      "div",
+                                      { staticClass: "uk-card-title" },
+                                      [
+                                        _c(
+                                          "h4",
+                                          {
+                                            staticClass: "uk-margin-remove",
+                                            staticStyle: {
+                                              overflow: "hidden",
+                                              "text-overflow": "ellipsis",
+                                              display: "-webkit-box",
+                                              "line-height": "25px",
+                                              "max-height": "25px",
+                                              "-webkit-line-clamp": "1",
+                                              "-webkit-box-orient": "vertical"
+                                            }
+                                          },
+                                          [_vm._v(_vm._s(purchase.course.name))]
+                                        ),
+                                        _vm._v(" "),
+                                        _c("stars-rating", {
+                                          attrs: {
+                                            rating: purchase.course.point
+                                          }
+                                        })
+                                      ],
+                                      1
+                                    ),
+                                    _vm._v(" "),
+                                    _c("hr", {
+                                      staticClass: "uk-margin-remove"
+                                    }),
+                                    _vm._v(" "),
+                                    _c(
+                                      "h6",
+                                      { staticClass: "uk-margin-small" },
+                                      [
+                                        _vm._v(
+                                          _vm._s(_vm.purchaseDate) +
+                                            ": " +
+                                            _vm._s(
+                                              new Date(
+                                                purchase.created_at
+                                              ).toLocaleDateString()
+                                            )
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "div",
+                                      {
                                         staticClass:
-                                          "fas fa-lira-sign icon-tiny"
-                                      })
-                                    ]
-                                  )
-                                ]
-                              )
-                            ])
-                          ])
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  purchase.course.isRebate
-                    ? _c(
-                        "div",
+                                          "uk-float-right uk-flex text-center  "
+                                      },
+                                      [
+                                        _c(
+                                          "h5",
+                                          { staticClass: "uk-margin-remove" },
+                                          [
+                                            _vm._v(
+                                              "\n                                        " +
+                                                _vm._s(purchase.price) +
+                                                "\n                                        "
+                                            ),
+                                            _c("i", {
+                                              staticClass:
+                                                "fas fa-lira-sign icon-tiny"
+                                            })
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                ])
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        purchase.course.isRebate
+                          ? _c(
+                              "div",
+                              {
+                                staticClass:
+                                  "uk-width-1-6@s uk-padding-small auto-border uk-flex uk-flex-center"
+                              },
+                              [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "uk-button uk-button-link  text-danger",
+                                    on: {
+                                      click: function($event) {
+                                        return _vm.openModal(index)
+                                      }
+                                    }
+                                  },
+                                  [_vm._v(_vm._s(_vm.createRefundRequestText))]
+                                )
+                              ]
+                            )
+                          : _vm._e()
+                      ]
+                    )
+                  ])
+                : _vm._e()
+            }),
+            _vm._v(" "),
+            _vm.purchaseHistory.data && _vm.purchaseHistory.data.length > 0
+              ? _c(
+                  "ul",
+                  {
+                    staticClass:
+                      "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
+                  },
+                  [
+                    _c("li", [
+                      _c(
+                        "button",
                         {
-                          staticClass:
-                            "uk-width-1-6@s uk-padding-small auto-border uk-flex uk-flex-center"
-                        },
-                        [
-                          _c(
-                            "button",
+                          directives: [
                             {
-                              staticClass:
-                                "uk-button uk-button-link  text-danger",
-                              on: {
-                                click: function($event) {
-                                  return _vm.openModal(index)
+                              name: "show",
+                              rawName: "v-show",
+                              value: _vm.purchaseHistory.current_page > 1,
+                              expression: "purchaseHistory.current_page>1"
+                            }
+                          ],
+                          on: {
+                            click: function($event) {
+                              return _vm.loadNewPage(
+                                _vm.purchaseHistory.prev_page_url
+                              )
+                            }
+                          }
+                        },
+                        [_vm._v(" < ")]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.pageNumber, function(page) {
+                      return _c("li", [
+                        page == "..."
+                          ? _c("button", { staticClass: "uk-disabled" }, [
+                              _vm._v(_vm._s(page))
+                            ])
+                          : page == _vm.purchaseHistory.current_page
+                          ? _c(
+                              "button",
+                              {
+                                staticClass:
+                                  "uk-background-default uk-disabled",
+                                on: {
+                                  click: function($event) {
+                                    return _vm.loadNewPage(
+                                      "/api/purchases/" +
+                                        this.userId +
+                                        "?page=" +
+                                        page
+                                    )
+                                  }
                                 }
-                              }
-                            },
-                            [_vm._v(_vm._s(_vm.createRefundRequestText))]
-                          )
-                        ]
-                      )
-                    : _vm._e()
-                ]
-              )
-            ])
-          : _vm._e()
-      }),
-      _vm._v(" "),
-      _vm.purchaseHistory.data && _vm.purchaseHistory.data.length > 0
-        ? _c(
-            "ul",
-            {
-              staticClass:
-                "uk-pagination uk-flex-center uk-margin-medium admin-content-inner uk-margin-remove-top uk-padding-remove"
-            },
-            [
-              _c("li", [
-                _c(
-                  "button",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value: _vm.purchaseHistory.current_page > 1,
-                        expression: "purchaseHistory.current_page>1"
-                      }
-                    ],
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          _vm.purchaseHistory.prev_page_url
-                        )
-                      }
-                    }
-                  },
-                  [_vm._v(" < ")]
-                )
-              ]),
-              _vm._v(" "),
-              _vm._l(_vm.pageNumber, function(page) {
-                return _c("li", [
-                  page == "..."
-                    ? _c("button", { staticClass: "uk-disabled" }, [
-                        _vm._v(_vm._s(page))
+                              },
+                              [_vm._v(_vm._s(page))]
+                            )
+                          : _c(
+                              "button",
+                              {
+                                on: {
+                                  click: function($event) {
+                                    return _vm.loadNewPage(
+                                      "/api/purchases/" +
+                                        this.userId +
+                                        "?page=" +
+                                        page
+                                    )
+                                  }
+                                }
+                              },
+                              [_vm._v(_vm._s(page))]
+                            )
                       ])
-                    : page == _vm.purchaseHistory.current_page
-                    ? _c(
+                    }),
+                    _vm._v(" "),
+                    _c("li", [
+                      _c(
                         "button",
                         {
-                          staticClass: "uk-background-default uk-disabled",
+                          directives: [
+                            {
+                              name: "show",
+                              rawName: "v-show",
+                              value:
+                                _vm.purchaseHistory.current_page <
+                                _vm.purchaseHistory.last_page,
+                              expression:
+                                "purchaseHistory.current_page<purchaseHistory.last_page"
+                            }
+                          ],
                           on: {
                             click: function($event) {
                               return _vm.loadNewPage(
-                                "/api/purchases/" +
-                                  this.userId +
-                                  "?page=" +
-                                  page
+                                _vm.purchaseHistory.next_page_url
                               )
                             }
                           }
                         },
-                        [_vm._v(_vm._s(page))]
+                        [_vm._v(" > ")]
                       )
-                    : _c(
-                        "button",
-                        {
-                          on: {
-                            click: function($event) {
-                              return _vm.loadNewPage(
-                                "/api/purchases/" +
-                                  this.userId +
-                                  "?page=" +
-                                  page
-                              )
-                            }
-                          }
-                        },
-                        [_vm._v(_vm._s(page))]
-                      )
-                ])
-              }),
-              _vm._v(" "),
-              _c("li", [
-                _c(
-                  "button",
-                  {
-                    directives: [
-                      {
-                        name: "show",
-                        rawName: "v-show",
-                        value:
-                          _vm.purchaseHistory.current_page <
-                          _vm.purchaseHistory.last_page,
-                        expression:
-                          "purchaseHistory.current_page<purchaseHistory.last_page"
-                      }
-                    ],
-                    on: {
-                      click: function($event) {
-                        return _vm.loadNewPage(
-                          _vm.purchaseHistory.next_page_url
-                        )
-                      }
-                    }
-                  },
-                  [_vm._v(" > ")]
+                    ])
+                  ],
+                  2
                 )
-              ])
-            ],
-            2
-          )
-        : _c(
-            "div",
-            {
-              staticClass: "uk-flex align-items-center justify-content-center"
-            },
-            [_c("h2", [_vm._v(_vm._s(_vm.noContentText))])]
-          ),
-      _vm._v(" "),
-      _c("div", { attrs: { id: "reason", "uk-modal": "" } }, [
-        _c("div", { staticClass: "uk-modal-dialog" }, [
-          _c("div", { staticClass: "uk-modal-header" }, [
-            _c("h2", { staticClass: "uk-modal-title" }, [
+              : _c(
+                  "div",
+                  {
+                    staticClass:
+                      "uk-flex align-items-center justify-content-center"
+                  },
+                  [_c("h2", [_vm._v(_vm._s(_vm.noContentText))])]
+                )
+          ],
+          2
+        ),
+    _vm._v(" "),
+    _c("div", { attrs: { id: "reason", "uk-modal": "" } }, [
+      _c("div", { staticClass: "uk-modal-dialog" }, [
+        _c("div", { staticClass: "uk-modal-header" }, [
+          _c("h2", { staticClass: "uk-modal-title" }, [
+            _vm._v(_vm._s(_vm.refundReasonText))
+          ])
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
+          [
+            _c("div", { staticClass: "uk-form-label" }, [
               _vm._v(_vm._s(_vm.refundReasonText))
-            ])
-          ]),
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.reason,
+                  expression: "reason"
+                }
+              ],
+              staticClass: "uk-input",
+              attrs: { required: "", type: "text" },
+              domProps: { value: _vm.reason },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.reason = $event.target.value
+                }
+              }
+            })
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "uk-modal-footer uk-text-right" }, [
+          _c(
+            "button",
+            {
+              staticClass: "uk-button uk-button-default uk-modal-close",
+              attrs: { type: "button" },
+              on: { click: _vm.clearForm }
+            },
+            [_vm._v(_vm._s(_vm.cancelText))]
+          ),
           _vm._v(" "),
           _c(
-            "div",
-            { staticClass: "uk-modal-body", attrs: { "uk-overflow-auto": "" } },
-            [
-              _c("div", { staticClass: "uk-form-label" }, [
-                _vm._v(_vm._s(_vm.refundReasonText))
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.reason,
-                    expression: "reason"
-                  }
-                ],
-                staticClass: "uk-input",
-                attrs: { required: "", type: "text" },
-                domProps: { value: _vm.reason },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.reason = $event.target.value
-                  }
-                }
-              })
-            ]
-          ),
-          _vm._v(" "),
-          _c("div", { staticClass: "uk-modal-footer uk-text-right" }, [
-            _c(
-              "button",
-              {
-                staticClass: "uk-button uk-button-default uk-modal-close",
-                attrs: { type: "button" },
-                on: { click: _vm.clearForm }
-              },
-              [_vm._v(_vm._s(_vm.cancelText))]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass: "uk-button uk-button-primary",
-                attrs: { type: "button" },
-                on: { click: _vm.sendRefundRequest }
-              },
-              [_vm._v(_vm._s(_vm.doRefundText))]
-            )
-          ])
+            "button",
+            {
+              staticClass: "uk-button uk-button-primary",
+              attrs: { type: "button" },
+              on: { click: _vm.sendRefundRequest }
+            },
+            [_vm._v(_vm._s(_vm.doRefundText))]
+          )
         ])
       ])
-    ],
-    2
-  )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -59655,6 +60264,7 @@ var mutations = {
   },
   setPurchaseHistory: function setPurchaseHistory(state, purchases) {
     state.purchaseHistory = purchases.data;
+    state.loadingStatus = true;
   },
   setQuestionAnswerData: function setQuestionAnswerData(state, data) {
     state.questionAnswerData = data.data;

@@ -3,15 +3,15 @@
         <div class="uk-child-width-1-3@m uk-card-body uk-grid-small uk-grid-divider uk-grid-match" uk-grid>
             <div class="text-center">
                 <h3 class="stats-card-title uk-card-title">{{monthlyText}}</h3>
-                <p>{{purchaseAsDate.total_month_purchase}} <span class="fas fa-lira-sign icon-tiny"></span></p>
+                <p>{{Number(purchaseAsDate.total_month_purchase).toFixed(2)}} <span class="fas fa-lira-sign icon-tiny"></span></p>
             </div>
             <div class="text-center">
                 <h3 class="stats-card-title uk-card-title">{{yearlyText}}</h3>
-                <p>{{purchaseAsDate.total_year_purchase}} <span class="fas fa-lira-sign icon-tiny"></span></p>
+                <p>{{Number(purchaseAsDate.total_year_purchase).toFixed(2)}} <span class="fas fa-lira-sign icon-tiny"></span></p>
             </div>
             <div class="text-center">
                 <h3 class="stats-card-title uk-card-title">{{totalText}}</h3>
-                <p>{{purchaseAsDate.total_purchase}} <span class="fas fa-lira-sign icon-tiny"></span></p>
+                <p>{{Number(purchaseAsDate.total_purchase).toFixed(2)}} <span class="fas fa-lira-sign icon-tiny"></span></p>
             </div>
         </div>
         <hr>
