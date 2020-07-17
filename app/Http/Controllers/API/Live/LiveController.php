@@ -103,7 +103,7 @@ class LiveController extends Controller
         return response()->json([
             'error' => true,
             'errorMessage', $resp->getError(),
-            'message' => 'Canlı yayın başlatılırken bir hata meydana geldi.Tekrar deneyin.'
+            'message' => $resp->getError()
         ],400);
     }
 
