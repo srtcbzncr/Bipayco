@@ -132,11 +132,8 @@ class HomeController extends Controller
             $now = Carbon::now();
             $live->completed_at = $now;
             $live->save();
-
-            return redirect()->route('/');
         }catch(\Exception $e){
             print_r("hata: "+$e->getMessage());
-            return redirect()->route('/');
         }
 
     }
