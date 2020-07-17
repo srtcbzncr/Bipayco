@@ -42,6 +42,7 @@ class ConfirmController extends Controller
             $bbb_record = Bigbluebutton::getMeetingInfo([
                 'meetingID' => $course->meeting_id
             ]);
+            dd(Bigbluebutton::all());
             if($bbb_record['endTime'] != '0'){
                 $course->completed_at = $now;
                 $course->save();
