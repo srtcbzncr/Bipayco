@@ -34,13 +34,18 @@ class StartLiveJob implements ShouldQueue
      */
     public function handle()
     {
-        $to_name = $this->name;
-        $to_email = $this->email;
-        $to_course = $this->course;
-        $data = array('name'=>$to_name, "body" => "CANLI YAYIN BAŞLADI",'course' => $to_course);
-        Mail::send('live_email', $data, function($message) use ($to_name, $to_email) {
-            $message->to($to_email, $to_name)->subject('CANLI YAYIN');
-            $message->from('info@bipayco.com','Canlı Yayın Başladı Bildirisi');
-        });
+        try {
+            $to_name = $this->name;
+            $to_email = $this->email;
+            $to_course = $this->course;
+            $data = array('name'=>$to_name, "body" => "CANLI YAYIN BAŞLADI",'course' => $to_course);
+            Mail::send('live_email', $data, function($message) use ($to_name, $to_email) {
+                $message->to($to_email, $to_name)->subject('CANLI YAYIN');
+                $message->from('info@bipayco.com','Canlı Yayın Başladı Bildirisi');
+            });
+        }catch(\Exception $e){
+
+        }
+
     }
 }
