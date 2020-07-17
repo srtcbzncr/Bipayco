@@ -128,7 +128,7 @@ class HomeController extends Controller
 
     public function end_meeting($meeting_id){
         try {
-            $live = Course::where('meeting_id',$meeting_id)->first();
+            $live = Course::where('meeting_id',$meeting_id)->where('deleted_at',null)->first();
             $now = Carbon::now();
             $live->completed_at = $now;
             $live->save();
