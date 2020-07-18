@@ -87,7 +87,7 @@
         props:{
             addExamText:{
                 type:String,
-                default:"Sınıf Ekle"
+                default:"Sınav Ekle"
             },
             noContentText:{
                 type:String,
@@ -127,7 +127,7 @@
             },
             editExamText:{
                 type:String,
-                default:"Sınıf Düzenle"
+                default:"Sınav Düzenle"
             }
         },
         computed:{

@@ -27,7 +27,7 @@
                 </div>
                 <div v-if="moduleName=='prepareExams'">
                     <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 25px; max-height: 25px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{course.name}}</h4>
-                    <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{exam.name}}</p>
+                    <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 16px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{examCategory.name}}</p>
                 </div>
                 <div v-if="moduleName=='live'">
                     <h4 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 25px; max-height: 25px; -webkit-line-clamp: 1; -webkit-box-orient: vertical;" class="uk-height-small">{{course.name}}</h4>
@@ -126,7 +126,7 @@ export default {
                 return {name:''}
             }
         },
-        exam(){
+        examCategory(){
             if(this.course.exam){
                 return this.course.exam
             }else{

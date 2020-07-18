@@ -4119,7 +4119,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   props: {
     addExamText: {
       type: String,
-      "default": "Sınıf Ekle"
+      "default": "Sınav Ekle"
     },
     noContentText: {
       type: String,
@@ -4159,7 +4159,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     editExamText: {
       type: String,
-      "default": "Sınıf Düzenle"
+      "default": "Sınav Düzenle"
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminExam', 'loadingStatus']), {
@@ -10552,7 +10552,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         };
       }
     },
-    exam: function exam() {
+    examCategory: function examCategory() {
       if (this.course.exam) {
         return this.course.exam;
       } else {
@@ -30702,7 +30702,7 @@ var render = function() {
                       "-webkit-box-orient": "vertical"
                     }
                   },
-                  [_vm._v(_vm._s(_vm.exam.name))]
+                  [_vm._v(_vm._s(_vm.examCategory.name))]
                 )
               ])
             : _vm._e(),

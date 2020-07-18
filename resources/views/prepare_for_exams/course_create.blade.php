@@ -77,7 +77,6 @@
                             <div class="uk-grid uk-margin-remove-top uk-child-width-1-2@m">
                                 <div>
                                     <div class="uk-form-label"> @lang('front/auth.price')  </div>
-{{--                                    <input class="uk-input form-control @error('price') is-invalid @enderror" type="text" id="price"  @if(isset($course)) value="{{$course->price}}" @endif required>--}}
                                     <select class="uk-select form-control @error('price') is-invalid @enderror" type="text" id="price" required>
                                         @if(isset($course))
                                             <option value="{{$course->price}}" selected hidden disabled>{{$course->price}}0</option>
