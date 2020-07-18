@@ -24111,7 +24111,9 @@ var render = function() {
               _vm._v(_vm._s(_vm.totalEarnedText))
             ]),
             _vm._v(" "),
-            _c("h6", [_vm._v(_vm._s(_vm.selectedUser.user.totalEarn))])
+            _c("h6", [
+              _vm._v(_vm._s(Number(_vm.selectedUser.user.totalEarn).toFixed(2)))
+            ])
           ]
         ),
         _vm._v(" "),
@@ -26604,7 +26606,11 @@ var render = function() {
               _vm._v(_vm._s(_vm.totalSpendText))
             ]),
             _vm._v(" "),
-            _c("h6", [_vm._v(_vm._s(_vm.selectedUser.user.totalSpend))])
+            _c("h6", [
+              _vm._v(
+                _vm._s(Number(_vm.selectedUser.user.totalSpend).toFixed(2))
+              )
+            ])
           ]
         ),
         _vm._v(" "),

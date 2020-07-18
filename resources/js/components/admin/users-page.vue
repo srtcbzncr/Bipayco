@@ -65,7 +65,7 @@
                     <h6>{{selectedUser.reference_code}}</h6>
                     <hr>
                     <div class="uk-form-label">{{totalSpendText}}</div>
-                    <h6>{{selectedUser.user.totalSpend}}</h6>
+                    <h6>{{Number(selectedUser.user.totalSpend).toFixed(2)}}</h6>
                 </div>
                 <div class="uk-modal-footer">
                 </div>

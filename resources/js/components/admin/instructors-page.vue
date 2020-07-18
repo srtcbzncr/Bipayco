@@ -71,7 +71,7 @@
                     <h6>{{selectedUser.reference_code}}</h6>
                     <hr>
                     <div class="uk-form-label">{{totalEarnedText}}</div>
-                    <h6>{{selectedUser.user.totalEarn}}</h6>
+                    <h6>{{Number(selectedUser.user.totalEarn).toFixed(2)}}</h6>
                 </div>
                 <div class="uk-modal-footer">
                 </div>
