@@ -741,6 +741,7 @@ class InstructorRepository implements IRepository{
             $praticExamsCount = 0;
             $qb = 0; // questions banks
             $homeWorkCount = 0;
+            $liveCount = 0;
             foreach ($courses as $item){
                 if($item->course_type == 'App\Models\GeneralEducation\Course'){
                     $geCount++;
@@ -751,10 +752,14 @@ class InstructorRepository implements IRepository{
                 else if($item->course_type == 'App\Models\PrepareExams\Course'){
                     $peCount++;
                 }
+                else if($item->course_type == 'App\Models\Live\Course'){
+                    $liveCount++;
+                }
             }
             $object['geCount'] = $geCount;
             $object['plCount'] = $plCount;
             $object['peCount'] = $peCount;
+            $object['liveCount'] = $liveCount;
             $object['praticeExamsCount'] = $praticExamsCount;
             $object['qbCount'] = $qb;
             $object['homeworkCount'] = $homeWorkCount;
@@ -786,6 +791,14 @@ class InstructorRepository implements IRepository{
                         $totalPay+=$pay;
                     }
                 }
+                else if($item->course_type == 'App\Models\Live\Course'){
+                    $purchases = Purchase::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\Live\Course')->where('confirmation',1)->get();
+                    foreach ($purchases as $purchase){
+                        $price=$purchase->price;
+                        $pay = ($price*$item->percent);
+                        $totalPay+=$pay;
+                    }
+                }
             }
             // Bu ay toplam kazanç
             $totalMonthPay = 0;
@@ -803,6 +816,11 @@ class InstructorRepository implements IRepository{
                 }
                 else if($item->course_type == 'App\Models\PrepareExams\Course'){
                     $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('course_type','App\Models\PrepareExams\Course')
+                        ->where('confirmation',1)
+                        ->whereRaw('MONTH(created_at) = ?',[$currentMonth])->get();
+                }
+                else if($item->course_type == 'App\Models\Live\Course'){
+                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('course_type','App\Models\Live\Course')
                         ->where('confirmation',1)
                         ->whereRaw('MONTH(created_at) = ?',[$currentMonth])->get();
                 }
@@ -830,6 +848,11 @@ class InstructorRepository implements IRepository{
                 }
                 else if($item->course_type == 'App\Models\PrepareExams\Course'){
                     $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('course_type','App\Models\PrepareExams\Course')
+                        ->where('confirmation',1)
+                        ->whereRaw('YEAR(created_at) = ?',[$currentMonth])->get();
+                }
+                else if($item->course_type == 'App\Models\Live\Course'){
+                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('course_type','App\Models\Live\Course')
                         ->where('confirmation',1)
                         ->whereRaw('YEAR(created_at) = ?',[$currentMonth])->get();
                 }
@@ -919,6 +942,13 @@ class InstructorRepository implements IRepository{
                 }
                 else if($item->course_type == 'App\Models\PrepareExams\Course'){
                     $purchases = Purchase::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\PrepareExams\Course')->where('confirmation',1)->get();
+                    foreach ($purchases as $purchase){
+                        $iy_bas_item = BasketItems::where('purchase_id',$purchase->id)->where('course_id',$item->course_id)->where('deleted_at',null)->first();
+                        array_push($iyzico_basket_ids,$iy_bas_item->iyzico_basket_id);
+                    }
+                }
+                else if($item->course_type == 'App\Models\Live\Course'){
+                    $purchases = Purchase::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\Live\Course')->where('confirmation',1)->get();
                     foreach ($purchases as $purchase){
                         $iy_bas_item = BasketItems::where('purchase_id',$purchase->id)->where('course_id',$item->course_id)->where('deleted_at',null)->first();
                         array_push($iyzico_basket_ids,$iy_bas_item->iyzico_basket_id);
