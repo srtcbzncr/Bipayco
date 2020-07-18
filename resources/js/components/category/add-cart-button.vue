@@ -82,7 +82,9 @@
             },
         },
         created() {
-            this.$store.dispatch('loadIsInCart', [this.module, this.userId, this.courseId])
+            if(this.isLogin){
+                this.$store.dispatch('loadIsInCart', [this.module, this.userId, this.courseId])
+            }
         }
     }
 </script>

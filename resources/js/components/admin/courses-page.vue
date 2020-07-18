@@ -1,9 +1,9 @@
 <template>
     <div class="uk-margin-medium-top">
         <ul uk-tab class="uk-margin-top uk-flex-center">
-            <li><a @click="changeModule('generalEducation')">{{generalEducationText}}</a></li>
-            <li><a @click="changeModule('prepareLessons')">{{prepareLessonsText}}</a></li>
-            <li><a @click="changeModule('prepareExams')">{{prepareExamsText}}</a></li>
+            <li><a @click="changeModule('ge')">{{generalEducationText}}</a></li>
+            <li><a @click="changeModule('pl')">{{prepareLessonsText}}</a></li>
+            <li><a @click="changeModule('pe')">{{prepareExamsText}}</a></li>
             <li><a @click="changeModule('live')">{{liveStreamsText}}</a></li>
         </ul>
         <div class="uk-background-default uk-padding-remove uk-margin-small-top border-radius-6">
@@ -161,24 +161,7 @@
             changeModule:function(moduleName){
                 this.$store.dispatch('loadLoadingStatus', false);
                 this.page=1;
-                switch (moduleName) {
-                    case 'prepareLessons':{
-                        this.selectedModule='pl';
-                        break;
-                    }
-                    case 'prepareExams':{
-                        this.selectedModule='pe';
-                        break;
-                    }
-                    case 'live':{
-                        this.selectedModule='live';
-                        break;
-                    }
-                    default:{
-                        this.selectedModule='ge';
-                        break;
-                    }
-                }
+                this.selectedModule=moduleName;
                 this.$store.dispatch('loadAdminNewPage',[this.selectedPage, 'setAdminCourses']);
             },
             deactivateItem:function (id) {

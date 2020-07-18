@@ -3486,33 +3486,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     changeModule: function changeModule(moduleName) {
       this.$store.dispatch('loadLoadingStatus', false);
       this.page = 1;
-
-      switch (moduleName) {
-        case 'prepareLessons':
-          {
-            this.selectedModule = 'pl';
-            break;
-          }
-
-        case 'prepareExams':
-          {
-            this.selectedModule = 'pe';
-            break;
-          }
-
-        case 'live':
-          {
-            this.selectedModule = 'live';
-            break;
-          }
-
-        default:
-          {
-            this.selectedModule = 'ge';
-            break;
-          }
-      }
-
+      this.selectedModule = moduleName;
       this.$store.dispatch('loadAdminNewPage', [this.selectedPage, 'setAdminCourses']);
     },
     deactivateItem: function deactivateItem(id) {
@@ -8982,7 +8956,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   created: function created() {
-    this.$store.dispatch('loadIsInCart', [this.module, this.userId, this.courseId]);
+    if (this.isLogin) {
+      this.$store.dispatch('loadIsInCart', [this.module, this.userId, this.courseId]);
+    }
   }
 });
 
@@ -21653,7 +21629,7 @@ var render = function() {
             {
               on: {
                 click: function($event) {
-                  return _vm.changeModule("generalEducation")
+                  return _vm.changeModule("ge")
                 }
               }
             },
@@ -21667,7 +21643,7 @@ var render = function() {
             {
               on: {
                 click: function($event) {
-                  return _vm.changeModule("prepareLessons")
+                  return _vm.changeModule("pl")
                 }
               }
             },
@@ -21681,7 +21657,7 @@ var render = function() {
             {
               on: {
                 click: function($event) {
-                  return _vm.changeModule("prepareExams")
+                  return _vm.changeModule("pe")
                 }
               }
             },
