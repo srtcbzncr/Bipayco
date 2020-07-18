@@ -6480,6 +6480,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     productsText: {
       type: String,
       "default": "Ürünler"
+    },
+    refundText: {
+      type: String,
+      "default": "İade"
     }
   },
   watch: {
@@ -25039,8 +25043,14 @@ var render = function() {
                                       new Date(
                                         item.updated_at
                                       ).toLocaleDateString()
-                                    )
-                                  )
+                                    ) + " "
+                                  ),
+                                  item.deleted_at != null
+                                    ? _c("span", {
+                                        staticClass: "fas fa-donate",
+                                        attrs: { "uk-tooltip": _vm.refundText }
+                                      })
+                                    : _vm._e()
                                 ])
                               ]
                             )
