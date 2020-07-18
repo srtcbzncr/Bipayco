@@ -66,8 +66,8 @@
             </li>
             <li v-for="page in pageNumber">
                 <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
-                <button v-else-if="page==adminCourseStudent.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/admin/cr/grade/show?page='+page)">{{page}}</button>
-                <button v-else @click="loadNewPage('/api/admin/cr/grade/show?page='+page)">{{page}}</button>
+                <button v-else-if="page==adminCourseStudent.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/admin/course/detail_'+module+'/'+userId+'/'+courseId+'?page='+page)">{{page}}</button>
+                <button v-else @click="loadNewPage('/api/admin/course/detail_'+module+'/'+userId+'/'+courseId+'?page='+page)">{{page}}</button>
             </li>
             <li>
                 <button v-show="adminCourseStudent.current_page<adminCourseStudent.last_page" @click="loadNewPage(adminCourseStudent.next_page_url)"> > </button>

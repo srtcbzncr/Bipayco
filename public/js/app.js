@@ -21541,7 +21541,14 @@ var render = function() {
                         on: {
                           click: function($event) {
                             return _vm.loadNewPage(
-                              "/api/admin/cr/grade/show?page=" + page
+                              "/api/admin/course/detail_" +
+                                _vm.module +
+                                "/" +
+                                _vm.userId +
+                                "/" +
+                                _vm.courseId +
+                                "?page=" +
+                                page
                             )
                           }
                         }
@@ -21554,7 +21561,14 @@ var render = function() {
                         on: {
                           click: function($event) {
                             return _vm.loadNewPage(
-                              "/api/admin/cr/grade/show?page=" + page
+                              "/api/admin/course/detail_" +
+                                _vm.module +
+                                "/" +
+                                _vm.userId +
+                                "/" +
+                                _vm.courseId +
+                                "?page=" +
+                                page
                             )
                           }
                         }
