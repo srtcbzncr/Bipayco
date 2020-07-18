@@ -10,6 +10,7 @@ use App\Models\GeneralEducation\Lesson;
 use App\Models\GeneralEducation\Purchase;
 use App\Models\GeneralEducation\Rebate;
 use App\Models\GeneralEducation\Section;
+use App\Models\Iyzico\Basket;
 use App\Models\Iyzico\BasketItems;
 use App\Models\Live\Course;
 use App\Payment\Payment;
@@ -209,6 +210,31 @@ class RebateRepository implements IRepository
                     // purchase ve entry tablosundan sil
                     $purchase_delete = Purchase::find($purchase->id);
                     $purchase_delete->delete();
+
+                    // basket ve basket_item tablosundna siliyorum.
+                    $iyzico_basket = Basket::where('payment_id',$payment_result->getPaymentId())->where('deleted_at',null)->first();
+                    if($data['course_type'] == "generalEducation"){
+                        $iyzico_basket_item_temp = BasketItems::where('iyzico_basket_id',$iyzico_basket->id)->where('purchase_id',$purchase->id)
+                            ->where('course_id',$data['course_id'])->where('course_type','App\Models\GeneralEducation\Course')->where('deleted_at',null)->first();
+                        $iyzico_basket_item_temp->delete();
+                    }
+                    else if($data['course_type'] == "prepareLessons"){
+                        $iyzico_basket_item_temp = BasketItems::where('iyzico_basket_id',$iyzico_basket->id)->where('purchase_id',$purchase->id)
+                            ->where('course_id',$data['course_id'])->where('course_type','App\Models\PrepareLessons\Course')->where('deleted_at',null)->first();
+                        $iyzico_basket_item_temp->delete();
+                    }
+                    else if($data['course_type'] == "prepareExams"){
+                        $iyzico_basket_item_temp = BasketItems::where('iyzico_basket_id',$iyzico_basket->id)->where('purchase_id',$purchase->id)
+                            ->where('course_id',$data['course_id'])->where('course_type','App\Models\PrepareExams\Course')->where('deleted_at',null)->first();
+                        $iyzico_basket_item_temp->delete();
+                    }
+                    else if($data['course_type'] == "live"){
+                        $iyzico_basket_item_temp = BasketItems::where('iyzico_basket_id',$iyzico_basket->id)->where('purchase_id',$purchase->id)
+                            ->where('course_id',$data['course_id'])->where('course_type','App\Models\Live\Course')->where('deleted_at',null)->first();
+                        $iyzico_basket_item_temp->delete();
+                    }
+                    $iyzico_basket->delete();
+
 
                     if($is_live == false){
                         $entry_delete = Entry::where('course_id',$course_id)->where('course_type',$course_type)->where('student_id',$student->id)->where('deleted_at',null)->first();
