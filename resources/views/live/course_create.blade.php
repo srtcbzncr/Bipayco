@@ -101,7 +101,7 @@
                             <div class="uk-grid uk-margin-remove-top uk-child-width-1-2@m">
                                 <div>
                                     <div class="uk-form-label"> @lang('front/auth.start_date') </div>
-                                    <input class="uk-input form-control @error('accessTime') is-invalid @enderror" type="date" min="1" id="liveDate"  @if(isset($course)) value="{{date("Y-m-d", strtotime($course->datetime))}}" @endif required>
+                                    <input class="uk-input form-control @error('accessTime') is-invalid @enderror" type="date" min="{{$now->format('Y-m-d')}}" id="liveDate"  @if(isset($course)) value="{{date("Y-m-d", strtotime($course->datetime))}}" @endif required>
                                     @error('accessTime')
                                     <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
