@@ -9870,9 +9870,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var url;
 
     if (this.userId != '') {
-      url = '/api/home/live/all_courses/' + this.userId;
+      url = '/api/home/live/' + this.userId;
     } else {
-      url = '/api/home/live/all_courses';
+      url = '/api/home/live';
     }
 
     this.$store.dispatch('loadUrlForCourseCard', url);
@@ -9940,16 +9940,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['loadUrlForCourseCard', 'loadNewPageCourses']), {
     urlCreate: function urlCreate(userId, page) {
       if (userId != '') {
-        return '/api/home/live/all_courses/' + userId + '?page=' + page;
+        return '/api/home/live/' + userId + '?page=' + page;
       } else {
-        return '/api/home/live/all_courses?page=' + page;
+        return '/api/home/live?page=' + page;
       }
     },
     loadCourseList: function loadCourseList() {
       if (this.userId != '') {
-        this.$store.dispatch('loadUrlForCourseCard', '/api/home/live/all_courses/' + this.userId);
+        this.$store.dispatch('loadUrlForCourseCard', '/api/home/lives/' + this.userId);
       } else {
-        this.$store.dispatch('loadUrlForCourseCard', '/api/home/live/all_courses');
+        this.$store.dispatch('loadUrlForCourseCard', '/api/home/lives');
       }
     },
     loadNewPage: function loadNewPage(name, newPageNumber) {
