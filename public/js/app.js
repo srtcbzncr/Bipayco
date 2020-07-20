@@ -9308,6 +9308,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "course-previews",
@@ -29408,10 +29410,7 @@ var render = function() {
       _vm._l(_vm.previewLessons, function(lesson) {
         return _c(
           "div",
-          {
-            staticClass: "uk-modal-container",
-            attrs: { id: "preview" + lesson.id, "uk-modal": "" }
-          },
+          { attrs: { id: "preview" + lesson.id, "uk-modal": "" } },
           [
             _c(
               "div",
@@ -29425,34 +29424,36 @@ var render = function() {
                   attrs: { type: "button", "uk-close": "" }
                 }),
                 _vm._v(" "),
-                lesson.is_video
-                  ? _c(
-                      "video",
-                      {
-                        attrs: {
-                          controls: "",
-                          playsinline: "",
-                          controlsList: "nodownload",
-                          "uk-video": ""
-                        }
-                      },
-                      [
-                        _c("source", {
-                          attrs: { src: lesson.file_path, type: "video/mp4" }
-                        }),
-                        _vm._v(" "),
-                        _c("source", {
-                          attrs: { src: lesson.file_path, type: "video/ogg" }
-                        }),
-                        _vm._v(
-                          "\n                Your browser does not support HTML5 video.\n            "
-                        )
-                      ]
-                    )
-                  : _c("iframe", {
-                      staticClass: "uk-width ",
-                      attrs: { src: lesson.file_path, frameborder: "0" }
-                    })
+                _c("div", { staticClass: "uk-modall-body" }, [
+                  lesson.is_video
+                    ? _c(
+                        "video",
+                        {
+                          attrs: {
+                            controls: "",
+                            playsinline: "",
+                            controlsList: "nodownload",
+                            "uk-video": ""
+                          }
+                        },
+                        [
+                          _c("source", {
+                            attrs: { src: lesson.file_path, type: "video/mp4" }
+                          }),
+                          _vm._v(" "),
+                          _c("source", {
+                            attrs: { src: lesson.file_path, type: "video/ogg" }
+                          }),
+                          _vm._v(
+                            "\n                    Your browser does not support HTML5 video.\n                "
+                          )
+                        ]
+                      )
+                    : _c("iframe", {
+                        staticClass: "uk-width ",
+                        attrs: { src: lesson.file_path, frameborder: "0" }
+                      })
+                ])
               ]
             )
           ]

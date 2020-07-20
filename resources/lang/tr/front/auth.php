@@ -282,4 +282,5 @@ return [
     'commission_payments'=>'Komisyon Ödemeleri',
     'contracts'=>'Sözleşmeler',
     'courses'=>'Kurslar',
+    'copy'=>'Kopyala'
 ];
