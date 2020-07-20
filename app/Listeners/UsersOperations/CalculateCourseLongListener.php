@@ -31,7 +31,6 @@ class CalculateCourseLongListener
         if($event->course_type == 1){
             $course = Course::find($event->course_id);
             $long = $course->long + ($event->long/3600);
-            print_r($long);
             $course->long = $long;
             $course->save();
         }
