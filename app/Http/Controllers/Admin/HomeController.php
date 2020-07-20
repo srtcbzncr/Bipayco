@@ -285,7 +285,7 @@ class HomeController extends Controller
         $admin = Admin::where('user_id',$user->id)->where('active',true)->where('deleted_at',null)->first();
         if($admin != null){
             $instructor = Instructor::find($instructor_id);
-            $user = User::find($instructor->id);
+            $user = User::find($instructor->user_id);
             $instructor['user'] = $user;
 
             $object = DB::table('instructor_fee_share')->where('instructor_id',$instructor_id)->where('confirm',false)->where('active',true)->get();
