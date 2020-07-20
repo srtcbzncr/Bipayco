@@ -255,7 +255,7 @@ class AuthController extends Controller
             return redirect()->back()->with(['result_message' => true, 'error' => false, 'message' => __('auth.update_successfull')]);
         }
         else{
-            return redirect()->back()->with(['result_message' => true, 'error' => true, 'message' => __('auth_update_unsuccessfull')]);
+            return redirect()->back()->with(['result_message' => true, 'error' => true, 'message' => __('auth.update_unsuccessfull')]);
         }
     }
 

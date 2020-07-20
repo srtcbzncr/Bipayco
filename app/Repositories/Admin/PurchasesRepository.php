@@ -234,7 +234,7 @@ class PurchasesRepository implements IRepository
                    $total+=$item2->fee;
                }
                $instructor = Instructor::find($item->instructor_id);
-               $user = User::find($instructor->id);
+               $user = User::find($instructor->user_id);
                $instructor['user'] = $user;
                $instructor['fee'] = $total;
                $object[$key] = $instructor;
