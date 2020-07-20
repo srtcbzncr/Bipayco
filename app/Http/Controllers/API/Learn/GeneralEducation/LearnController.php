@@ -122,7 +122,7 @@ class LearnController extends Controller
         if($resp->getResult()){
             return response()->json([
                 'error' => false,
-                'message' => 'Cevap verme işlmei başarılı'
+                'message' => 'Cevap verme işlemi başarılı'
             ]);
         }
         return response()->json([
