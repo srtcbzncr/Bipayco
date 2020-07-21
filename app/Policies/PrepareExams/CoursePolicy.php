@@ -5,6 +5,7 @@ namespace App\Policies\PrepareExams;
 use App\Models\Auth\Instructor;
 use App\Models\Auth\Student;
 use App\Models\Auth\User;
+use App\Models\GeneralEducation\Comment;
 use App\Models\GeneralEducation\Entry;
 use App\Models\PrepareExams\Course;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -95,5 +96,14 @@ class CoursePolicy
         else{
             return false;
         }
+    }
+
+    public function comment(User $user, Course $course){
+        if($user->can('entryControl', $course)){
+            if(Comment::where('user_id', $user->id)->where('course_id', $course->id)->where('course_type', get_class($course))->get()->count() == 0){
+                return true;
+            }
+        }
+        return false;
     }
 }
