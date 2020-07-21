@@ -29508,6 +29508,7 @@ var render = function() {
                 _c("img", {
                   staticClass:
                     "uk-visible@m uk-width-1-2 uk-margin-small-top uk-margin-small-bottom uk-border-circle uk-align-center  uk-box-shadow-large",
+                  staticStyle: { width: "60px", height: "60px" },
                   attrs: { alt: "Image", src: review.user.avatar }
                 })
               ]),

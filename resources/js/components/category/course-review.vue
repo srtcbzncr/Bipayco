@@ -3,7 +3,7 @@
         <div v-for="review in courseReviews.data">
             <div :class="'review'+review.user_id" class="uk-grid-small  uk-margin-medium-top" uk-grid>
                 <div class="uk-width-1-5@m uk-first-column">
-                    <img alt="Image" class="uk-visible@m uk-width-1-2 uk-margin-small-top uk-margin-small-bottom uk-border-circle uk-align-center  uk-box-shadow-large" :src="review.user.avatar">
+                    <img alt="Image" class="uk-visible@m uk-width-1-2 uk-margin-small-top uk-margin-small-bottom uk-border-circle uk-align-center  uk-box-shadow-large" style="width:60px; height:60px;" :src="review.user.avatar">
                 </div>
                 <div class="uk-width-4-5@m uk-padding-remove-left">
                     <span v-if="review.user_id==userId" class="uk-float-right">
