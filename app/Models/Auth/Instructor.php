@@ -40,6 +40,8 @@ class Instructor extends Model
     }
 
     public function courseCount(){
-        return $this->geCourses->count();
+        return $this->geCourses->count()
+            +$this->plCourses->count()
+            +$this->peCourses->count();
     }
 }
