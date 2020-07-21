@@ -233,7 +233,7 @@ class RebateRepository implements IRepository
                             ->where('course_id',$data['course_id'])->where('course_type','App\Models\Live\Course')->where('deleted_at',null)->first();
                         $iyzico_basket_item_temp->delete();
                     }
-                    $iyzico_basket->delete();
+                   // $iyzico_basket->delete();
 
 
                     if($is_live == false){
