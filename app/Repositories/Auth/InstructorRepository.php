@@ -771,7 +771,7 @@ class InstructorRepository implements IRepository{
                     $purchases = Purchase::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\GeneralEducation\Course')->where('confirmation',1)->get();
                     foreach ($purchases as $purchase){
                         $price=$purchase->price;
-                        $pay = ($price*$item->percent);
+                        $pay = ($price*(($item->percent)/100));
                         $totalPay+=$pay;
                     }
                 }
@@ -779,7 +779,7 @@ class InstructorRepository implements IRepository{
                     $purchases = Purchase::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\PrepareLessons\Course')->where('confirmation',1)->get();
                     foreach ($purchases as $purchase){
                         $price=$purchase->price;
-                        $pay = ($price*$item->percent);
+                        $pay = ($price*(($item->percent)/100));
                         $totalPay+=$pay;
                     }
                 }
@@ -787,7 +787,7 @@ class InstructorRepository implements IRepository{
                     $purchases = Purchase::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\PrepareExams\Course')->where('confirmation',1)->get();
                     foreach ($purchases as $purchase){
                         $price=$purchase->price;
-                        $pay = ($price*$item->percent);
+                        $pay = ($price*(($item->percent)/100));
                         $totalPay+=$pay;
                     }
                 }
@@ -795,7 +795,7 @@ class InstructorRepository implements IRepository{
                     $purchases = Purchase::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\Live\Course')->where('confirmation',1)->get();
                     foreach ($purchases as $purchase){
                         $price=$purchase->price;
-                        $pay = ($price*$item->percent);
+                        $pay = ($price*(($item->percent)/100));
                         $totalPay+=$pay;
                     }
                 }
@@ -827,7 +827,7 @@ class InstructorRepository implements IRepository{
 
                 foreach ($purchases as $purchase){
                     $price=$purchase->price;
-                    $pay = ($price*$item->percent);
+                    $pay = ($price*(($item->percent)/100));
                     $totalMonthPay+=$pay;
                 }
             }
@@ -835,7 +835,7 @@ class InstructorRepository implements IRepository{
             // Bu yıl Toplam kazanç
             $totalYearPay = 0;
             foreach ($courses as $item){
-                $currentMonth = date('y');
+                $currentMonth = date('yy');
                 if($item->course_type == 'App\Models\GeneralEducation\Course'){
                     $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('course_type','App\Models\GeneralEducation\Course')
                         ->where('confirmation',1)
@@ -858,7 +858,7 @@ class InstructorRepository implements IRepository{
                 }
                 foreach ($purchases as $purchase){
                     $price=$purchase->price;
-                    $pay = ($price*$item->percent);
+                    $pay = ($price*(($item->percent)/100));
                     $totalYearPay+=$pay;
                 }
             }
