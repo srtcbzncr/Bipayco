@@ -21,29 +21,23 @@
     <div class="uk-container">
         <div class="uk-card">
             <h3 class="uk-heading-line uk-text-center"><span> @lang('front/auth.course_count') </span></h3>
-            <div class="uk-card-body uk-child-width-1-2@m uk-grid-small uk-grid-match" uk-grid>
+            <div class="uk-card-body uk-child-width-1-3@m uk-grid-small uk-grid-match" uk-grid>
                 <div>
                     <div class="uk-card uk-card-default uk-card-body text-center stats-card">
                         <h3 class="stats-card-title uk-card-title">@lang('front/auth.general_education')</h3>
-                        <p><span class="fas fa-chalkboard-teacher uk-margin-small-right"></span>{{$data['geCount']}}</p>
+                        <p><span class="fas fa-chalkboard uk-margin-small-right"></span>{{$data['geCount']}}</p>
                     </div>
                 </div>
                 <div>
                     <div class="uk-card uk-card-default uk-card-body text-center stats-card">
                         <h3 class="stats-card-title uk-card-title">@lang('front/auth.prepare_for_lessons')</h3>
-                        <p><span class="fas fa-chalkboard-teacher uk-margin-small-right"></span>{{$data['plCount']}}</p>
+                        <p><span class="fas fa-chalkboard uk-margin-small-right"></span>{{$data['plCount']}}</p>
                     </div>
                 </div>
                 <div>
                     <div class="uk-card uk-card-default uk-card-body text-center stats-card">
                         <h3 class="stats-card-title uk-card-title">@lang('front/auth.prepare_for_exams')</h3>
-                        <p><span class="fas fa-chalkboard-teacher uk-margin-small-right"></span>{{$data['peCount']}}</p>
-                    </div>
-                </div>
-                <div>
-                    <div class="uk-card uk-card-default uk-card-body text-center stats-card">
-                        <h3 class="stats-card-title uk-card-title">@lang('front/auth.homeworks')</h3>
-                        <p><span class="fas fa-chalkboard-teacher uk-margin-small-right"></span>{{$data['homeworkCount']}}</p>
+                        <p><span class="fas fa-chalkboard uk-margin-small-right"></span>{{$data['peCount']}}</p>
                     </div>
                 </div>
             </div>

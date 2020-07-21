@@ -129,6 +129,7 @@
                 switch (this.moduleName) {
                     case 'prepareLessons': return 'pl';
                     case 'prepareExams': return 'pe';
+                    case 'live':return 'live';
                     default: return 'ge';
                 }
             }
