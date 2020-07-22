@@ -6406,7 +6406,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       purchaseAsDate: {},
-      selectedSale: null
+      selectedSale: null,
+      rebated: false
     };
   },
   props: {
@@ -6494,6 +6495,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   watch: {
     selectedSale: function selectedSale() {
       return this.selectedSale;
+    },
+    rebated: function rebated() {
+      return this.rebated;
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSales', 'loadingStatus']), {
@@ -6527,12 +6531,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch('loadAdminNewPage', [name, 'setAdminSales']);
       this.selectedSale = null;
     },
-    openInfo: function openInfo(id) {
+    openInfo: function openInfo(id, isRebated) {
       var _this = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/purchase/getPurchaseDetail/' + id).then(function (res) {
         _this.selectedSale = res.data.data;
       });
+
+      if (isRebated == null) {
+        this.rebated = false;
+      } else {
+        this.rebated = true;
+      }
+
       UIkit.modal('#saleInfoArea').show();
     }
   }),
@@ -25015,7 +25026,10 @@ var render = function() {
                           {
                             on: {
                               click: function($event) {
-                                return _vm.openInfo(item.payment_id)
+                                return _vm.openInfo(
+                                  item.payment_id,
+                                  item.deleted_at
+                                )
                               }
                             }
                           },
@@ -25128,7 +25142,7 @@ var render = function() {
                           click: function($event) {
                             return _vm.loadNewPage(
                               "/api/admin/purchase/getPurchases/" +
-                                this.userId +
+                                _vm.userId +
                                 "?page=" +
                                 page
                             )
@@ -25144,7 +25158,7 @@ var render = function() {
                           click: function($event) {
                             return _vm.loadNewPage(
                               "/api/admin/purchase/getPurchases/" +
-                                this.userId +
+                                _vm.userId +
                                 "?page=" +
                                 page
                             )
@@ -25204,8 +25218,8 @@ var render = function() {
                 attrs: { "uk-overflow-auto": "" }
               },
               [
-                _vm.selectedSale.deleted_at != null
-                  ? _c("h6", [
+                _vm.rebated
+                  ? _c("h5", { staticClass: "text-primary" }, [
                       _c("span", {
                         staticClass: "fas fa-donate",
                         attrs: { "uk-tooltip": _vm.refundText }
@@ -25318,7 +25332,7 @@ var render = function() {
                                 _vm._v(
                                   _vm._s(_vm.transactionPriceText) +
                                     ": " +
-                                    _vm._s(item.paidPrice) +
+                                    _vm._s(Number(item.paidPrice).toFixed(2)) +
                                     " "
                                 ),
                                 _c("span", {
@@ -25330,7 +25344,9 @@ var render = function() {
                                 _vm._v(
                                   _vm._s(_vm.iyzicoCommissionText) +
                                     ": " +
-                                    _vm._s(item.iyziCommissionFee) +
+                                    _vm._s(
+                                      Number(item.iyziCommissionFee).toFixed(2)
+                                    ) +
                                     " "
                                 ),
                                 _c("span", {
@@ -25342,7 +25358,11 @@ var render = function() {
                                 _vm._v(
                                   _vm._s(_vm.merchantPayoutAmountText) +
                                     ": " +
-                                    _vm._s(item.merchantPayoutAmount) +
+                                    _vm._s(
+                                      Number(item.merchantPayoutAmount).toFixed(
+                                        2
+                                      )
+                                    ) +
                                     " "
                                 ),
                                 _c("span", {

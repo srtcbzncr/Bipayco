@@ -29,7 +29,7 @@
                 </tr>
                 </thead>
                 <tbody v-if="adminSales.data&&adminSales.data.length>0">
-                <tr v-for="item in adminSales.data"  @click="openInfo(item.payment_id)">
+                <tr v-for="item in adminSales.data"  @click="openInfo(item.payment_id, item.deleted_at)">
                     <td class="uk-width-1-4 clickable"><p>{{item.user.first_name}} {{item.user.last_name}}</p></td>
                     <td class="uk-width-1-4 clickable"><p>{{item.payment_id}}</p></td>
                     <td class="uk-width-1-4 clickable"><p>{{item.payment_status}}</p></td>
@@ -47,8 +47,8 @@
             </li>
             <li v-for="page in pageNumber">
                 <button class="uk-disabled" v-if="page=='...'">{{page}}</button>
-                <button v-else-if="page==adminSales.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/admin/purchase/getPurchases/'+this.userId+'?page='+page)">{{page}}</button>
-                <button v-else @click="loadNewPage('/api/admin/purchase/getPurchases/'+this.userId+'?page='+page)">{{page}}</button>
+                <button v-else-if="page==adminSales.current_page" class="uk-background-default uk-disabled" @click="loadNewPage('/api/admin/purchase/getPurchases/'+userId+'?page='+page)">{{page}}</button>
+                <button v-else @click="loadNewPage('/api/admin/purchase/getPurchases/'+userId+'?page='+page)">{{page}}</button>
             </li>
             <li>
                 <button v-show="adminSales.current_page<adminSales.last_page" @click="loadNewPage(adminSales.next_page_url)"> > </button>
@@ -61,7 +61,7 @@
                     <h2 class="uk-modal-title">{{saleInfoText}}</h2>
                 </div>
                 <div class="uk-modal-body" v-if="selectedSale!=null" uk-overflow-auto>
-                    <h6 v-if="selectedSale.deleted_at!=null"><span class="fas fa-donate" :uk-tooltip="refundText"></span>  {{refundedText}}</h6>
+                    <h5 class="text-primary" v-if="rebated"><span class="fas fa-donate" :uk-tooltip="refundText"></span>  {{refundedText}}</h5>
                     <div class="uk-form-label">{{statusText}}</div>
                     <h6>{{selectedSale.status}}</h6>
                     <hr>
@@ -83,9 +83,9 @@
                                     <h5 class="uk-margin-remove-vertical uk-margin-remove-right" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{item.course.name}}</h5>
                                     <p>{{transactionIdText}}: {{item.paymentTransactionId}}</p>
                                     <p>{{transactionStatusText}}: {{item.transactionStatus}}</p>
-                                    <p>{{transactionPriceText}}: {{item.paidPrice}} <span class="fas fa-lira-sign icon-tiny"></span></p>
-                                    <p>{{iyzicoCommissionText}}: {{item.iyziCommissionFee}} <span class="fas fa-lira-sign icon-tiny"></span></p>
-                                    <p>{{merchantPayoutAmountText}}: {{item.merchantPayoutAmount}} <span class="fas fa-lira-sign icon-tiny"></span></p>
+                                    <p>{{transactionPriceText}}: {{Number(item.paidPrice).toFixed(2)}} <span class="fas fa-lira-sign icon-tiny"></span></p>
+                                    <p>{{iyzicoCommissionText}}: {{Number(item.iyziCommissionFee).toFixed(2)}} <span class="fas fa-lira-sign icon-tiny"></span></p>
+                                    <p>{{merchantPayoutAmountText}}: {{Number(item.merchantPayoutAmount).toFixed(2)}} <span class="fas fa-lira-sign icon-tiny"></span></p>
                                 </div>
                             </div>
                         </div>
@@ -108,6 +108,7 @@
             return{
                 purchaseAsDate:{},
                 selectedSale:null,
+                rebated:false,
             }
         },
         props: {
@@ -195,6 +196,9 @@
         watch:{
             selectedSale(){
                 return this.selectedSale;
+            },
+            rebated(){
+                return this.rebated;
             }
         },
         computed:{
@@ -233,9 +237,14 @@
                 this.$store.dispatch('loadAdminNewPage',[name, 'setAdminSales']);
                 this.selectedSale=null;
             },
-            openInfo:function (id) {
+            openInfo:function (id, isRebated) {
                 Axios.get('/api/admin/purchase/getPurchaseDetail/'+id)
                     .then((res)=>{this.selectedSale=res.data.data});
+                if(isRebated==null){
+                    this.rebated=false;
+                }else{
+                    this.rebated=true;
+                }
                 UIkit.modal('#saleInfoArea').show();
             },
         },
