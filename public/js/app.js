@@ -6398,6 +6398,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6484,6 +6485,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     refundText: {
       type: String,
       "default": "İade"
+    },
+    refundedText: {
+      type: String,
+      "default": "İade Edildi"
     }
   },
   watch: {
@@ -25051,14 +25056,8 @@ var render = function() {
                                       new Date(
                                         item.updated_at
                                       ).toLocaleDateString()
-                                    ) + " "
-                                  ),
-                                  item.deleted_at != null
-                                    ? _c("span", {
-                                        staticClass: "fas fa-donate",
-                                        attrs: { "uk-tooltip": _vm.refundText }
-                                      })
-                                    : _vm._e()
+                                    )
+                                  )
                                 ])
                               ]
                             )
@@ -25205,6 +25204,16 @@ var render = function() {
                 attrs: { "uk-overflow-auto": "" }
               },
               [
+                _vm.selectedSale.deleted_at != null
+                  ? _c("h6", [
+                      _c("span", {
+                        staticClass: "fas fa-donate",
+                        attrs: { "uk-tooltip": _vm.refundText }
+                      }),
+                      _vm._v("  " + _vm._s(_vm.refundedText))
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
                 _c("div", { staticClass: "uk-form-label" }, [
                   _vm._v(_vm._s(_vm.statusText))
                 ]),

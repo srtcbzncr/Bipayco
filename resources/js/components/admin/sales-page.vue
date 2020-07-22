@@ -33,7 +33,7 @@
                     <td class="uk-width-1-4 clickable"><p>{{item.user.first_name}} {{item.user.last_name}}</p></td>
                     <td class="uk-width-1-4 clickable"><p>{{item.payment_id}}</p></td>
                     <td class="uk-width-1-4 clickable"><p>{{item.payment_status}}</p></td>
-                    <td class="uk-width-1-4 clickable"><p>{{new Date(item.updated_at).toLocaleDateString()}} <span v-if="item.deleted_at!=null" class="fas fa-donate" :uk-tooltip="refundText"></span></p></td>
+                    <td class="uk-width-1-4 clickable"><p>{{new Date(item.updated_at).toLocaleDateString()}}</p></td>
                 </tr>
                 </tbody>
                 <div v-else class=" uk-width uk-height-small uk-flex align-items-center justify-content-center">
@@ -61,6 +61,7 @@
                     <h2 class="uk-modal-title">{{saleInfoText}}</h2>
                 </div>
                 <div class="uk-modal-body" v-if="selectedSale!=null" uk-overflow-auto>
+                    <h6 v-if="selectedSale.deleted_at!=null"><span class="fas fa-donate" :uk-tooltip="refundText"></span>  {{refundedText}}</h6>
                     <div class="uk-form-label">{{statusText}}</div>
                     <h6>{{selectedSale.status}}</h6>
                     <hr>
@@ -185,6 +186,10 @@
             refundText:{
                 type:String,
                 default:"İade"
+            },
+            refundedText:{
+                type:String,
+                default:"İade Edildi"
             }
         },
         watch:{
