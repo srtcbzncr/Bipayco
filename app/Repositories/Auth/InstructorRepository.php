@@ -805,22 +805,22 @@ class InstructorRepository implements IRepository{
             foreach ($courses as $item){
                 $currentMonth = date('m');
                 if($item->course_type == 'App\Models\GeneralEducation\Course'){
-                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('course_type','App\Models\GeneralEducation\Course')
+                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\GeneralEducation\Course')
                         ->where('confirmation',1)
                         ->whereRaw('MONTH(created_at) = ?',[$currentMonth])->get();
                 }
                 else if($item->course_type == 'App\Models\PrepareLessons\Course'){
-                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('course_type','App\Models\PrepareLessons\Course')
+                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\PrepareLessons\Course')
                         ->where('confirmation',1)
                         ->whereRaw('MONTH(created_at) = ?',[$currentMonth])->get();
                 }
                 else if($item->course_type == 'App\Models\PrepareExams\Course'){
-                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('course_type','App\Models\PrepareExams\Course')
+                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\PrepareExams\Course')
                         ->where('confirmation',1)
                         ->whereRaw('MONTH(created_at) = ?',[$currentMonth])->get();
                 }
                 else if($item->course_type == 'App\Models\Live\Course'){
-                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('course_type','App\Models\Live\Course')
+                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\Live\Course')
                         ->where('confirmation',1)
                         ->whereRaw('MONTH(created_at) = ?',[$currentMonth])->get();
                 }
@@ -837,22 +837,22 @@ class InstructorRepository implements IRepository{
             foreach ($courses as $item){
                 $currentMonth = date('yy');
                 if($item->course_type == 'App\Models\GeneralEducation\Course'){
-                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('course_type','App\Models\GeneralEducation\Course')
+                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\GeneralEducation\Course')
                         ->where('confirmation',1)
                         ->whereRaw('YEAR(created_at) = ?',[$currentMonth])->get();
                 }
                 else if($item->course_type == 'App\Models\PrepareLessons\Course'){
-                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('course_type','App\Models\PrepareLessons\Course')
+                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\PrepareLessons\Course')
                         ->where('confirmation',1)
                         ->whereRaw('YEAR(created_at) = ?',[$currentMonth])->get();
                 }
                 else if($item->course_type == 'App\Models\PrepareExams\Course'){
-                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('course_type','App\Models\PrepareExams\Course')
+                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\PrepareExams\Course')
                         ->where('confirmation',1)
                         ->whereRaw('YEAR(created_at) = ?',[$currentMonth])->get();
                 }
                 else if($item->course_type == 'App\Models\Live\Course'){
-                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('course_type','App\Models\Live\Course')
+                    $purchases = DB::table('ge_purchases')->where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\Live\Course')
                         ->where('confirmation',1)
                         ->whereRaw('YEAR(created_at) = ?',[$currentMonth])->get();
                 }
@@ -862,7 +862,6 @@ class InstructorRepository implements IRepository{
                     $totalYearPay+=$pay;
                 }
             }
-
             $object['totalMonthPrice'] = ($totalMonthPay-($totalMonthPay*0.18))*0.4;
             $object['totalYearPrice'] = ($totalYearPay-($totalYearPay*0.18))*0.4;
             $object['totalPrice'] = ($totalPay-($totalPay*0.18))*0.4;
