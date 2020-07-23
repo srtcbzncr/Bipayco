@@ -960,10 +960,10 @@ class InstructorRepository implements IRepository{
             foreach ($new_iyzico_basket_ids as $id){
                 $iyzico_basket = \App\Models\Iyzico\Basket::find($id);
                 if($iyzico_basket->fraud_status == 0){
-                    $pendind_payments++;
+                    $pendind_payments+=$iyzico_basket->price;
                 }
                 else if($iyzico_basket->fraud_status == 1){
-                    $made_payments++;
+                    $made_payments+=$iyzico_basket->price;
                 }
             }
 
