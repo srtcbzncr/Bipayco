@@ -28,10 +28,10 @@ Route::get('newPassword/{token}','Auth\AuthController@newPasswordGet')->name('ne
 
 Route::post('search','Search\SearchController@search')->name('search');
 
-Route::group(['prefix' => 'iyzico', 'middleware' => 'auth'],function (){
-    Route::get('/billing','Iyzico\CheckOutController@billing')->name('iyzico_billing');
-    Route::post('/checkOut','Iyzico\CheckOutController@checkOut')->name('iyzico_check_out');
-    Route::post('/paymentResult','Iyzico\ResultController@result')->name('iyzico_result');
+Route::group(['prefix' => 'iyzico'],function (){
+    Route::get('/billing','Iyzico\CheckOutController@billing')->name('iyzico_billing')->middleware('auth');
+    Route::post('/checkOut','Iyzico\CheckOutController@checkOut')->name('iyzico_check_out')->middleware('auth');
+    Route::post('/paymentResult','Iyzico\ResultController@result')->name('iyzico_result')
 });
 
 Route::get('/purchases','Purchases\PurchasesController@getPurchases')->name('get_purchases');
