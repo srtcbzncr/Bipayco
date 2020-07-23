@@ -7,6 +7,7 @@ namespace App\Repositories\Admin;
 use App\Models\Auth\Instructor;
 use App\Models\Auth\Student;
 use App\Models\Auth\User;
+use App\Models\Curriculum\Exam;
 use App\Models\Curriculum\Grade;
 use App\Models\Curriculum\Lesson;
 use App\Models\Curriculum\Subject;
@@ -163,7 +164,7 @@ class CourseRepository implements IRepository {
         try{
             $object = \App\Models\PrepareExams\Course::where('deleted_at',null)->paginate(9);
             foreach ($object as $key => $item){
-                $exam = Lesson::find($item->exam_id);
+                $exam = Exam::find($item->exam_id);
 
                 $object[$key]->exam = $exam;
 
