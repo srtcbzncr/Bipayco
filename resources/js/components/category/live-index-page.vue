@@ -51,9 +51,9 @@
         created() {
             var url;
             if(this.userId!=''){
-                url='/api/home/live/'+this.userId;
+                url='/api/home/lives/'+this.userId;
             }else{
-                url='/api/home/live';
+                url='/api/home/lives';
             }
             this.$store.dispatch('loadUrlForCourseCard', url);
         },
@@ -125,9 +125,9 @@
             ]),
             urlCreate:function(userId,page){
                 if(userId!=''){
-                    return '/api/home/live/'+userId+'?page='+page;
+                    return '/api/home/lives/'+userId+'?page='+page;
                 }else{
-                    return '/api/home/live?page='+page;
+                    return '/api/home/lives?page='+page;
                 }
             },
             loadCourseList: function(){
