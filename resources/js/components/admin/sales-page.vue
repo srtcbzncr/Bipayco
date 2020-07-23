@@ -29,7 +29,7 @@
                 </tr>
                 </thead>
                 <tbody v-if="adminSales.data&&adminSales.data.length>0">
-                <tr v-for="item in adminSales.data"  @click="openInfo(item.payment_id, item.deleted_at)">
+                <tr v-for="item in adminSales.data"  @click="openInfo(item.payment_id)">
                     <td class="uk-width-1-4 clickable"><p>{{item.user.first_name}} {{item.user.last_name}}</p></td>
                     <td class="uk-width-1-4 clickable"><p>{{item.payment_id}}</p></td>
                     <td class="uk-width-1-4 clickable"><p>{{item.payment_status}}</p></td>
@@ -80,8 +80,8 @@
                                     <canvas width="600" height="400"></canvas>
                                 </div>
                                 <div class="uk-margin-left uk-width-3-4">
+                                    <h5 class="uk-margin-remove-right text-primary" v-if="item.course.isRebate"><span class="fas fa-donate" :uk-tooltip="refundText"></span>  {{refundedText}}</h5>
                                     <h5 class="uk-margin-remove-vertical uk-margin-remove-right" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{item.course.name}}</h5>
-                                    <h5 class="text-primary" v-if="item.course.isRebate"><span class="fas fa-donate" :uk-tooltip="refundText"></span>  {{refundedText}}</h5>
                                     <p>{{transactionIdText}}: {{item.paymentTransactionId}}</p>
                                     <p>{{transactionStatusText}}: {{item.transactionStatus}}</p>
                                     <p>{{transactionPriceText}}: {{Number(item.paidPrice).toFixed(2)}} <span class="fas fa-lira-sign icon-tiny"></span></p>
@@ -234,7 +234,7 @@
                 this.$store.dispatch('loadAdminNewPage',[name, 'setAdminSales']);
                 this.selectedSale=null;
             },
-            openInfo:function (id, isRebated) {
+            openInfo:function (id,) {
                 Axios.get('/api/admin/purchase/getPurchaseDetail/'+id)
                     .then((res)=>{this.selectedSale=res.data.data});
                 UIkit.modal('#saleInfoArea').show();

@@ -6528,7 +6528,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.$store.dispatch('loadAdminNewPage', [name, 'setAdminSales']);
       this.selectedSale = null;
     },
-    openInfo: function openInfo(id, isRebated) {
+    openInfo: function openInfo(id) {
       var _this = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/purchase/getPurchaseDetail/' + id).then(function (res) {
@@ -17583,7 +17583,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nh6[data-v-1a2ffb86]{\r\n    margin:0\n}\n.clickable[data-v-1a2ffb86]{\r\n    cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\nh6[data-v-1a2ffb86]{\n    margin:0\n}\n.clickable[data-v-1a2ffb86]{\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -17678,7 +17678,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nh6[data-v-e053d9f6]{\r\n    margin:0;\n}\n.clickable[data-v-e053d9f6]{\r\n    cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\nh6[data-v-e053d9f6]{\n    margin:0;\n}\n.clickable[data-v-e053d9f6]{\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -17697,7 +17697,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nh6[data-v-72389a51]{\r\n    margin:0\n}\n.clickable[data-v-72389a51]{\r\n    cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\nh6[data-v-72389a51]{\n    margin:0\n}\n.clickable[data-v-72389a51]{\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -17792,7 +17792,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nh6[data-v-3a55b63f]{\r\n    margin:0\n}\n.clickable[data-v-3a55b63f]{\r\n    cursor: pointer;\n}\r\n", ""]);
+exports.push([module.i, "\nh6[data-v-3a55b63f]{\n    margin:0\n}\n.clickable[data-v-3a55b63f]{\n    cursor: pointer;\n}\n", ""]);
 
 // exports
 
@@ -17868,7 +17868,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\niframe[data-v-2bbcf957]{\r\n    height: 80vh;\n}\r\n", ""]);
+exports.push([module.i, "\niframe[data-v-2bbcf957]{\n    height: 80vh;\n}\n", ""]);
 
 // exports
 
@@ -17906,7 +17906,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nli[data-v-0c09ca36]{\r\n    list-style-type: none;\n}\r\n", ""]);
+exports.push([module.i, "\nli[data-v-0c09ca36]{\n    list-style-type: none;\n}\n", ""]);
 
 // exports
 
@@ -25016,10 +25016,7 @@ var render = function() {
                           {
                             on: {
                               click: function($event) {
-                                return _vm.openInfo(
-                                  item.payment_id,
-                                  item.deleted_at
-                                )
+                                return _vm.openInfo(item.payment_id)
                               }
                             }
                           },
@@ -25274,6 +25271,23 @@ var render = function() {
                             "div",
                             { staticClass: "uk-margin-left uk-width-3-4" },
                             [
+                              item.course.isRebate
+                                ? _c(
+                                    "h5",
+                                    {
+                                      staticClass:
+                                        "uk-margin-remove-right text-primary"
+                                    },
+                                    [
+                                      _c("span", {
+                                        staticClass: "fas fa-donate",
+                                        attrs: { "uk-tooltip": _vm.refundText }
+                                      }),
+                                      _vm._v("  " + _vm._s(_vm.refundedText))
+                                    ]
+                                  )
+                                : _vm._e(),
+                              _vm._v(" "),
                               _c(
                                 "h5",
                                 {
@@ -25291,16 +25305,6 @@ var render = function() {
                                 },
                                 [_vm._v(_vm._s(item.course.name))]
                               ),
-                              _vm._v(" "),
-                              item.course.isRebate
-                                ? _c("h5", { staticClass: "text-primary" }, [
-                                    _c("span", {
-                                      staticClass: "fas fa-donate",
-                                      attrs: { "uk-tooltip": _vm.refundText }
-                                    }),
-                                    _vm._v("  " + _vm._s(_vm.refundedText))
-                                  ])
-                                : _vm._e(),
                               _vm._v(" "),
                               _c("p", [
                                 _vm._v(
@@ -60720,8 +60724,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\bzncr\Bipayco\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\bzncr\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\bedri\Documents\GitHub\Bipayco\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\bedri\Documents\GitHub\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
