@@ -88,7 +88,7 @@ class PurchasesRepository implements IRepository
                 $object = Basket::where('payment_status','SUCCESS')->where('deleted_at',null)->paginate(10);
                 foreach ($object as $basketKey => $basket){
                     $basket_item = BasketItems::where('iyzico_basket_id',$basket->id)->withTrashed()->first();
-                    $purchase = Purchase::find($basket_item->purchase_id);
+                    $purchase = Purchase::where('id',$basket_item->purchase_id)->withTrashed()->first();
                     $user = User::find($purchase->user_id);
                     $object[$basketKey]['user'] = $user;
                 }
