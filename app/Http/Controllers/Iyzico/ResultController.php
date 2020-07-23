@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class ResultController extends Controller
 {
-    public function result(Request $request){
+    public function result($user_id,Request $request){
         // initializing
         $repo = new BasketRepository();
         $data = $request->toArray();
-        $data['user_id'] = Auth::id();
+        $data['user_id'] = decrypt($user_id);
 
         // operations
         $resp = $repo->result($data);
