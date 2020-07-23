@@ -6399,6 +6399,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -6406,8 +6407,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       purchaseAsDate: {},
-      selectedSale: null,
-      rebated: false
+      selectedSale: null
     };
   },
   props: {
@@ -6495,9 +6495,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   watch: {
     selectedSale: function selectedSale() {
       return this.selectedSale;
-    },
-    rebated: function rebated() {
-      return this.rebated;
     }
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])(['adminSales', 'loadingStatus']), {
@@ -6537,13 +6534,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/admin/purchase/getPurchaseDetail/' + id).then(function (res) {
         _this.selectedSale = res.data.data;
       });
-
-      if (isRebated == null) {
-        this.rebated = false;
-      } else {
-        this.rebated = true;
-      }
-
       UIkit.modal('#saleInfoArea').show();
     }
   }),
@@ -17593,7 +17583,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nh6[data-v-1a2ffb86]{\n    margin:0\n}\n.clickable[data-v-1a2ffb86]{\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\nh6[data-v-1a2ffb86]{\r\n    margin:0\n}\n.clickable[data-v-1a2ffb86]{\r\n    cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -17688,7 +17678,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nh6[data-v-e053d9f6]{\n    margin:0;\n}\n.clickable[data-v-e053d9f6]{\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\nh6[data-v-e053d9f6]{\r\n    margin:0;\n}\n.clickable[data-v-e053d9f6]{\r\n    cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -17707,7 +17697,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nh6[data-v-72389a51]{\n    margin:0\n}\n.clickable[data-v-72389a51]{\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\nh6[data-v-72389a51]{\r\n    margin:0\n}\n.clickable[data-v-72389a51]{\r\n    cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -17802,7 +17792,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\nh6[data-v-3a55b63f]{\n    margin:0\n}\n.clickable[data-v-3a55b63f]{\n    cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\nh6[data-v-3a55b63f]{\r\n    margin:0\n}\n.clickable[data-v-3a55b63f]{\r\n    cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
@@ -17878,7 +17868,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\niframe[data-v-2bbcf957]{\n    height: 80vh;\n}\n", ""]);
+exports.push([module.i, "\niframe[data-v-2bbcf957]{\r\n    height: 80vh;\n}\r\n", ""]);
 
 // exports
 
@@ -17916,7 +17906,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\nli[data-v-0c09ca36]{\n    list-style-type: none;\n}\n", ""]);
+exports.push([module.i, "\nli[data-v-0c09ca36]{\r\n    list-style-type: none;\n}\r\n", ""]);
 
 // exports
 
@@ -25218,16 +25208,6 @@ var render = function() {
                 attrs: { "uk-overflow-auto": "" }
               },
               [
-                _vm.rebated
-                  ? _c("h5", { staticClass: "text-primary" }, [
-                      _c("span", {
-                        staticClass: "fas fa-donate",
-                        attrs: { "uk-tooltip": _vm.refundText }
-                      }),
-                      _vm._v("  " + _vm._s(_vm.refundedText))
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
                 _c("div", { staticClass: "uk-form-label" }, [
                   _vm._v(_vm._s(_vm.statusText))
                 ]),
@@ -25311,6 +25291,16 @@ var render = function() {
                                 },
                                 [_vm._v(_vm._s(item.course.name))]
                               ),
+                              _vm._v(" "),
+                              item.course.isRebate
+                                ? _c("h5", { staticClass: "text-primary" }, [
+                                    _c("span", {
+                                      staticClass: "fas fa-donate",
+                                      attrs: { "uk-tooltip": _vm.refundText }
+                                    }),
+                                    _vm._v("  " + _vm._s(_vm.refundedText))
+                                  ])
+                                : _vm._e(),
                               _vm._v(" "),
                               _c("p", [
                                 _vm._v(
@@ -60730,8 +60720,8 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\bedri\Documents\GitHub\Bipayco\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\bedri\Documents\GitHub\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\bzncr\Bipayco\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\bzncr\Bipayco\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

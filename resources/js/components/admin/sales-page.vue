@@ -61,7 +61,7 @@
                     <h2 class="uk-modal-title">{{saleInfoText}}</h2>
                 </div>
                 <div class="uk-modal-body" v-if="selectedSale!=null" uk-overflow-auto>
-                    <h5 class="text-primary" v-if="rebated"><span class="fas fa-donate" :uk-tooltip="refundText"></span>  {{refundedText}}</h5>
+                    <!--<h5 class="text-primary" v-if="selectedSale.course.isRebate === true"><span class="fas fa-donate" :uk-tooltip="refundText"></span>  {{refundedText}}</h5>-->
                     <div class="uk-form-label">{{statusText}}</div>
                     <h6>{{selectedSale.status}}</h6>
                     <hr>
@@ -81,6 +81,7 @@
                                 </div>
                                 <div class="uk-margin-left uk-width-3-4">
                                     <h5 class="uk-margin-remove-vertical uk-margin-remove-right" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; line-height: 16px; max-height: 32px; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">{{item.course.name}}</h5>
+                                    <h5 class="text-primary" v-if="item.course.isRebate"><span class="fas fa-donate" :uk-tooltip="refundText"></span>  {{refundedText}}</h5>
                                     <p>{{transactionIdText}}: {{item.paymentTransactionId}}</p>
                                     <p>{{transactionStatusText}}: {{item.transactionStatus}}</p>
                                     <p>{{transactionPriceText}}: {{Number(item.paidPrice).toFixed(2)}} <span class="fas fa-lira-sign icon-tiny"></span></p>
@@ -108,7 +109,6 @@
             return{
                 purchaseAsDate:{},
                 selectedSale:null,
-                rebated:false,
             }
         },
         props: {
@@ -196,9 +196,6 @@
         watch:{
             selectedSale(){
                 return this.selectedSale;
-            },
-            rebated(){
-                return this.rebated;
             }
         },
         computed:{
@@ -240,11 +237,6 @@
             openInfo:function (id, isRebated) {
                 Axios.get('/api/admin/purchase/getPurchaseDetail/'+id)
                     .then((res)=>{this.selectedSale=res.data.data});
-                if(isRebated==null){
-                    this.rebated=false;
-                }else{
-                    this.rebated=true;
-                }
                 UIkit.modal('#saleInfoArea').show();
             },
         },
