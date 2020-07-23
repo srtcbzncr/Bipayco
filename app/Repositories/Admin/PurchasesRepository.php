@@ -12,6 +12,7 @@ use App\Models\Curriculum\Lesson;
 use App\Models\GeneralEducation\Category;
 use App\Models\GeneralEducation\Course;
 use App\Models\GeneralEducation\Purchase;
+use App\Models\GeneralEducation\Rebate;
 use App\Models\GeneralEducation\SubCategory;
 use App\Models\Iyzico\Basket;
 use App\Models\Iyzico\BasketItems;
@@ -128,7 +129,16 @@ class PurchasesRepository implements IRepository
                     $course['category'] = $category;
                     $course['subCategory'] = $sub_category;
 
-                    $object->itemTransactions[$key]->course =  $course;
+                    $rebate_control = Rebate::where('payment_transaction_id',$item->paymentTransactionId)->where('confirmation',true)->where('deleted_at',null)->first();
+                    if($rebate_control!=null){
+                        $course['isRebate'] = true;
+                        $object->itemTransactions[$key]->course =  $course;
+                    }
+                    else{
+                        $course['isRebate'] = false;
+                        $object->itemTransactions[$key]->course =  $course;
+                    }
+
                 }
                 else if($item_id_split[0] == "pl"){
                     $item_id = $item_id_split[1];
@@ -138,7 +148,15 @@ class PurchasesRepository implements IRepository
                     $course['lesson'] = $lesson;
                     $course['grade'] = $grade;
 
-                    $object->itemTransactions[$key]->course =  $course;
+                    $rebate_control = Rebate::where('payment_transaction_id',$item->paymentTransactionId)->where('confirmation',true)->where('deleted_at',null)->first();
+                    if($rebate_control!=null){
+                        $course['isRebate'] = true;
+                        $object->itemTransactions[$key]->course =  $course;
+                    }
+                    else{
+                        $course['isRebate'] = false;
+                        $object->itemTransactions[$key]->course =  $course;
+                    }
                 }
                 else if($item_id_split[0] == "pe"){
                     $item_id = $item_id_split[1];
@@ -146,13 +164,29 @@ class PurchasesRepository implements IRepository
                     $exam = Exam::find($course->exam_id);
                     $course['exam'] = $exam;
 
-                    $object->itemTransactions[$key]->course =  $course;
+                    $rebate_control = Rebate::where('payment_transaction_id',$item->paymentTransactionId)->where('confirmation',true)->where('deleted_at',null)->first();
+                    if($rebate_control!=null){
+                        $course['isRebate'] = true;
+                        $object->itemTransactions[$key]->course =  $course;
+                    }
+                    else{
+                        $course['isRebate'] = false;
+                        $object->itemTransactions[$key]->course =  $course;
+                    }
                 }
                 else if($item_id_split[0] == "live"){
                     $item_id = $item_id_split[1];
                     $course = \App\Models\Live\Course::find($item_id);
 
-                    $object->itemTransactions[$key]->course =  $course;
+                    $rebate_control = Rebate::where('payment_transaction_id',$item->paymentTransactionId)->where('confirmation',true)->where('deleted_at',null)->first();
+                    if($rebate_control!=null){
+                        $course['isRebate'] = true;
+                        $object->itemTransactions[$key]->course =  $course;
+                    }
+                    else{
+                        $course['isRebate'] = false;
+                        $object->itemTransactions[$key]->course =  $course;
+                    }
                 }
 
             }
