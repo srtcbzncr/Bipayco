@@ -85,7 +85,7 @@ class PurchasesRepository implements IRepository
             $admin = Admin::where('user_id',$user_id)->where('active',true)->where('deleted_at',null)->first();
             if($admin!=null){
                 //  sepet sepet satın alımları göster
-                $object = Basket::where('payment_status','SUCCESS')->withTrashed()->paginate(10);
+                $object = Basket::where('payment_status','SUCCESS')->paginate(10);
                 foreach ($object as $basketKey => $basket){
                     $basket_item = BasketItems::where('iyzico_basket_id',$basket->id)->first();
                     $purchase = Purchase::find($basket_item->purchase_id);
