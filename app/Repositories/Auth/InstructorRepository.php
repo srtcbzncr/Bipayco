@@ -931,10 +931,10 @@ class InstructorRepository implements IRepository{
                     foreach ($purchases as $purchase){
                         $iy_bas_item = BasketItems::where('purchase_id',$purchase->id)->where('course_id',$item->course_id)->where('deleted_at',null)->first();
                         if($iy_bas_item->transaction_status == 2){
-                            $made_payments+=$iy_bas_item->price;
+                            $made_payments+=($iy_bas_item->price-$iy_bas_item->price*0.18)*0.4;
                         }
                         else if($iy_bas_item->transaction_status == 1){
-                            $pendind_payments+=$iy_bas_item->price;
+                            $pendind_payments+=($iy_bas_item->price-$iy_bas_item->price*0.18)*0.4;
                         }
                        // array_push($iyzico_basket_ids,$iy_bas_item->iyzico_basket_id);
                     }
@@ -944,10 +944,10 @@ class InstructorRepository implements IRepository{
                     foreach ($purchases as $purchase){
                         $iy_bas_item = BasketItems::where('purchase_id',$purchase->id)->where('course_id',$item->course_id)->where('deleted_at',null)->first();
                         if($iy_bas_item->transaction_status == 2){
-                            $made_payments+=$iy_bas_item->price;
+                            $made_payments+=($iy_bas_item->price-$iy_bas_item->price*0.18)*0.4;
                         }
                         else if($iy_bas_item->transaction_status == 1){
-                            $pendind_payments+=$iy_bas_item->price;
+                            $pendind_payments+=($iy_bas_item->price-$iy_bas_item->price*0.18)*0.4;
                         }
                        // array_push($iyzico_basket_ids,$iy_bas_item->iyzico_basket_id);
                     }
@@ -957,10 +957,10 @@ class InstructorRepository implements IRepository{
                     foreach ($purchases as $purchase){
                         $iy_bas_item = BasketItems::where('purchase_id',$purchase->id)->where('course_id',$item->course_id)->where('deleted_at',null)->first();
                         if($iy_bas_item->transaction_status == 2){
-                            $made_payments+=$iy_bas_item->price;
+                            $made_payments+=($iy_bas_item->price-$iy_bas_item->price*0.18)*0.4;
                         }
                         else if($iy_bas_item->transaction_status == 1){
-                            $pendind_payments+=$iy_bas_item->price;
+                            $pendind_payments+=($iy_bas_item->price-$iy_bas_item->price*0.18)*0.4;
                         }
                         //array_push($iyzico_basket_ids,$iy_bas_item->iyzico_basket_id);
                     }
@@ -970,10 +970,10 @@ class InstructorRepository implements IRepository{
                     foreach ($purchases as $purchase){
                         $iy_bas_item = BasketItems::where('purchase_id',$purchase->id)->where('course_id',$item->course_id)->where('deleted_at',null)->first();
                         if($iy_bas_item->transaction_status == 2){
-                            $made_payments+=$iy_bas_item->price;
+                            $made_payments+=($iy_bas_item->price-$iy_bas_item->price*0.18)*0.4;
                         }
                         else if($iy_bas_item->transaction_status == 1){
-                            $pendind_payments+=$iy_bas_item->price;
+                            $pendind_payments+=($iy_bas_item->price-$iy_bas_item->price*0.18)*0.4;
                         }
                         //array_push($iyzico_basket_ids,$iy_bas_item->iyzico_basket_id);
                     }
