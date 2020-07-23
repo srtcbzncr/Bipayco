@@ -87,7 +87,7 @@ class PurchasesRepository implements IRepository
                 //  sepet sepet satın alımları göster
                 $object = Basket::where('payment_status','SUCCESS')->where('deleted_at',null)->paginate(10);
                 foreach ($object as $basketKey => $basket){
-                    $basket_item = BasketItems::where('iyzico_basket_id',$basket->id)->first();
+                    $basket_item = BasketItems::where('iyzico_basket_id',$basket->id)->withTrashed()->first();
                     $purchase = Purchase::find($basket_item->purchase_id);
                     $user = User::find($purchase->user_id);
                     $object[$basketKey]['user'] = $user;
