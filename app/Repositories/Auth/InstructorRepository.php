@@ -921,7 +921,8 @@ class InstructorRepository implements IRepository{
             }
             $object['totalQuestions'] = $totalQuestions;
             $object['notAnsweredQuestions'] = $notAnsweredQuestions;
-
+            $pendind_payments = 0;
+            $made_payments = 0;
             // bekleyen ödemeler ve gerçekleşen ödemeleri döndür: iyzico_basket tablosu fraud status
             $iyzico_basket_ids = array();
             foreach ($courses as $item){
@@ -929,34 +930,57 @@ class InstructorRepository implements IRepository{
                     $purchases = Purchase::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\GeneralEducation\Course')->where('confirmation',1)->get();
                     foreach ($purchases as $purchase){
                         $iy_bas_item = BasketItems::where('purchase_id',$purchase->id)->where('course_id',$item->course_id)->where('deleted_at',null)->first();
-                        array_push($iyzico_basket_ids,$iy_bas_item->iyzico_basket_id);
+                        if($iy_bas_item->transaction_status == 2){
+                            $made_payments+=$iy_bas_item->price;
+                        }
+                        else if($iy_bas_item->transaction_status == 1){
+                            $pendind_payments+=$iy_bas_item->price;
+                        }
+                       // array_push($iyzico_basket_ids,$iy_bas_item->iyzico_basket_id);
                     }
                 }
                 else if($item->course_type == 'App\Models\PrepareLessons\Course'){
                     $purchases = Purchase::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\PrepareLessons\Course')->where('confirmation',1)->get();
                     foreach ($purchases as $purchase){
                         $iy_bas_item = BasketItems::where('purchase_id',$purchase->id)->where('course_id',$item->course_id)->where('deleted_at',null)->first();
-                        array_push($iyzico_basket_ids,$iy_bas_item->iyzico_basket_id);
+                        if($iy_bas_item->transaction_status == 2){
+                            $made_payments+=$iy_bas_item->price;
+                        }
+                        else if($iy_bas_item->transaction_status == 1){
+                            $pendind_payments+=$iy_bas_item->price;
+                        }
+                       // array_push($iyzico_basket_ids,$iy_bas_item->iyzico_basket_id);
                     }
                 }
                 else if($item->course_type == 'App\Models\PrepareExams\Course'){
                     $purchases = Purchase::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\PrepareExams\Course')->where('confirmation',1)->get();
                     foreach ($purchases as $purchase){
                         $iy_bas_item = BasketItems::where('purchase_id',$purchase->id)->where('course_id',$item->course_id)->where('deleted_at',null)->first();
-                        array_push($iyzico_basket_ids,$iy_bas_item->iyzico_basket_id);
+                        if($iy_bas_item->transaction_status == 2){
+                            $made_payments+=$iy_bas_item->price;
+                        }
+                        else if($iy_bas_item->transaction_status == 1){
+                            $pendind_payments+=$iy_bas_item->price;
+                        }
+                        //array_push($iyzico_basket_ids,$iy_bas_item->iyzico_basket_id);
                     }
                 }
                 else if($item->course_type == 'App\Models\Live\Course'){
                     $purchases = Purchase::where('course_id',$item->course_id)->where('deleted_at',null)->where('course_type','App\Models\Live\Course')->where('confirmation',1)->get();
                     foreach ($purchases as $purchase){
                         $iy_bas_item = BasketItems::where('purchase_id',$purchase->id)->where('course_id',$item->course_id)->where('deleted_at',null)->first();
-                        array_push($iyzico_basket_ids,$iy_bas_item->iyzico_basket_id);
+                        if($iy_bas_item->transaction_status == 2){
+                            $made_payments+=$iy_bas_item->price;
+                        }
+                        else if($iy_bas_item->transaction_status == 1){
+                            $pendind_payments+=$iy_bas_item->price;
+                        }
+                        //array_push($iyzico_basket_ids,$iy_bas_item->iyzico_basket_id);
                     }
                 }
             }
-            $new_iyzico_basket_ids = array_unique($iyzico_basket_ids);
-            $pendind_payments = 0;
-            $made_payments = 0;
+            /*$new_iyzico_basket_ids = array_unique($iyzico_basket_ids);
+
             foreach ($new_iyzico_basket_ids as $id){
                 $iyzico_basket = \App\Models\Iyzico\Basket::find($id);
                 if($iyzico_basket->fraud_status == 0){
@@ -965,7 +989,7 @@ class InstructorRepository implements IRepository{
                 else if($iyzico_basket->fraud_status == 1){
                     $made_payments+=$iyzico_basket->price;
                 }
-            }
+            }*/
 
             $object['pending_payments'] = $pendind_payments;
             $object['made_payments'] = $made_payments;
