@@ -129,7 +129,7 @@
                 </div>
             </div>
         </div>
-        @if($has_student_profile)
+        <!--@if($has_student_profile)
             <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 90%">
                 <div class="uk-card-header uk-text-bold">
                     <span class="fas icon-medium uk-margin-small-right fa-graduation-cap"></span>
@@ -149,7 +149,7 @@
                     </div>
                 </div>
             </div>
-        @endif
+        @endif-->
         @if($has_instructor_profile)
             <div class="uk-card uk-card-default uk-align-center uk-margin-medium-bottom" style="max-width: 90%">
                 <div class="uk-card-header uk-text-bold">
